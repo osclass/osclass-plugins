@@ -147,7 +147,7 @@ global $facebook;
             </div>
         <?php } else { ?>
             <div>
-              <a href="<?php echo $facebook->getLoginUrl(array('scope' => 'email')); ?>">
+              <a href="<?php echo $facebook->getLoginUrl(array('req_perms' => 'email')); ?>">
                 <img src="http://static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif">
               </a>
             </div>
