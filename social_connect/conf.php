@@ -51,6 +51,8 @@
 &lt;?php fbc_button(); ?&gt;
 </pre>
 
+<?php echo __('Aditionally you may need to fill the up the "site-URL" param at your Facebook-application configuration page: '); ?><a href="http://www.facebook.com/developers/" >http://www.facebook.com/developers/</a>
+
 </fieldset>
 </div>
 
