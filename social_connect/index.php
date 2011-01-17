@@ -37,7 +37,6 @@ function fbc_init() {
     // Session based API call.
     if ($session) {
       try {
-        //$uid = $facebook->getUser();
         $me = $facebook->api('/me');
         $conn = getConnection();
         $user = $conn->osc_dbFetchResult(sprintf("SELECT * FROM %st_social_connect WHERE i_facebook_uid = %d", DB_TABLE_PREFIX, $me['id']));
@@ -55,7 +54,8 @@ function fbc_init() {
                     if(isset($_SESSION['userId']) && $_SESSION['userId']!=null && $_SESSION['userId']!='') {
                         $user = User::newInstance()->findByPrimaryKey($_SESSION['userId']);
                         if($user) {
-                            $conn->osc_dbExec(sprintf("REPLACE INTO `%st_social_connect` SET `fk_i_user_id` = %d, `i_facebook_uid` = %d", DB_TABLE_PREFIX, $_SESSION['userId'], $me['id']));
+                        
+                            $conn->osc_dbExec(sprintf("REPLACE INTO `%st_social_connect` SET `fk_i_user_id` = %d, `i_facebook_uid` = '%s'", DB_TABLE_PREFIX, $_SESSION['userId'], $me['id']));
                         } else {
                             osc_addFlashMessage(__('Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook.'));
                         }
@@ -82,7 +82,7 @@ function fbc_init() {
       window.fbAsyncInit = function() {
         FB.init({
           appId   : '<?php echo $facebook->getAppId(); ?>',
-          session : <?php echo json_encode($session); ?>, // don't refetch the session when PHP already has it
+          session : null;//<?php echo json_encode($session); ?>, // don't refetch the session when PHP already has it
           status  : true, // check login status
           cookie  : true, // enable cookies to allow the server to access the session
           xfbml   : true // parse XFBML
@@ -96,6 +96,7 @@ function fbc_init() {
             } 
         });
         
+        
       };
 
         function browserFixSession(sess) {
@@ -108,6 +109,12 @@ function fbc_init() {
             exdate.setDate(exdate.getDate() + 3);
             document.cookie="fbs_<?php echo $preferences['fbc_appId']; ?>=" + cookieString + ';expires="' + exdate.toUTCString() + '"';
                 
+        }
+        
+        function login(){
+            FB.api('/me', function(response) {
+                alert(response.name + " se ha logeado.!");
+            });
         }
 
 
@@ -125,7 +132,7 @@ function fbc_init() {
 
 }
 
-function fbc_button($use_js = true) {
+function fbc_button($use_js = false) {
 global $facebook;
 
     $me = fbc_is_logged();
@@ -179,7 +186,6 @@ function socialconnect_register_user($me = null, $socialnetwork = 'FB') {
     } else {
 
         if($socialnetwork=='FB') {
-    
             $input['s_name'] = $me['name'];
             $input['s_username'] = preg_replace('|([\.]+)|', '.' , str_replace(" ", ".", preg_replace('|^a-z0-9\.|', '', strtolower($me['name']))));
             if(strlen($input['s_username'])<6) {
@@ -206,7 +212,7 @@ function socialconnect_register_user($me = null, $socialnetwork = 'FB') {
                     
                     
                     $conn = getConnection();
-                    $conn->osc_dbExec(sprintf("REPLACE INTO `%st_social_connect` SET `fk_i_user_id` = %d, `i_facebook_uid` = %d", DB_TABLE_PREFIX, $userId, $me['id']));
+                    $conn->osc_dbExec(sprintf("REPLACE INTO `%st_social_connect` SET `fk_i_user_id` = %d, `i_facebook_uid` = '%s'", DB_TABLE_PREFIX, $userId, $me['id']));
                     
                     
                     if(isset($preferences['enabled_user_validation']) && $preferences['enabled_user_validation']) {
@@ -287,11 +293,74 @@ function socialconnect_call_after_install() {
 }
 
 
+// Display User's menu for Social Connect
+function socialconnect_user_page($params = null) {
+
+    if(isset($params[0]) && $params[0]=='social_connect') {
+        $conn = getConnection();
+        $user = $conn->osc_dbFetchResult(sprintf("SELECT * FROM %st_social_connect WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, $_SESSION['userId']));
+        
+        if(isset($user['i_facebook_uid']) && $user['i_facebook_uid']!=null && $user['i_facebook_uid']!='') {
+        
+            _e('Your account is linked with this Facebook\'s account: ');
+            $me = json_decode(file_get_contents('http://graph.facebook.com/'.$user['i_facebook_uid']));
+            echo '<br /><img src="http://graph.facebook.com/'.$user['i_facebook_uid'].'/picture" /> '.$me->name."<br />";
+            _e('You could de-attach your Facebook\'s account: ');
+            echo '<form action="'.osc_createUserOptionsPostURL('social_connect').'" method="post" enctype="multipart/form-data">
+        		<input type="hidden" name="subaction" value="unlink_facebook" />
+        		<button class="socialconnect_button" type="submit">'._('De-attach').'</button>
+        		</form>';
+        } else {
+            echo "<br />";
+            _e(' Would you like to connect your account to Facebook? So next time you could login using your Facebook\'s account!');
+            ?>
+            <br /><div>
+              <fb:login-button perms="email" next="<?php echo osc_createUserOptionsURL('social_connect');?>"></fb:login-button>
+            </div><br /><br />
+        <?php }
+        
+    }
+}
+
+// Display User's menu for Social Connect
+function socialconnect_user_page_post($params = null) {
+
+    if(isset($params[0]) && $params[0]=='social_connect') {
+        if(isset($_REQUEST['subaction'])) {
+            if($_REQUEST['subaction']=='unlink_facebook') {
+                global $facebook;
+                $preferences = Preference::newInstance()->toArray('social_connect');
+                // Create our Application instance (replace this with your appId and secret).
+                $facebook = new Facebook(array(
+                  'appId'  => $preferences['fbc_appId'],//'117743971608120',
+                  'secret' => $preferences['fbc_secret'],//'943716006e74d9b9283d4d5d8ab93204',
+                  'cookie' => true,
+                ));
+     $fb_session = $facebook->getSession();
+                $logoutURL = $facebook->getLogoutUrl(array('next' => osc_createUserOptionsURL('social_connect')));
+                $facebook->setSession(null, null);
+                setcookie('fbs_'.$facebook->getAppId(), '', time()-100, '/', 'osclass');
+                $conn = getConnection();
+                $conn->osc_dbExec(sprintf("REPLACE INTO `%st_social_connect` SET `fk_i_user_id` = %d, `i_facebook_uid` = NULL", DB_TABLE_PREFIX, $_SESSION['userId']));
+
+                $facebook->setSession(null);
+                osc_redirectTo($logoutURL);
+            }
+        }
+        osc_redirectTo(osc_createUserOptionsURL('social_connect'));
+    }
+}
+
 // Display help
 function socialconnect_conf() {
     osc_renderPluginView(dirname(__FILE__) . '/conf.php') ;
 }
 
+
+// Display option in users' account
+function socialconnect_menu() {
+    add_option_menu(array( 'name' => 'Social Connect options', 'url' => osc_createUserOptionsURL('social_connect')));
+}
 
 // This is needed in order to be able to activate the plugin
 osc_registerPlugin(__FILE__, 'socialconnect_call_after_install');
@@ -302,5 +371,11 @@ osc_addHook(__FILE__."_uninstall", '');
 
 // Load the library and stuff
 osc_addHook("header", 'fbc_init');
+// Make a new option appear on user's menu
+osc_addHook("user_menu", 'socialconnect_menu');
+// Display SC page for users
+osc_addHook("user_options", 'socialconnect_user_page');
+// Manage post SC page for users
+osc_addHook("user_options_post", 'socialconnect_user_page_post');
 
 ?>

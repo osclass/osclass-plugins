@@ -36,4 +36,21 @@
 </form>
 <br />
 <div style="font-size: small;"><strong>*</strong> <?php echo __('You can freely obtain an appId and secret key after signing up on this URL:'); ?> <a rel="nofollow" target="_blank" href="http://www.facebook.com/developers/createapp.php">http://www.facebook.com/developers/createapp.php</a>.</div>
+<br/>
+<div>
+<fieldset>
+<legend><h1><?php _e("Social Connect Help");?></h1></legend>
+
+<h2><?php _e("What is Social Connect Plugin?");?></h2>
+<?php _e("Social Connect plugin allows your users to log into your webpage with their Facebook, Twitter and other social networks ID's. External authentication usually requires to create an application key or some sort of verification code, please refer to each case.");?>
+
+<h2><?php _e("Using Facebook login");?></h2>
+<?php echo __('You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL:'); ?> <a rel="nofollow" target="_blank" href="http://www.facebook.com/developers/createapp.php">http://www.facebook.com/developers/createapp.php</a><br />
+<?php _e("In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear: ");?><br/>
+<pre>
+&lt;?php fbc_button(); ?&gt;
+</pre>
+
+</fieldset>
+</div>
 
