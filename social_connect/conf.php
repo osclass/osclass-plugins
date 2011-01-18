@@ -17,7 +17,7 @@
     {
         $preference->update(array("s_value" => $fbc_appId), array("s_section" => "social_connect", "s_name" => "fbc_appId")) ;
         $preference->update(array("s_value" => $fbc_secret), array("s_section" => "social_connect", "s_name" => "fbc_secret")) ;
-        echo '<div><p>Congratulations. The plugin is now configured.</p></div>';
+        echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>Congratulations. The plugin is now configured.</p></div>';
     }
     unset($dao_preference) ;
     
