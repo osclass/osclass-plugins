@@ -204,6 +204,14 @@ function job_item_edit_post() {
     }
 }
 
+function job_delete_locale($locale) {
+    $locale = $locale[0];
+    $conn = getConnection();
+    $conn->osc_dbExec("DELETE FROM %st_item_job_description_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
+}
+
+
+
 function job_admin_configuration() {
     // Standard configuration page for plugin which extend item's attributes
     osc_configurePlugin(__FILE__);
@@ -233,4 +241,9 @@ osc_addHook('item_detail', 'job_item_detail');
 osc_addHook('item_edit', 'job_item_edit');
 // Edit an item special attributes POST
 osc_addHook('item_edit_post', 'job_item_edit_post');
+
+//Delete locale
+osc_addHook('delete_locale', 'job_delete_locale');
+
+
 ?>

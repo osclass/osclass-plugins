@@ -352,6 +352,15 @@ function realstate_item_edit_post() {
     }
 }
 
+function job_delete_locale($locale) {
+    $locale = $locale[0];
+    $conn = getConnection();
+    $conn->osc_dbExec("DELETE FROM %st_item_house_description_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
+    $conn->osc_dbExec("DELETE FROM %st_item_house_property_type_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
+}
+
+
+
 function realstate_admin_menu() {
     echo '<h3><a href="#">Realstate plugin</a></h3>
     <ul> 
@@ -391,4 +400,9 @@ osc_addHook('item_edit', 'realstate_item_edit');
 osc_addHook('item_edit_post', 'realstate_item_edit_post');
 
 osc_addHook('admin_menu', 'realstate_admin_menu')
+
+//Delete locale
+osc_addHook('delete_locale', 'realstate_delete_locale');
+
+
 ?>
