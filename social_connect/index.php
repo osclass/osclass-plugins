@@ -229,8 +229,8 @@ function socialconnect_register_user($me = null, $socialnetwork = 'FB') {
 				
                             $params = array(
                                 'subject' => $title,
-                                'to' => $_POST['s_email'],
-                                'to_name' => $_POST['s_name'],
+                                'to' => $user['s_email'],
+                                'to_name' => $user['s_name'],
                                 'body' => $body,
                                 'alt_body' => $body
                             );
