@@ -247,6 +247,12 @@ function cars_delete_locale($locale) {
     $conn->osc_dbExec("DELETE FROM %st_item_car_vehicle_type_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
 }
 
+function cars_delete_item($item) {
+    $item = $item[0];
+    $conn = getConnection();
+    $conn->osc_dbExec("DELETE FROM %st_item_car_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
+}
+
 
 function cars_admin_configuration() {
 
@@ -289,5 +295,7 @@ osc_addHook('admin_menu', 'cars_admin_menu');
 
 //Delete locale
 osc_addHook('delete_locale', 'cars_delete_locale');
+//Delete item
+osc_addHook('delete_item', 'cars_delete_item');
 
 ?>

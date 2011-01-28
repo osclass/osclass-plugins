@@ -352,11 +352,18 @@ function realstate_item_edit_post() {
     }
 }
 
-function job_delete_locale($locale) {
+function realstate_delete_locale($locale) {
     $locale = $locale[0];
     $conn = getConnection();
     $conn->osc_dbExec("DELETE FROM %st_item_house_description_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
     $conn->osc_dbExec("DELETE FROM %st_item_house_property_type_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
+}
+
+function realstate_delete_item($item) {
+    $item = $item[0];
+    $conn = getConnection();
+    $conn->osc_dbExec("DELETE FROM %st_item_house_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
+    $conn->osc_dbExec("DELETE FROM %st_item_house_description_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
 }
 
 
@@ -403,6 +410,8 @@ osc_addHook('admin_menu', 'realstate_admin_menu')
 
 //Delete locale
 osc_addHook('delete_locale', 'realstate_delete_locale');
+//Delete item
+osc_addHook('delete_item', 'realstate_delete_item');
 
 
 ?>

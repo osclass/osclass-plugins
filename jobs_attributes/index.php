@@ -210,6 +210,12 @@ function job_delete_locale($locale) {
     $conn->osc_dbExec("DELETE FROM %st_item_job_description_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
 }
 
+function job_delete_item($item) {
+    $item = $item[0];
+    $conn = getConnection();
+    $conn->osc_dbExec("DELETE FROM %st_item_job_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
+    $conn->osc_dbExec("DELETE FROM %st_item_job_description_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
+}
 
 
 function job_admin_configuration() {
@@ -244,6 +250,8 @@ osc_addHook('item_edit_post', 'job_item_edit_post');
 
 //Delete locale
 osc_addHook('delete_locale', 'job_delete_locale');
+//Delete item
+osc_addHook('delete_item', 'job_delete_item');
 
 
 ?>

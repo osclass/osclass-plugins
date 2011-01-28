@@ -144,6 +144,14 @@ function products_item_edit_post() {
 	}
 }
 
+function products_delete_item($item) {
+    $item = $item[0];
+    $conn = getConnection();
+    $conn->osc_dbExec("DELETE FROM %st_item_products_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
+}
+
+
+
 function products_admin_configuration() {
     // Standard configuration page for plugin which extend item's attributes
     osc_configurePlugin(__FILE__);
@@ -174,5 +182,8 @@ osc_addHook('item_detail', 'products_item_detail');
 osc_addHook('item_edit', 'products_item_edit');
 // Edit an item special attributes POST
 osc_addHook('item_edit_post', 'products_item_edit_post');
+
+//Delete item
+osc_addHook('delete_item', 'products_delete_item');
 
 ?>
