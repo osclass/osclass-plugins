@@ -135,7 +135,7 @@ function realstate_call_after_install() {
     $conn = getConnection() ;
     $conn->autocommit(false) ;
     try {
-        $path = osc_pluginResource('realstate_attributes/struct.sql');
+        $path = osc_plugin_resource('realstate_attributes/struct.sql');
         $sql = file_get_contents($path);
         $conn->osc_dbImportSQL($sql);
         $conn->commit();
@@ -169,7 +169,7 @@ function realstate_form($catId = null) {
     // We received the categoryID
     if (isset($catId[0]) && $catId[0] != "") {
         // We check if the category is the same as our plugin
-        if ($catId[0] == 'realstate_plugin' || osc_isThisCategory('realstate_plugin', $catId[0])) {
+        if ($catId[0] == 'realstate_plugin' || osc_is_this_category('realstate_plugin', $catId[0])) {
             $conn = getConnection() ;
             $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr', DB_TABLE_PREFIX);
             $p_type = array();
@@ -186,7 +186,7 @@ function realstate_search_form($catId = null) {
     // We received the categoryID
     if (isset($catId[0]) && $catId[0] != "") {
         // We check if the category is the same as our plugin
-        if ($catId[0] == 'realstate_plugin' || osc_isThisCategory('realstate_plugin', $catId[0])) {
+        if ($catId[0] == 'realstate_plugin' || osc_is_this_category('realstate_plugin', $catId[0])) {
             $conn = getConnection() ;
             $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr', DB_TABLE_PREFIX);
             $p_type = array();
@@ -204,7 +204,7 @@ function realstate_form_post($data = null) {
     $conn = getConnection() ;
     if (isset($data[0]) && $data[0] != "") {
         // We check if the category is the same as our plugin
-        if ($data[0] == 'realstate_plugin' || osc_isThisCategory('realstate_plugin', $data[0])) {
+        if ($data[0] == 'realstate_plugin' || osc_is_this_category('realstate_plugin', $data[0])) {
             if (isset($data[1])) {
                 $item = $data[1];
                 // Insert the data in our plugin's table
@@ -259,7 +259,7 @@ function realstate_form_post($data = null) {
 // Self-explanatory
 function realstate_item_detail($_item) {
     $item = $_item[0];
-    if (osc_isThisCategory('realstate_plugin', $item['fk_i_category_id'])) {
+    if (osc_is_this_category('realstate_plugin', $item['fk_i_category_id'])) {
         $conn = getConnection() ;
         $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_house_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
 
@@ -279,7 +279,7 @@ function realstate_item_detail($_item) {
 // Self-explanatory
 function realstate_item_edit($_item) {
     $item = $_item[0];
-    if (osc_isThisCategory('realstate_plugin', $item['fk_i_category_id'])) {
+    if (osc_is_this_category('realstate_plugin', $item['fk_i_category_id'])) {
         $conn = getConnection() ;
         $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_house_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
 
@@ -302,7 +302,7 @@ function realstate_item_edit_post() {
     // We received the categoryID and the Item ID
     if (isset($_POST['catId']) && $_POST['catId'] != "") {
         // We check if the category is the same as our plugin
-        if ($_POST['catId'] == 'realstate_plugin' || osc_isThisCategory('realstate_plugin', $_POST['catId'])) {
+        if ($_POST['catId'] == 'realstate_plugin' || osc_is_this_category('realstate_plugin', $_POST['catId'])) {
             $conn = getConnection() ;
             $conn->osc_dbExec("REPLACE INTO %st_item_house_attr (fk_i_item_id, s_square_meters, i_num_rooms, i_num_bathrooms, e_type, fk_i_property_type_id, e_status, i_num_floors, i_num_garages, b_heating, b_air_condition, b_elevator, b_terrace, b_parking, b_furnished, b_new, b_by_owner, s_condition, i_year, s_agency, i_floor_number, i_plot_area ) VALUES (%d, '%s', %d, %d, '%s', %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', %d, %d)",
                     DB_TABLE_PREFIX,
@@ -378,40 +378,40 @@ function realstate_admin_menu() {
 
 function realstate_admin_configuration() {
     // Standard configuration page for plugin which extend item's attributes
-    osc_configurePlugin(__FILE__);
+    osc_plugin_configure_view(__FILE__);
 }
 
 // This is needed in order to be able to activate the plugin
-osc_registerPlugin(__FILE__, 'realstate_call_after_install');
+osc_register_plugin(__FILE__, 'realstate_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__ . "_configure", 'realstate_admin_configuration');
+osc_add_hook(__FILE__ . "_configure", 'realstate_admin_configuration');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__ . "_uninstall", 'realstate_call_after_uninstall');
+osc_add_hook(__FILE__ . "_uninstall", 'realstate_call_after_uninstall');
 
 // When publishing an item we show an extra form with more attributes
-osc_addHook('item_form', 'realstate_form');
+osc_add_hook('item_form', 'realstate_form');
 // To add that new information to our custom table
-osc_addHook('item_form_post', 'realstate_form_post');
+osc_add_hook('item_form_post', 'realstate_form_post');
 
 // When searching, display an extra form with our plugin's fields
-osc_addHook('search_form', 'realstate_search_form');
+osc_add_hook('search_form', 'realstate_search_form');
 // When searching, add some conditions
-osc_addHook('search_conditions', 'realstate_search_conditions');
+osc_add_hook('search_conditions', 'realstate_search_conditions');
 
 // Show an item special attributes
-osc_addHook('item_detail', 'realstate_item_detail');
+osc_add_hook('item_detail', 'realstate_item_detail');
 
 // Edit an item special attributes
-osc_addHook('item_edit', 'realstate_item_edit');
+osc_add_hook('item_edit', 'realstate_item_edit');
 // Edit an item special attributes POST
-osc_addHook('item_edit_post', 'realstate_item_edit_post');
+osc_add_hook('item_edit_post', 'realstate_item_edit_post');
 
-osc_addHook('admin_menu', 'realstate_admin_menu');
+osc_add_hook('admin_menu', 'realstate_admin_menu');
 
 //Delete locale
-osc_addHook('delete_locale', 'realstate_delete_locale');
+osc_add_hook('delete_locale', 'realstate_delete_locale');
 //Delete item
-osc_addHook('delete_item', 'realstate_delete_item');
+osc_add_hook('delete_item', 'realstate_delete_item');
 
 
 ?>

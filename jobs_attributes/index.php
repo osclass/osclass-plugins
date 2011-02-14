@@ -72,7 +72,7 @@ function job_call_after_install() {
     $conn = getConnection();
     $conn->autocommit(false);
     try {
-        $path = osc_pluginResource('jobs_attributes/struct.sql');
+        $path = osc_plugin_resource('jobs_attributes/struct.sql');
         $sql = file_get_contents($path);
         $conn->osc_dbImportSQL($sql);
         $conn->commit();
@@ -106,7 +106,7 @@ function job_form($catId = null) {
     // We received the categoryID
     if(isset($catId[0]) && $catId[0]!="") {
         // We check if the category is the same as our plugin
-        if(osc_isThisCategory('jobs_plugin', $catId[0])) {
+        if(osc_is_this_category('jobs_plugin', $catId[0])) {
             require_once 'form.php';
         }
     }
@@ -116,7 +116,7 @@ function job_search_form($catId = null) {
     // We received the categoryID
     if(isset($catId[0]) && $catId[0]!="") {
         // We check if the category is the same as our plugin
-        if(osc_isThisCategory('jobs_plugin', $catId[0])) {
+        if(osc_is_this_category('jobs_plugin', $catId[0])) {
             include_once 'search_form.php';
         }
     }
@@ -127,7 +127,7 @@ function job_form_post($data = null) {
     $conn = getConnection();
     if(isset($data[0]) && $data[0]!="") {
         // We check if the category is the same as our plugin
-        if(osc_isThisCategory('jobs_plugin', $data[0])) {
+        if(osc_is_this_category('jobs_plugin', $data[0])) {
             if(isset($data[1])) {
                 $item = $data[1];
                 // Insert the data in our plugin's table
@@ -152,7 +152,7 @@ function job_form_post($data = null) {
 // Self-explanatory
 function job_item_detail($_item) {
     $item = $_item[0];
-    if(osc_isThisCategory('jobs_plugin', $item['fk_i_category_id'])) {
+    if(osc_is_this_category('jobs_plugin', $item['fk_i_category_id'])) {
         $conn = getConnection();
         $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_job_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
 
@@ -168,7 +168,7 @@ function job_item_detail($_item) {
 // Self-explanatory
 function job_item_edit($_item) {
     $item = $_item[0];
-    if(osc_isThisCategory('jobs_plugin', $item['fk_i_category_id'])) {
+    if(osc_is_this_category('jobs_plugin', $item['fk_i_category_id'])) {
         $conn = getConnection();
         $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_job_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
 
@@ -185,7 +185,7 @@ function job_item_edit_post() {
     // We received the categoryID and the Item ID
     if(isset($_POST['catId']) && $_POST['catId']!="") {
         // We check if the category is the same as our plugin
-        if(osc_isThisCategory('jobs_plugin', $_POST['catId'])) {
+        if(osc_is_this_category('jobs_plugin', $_POST['catId'])) {
             $conn = getConnection() ;
             $conn->osc_dbExec("REPLACE INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s')", DB_TABLE_PREFIX, $_POST['pk_i_id'], $_POST['relation'], $_POST['companyName'], $_POST['positionType'], $_POST['salaryMin'], $_POST['salaryMax'], $_POST['salaryPeriod'] );
             // prepare locales
@@ -220,38 +220,38 @@ function job_delete_item($item) {
 
 function job_admin_configuration() {
     // Standard configuration page for plugin which extend item's attributes
-    osc_configurePlugin(__FILE__);
+    osc_plugin_configure_view(__FILE__);
 }
 
 // This is needed in order to be able to activate the plugin
-osc_registerPlugin(__FILE__, 'job_call_after_install');
+osc_register_plugin(__FILE__, 'job_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__."_configure", 'job_admin_configuration');
+osc_add_hook(__FILE__."_configure", 'job_admin_configuration');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__."_uninstall", 'job_call_after_uninstall');
+osc_add_hook(__FILE__."_uninstall", 'job_call_after_uninstall');
 
 // When publishing an item we show an extra form with more attributes
-osc_addHook('item_form', 'job_form');
+osc_add_hook('item_form', 'job_form');
 // To add that new information to our custom table
-osc_addHook('item_form_post', 'job_form_post');
+osc_add_hook('item_form_post', 'job_form_post');
 
 // When searching, display an extra form with our plugin's fields
-osc_addHook('search_form', 'job_search_form');
+osc_add_hook('search_form', 'job_search_form');
 // When searching, add some conditions
-osc_addHook('search_conditions', 'job_search_conditions');
+osc_add_hook('search_conditions', 'job_search_conditions');
 
 // Show an item special attributes
-osc_addHook('item_detail', 'job_item_detail');
+osc_add_hook('item_detail', 'job_item_detail');
 
 // Edit an item special attributes
-osc_addHook('item_edit', 'job_item_edit');
+osc_add_hook('item_edit', 'job_item_edit');
 // Edit an item special attributes POST
-osc_addHook('item_edit_post', 'job_item_edit_post');
+osc_add_hook('item_edit_post', 'job_item_edit_post');
 
 //Delete locale
-osc_addHook('delete_locale', 'job_delete_locale');
+osc_add_hook('delete_locale', 'job_delete_locale');
 //Delete item
-osc_addHook('delete_item', 'job_delete_item');
+osc_add_hook('delete_item', 'job_delete_item');
 
 
 ?>

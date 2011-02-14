@@ -63,18 +63,18 @@ global $osc_request, $preferences;
 
 
 function breadcrumbs_help() {
-    osc_renderPluginView(dirname(__FILE__) . '/help.php') ;
+    osc_admin_render_plugin(dirname(__FILE__) . '/help.php') ;
 }
 
 
 
 
 // This is needed in order to be able to activate the plugin
-osc_registerPlugin(__FILE__, '');
+osc_register_plugin(__FILE__, '');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__."_configure", 'breadcrumbs_help');
+osc_add_hook(__FILE__."_configure", 'breadcrumbs_help');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__."_uninstall", '');
+osc_add_hook(__FILE__."_uninstall", '');
 
 
 ?>

@@ -19,7 +19,7 @@ function bm_call_after_install() {
 
     $conn->autocommit(false);
     try {
-        $path = osc_pluginResource('banner_management/struct.sql');
+        $path = osc_plugin_resource('banner_management/struct.sql');
         $sql = file_get_contents($path);
         $conn->osc_dbImportSQL($sql);
         $conn->commit();
@@ -98,13 +98,13 @@ function bm_admin_menu() {
 }
 
 // This is needed in order to be able to activate the plugin
-osc_registerPlugin(__FILE__, 'bm_call_after_install');
+osc_register_plugin(__FILE__, 'bm_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-//osc_addHook(__FILE__."_configure", 'dating_admin_configuration');
+//osc_add_hook(__FILE__."_configure", 'dating_admin_configuration');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__."_uninstall", 'bm_call_after_uninstall');
+osc_add_hook(__FILE__."_uninstall", 'bm_call_after_uninstall');
 
 
-osc_addHook('admin_menu', 'bm_admin_menu');
+osc_add_hook('admin_menu', 'bm_admin_menu');
 
 ?>

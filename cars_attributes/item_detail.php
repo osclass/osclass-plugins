@@ -11,7 +11,7 @@
 	<td><label><?php echo  $detail['s_model']; ?></td>
 </tr>
 <tr>
-<?php $locales = Locale::newInstance()->listAllEnabled();
+<?php $locales = osc_all_enabled_locales();
 if(count($locales)==1) {
 $locale = $locales[0];?>
 <p>

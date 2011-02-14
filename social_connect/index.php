@@ -276,7 +276,7 @@ function socialconnect_call_after_install() {
     $conn = getConnection() ;
     $conn->autocommit(false) ;
     try {
-        $path = osc_pluginResource('social_connect/struct.sql');
+        $path = osc_plugin_resource('social_connect/struct.sql');
         $sql = file_get_contents($path);
         $conn->osc_dbImportSQL($sql);
         $conn->commit();
@@ -353,7 +353,7 @@ function socialconnect_user_page_post($params = null) {
 
 // Display help
 function socialconnect_conf() {
-    osc_renderPluginView(dirname(__FILE__) . '/conf.php') ;
+    osc_admin_render_plugin(dirname(__FILE__) . '/conf.php') ;
 }
 
 
@@ -363,19 +363,19 @@ function socialconnect_menu() {
 }
 
 // This is needed in order to be able to activate the plugin
-osc_registerPlugin(__FILE__, 'socialconnect_call_after_install');
+osc_register_plugin(__FILE__, 'socialconnect_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__."_configure", 'socialconnect_conf');
+osc_add_hook(__FILE__."_configure", 'socialconnect_conf');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__."_uninstall", '');
+osc_add_hook(__FILE__."_uninstall", '');
 
 // Load the library and stuff
-osc_addHook("header", 'fbc_init');
+osc_add_hook("header", 'fbc_init');
 // Make a new option appear on user's menu
-osc_addHook("user_menu", 'socialconnect_menu');
+osc_add_hook("user_menu", 'socialconnect_menu');
 // Display SC page for users
-osc_addHook("user_options", 'socialconnect_user_page');
+osc_add_hook("user_options", 'socialconnect_user_page');
 // Manage post SC page for users
-osc_addHook("user_options_post", 'socialconnect_user_page_post');
+osc_add_hook("user_options_post", 'socialconnect_user_page_post');
 
 ?>

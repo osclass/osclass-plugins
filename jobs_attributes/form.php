@@ -35,7 +35,7 @@
     </tr>
 </table>
 <?php
-    $locales = Locale::newInstance()->listAllEnabled();
+    $locales = osc_all_enabled_locales();
     if(count($locales)==1) {
         $locale=$locales[0];
 ?>

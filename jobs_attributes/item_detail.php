@@ -2,7 +2,7 @@
     $relations = array('HIRE' => 'Hire someone', 'LOOK' => 'Looking for a job');
     $index = trim($detail['e_relation']);
 
-    $locales = Locale::newInstance()->listAllEnabled();
+    $locales = osc_all_enabled_locales();
 ?>
 
 <h3><?php _e('Job attributes'); ?></h3>

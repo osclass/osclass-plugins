@@ -94,7 +94,7 @@ function cars_form($catId = null) {
     // We received the categoryID
 	if(isset($catId[0]) && $catId[0]!="") {
 		// We check if the category is the same as our plugin
-		if(osc_isThisCategory('cars_plugin', $catId[0])) {
+		if(osc_is_this_category('cars_plugin', $catId[0])) {
             $make = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
             $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
             $car_type = array();
@@ -112,7 +112,7 @@ function cars_search_form($catId = null) {
 	// We received the categoryID
 	if(isset($catId[0]) && $catId[0]!="") {
 		// We check if the category is the same as our plugin
-		if(osc_isThisCategory('realstate_plugin', $catId[0])) {
+		if(osc_is_this_category('realstate_plugin', $catId[0])) {
 			include_once 'search_form.php';
 		}
 	}
@@ -125,7 +125,7 @@ function cars_form_post($data = null)
 	// We received the categoryID and the Item ID
 	if(isset($data[0]) && $data[0]!="") {
 		// We check if the category is the same as our plugin
-		if(osc_isThisCategory('cars_plugin', $data[0])) {
+		if(osc_is_this_category('cars_plugin', $data[0])) {
 			if(isset($data[1])) {
 				$item = $data[1];
 				// Insert the data in our plugin's table
@@ -159,7 +159,7 @@ function cars_form_post($data = null)
 function cars_item_detail($_item) {
     $conn = getConnection() ;
 	$item = $_item[0];
-    if(osc_isThisCategory('cars_plugin', $item['fk_i_category_id'])) {
+    if(osc_is_this_category('cars_plugin', $item['fk_i_category_id'])) {
 	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
         $make = $conn->osc_dbFetchResult('SELECT * FROM %st_item_car_make_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_make_id']);
         $model = $conn->osc_dbFetchResult('SELECT * FROM %st_item_car_model_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_model_id']);
@@ -180,7 +180,7 @@ function cars_item_edit($_item) {
 
     $conn = getConnection() ;
     $item = $_item[0];
-    if(osc_isThisCategory('cars_plugin', $item['fk_i_category_id'])) {
+    if(osc_is_this_category('cars_plugin', $item['fk_i_category_id'])) {
 	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
 
         $make = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
@@ -200,7 +200,7 @@ function cars_item_edit_post() {
 	if(Params::getParam("catId")!="") 
 	{
 		// We check if the category is the same as our plugin
-		if(osc_isThisCategory('cars_plugin', Params::getParam("catId")))
+		if(osc_is_this_category('cars_plugin', Params::getParam("catId")))
 		{
 			$conn = getConnection() ;
 			// Insert the data in our plugin's table
