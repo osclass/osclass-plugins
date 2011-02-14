@@ -19,19 +19,9 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-    define('ABS_PATH', dirname(dirname(dirname(dirname(__FILE__)))) . '/');
-
-    require_once  ABS_PATH . 'common.php';
-    require_once  ABS_PATH . 'config.php';
-    require_once  LIB_PATH . 'osclass/web.php';
-    require_once  LIB_PATH . 'osclass/db.php';
-
-    require_once  LIB_PATH . 'osclass/classes/DAO.php';
-    require_once  LIB_PATH . 'osclass/model/City.php';
-
-    if(isset($_REQUEST['makeId']) && $_REQUEST['makeId']!='') {
+    if(Params::getParam("makeId")!='') {
         $conn = getConnection() ;
-        $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $_REQUEST['makeId']);
+        $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, Params::getParam("makeId"));
 
         echo json_encode($models);
     }

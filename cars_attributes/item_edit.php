@@ -3,7 +3,7 @@
 
         $("#make").change(function(){
             var make_id = $(this).val();
-            var url = '<?php echo WEB_PATH . "/oc-content/plugins/cars_attributes/ajax.php?makeId="; ?>' + make_id;
+            var url = '<?php echo osc_ajax_plugin_url("cars_attributes/ajax.php")."&makeId="; ?>' + make_id;
             var result = '';
             var model_id = '';
             <?php

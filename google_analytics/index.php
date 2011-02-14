@@ -45,10 +45,9 @@ function google_analytics_footer() {
 	}
 }
 
-osc_registerPlugin(__FILE__, '') ;
 // This is needed in order to be able to activate the plugin
-osc_registerPlugin(__FILE__, 'google_analytics_call_after_install') ;
+osc_register_plugin(__FILE__, 'google_analytics_call_after_install') ;
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__."_uninstall", 'google_analytics_call_after_uninstall') ;
-osc_addHook(__FILE__."_configure", 'google_analytics_admin') ;
-osc_addHook('footer', 'google_analytics_footer') ;
+osc_add_hook(__FILE__."_uninstall", 'google_analytics_call_after_uninstall') ;
+osc_add_hook(__FILE__."_configure", 'google_analytics_admin') ;
+osc_add_hook('footer', 'google_analytics_footer') ;

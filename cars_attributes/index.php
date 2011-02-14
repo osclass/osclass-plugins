@@ -54,7 +54,7 @@ function cars_call_after_install() {
 	$conn = getConnection() ;
 	$conn->autocommit(false) ;
 	try {
-		$path = osc_pluginResource('cars_attributes/struct.sql');
+		$path = osc_plugin_resource('cars_attributes/struct.sql');
 		$sql = file_get_contents($path);
 		$conn->osc_dbImportSQL($sql);		
 		$conn->commit();
@@ -132,23 +132,23 @@ function cars_form_post($data = null)
                     $conn->osc_dbExec("INSERT INTO %st_item_car_attr (fk_i_item_id, i_year, i_doors, i_seats, i_mileage, i_engine_size, i_num_airbags, e_transmission, e_fuel, e_seller, b_warranty, b_new, i_power, e_power_unit, i_gears, fk_i_make_id, fk_i_model_id, fk_vehicle_type_id) VALUES (%d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, %d, %d)",
 						DB_TABLE_PREFIX,
 						$item['id'],
-						$_POST['year'],
-						$_POST['doors'],
-						$_POST['seats'],
-						$_POST['mileage'],
-						$_POST['engine_size'],
-						$_POST['num_airbags'],
-						$_POST['transmission'],
-						$_POST['fuel'],
-						$_POST['seller'],
-						isset($_POST['warranty']) ? 1 : 0,
-						isset($_POST['new']) ? 1 : 0,
-						$_POST['power'],
-						$_POST['power_unit'],
-						$_POST['gears'],
-						$_POST['make'],
-						$_POST['model'],
-						$_POST['car_type']
+						Params::getParam("year"),
+						Params::getParam("doors"),
+						Params::getParam("seats"),
+						Params::getParam("mileage"),
+						Params::getParam("engine_size"),
+						Params::getParam("num_airbags"),
+						Params::getParam("transmission"),
+						Params::getParam("fuel"),
+						Params::getParam("seller"),
+						(Params::getParam("warranty")!='') ? 1 : 0,
+						(Params::getParam("new")!='') ? 1 : 0,
+						Params::getParam("power"),
+						Params::getParam("power_unit"),
+						Params::getParam("gears"),
+						Params::getParam("make"),
+						Params::getParam("model"),
+						Params::getParam("car_type")
 					);
 			}
 		}
@@ -197,33 +197,33 @@ function cars_item_edit($_item) {
 
 function cars_item_edit_post() {
 	// We received the categoryID and the Item ID
-	if(isset($_POST['catId']) && $_POST['catId']!="") 
+	if(Params::getParam("catId")!="") 
 	{
 		// We check if the category is the same as our plugin
-		if(osc_isThisCategory('cars_plugin', $_POST['catId']))
+		if(osc_isThisCategory('cars_plugin', Params::getParam("catId")))
 		{
 			$conn = getConnection() ;
 			// Insert the data in our plugin's table
             $conn->osc_dbExec("REPLACE INTO %st_item_car_attr (fk_i_item_id, i_year, i_doors, i_seats, i_mileage, i_engine_size, i_num_airbags, e_transmission, e_fuel, e_seller, b_warranty, b_new, i_power, e_power_unit, i_gears, fk_i_make_id, fk_i_model_id, fk_vehicle_type_id) VALUES (%d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, %d, %d)",
 				DB_TABLE_PREFIX,
-				$_POST['pk_i_id'],
-				$_POST['year'],
-				$_POST['doors'],
-				$_POST['seats'],
-				$_POST['mileage'],
-				$_POST['engine_size'],
-				$_POST['num_airbags'],
-				$_POST['transmission'],
-				$_POST['fuel'],
-				$_POST['seller'],
-				isset($_POST['warranty']) ? 1 : 0,
-				isset($_POST['new']) ? 1 : 0,
-				$_POST['power'],
-				$_POST['power_unit'],
-				$_POST['gears'],
-				$_POST['make'],
-				$_POST['model'],
-				$_POST['car_type']
+				Params::getParam("pk_i_id"),
+				Params::getParam("year"),
+				Params::getParam("doors"),
+				Params::getParam("seats"),
+				Params::getParam("mileage"),
+				Params::getParam("engine_size"),
+				Params::getParam("num_airbags"),
+				Params::getParam("transmission"),
+				Params::getParam("fuel"),
+				Params::getParam("seller"),
+				(Params::getParam("warranty")!='') ? 1 : 0,
+				(Params::getParam("new")!='') ? 1 : 0,
+				Params::getParam("power"),
+				Params::getParam("power_unit"),
+				Params::getParam("gears"),
+				Params::getParam("make"),
+				Params::getParam("model"),
+				Params::getParam("car_type")
 			);
 		}
 	}
@@ -233,10 +233,10 @@ function cars_item_edit_post() {
 function cars_admin_menu() {
     echo '<h3><a href="#">Cars plugin</a></h3>
     <ul> 
-        <li><a href="plugins.php?action=configure&plugin=cars_attributes/index.php">&raquo; '.__('Configure plugin').'</a></li>
-        <li><a href="plugins.php?action=renderplugin&file=cars_attributes/conf.php?section=makes">&raquo; '.__('Manage makes').'</a></li>
-        <li><a href="plugins.php?action=renderplugin&file=cars_attributes/conf.php?section=models">&raquo; '.__('Manage models').'</a></li>
-        <li><a href="plugins.php?action=renderplugin&file=cars_attributes/conf.php?section=types">&raquo; '.__('Manage vehicle types').'</a></li>
+        <li><a href="'.osc_admin_configure_plugin_url("cars_attributes/index.php").'">&raquo; '.__('Configure plugin').'</a></li>
+        <li><a href="'.osc_admin_render_plugin_url("cars_attributes/conf.php").'?section=makes">&raquo; '.__('Manage makes').'</a></li>
+        <li><a href="'.osc_admin_render_plugin_url("cars_attributes/conf.php").'?section=models">&raquo; '.__('Manage models').'</a></li>
+        <li><a href="'.osc_admin_render_plugin_url("cars_attributes/conf.php").'?section=types">&raquo; '.__('Manage vehicle types').'</a></li>
     </ul>';
 }
 
@@ -257,7 +257,7 @@ function cars_delete_item($item) {
 function cars_admin_configuration() {
 
 	// Standard configuration page for plugin which extend item's attributes
-	osc_configurePlugin(__FILE__);
+	osc_plugin_configure_view(__FILE__);
 
 }
 
@@ -266,36 +266,36 @@ function cars_admin_configuration() {
 
 
 // This is needed in order to be able to activate the plugin
-osc_registerPlugin(__FILE__, 'cars_call_after_install');
+osc_register_plugin(__FILE__, 'cars_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__."_configure", 'cars_admin_configuration');
+osc_add_hook(__FILE__."_configure", 'cars_admin_configuration');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_addHook(__FILE__."_uninstall", 'cars_call_after_uninstall');
+osc_add_hook(__FILE__."_uninstall", 'cars_call_after_uninstall');
 
 // When publishing an item we show an extra form with more attributes
-osc_addHook('item_form', 'cars_form');
+osc_add_hook('item_form', 'cars_form');
 // To add that new information to our custom table
-osc_addHook('item_form_post', 'cars_form_post');
+osc_add_hook('item_form_post', 'cars_form_post');
 
 // When searching, display an extra form with our plugin's fields
-osc_addHook('search_form', 'cars_search_form');
+osc_add_hook('search_form', 'cars_search_form');
 // When searching, add some conditions
-osc_addHook('search_conditions', 'cars_search_conditions');
+osc_add_hook('search_conditions', 'cars_search_conditions');
 
 // Show an item special attributes
-osc_addHook('item_detail', 'cars_item_detail');
+osc_add_hook('item_detail', 'cars_item_detail');
 
 // Edit an item special attributes
-osc_addHook('item_edit', 'cars_item_edit');
+osc_add_hook('item_edit', 'cars_item_edit');
 // Edit an item special attributes POST
-osc_addHook('item_edit_post', 'cars_item_edit_post');
+osc_add_hook('item_edit_post', 'cars_item_edit_post');
 
 //
-osc_addHook('admin_menu', 'cars_admin_menu');
+osc_add_hook('admin_menu', 'cars_admin_menu');
 
 //Delete locale
-osc_addHook('delete_locale', 'cars_delete_locale');
+osc_add_hook('delete_locale', 'cars_delete_locale');
 //Delete item
-osc_addHook('delete_item', 'cars_delete_item');
+osc_add_hook('delete_item', 'cars_delete_item');
 
 ?>

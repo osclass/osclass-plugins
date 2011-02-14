@@ -23,44 +23,48 @@
 
     $conn = getConnection() ;
     
-    if(isset($_REQUEST['plugin_action'])) 
+    if(Params::getParam("plugin_action")!='') 
     {
-        switch($_REQUEST['plugin_action']) 
+        switch(Params::getParam("plugin_action")) 
         {
-            case("make_delete"):    if(isset($_REQUEST['id']) && $_REQUEST['id']!="") {
-                                        $conn->osc_dbExec('DELETE FROM %st_item_car_make_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $_REQUEST['id']);
+            case("make_delete"):    if(Params::getParam("id")!="") {
+                                        $conn->osc_dbExec('DELETE FROM %st_item_car_make_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, Params::getParam("id"));
                                     }
             break;
-            case("make_add"):       if(isset($_REQUEST['make']) && $_REQUEST['make']!="") {
-                                        $conn->osc_dbExec("INSERT INTO `%st_item_car_make_attr` ( `s_name`) VALUES ( '%s')", DB_TABLE_PREFIX, $_REQUEST['make']);
+            case("make_add"):       if(Params::getParam("make")!="") {
+                                        $conn->osc_dbExec("INSERT INTO `%st_item_car_make_attr` ( `s_name`) VALUES ( '%s')", DB_TABLE_PREFIX, Params::getParam("make"));
                                     }
             break;
-            case("make_edit"):      if(isset($_REQUEST['make']) && is_array($_REQUEST['make'])) {
-                                        foreach($_REQUEST['make'] as $k => $v) {
+            case("make_edit"):      $make = Params::getParam("make");
+                                    if(is_array($make)) {
+                                        foreach($make as $k => $v) {
                                             $conn->osc_dbExec("UPDATE  `%st_item_car_make_attr` SET  `s_name` =  '%s' WHERE  `pk_i_id` = %d ;", DB_TABLE_PREFIX, $v, $k);
                                         }
                                     }
             break;
-            case("model_delete"):   if(isset($_REQUEST['id']) && $_REQUEST['id']!="") {
-                                        $conn->osc_dbExec('DELETE FROM %st_item_car_model_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $_REQUEST['id']);
+            case("model_delete"):   if(Params::getParam("id")!="") {
+                                        $conn->osc_dbExec('DELETE FROM %st_item_car_model_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, Params::getParam("id"));
                                     }
             break;
-            case("model_add"):      if(isset($_REQUEST['makeId']) && $_REQUEST['makeId']!="" && isset($_REQUEST['model']) && $_REQUEST['model']!="") {
-                                        $conn->osc_dbExec("INSERT INTO `%st_item_car_model_attr` ( `fk_i_make_id`, `s_name`) VALUES ( %d, '%s')", DB_TABLE_PREFIX, $_REQUEST['makeId'], $_REQUEST['model']);
+            case("model_add"):      if(Params::getParam("makeId")!='' && Params::getParam("model")!='') {
+                                        $conn->osc_dbExec("INSERT INTO `%st_item_car_model_attr` ( `fk_i_make_id`, `s_name`) VALUES ( %d, '%s')", DB_TABLE_PREFIX, Params::getParam("makeId"), Params::getParam("model"));
                                     }
             break;
-            case("model_edit"):     if(isset($_REQUEST['makeId']) && $_REQUEST['makeId']!="" && isset($_REQUEST['model']) && is_array($_REQUEST['model'])) {
-                                        foreach($_REQUEST['model'] as $k => $v) {
-                                            $conn->osc_dbExec("UPDATE  `%st_item_car_model_attr` SET  `s_name` =  '%s' WHERE  `pk_i_id` = %d AND `fk_i_make_id` = %d;", DB_TABLE_PREFIX, $v, $k, $_REQUEST['makeId']);
+            case("model_edit"):     $makeId = Params::getParam("makeId");
+                                    $model = Params::getParam("model");
+                                    if($makeId!="" && is_array($model)) {
+                                        foreach($model as $k => $v) {
+                                            $conn->osc_dbExec("UPDATE  `%st_item_car_model_attr` SET  `s_name` =  '%s' WHERE  `pk_i_id` = %d AND `fk_i_make_id` = %d;", DB_TABLE_PREFIX, $v, $k, $makeId);
                                         }
                                     }
             break;
-            case("type_delete"):    if(isset($_REQUEST['id']) && $_REQUEST['id']!="") {
-                                        $conn->osc_dbExec('DELETE FROM %st_item_car_vehicle_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $_REQUEST['id']);
+            case("type_delete"):    if(Params::getParam("id")!="") {
+                                        $conn->osc_dbExec('DELETE FROM %st_item_car_vehicle_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, Params::getParam("id"));
                                     }
             break;
             case("type_add"):       $dataItem = array();
-                                    foreach ($_REQUEST as $k => $v) {
+                                    $requestParams = Params::getParamsAsArray();
+                                    foreach ($requestParams as $k => $v) {
                                         if (preg_match('|(.+?)#(.+)|', $k, $m)) {
                                             $dataItem[$m[1]][$m[2]] = $v;
                                         }
@@ -72,7 +76,8 @@
                                         $conn->osc_dbExec("REPLACE INTO %st_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $lastId, $k, $_data['car_type']);
                                     }
             break;
-            case("type_edit"):      foreach($_REQUEST['car_type'] as $k => $v) {
+            case("type_edit"):      $car_type = Params::getParam("car_type");
+                                    foreach($car_type as $k => $v) {
                                         foreach($v as $kj => $vj) {
                                             $conn->osc_dbExec("REPLACE INTO %st_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $k, $kj, $vj );
                                         }
@@ -80,7 +85,7 @@
         }
     }
     
-    switch($_REQUEST['section']) 
+    switch(Params::getParam("section")) 
     {
         case("makes"): ?>
     
@@ -89,7 +94,8 @@
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
                                         <legend><?php echo __('Makes'); ?></legend>
-                                        <form name="cars_form" id="cars_form" action="plugins.php" method="GET" enctype="multipart/form-data" >
+                                        <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                                        <input type="hidden" name="page" value="plugins" />
                                         <input type="hidden" name="action" value="renderplugin" />
                                         <input type="hidden" name="file" value="cars_attributes/conf.php" />
                                         <input type="hidden" name="section" value="makes" />
@@ -98,7 +104,7 @@
                                         <?php
                                             $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
                                             foreach($makes as $make) {
-                                                echo '<li><input name="make['.$make['pk_i_id'].']" id="'.$make['pk_i_id'].'" type="text" value="'.$make['s_name'].'" /> <a href="plugins.php?action=renderplugin&file=cars_attributes/conf.php?section=makes&plugin_action=make_delete&id='.$make['pk_i_id'].'" ><button>'.__('Delete').'</button></a> </li>';
+                                                echo '<li><input name="make['.$make['pk_i_id'].']" id="'.$make['pk_i_id'].'" type="text" value="'.$make['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=makes&plugin_action=make_delete&id='.$make['pk_i_id'].'" ><button>'.__('Delete').'</button></a> </li>';
                                             }
                                         ?>
                                         </ul>
@@ -110,7 +116,8 @@
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
                                         <legend><?php echo __('Add new make'); ?></legend>
-                                        <form name="cars_form" id="cars_form" action="plugins.php" method="GET" enctype="multipart/form-data" >
+                                        <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                                        <input type="hidden" name="page" value="plugins" />
                                         <input type="hidden" name="action" value="renderplugin" />
                                         <input type="hidden" name="file" value="cars_attributes/conf.php" />
                                         <input type="hidden" name="section" value="makes" />
@@ -128,33 +135,33 @@
                             </div>
         <?php 
         break;
-        case ("models"): ?>
+        case ("models"):    $makeId = Params::getParam("makeId");
+                         ?>
                             <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
                                 <div style="padding: 20px;">
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
                                         <legend><?php echo __('Models'); ?></legend>
                                         <?php $make = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX); ?>
-                                        <select name="make" id="make" onchange="location.href = 'plugins.php?action=renderplugin&file=cars_attributes/conf.php?section=models&makeId=' + this.value" >
+                                        <select name="make" id="make" onchange="location.href = '<?php echo osc_admin_base_url(true);?>?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&makeId=' + this.value" >
                                             <option value=""><?php echo  __('Select a make'); ?></option>
                                             <?php foreach($make as $a): ?>
-                                            <option value="<?php echo $a['pk_i_id']; ?>" <?php if(isset($_REQUEST['makeId']) && $_REQUEST['makeId']!="" && $_REQUEST['makeId']==$a['pk_i_id']) { echo 'selected'; };?>><?php echo $a['s_name']; ?></option>
+                                            <option value="<?php echo $a['pk_i_id']; ?>" <?php if($makeId==$a['pk_i_id']) { echo 'selected'; };?>><?php echo $a['s_name']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
-                                        <form name="cars_form" id="cars_form" action="plugins.php" method="GET" enctype="multipart/form-data" >
+                                        <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                                        <input type="hidden" name="page" value="plugins" />
                                         <input type="hidden" name="action" value="renderplugin" />
                                         <input type="hidden" name="file" value="cars_attributes/conf.php" />
                                         <input type="hidden" name="section" value="models" />
                                         <input type="hidden" name="plugin_action" value="model_edit" />
-                                        <?php if(isset($_REQUEST['makeId']) && $_REQUEST['makeId']!="") { ?>
-                                            <input type="hidden" name="makeId" value="<?php echo  $_REQUEST['makeId'];?>" />
-                                        <?php }; ?>
+                                        <input type="hidden" name="makeId" value="<?php echo  $makeId;?>" />
                                         <ul>
                                         <?php
-                                            if(isset($_REQUEST['makeId']) && $_REQUEST['makeId']!="") {
-                                                $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE fk_i_make_id = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $_REQUEST['makeId']);
+                                            if($makeId!="") {
+                                                $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE fk_i_make_id = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $makeId);
                                                 foreach($models as $model) {
-                                                    echo '<li><input name="model['.$model['pk_i_id'].']" id="'.$model['pk_i_id'].'" type="text" value="'.$model['s_name'].'" /> <a href="plugins.php?action=renderplugin&file=cars_attributes/conf.php?section=models&plugin_action=model_delete&makeId='.$_REQUEST['makeId'].'&id='.$model['pk_i_id'].'" ><button>'.__('Delete').'</button></a> </li>';
+                                                    echo '<li><input name="model['.$model['pk_i_id'].']" id="'.$model['pk_i_id'].'" type="text" value="'.$model['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&plugin_action=model_delete&makeId='.$makeId.'&id='.$model['pk_i_id'].'" ><button>'.__('Delete').'</button></a> </li>';
                                                 }
                                             } else {
                                                 echo '<li>Select a make first.</li>';
@@ -169,14 +176,15 @@
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
                                         <legend><?php echo __('Add new model'); ?></legend>
-                                        <form name="cars_form" id="cars_form" action="plugins.php" method="GET" enctype="multipart/form-data" >
+                                        <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                                        <input type="hidden" name="page" value="plugins" />
                                         <input type="hidden" name="action" value="renderplugin" />
                                         <input type="hidden" name="file" value="cars_attributes/conf.php" />
                                         <input type="hidden" name="section" value="models" />
                                         <input type="hidden" name="plugin_action" value="model_add" />
                             
-                                        <?php if(isset($_REQUEST['makeId']) && $_REQUEST['makeId']!='') { ?>
-                                            <input type="hidden" name="makeId" value="<?php echo  $_REQUEST['makeId'];?>" />
+                                        <?php if($makeId!='') { ?>
+                                            <input type="hidden" name="makeId" value="<?php echo $makeId;?>" />
                                             <input name="model" id="model" value="" /><button type="submit" ><?php echo  __('Add new'); ?></button>
                                         <?php }; ?>
                                         </form>
@@ -206,7 +214,8 @@
                                         <?php foreach($locales as $locale) {?>
                                         <div class="tabbertab">
                                         <h2><?php echo $locale['s_name']; ?></h2>
-                                        <form name="cars_form" id="cars_form" action="plugins.php" method="GET" enctype="multipart/form-data" >
+                                        <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                                        <input type="hidden" name="page" value="plugins" />
                                         <input type="hidden" name="action" value="renderplugin" />
                                         <input type="hidden" name="file" value="cars_attributes/conf.php" />
                                         <input type="hidden" name="section" value="types" />
@@ -215,7 +224,7 @@
                                             <?php
                                             if(count($data)>0) {
                                             foreach($data[$locale['pk_c_code']] as $car_type) { ?>
-                                            <li><input name="car_type[<?php echo  $car_type['pk_i_id'];?>][<?php echo  $locale['pk_c_code'];?>]" id="<?php echo  $car_type['pk_i_id'];?>" type="text" value="<?php echo  $car_type['s_name'];?>" /> <a href="plugins.php?action=renderplugin&file=cars_attributes/conf.php?section=types&plugin_action=type_delete&id=<?php echo  $car_type['pk_i_id'];?>" ><button><?php echo __('Delete');?></button></a> </li>
+                                            <li><input name="car_type[<?php echo  $car_type['pk_i_id'];?>][<?php echo  $locale['pk_c_code'];?>]" id="<?php echo  $car_type['pk_i_id'];?>" type="text" value="<?php echo  $car_type['s_name'];?>" /> <a href="<?php echo osc_admin_base_url(true);?>?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=types&plugin_action=type_delete&id=<?php echo  $car_type['pk_i_id'];?>" ><button><?php echo __('Delete');?></button></a> </li>
                                             <?php }; }; ?>
                                         </ul>
                                         <button type="submit"><?php echo  __('Edit');?></button>
@@ -229,7 +238,8 @@
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
                                         <legend><?php echo __('Add new car type'); ?></legend>
-                                        <form name="cars_form" id="cars_form" action="plugins.php" method="GET" enctype="multipart/form-data" >
+                                        <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                                        <input type="hidden" name="page" value="plugins" />
                                         <input type="hidden" name="action" value="renderplugin" />
                                         <input type="hidden" name="file" value="cars_attributes/conf.php" />
                                         <input type="hidden" name="section" value="types" />
@@ -271,7 +281,7 @@
             <fieldset style="border: 1px solid #ff0000;">
             <legend><?php echo __('Warning'); ?></legend>
                 <p>
-                Deleting makes or models may end in errors. Some of those makes/models could be attached to some actual items.
+                <?php _e("Deleting makes or models may end in errors. Some of those makes/models could be attached to some actual items."); ?>
                 </p>
             </fieldset>
         </div>

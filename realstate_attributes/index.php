@@ -406,7 +406,7 @@ osc_addHook('item_edit', 'realstate_item_edit');
 // Edit an item special attributes POST
 osc_addHook('item_edit_post', 'realstate_item_edit_post');
 
-osc_addHook('admin_menu', 'realstate_admin_menu')
+osc_addHook('admin_menu', 'realstate_admin_menu');
 
 //Delete locale
 osc_addHook('delete_locale', 'realstate_delete_locale');
