@@ -1,17 +1,17 @@
 
 <h3><?php _e('Cars attributes') ; ?></h3>
-
+<?php print_r($detail); ?>
 <table>
 <tr>
 	<td><label><?php echo __('Make'); ?></label></td>
-	<td><label><?php echo  $detail['s_make']; ?></td>
+	<td><label><?php echo  @$detail['s_make']; ?></td>
 </tr>
 <tr>
 	<td><label><?php echo __('Model'); ?></label></td>
-	<td><label><?php echo  $detail['s_model']; ?></td>
+	<td><label><?php echo  @$detail['s_model']; ?></td>
 </tr>
 <tr>
-<?php $locales = osc_all_enabled_locales();
+<?php $locales = osc_get_locales();
 if(count($locales)==1) {
 $locale = $locales[0];?>
 <p>
@@ -37,54 +37,54 @@ $locale = $locales[0];?>
 </tr>
 <tr>
 	<td><label><?php echo __('Year'); ?></label></td>
-	<td><label><?php echo  $detail['i_year']; ?></td>
+	<td><label><?php echo  @$detail['i_year']; ?></td>
 </tr>
 <tr>
 	<td><label><?php echo __('Doors'); ?></label></td>
-	<td><label><?php echo  $detail['i_doors']; ?></td>
+	<td><label><?php echo  @$detail['i_doors']; ?></td>
 </tr>
 <tr>
 	<td><label><?php echo __('Seats'); ?></label></td>
-	<td><label><?php echo  $detail['i_seats']; ?></td>
+	<td><label><?php echo  @$detail['i_seats']; ?></td>
 </tr>
 <tr>
 	<td><label><?php echo __('Mileage'); ?></div>
 </label></td>
-		<td><label><?php echo  $detail['i_mileage']; ?></td>
+		<td><label><?php echo  @$detail['i_mileage']; ?></td>
 </tr>
 <tr>
 	<td><label><?php echo __('Engine size (cc)'); ?></label></td>
-		<td><label><?php echo  $detail['i_engine_size']; ?></td>
+		<td><label><?php echo  @$detail['i_engine_size']; ?></td>
 </tr>
 <tr>
 	<td><label><?php echo __('Num. Airbags'); ?></label></td>
-	<td><label><?php echo  $detail['i_num_airbags']; ?></td>
+	<td><label><?php echo  @$detail['i_num_airbags']; ?></td>
 </tr>
 <tr>
 	<td><label><?php echo __('Transmission'); ?></label></td>
-	<td><label><?php echo  $detail['e_transmission']; ?></td>
+	<td><label><?php echo  @$detail['e_transmission']; ?></td>
 </tr>
 <tr>
 	<td><label><?php echo __('Fuel'); ?></label></td>
-	<td><label><?php echo  $detail['e_fuel']; ?></td>
+	<td><label><?php echo  @$detail['e_fuel']; ?></td>
 </tr>
 <tr>
 	<td><label><?php echo __('Seller'); ?></label></td>
-	<td><label><?php echo  $detail['e_seller']; ?></td>
+	<td><label><?php echo  @$detail['e_seller']; ?></td>
 </tr>
 <tr>
     <td>
-    <label><?php echo __('Warranty'); ?>: </label><?php echo $detail['b_warranty'] ? '<strong>'.__('Yes').'</strong>' : __('No'); ?><br />
-    <label><?php echo __('New'); ?>: </label><?php echo $detail['b_new'] ? '<strong>'.__('Yes').'</strong>' : __('No'); ?><br />
+    <label><?php echo __('Warranty'); ?>: </label><?php echo @$detail['b_warranty'] ? '<strong>'.__('Yes').'</strong>' : __('No'); ?><br />
+    <label><?php echo __('New'); ?>: </label><?php echo @$detail['b_new'] ? '<strong>'.__('Yes').'</strong>' : __('No'); ?><br />
 	</td>
 </tr>
 <tr>
 	<td><label><?php echo __('Power'); ?></label></td>
-	<td><label><?php echo  $detail['i_power']; ?></label><label><?php echo  $detail['e_power_unit']; ?></label></td>
+	<td><label><?php echo  @$detail['i_power']; ?></label><label><?php echo  @$detail['e_power_unit']; ?></label></td>
 </tr>
 <tr>
 	<td><label><?php echo __('Gears'); ?></label></td>
-	<td><label><?php echo  $detail['i_gears']; ?></label>
+	<td><label><?php echo  @$detail['i_gears']; ?></label>
     </td>
 </tr>
 </table>

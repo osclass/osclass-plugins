@@ -53,7 +53,7 @@ function dating_call_after_install() {
     // In this case we'll create a table to store the Example attributes
     $conn = getConnection();
 
-    $con->autocommit(false);
+    $conn->autocommit(false);
     try {
         $path = osc_plugin_resource('dating_attributes/struct.sql');
         $sql = file_get_contents($path);

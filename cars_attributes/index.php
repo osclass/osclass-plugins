@@ -18,28 +18,23 @@ function cars_search_conditions($params) {
 	// we need conditions and search tables (only if we're using our custom tables)
 	global $conditions;
 	global $search_tables;
-	if(isset($params[0])) {
+    $has_conditions = false;
 
-		$_param = $params[0];
-		$has_conditions = false;
+    foreach($params as $key => $value) {
 
-		foreach($_param as $key => $value) {
+        // We may want to  have param-specific searches 
+        switch($key) {
 
-			// We may want to  have param-specific searches 
-			switch($key) {
+    		default:
+            break;
 
-				default:
-				break;
+        }
+    }
 
-			}
-		}
-
-		// Only if we have some values at the params we add our table and link with the ID of the item.
-		if($has_conditions) {
-			$conditions[] = sprintf("%st_item.pk_i_id = %st_item_car_attr.fk_i_item_id ", DB_TABLE_PREFIX, DB_TABLE_PREFIX);
-			$search_tables[] = sprintf("%st_item_car_attr", DB_TABLE_PREFIX);
-		}
-
+    // Only if we have some values at the params we add our table and link with the ID of the item.
+    if($has_conditions) {
+        $conditions[] = sprintf("%st_item.pk_i_id = %st_item_car_attr.fk_i_item_id ", DB_TABLE_PREFIX, DB_TABLE_PREFIX);
+        $search_tables[] = sprintf("%st_item_car_attr", DB_TABLE_PREFIX);
 	}	
 }
 
@@ -89,12 +84,12 @@ function cars_call_after_uninstall() {
 }
 
 
-function cars_form($catId = null) {
+function cars_form($catId = '') {
     $conn = getConnection() ;
     // We received the categoryID
-	if(isset($catId[0]) && $catId[0]!="") {
+	if($catId!="") {
 		// We check if the category is the same as our plugin
-		if(osc_is_this_category('cars_plugin', $catId[0])) {
+		if(osc_is_this_category('cars_plugin', $catId)) {
             $make = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
             $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
             $car_type = array();
@@ -110,28 +105,26 @@ function cars_form($catId = null) {
 function cars_search_form($catId = null) {
 
 	// We received the categoryID
-	if(isset($catId[0]) && $catId[0]!="") {
+	if($catId!="") {
 		// We check if the category is the same as our plugin
-		if(osc_is_this_category('realstate_plugin', $catId[0])) {
+		if(osc_is_this_category('realstate_plugin', $catId)) {
 			include_once 'search_form.php';
 		}
 	}
 }
 
 
-function cars_form_post($data = null) 
+function cars_form_post($catId = null, $item_id = null) 
 {
     $conn = getConnection() ;
 	// We received the categoryID and the Item ID
-	if(isset($data[0]) && $data[0]!="") {
+	if($catId!=null) {
 		// We check if the category is the same as our plugin
-		if(osc_is_this_category('cars_plugin', $data[0])) {
-			if(isset($data[1])) {
-				$item = $data[1];
+		if(osc_is_this_category('cars_plugin', $catId) && $item_id!=null) {
 				// Insert the data in our plugin's table
                     $conn->osc_dbExec("INSERT INTO %st_item_car_attr (fk_i_item_id, i_year, i_doors, i_seats, i_mileage, i_engine_size, i_num_airbags, e_transmission, e_fuel, e_seller, b_warranty, b_new, i_power, e_power_unit, i_gears, fk_i_make_id, fk_i_model_id, fk_vehicle_type_id) VALUES (%d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, %d, %d)",
 						DB_TABLE_PREFIX,
-						$item['id'],
+						$item_id,
 						Params::getParam("year"),
 						Params::getParam("doors"),
 						Params::getParam("seats"),
@@ -150,22 +143,20 @@ function cars_form_post($data = null)
 						Params::getParam("model"),
 						Params::getParam("car_type")
 					);
-			}
 		}
 	}
 }
 
 // Self-explanatory
-function cars_item_detail($_item) {
+function cars_item_detail($item) {
     $conn = getConnection() ;
-	$item = $_item[0];
     if(osc_is_this_category('cars_plugin', $item['fk_i_category_id'])) {
 	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
         $make = $conn->osc_dbFetchResult('SELECT * FROM %st_item_car_make_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_make_id']);
         $model = $conn->osc_dbFetchResult('SELECT * FROM %st_item_car_model_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_model_id']);
         $car_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_vehicle_type_id']);
         $detail['s_make'] = $make['s_name'];
-        $detail['s_model'] = $make['s_name'];
+        $detail['s_model'] = $model['s_name'];
         $detail['locale'] = array();
         foreach ($car_type as $c) {
             $detail['locale'][$c['fk_c_locale_code']]['s_car_type'] = $c['s_name'];
@@ -176,10 +167,9 @@ function cars_item_detail($_item) {
 
 
 // Self-explanatory
-function cars_item_edit($_item) {
+function cars_item_edit($item) {
 
     $conn = getConnection() ;
-    $item = $_item[0];
     if(osc_is_this_category('cars_plugin', $item['fk_i_category_id'])) {
 	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
 
@@ -242,13 +232,11 @@ function cars_admin_menu() {
 
 
 function cars_delete_locale($locale) {
-    $locale = $locale[0];
     $conn = getConnection();
     $conn->osc_dbExec("DELETE FROM %st_item_car_vehicle_type_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
 }
 
 function cars_delete_item($item) {
-    $item = $item[0];
     $conn = getConnection();
     $conn->osc_dbExec("DELETE FROM %st_item_car_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
 }

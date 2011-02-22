@@ -71,7 +71,7 @@
     </td>
 </tr>
 <tr>
-<?php $locales = osc_all_enabled_locales();
+<?php $locales = osc_get_locales();
 if(count($locales)==1) {
 $locale = $locales[0]; ?>
     <p>
