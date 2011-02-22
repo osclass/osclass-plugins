@@ -103,11 +103,10 @@ function cars_form($catId = '') {
 }
 
 function cars_search_form($catId = null) {
-
 	// We received the categoryID
 	if($catId!="") {
 		// We check if the category is the same as our plugin
-		if(osc_is_this_category('realstate_plugin', $catId)) {
+		if(osc_is_this_category('cars_plugin', $catId)) {
 			include_once 'search_form.php';
 		}
 	}

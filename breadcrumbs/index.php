@@ -14,25 +14,23 @@ Short Name: breadcrumbs
 
 function breadcrumbs() {
 
-global $osc_request, $preferences;
-
-
     // You could modify the separator
     $separator = " / ";
 
-
+    $location = Rewrite::newInstance()->get_location();
+    $section = Rewrite::newInstance()->get_section();
     // You DO NOT have to modify anything else
-    if($osc_request['location']=='search') {
-        if(isset($_REQUEST['catId'])) {
-            $category = $_REQUEST['catId'];
-        } else if(isset($_REQUEST['category'])) {
-            $category = urldecode($_REQUEST['category']);
+    if($location=='search') {
+        if(Params::getParam('catId')!='') {
+            $category = Params::getParam('catId');
+        } else if(Params::getParam('category')!='') {
+            $category = urldecode(Params::getParam('category'));
             $category = preg_replace('|/$|','',$category);
             $slug_categories = explode('/', $category);
             $category = $slug_categories[count($slug_categories) - 1];
         }
-    } else if($osc_request['location']=='item' && isset($osc_request['item'])) {
-        $category = $osc_request['item']['fk_i_category_id'];
+    } else if($location=='item' && osc_item()!=null) {
+        $category = osc_item_category_id();
     }
     
     $bc_text = "<a href='".ABS_WEB_URL."' ><span class='bc_root'>".$preferences['pageTitle']."</span></a>";
@@ -43,15 +41,15 @@ global $osc_request, $preferences;
             $deep_c++;
             $bc_text .= $separator."<a href='".osc_createCategoryURL($cat)."' ><span class='bc_level_".$deep_c."'>".$cat['s_name']."</span></a>";
         }
-    } else if($osc_request['location']!='index' && $osc_request['location']!='') {
-        $bc_text .= $separator."<span class='bc_location'>".$osc_request['location']."</span>";
+    } else if($location!='index' && $location!='') {
+        $bc_text .= $separator."<span class='bc_location'>".$location."</span>";
     }
 
-    if(isset($osc_request['section']) && $osc_request['section']!='') {
-        if($osc_request['location']=='item' && isset($osc_request['item'])) {
-            $bc_text .= $separator."<a href='".osc_createItemURL($osc_request['item'])."' ><span class='bc_last'>".$osc_request['section']."</span></a>";
+    if(isset($section) && $section!='') {
+        if($location=='item' && osc_item()!=null) {
+            $bc_text .= $separator."<a href='".osc_createItemURL(osc_item())."' ><span class='bc_last'>".$section."</span></a>";
         } else {
-            $bc_text .= $separator."<span class='bc_last'>".$osc_request['section']."</span>";
+            $bc_text .= $separator."<span class='bc_last'>".$section."</span>";
         }
     } else {
         $bc_text = str_replace('bc_level_'.$deep_c, 'bc_last', str_replace('bc_location', 'bc_last', $bc_text));
