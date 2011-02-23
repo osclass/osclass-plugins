@@ -17,14 +17,30 @@ function cars_search_conditions($params) {
 
 	// we need conditions and search tables (only if we're using our custom tables)
     $has_conditions = false;
-
     foreach($params as $key => $value) {
 
         // We may want to  have param-specific searches 
         switch($key) {
-
+            case 'type':
+                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_vehicle_type_id = %st_item_car_vehicle_type_attr.pk_i_id AND %st_item_car_vehicle_type_attr.s_name = '%%%s%%'", DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $value));
+                Search::newInstance()->addTable(sprintf("%st_item_car_vehicle_type_attr", DB_TABLE_PREFIX));
+                $has_conditions = true;
+                break;
+            case 'model':
+                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_model_id = %st_item_car_model_attr.pk_i_id AND %st_item_car_model_attr.s_name = '%%%s%%'", DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $value));
+                Search::newInstance()->addTable(sprintf("%st_item_model_attr", DB_TABLE_PREFIX));
+                $has_conditions = true;
+                break;
+            case 'numAirbags':
+                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.i_num_airbags = %d", DB_TABLE_PREFIX, $value));
+                $has_conditions = true;
+                break;
+            case 'transmission':
+                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.e_transmission = '%s'", DB_TABLE_PREFIX, $value));
+                $has_conditions = true;
+                break;
     		default:
-            break;
+                break;
 
         }
     }
@@ -102,11 +118,14 @@ function cars_form($catId = '') {
 
 function cars_search_form($catId = null) {
 	// We received the categoryID
-	if($catId!="") {
+	if($catId!=null) {
 		// We check if the category is the same as our plugin
-		if(osc_is_this_category('cars_plugin', $catId)) {
-			include_once 'search_form.php';
-		}
+        foreach($catId as $id) {
+    		if(osc_is_this_category('cars_plugin', $id)) {
+	    		include_once 'search_form.php';
+	    		break;
+	    	}
+        }
 	}
 }
 

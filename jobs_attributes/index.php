@@ -110,13 +110,16 @@ function job_form($catId = null) {
 }
 
 function job_search_form($catId = null) {
-    // We received the categoryID
-    if($catId!="") {
-        // We check if the category is the same as our plugin
-        if(osc_is_this_category('jobs_plugin', $catId)) {
-            include_once 'search_form.php';
+	// We received the categoryID
+	if($catId!=null) {
+		// We check if the category is the same as our plugin
+        foreach($catId as $id) {
+    		if(osc_is_this_category('jobs_plugin', $id)) {
+	    		include_once 'search_form.php';
+	    		break;
+	    	}
         }
-    }
+	}
 }
 
 function job_form_post($catId = null, $item_id = null)  {

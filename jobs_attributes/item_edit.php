@@ -1,23 +1,23 @@
 <h3>Job attributes</h3>
 <table>
     <tr>
-        <td><label for="relation"><?php _e('Relation'); ?></label></td>
+        <td><label for="relation"><?php _e('Relation', 'jobs_attributes'); ?></label></td>
         <td>
-            <label for="hire"><input type="radio" name="relation" value="HIRE" id="hire" <?php if( $detail['e_relation'] == 'HIRE' ) { echo 'checked'; }; ?>/><?php _e('Hire someone'); ?></label><br />
-            <label for="look"><input type="radio" name="relation" value="LOOK" id="look" <?php if( $detail['e_relation'] == 'LOOK' ) { echo 'checked'; }; ?>/><?php _e('Looking for a job'); ?></label><br />
+            <label for="hire"><input type="radio" name="relation" value="HIRE" id="hire" <?php if( $detail['e_relation'] == 'HIRE' ) { echo 'checked'; }; ?>/><?php _e('Hire someone', 'jobs_attributes'); ?></label><br />
+            <label for="look"><input type="radio" name="relation" value="LOOK" id="look" <?php if( $detail['e_relation'] == 'LOOK' ) { echo 'checked'; }; ?>/><?php _e('Looking for a job', 'jobs_attributes'); ?></label><br />
         </td>
     </tr>
     <tr>
-        <td><label for="companyName"><?php _e('Company name'); ?></label></td>
+        <td><label for="companyName"><?php _e('Company name', 'jobs_attributes'); ?></label></td>
         <td><input type="text" name="companyName" value="<?php echo @$detail['s_company_name']; ?>" /></td>
     </tr>
     <tr>
-        <td><label for="positionType"><?php _e('Position type'); ?></label></td>
+        <td><label for="positionType"><?php _e('Position type', 'jobs_attributes'); ?></label></td>
         <td>
             <select name="positionType" id="positionType">
-                <option value="UNDEF" <?php if( $detail['e_position_type'] == 'UNDEF' ) { echo 'selected'; }; ?>><?php _e('Undefined'); ?></option>
-                <option value="PART" <?php if( $detail['e_position_type'] == 'PART' ) { echo 'selected'; }; ?>><?php _e('Part time'); ?></option>
-                <option value="FULL" <?php if( $detail['e_position_type'] == 'FULL' ) { echo 'selected'; }; ?>><?php _e('Full-time'); ?></option>
+                <option value="UNDEF" <?php if( $detail['e_position_type'] == 'UNDEF' ) { echo 'selected'; }; ?>><?php _e('Undefined', 'jobs_attributes'); ?></option>
+                <option value="PART" <?php if( $detail['e_position_type'] == 'PART' ) { echo 'selected'; }; ?>><?php _e('Part time', 'jobs_attributes'); ?></option>
+                <option value="FULL" <?php if( $detail['e_position_type'] == 'FULL' ) { echo 'selected'; }; ?>><?php _e('Full-time', 'jobs_attributes'); ?></option>
             </select>
         </td>
     </tr>
@@ -39,27 +39,27 @@
         $locale = $locales[0];
     ?>
         <p>
-            <label for="desired_exp"><?php _e('Desired experience'); ?></label><br />
+            <label for="desired_exp"><?php _e('Desired experience', 'jobs_attributes'); ?></label><br />
             <input type="text" name="<?php echo @$locale['pk_c_code']; ?>#desired_exp" id="desired_exp" style="width: 100%;" value="<?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_exp']; ?>" />
         </p>
         <p>
-            <label for="studies"><?php _e('Studies'); ?></label><br />
+            <label for="studies"><?php _e('Studies', 'jobs_attributes'); ?></label><br />
             <input type="text" name="<?php echo @$locale['pk_c_code']; ?>#studies" id="studies" style="width: 100%;" value="<?php echo  @$detail['locale'][$locale['pk_c_code']]['s_studies']; ?>" />
         </p>
         <p>
-            <label for="min_reqs"><?php _e('Minimum requirements'); ?></label><br />
+            <label for="min_reqs"><?php _e('Minimum requirements', 'jobs_attributes'); ?></label><br />
             <textarea name="<?php echo @$locale['pk_c_code']; ?>#min_reqs" id="min_reqs" style="width: 100%;" ><?php echo @$detail['locale'][$locale['pk_c_code']]['s_minimum_requirements']; ?></textarea>
         </p>
         <p>
-            <label for="desired_reqs"><?php _e('Desired requirements'); ?></label><br />
+            <label for="desired_reqs"><?php _e('Desired requirements', 'jobs_attributes'); ?></label><br />
             <textarea name="<?php echo @$locale['pk_c_code']; ?>#desired_reqs" id="desired_reqs" style="width: 100%;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_requirements']; ?></textarea>
         </p>
         <p>
-            <label for="contract"><?php _e('Contract'); ?></label><br />
+            <label for="contract"><?php _e('Contract', 'jobs_attributes'); ?></label><br />
             <input type="text" name="<?php echo @$locale['pk_c_code']; ?>#contract" id="contract" style="width: 100%;" value="<?php echo @$detail['locale'][$locale['pk_c_code']]['s_contract']; ?>" />
         </p>
         <p>
-            <label for="company_desc"><?php _e('Company description'); ?></label><br />
+            <label for="company_desc"><?php _e('Company description', 'jobs_attributes'); ?></label><br />
             <textarea name="<?php echo @$locale['pk_c_code']; ?>#company_desc" id="company_desc" style="width: 100%;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_company_description']; ?></textarea>
         </p>
     <?php } else { ?>
@@ -68,27 +68,27 @@
             <div class="tabbertab">
                 <h2><?php echo $locale['s_name']; ?></h2>
                 <p>
-                    <label for="desired_exp"><?php _e('Desired experience'); ?></label><br />
+                    <label for="desired_exp"><?php _e('Desired experience', 'jobs_attributes'); ?></label><br />
                     <input type="text" name="<?php echo @$locale['pk_c_code']; ?>#desired_exp" id="desired_exp" style="width: 100%;" value="<?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_exp']; ?>" />
                 </p>
                 <p>
-                    <label for="studies"><?php _e('Studies'); ?></label><br />
+                    <label for="studies"><?php _e('Studies', 'jobs_attributes'); ?></label><br />
                     <input type="text" name="<?php echo @$locale['pk_c_code']; ?>#studies" id="studies" style="width: 100%;" value="<?php echo @$detail['locale'][$locale['pk_c_code']]['s_studies']; ?>" />
                 </p>
                 <p>
-                    <label for="min_reqs"><?php _e('Minimum requirements'); ?></label><br />
+                    <label for="min_reqs"><?php _e('Minimum requirements', 'jobs_attributes'); ?></label><br />
                     <textarea name="<?php echo @$locale['pk_c_code']; ?>#min_reqs" id="min_reqs" style="width: 100%;" ><?php echo @$detail['locale'][$locale['pk_c_code']]['s_minimum_requirements']; ?></textarea>
                 </p>
                 <p>
-                    <label for="desired_reqs"><?php _e('Desired requirements'); ?></label><br />
+                    <label for="desired_reqs"><?php _e('Desired requirements', 'jobs_attributes'); ?></label><br />
                     <textarea name="<?php echo @$locale['pk_c_code']; ?>#desired_reqs" id="desired_reqs" style="width: 100%;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_requirements']; ?></textarea>
                 </p>
                 <p>
-                    <label for="contract"><?php _e('Contract'); ?></label><br />
+                    <label for="contract"><?php _e('Contract', 'jobs_attributes'); ?></label><br />
                     <input type="text" name="<?php echo @$locale['pk_c_code']; ?>#contract" id="contract" style="width: 100%;" value="<?php echo @$detail['locale'][$locale['pk_c_code']]['s_contract']; ?>" />
                 </p>
                 <p>
-                    <label for="company_desc"><?php _e('Company description'); ?></label><br />
+                    <label for="company_desc"><?php _e('Company description', 'jobs_attributes'); ?></label><br />
                     <textarea name="<?php echo @$locale['pk_c_code']; ?>#company_desc" id="company_desc" style="width: 100%;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_company_description']; ?></textarea>
                 </p>
             </div>
