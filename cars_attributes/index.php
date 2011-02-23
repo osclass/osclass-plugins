@@ -16,8 +16,6 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
 function cars_search_conditions($params) {
 
 	// we need conditions and search tables (only if we're using our custom tables)
-	global $conditions;
-	global $search_tables;
     $has_conditions = false;
 
     foreach($params as $key => $value) {
@@ -33,8 +31,8 @@ function cars_search_conditions($params) {
 
     // Only if we have some values at the params we add our table and link with the ID of the item.
     if($has_conditions) {
-        $conditions[] = sprintf("%st_item.pk_i_id = %st_item_car_attr.fk_i_item_id ", DB_TABLE_PREFIX, DB_TABLE_PREFIX);
-        $search_tables[] = sprintf("%st_item_car_attr", DB_TABLE_PREFIX);
+        Search::newInstance()->addConditions(sprintf("%st_item.pk_i_id = %st_item_car_attr.fk_i_item_id ", DB_TABLE_PREFIX, DB_TABLE_PREFIX));
+        Search::newInstance()->addTable(sprintf("%st_item_car_attr", DB_TABLE_PREFIX));
 	}	
 }
 
@@ -147,10 +145,10 @@ function cars_form_post($catId = null, $item_id = null)
 }
 
 // Self-explanatory
-function cars_item_detail($item) {
+function cars_item_detail() {
     $conn = getConnection() ;
-    if(osc_is_this_category('cars_plugin', $item['fk_i_category_id'])) {
-	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
+    if(osc_is_this_category('cars_plugin', osc_item_category_id())) {
+	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
         $make = $conn->osc_dbFetchResult('SELECT * FROM %st_item_car_make_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_make_id']);
         $model = $conn->osc_dbFetchResult('SELECT * FROM %st_item_car_model_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_model_id']);
         $car_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_vehicle_type_id']);
@@ -166,10 +164,10 @@ function cars_item_detail($item) {
 
 
 // Self-explanatory
-function cars_item_edit($item) {
+function cars_item_edit() {
     $conn = getConnection() ;
-    if(osc_is_this_category('cars_plugin', $item['fk_i_category_id'])) {
-	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
+    if(osc_is_this_category('cars_plugin', osc_item_category_id())) {
+	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
 
         $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
         $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $detail['fk_i_make_id']);
@@ -188,7 +186,7 @@ function cars_item_edit_post($catId = null, $item_id = null) {
 	if($catId!=null) 
 	{
 		// We check if the category is the same as our plugin
-		if(osc_is_this_category('cars_plugin', Params::getParam("catId")))
+		if(osc_is_this_category('cars_plugin', $catId))
 		{
 			$conn = getConnection() ;
 			// Insert the data in our plugin's table

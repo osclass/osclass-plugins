@@ -1,27 +1,26 @@
 <?php
     $relations = array('HIRE' => 'Hire someone', 'LOOK' => 'Looking for a job');
-    $index = trim($detail['e_relation']);
-
-    $locales = osc_all_enabled_locales();
+    $index = trim(@$detail['e_relation']);
+    $locales = osc_get_locales();
 ?>
 
 <h3><?php _e('Job attributes'); ?></h3>
 <table>
     <tr>
         <td><label for="relation"><?php _e('Relation'); ?></label></td>
-        <td><?php _e($relations[$index]); ?></td>
+        <td><?php _e(@$relations[$index]); ?></td>
     </tr>
     <tr>
         <td><label for="companyName"><?php _e('Company name'); ?></label></td>
-        <td><?php echo $detail['s_company_name']; ?></td>
+        <td><?php echo @$detail['s_company_name']; ?></td>
     </tr>
     <tr>
         <td><label for="positionType"><?php _e('Position type'); ?></label></td>
-        <td><?php echo $detail['e_position_type']; ?></td>
+        <td><?php echo @$detail['e_position_type']; ?></td>
     </tr>
     <tr>
         <td><label for="salaryRange"><?php _e('Salary range'); ?></label></td>
-        <td><?php echo $detail['i_salary_min']; ?> - <?php echo $detail['i_salary_max']; ?> <?php echo $detail['e_salary_period']; ?></td>
+        <td><?php echo @$detail['i_salary_min']; ?> - <?php echo @$detail['i_salary_max']; ?> <?php echo @$detail['e_salary_period']; ?></td>
     </tr>
     <?php
     if(count($locales)==1) {

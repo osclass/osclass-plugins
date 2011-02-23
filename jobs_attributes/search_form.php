@@ -1,4 +1,4 @@
-<h3>Job attributes</h3>
+<h3><?php _e("Job attributes");?></h3>
 <table>
     <tr>
         <td><label for="relation"><?php _e('Relation'); ?></label></td>

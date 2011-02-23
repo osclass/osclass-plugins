@@ -1,4 +1,4 @@
-<h3>Job attributes</h3>
+<h3><?php _e("Job attributes");?></h3>
 <table>
     <tr>
         <td><label for="relation"><?php _e('Relation'); ?></label></td>
@@ -35,7 +35,7 @@
     </tr>
 </table>
 <?php
-    $locales = osc_all_enabled_locales();
+    $locales = osc_get_locales();
     if(count($locales)==1) {
         $locale=$locales[0];
 ?>
