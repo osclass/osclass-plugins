@@ -54,7 +54,7 @@
 	<td>
     <select name="make" id="make" >
         <option value=""><?php echo  __('Select a make'); ?></option>
-		<?php foreach($make as $a): ?>
+		<?php foreach($makes as $a): ?>
 			<option value="<?php echo $a['pk_i_id']; ?>" <?php if($detail['fk_i_make_id']==$a['pk_i_id']) { echo 'selected';};?>><?php echo $a['s_name']; ?></option>
 		<?php endforeach; ?>
 	</select>
@@ -64,7 +64,7 @@
 	<td><label><?php echo __('Model'); ?></label></td>
 	<td>
     <select name="model" id="model">
-    <?php foreach($model as $a): ?>
+    <?php foreach($models as $a): ?>
         <option value="<?php echo $a['pk_i_id']; ?>"><?php echo $a['s_name']; ?></option>
     <?php endforeach; ?>
 	</select>
@@ -77,7 +77,7 @@ $locale = $locales[0]; ?>
     <p>
 <label><?php echo __('Car type'); ?></label><br />
 <select name="car_type" id="car_type">
-<?php foreach($car_type[$locale['pk_c_code']] as $k => $v) { ?>
+<?php foreach($car_types[$locale['pk_c_code']] as $k => $v) { ?>
 <option value="<?php echo  $k; ?>" <?php if($detail['fk_vehicle_type_id']==$k) { echo 'selected';};?>><?php echo  @$v;?></option>
 <?php }; ?>
 </select>

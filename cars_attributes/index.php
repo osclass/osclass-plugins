@@ -167,26 +167,25 @@ function cars_item_detail($item) {
 
 // Self-explanatory
 function cars_item_edit($item) {
-
     $conn = getConnection() ;
     if(osc_is_this_category('cars_plugin', $item['fk_i_category_id'])) {
 	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
 
-        $make = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
-        $model = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $detail['fk_i_make_id']);
+        $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
+        $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $detail['fk_i_make_id']);
         $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
-        $car_type = array();
+        $car_types = array();
         foreach($data as $d) {
-            $car_type[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
+            $car_types[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
         }
         unset($data);
 	    require_once 'item_edit.php';
     }
 }
 
-function cars_item_edit_post() {
+function cars_item_edit_post($catId = null, $item_id = null) {
 	// We received the categoryID and the Item ID
-	if(Params::getParam("catId")!="") 
+	if($catId!=null) 
 	{
 		// We check if the category is the same as our plugin
 		if(osc_is_this_category('cars_plugin', Params::getParam("catId")))
@@ -195,7 +194,7 @@ function cars_item_edit_post() {
 			// Insert the data in our plugin's table
             $conn->osc_dbExec("REPLACE INTO %st_item_car_attr (fk_i_item_id, i_year, i_doors, i_seats, i_mileage, i_engine_size, i_num_airbags, e_transmission, e_fuel, e_seller, b_warranty, b_new, i_power, e_power_unit, i_gears, fk_i_make_id, fk_i_model_id, fk_vehicle_type_id) VALUES (%d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, %d, %d)",
 				DB_TABLE_PREFIX,
-				Params::getParam("pk_i_id"),
+				$item_id,
 				Params::getParam("year"),
 				Params::getParam("doors"),
 				Params::getParam("seats"),

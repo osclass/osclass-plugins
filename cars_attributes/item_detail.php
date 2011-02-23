@@ -1,6 +1,5 @@
 
 <h3><?php _e('Cars attributes') ; ?></h3>
-<?php print_r($detail); ?>
 <table>
 <tr>
 	<td><label><?php echo __('Make'); ?></label></td>
