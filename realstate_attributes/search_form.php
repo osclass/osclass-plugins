@@ -69,22 +69,22 @@
 <div>
     <table>
         <tr>
-            <td><label for="property_type"><?php _e('Type'); ?></label></td>
+            <td><label for="property_type"><?php _e('Type', 'realstate_attributes'); ?></label></td>
             <td>
                 <select name="property_type" id="property_type">
-                    <option value="FOR RENT"><?php _e('For rent'); ?></option>
-                    <option value="FOR SALE"><?php _e('For sale'); ?></option>
+                    <option value="FOR RENT"><?php _e('For rent', 'realstate_attributes'); ?></option>
+                    <option value="FOR SALE"><?php _e('For sale', 'realstate_attributes'); ?></option>
                 </select>
             </td>
         </tr>
         <tr>
 <?php
-        $locales = Locale::newInstance()->listAllEnabled();
+        $locales = osc_get_locales();
         if(count($locales)==1) {
             $locale = $locales[0];
 ?>
             <p>
-                <label><?php _e('Property type'); ?></label><br />
+                <label><?php _e('Property type', 'realstate_attributes'); ?></label><br />
                 <select name="p_type" id="p_type">
                 <?php foreach($p_type[$locale['pk_c_code']] as $k => $v) { ?>
                     <option value="<?php echo  $k; ?>"><?php echo  @$v;?></option>
@@ -97,7 +97,7 @@
                 <div class="tabbertab">
                     <h2><?php echo $locale['s_name']; ?></h2>
                     <p>
-                        <label><?php _e('Property type'); ?></label><br />
+                        <label><?php _e('Property type', 'realstate_attributes'); ?></label><br />
                         <select name="p_type" id="p_type">
                         <?php foreach($p_type[$locale['pk_c_code']] as $k => $v) { ?>
                             <option value="<?php echo  $k; ?>"><?php echo @$v;?></option>
@@ -111,7 +111,7 @@
         </tr>
         <tr>
             <p>
-                <label for="numFloor"><?php _e('Num. Floors Range'); ?></label>
+                <label for="numFloor"><?php _e('Num. Floors Range', 'realstate_attributes'); ?></label>
                 <input type="text" id="numFloor" name="numFloor" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
             </p>
             <div id="slider" >
@@ -120,7 +120,7 @@
         </tr>
         <tr>
             <p>
-                <label for="rooms"><?php _e('Rooms Range'); ?></label>
+                <label for="rooms"><?php _e('Rooms Range', 'realstate_attributes'); ?></label>
                 <input type="text" id="rooms" name="rooms" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
             </p>
             <div id="slider" >
@@ -129,7 +129,7 @@
         </tr>
         <tr>
             <p>
-                <label for="bathrooms"><?php _e('Bathrooms Range'); ?></label>
+                <label for="bathrooms"><?php _e('Bathrooms Range', 'realstate_attributes'); ?></label>
                 <input type="text" id="bathrooms" name="bathrooms" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
             </p>
             <div id="slider" >
@@ -138,7 +138,7 @@
         </tr>
         <tr>
             <p>
-                <label for="garages"><?php _e('Garages Range'); ?></label>
+                <label for="garages"><?php _e('Garages Range', 'realstate_attributes'); ?></label>
                 <input type="text" id="garages" name="garages" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
             </p>
             <div id="slider" >
@@ -147,7 +147,7 @@
         </tr>
         <tr>
             <p>
-                <label for="year"><?php _e('Construction year Range'); ?></label>
+                <label for="year"><?php _e('Construction year Range', 'realstate_attributes'); ?></label>
                 <input type="text" id="year" name="year" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
             </p>
             <div id="slider" >
@@ -156,7 +156,7 @@
         </tr>
         <tr>
             <p>
-                <label for="sq"><?php _e('Square Meters Range'); ?></label>
+                <label for="sq"><?php _e('Square Meters Range', 'realstate_attributes'); ?></label>
                 <input type="text" name="sq" id="sq" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
             </p>
             <div id="slider" >
@@ -164,16 +164,16 @@
             </div>
         </tr>
         <tr>
-            <td><?php _e('Other characteristics'); ?></td>
+            <td><?php _e('Other characteristics', 'realstate_attributes'); ?></td>
             <td>
-                <input type="checkbox" name="heating" id="heating" value="1" /> <label for="heating"><?php _e('Heating'); ?></label><br />
-                <input type="checkbox" name="airCondition" id="airCondition" value="1" /> <label for="airCondition"><?php _e('Air condition'); ?></label><br />
-                <input type="checkbox" name="elevator" id="elevator" value="1" /> <label for="elevator"><?php _e('Elevator'); ?></label><br />
-                <input type="checkbox" name="terrace" id="terrace" value="1" /> <label for="terrace"><?php _e('Terrace'); ?></label><br />
-                <input type="checkbox" name="parking" id="parking" value="1" /> <label for="parking"><?php _e('Parking'); ?></label><br />
-                <input type="checkbox" name="furnished" id="furnished" value="1" /> <label for="furnished"><?php _e('Furnished'); ?></label><br />
-                <input type="checkbox" name="new" id="new" value="1" /> <label for="new"><?php _e('New'); ?></label><br />
-                <input type="checkbox" name="by_owner" id="by_owner" value="1" /> <label for="by_owner"><?php _e('By owner'); ?></label><br />
+                <input type="checkbox" name="heating" id="heating" value="1" /> <label for="heating"><?php _e('Heating', 'realstate_attributes'); ?></label><br />
+                <input type="checkbox" name="airCondition" id="airCondition" value="1" /> <label for="airCondition"><?php _e('Air condition', 'realstate_attributes'); ?></label><br />
+                <input type="checkbox" name="elevator" id="elevator" value="1" /> <label for="elevator"><?php _e('Elevator', 'realstate_attributes'); ?></label><br />
+                <input type="checkbox" name="terrace" id="terrace" value="1" /> <label for="terrace"><?php _e('Terrace', 'realstate_attributes'); ?></label><br />
+                <input type="checkbox" name="parking" id="parking" value="1" /> <label for="parking"><?php _e('Parking', 'realstate_attributes'); ?></label><br />
+                <input type="checkbox" name="furnished" id="furnished" value="1" /> <label for="furnished"><?php _e('Furnished', 'realstate_attributes'); ?></label><br />
+                <input type="checkbox" name="new" id="new" value="1" /> <label for="new"><?php _e('New', 'realstate_attributes'); ?></label><br />
+                <input type="checkbox" name="by_owner" id="by_owner" value="1" /> <label for="by_owner"><?php _e('By owner', 'realstate_attributes'); ?></label><br />
             </td>
         </tr>
     </table>

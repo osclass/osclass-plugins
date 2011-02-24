@@ -22,14 +22,15 @@
 
 <?php
     $conn = getConnection();
-if(isset($_REQUEST['plugin_action'])) {
-    if($_REQUEST['plugin_action']=="type_delete") {
-        if(isset($_REQUEST['id']) && $_REQUEST['id']!="") {
-            $conn->osc_dbExec('DELETE FROM %st_item_house_property_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $_REQUEST['id']);
+if(Params::getParam('plugin_action')!='') {
+    if(Params::getParam('plugin_action')=="type_delete") {
+        if(Params::getParam('id')!="") {
+            $conn->osc_dbExec('DELETE FROM %st_item_house_property_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, Params::getParam('id'));
         }
-    } else if($_REQUEST['plugin_action']=="type_add") {
+    } else if(Params::getParam('plugin_action')=="type_add") {
         $dataItem = array();
-        foreach ($_REQUEST as $k => $v) {
+        $request = Params::getParamsAsArray();
+        foreach ($request as $k => $v) {
             if (preg_match('|(.+?)#(.+)|', $k, $m)) {
                 $dataItem[$m[1]][$m[2]] = $v;
             }
@@ -40,8 +41,9 @@ if(isset($_REQUEST['plugin_action'])) {
         foreach ($dataItem as $k => $_data) {
             $conn->osc_dbExec("REPLACE INTO %st_item_house_property_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $lastId, $k, $_data['property_type'] );
         }
-    } else if($_REQUEST['plugin_action']=="type_edit") {
-        foreach($_REQUEST['property_type'] as $k => $v) {
+    } else if(Params::getParam('plugin_action')=="type_edit") {
+        $property_type = Params::getParam('property_type');
+        foreach($property_type as $k => $v) {
             foreach($v as $kj => $vj) {
                 $conn->osc_dbExec("REPLACE INTO %st_item_house_property_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $k, $kj, $vj );
             }
@@ -54,10 +56,15 @@ if(isset($_REQUEST['plugin_action'])) {
     <div style="padding: 20px;">
         <div style="float: left; width: 50%;">
             <fieldset>
-                <legend><?php _e('Property types'); ?></legend>
-                    <form name="propertys_form" id="propertys_form" action="plugins.php" method="GET" enctype="multipart/form-data" >
+                <legend><?php _e('Property types', 'realstate_attributes'); ?></legend>
+                    <form name="propertys_form" id="propertys_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                    <input type="hidden" name="page" value="plugins" />
+                    <input type="hidden" name="action" value="renderplugin" />
+                    <input type="hidden" name="file" value="realstate_attributes/conf.php" />
+                    <input type="hidden" name="section" value="types" />
+                    <input type="hidden" name="plugin_action" value="type_edit" />
                 <div class="tabber">
-                <?php $locales = Locale::newInstance()->listAllEnabled(true);
+                <?php $locales = osc_get_locales();
                     $property_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr', DB_TABLE_PREFIX);
                     $data = array();
                     foreach ($property_type as $c) {
@@ -72,35 +79,32 @@ if(isset($_REQUEST['plugin_action'])) {
                     <?php foreach($locales as $locale) {?>
                         <div class="tabbertab">
                             <h2><?php echo $locale['s_name']; ?></h2>
-                                <input type="hidden" name="action" value="renderplugin" />
-                                <input type="hidden" name="file" value="realstate_attributes/conf.php" />
-                                <input type="hidden" name="section" value="types" />
-                                <input type="hidden" name="plugin_action" value="type_edit" />
                                 <ul>
                                 <?php
                                     if(count($data)>0) {
                                         foreach(isset($data[$locale['pk_c_code']])?$data[$locale['pk_c_code']]:$data['new'] as $property_type) { ?>
-                                            <li><input name="property_type[<?php echo  $property_type['pk_i_id'];?>][<?php echo  $locale['pk_c_code'];?>]" id="<?php echo $property_type['pk_i_id'];?>" type="text" value="<?php echo  $property_type['s_name'];?>" /> <a href="plugins.php?action=renderplugin&file=realstate_attributes/conf.php?plugin_action=type_delete&id=<?php echo  $property_type['pk_i_id'];?>" ><button><?php _e('Delete');?></button></a> </li>
+                                            <li><input name="property_type[<?php echo  $property_type['pk_i_id'];?>][<?php echo  $locale['pk_c_code'];?>]" id="<?php echo $property_type['pk_i_id'];?>" type="text" value="<?php echo  $property_type['s_name'];?>" /> <a href="<?php echo osc_admin_base_url(true);?>?page=plugins&action=renderplugin&file=realstate_attributes/conf.php?plugin_action=type_delete&id=<?php echo  $property_type['pk_i_id'];?>" ><button><?php _e('Delete');?></button></a> </li>
                                         <?php };
                                     }; ?>
                                 </ul>
                         </div>
                         <?php }; ?>
-                        <button type="submit"><?php echo  __('Edit');?></button>
+                        <button type="submit"><?php echo  __('Edit', 'realstate_attributes');?></button>
                     </form>
                 </div>
             </fieldset>
         </div>
         <div style="float: left; width: 50%;">
             <fieldset>
-                <legend><?php _e('Add new property types'); ?></legend>
-                <form name="propertys_form" id="propertys_form" action="plugins.php" method="GET" enctype="multipart/form-data" >
+                <legend><?php _e('Add new property types', 'realstate_attributes'); ?></legend>
+                <form name="propertys_form" id="propertys_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                    <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
                     <input type="hidden" name="file" value="realstate_attributes/conf.php" />
                     <input type="hidden" name="plugin_action" value="type_add" />
 
                     <div class="tabber">
-                    <?php $locales = Locale::newInstance()->listAllEnabled(true);
+                    <?php $locales = osc_get_locales();
                         $property_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr', DB_TABLE_PREFIX);
                         $data = array();
                         foreach ($property_type as $c) {
@@ -114,7 +118,7 @@ if(isset($_REQUEST['plugin_action'])) {
                         </div>
                     <?php }; ?>
                     </div>
-                    <button type="submit" ><?php echo  __('Add new'); ?></button>
+                    <button type="submit" ><?php echo  __('Add new', 'realstate_attributes'); ?></button>
                 </form>
             </fieldset>
         </div>
@@ -125,9 +129,9 @@ if(isset($_REQUEST['plugin_action'])) {
     <div style="padding: 20px;">
         <div style="float: left; width: 100%;">
             <fieldset style="border: 1px solid #ff0000;">
-                <legend><?php _e('Warning'); ?></legend>
+                <legend><?php _e('Warning', 'realstate_attributes'); ?></legend>
                 <p>
-                    <?php _e('Deleting property types may end in errors. Some of those property types could be attached to some actual items.') ; ?>
+                    <?php _e('Deleting property types may end in errors. Some of those property types could be attached to some actual items.', 'realstate_attributes') ; ?>
                 </p>
             </fieldset>
         </div>
