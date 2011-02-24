@@ -13,21 +13,17 @@ Plugin update URI: http://www.osclass.org/files/plugins/products_attributes/upda
 // Adds some plugin-specific search conditions
 function products_search_conditions($params) {
     // we need conditions and search tables (only if we're using our custom tables)
-    global $conditions;
-    global $search_tables;
-    if(isset($params[0])) {
-        $_param = $params[0];
         $has_conditions = false;
 
-        foreach($_param as $key => $value) {
+        foreach($params as $key => $value) {
             // We may want to  have param-specific searches
             switch($key) {
                 case 'make':
-                    $conditions[] = sprintf("%st_item_products_attr.s_make = '%%%s%%'", DB_TABLE_PREFIX, $value);
+                    Search::newInstance()->addConditions(sprintf("%st_item_products_attr.s_make = '%%%s%%'", DB_TABLE_PREFIX, $value));
                     $has_conditions = true;
                     break;
                 case 'model':
-                    $conditions[] = sprintf("%st_item_products_attr.s_model = '%%%s$$'", DB_TABLE_PREFIX, $value);
+                    Search::newInstance()->addConditions(sprintf("%st_item_products_attr.s_model = '%%%s$$'", DB_TABLE_PREFIX, $value));
                     $has_conditions = true;
                     break;
                 default:
@@ -37,10 +33,9 @@ function products_search_conditions($params) {
 
         // Only if we have some values at the params we add our table and link with the ID of the item.
         if($has_conditions) {
-            $conditions[] = sprintf("%st_item.pk_i_id = %st_item_products_attr.fk_i_item_id ", DB_TABLE_PREFIX, DB_TABLE_PREFIX);
-            $search_tables[] = sprintf("%st_item_house_attr", DB_TABLE_PREFIX);
+            Search::newInstance()->addConditions(sprintf("%st_item.pk_i_id = %st_item_products_attr.fk_i_item_id ", DB_TABLE_PREFIX, DB_TABLE_PREFIX));
+            Search::newInstance()->addTable(sprintf("%st_item_house_attr", DB_TABLE_PREFIX));
         }
-    }
 }
 
 function products_call_after_install() {
@@ -80,41 +75,47 @@ function products_call_after_uninstall() {
     $conn->autocommit(true);
 }
 
-function products_form($catId = null) {
+function products_form($catId = '') {
     // We received the categoryID
-    if(isset($catId[0]) && $catId[0]!="") {
+    if($catId!="") {
         // We check if the category is the same as our plugin
-        if(osc_is_this_category('products_plugin', $catId[0])) {
+        if(osc_is_this_category('products_plugin', $catId)) {
             include_once 'form.php';
         }
     }
 }
 
-function products_search_form() {
-    include_once 'search_form.php';
+function products_search_form($catId = null) {
+	// We received the categoryID
+	if($catId!=null) {
+		// We check if the category is the same as our plugin
+        foreach($catId as $id) {
+    		if(osc_is_this_category('products_plugin', $id)) {
+	    		include_once 'search_form.php';
+	    		break;
+	    	}
+        }
+	}
 }
 
-function products_form_post($data = null) {
+
+function products_form_post($catId = null, $item_id = null) {
     // We received the categoryID and the Item ID
-    if(isset($data[0]) && $data[0]!="") {
+    if($catId!=null) {
         // We check if the category is the same as our plugin
-        if(osc_is_this_category('products_plugin', $data[0])) {
-            if(isset($data[1])) {
-                $item = $data[1];
+        if(osc_is_this_category('products_plugin', $catId)) {
                 // Insert the data in our plugin's table
                 $conn = getConnection() ;
-                $conn->osc_dbExec("INSERT INTO %st_item_products_attr (fk_i_item_id, s_make, s_model) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $item['id'], $_POST['make'], $_POST['model'] );
-            }
+                $conn->osc_dbExec("INSERT INTO %st_item_products_attr (fk_i_item_id, s_make, s_model) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $item_id, Params::getParam('make'), Params::getParam('model') );
         }
     }
 }
 
 // Self-explanatory
-function products_item_detail($_item) {
-    $item = $_item[0];
-    if(osc_is_this_category('products_plugin', $catId[0])) {
+function products_item_detail() {
+    if(osc_is_this_category('products_plugin', osc_item_category_id())) {
         $conn = getConnection() ;
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_products_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
+        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_products_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
         if(isset($detail['fk_i_item_id'])) {
             include_once 'item_detail.php';
         }
@@ -122,30 +123,28 @@ function products_item_detail($_item) {
 }
 
 // Self-explanatory
-function products_item_edit($_item) {
-    $item = $_item[0];
-    if(osc_is_this_category('products_plugin', $catId[0])) {
+function products_item_edit() {
+    if(osc_is_this_category('products_plugin', osc_item_category_id())) {
         $conn = getConnection() ;
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_products_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item['pk_i_id']);
+        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_products_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
         if(isset($detail['fk_i_item_id'])) {
             include_once 'item_edit.php';
         }
     }
 }
 
-function products_item_edit_post() {
+function products_item_edit_post($catId = null, $item_id = null) {
 	// We received the categoryID and the Item ID
-	if(isset($_POST['catId']) && $_POST['catId']!="") {
+	if($catId!=null) {
 		// We check if the category is the same as our plugin
-		if(osc_is_this_category('products_plugin', $_POST['catId'])) {
+		if(osc_is_this_category('products_plugin', $catId)) {
                     $conn = getConnection() ;
-                    $conn->osc_dbExec("INSERT INTO %st_item_products_attr (fk_i_item_id, s_make, s_model) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $_POST['pk_i_id'], $_POST['make'], $_POST['model'] );
+                    $conn->osc_dbExec("REPLACE INTO %st_item_products_attr (fk_i_item_id, s_make, s_model) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $item_id, Params::getParam('make'), Params::getParam('model') );
 		}
 	}
 }
 
 function products_delete_item($item) {
-    $item = $item[0];
     $conn = getConnection();
     $conn->osc_dbExec("DELETE FROM %st_item_products_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
 }

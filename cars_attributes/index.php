@@ -130,8 +130,7 @@ function cars_search_form($catId = null) {
 }
 
 
-function cars_form_post($catId = null, $item_id = null) 
-{
+function cars_form_post($catId = null, $item_id = null) {
     $conn = getConnection() ;
 	// We received the categoryID and the Item ID
 	if($catId!=null) {
