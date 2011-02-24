@@ -21,25 +21,21 @@ function breadcrumbs() {
     $section = Rewrite::newInstance()->get_section();
     // You DO NOT have to modify anything else
     if($location=='search') {
-        if(Params::getParam('catId')!='') {
-            $category = Params::getParam('catId');
-        } else if(Params::getParam('category')!='') {
-            $category = urldecode(Params::getParam('category'));
-            $category = preg_replace('|/$|','',$category);
-            $slug_categories = explode('/', $category);
-            $category = $slug_categories[count($slug_categories) - 1];
+        $category = osc_search_category_id();
+        if(count($category)==1) {
+            $category = $category[0];
         }
     } else if($location=='item' && osc_item()!=null) {
         $category = osc_item_category_id();
     }
     
-    $bc_text = "<a href='".ABS_WEB_URL."' ><span class='bc_root'>".$preferences['pageTitle']."</span></a>";
+    $bc_text = "<a href='".osc_base_url()."' ><span class='bc_root'>".osc_page_title()."</span></a>";
     $deep_c = -1;
     if(isset($category)) {
         $cats = Category::newInstance()->toRootTree($category);
         foreach($cats as $cat) {
             $deep_c++;
-            $bc_text .= $separator."<a href='".osc_createCategoryURL($cat)."' ><span class='bc_level_".$deep_c."'>".$cat['s_name']."</span></a>";
+            $bc_text .= $separator."<a href='".breadcrumbs_category_url($cat['pk_i_id'])."' ><span class='bc_level_".$deep_c."'>".$cat['s_name']."</span></a>";
         }
     } else if($location!='index' && $location!='') {
         $bc_text .= $separator."<span class='bc_location'>".$location."</span>";
@@ -47,7 +43,7 @@ function breadcrumbs() {
 
     if(isset($section) && $section!='') {
         if($location=='item' && osc_item()!=null) {
-            $bc_text .= $separator."<a href='".osc_createItemURL(osc_item())."' ><span class='bc_last'>".$section."</span></a>";
+            $bc_text .= $separator."<a href='".osc_item_url()."' ><span class='bc_last'>".$section."</span></a>";
         } else {
             $bc_text .= $separator."<span class='bc_last'>".$section."</span>";
         }
@@ -59,6 +55,23 @@ function breadcrumbs() {
 
 }
 
+
+function breadcrumbs_category_url($category_id) {
+    $path = '' ;
+    if ( osc_rewrite_enabled() ) {
+        if ($category_id != '') {
+            $category = Category::newInstance()->hierarchy($category_id) ;
+            $sanitized_category = "" ;
+            for ($i = count($category); $i > 0; $i--) {
+                $sanitized_category .= $category[$i - 1]['s_slug'] . '/' ;
+            }
+            $path = osc_base_url() . $sanitized_category ;
+        }
+    } else {
+        $path = sprintf( osc_base_url(true) . '?page=search&sCategory=%d', $category['pk_i_id'] ) ;
+    }
+    return $path ;
+}
 
 function breadcrumbs_help() {
     osc_admin_render_plugin(dirname(__FILE__) . '/help.php') ;
