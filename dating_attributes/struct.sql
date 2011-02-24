@@ -4,6 +4,6 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_dating_attr (
     e_gender_to ENUM('MAN', 'WOMAN', 'NI'),
     e_relation ENUM('FRIENDSHIP', 'FORMAL', 'INFORMAL', 'NI'),
 
-        FOREIGN KEY (fk_i_item_id) REFERENCES /*TABLE_PREFIX*/t_item (pk_i_id)
-        PRIMARY KEY (fk_i_item_id),
+        FOREIGN KEY (fk_i_item_id) REFERENCES /*TABLE_PREFIX*/t_item (pk_i_id),
+        PRIMARY KEY (fk_i_item_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
