@@ -4,7 +4,7 @@
   Plugin Name: Real state attributes
   Plugin URI: http://www.osclass.org/
   Description: This plugin extends a category of items to store real estate attributes such as square feets, number of bathrooms, garage, and so on.
-  Version: 1.0
+  Version: 2.0
   Author: OSClass
   Author URI: http://www.osclass.org/
   Short Name: realstate_plugin

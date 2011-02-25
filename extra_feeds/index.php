@@ -3,7 +3,7 @@
 Plugin Name: Extra feeds
 Plugin URI: http://www.osclass.org/
 Description: Extra feeds.
-Version: 1.0
+Version: 2.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: extra_feeds

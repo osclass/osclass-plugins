@@ -13,7 +13,7 @@ function time_elapsed_info() {
 	return array(
 		'name' => 'Time elapsed',
 		'description' => 'This plugin shows the times takes to render each page.',
-		'version' => 1.0,
+		'version' => 2.0,
 
 		'author_name' => 'OSClass',
 		'author_url' => 'http://www.osclass.org/',
