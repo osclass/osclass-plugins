@@ -3,7 +3,7 @@
 Plugin Name: Bread crumbs
 Plugin URI: http://www.osclass.org/
 Description: Breadcrumbs navigation system.
-Version: 2.0
+Version: 1.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: breadcrumbs
@@ -41,12 +41,10 @@ function breadcrumbs() {
         $bc_text .= $separator."<span class='bc_location'>".$location."</span>";
     }
 
-    if(isset($section) && $section!='') {
-        if($location=='item' && osc_item()!=null) {
-            $bc_text .= $separator."<a href='".osc_item_url()."' ><span class='bc_last'>".$section."</span></a>";
-        } else {
-            $bc_text .= $separator."<span class='bc_last'>".$section."</span>";
-        }
+    if($location=='item' && osc_item()!=null) {
+        $bc_text .= $separator."<a href='".osc_item_url()."' ><span class='bc_last'>".osc_item_title()."</span></a>";
+    } else if($section!='') {
+        $bc_text .= $separator."<span class='bc_last'>".$section."</span>";
     } else {
         $bc_text = str_replace('bc_level_'.$deep_c, 'bc_last', str_replace('bc_location', 'bc_last', $bc_text));
     }
