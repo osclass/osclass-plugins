@@ -33,9 +33,11 @@ function breadcrumbs() {
     $deep_c = -1;
     if(isset($category)) {
         $cats = Category::newInstance()->toRootTree($category);
-        foreach($cats as $cat) {
-            $deep_c++;
-            $bc_text .= $separator."<a href='".breadcrumbs_category_url($cat['pk_i_id'])."' ><span class='bc_level_".$deep_c."'>".$cat['s_name']."</span></a>";
+        if(count($cats)>0) {
+            foreach($cats as $cat) {
+                $deep_c++;
+                $bc_text .= $separator."<a href='".breadcrumbs_category_url($cat['pk_i_id'])."' ><span class='bc_level_".$deep_c."'>".$cat['s_name']."</span></a>";
+            }
         }
     } else if($location!='index' && $location!='') {
         $bc_text .= $separator."<span class='bc_location'>".$location."</span>";
