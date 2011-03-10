@@ -13,9 +13,9 @@ CREATE TABLE /*TABLE_PREFIX*/t_ads4osc_ads (
     `s_display_pages` VARCHAR( 100 ) NULL ,
     `s_display_categories` VARCHAR( 100 ) NULL ,
     `f_weight` FLOAT NULL ,
-    `s_html_before` TINYTEXT NULL ,
-    `s_code` TINYTEXT NULL ,
-    `s_html_after` TINYTEXT NULL,
+    `s_html_before` TEXT NULL ,
+    `s_code` TEXT NULL ,
+    `s_html_after` TEXT NULL,
     `b_active` BOOL NULL DEFAULT 1,
     `i_num_views` INT NULL DEFAULT 0,
     
