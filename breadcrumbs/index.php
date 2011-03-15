@@ -73,6 +73,14 @@ function breadcrumbs_category_url($category_id) {
     return $path ;
 }
 
+
+function breadcrumbs_admin_menu() {
+    echo '<h3><a href="#">Breadcrumbs</a></h3>
+    <ul> 
+        <li><a href="'.osc_admin_render_plugin_url(dirname(__FILE__) . '/help.php').'">&raquo; '.__('F.A.Q. / Help', 'breadcrumbs').'</a></li>
+    </ul>';
+}
+
 function breadcrumbs_help() {
     osc_admin_render_plugin(dirname(__FILE__) . '/help.php') ;
 }
@@ -86,6 +94,9 @@ osc_register_plugin(__FILE__, '');
 osc_add_hook(__FILE__."_configure", 'breadcrumbs_help');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(__FILE__."_uninstall", '');
+// Add the help to the menu
+osc_add_hook('admin_menu', 'breadcrumbs_admin_menu');
+
 
 
 ?>
