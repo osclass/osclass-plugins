@@ -125,10 +125,10 @@ function dating_item_detail() {
 }
 
 // Self-explanatory
-function dating_item_edit() {
-    if(osc_is_this_category('dating_plugin', osc_item_category_id())) {
+function dating_item_edit($catId = null, $item_id = null) {
+    if(osc_is_this_category('dating_plugin', $catId)) {
         $conn = getConnection();
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_dating_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
+        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_dating_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $itemId);
         if( isset($detail['fk_i_item_id']) ) {
             include_once 'item_edit.php';
         }
