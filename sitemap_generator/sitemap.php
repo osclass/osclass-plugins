@@ -19,13 +19,20 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
+<<<<<<< HEAD
+=======
+<?php sitemap_generator(); ?>
+>>>>>>> develop
 <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
 <div style="padding: 20px;">
 <div>
 <fieldset>
 <legend><h1><?php _e("Sitemap Generator Help");?></h1></legend>
+<<<<<<< HEAD
 <?php sitemap_generator();
 ?>
+=======
+>>>>>>> develop
 <h2><?php _e("What is Sitemap Generator Plugin?");?></h2>
 <?php _e("Sitemap Generator plugin allows you to generate a sitemap.xml file and ping the major search engines so they will be able to index your site.");?>
 
