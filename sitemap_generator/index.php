@@ -15,6 +15,7 @@ function sitemap_generator() {
     $locales = osc_get_locales();
 
     $filename = osc_base_path() . 'sitemap.xml';
+    unlink($filename);
     $start_xml = '<?xml version="1.0" encoding="UTF-8"?> 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
     file_put_contents($filename, $start_xml);
@@ -24,6 +25,7 @@ function sitemap_generator() {
 
     // CATEGORIES 
     // TO-DO: Add language support (OSClass doesn't have it yet)
+    $categories = osc_get_categories();
     if(osc_count_categories () > 0) {
         while ( osc_has_categories() ) {
             sitemap_add_url(osc_search_category_url(), date('Y-m-d'), 'hourly');
@@ -81,10 +83,9 @@ function sitemap_generator() {
 }
 
 function sitemap_add_url($url = '', $date = '', $freq = 'daily') {
-
     $filename = osc_base_path() . 'sitemap.xml';
     $xml = '    <url>
-        <loc>' . $url . '</loc>
+        <loc>' . htmlentities($url) . '</loc>
         <lastmod>' . $date . '</lastmod>
         <changefreq>' . $freq . '</changefreq>
     </url>' . PHP_EOL;
