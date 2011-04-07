@@ -3,7 +3,7 @@
 Plugin Name: Sitemap Generator
 Plugin URI: http://www.osclass.org/
 Description: Sitemap Generator
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
@@ -82,10 +82,10 @@ function sitemap_generator() {
 
 function sitemap_add_url($url = '', $date = '', $freq = 'daily') {
     $filename = osc_base_path() . 'sitemap.xml';
-    $xml = '    <url>\n'
-    $xml .= '        <loc>' . htmlentities($url) . '</loc>\n'
-    $xml .= '        <lastmod>' . $date . '</lastmod>\n'
-    $xml .= '        <changefreq>' . $freq . '</changefreq>\n'
+    $xml = '    <url>\n';
+    $xml .= '        <loc>' . htmlentities($url) . '</loc>\n';
+    $xml .= '        <lastmod>' . $date . '</lastmod>\n';
+    $xml .= '        <changefreq>' . $freq . '</changefreq>\n';
     $xml .= '    </url>' . PHP_EOL;
     file_put_contents($filename, $xml, FILE_APPEND);
 }
@@ -100,9 +100,9 @@ function sitemap_ping_engines() {
 }
 
 function sitemap_admin_menu() {
-    echo '<h3><a href="#">Sitemap Generator</a></h3>
+    echo '<h3><a href="#">' . __('Sitemap Generator', 'sitemap_generator') . '</a></h3>
     <ul> 
-        <li><a href="'.osc_admin_render_plugin_url(dirname(__FILE__) . '/sitemap.php').'">&raquo; '.__('Sitemap Tools', 'sitemap_generator').'</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(dirname(__FILE__) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Tools', 'sitemap_generator') . '</a></li>
     </ul>';
 }
 
