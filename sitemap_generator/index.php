@@ -82,10 +82,10 @@ function sitemap_generator() {
 
 function sitemap_add_url($url = '', $date = '', $freq = 'daily') {
     $filename = osc_base_path() . 'sitemap.xml';
-    $xml = '    <url>\n'
-    $xml .= '        <loc>' . htmlentities($url) . '</loc>\n'
-    $xml .= '        <lastmod>' . $date . '</lastmod>\n'
-    $xml .= '        <changefreq>' . $freq . '</changefreq>\n'
+    $xml = '    <url>\n';
+    $xml .= '        <loc>' . htmlentities($url) . '</loc>\n';
+    $xml .= '        <lastmod>' . $date . '</lastmod>\n';
+    $xml .= '        <changefreq>' . $freq . '</changefreq>\n';
     $xml .= '    </url>' . PHP_EOL;
     file_put_contents($filename, $xml, FILE_APPEND);
 }
