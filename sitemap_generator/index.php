@@ -15,12 +15,8 @@ function sitemap_generator() {
     $locales = osc_get_locales();
 
     $filename = osc_base_path() . 'sitemap.xml';
-<<<<<<< HEAD
-=======
     unlink($filename);
->>>>>>> develop
-    $start_xml = '<?xml version="1.0" encoding="UTF-8"?> 
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
+    $start_xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
     file_put_contents($filename, $start_xml);
     
     // INDEX
@@ -28,10 +24,6 @@ function sitemap_generator() {
 
     // CATEGORIES 
     // TO-DO: Add language support (OSClass doesn't have it yet)
-<<<<<<< HEAD
-=======
-    $categories = osc_get_categories();
->>>>>>> develop
     if(osc_count_categories () > 0) {
         while ( osc_has_categories() ) {
             sitemap_add_url(osc_search_category_url(), date('Y-m-d'), 'hourly');
@@ -89,19 +81,12 @@ function sitemap_generator() {
 }
 
 function sitemap_add_url($url = '', $date = '', $freq = 'daily') {
-<<<<<<< HEAD
-
     $filename = osc_base_path() . 'sitemap.xml';
-    $xml = '    <url>
-        <loc>' . $url . '</loc>
-=======
-    $filename = osc_base_path() . 'sitemap.xml';
-    $xml = '    <url>
-        <loc>' . htmlentities($url) . '</loc>
->>>>>>> develop
-        <lastmod>' . $date . '</lastmod>
-        <changefreq>' . $freq . '</changefreq>
-    </url>' . PHP_EOL;
+    $xml = '    <url>\n'
+    $xml .= '        <loc>' . htmlentities($url) . '</loc>\n'
+    $xml .= '        <lastmod>' . $date . '</lastmod>\n'
+    $xml .= '        <changefreq>' . $freq . '</changefreq>\n'
+    $xml .= '    </url>' . PHP_EOL;
     file_put_contents($filename, $xml, FILE_APPEND);
 }
 
