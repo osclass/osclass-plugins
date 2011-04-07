@@ -100,9 +100,9 @@ function sitemap_ping_engines() {
 }
 
 function sitemap_admin_menu() {
-    echo '<h3><a href="#">Sitemap Generator</a></h3>
+    echo '<h3><a href="#">' . __('Sitemap Generator', 'sitemap_generator') . '</a></h3>
     <ul> 
-        <li><a href="'.osc_admin_render_plugin_url(dirname(__FILE__) . '/sitemap.php').'">&raquo; '.__('Sitemap Tools', 'sitemap_generator').'</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(dirname(__FILE__) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Tools', 'sitemap_generator') . '</a></li>
     </ul>';
 }
 
