@@ -273,12 +273,12 @@ function realstate_item_detail() {
 }
 
 // Self-explanatory
-function realstate_item_edit() {
-    if (osc_is_this_category('realstate_plugin', osc_item_category_id())) {
+function realstate_item_edit($catId = null, $item_id = null) {
+    if (osc_is_this_category('realstate_plugin', $catId)) {
         $conn = getConnection() ;
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_house_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
+        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_house_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $itemId);
 
-        $descriptions = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_description_attr WHERE fk_i_item_id = %d', DB_TABLE_PREFIX, osc_item_id());
+        $descriptions = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_description_attr WHERE fk_i_item_id = %d', DB_TABLE_PREFIX, $itemId);
         $detail['locale'] = array();
         foreach ($descriptions as $desc) {
             $detail['locale'][$desc['fk_c_locale_code']] = $desc;

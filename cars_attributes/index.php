@@ -182,10 +182,10 @@ function cars_item_detail() {
 
 
 // Self-explanatory
-function cars_item_edit() {
+function cars_item_edit($catId = null, $item_id = null) {
     $conn = getConnection() ;
-    if(osc_is_this_category('cars_plugin', osc_item_category_id())) {
-	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
+    if(osc_is_this_category('cars_plugin', $catId)) {
+	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $itemId);
 
         $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
         $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $detail['fk_i_make_id']);
