@@ -20,8 +20,6 @@
      */
 ?>
 
-<?php sitemap_generator(); ?>
-
 <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
     <div style="padding: 20px;">
         <div>

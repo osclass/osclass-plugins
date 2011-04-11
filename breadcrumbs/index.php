@@ -3,7 +3,7 @@
 Plugin Name: Bread crumbs
 Plugin URI: http://www.osclass.org/
 Description: Breadcrumbs navigation system.
-Version: 1.5
+Version: 1.5.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: breadcrumbs
@@ -68,7 +68,7 @@ function breadcrumbs_category_url($category_id) {
             $path = osc_base_url() . $sanitized_category ;
         }
     } else {
-        $path = sprintf( osc_base_url(true) . '?page=search&sCategory=%d', $category['pk_i_id'] ) ;
+        $path = sprintf( osc_base_url(true) . '?page=search&sCategory=%d', $category_id ) ;
     }
     return $path ;
 }

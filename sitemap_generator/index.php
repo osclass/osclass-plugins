@@ -3,7 +3,7 @@
 Plugin Name: Sitemap Generator
 Plugin URI: http://www.osclass.org/
 Description: Sitemap Generator
-Version: 1.0.1
+Version: 1.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
@@ -102,11 +102,13 @@ function sitemap_ping_engines() {
 function sitemap_admin_menu() {
     echo '<h3><a href="#">' . __('Sitemap Generator', 'sitemap_generator') . '</a></h3>
     <ul> 
-        <li><a href="' . osc_admin_render_plugin_url(dirname(__FILE__) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Tools', 'sitemap_generator') . '</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(dirname(__FILE__) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Help', 'sitemap_generator') . '</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(dirname(__FILE__) . '/generate.php') . '">&raquo; ' . __('Generate sitemap.xml', 'sitemap_generator') . '</a></li>
     </ul>';
 }
 
 function sitemap_help() {
+    sitemap_generator();
     osc_admin_render_plugin(dirname(__FILE__) . '/sitemap.php') ;
 }
 
