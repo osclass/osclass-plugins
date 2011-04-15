@@ -26,10 +26,10 @@
         <td>
             <input type="text" name="salaryMin" value="<?php echo  @$detail['i_salary_min']; ?>" size="7" maxlength="6" /> - <input type="text" name="salaryMax" value="<?php echo  @$detail['i_salary_max']; ?>" size="7" maxlength="6" />
             <select name="salaryPeriod" id="salaryPeriod">
-                <option value="HOUR" <?php if($detail['e_salary_period']=='HOUR') { echo 'selected'; }; ?> ><?php echo __('Hour'); ?></option>
-                <option value="WEEK" <?php if($detail['e_salary_period']=='WEEK') { echo 'selected'; }; ?> ><?php echo __('Week'); ?></option>
-                <option value="MONTH" <?php if($detail['e_salary_period']=='MONTH') { echo 'selected'; }; ?> ><?php echo __('Month'); ?></option>
-                <option value="YEAR" <?php if($detail['e_salary_period']=='YEAR') { echo 'selected'; }; ?> ><?php echo __('Year'); ?></option>
+                <option value="HOUR" <?php if($detail['e_salary_period']=='HOUR') { echo 'selected'; }; ?> ><?php _e('Hour', 'jobs_attributes'); ?></option>
+                <option value="WEEK" <?php if($detail['e_salary_period']=='WEEK') { echo 'selected'; }; ?> ><?php _e('Week', 'jobs_attributes'); ?></option>
+                <option value="MONTH" <?php if($detail['e_salary_period']=='MONTH') { echo 'selected'; }; ?> ><?php _e('Month', 'jobs_attributes'); ?></option>
+                <option value="YEAR" <?php if($detail['e_salary_period']=='YEAR') { echo 'selected'; }; ?> ><?php _e('Year', 'jobs_attributes'); ?></option>
             </select>
         </td>
     </tr>

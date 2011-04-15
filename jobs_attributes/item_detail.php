@@ -1,5 +1,5 @@
 <?php
-    $relations = array('HIRE' => 'Hire someone', 'LOOK' => 'Looking for a job');
+    $relations = array('HIRE' =>  __('Hire someone', 'jobs_attributes') , 'LOOK' => __('Looking for a job', 'jobs_attributes'));
     $index = trim(@$detail['e_relation']);
     $locales = osc_get_locales();
 ?>

@@ -1,7 +1,7 @@
 <h3><?php _e("Job attributes", 'jobs_attributes');?></h3>
 <table>
     <tr>
-        <td><label for="relation"><?php _e('Relation'); ?></label></td>
+        <td><label for="relation"><?php _e('Relation', 'jobs_attributes'); ?></label></td>
         <td>
             <label for="hire"><input type="radio" name="relation" value="HIRE" id="hire" /><?php _e('Hire someone', 'jobs_attributes'); ?></label><br />
             <label for="look"><input type="radio" name="relation" value="LOOK" id="look" /><?php _e('Looking for a job', 'jobs_attributes'); ?></label><br />
