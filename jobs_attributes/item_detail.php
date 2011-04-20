@@ -37,7 +37,7 @@
             <?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_exp']; ?>
         </p>
         <?php }; ?>
-        <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_studies']) && $detail['locale'][$locale['pk_c_code']]['s_studies']
+        <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_studies']) && $detail['locale'][$locale['pk_c_code']]['s_studies']!='') { ?>
             <label for="studies"><?php _e('Studies', 'jobs_attributes'); ?></label><br />
             <?php echo @$detail['locale'][$locale['pk_c_code']]['s_studies']; ?>
         </p>
@@ -110,5 +110,35 @@
             </div>
         <?php }; ?>
         </div>
+    <?php }; ?>
+    <br />
+    <?php if(osc_get_preference('allow_cv_upload', 'jobs_plugin')=='1' && ((osc_get_preference('allow_cv_unreg', 'jobs_plugin')=='1' && !osc_is_web_user_logged_in()) || osc_is_web_user_logged_in())) { ?>
+        <style type="text/css">
+            #cv_response{font-size:12px;text-align:center;padding:10px;width:300px;border:1px solid #ddd;margin:10px 0}
+            #cv_upload_button{background-color:#afe;font-size:12px;text-align:center;padding:10px;width:300px;border:1px solid #ddd;margin:10px 0}
+        </style>
+        <div id="cv_upload_button"><?php _e('Click here to upload your resume', 'jobs_plugin'); ?></div>
+        <div id="cv_response"><?php _e('Awaiting for upload', 'jobs_plugin'); ?></div>
+        <script src="<?php echo str_replace( ABS_PATH , WEB_PATH, dirname(__FILE__)) ; ?>/js/ajaxupload.3.6.js"></script>
+        <script>
+            $(document).ready(function(){
+                var $oResponse = $("#cv_response");
+                var button = $('#cv_upload_button'), interval;
+                new AjaxUpload(button,{
+                    action: '<?php echo str_replace( ABS_PATH , WEB_PATH, dirname(__FILE__)) ; ?>/cv_uploader.php?id=<?php echo osc_item_id(); ?>',
+                    name: 'cv',
+                    onSubmit : function(file, ext){
+                        this.disable();
+                        $oResponse.text('<?php _e('Uploading your resume, please wait', 'jobs_plugin'); ?>');
+                    },
+                    onComplete: function(file, response){
+                        this.enable();
+
+                        var data = eval("("+response+")"); //parse json
+                        $oResponse.text(data.html);
+                    }
+                });
+            });
+        </script>
     <?php }; ?>
 </table>
