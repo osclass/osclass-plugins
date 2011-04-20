@@ -73,6 +73,10 @@ function job_call_after_install() {
         $sql = file_get_contents($path);
         $conn->osc_dbImportSQL($sql);
         $conn->commit();
+        osc_set_preference('cv_email', '', 'jobs_plugin', 'STRING');
+        osc_set_preference('allow_cv_upload', '0', 'jobs_plugin', 'BOOLEAN');
+        osc_set_preference('allow_cv_unreg', '1', 'jobs_plugin', 'BOOLEAN');
+        osc_set_preference('send_me_cv', '0', 'jobs_plugin', 'BOOLEAN');
     } catch (Exception $e) {
         $conn->rollback();
         echo $e->getMessage();
@@ -92,6 +96,10 @@ function job_call_after_uninstall() {
         $conn->osc_dbExec('DROP TABLE %st_item_job_description_attr', DB_TABLE_PREFIX);
         $conn->osc_dbExec('DROP TABLE %st_item_job_attr', DB_TABLE_PREFIX);
         $conn->commit();
+        osc_delete_preference('cv_email', 'jobs_plugin');
+        osc_delete_preference('allow_cv_upload', 'jobs_plugin');
+        osc_delete_preference('allow_cv_unreg', 'jobs_plugin');
+        osc_delete_preference('send_me_cv', 'jobs_plugin');
     } catch (Exception $e) {
         $conn->rollback();
         echo $e->getMessage();
@@ -212,6 +220,13 @@ function job_delete_item($item) {
     $conn->osc_dbExec("DELETE FROM %st_item_job_description_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
 }
 
+function jobs_admin_menu() {
+    echo '<h3><a href="#">Jobs plugin</a></h3>
+    <ul> 
+        <li><a href="'.osc_admin_configure_plugin_url("jobs_attributes/index.php").'">&raquo; ' . __('Configure plugin') . '</a></li>
+        <li><a href="'.osc_admin_render_plugin_url("jobs_attributes/conf.php").'?section=types">&raquo; ' . __('Plugin Options') . '</a></li>
+    </ul>';
+}
 
 function job_admin_configuration() {
     // Standard configuration page for plugin which extend item's attributes
@@ -248,5 +263,7 @@ osc_add_hook('delete_locale', 'job_delete_locale');
 //Delete item
 osc_add_hook('delete_item', 'job_delete_item');
 
+// Admin menu
+osc_add_hook('admin_menu', 'jobs_admin_menu');
 
 ?>
