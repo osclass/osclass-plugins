@@ -371,15 +371,15 @@ function realstate_admin_menu() {
 
 function realstate_admin_configuration() {
     // Standard configuration page for plugin which extend item's attributes
-    osc_plugin_configure_view(__FILE__);
+    osc_plugin_configure_view(osc_plugin_path(__FILE__));
 }
 
 // This is needed in order to be able to activate the plugin
-osc_register_plugin(__FILE__, 'realstate_call_after_install');
+osc_register_plugin(osc_plugin_path(__FILE__), 'realstate_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(__FILE__ . "_configure", 'realstate_admin_configuration');
+osc_add_hook(osc_plugin_path(__FILE__) . "_configure", 'realstate_admin_configuration');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(__FILE__ . "_uninstall", 'realstate_call_after_uninstall');
+osc_add_hook(osc_plugin_path(__FILE__) . "_uninstall", 'realstate_call_after_uninstall');
 
 // When publishing an item we show an extra form with more attributes
 osc_add_hook('item_form', 'realstate_form');

@@ -34,7 +34,7 @@ function time_elapsed_footer() {
 	echo '<!-- time to load: ', microtime() - $timer , ' -->', PHP_EOL;
 }
 
-osc_register_plugin(__FILE__, '');
+osc_register_plugin(osc_plugin_path(__FILE__), '');
 osc_add_hook('footer', 'time_elapsed_footer');
 osc_add_hook('header', 'time_elapsed_header');
 

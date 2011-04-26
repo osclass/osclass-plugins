@@ -510,9 +510,9 @@ function feed_get_product_data($item) {
 
 
 // This is needed in order to be able to activate the plugin
-osc_register_plugin(__FILE__, '');
+osc_register_plugin(osc_plugin_path(__FILE__), '');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(__FILE__."_uninstall", '');
+osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
 
 osc_add_filter('feed_indeed', 'feed_indeed');
 osc_add_filter('feed_trovit_houses', 'feed_trovit_houses');
