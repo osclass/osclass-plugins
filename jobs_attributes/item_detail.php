@@ -4,10 +4,10 @@
     $locales = osc_get_locales();
 ?>
 
-<h3><?php _e('Job attributes', 'jobs_attributes'); ?></h3>
-<table>
+<h3 style="margin-left: 40px;margin-top: 20px;"><?php _e('Job attributes', 'jobs_attributes'); ?></h3>
+<table style="width: 100%;margin-left: 20px;">
     <tr>
-        <td><label for="relation"><?php _e('Relation', 'jobs_attributes'); ?></label></td>
+        <td width="150px"><label for="relation"><?php _e('Relation', 'jobs_attributes'); ?></label></td>
         <td><?php echo @$relations[$index]; ?></td>
     </tr>
     <?php if(isset($detail['s_company_name']) && $detail['s_company_name']!='') { ?>
@@ -28,42 +28,46 @@
         <td><?php echo @$detail['i_salary_min']; ?> - <?php echo @$detail['i_salary_max']; ?> <?php echo @$detail['e_salary_period']; ?></td>
     </tr>
     <?php }; ?>
+    <tr>
+        <td colspan="2">
     <?php
     if(count($locales)==1) {
         $locale = $locales[0];?>
+        <br />
         <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_desired_exp']) && $detail['locale'][$locale['pk_c_code']]['s_desired_exp']!='') { ?>
         <p>
-            <label for="desired_exp"><?php _e('Desired experience', 'jobs_attributes'); ?></label><br />
-            <?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_exp']; ?>
+            <label style="font-weight:bold;" for="desired_exp"><?php _e('Desired experience', 'jobs_attributes'); ?></label><br />
+            <p style="padding-left: 10px;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_exp']; ?></p>
         </p>
         <?php }; ?>
         <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_studies']) && $detail['locale'][$locale['pk_c_code']]['s_studies']!='') { ?>
-            <label for="studies"><?php _e('Studies', 'jobs_attributes'); ?></label><br />
-            <?php echo @$detail['locale'][$locale['pk_c_code']]['s_studies']; ?>
+        <p>
+            <label style="font-weight:bold;" for="studies"><?php _e('Studies', 'jobs_attributes'); ?></label><br />
+            <p style="padding-left: 10px;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_studies']; ?></p>
         </p>
         <?php }; ?>
         <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_minimum_requirements']) && $detail['locale'][$locale['pk_c_code']]['s_minimum_requirements']!='') { ?>
         <p>
-            <label for="min_reqs"><?php _e('Minimum requirements', 'jobs_attributes'); ?></label><br />
-            <?php echo @$detail['locale'][$locale['pk_c_code']]['s_minimum_requirements']; ?>
+            <label style="font-weight:bold;" for="min_reqs"><?php _e('Minimum requirements', 'jobs_attributes'); ?></label><br />
+            <p style="padding-left: 10px;"><?php echo nl2br( @$detail['locale'][$locale['pk_c_code']]['s_minimum_requirements'] ) ; ?></p>
         </p>
         <?php }; ?>
         <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_desired_requirements']) && $detail['locale'][$locale['pk_c_code']]['s_desired_requirements']!='') { ?>
         <p>
-            <label for="desired_reqs"><?php _e('Desired requirements', 'jobs_attributes'); ?></label><br />
-            <?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_requirements']; ?>
+            <label style="font-weight:bold;" for="desired_reqs"><?php _e('Desired requirements', 'jobs_attributes'); ?></label><br />
+            <p style="padding-left: 10px;"><?php echo nl2br( @$detail['locale'][$locale['pk_c_code']]['s_desired_requirements'] ); ?></p>
         </p>
         <?php }; ?>
         <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_contract']) && $detail['locale'][$locale['pk_c_code']]['s_contract']!='') { ?>
         <p>
-            <label for="contract"><?php _e('Contract', 'jobs_attributes'); ?></label><br />
-            <?php echo @$detail['locale'][$locale['pk_c_code']]['s_contract']; ?>
+            <label style="font-weight:bold;" for="contract"><?php _e('Contract', 'jobs_attributes'); ?></label><br />
+            <p style="padding-left: 10px;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_contract']; ?></p>
         </p>
         <?php }; ?>
         <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_company_description']) && $detail['locale'][$locale['pk_c_code']]['s_company_description']!='') { ?>
         <p>
-            <label for="company_desc"><?php _e('Company description', 'jobs_attributes'); ?></label><br />
-            <?php echo @$detail['locale'][$locale['pk_c_code']]['s_company_description']; ?>
+            <label style="font-weight:bold;" for="company_desc"><?php _e('Company description', 'jobs_attributes'); ?></label><br />
+            <p style="padding-left: 10px;">"<?php echo nl2br( @$detail['locale'][$locale['pk_c_code']]['s_company_description'] ) ; ?></p>
         </p>
         <?php }; ?>
     <?php }else { ?>
@@ -73,45 +77,47 @@
                 <h2><?php echo $locale['s_name']; ?></h2>
                 <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_desired_exp']) && $detail['locale'][$locale['pk_c_code']]['s_desired_exp']!='') { ?>
                 <p>
-                    <label for="desired_exp"><?php _e('Desired experience', 'jobs_attributes'); ?></label><br />
-                    <?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_exp']; ?>
+                    <label style="font-weight:bold;" for="desired_exp"><?php _e('Desired experience', 'jobs_attributes'); ?></label><br />
+                    <p style="padding-left: 10px;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_exp']; ?></p>
                 </p>
                 <?php }; ?>
                 <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_studies']) && $detail['locale'][$locale['pk_c_code']]['s_studies']!='') { ?>
                 <p>
-                    <label for="studies"><?php _e('Studies', 'jobs_attributes'); ?></label><br />
-                    <?php echo @$detail['locale'][$locale['pk_c_code']]['s_studies']; ?>
+                    <label style="font-weight:bold;" for="studies"><?php _e('Studies', 'jobs_attributes'); ?></label><br />
+                    <p style="padding-left: 10px;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_studies']; ?></p>
                 </p>
                 <?php }; ?>
                 <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_minimum_requirements']) && $detail['locale'][$locale['pk_c_code']]['s_minimum_requirements']!='') { ?>
                 <p>
-                    <label for="min_reqs"><?php _e('Minimum requirements', 'jobs_attributes'); ?></label><br />
-                    <?php echo @$detail['locale'][$locale['pk_c_code']]['s_minimum_requirements']; ?>
+                    <label style="font-weight:bold;" for="min_reqs"><?php _e('Minimum requirements', 'jobs_attributes'); ?></label><br />
+                    <p style="padding-left: 10px;"><?php echo nl2br(@$detail['locale'][$locale['pk_c_code']]['s_minimum_requirements'] ); ?></p>
                 </p>
                 <?php }; ?>
                 <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_desired_requirements']) && $detail['locale'][$locale['pk_c_code']]['s_desired_requirements']!='') { ?>
                 <p>
-                    <label for="desired_reqs"><?php _e('Desired requirements', 'jobs_attributes'); ?></label><br />
-                    <?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_requirements']; ?>
+                    <label style="font-weight:bold;" for="desired_reqs"><?php _e('Desired requirements', 'jobs_attributes'); ?></label><br />
+                    <p style="padding-left: 10px;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_desired_requirements']; ?></p>
                 </p>
                 <?php }; ?>
                 <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_contract']) && $detail['locale'][$locale['pk_c_code']]['s_contract']!='') { ?>
                 <p>
-                    <label for="contract"><?php _e('Contract', 'jobs_attributes'); ?></label><br />
-                    <?php echo @$detail['locale'][$locale['pk_c_code']]['s_contract']; ?>
+                    <label style="font-weight:bold;" for="contract"><?php _e('Contract', 'jobs_attributes'); ?></label><br />
+                    <p style="padding-left: 10px;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_contract']; ?></p>
                 </p>
                 <?php }; ?>
                 <?php if(isset($detail['locale'][$locale['pk_c_code']]['s_company_description']) && $detail['locale'][$locale['pk_c_code']]['s_company_description']!='') { ?>
                 <p>
-                    <label for="company_desc"><?php _e('Company description', 'jobs_attributes'); ?></label><br />
-                    <?php echo @$detail['locale'][$locale['pk_c_code']]['s_company_description']; ?>
+                    <label style="font-weight:bold;" for="company_desc"><?php _e('Company description', 'jobs_attributes'); ?></label><br />
+                    <p style="padding-left: 10px;"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_company_description']; ?></p>
                 </p>
                 <?php }; ?>
             </div>
         <?php }; ?>
         </div>
     <?php }; ?>
-    <br />
+        </td>
+    </tr>
+    
     <?php if(osc_get_preference('allow_cv_upload', 'jobs_plugin')=='1' && ((osc_get_preference('allow_cv_unreg', 'jobs_plugin')=='1' && !osc_is_web_user_logged_in()) || osc_is_web_user_logged_in())) { ?>
         <style type="text/css">
             #cv_response{font-size:12px;text-align:center;padding:10px;width:300px;border:1px solid #ddd;margin:10px 0}
