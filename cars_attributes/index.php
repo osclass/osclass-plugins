@@ -32,8 +32,10 @@ function cars_search_conditions($params) {
                 $has_conditions = true;
                 break;
             case 'numAirbags':
-                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.i_num_airbags = %d", DB_TABLE_PREFIX, $value));
-                $has_conditions = true;
+                if($value != 0) {
+                    Search::newInstance()->addConditions(sprintf("%st_item_car_attr.i_num_airbags = %d", DB_TABLE_PREFIX, $value));
+                    $has_conditions = true;
+                }
                 break;
             case 'transmission':
                 Search::newInstance()->addConditions(sprintf("%st_item_car_attr.e_transmission = '%s'", DB_TABLE_PREFIX, $value));
