@@ -1,3 +1,23 @@
+<?php $salaryRange = explode(" - ", Params::getParam('salaryRange'));
+    $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
+    $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
+?>
+
+<script type="text/javascript">
+    $(function() {
+        $("#salary-range").slider({
+            range: true,
+            min: <?php echo job_plugin_salary_min();?>,
+            max: <?php echo job_plugin_salary_max();?>,
+            step: <?php echo job_plugin_salary_step();?>,
+            values: [<?php echo $salaryMin;?>, <?php echo $salaryMax;?>],
+            slide: function(event, ui) {
+                $("#salaryRange").val(ui.values[0] + ' - ' + ui.values[1]);
+            }
+        });            
+        $("#salaryRange").val($("#salary-range").slider("values", 0) + ' - ' + $("#salary-range").slider("values", 1));
+    });
+</script>
 <fieldset>
     <h3><?php _e("Job attributes", 'jobs_attributes');?></h3>
     
@@ -28,7 +48,11 @@
     </div>
     <div class="row two_input">
         <h6><?php _e('Salary range', 'jobs_attributes'); ?></h6>
-        <input type="text" name="salaryMin" value="<?php echo (Params::getParam('salaryMin')=='')?'0':Params::getParam('salaryMin'); ?>" size="7" maxlength="6" /> - <input type="text" name="salaryMax" value="<?php echo (Params::getParam('salaryMax')=='')?'0':Params::getParam('salaryMax'); ?>" size="7" maxlength="6" />
+        <input type="text" id="salaryRange" name="salaryRange" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
+            <div id="slider" >
+                <div id="salary-range"></div>
+            </div>
+        <br/>
         <div class="auto">
             <select name="salaryPeriod" id="salaryPeriod">
                 <option value="HOUR" <?php echo (Params::getParam('salaryPeriod')=='HOUR')?'selected':''; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>

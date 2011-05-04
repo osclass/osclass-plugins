@@ -26,6 +26,9 @@ if(Params::getParam('plugin_action')=='done') {
     osc_set_preference('allow_cv_upload', (Params::getParam('allow_cv_upload')!=1)?0:1, 'jobs_plugin', 'BOOLEAN');
     osc_set_preference('allow_cv_unreg', (Params::getParam('allow_cv_unreg')!=1)?0:1, 'jobs_plugin', 'BOOLEAN');
     osc_set_preference('send_me_cv', (Params::getParam('send_me_cv')!=1)?0:1, 'jobs_plugin', 'BOOLEAN');
+    osc_set_preference('salary_min', (Params::getParam('salary_min')!='')?Params::getParam('salary_min'):0, 'jobs_plugin', 'INTEGER');
+    osc_set_preference('salary_max', (Params::getParam('salary_max')!='' && Params::getParam('salary_max')!=0)?Params::getParam('salary_max'):80000, 'jobs_plugin', 'INTEGER');
+    osc_set_preference('salary_step', (Params::getParam('salary_step')!='' && Params::getParam('salary_step')!=0)?Params::getParam('salary_step'):100, 'jobs_plugin', 'INTEGER');
     osc_reset_preferences();
 }
 
@@ -54,6 +57,13 @@ if(Params::getParam('plugin_action')=='done') {
                     <br/>
 
                     <label><?php _e('E-mail', 'jobs_plugins');?></label><input type="text" name="cv_email" id="cv_email" value="<?php echo osc_get_preference('cv_email', 'jobs_plugin'); ?>" />
+                    <br/>
+                    <br/>
+                    <label><?php _e('Salary slider min value', 'jobs_plugins');?></label><input type="text" name="salary_min" id="salary_min" value="<?php echo osc_get_preference('salary_min', 'jobs_plugin'); ?>" />
+                    <br/>
+                    <label><?php _e('Salary slider max value', 'jobs_plugins');?></label><input type="text" name="salary_max" id="salary_max" value="<?php echo osc_get_preference('salary_max', 'jobs_plugin'); ?>" />
+                    <br/>
+                    <label><?php _e('Salary slider step value', 'jobs_plugins');?></label><input type="text" name="salary_step" id="salary_step" value="<?php echo osc_get_preference('salary_step', 'jobs_plugin'); ?>" />
                     <br/>
 
                     <button type="submit"><?php echo  __('Update', 'jobs_attributes');?></button>

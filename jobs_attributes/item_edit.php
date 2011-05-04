@@ -1,6 +1,17 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('#plugin-hook input:text, #plugin-hook select, #plugin-hook input:text').uniform();
+        $("#salary-range").slider({
+            range: true,
+            min: <?php echo job_plugin_salary_min();?>,
+            max: <?php echo job_plugin_salary_max();?>,
+            step: <?php echo job_plugin_salary_step();?>,
+            values: [<?php echo (isset($detail['i_salary_min']) && $detail['i_salary_min']!='')?$detail['i_salary_min']:job_plugin_salary_min();?>, <?php echo (isset($detail['i_salary_max']) && $detail['i_salary_max']!='')?$detail['i_salary_max']:job_plugin_salary_max();?>],
+            slide: function(event, ui) {
+                $("#salaryRange").val(ui.values[0] + ' - ' + ui.values[1]);
+            }
+        });            
+        $("#salaryRange").val($("#salary-range").slider("values", 0) + ' - ' + $("#salary-range").slider("values", 1));
     });
 </script>
 <h2><?php _e("Job attributes", 'jobs_attributes');?></h2>
@@ -30,7 +41,11 @@
     </div>
     <div class="row _100 auto">
         <label for="salaryRange"><?php _e('Salary range', 'jobs_attributes'); ?></label>
-        <input type="text" name="salaryMin" value="0" size="7" maxlength="6" /> - <input type="text" name="salaryMax" value="0" size="7" maxlength="6" />
+        <input type="text" id="salaryRange" name="salaryRange" style="border:0; color:#f6931f; font-weight:bold;" readonly/> <?php echo osc_currency();?>
+            <div id="slider" style="width:200px;" >
+                <div id="salary-range"></div>
+            </div>
+        <br/>
         <select name="salaryPeriod" id="salaryPeriod">
             <option value="HOUR" <?php if(@$detail['e_salary_period']=='HOUR') { echo 'selected'; }; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
             <option value="WEEK" <?php if(@$detail['e_salary_period']=='WEEK') { echo 'selected'; }; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
@@ -102,5 +117,6 @@
         <?php }; ?>
         </div>
 <?php }; ?>
-
-
+<script type="text/javascript">
+    tabberAutomatic();
+</script>

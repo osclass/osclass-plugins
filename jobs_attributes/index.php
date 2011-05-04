@@ -3,7 +3,7 @@
 Plugin Name: Jobs attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store jobs attributes such as salary, requirements, timetable, and so on.
-Version: 2.2
+Version: 2.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobs_plugin
@@ -35,7 +35,16 @@ function job_search_conditions($params = '') {
                         $has_conditions = true;
                     }
                     break;
-                case 'salaryMin':
+                case 'salaryRange':
+                    $salaryRange = explode(" - ", $value);
+                    $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
+                    $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
+                    Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_min >= %d", DB_TABLE_PREFIX, $salaryMin));
+                    Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_max <= %d", DB_TABLE_PREFIX, $salaryMax));
+                    Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_salary_period = '%s'", DB_TABLE_PREFIX, $params['salaryPeriod']));
+                    $has_conditions = true;
+                    break;
+                /*case 'salaryMin':
                     if($value != 0) {
                         Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_min >= %d", DB_TABLE_PREFIX, $value));
                         $has_conditions = true;
@@ -53,7 +62,7 @@ function job_search_conditions($params = '') {
                             Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_salary_period = '%s'", DB_TABLE_PREFIX, $params['salaryPeriod']));
                             $has_salary = true;
                         }
-                    }
+                    }*/
                     break;
                 default:
                     break;
@@ -86,6 +95,9 @@ function job_call_after_install() {
         osc_set_preference('allow_cv_upload', '0', 'jobs_plugin', 'BOOLEAN');
         osc_set_preference('allow_cv_unreg', '1', 'jobs_plugin', 'BOOLEAN');
         osc_set_preference('send_me_cv', '0', 'jobs_plugin', 'BOOLEAN');
+        osc_set_preference('salary_min', '0', 'jobs_plugin', 'INTEGER');
+        osc_set_preference('salary_max', '80000', 'jobs_plugin', 'INTEGER');
+        osc_set_preference('salary_step', '100', 'jobs_plugin', 'INTEGER');
     } catch (Exception $e) {
         $conn->rollback();
         echo $e->getMessage();
@@ -121,7 +133,7 @@ function job_form($catId = null) {
     if($catId!="") {
         // We check if the category is the same as our plugin
         if(osc_is_this_category('jobs_plugin', $catId)) {
-            require_once 'form.php';
+            require_once 'item_edit.php';
         }
     }
 }
@@ -145,21 +157,24 @@ function job_form_post($catId = null, $item_id = null)  {
     if($catId!="") {
         // We check if the category is the same as our plugin
         if(osc_is_this_category('jobs_plugin', $catId) && $item_id!=null) {
-                // Insert the data in our plugin's table
-                $conn->osc_dbExec("INSERT INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s')", DB_TABLE_PREFIX, $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), Params::getParam('salaryMin'), Params::getParam('salaryMax'), Params::getParam('salaryPeriod') );
-                // prepare locales
-                $dataItem = array();
-                $request = Params::getParamsAsArray();
-                foreach ($request as $k => $v) {
-                    if (preg_match('|(.+?)#(.+)|', $k, $m)) {
-                        $dataItem[$m[1]][$m[2]] = $v;
-                    }
+            // Insert the data in our plugin's table
+            $salaryRange = explode(" - ", Params::getParam('salaryRange'));
+            $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
+            $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
+            $conn->osc_dbExec("INSERT INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s')", DB_TABLE_PREFIX, $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod') );
+            // prepare locales
+            $dataItem = array();
+            $request = Params::getParamsAsArray();
+            foreach ($request as $k => $v) {
+                if (preg_match('|(.+?)#(.+)|', $k, $m)) {
+                    $dataItem[$m[1]][$m[2]] = $v;
                 }
+            }
 
-                // insert locales
-                foreach ($dataItem as $k => $_data) {
-                    $conn->osc_dbExec("INSERT INTO %st_item_job_description_attr (fk_i_item_id, fk_c_locale_code, s_desired_exp, s_studies, s_minimum_requirements, s_desired_requirements, s_contract, s_company_description) VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s')", DB_TABLE_PREFIX, $item_id, $k, $_data['desired_exp'], $_data['studies'], $_data['min_reqs'], $_data['desired_reqs'], $_data['contract'], $_data['company_desc'] );
-                }
+            // insert locales
+            foreach ($dataItem as $k => $_data) {
+                $conn->osc_dbExec("INSERT INTO %st_item_job_description_attr (fk_i_item_id, fk_c_locale_code, s_desired_exp, s_studies, s_minimum_requirements, s_desired_requirements, s_contract, s_company_description) VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s')", DB_TABLE_PREFIX, $item_id, $k, $_data['desired_exp'], $_data['studies'], $_data['min_reqs'], $_data['desired_reqs'], $_data['contract'], $_data['company_desc'] );
+            }
         }
     }
 }
@@ -183,9 +198,9 @@ function job_item_detail() {
 function job_item_edit($catId = null, $item_id = null) {
     if(osc_is_this_category('jobs_plugin', $catId)) {
         $conn = getConnection();
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_job_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $itemId);
+        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_job_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item_id);
 
-        $descriptions = $conn->osc_dbFetchResults('SELECT * FROM %st_item_job_description_attr WHERE fk_i_item_id = %d', DB_TABLE_PREFIX, $itemId);
+        $descriptions = $conn->osc_dbFetchResults('SELECT * FROM %st_item_job_description_attr WHERE fk_i_item_id = %d', DB_TABLE_PREFIX, $item_id);
         $detail['locale'] = array();
         foreach ($descriptions as $desc) {
             $detail['locale'][$desc['fk_c_locale_code']] = $desc;
@@ -199,8 +214,11 @@ function job_item_edit_post($catId = null, $item_id = null) {
     if($catId!=null) {
         // We check if the category is the same as our plugin
         if(osc_is_this_category('jobs_plugin', $catId)) {
+            $salaryRange = explode(" - ", Params::getParam('salaryRange'));
+            $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
+            $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
             $conn = getConnection() ;
-            $conn->osc_dbExec("REPLACE INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s')", DB_TABLE_PREFIX, $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), Params::getParam('salaryMin'), Params::getParam('salaryMax'), Params::getParam('salaryPeriod') );
+            $conn->osc_dbExec("REPLACE INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s')", DB_TABLE_PREFIX, $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod') );
             // prepare locales
             $dataItem = array();
             $request = Params::getParamsAsArray();
@@ -240,6 +258,18 @@ function jobs_admin_menu() {
 function job_admin_configuration() {
     // Standard configuration page for plugin which extend item's attributes
     osc_plugin_configure_view(osc_plugin_path(__FILE__) );
+}
+
+function job_plugin_salary_min() {
+    return osc_get_preference('salary_min', 'jobs_plugin');
+}
+
+function job_plugin_salary_max() {
+    return osc_get_preference('salary_max', 'jobs_plugin');
+}
+
+function job_plugin_salary_step() {
+    return osc_get_preference('salary_step', 'jobs_plugin');
 }
 
 // This is needed in order to be able to activate the plugin
