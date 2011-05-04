@@ -15,6 +15,7 @@ function job_search_conditions($params = '') {
     // we need conditions and search tables (only if we're using our custom tables)
     if($params!='') {
         $has_conditions = false;
+        $has_salary = false;
         foreach($params as $key => $value) {
             // We may want to  have param-specific searches
             switch($key) {
@@ -23,28 +24,36 @@ function job_search_conditions($params = '') {
                     $has_conditions = true;
                     break;
                 case 'companyName':
-                    Search::newInstance()->addConditions(sprintf("%st_item_job_attr.s_company_name = '%%%s%%'", DB_TABLE_PREFIX, $value));
-                    $has_conditions = true;
+                    if($value!='') {
+                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.s_company_name = '%%%s%%'", DB_TABLE_PREFIX, $value));
+                        $has_conditions = true;
+                    }
                     break;
                 case 'positionType':
-                    Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_position_type = '%s'", DB_TABLE_PREFIX, $value));
-                    $has_conditions = true;
+                    if($value!='UNDEF') {
+                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_position_type = '%s'", DB_TABLE_PREFIX, $value));
+                        $has_conditions = true;
+                    }
                     break;
                 case 'salaryMin':
                     if($value != 0) {
                         Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_min >= %d", DB_TABLE_PREFIX, $value));
                         $has_conditions = true;
+                        if(!$has_salary) {
+                            Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_salary_period = '%s'", DB_TABLE_PREFIX, $params['salaryPeriod']));
+                            $has_salary = true;
+                        }
                     }
                     break;
                 case 'salaryMax':
                     if($value > 0) {
                         Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_max <= %d", DB_TABLE_PREFIX, $value));
                         $has_conditions = true;
+                        if(!$has_salary) {
+                            Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_salary_period = '%s'", DB_TABLE_PREFIX, $params['salaryPeriod']));
+                            $has_salary = true;
+                        }
                     }
-                    break;
-                case 'salaryPeriod':
-                    Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_salary_period = '%s'", DB_TABLE_PREFIX, $value));
-                    $has_conditions = true;
                     break;
                 default:
                     break;
