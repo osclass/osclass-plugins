@@ -22,13 +22,13 @@ function cars_search_conditions($params) {
         // We may want to  have param-specific searches 
         switch($key) {
             case 'type':
-                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_vehicle_type_id = %st_item_car_vehicle_type_attr.pk_i_id AND %st_item_car_vehicle_type_attr.s_name = '%%%s%%'", DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $value));
+                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_vehicle_type_id = %st_item_car_vehicle_type_attr.pk_i_id AND %st_item_car_vehicle_type_attr.s_name = '%%%s%%'", DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $value));
                 Search::newInstance()->addTable(sprintf("%st_item_car_vehicle_type_attr", DB_TABLE_PREFIX));
                 $has_conditions = true;
                 break;
             case 'model':
                 Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_model_id = %st_item_car_model_attr.pk_i_id AND %st_item_car_model_attr.s_name = '%%%s%%'", DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $value));
-                Search::newInstance()->addTable(sprintf("%st_item_model_attr", DB_TABLE_PREFIX));
+                Search::newInstance()->addTable(sprintf("%st_item_car_model_attr", DB_TABLE_PREFIX));
                 $has_conditions = true;
                 break;
             case 'numAirbags':
