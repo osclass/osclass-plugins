@@ -19,7 +19,7 @@
     
     $year         = explode(" - ", Params::getParam('year'));
     $yearMin      = ($year[0]!='')?$year[0]:'1900';
-    $yearMax      = (isset($year[1]) && $year[1]!='')?$year[1]:'2011';
+    $yearMax      = (isset($year[1]) && $year[1]!='')?$year[1]:date('Y');
     
     $sq           = explode(" - ", Params::getParam('sq'));
     $sqMin        = ($sq[0]!='')?$sq[0]:'5';
@@ -74,7 +74,7 @@
         $("#year-range").slider({
             range: true,
             min: 1900,
-            max: 2011,
+            max: <?php echo date('Y');?>,
             values: [<?php echo $yearMin; ?>, <?php echo $yearMax; ?>],
             slide: function(event, ui) {
                 $("#year").val(ui.values[0] + ' - ' + ui.values[1]);
@@ -110,6 +110,7 @@
             <h6><?php _e('Property type', 'realstate_attributes'); ?></h6>
             <div class="">
                 <select name="p_type" id="p_type">
+                <option value=""><?php _e('Select a property type', 'realstate_attributes');?></option>
                 <?php foreach($p_type[$locale] as $k => $v) { ?>
                     <option value="<?php echo  $k; ?>" <?php echo (Params::getParam('p_type')== $k)?'selected':''; ?>><?php echo  @$v;?></option>
                 <?php }; ?>
