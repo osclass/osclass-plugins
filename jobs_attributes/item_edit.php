@@ -39,19 +39,25 @@
             <option value="FULL" <?php if( @$detail['e_position_type'] == 'FULL' ) { echo 'selected'; }; ?>><?php _e('Full-time', 'jobs_attributes'); ?></option>
         </select>
     </div>
-    <div class="row _100 auto">
+    <div style="height: 60px;" class="row _100 auto">
         <label for="salaryRange"><?php _e('Salary range', 'jobs_attributes'); ?></label>
-        <input type="text" id="salaryRange" name="salaryRange" style="border:0; color:#f6931f; font-weight:bold;" readonly/> <?php echo osc_currency();?>
-            <div id="slider" style="width:200px;" >
+        <div>
+            <div style="float:left;">
+                <input type="text" id="salaryRange" name="salaryRange" dir="rtl" style="width: 140px;border:0; color:#f6931f; font-weight:bold;" readonly/> <?php echo osc_currency();?>
+            </div>
+            <div style="float:left;padding-left:10px;">
+                <select name="salaryPeriod" id="salaryPeriod">
+                    <option value="HOUR" <?php if(@$detail['e_salary_period']=='HOUR') { echo 'selected'; }; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
+                    <option value="WEEK" <?php if(@$detail['e_salary_period']=='WEEK') { echo 'selected'; }; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
+                    <option value="MONTH" <?php if(@$detail['e_salary_period']=='MONTH') { echo 'selected'; }; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
+                    <option value="YEAR" <?php if(@$detail['e_salary_period']=='YEAR') { echo 'selected'; }; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
+                </select>
+            </div>
+            <div id="slider" style="width:200px;clear: both;padding-left:130px;padding-top: 10px;" >
                 <div id="salary-range"></div>
             </div>
-        <br/>
-        <select name="salaryPeriod" id="salaryPeriod">
-            <option value="HOUR" <?php if(@$detail['e_salary_period']=='HOUR') { echo 'selected'; }; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
-            <option value="WEEK" <?php if(@$detail['e_salary_period']=='WEEK') { echo 'selected'; }; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
-            <option value="MONTH" <?php if(@$detail['e_salary_period']=='MONTH') { echo 'selected'; }; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
-            <option value="YEAR" <?php if(@$detail['e_salary_period']=='YEAR') { echo 'selected'; }; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
-        </select>
+            
+        </div>
     </div>
 
 <?php
