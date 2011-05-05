@@ -1,5 +1,4 @@
 <?php
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . "/oc-load.php";
 
 /**
  * Handle file uploads via XMLHttpRequest
