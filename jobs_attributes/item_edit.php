@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#plugin-hook input:text, #plugin-hook select, #plugin-hook input:text').uniform();
+        $('#plugin-hook input:text, #plugin-hook select').uniform();
         $("#salary-range").slider({
             range: true,
             min: <?php echo job_plugin_salary_min();?>,

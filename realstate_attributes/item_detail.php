@@ -141,6 +141,7 @@
     </li>
     <?php } ?>
 </ul>
+<div style="clear: both;"></div>
 <br/>
         
 
