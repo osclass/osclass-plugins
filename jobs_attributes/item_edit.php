@@ -11,7 +11,7 @@
                 $("#salaryRange").val(ui.values[0] + ' <?php echo osc_currency();?> - ' + ui.values[1] + ' <?php echo osc_currency();?>');
             }
         });            
-        $("#salaryRange").val($("#salary-range").slider("values", 0) + ' - ' + $("#salary-range").slider("values", 1));
+        $("#salaryRange").val($("#salary-range").slider("values", 0) + ' <?php echo osc_currency();?> - ' + $("#salary-range").slider("values", 1) + ' <?php echo osc_currency();?>');
     });
 </script>
 <h2><?php _e("Job attributes", 'jobs_attributes');?></h2>
@@ -41,18 +41,18 @@
     </div>
     <div style="height: 60px;" class="row _100 auto">
         <label for="salaryRange"><?php _e('Salary range', 'jobs_attributes'); ?></label>
-        <div>
-            <div style="float:left;">
-                <input type="text" id="salaryRange" name="salaryRange" style="width: 140px;border:0; color:#f6931f; font-weight:bold;" readonly/>
-            </div>
-            <div style="float:left;padding-left:10px;">
+        <div class="auto">
+            
+            <input type="text" id="salaryRange" name="salaryRange" style="width: auto;border:0; color:#f6931f; font-weight:bold;" readonly/>
+            
+<!--            <div class="auto" style="padding-left:10px;">-->
                 <select name="salaryPeriod" id="salaryPeriod">
                     <option value="HOUR" <?php if(@$detail['e_salary_period']=='HOUR') { echo 'selected'; }; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
                     <option value="WEEK" <?php if(@$detail['e_salary_period']=='WEEK') { echo 'selected'; }; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
                     <option value="MONTH" <?php if(@$detail['e_salary_period']=='MONTH') { echo 'selected'; }; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
                     <option value="YEAR" <?php if(@$detail['e_salary_period']=='YEAR') { echo 'selected'; }; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
                 </select>
-            </div>
+<!--            </div>-->
             <div id="slider" style="width:200px;clear: both;padding-left:130px;padding-top: 10px;" >
                 <div id="salary-range"></div>
             </div>
