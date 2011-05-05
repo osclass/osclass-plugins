@@ -66,30 +66,33 @@
         $("#sq").val($("#sq-range").slider("values", 0) + ' - ' + $("#sq-range").slider("values", 1));
     });
 </script>
-<div>
-    <table>
-        <tr>
-            <td><label for="property_type"><?php _e('Type', 'realstate_attributes'); ?></label></td>
-            <td>
-                <select name="property_type" id="property_type">
-                    <option value="FOR RENT"><?php _e('For rent', 'realstate_attributes'); ?></option>
-                    <option value="FOR SALE"><?php _e('For sale', 'realstate_attributes'); ?></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-<?php
+
+<fieldset>
+    <h3><stong style="font-weight: normal;"><?php _e("Realestate attributes", 'realstate_attributes');?></stong></h3>
+    <div class="row one_input">
+        <h6><?php _e('Type', 'realstate_attributes'); ?></h6>
+        <div class="">
+            <select name="property_type" id="property_type">
+                <option value="FOR RENT"><?php _e('For rent', 'realstate_attributes'); ?></option>
+                <option value="FOR SALE"><?php _e('For sale', 'realstate_attributes'); ?></option>
+            </select>
+        </div>
+    </div>
+    <div class="row one_input">
+        <?php
         $locales = osc_get_locales();
         if(count($locales)==1) {
             $locale = $locales[0];
-?>
+        ?>
             <p>
-                <label><?php _e('Property type', 'realstate_attributes'); ?></label><br />
-                <select name="p_type" id="p_type">
-                <?php foreach($p_type[$locale['pk_c_code']] as $k => $v) { ?>
-                    <option value="<?php echo  $k; ?>"><?php echo  @$v;?></option>
-                <?php }; ?>
-                </select>
+                <h6><?php _e('Property type', 'realstate_attributes'); ?></h6>
+                <div class="">
+                    <select name="p_type" id="p_type">
+                    <?php foreach($p_type[$locale['pk_c_code']] as $k => $v) { ?>
+                        <option value="<?php echo  $k; ?>"><?php echo  @$v;?></option>
+                    <?php }; ?>
+                    </select>
+                </div>
             </p>
         <?php } else { ?>
             <div class="tabber">
@@ -97,85 +100,109 @@
                 <div class="tabbertab">
                     <h2><?php echo $locale['s_name']; ?></h2>
                     <p>
-                        <label><?php _e('Property type', 'realstate_attributes'); ?></label><br />
-                        <select name="p_type" id="p_type">
-                        <?php foreach($p_type[$locale['pk_c_code']] as $k => $v) { ?>
-                            <option value="<?php echo  $k; ?>"><?php echo @$v;?></option>
-                        <?php }; ?>
-                        </select>
+                        <h6><?php _e('Property type', 'realstate_attributes'); ?></h6>
+                        <div class="auto">
+                            <select name="p_type" id="p_type">
+                            <?php foreach($p_type[$locale['pk_c_code']] as $k => $v) { ?>
+                                <option value="<?php echo  $k; ?>"><?php echo @$v;?></option>
+                            <?php }; ?>
+                            </select>
+                        </div>
                     </p>
                 </div>
                 <?php }; ?>
             </div>
+        
         <?php }; ?>
-        </tr>
-        <tr>
-            <p>
-                <label for="numFloor"><?php _e('Num. Floors Range', 'realstate_attributes'); ?></label>
-                <input type="text" id="numFloor" name="numFloor" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
-            </p>
-            <div id="slider" >
-                <div id="floor-range"></div>
-            </div>
-        </tr>
-        <tr>
-            <p>
-                <label for="rooms"><?php _e('Rooms Range', 'realstate_attributes'); ?></label>
-                <input type="text" id="rooms" name="rooms" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
-            </p>
-            <div id="slider" >
-                <div id="room-range"></div>
-            </div>
-        </tr>
-        <tr>
-            <p>
-                <label for="bathrooms"><?php _e('Bathrooms Range', 'realstate_attributes'); ?></label>
-                <input type="text" id="bathrooms" name="bathrooms" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
-            </p>
-            <div id="slider" >
-                <div id="bathroom-range"></div>
-            </div>
-        </tr>
-        <tr>
-            <p>
-                <label for="garages"><?php _e('Garages Range', 'realstate_attributes'); ?></label>
-                <input type="text" id="garages" name="garages" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
-            </p>
-            <div id="slider" >
-                <div id="garage-range"></div>
-            </div>
-        </tr>
-        <tr>
-            <p>
-                <label for="year"><?php _e('Construction year Range', 'realstate_attributes'); ?></label>
-                <input type="text" id="year" name="year" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
-            </p>
-            <div id="slider" >
-                <div id="year-range"></div>
-            </div>
-        </tr>
-        <tr>
-            <p>
-                <label for="sq"><?php _e('Square Meters Range', 'realstate_attributes'); ?></label>
-                <input type="text" name="sq" id="sq" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
-            </p>
-            <div id="slider" >
-                <div id="sq-range"></div>
-            </div>
-        </tr>
-        <tr>
-            <td><?php _e('Other characteristics', 'realstate_attributes'); ?></td>
-            <td>
-                <input type="checkbox" name="heating" id="heating" value="1" /> <label for="heating"><?php _e('Heating', 'realstate_attributes'); ?></label><br />
-                <input type="checkbox" name="airCondition" id="airCondition" value="1" /> <label for="airCondition"><?php _e('Air condition', 'realstate_attributes'); ?></label><br />
-                <input type="checkbox" name="elevator" id="elevator" value="1" /> <label for="elevator"><?php _e('Elevator', 'realstate_attributes'); ?></label><br />
-                <input type="checkbox" name="terrace" id="terrace" value="1" /> <label for="terrace"><?php _e('Terrace', 'realstate_attributes'); ?></label><br />
-                <input type="checkbox" name="parking" id="parking" value="1" /> <label for="parking"><?php _e('Parking', 'realstate_attributes'); ?></label><br />
-                <input type="checkbox" name="furnished" id="furnished" value="1" /> <label for="furnished"><?php _e('Furnished', 'realstate_attributes'); ?></label><br />
-                <input type="checkbox" name="new" id="new" value="1" /> <label for="new"><?php _e('New', 'realstate_attributes'); ?></label><br />
-                <input type="checkbox" name="by_owner" id="by_owner" value="1" /> <label for="by_owner"><?php _e('By owner', 'realstate_attributes'); ?></label><br />
-            </td>
-        </tr>
-    </table>
-</div>
-
+    </div>
+    
+    <div class="row one_input">
+        
+            <h6 for="numFloor"><?php _e('Num. Floors Range', 'realstate_attributes'); ?></h6>
+            <input type="text" id="numFloor" name="numFloor" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/><br/>
+        
+        <div id="slider" >
+            <div id="floor-range"></div>
+        </div>
+    </div>
+    
+    <div class="row one_input">
+        <p>
+            <h6><?php _e('Rooms Range', 'realstate_attributes'); ?></h6>
+            <input type="text" id="rooms" name="rooms" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/>
+        </p>
+        <div id="slider" >
+            <div id="room-range"></div>
+        </div>
+    </div>
+    
+    <div class="row one_input">
+        <p>
+            <h6><?php _e('Bathrooms Range', 'realstate_attributes'); ?></h6>
+            <input type="text" id="bathrooms" name="bathrooms" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/>
+        </p>
+        <div id="slider" >
+            <div id="bathroom-range"></div>
+        </div>
+    </div>
+    
+    <div class="row one_input">
+        <p>
+            <h6><?php _e('Garages Range', 'realstate_attributes'); ?></h6>
+            <input type="text" id="garages" name="garages" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/>
+        </p>
+        <div id="slider" >
+            <div id="garage-range"></div>
+        </div>
+    </div>
+    
+    <div class="row one_input">
+        <p>
+            <h6><?php _e('Construction year Range', 'realstate_attributes'); ?></h6>
+            <input type="text" id="year" name="year" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/>
+        </p>
+        <div id="slider" >
+            <div id="year-range"></div>
+        </div>
+    </div>
+    
+    <div class="row one_input">
+        <p>
+            <h6><?php _e('Square Meters Range', 'realstate_attributes'); ?></h6>
+            <input type="text" name="sq" id="sq" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/>
+        </p>
+        <div id="slider" >
+            <div id="sq-range"></div>
+        </div>
+    </div>
+    
+    <div class="row checkboxes">
+        <h6><?php _e('Other characteristics', 'realstate_attributes'); ?></h6>
+        <ul>
+            <li>
+                <input style="width:20px;" type="checkbox" name="heating" id="heating" value="1" /> <label for="heating"><strong><?php _e('Heating', 'realstate_attributes'); ?></strong></label>
+            </li>
+            <li>
+                <input style="width:20px;" type="checkbox" name="airCondition" id="airCondition" value="1" /> <label for="airCondition"><strong><?php _e('Air condition', 'realstate_attributes'); ?></strong></label>
+            </li>
+            <li>
+                <input style="width:20px;" type="checkbox" name="elevator" id="elevator" value="1" /> <label for="elevator"><strong><?php _e('Elevator', 'realstate_attributes'); ?></strong></label>
+            </li>
+            <li>
+                <input style="width:20px;" type="checkbox" name="terrace" id="terrace" value="1" /> <label for="terrace"><strong><?php _e('Terrace', 'realstate_attributes'); ?></strong></label>
+            </li>
+            <li>
+                <input style="width:20px;" type="checkbox" name="parking" id="parking" value="1" /> <label for="parking"><strong><?php _e('Parking', 'realstate_attributes'); ?></strong></label>
+            </li>
+            <li>
+                <input style="width:20px;" type="checkbox" name="furnished" id="furnished" value="1" /> <label for="furnished"><strong><?php _e('Furnished', 'realstate_attributes'); ?></strong></label>
+            </li>
+            <li>
+                <input style="width:20px;" type="checkbox" name="new" id="new" value="1" /> <label for="new"><strong><?php _e('New', 'realstate_attributes'); ?></strong></label>
+            </li>
+            <li>
+                <input style="width:20px;" type="checkbox" name="by_owner" id="by_owner" value="1" /> <label for="by_owner"><strong><?php _e('By owner', 'realstate_attributes'); ?></strong></label>
+            </li>
+        </ul>
+    </div>
+</fieldset>
