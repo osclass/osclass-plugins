@@ -76,6 +76,8 @@ if(Params::getParam('plugin_action')=='done') {
                 <p>
                     <label>
                         <?php _e('You could allow users to send their resumes to a specific email address or to send them to the author of the ad. Also you could specify is unregistered users could or could not upload their resumes.', 'jobs_attributes'); ?>
+                        <br/>
+                        <?php _e('The salary range will appear as a slider, at the search page and at the publish page. You could modify the minimum and maximum values of that slider as well as the value of the "steps" or increments.', 'jobs_attributes'); ?>
                     </label>
                 </p>
             </fieldset>
