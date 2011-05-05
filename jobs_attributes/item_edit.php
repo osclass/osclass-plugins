@@ -43,7 +43,7 @@
         <label for="salaryRange"><?php _e('Salary range', 'jobs_attributes'); ?></label>
         <div>
             <div style="float:left;">
-                <input type="text" id="salaryRange" name="salaryRange" dir="rtl" style="width: 140px;border:0; color:#f6931f; font-weight:bold;" readonly/> <?php echo osc_currency();?>
+                <input type="text" id="salaryRange" name="salaryRange" style="width: 140px;border:0; color:#f6931f; font-weight:bold;" readonly/> <?php echo osc_currency();?>
             </div>
             <div style="float:left;padding-left:10px;">
                 <select name="salaryPeriod" id="salaryPeriod">

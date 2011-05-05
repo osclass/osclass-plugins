@@ -85,7 +85,7 @@
     function createUploader(){            
         var uploader = new qq.FileUploader({
             element: document.getElementById('cv_uploader'),
-            action: '<?php echo osc_plugin_url(__FILE__);?>cv_uploader.php?id=<?php echo osc_item_id();?>',
+            action: '<?php echo osc_ajax_plugin_url(osc_plugin_folder(__FILE__) . "cv_uploader.php?id=" . osc_item_id());?>',
             debug: false
         });           
     }
