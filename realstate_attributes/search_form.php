@@ -1,3 +1,30 @@
+<?php
+    $locale = osc_current_user_locale();
+    
+    $numFloor     = explode(" - ", Params::getParam('numFloor'));
+    $numFloorMin  = ($numFloor[0]!='')?$numFloor[0]:'1';
+    $numFloorMax  = (isset($numFloor[1]) && $numFloor[1]!='')?$numFloor[1]:'15';
+    
+    $rooms        = explode(" - ", Params::getParam('rooms'));
+    $roomsMin     = ($rooms[0]!='')?$rooms[0]:'1';
+    $roomsMax     = (isset($rooms[1]) && $rooms[1]!='')?$rooms[1]:'10';
+    
+    $bathrooms    = explode(" - ", Params::getParam('bathrooms'));
+    $bathroomsMin = ($bathrooms[0]!='')?$bathrooms[0]:'1';
+    $bathroomsMax = (isset($bathrooms[1]) && $bathrooms[1]!='')?$bathrooms[1]:'5';
+    
+    $garages      = explode(" - ", Params::getParam('garages'));
+    $garagesMin   = ($garages[0]!='')?$garages[0]:'1';
+    $garagesMax   = (isset($garages[1]) && $garages[1]!='')?$garages[1]:'5';
+    
+    $year         = explode(" - ", Params::getParam('year'));
+    $yearMin      = ($year[0]!='')?$year[0]:'1900';
+    $yearMax      = (isset($year[1]) && $year[1]!='')?$year[1]:'2011';
+    
+    $sq           = explode(" - ", Params::getParam('sq'));
+    $sqMin        = ($sq[0]!='')?$sq[0]:'5';
+    $sqMax        = (isset($sq[1]) && $sq[1]!='')?$sq[1]:'500';
+?>
 <style type="text/css">
     #slider { margin-right:10px; margin-left:10px;};
 </style>
@@ -8,7 +35,7 @@
             range: true,
             min: 1,
             max: 15,
-            values: [1, 15],
+            values: [<?php echo $numFloorMin;?>, <?php echo $numFloorMax;?>],
             slide: function(event, ui) {
                 $("#numFloor").val(ui.values[0] + ' - ' + ui.values[1]);
             }
@@ -18,7 +45,7 @@
             range: true,
             min: 1,
             max: 10,
-            values: [1, 10],
+            values: [<?php echo $roomsMin; ?>, <?php echo $roomsMax;?>],
             slide: function(event, ui) {
                 $("#rooms").val(ui.values[0] + ' - ' + ui.values[1]);
             }
@@ -28,7 +55,7 @@
             range: true,
             min: 1,
             max: 5,
-            values: [1, 5],
+            values: [<?php echo $bathroomsMin; ?>, <?php echo $bathroomsMax; ?>],
             slide: function(event, ui) {
                 $("#bathrooms").val(ui.values[0] + ' - ' + ui.values[1]);
             }
@@ -38,7 +65,7 @@
             range: true,
             min: 1,
             max: 5,
-            values: [1, 5],
+            values: [<?php echo $garagesMin; ?>, <?php echo $garagesMax; ?>],
             slide: function(event, ui) {
                 $("#garages").val(ui.values[0] + ' - ' + ui.values[1]);
             }
@@ -48,7 +75,7 @@
             range: true,
             min: 1900,
             max: 2011,
-            values: [1900, 2011],
+            values: [<?php echo $yearMin; ?>, <?php echo $yearMax; ?>],
             slide: function(event, ui) {
                 $("#year").val(ui.values[0] + ' - ' + ui.values[1]);
             }
@@ -58,7 +85,7 @@
             range: true,
             min: 5,
             max: 500,
-            values: [5, 500],
+            values: [<?php echo $sqMin; ?>, <?php echo $sqMax; ?>],
             slide: function(event, ui) {
                 $("#sq").val(ui.values[0] + ' - ' + ui.values[1]);
             }
@@ -73,47 +100,22 @@
         <h6><?php _e('Type', 'realstate_attributes'); ?></h6>
         <div class="">
             <select name="property_type" id="property_type">
-                <option value="FOR RENT"><?php _e('For rent', 'realstate_attributes'); ?></option>
-                <option value="FOR SALE"><?php _e('For sale', 'realstate_attributes'); ?></option>
+                <option value="FOR RENT" <?php echo (Params::getParam('property_type')=='FOR RENT')?'selected':''; ?>><?php _e('For rent', 'realstate_attributes'); ?></option>
+                <option value="FOR SALE" <?php echo (Params::getParam('property_type')=='FOR SALE')?'selected':''; ?>><?php _e('For sale', 'realstate_attributes'); ?></option>
             </select>
         </div>
     </div>
     <div class="row one_input">
-        <?php
-        $locales = osc_get_locales();
-        if(count($locales)==1) {
-            $locale = $locales[0];
-        ?>
-            <p>
-                <h6><?php _e('Property type', 'realstate_attributes'); ?></h6>
-                <div class="">
-                    <select name="p_type" id="p_type">
-                    <?php foreach($p_type[$locale['pk_c_code']] as $k => $v) { ?>
-                        <option value="<?php echo  $k; ?>"><?php echo  @$v;?></option>
-                    <?php }; ?>
-                    </select>
-                </div>
-            </p>
-        <?php } else { ?>
-            <div class="tabber">
-                <?php foreach($locales as $locale) {?>
-                <div class="tabbertab">
-                    <h2><?php echo $locale['s_name']; ?></h2>
-                    <p>
-                        <h6><?php _e('Property type', 'realstate_attributes'); ?></h6>
-                        <div class="auto">
-                            <select name="p_type" id="p_type">
-                            <?php foreach($p_type[$locale['pk_c_code']] as $k => $v) { ?>
-                                <option value="<?php echo  $k; ?>"><?php echo @$v;?></option>
-                            <?php }; ?>
-                            </select>
-                        </div>
-                    </p>
-                </div>
+        <p>
+            <h6><?php _e('Property type', 'realstate_attributes'); ?></h6>
+            <div class="">
+                <select name="p_type" id="p_type">
+                <?php foreach($p_type[$locale] as $k => $v) { ?>
+                    <option value="<?php echo  $k; ?>" <?php echo (Params::getParam('p_type')== $k)?'selected':''; ?>><?php echo  @$v;?></option>
                 <?php }; ?>
+                </select>
             </div>
-        
-        <?php }; ?>
+        </p>
     </div>
     
     <div class="row one_input">
@@ -180,28 +182,28 @@
         <h6><?php _e('Other characteristics', 'realstate_attributes'); ?></h6>
         <ul>
             <li>
-                <input style="width:20px;" type="checkbox" name="heating" id="heating" value="1" /> <label for="heating"><strong><?php _e('Heating', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('heating') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="heating" id="heating" value="1" /> <label for="heating"><strong><?php _e('Heating', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input style="width:20px;" type="checkbox" name="airCondition" id="airCondition" value="1" /> <label for="airCondition"><strong><?php _e('Air condition', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('airCondition') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="airCondition" id="airCondition" value="1" /> <label for="airCondition"><strong><?php _e('Air condition', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input style="width:20px;" type="checkbox" name="elevator" id="elevator" value="1" /> <label for="elevator"><strong><?php _e('Elevator', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('elevator') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="elevator" id="elevator" value="1" /> <label for="elevator"><strong><?php _e('Elevator', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input style="width:20px;" type="checkbox" name="terrace" id="terrace" value="1" /> <label for="terrace"><strong><?php _e('Terrace', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('terrace') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="terrace" id="terrace" value="1" /> <label for="terrace"><strong><?php _e('Terrace', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input style="width:20px;" type="checkbox" name="parking" id="parking" value="1" /> <label for="parking"><strong><?php _e('Parking', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('parking') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="parking" id="parking" value="1" /> <label for="parking"><strong><?php _e('Parking', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input style="width:20px;" type="checkbox" name="furnished" id="furnished" value="1" /> <label for="furnished"><strong><?php _e('Furnished', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('furnished') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="furnished" id="furnished" value="1" /> <label for="furnished"><strong><?php _e('Furnished', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input style="width:20px;" type="checkbox" name="new" id="new" value="1" /> <label for="new"><strong><?php _e('New', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('new') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="new" id="new" value="1" /> <label for="new"><strong><?php _e('New', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input style="width:20px;" type="checkbox" name="by_owner" id="by_owner" value="1" /> <label for="by_owner"><strong><?php _e('By owner', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('by_owner') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="by_owner" id="by_owner" value="1" /> <label for="by_owner"><strong><?php _e('By owner', 'realstate_attributes'); ?></strong></label>
             </li>
         </ul>
     </div>
