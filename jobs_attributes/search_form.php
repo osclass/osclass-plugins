@@ -2,7 +2,11 @@
     $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
     $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
 ?>
-
+<style type="text/css">
+    .right .selector {
+        float: right;
+    } 
+</style>
 <script type="text/javascript">
     $(function() {
         $("#salary-range").slider({
@@ -12,10 +16,10 @@
             step: <?php echo job_plugin_salary_step();?>,
             values: [<?php echo $salaryMin;?>, <?php echo $salaryMax;?>],
             slide: function(event, ui) {
-                $("#salaryRange").val(ui.values[0] + ' - ' + ui.values[1]);
+                $("#salaryRange").val(ui.values[0] + ' <?php echo osc_currency();?> - ' + ui.values[1] + ' <?php echo osc_currency();?>');
             }
         });            
-        $("#salaryRange").val($("#salary-range").slider("values", 0) + ' - ' + $("#salary-range").slider("values", 1));
+        $("#salaryRange").val($("#salary-range").slider("values", 0) + ' <?php echo osc_currency();?> - ' + $("#salary-range").slider("values", 1) + ' <?php echo osc_currency();?>');
     });
 </script>
 <fieldset>
@@ -52,7 +56,7 @@
             <div style="width: 60%;float:left;" class="auto">
                 <input type="text" id="salaryRange" name="salaryRange" style="background-color: transparent;border:0; color:#f6931f; font-weight:bold;width: auto;" readonly/>
             </div>
-            <div style="width: 40%;float:left;" class="auto">
+            <div style="width: 40%;float:left;" class="right auto">
                 <select name="salaryPeriod" id="salaryPeriod">
                     <option value="HOUR" <?php echo (Params::getParam('salaryPeriod')=='HOUR')?'selected':''; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
                     <option value="WEEK" <?php echo (Params::getParam('salaryPeriod')=='WEEK')?'selected':''; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
