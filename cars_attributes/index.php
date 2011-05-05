@@ -22,24 +22,31 @@ function cars_search_conditions($params) {
         // We may want to  have param-specific searches 
         switch($key) {
             case 'type':
-                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_vehicle_type_id = %st_item_car_vehicle_type_attr.pk_i_id AND %st_item_car_vehicle_type_attr.s_name = '%%%s%%'", DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $value));
-                Search::newInstance()->addTable(sprintf("%st_item_car_vehicle_type_attr", DB_TABLE_PREFIX));
-                $has_conditions = true;
-                break;
-            case 'model':
-                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_model_id = %st_item_car_model_attr.pk_i_id AND %st_item_car_model_attr.s_name = '%%%s%%'", DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $value));
-                Search::newInstance()->addTable(sprintf("%st_item_car_model_attr", DB_TABLE_PREFIX));
-                $has_conditions = true;
-                break;
-            case 'numAirbags':
-                if($value != 0) {
-                    Search::newInstance()->addConditions(sprintf("%st_item_car_attr.i_num_airbags = %d", DB_TABLE_PREFIX, $value));
+                if($value!='') {
+                    Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_vehicle_type_id = %d", DB_TABLE_PREFIX, $value));
                     $has_conditions = true;
                 }
                 break;
+
+            case 'make':
+                if($value!='') {
+                    Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_make_id = %d", DB_TABLE_PREFIX, $value));
+                    $has_conditions = true;
+                }
+                break;
+
+            case 'model':
+                if($value!='') {
+                    Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_model_id = %d", DB_TABLE_PREFIX, $value));
+                    $has_conditions = true;
+                }
+                break;
+
             case 'transmission':
-                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.e_transmission = '%s'", DB_TABLE_PREFIX, $value));
-                $has_conditions = true;
+                if($value=='AUTO' || $value=='MANUAL') {
+                    Search::newInstance()->addConditions(sprintf("%st_item_car_attr.e_transmission = '%s'", DB_TABLE_PREFIX, $value));
+                    $has_conditions = true;
+                }
                 break;
     		default:
                 break;
@@ -106,14 +113,15 @@ function cars_form($catId = '') {
 	if($catId!="") {
 		// We check if the category is the same as our plugin
 		if(osc_is_this_category('cars_plugin', $catId)) {
-            $make = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
+            $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
             $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
-            $car_type = array();
+            $car_types = array();
             foreach($data as $d) {
-                $car_type[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
+                $car_types[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
             }
             unset($data);
-			require_once 'form.php';
+            $models = array();
+			require_once 'item_edit.php';
 		}
 	}
 }
