@@ -58,8 +58,8 @@
         <select name="make" id="make" >
             <option value=""><?php  _e('Select a make'); ?></option>
             <?php foreach($makes as $a): ?>
-			<option value="<?php echo $a['pk_i_id']; ?>" <?php if($detail['fk_i_make_id']==$a['pk_i_id']) { echo 'selected';};?>><?php echo $a['s_name']; ?></option>
-		<?php endforeach; ?>
+            <option value="<?php echo $a['pk_i_id']; ?>" <?php if($detail['fk_i_make_id']==$a['pk_i_id']) { echo 'selected';};?>><?php echo $a['s_name']; ?></option>
+            <?php endforeach; ?>
 	</select>
     </div>
     <div class="row _200">
@@ -110,7 +110,7 @@
 	<label><?php _e('Doors'); ?></label>
         <select name="doors" id="doors">
             <?php foreach(range(3, 5) as $n): ?>
-                <option value="<?php echo $n; ?>" <?php if($detail['i_doors']==$n) { echo 'selected';};?>><?php echo $n; ?></option>
+            <option value="<?php echo $n; ?>" <?php if($detail['i_doors']==$n) { echo 'selected';};?>><?php echo $n; ?></option>
             <?php endforeach; ?>
 	</select>
     </div>
@@ -118,7 +118,7 @@
 	<label><?php _e('Seats'); ?></label>
         <select name="seats" id="seats">
             <?php foreach(range(1, 17) as $n): ?>
-                <option value="<?php echo $n; ?>" <?php if($detail['i_seats']==$n) { echo 'selected';};?>><?php echo $n; ?></option>
+            <option value="<?php echo $n; ?>" <?php if($detail['i_seats']==$n) { echo 'selected';};?>><?php echo $n; ?></option>
             <?php endforeach; ?>
 	</select>
     </div>
@@ -134,7 +134,7 @@
 	<label><?php _e('Num. Airbags'); ?></label>
         <select name="num_airbags" id="num_airbags">
             <?php foreach(range(0, 8) as $n): ?>
-                <option value="<?php echo $n; ?>" <?php if($detail['i_num_airbags']==$n) { echo 'selected';};?>><?php echo $n; ?></option>
+            <option value="<?php echo $n; ?>" <?php if($detail['i_num_airbags']==$n) { echo 'selected';};?>><?php echo $n; ?></option>
             <?php endforeach; ?>
 	</select>
     </div>
@@ -185,7 +185,7 @@
 	<label><?php _e('Gears'); ?></label>
 	<select name="gears" id="gears">
             <?php foreach(range(1, 8) as $n): ?>
-                <option value="<?php echo $n; ?>" <?php if($detail['i_gears']==$n) { echo 'selected';};?>><?php echo $n; ?></option>
+            <option value="<?php echo $n; ?>" <?php if($detail['i_gears']==$n) { echo 'selected';};?>><?php echo $n; ?></option>
             <?php endforeach; ?>
 	</select>
     </div>

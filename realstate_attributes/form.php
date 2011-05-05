@@ -21,7 +21,7 @@
         <label><?php _e('Property type', 'realstate_attributes'); ?></label>
         <select name="p_type" id="p_type">
         <?php foreach($p_type[$locales[0]['pk_c_code']] as $k => $v) { ?>
-                <option value="<?php echo @$k; ?>"><?php echo @$v;?></option>
+            <option value="<?php echo @$k; ?>"><?php echo @$v;?></option>
         <?php }; ?>
         </select>		
     <?php } else { ?>
@@ -33,7 +33,7 @@
                     <label><?php _e('Property type', 'realstate_attributes'); ?></label><br />
                     <select name="p_type" id="p_type">
                     <?php foreach($p_type[$locale['pk_c_code']] as $k => $v) { ?>
-                            <option value="<?php echo @$k; ?>"><?php echo @$v;?></option>
+                        <option value="<?php echo @$k; ?>"><?php echo @$v;?></option>
                     <?php }; ?>
                     </select>
                 </p>

@@ -60,7 +60,7 @@
         <select name="make" id="make" >
             <option value=""><?php  _e('Select a make'); ?></option>
             <?php foreach($make as $a): ?>
-                <option value="<?php echo $a['pk_i_id']; ?>"><?php echo $a['s_name']; ?></option>
+            <option value="<?php echo $a['pk_i_id']; ?>"><?php echo $a['s_name']; ?></option>
             <?php endforeach; ?>
 	</select>
     </div>
@@ -109,7 +109,7 @@
 	<label><?php _e('Doors'); ?></label>
         <select name="doors" id="doors">
             <?php foreach(range(3, 5) as $n): ?>
-                <option value="<?php echo $n; ?>"><?php echo $n; ?></option>
+            <option value="<?php echo $n; ?>"><?php echo $n; ?></option>
             <?php endforeach; ?>
 	</select>
     </div>
@@ -117,7 +117,7 @@
 	<label><?php _e('Seats'); ?></label>
         <select name="seats" id="seats">
             <?php foreach(range(1, 17) as $n): ?>
-                <option value="<?php echo $n; ?>"><?php echo $n; ?></option>
+            <option value="<?php echo $n; ?>"><?php echo $n; ?></option>
             <?php endforeach; ?>
 	</select>
     </div>
@@ -133,7 +133,7 @@
 	<label><?php _e('Num. Airbags'); ?></label>
         <select name="num_airbags" id="num_airbags">
             <?php foreach(range(0, 8) as $n): ?>
-                <option value="<?php echo $n; ?>"><?php echo $n; ?></option>
+            <option value="<?php echo $n; ?>"><?php echo $n; ?></option>
             <?php endforeach; ?>
 	</select>
     </div>
@@ -184,7 +184,7 @@
 	<label><?php _e('Gears'); ?></label>
 	<select name="gears" id="gears">
             <?php foreach(range(1, 8) as $n): ?>
-                <option value="<?php echo $n; ?>"><?php echo $n; ?></option>
+            <option value="<?php echo $n; ?>"><?php echo $n; ?></option>
             <?php endforeach; ?>
 	</select>
     </div>

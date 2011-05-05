@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#plugin-hook input:text, #plugin-hook select, #plugin-hook input:text').uniform();
+        $('#plugin-hook input:text, #plugin-hook select').uniform();
     });
 </script>
 <h2><?php _e('Realestate attributes', 'realstate_attributes'); ?></h2>
@@ -92,7 +92,7 @@
         <label for="numGarages"><?php _e('Num. of garages (place for a car = one garage)', 'realstate_attributes'); ?></label>
         <select name="numGarages" id="numGarages">
             <?php foreach(range(0, 15) as $n) { ?>
-                <option value="<?php echo $n; ?>" <?php if($n==$detail['i_num_garages']) { echo "selected";};?>><?php echo $n; ?></option>
+            <option value="<?php echo $n; ?>" <?php if($n==$detail['i_num_garages']) { echo "selected";};?>><?php echo $n; ?></option>
             <?php } ?>
         </select>
     </div>

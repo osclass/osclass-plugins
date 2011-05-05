@@ -6,9 +6,9 @@
             min: <?php echo job_plugin_salary_min();?>,
             max: <?php echo job_plugin_salary_max();?>,
             step: <?php echo job_plugin_salary_step();?>,
-            values: [<?php echo (isset($detail['i_salary_min']) && $detail['i_salary_min']!='')?$detail['i_salary_min']:job_plugin_salary_min();?>, <?php echo (isset($detail['i_salary_max']) && $detail['i_salary_max']!='')?$detail['i_salary_max']:job_plugin_salary_max();?>],
+            values: [<?php echo (isset($detail['i_salary_min']) && $detail['i_salary_min']!='')?$detail['i_salary_min']:job_plugin_salary_min();?> , <?php echo (isset($detail['i_salary_max']) && $detail['i_salary_max']!='')?$detail['i_salary_max']:job_plugin_salary_max();?>],
             slide: function(event, ui) {
-                $("#salaryRange").val(ui.values[0] + ' - ' + ui.values[1]);
+                $("#salaryRange").val(ui.values[0] + ' <?php echo osc_currency();?> - ' + ui.values[1] + ' <?php echo osc_currency();?>');
             }
         });            
         $("#salaryRange").val($("#salary-range").slider("values", 0) + ' - ' + $("#salary-range").slider("values", 1));
@@ -43,7 +43,7 @@
         <label for="salaryRange"><?php _e('Salary range', 'jobs_attributes'); ?></label>
         <div>
             <div style="float:left;">
-                <input type="text" id="salaryRange" name="salaryRange" dir="rtl" style="width: 140px;border:0; color:#f6931f; font-weight:bold;" readonly/> <?php echo osc_currency();?>
+                <input type="text" id="salaryRange" name="salaryRange" style="width: 140px;border:0; color:#f6931f; font-weight:bold;" readonly/>
             </div>
             <div style="float:left;padding-left:10px;">
                 <select name="salaryPeriod" id="salaryPeriod">
