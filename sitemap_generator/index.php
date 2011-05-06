@@ -3,12 +3,11 @@
 Plugin Name: Sitemap Generator
 Plugin URI: http://www.osclass.org/
 Description: Sitemap Generator
-Version: 1.0.2
+Version: 1.0.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
 */
-
 
 function sitemap_generator() {
 
@@ -36,7 +35,7 @@ function sitemap_generator() {
     }
     
     // PAGES
-    if(osc_count_static_pages()>0) {
+    if(osc_count_static_pages() > 0) {
         while(osc_has_static_pages()) {
             sitemap_add_url(osc_static_page_url(), substr(osc_static_page_mod_date(), 0, 10), 'yearly');
         }
@@ -44,7 +43,7 @@ function sitemap_generator() {
     
     // ITEMS
     View::newInstance()->_exportVariableToView('items', Item::newInstance()->listLatest( 10000 ) ) ;
-    if(osc_count_items()>0) {
+    if(osc_count_items() > 0) {
         while(osc_has_items()) {
             foreach($locales as $locale) {
                 // Check for non-empty item's descriptions
@@ -112,9 +111,6 @@ function sitemap_help() {
     osc_admin_render_plugin(osc_plugin_path(dirname(__FILE__)) . '/sitemap.php') ;
 }
 
-
-
-
 // This is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'sitemap_help');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
@@ -126,7 +122,5 @@ osc_add_hook('admin_menu', 'sitemap_admin_menu');
 
 // Generate sitemap every hour
 osc_add_hook('cron_hourly', 'sitemap_generator');
-
-
 
 ?>

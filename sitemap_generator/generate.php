@@ -20,6 +20,8 @@
      */
 ?>
 
+<?php sitemap_generator(); ?>
+
 <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
     <div style="padding: 20px;">
         <div>
@@ -27,11 +29,7 @@
                 <legend>
                     <h1><?php _e('Sitemap Generator Help', 'sitemap_generator'); ?></h1>
                 </legend>
-                <h2><?php _e('What is Sitemap Generator Plugin?', 'sitemap_generator') ;?></h2>
-                <?php _e('Sitemap Generator plugin allows you to generate a sitemap.xml file and ping the major search engines so they will be able to index your site', 'sitemap_generator'); ?>.
-
-                <h2><?php _e('How does Sitemap Generator plugin work?', 'sitemap_generator') ;?></h2>
-                <?php _e('The plugin will generate a sitemap.xml file on the root of your OSClass installation. The folder <b>must have write permissions</b> to work correctly. The sitemap.xml file will be generated hourly and at the same time will ping the major search engines. No user interaction is needed', 'sitemap_generator'); ?>.
+                <?php _e('Sitemap.xml generated correctly', 'sitemap_generator'); ?>.
             </fieldset>
         </div>
     </div>
