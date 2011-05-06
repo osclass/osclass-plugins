@@ -9,12 +9,21 @@ Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
 */
 
+if( !function_exists('osc_plugin_path') ) {
+    function osc_plugin_path($file) {
+        $file = preg_replace('|/+|','/', str_replace('\\','/',$file));
+        $plugin_path = preg_replace('|/+|','/', str_replace('\\','/', PLUGINS_PATH));
+        $file = $plugin_path . preg_replace('#^.*oc-content\/plugins\/#','',$file);
+        return $file;
+    }
+}
+
 function sitemap_generator() {
 
     $locales = osc_get_locales();
 
     $filename = osc_base_path() . 'sitemap.xml';
-    unlink($filename);
+    @unlink($filename);
     $start_xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
     file_put_contents($filename, $start_xml);
     
@@ -102,7 +111,7 @@ function sitemap_admin_menu() {
     echo '<h3><a href="#">' . __('Sitemap Generator', 'sitemap_generator') . '</a></h3>
     <ul> 
         <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Help', 'sitemap_generator') . '</a></li>
-        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/generate.php') . '">&raquo; ' . __('Generate sitemap.xml', 'sitemap_generator') . '</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/generate.php') . '">&raquo; ' . __('Generate sitemap', 'sitemap_generator') . '</a></li>
     </ul>';
 }
 
