@@ -10,29 +10,9 @@
     <td width="150px"><label><?php echo  @$detail['s_model']; ?></td>
 </tr>
 <tr>
-<?php $locales = osc_get_locales();
-if(count($locales)==1) {
-$locale = $locales[0];?>
-    
+    <?php $locale = osc_current_user_locale();?>
     <td width="150px"><label><?php echo __('Car type'); ?></label></td>
-    <td width="150px"><?php echo @$detail['locale'][$locale['pk_c_code']]['s_car_type']; ?></td>
-
-<?php } else { ?>
-    
-<div class="tabber">
-<?php foreach($locales as $locale) {?>
-<div class="tabbertab">
-<h2><?php echo $locale['s_name']; ?></h2>
-
-<p>
-<label><?php echo __('Car type'); ?></label><br />
-<?php echo @$detail['locale'][$locale['pk_c_code']]['s_car_type']; ?>
-</p>
-
-</div>
-<?php }; ?>
-</div>
-<?php }; ?>
+    <td width="150px"><?php echo @$detail['locale'][$locale]['s_car_type']; ?></td>
 </tr>
 <tr>
     <td width="150px"><label><?php echo __('Year'); ?></label></td>

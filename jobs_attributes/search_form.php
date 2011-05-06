@@ -2,7 +2,11 @@
     $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
     $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
 ?>
-
+<style type="text/css">
+    .right .selector {
+        float: right;
+    } 
+</style>
 <script type="text/javascript">
     $(function() {
         $("#salary-range").slider({
@@ -12,10 +16,10 @@
             step: <?php echo job_plugin_salary_step();?>,
             values: [<?php echo $salaryMin;?>, <?php echo $salaryMax;?>],
             slide: function(event, ui) {
-                $("#salaryRange").val(ui.values[0] + ' - ' + ui.values[1]);
+                $("#salaryRange").val(ui.values[0] + ' <?php echo osc_currency();?> - ' + ui.values[1] + ' <?php echo osc_currency();?>');
             }
         });            
-        $("#salaryRange").val($("#salary-range").slider("values", 0) + ' - ' + $("#salary-range").slider("values", 1));
+        $("#salaryRange").val($("#salary-range").slider("values", 0) + ' <?php echo osc_currency();?> - ' + $("#salary-range").slider("values", 1) + ' <?php echo osc_currency();?>');
     });
 </script>
 <fieldset>
@@ -46,20 +50,24 @@
             </select>
         </div>
     </div>
-    <div class="row two_input">
+    <div class="row one_input">
         <h6><?php _e('Salary range', 'jobs_attributes'); ?></h6>
-        <input type="text" id="salaryRange" name="salaryRange" style="border:0; color:#f6931f; font-weight:bold;" readonly/>
-            <div id="slider" >
-                <div id="salary-range"></div>
+        <div style="height: 20px;">
+            <div style="width: 60%;float:left;" class="auto">
+                <input type="text" id="salaryRange" name="salaryRange" style="background-color: transparent;border:0; color:#f6931f; font-weight:bold;width: auto;" readonly/>
             </div>
+            <div style="width: 40%;float:left;" class="right auto">
+                <select name="salaryPeriod" id="salaryPeriod">
+                    <option value="HOUR" <?php echo (Params::getParam('salaryPeriod')=='HOUR')?'selected':''; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
+                    <option value="WEEK" <?php echo (Params::getParam('salaryPeriod')=='WEEK')?'selected':''; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
+                    <option value="MONTH" <?php echo (Params::getParam('salaryPeriod')=='MONTH')?'selected':''; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
+                    <option value="YEAR" <?php echo (Params::getParam('salaryPeriod')=='YEAR')?'selected':''; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
+                </select>
+            </div>
+        </div>
         <br/>
-        <div class="auto">
-            <select name="salaryPeriod" id="salaryPeriod">
-                <option value="HOUR" <?php echo (Params::getParam('salaryPeriod')=='HOUR')?'selected':''; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
-                <option value="WEEK" <?php echo (Params::getParam('salaryPeriod')=='WEEK')?'selected':''; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
-                <option value="MONTH" <?php echo (Params::getParam('salaryPeriod')=='MONTH')?'selected':''; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
-                <option value="YEAR" <?php echo (Params::getParam('salaryPeriod')=='YEAR')?'selected':''; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
-            </select>
+        <div id="slider" >
+            <div id="salary-range"></div>
         </div>
     </div>
 </fieldset>
