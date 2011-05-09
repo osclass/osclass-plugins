@@ -3,19 +3,27 @@
 Plugin Name: Sitemap Generator
 Plugin URI: http://www.osclass.org/
 Description: Sitemap Generator
-Version: 1.0.2
+Version: 1.0.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
 */
 
+if( !function_exists('osc_plugin_path') ) {
+    function osc_plugin_path($file) {
+        $file = preg_replace('|/+|','/', str_replace('\\','/',$file));
+        $plugin_path = preg_replace('|/+|','/', str_replace('\\','/', PLUGINS_PATH));
+        $file = $plugin_path . preg_replace('#^.*oc-content\/plugins\/#','',$file);
+        return $file;
+    }
+}
 
 function sitemap_generator() {
 
     $locales = osc_get_locales();
 
     $filename = osc_base_path() . 'sitemap.xml';
-    unlink($filename);
+    @unlink($filename);
     $start_xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
     file_put_contents($filename, $start_xml);
     
@@ -36,7 +44,7 @@ function sitemap_generator() {
     }
     
     // PAGES
-    if(osc_count_static_pages()>0) {
+    if(osc_count_static_pages() > 0) {
         while(osc_has_static_pages()) {
             sitemap_add_url(osc_static_page_url(), substr(osc_static_page_mod_date(), 0, 10), 'yearly');
         }
@@ -44,7 +52,7 @@ function sitemap_generator() {
     
     // ITEMS
     View::newInstance()->_exportVariableToView('items', Item::newInstance()->listLatest( 10000 ) ) ;
-    if(osc_count_items()>0) {
+    if(osc_count_items() > 0) {
         while(osc_has_items()) {
             foreach($locales as $locale) {
                 // Check for non-empty item's descriptions
@@ -103,7 +111,7 @@ function sitemap_admin_menu() {
     echo '<h3><a href="#">' . __('Sitemap Generator', 'sitemap_generator') . '</a></h3>
     <ul> 
         <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Help', 'sitemap_generator') . '</a></li>
-        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/generate.php') . '">&raquo; ' . __('Generate sitemap.xml', 'sitemap_generator') . '</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/generate.php') . '">&raquo; ' . __('Generate sitemap', 'sitemap_generator') . '</a></li>
     </ul>';
 }
 
@@ -111,9 +119,6 @@ function sitemap_help() {
     sitemap_generator();
     osc_admin_render_plugin(osc_plugin_path(dirname(__FILE__)) . '/sitemap.php') ;
 }
-
-
-
 
 // This is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'sitemap_help');
@@ -126,7 +131,5 @@ osc_add_hook('admin_menu', 'sitemap_admin_menu');
 
 // Generate sitemap every hour
 osc_add_hook('cron_hourly', 'sitemap_generator');
-
-
 
 ?>
