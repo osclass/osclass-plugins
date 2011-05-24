@@ -50,7 +50,7 @@ function fbc_call_after_install() {
     $conn->autocommit(true);
 }
 
-function job_call_after_uninstall() {
+function fbc_call_after_uninstall() {
     // Insert here the code you want to execute after the plugin's uninstall
     // for example you might want to drop/remove a table or modify some values
 
@@ -81,7 +81,7 @@ osc_register_plugin(osc_plugin_path(__FILE__), 'fbc_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'fbc_conf');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
+osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'fbc_call_after_uninstall');
 
 osc_add_hook('before_html', 'fbc_init');
 
