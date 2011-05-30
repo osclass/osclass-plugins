@@ -25,9 +25,12 @@ class OSCFacebook {
             'secret' => $secret,
             'cookie' => true
         ));
-        $this->logoutUrl = $this->facebook->getLogoutUrl();
-        $this->loginUrl = $this->facebook->getLoginUrl(array('scope' => 'email'));
-        
+        $this->logoutUrl = $this->facebook->getLogoutUrl(array('redirect_uri' => osc_base_url()));
+        if(osc_is_web_user_logged_in()) {
+            $this->loginUrl = $this->facebook->getLoginUrl(array('scope' => 'email', 'redirect_uri' => osc_user_dashboard_url()));
+        } else {
+            $this->loginUrl = $this->facebook->getLoginUrl(array('scope' => 'email', 'redirect_uri' => osc_base_url()));
+        }
         $this->user = $this->getUser();
         if ($this->user) {
             try {
@@ -35,7 +38,7 @@ class OSCFacebook {
                 $conn = getConnection();
                 $user = $conn->osc_dbFetchResult(sprintf("SELECT * FROM %st_facebook_connect WHERE i_facebook_uid = %s", DB_TABLE_PREFIX, $this->user));
                 // It's linked on our DB!
-                if($user) {
+                if(isset($user['fk_i_user_id'])) {
                     require_once LIB_PATH . 'osclass/UserActions.php' ;
                     $uActions = new UserActions(false);
                     $logged = $uActions->bootstrap_login($user['fk_i_user_id']) ;
@@ -148,12 +151,12 @@ class OSCFacebook {
                     $body = osc_mailBeauty($content['s_text'], $words) ;
 
                     $emailParams = array('subject'  => $title
-                                         ,'to'       => Params::getParam('s_email')
-                                         ,'to_name'  => Params::getParam('s_name')
+                                         ,'to'       => $user['s_email']
+                                         ,'to_name'  => $user['s_name']
                                          ,'body'     => $body
                                          ,'alt_body' => $body
                     ) ;
-                    osc_sendMail($emailParams) ;
+                    osc_sendMail($emailParams);
                 }
                 osc_add_flash_ok_message(sprintf(__("An automatic account for %s has been created. You'll receive an email to confirm.", 'facebook'), osc_page_title()));
             } else {

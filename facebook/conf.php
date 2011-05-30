@@ -25,6 +25,7 @@ if(Params::getParam('plugin_action')=='done') {
         osc_set_preference('fbc_appId', Params::getParam('fbc_appId'), 'facebook_connect', 'STRING');
         osc_set_preference('fbc_secret', Params::getParam('fbc_secret'), 'facebook_connect', 'STRING');
     osc_reset_preferences();
+    echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured','facebook') . '.</p></div>' ;
 }
 
 ?>
@@ -32,8 +33,8 @@ if(Params::getParam('plugin_action')=='done') {
     <div style="padding: 20px;">
         <div style="float: left; width: 50%;">
             <fieldset>
-                <legend><?php _e('Jobs Options', 'jobs_attributes'); ?></legend>
-                    <form name="jobs_form" id="jobs_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                <legend><?php _e('Facebook Options', 'facebook'); ?></legend>
+                    <form name="fb_form" id="fb_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
                     <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
                     <input type="hidden" name="file" value="facebook/conf.php" />
@@ -51,7 +52,7 @@ if(Params::getParam('plugin_action')=='done') {
             <legend><?php _e("Facebook Connect Help", 'facebook');?></legend>
 
             <h3><?php _e("What is Facebook Connect Plugin?");?></h3>
-            <?php _e("Facebook Connect plugin allows your users to log into your webpage with their Facebookaccounts.", 'facebook');?>
+            <?php _e("Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts.", 'facebook');?>
             <br/>
             <br/>
             <h3><?php _e("Using Facebook login", 'facebook');?></h3>
