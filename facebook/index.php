@@ -20,7 +20,7 @@ function fbc_init() {
 
 }
 
-function fbc_login() {
+function fbc_button() {
     $osc_facebook = OSCFacebook::newInstance();
     $user = $osc_facebook->getUser();
     if ($user) {
@@ -69,6 +69,11 @@ function fbc_call_after_uninstall() {
 }
 
 
+function fbc_delete_user($id) {
+    $conn = getConnection();
+    return $conn->osc_dbExec('DELETE FROM %st_facebook_connect WHERE fk_i_user_id = %d', DB_TABLE_PREFIX, $id);
+}
+
 
 // Display help
 function fbc_conf() {
@@ -84,5 +89,6 @@ osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'fbc_conf');
 osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'fbc_call_after_uninstall');
 
 osc_add_hook('before_html', 'fbc_init');
+osc_add_hook('delete_user', 'fbc_delete_user');
 
 ?>
