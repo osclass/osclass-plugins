@@ -28,6 +28,7 @@
         switch(Params::getParam("plugin_action")) 
         {
             case("make_delete"):    if(Params::getParam("id")!="") {
+                                        $conn->osc_dbExec('DELETE FROM %st_item_car_model_attr WHERE fk_i_make_id = %d', DB_TABLE_PREFIX, Params::getParam("id"));
                                         $conn->osc_dbExec('DELETE FROM %st_item_car_make_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, Params::getParam("id"));
                                     }
             break;
@@ -204,7 +205,7 @@
                                         <fieldset>
                                         <legend><?php echo __('Vehicle types'); ?></legend>
                                         <div class="tabber">
-                                        <?php $locales = Locale::newInstance()->listAllEnabled();
+                                        <?php $locales = osc_get_locales();
                                             $car_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
                                             $data = array();
                                             foreach ($car_type as $c) {
@@ -246,7 +247,7 @@
                                         <input type="hidden" name="plugin_action" value="type_add" />
                             
                                         <div class="tabber">
-                                        <?php $locales = Locale::newInstance()->listAllEnabled();
+                                        <?php $locales = osc_get_locales();
                                             $car_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
                                             $data = array();
                                             foreach ($car_type as $c) {

@@ -3,20 +3,28 @@
 Plugin Name: Sitemap Generator
 Plugin URI: http://www.osclass.org/
 Description: Sitemap Generator
-Version: 1.0.1
+Version: 1.0.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
 */
 
+if( !function_exists('osc_plugin_path') ) {
+    function osc_plugin_path($file) {
+        $file = preg_replace('|/+|','/', str_replace('\\','/',$file));
+        $plugin_path = preg_replace('|/+|','/', str_replace('\\','/', PLUGINS_PATH));
+        $file = $plugin_path . preg_replace('#^.*oc-content\/plugins\/#','',$file);
+        return $file;
+    }
+}
 
 function sitemap_generator() {
 
     $locales = osc_get_locales();
 
     $filename = osc_base_path() . 'sitemap.xml';
-    unlink($filename);
-    $start_xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
+    @unlink($filename);
+    $start_xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
     file_put_contents($filename, $start_xml);
     
     // INDEX
@@ -36,7 +44,7 @@ function sitemap_generator() {
     }
     
     // PAGES
-    if(osc_count_static_pages()>0) {
+    if(osc_count_static_pages() > 0) {
         while(osc_has_static_pages()) {
             sitemap_add_url(osc_static_page_url(), substr(osc_static_page_mod_date(), 0, 10), 'yearly');
         }
@@ -44,7 +52,7 @@ function sitemap_generator() {
     
     // ITEMS
     View::newInstance()->_exportVariableToView('items', Item::newInstance()->listLatest( 10000 ) ) ;
-    if(osc_count_items()>0) {
+    if(osc_count_items() > 0) {
         while(osc_has_items()) {
             foreach($locales as $locale) {
                 // Check for non-empty item's descriptions
@@ -81,11 +89,22 @@ function sitemap_generator() {
 }
 
 function sitemap_add_url($url = '', $date = '', $freq = 'daily') {
+    if( preg_match('|\?(.*)|', $url, $match) ) {
+        $sub_url = $match[1];
+        $param = explode('&', $sub_url);
+        foreach($param as &$p) {
+            list($key, $value) = explode('=', $p);
+            $p = $key . '=' . urlencode($value);
+        }
+        $sub_url = implode('&', $param);
+        $url = preg_replace('|\?.*|', '?' . $sub_url, $url);
+    }
+
     $filename = osc_base_path() . 'sitemap.xml';
-    $xml = '    <url>\n';
-    $xml .= '        <loc>' . htmlentities($url) . '</loc>\n';
-    $xml .= '        <lastmod>' . $date . '</lastmod>\n';
-    $xml .= '        <changefreq>' . $freq . '</changefreq>\n';
+    $xml  = '    <url>' . PHP_EOL;
+    $xml .= '        <loc>' . htmlentities($url, ENT_QUOTES, "UTF-8") . '</loc>' . PHP_EOL;
+    $xml .= '        <lastmod>' . $date . '</lastmod>' . PHP_EOL;
+    $xml .= '        <changefreq>' . $freq . '</changefreq>' . PHP_EOL;
     $xml .= '    </url>' . PHP_EOL;
     file_put_contents($filename, $xml, FILE_APPEND);
 }
@@ -102,29 +121,26 @@ function sitemap_ping_engines() {
 function sitemap_admin_menu() {
     echo '<h3><a href="#">' . __('Sitemap Generator', 'sitemap_generator') . '</a></h3>
     <ul> 
-        <li><a href="' . osc_admin_render_plugin_url(dirname(__FILE__) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Tools', 'sitemap_generator') . '</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Help', 'sitemap_generator') . '</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/generate.php') . '">&raquo; ' . __('Generate sitemap', 'sitemap_generator') . '</a></li>
     </ul>';
 }
 
 function sitemap_help() {
-    osc_admin_render_plugin(dirname(__FILE__) . '/sitemap.php') ;
+    sitemap_generator();
+    osc_admin_render_plugin(osc_plugin_path(dirname(__FILE__)) . '/sitemap.php') ;
 }
 
-
-
-
 // This is needed in order to be able to activate the plugin
-osc_register_plugin(__FILE__, 'sitemap_help');
+osc_register_plugin(osc_plugin_path(__FILE__), 'sitemap_help');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(__FILE__."_configure", 'sitemap_help');
+osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'sitemap_help');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(__FILE__."_uninstall", '');
+osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
 // Add the help to the menu
 osc_add_hook('admin_menu', 'sitemap_admin_menu');
 
 // Generate sitemap every hour
 osc_add_hook('cron_hourly', 'sitemap_generator');
-
-
 
 ?>

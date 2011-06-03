@@ -4,69 +4,13 @@
             var type = $("#ads-adtype").val();
             if(type=='CUSTOM') {
                 $("#ads-text").hide();
-                $("#ads-all").hide();
-                $("#ads-image").hide();
-                $("#ads-link").hide();
-                $("#ads-video").hide();
                 $("#ads-width").removeAttr("readonly");
                 $("#ads-hide").removeAttr("readonly");
-            } else if(type=='TEXT') {
+            } else {
                 $("#ads-text").show();
-                $("#ads-all").hide();
-                $("#ads-image").hide();
-                $("#ads-link").hide();
-                $("#ads-video").hide();
                 $("#ads-width").attr("readonly", true);
                 $("#ads-hide").attr("readonly", true);
                 var clean = $("#ads-adformat-text").val().split("#");
-                var sizes = clean[0].split("x");
-                $("#ads-width").val(sizes[0]);
-                $("#ads-height").val(sizes[1]);
-            } else if(type=='VIDEO') {
-                $("#ads-text").hide();
-                $("#ads-all").hide();
-                $("#ads-image").hide();
-                $("#ads-link").hide();
-                $("#ads-video").show();
-                $("#ads-width").attr("readonly", true);
-                $("#ads-hide").attr("readonly", true);
-                var clean = $("#ads-adformat-video").val().split("#");
-                var sizes = clean[0].split("x");
-                $("#ads-width").val(sizes[0]);
-                $("#ads-height").val(sizes[1]);
-            } else if(type=='LINKS') {
-                $("#ads-text").hide();
-                $("#ads-all").hide();
-                $("#ads-image").hide();
-                $("#ads-link").show();
-                $("#ads-video").hide();
-                $("#ads-width").attr("readonly", true);
-                $("#ads-hide").attr("readonly", true);
-                var clean = $("#ads-adformat-link").val().split("#");
-                var sizes = clean[0].split("x");
-                $("#ads-width").val(sizes[0]);
-                $("#ads-height").val(sizes[1]);
-            } else if(type=='IMAGES') {
-                $("#ads-text").hide();
-                $("#ads-all").hide();
-                $("#ads-image").show();
-                $("#ads-link").hide();
-                $("#ads-video").hide();
-                $("#ads-width").attr("readonly", true);
-                $("#ads-hide").attr("readonly", true);
-                var clean = $("#ads-adformat-image").val().split("#");
-                var sizes = clean[0].split("x");
-                $("#ads-width").val(sizes[0]);
-                $("#ads-height").val(sizes[1]);
-            } else {
-                $("#ads-text").hide();
-                $("#ads-all").show();
-                $("#ads-image").hide();
-                $("#ads-link").hide();
-                $("#ads-video").hide();
-                $("#ads-width").attr("readonly", true);
-                $("#ads-hide").attr("readonly", true);
-                var clean = $("#ads-adformat-all").val().split("#");
                 var sizes = clean[0].split("x");
                 $("#ads-width").val(sizes[0]);
                 $("#ads-height").val(sizes[1]);
@@ -148,125 +92,45 @@
 			            <option <?php if($ad['e_ad_type']=='CUSTOM') { echo 'selected="selected"';}?> value="CUSTOM"><?php _e('Use Custom', 'ads4osc');?></option>
 			            <option <?php if($ad['e_ad_type']=='ALL') { echo 'selected="selected"';}?>value="ALL"><?php _e('All ad types', 'ads4osc');?></option>
 			            <option <?php if($ad['e_ad_type']=='TEXT') { echo 'selected="selected"';}?>value="TEXT"><?php _e('Text ads', 'ads4osc');?></option>
-			            <option <?php if($ad['e_ad_type']=='IMAGES') { echo 'selected="selected"';}?>value="IMAGES"><?php _e('Image ads', 'ads4osc');?></option>
-			            <option <?php if($ad['e_ad_type']=='VIDEO') { echo 'selected="selected"';}?>value="VIDEO"><?php _e('Video ads', 'ads4osc');?></option>
-			            <option <?php if($ad['e_ad_type']=='LINKS') { echo 'selected="selected"';}?>value="LINKS"><?php _e('Ad links', 'ads4osc');?></option>
+			            <option <?php if($ad['e_ad_type']=='IMAGES') { echo 'selected="selected"';}?>value="IMAGES"><?php _e('Image & Rich Media ads', 'ads4osc');?></option>
 		            </select>
 	            </td>
             </tr>
-            <tr id="ads-all" <?php if($ad['e_ad_type']!='ALL') { echo 'style="display:none"';}?>>
-	            <td><label><?php _e('Format:', 'ads4osc');?></label></td>
-	            <td>
-		            <select name="ads-format-all" id="ads-adformat-all" onchange="update_size(this);">
-			            <optgroup label="Horizontal">
-				            <option <?php if($ad['s_ad_format']=='728x90') { echo 'selected="selected"';}?> value="728x90"><?php _e('728 x 90 Leaderboard', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='468x60') { echo 'selected="selected"';}?>  value="468x60"><?php _e('468 x 60 Banner', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='234x60') { echo 'selected="selected"';}?> value="234x60"><?php _e('234 x 60 Half Banner', 'ads4osc');?></option>
-			            </optgroup>
-			            <optgroup label="Vertical">
-				            <option <?php if($ad['s_ad_format']=='160x600') { echo 'selected="selected"';}?> value="160x600"><?php _e('160 x 600 Wide Skyscraper', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='120x600') { echo 'selected="selected"';}?> value="120x600"><?php _e('120 x 600 Skyscraper', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='120x240') { echo 'selected="selected"';}?> value="120x240"><?php _e('120 x 240 Vertical Banner', 'ads4osc');?></option>
-			            </optgroup>
-			            <optgroup label="Square">
-				            <option <?php if($ad['s_ad_format']=='336x280') { echo 'selected="selected"';}?> value="336x280"><?php _e('336 x 280 Large Rectangle', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='300x250') { echo 'selected="selected"';}?> value="300x250"><?php _e('300 x 250 Medium Rectangle', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='250x250') { echo 'selected="selected"';}?> value="250x250"><?php _e('250 x 250 Square', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='200x200') { echo 'selected="selected"';}?> value="200x200"><?php _e('200 x 200 Small Square', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='180x150') { echo 'selected="selected"';}?> value="180x150"><?php _e('180 x 150 Small Rectangle', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='125x125') { echo 'selected="selected"';}?> value="125x125"><?php _e('125 x 125 Button', 'ads4osc');?></option>
-			            </optgroup>
-		            </select>
-	            </td>
-            </tr>
-            <tr id="ads-text" <?php if($ad['e_ad_type']!='TEXT') { echo 'style="display:none"';}?>>
+            <tr id="ads-text" <?php if($ad['e_ad_type']=='CUSTOM') { echo 'style="display:none"';}?>>
 	            <td><label><?php _e('Format:', 'ads4osc');?></label></td>
 	            <td>
 		            <select name="ads-format-text" id="ads-adformat-text" onchange="update_size(this);">
-			            <optgroup label="Horizontal">
+			            <optgroup label="Recommended">
+				            <option <?php if($ad['s_ad_format']=='300x250') { echo 'selected="selected"';}?> value="300x250"><?php _e('300 x 250 Medium Rectangle', 'ads4osc');?></option>
+				            <option <?php if($ad['s_ad_format']=='336x280') { echo 'selected="selected"';}?> value="336x280"><?php _e('336 x 280 Large Rectangle', 'ads4osc');?></option>
 				            <option <?php if($ad['s_ad_format']=='728x90') { echo 'selected="selected"';}?> value="728x90"><?php _e('728 x 90 Leaderboard', 'ads4osc');?></option>
+				            <option <?php if($ad['s_ad_format']=='160x600') { echo 'selected="selected"';}?> value="160x600"><?php _e('160 x 600 Wide Skyscraper', 'ads4osc');?></option>
+			            </optgroup>
+			            <optgroup label="Horizontal">
 				            <option <?php if($ad['s_ad_format']=='468x60') { echo 'selected="selected"';}?> value="468x60"><?php _e('468 x 60 Banner', 'ads4osc');?></option>
 				            <option <?php if($ad['s_ad_format']=='234x60') { echo 'selected="selected"';}?> value="234x60"><?php _e('234 x 60 Half Banner', 'ads4osc');?></option>
 			            </optgroup>
 			            <optgroup label="Vertical">
-				            <option <?php if($ad['s_ad_format']=='160x600') { echo 'selected="selected"';}?> value="160x600"><?php _e('160 x 600 Wide Skyscraper', 'ads4osc');?></option>
 				            <option <?php if($ad['s_ad_format']=='120x600') { echo 'selected="selected"';}?> value="120x600"><?php _e('120 x 600 Skyscraper', 'ads4osc');?></option>
 				            <option <?php if($ad['s_ad_format']=='120x240') { echo 'selected="selected"';}?> value="120x240"><?php _e('120 x 240 Vertical Banner', 'ads4osc');?></option>
 			            </optgroup>
 			            <optgroup label="Square">
-				            <option <?php if($ad['s_ad_format']=='336x280') { echo 'selected="selected"';}?> value="336x280"><?php _e('336 x 280 Large Rectangle', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='300x250') { echo 'selected="selected"';}?> value="300x250"><?php _e('300 x 250 Medium Rectangle', 'ads4osc');?></option>
 				            <option <?php if($ad['s_ad_format']=='250x250') { echo 'selected="selected"';}?> value="250x250"><?php _e('250 x 250 Square', 'ads4osc');?></option>
 				            <option <?php if($ad['s_ad_format']=='200x200') { echo 'selected="selected"';}?> value="200x200"><?php _e('200 x 200 Small Square', 'ads4osc');?></option>
 				            <option <?php if($ad['s_ad_format']=='180x150') { echo 'selected="selected"';}?> value="180x150"><?php _e('180 x 150 Small Rectangle', 'ads4osc');?></option>
 				            <option <?php if($ad['s_ad_format']=='125x125') { echo 'selected="selected"';}?> value="125x125"><?php _e('125 x 125 Button', 'ads4osc');?></option>
 			            </optgroup>
-		            </select>
-	            </td>
-            </tr>
-            <tr id="ads-image" <?php if($ad['e_ad_type']!='IMAGES') { echo 'style="display:none"';}?>>
-	            <td><label><?php _e('Format:', 'ads4osc');?></label></td>
-	            <td>
-		            <select name="ads-format-image" id="ads-adformat-image" onchange="update_size(this);">
-			            <optgroup label="Horizontal">
-				            <option <?php if($ad['s_ad_format']=='728x90') { echo 'selected="selected"';}?> value="728x90"><?php _e('728 x 90 Leaderboard', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='468x60') { echo 'selected="selected"';}?> value="468x60"><?php _e('468 x 60 Banner', 'ads4osc');?></option>
-			            </optgroup>
-			            <optgroup label="Vertical">
-				            <option <?php if($ad['s_ad_format']=='160x600') { echo 'selected="selected"';}?> value="160x600"><?php _e('160 x 600 Wide Skyscraper', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='120x600') { echo 'selected="selected"';}?> value="120x600"><?php _e('120 x 600 Skyscraper', 'ads4osc');?></option>
-			            </optgroup>
-			            <optgroup label="Square">
-				            <option <?php if($ad['s_ad_format']=='336x280') { echo 'selected="selected"';}?> value="336x280"><?php _e('336 x 280 Large Rectangle', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='300x250') { echo 'selected="selected"';}?> value="300x250"><?php _e('300 x 250 Medium Rectangle', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='250x250') { echo 'selected="selected"';}?> value="250x250"><?php _e('250 x 250 Square', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='200x200') { echo 'selected="selected"';}?> value="200x200"><?php _e('200 x 200 Small Square', 'ads4osc');?></option>
+			            <optgroup label="Text Links">
+				            <option <?php if($ad['s_ad_format']=='728x15') { echo 'selected="selected"';}?> value="336x280"><?php _e('336 x 280 Large Rectangle', 'ads4osc');?></option>
+				            <option <?php if($ad['s_ad_format']=='468x15') { echo 'selected="selected"';}?> value="300x250"><?php _e('300 x 250 Medium Rectangle', 'ads4osc');?></option>
+				            <option <?php if($ad['s_ad_format']=='200x90') { echo 'selected="selected"';}?> value="250x250"><?php _e('250 x 250 Square', 'ads4osc');?></option>
+				            <option <?php if($ad['s_ad_format']=='180x90') { echo 'selected="selected"';}?> value="200x200"><?php _e('200 x 200 Small Square', 'ads4osc');?></option>
+				            <option <?php if($ad['s_ad_format']=='160x90') { echo 'selected="selected"';}?> value="180x150"><?php _e('180 x 150 Small Rectangle', 'ads4osc');?></option>
+				            <option <?php if($ad['s_ad_format']=='120x90') { echo 'selected="selected"';}?> value="125x125"><?php _e('125 x 125 Button', 'ads4osc');?></option>
 			            </optgroup>
 		            </select>
 	            </td>
             </tr>
-            <tr id="ads-video" <?php if($ad['e_ad_type']!='VIDEO') { echo 'style="display:none"';}?>>
-	            <td><label><?php _e('Format:', 'ads4osc');?></label></td>
-	            <td>
-		            <select name="ads-format-video" id="ads-adformat-video" onchange="update_size(this);">
-			            <optgroup label="Horizontal">
-				            <option <?php if($ad['s_ad_format']=='728x90') { echo 'selected="selected"';}?> value="728x90"><?php _e('728 x 90 Leaderboard', 'ads4osc');?></option>
-			            </optgroup>
-			            <optgroup label="Vertical">
-				            <option <?php if($ad['s_ad_format']=='160x600') { echo 'selected="selected"';}?> value="160x600"><?php _e('160 x 600 Wide Skyscraper', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='120x600') { echo 'selected="selected"';}?> value="120x600"><?php _e('120 x 600 Skyscraper', 'ads4osc');?></option>
-			            </optgroup>
-			            <optgroup label="Square">
-				            <option <?php if($ad['s_ad_format']=='336x280') { echo 'selected="selected"';}?> value="336x280"><?php _e('336 x 280 Large Rectangle', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='300x250') { echo 'selected="selected"';}?> value="300x250"><?php _e('300 x 250 Medium Rectangle', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='250x250') { echo 'selected="selected"';}?> value="250x250"><?php _e('250 x 250 Square', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='200x200') { echo 'selected="selected"';}?> value="200x200"><?php _e('200 x 200 Small Square', 'ads4osc');?></option>
-			            </optgroup>
-		            </select>
-	            </td>
-            </tr>
-            <tr id="ads-link" <?php if($ad['e_ad_type']!='LINKS') { echo 'style="display:none"';}?>>
-	            <td><label><?php _e('Format:', 'ads4osc');?></label></td>
-	            <td>
-		            <select name="ads-format-link" id="ads-adformat-link" onchange="update_size(this);">
-			            <optgroup label="Horizontal">
-				            <option <?php if($ad['s_ad_format']=='468x15#4') { echo 'selected="selected"';}?> value="468x15#4"><?php _e('468 x 15 Thin Banner, 4 Links', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='468x15#5') { echo 'selected="selected"';}?> value="468x15#5"><?php _e('468 x 15 Thin Banner, 5 Links', 'ads4osc');?></option>
-			            </optgroup>
-			            <optgroup label="Square">
-				            <option <?php if($ad['s_ad_format']=='200x90#4') { echo 'selected="selected"';}?> value="200x90#4"><?php _e('200 x 90 Tall Half Banner, 4 Links', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='200x90#5') { echo 'selected="selected"';}?> value="200x90#5"><?php _e('200 x 90 Tall Half Banner, 5 Links', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='180x90#4') { echo 'selected="selected"';}?> value="180x90#4"><?php _e('180 x 90 Half Banner, 4 Links', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='180x90#5') { echo 'selected="selected"';}?> value="180x90#5"><?php _e('180 x 90 Half Banner, 5 Links', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='160x90#4') { echo 'selected="selected"';}?> value="160x90#4"><?php _e('160 x 90 Tall Button, 4 Links', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='160x90#5') { echo 'selected="selected"';}?> value="160x90#5"><?php _e('160 x 90 Tall Button, 5 Links', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='120x90#4') { echo 'selected="selected"';}?> value="120x90#4"><?php _e('120 x 90 Button, 4 Links', 'ads4osc');?></option>
-				            <option <?php if($ad['s_ad_format']=='120x90#5') { echo 'selected="selected"';}?> value="120x90#5"><?php _e('120 x 90 Button, 5 Links', 'ads4osc');?></option>
-			            </optgroup>
-		            </select>
-	            </td>
-            </tr>
-
             <tr>
 	            <td><label for="ads-width"><?php _e('Dimensions:', 'ads4osc');?></label></td>
 	            <td>

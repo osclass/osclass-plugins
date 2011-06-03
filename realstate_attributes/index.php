@@ -100,10 +100,8 @@ function realstate_search_conditions($params = null) {
                         $has_conditions = true;
                         break;
                     case 'p_type':
-                        if(is_int($value)) {
-                            Search::newInstance()->addConditions(sprintf("%st_item_house_property_type_attr.pk_i_id = %d ", DB_TABLE_PREFIX, $value));
-                        } else {
-                            Search::newInstance()->addConditions(sprintf("%st_item_house_property_type_attr.s_name LIKE '%%%s%%'  ", DB_TABLE_PREFIX, $value));
+                        if($value!='') {
+                            Search::newInstance()->addConditions(sprintf("%st_item_house_attr.fk_i_property_type_id = %d ", DB_TABLE_PREFIX, $value));
                         }
                         $has_conditions = true;
                         break;
@@ -117,10 +115,8 @@ function realstate_search_conditions($params = null) {
         if ($has_conditions) {
             Search::newInstance()->addConditions(sprintf("%st_item.pk_i_id = %st_item_house_attr.fk_i_item_id ", DB_TABLE_PREFIX, DB_TABLE_PREFIX));
             Search::newInstance()->addConditions(sprintf("%st_item.pk_i_id = %st_item_house_description_attr.fk_i_item_id ", DB_TABLE_PREFIX, DB_TABLE_PREFIX));
-            Search::newInstance()->addConditions(sprintf("%st_item_house_property_type_attr.pk_i_id = %st_item_house_attr.fk_i_property_type_id", DB_TABLE_PREFIX, DB_TABLE_PREFIX));
             Search::newInstance()->addTable(sprintf("%st_item_house_attr", DB_TABLE_PREFIX));
             Search::newInstance()->addTable(sprintf("%st_item_house_description_attr", DB_TABLE_PREFIX));
-            Search::newInstance()->addTable(sprintf("%st_item_house_property_type_attr", DB_TABLE_PREFIX));
         }
     }
 }
@@ -174,7 +170,7 @@ function realstate_form($catId = null) {
                 $p_type[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
             }
             unset($data);
-            include_once 'form.php';
+            include_once 'item_edit.php';
         }
     }
 }
@@ -264,7 +260,11 @@ function realstate_item_detail() {
         foreach ($descriptions as $desc) {
             $detail['locale'][$desc['fk_c_locale_code']] = $desc;
         }
-        $types = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_property_type_id']);
+        if(isset($detail['fk_i_property_type_id'])) {
+            $types = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_property_type_id']);
+        } else {
+            $types = array();
+        }
         foreach ($types as $type) {
             $detail['locale'][$type['fk_c_locale_code']]['s_name'] = $type['s_name'];
         }
@@ -276,9 +276,9 @@ function realstate_item_detail() {
 function realstate_item_edit($catId = null, $item_id = null) {
     if (osc_is_this_category('realstate_plugin', $catId)) {
         $conn = getConnection() ;
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_house_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $itemId);
+        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_house_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item_id);
 
-        $descriptions = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_description_attr WHERE fk_i_item_id = %d', DB_TABLE_PREFIX, $itemId);
+        $descriptions = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_description_attr WHERE fk_i_item_id = %d', DB_TABLE_PREFIX, $item_id);
         $detail['locale'] = array();
         foreach ($descriptions as $desc) {
             $detail['locale'][$desc['fk_c_locale_code']] = $desc;
@@ -371,15 +371,15 @@ function realstate_admin_menu() {
 
 function realstate_admin_configuration() {
     // Standard configuration page for plugin which extend item's attributes
-    osc_plugin_configure_view(__FILE__);
+    osc_plugin_configure_view(osc_plugin_path(__FILE__));
 }
 
 // This is needed in order to be able to activate the plugin
-osc_register_plugin(__FILE__, 'realstate_call_after_install');
+osc_register_plugin(osc_plugin_path(__FILE__), 'realstate_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(__FILE__ . "_configure", 'realstate_admin_configuration');
+osc_add_hook(osc_plugin_path(__FILE__) . "_configure", 'realstate_admin_configuration');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(__FILE__ . "_uninstall", 'realstate_call_after_uninstall');
+osc_add_hook(osc_plugin_path(__FILE__) . "_uninstall", 'realstate_call_after_uninstall');
 
 // When publishing an item we show an extra form with more attributes
 osc_add_hook('item_form', 'realstate_form');

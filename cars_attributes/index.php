@@ -3,7 +3,7 @@
 Plugin Name: Cars attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store cars attributes such as model, year, brand, color, accessories, and so on.
-Version: 2.0
+Version: 2.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: cars_plugin
@@ -22,22 +22,31 @@ function cars_search_conditions($params) {
         // We may want to  have param-specific searches 
         switch($key) {
             case 'type':
-                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_vehicle_type_id = %st_item_car_vehicle_type_attr.pk_i_id AND %st_item_car_vehicle_type_attr.s_name = '%%%s%%'", DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $value));
-                Search::newInstance()->addTable(sprintf("%st_item_car_vehicle_type_attr", DB_TABLE_PREFIX));
-                $has_conditions = true;
+                if($value!='') {
+                    Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_vehicle_type_id = %d", DB_TABLE_PREFIX, $value));
+                    $has_conditions = true;
+                }
                 break;
+
+            case 'make':
+                if($value!='') {
+                    Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_make_id = %d", DB_TABLE_PREFIX, $value));
+                    $has_conditions = true;
+                }
+                break;
+
             case 'model':
-                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_model_id = %st_item_car_model_attr.pk_i_id AND %st_item_car_model_attr.s_name = '%%%s%%'", DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $value));
-                Search::newInstance()->addTable(sprintf("%st_item_model_attr", DB_TABLE_PREFIX));
-                $has_conditions = true;
+                if($value!='') {
+                    Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_model_id = %d", DB_TABLE_PREFIX, $value));
+                    $has_conditions = true;
+                }
                 break;
-            case 'numAirbags':
-                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.i_num_airbags = %d", DB_TABLE_PREFIX, $value));
-                $has_conditions = true;
-                break;
+
             case 'transmission':
-                Search::newInstance()->addConditions(sprintf("%st_item_car_attr.e_transmission = '%s'", DB_TABLE_PREFIX, $value));
-                $has_conditions = true;
+                if($value=='AUTO' || $value=='MANUAL') {
+                    Search::newInstance()->addConditions(sprintf("%st_item_car_attr.e_transmission = '%s'", DB_TABLE_PREFIX, $value));
+                    $has_conditions = true;
+                }
                 break;
     		default:
                 break;
@@ -104,14 +113,15 @@ function cars_form($catId = '') {
 	if($catId!="") {
 		// We check if the category is the same as our plugin
 		if(osc_is_this_category('cars_plugin', $catId)) {
-            $make = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
+            $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
             $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
-            $car_type = array();
+            $car_types = array();
             foreach($data as $d) {
-                $car_type[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
+                $car_types[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
             }
             unset($data);
-			require_once 'form.php';
+            $models = array();
+			require_once 'item_edit.php';
 		}
 	}
 }
@@ -185,7 +195,7 @@ function cars_item_detail() {
 function cars_item_edit($catId = null, $item_id = null) {
     $conn = getConnection() ;
     if(osc_is_this_category('cars_plugin', $catId)) {
-	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $itemId);
+	    $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item_id);
 
         $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
         $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $detail['fk_i_make_id']);
@@ -259,7 +269,7 @@ function cars_delete_item($item) {
 function cars_admin_configuration() {
 
 	// Standard configuration page for plugin which extend item's attributes
-	osc_plugin_configure_view(__FILE__);
+	osc_plugin_configure_view(osc_plugin_path(__FILE__));
 
 }
 
@@ -268,11 +278,11 @@ function cars_admin_configuration() {
 
 
 // This is needed in order to be able to activate the plugin
-osc_register_plugin(__FILE__, 'cars_call_after_install');
+osc_register_plugin(osc_plugin_path(__FILE__), 'cars_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(__FILE__."_configure", 'cars_admin_configuration');
+osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'cars_admin_configuration');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(__FILE__."_uninstall", 'cars_call_after_uninstall');
+osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'cars_call_after_uninstall');
 
 // When publishing an item we show an extra form with more attributes
 osc_add_hook('item_form', 'cars_form');

@@ -97,9 +97,9 @@ function show_ads($name = '') {
 }
 
 // This is needed in order to be able to activate the plugin
-osc_register_plugin(__FILE__, 'ads_call_after_install');
+osc_register_plugin(osc_plugin_path(__FILE__), 'ads_call_after_install');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(__FILE__."_uninstall", 'ads_call_after_uninstall');
+osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'ads_call_after_uninstall');
 
 osc_add_hook('admin_menu', 'ads_admin_menu');
 
