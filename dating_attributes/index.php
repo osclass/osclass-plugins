@@ -2,7 +2,7 @@
 /*
 Plugin Name: Dating attributes
 Plugin URI: http://www.osclass.org/
-Description: This plugin extends a category of items to store dating attributes such as model, year, brand, color, accessories, and so on.
+Description: This plugin extends a category of items to store dating attributes such as gender you're looking for and the type of relation.
 Version: 2.0
 Author: OSClass
 Author URI: http://www.osclass.org/
