@@ -1,10 +1,9 @@
 <?php
-
 /*
   Plugin Name: Real state attributes
   Plugin URI: http://www.osclass.org/
   Description: This plugin extends a category of items to store real estate attributes such as square feets, number of bathrooms, garage, and so on.
-  Version: 2.0
+  Version: 2.1
   Author: OSClass
   Author URI: http://www.osclass.org/
   Short Name: realstate_plugin
@@ -364,8 +363,8 @@ function realstate_delete_item($item) {
 function realstate_admin_menu() {
     echo '<h3><a href="#">Realstate plugin</a></h3>
     <ul> 
-        <li><a href="'.osc_admin_configure_plugin_url("realstate_attributes/index.php").'">&raquo; ' . __('Configure plugin') . '</a></li>
-        <li><a href="'.osc_admin_render_plugin_url("realstate_attributes/conf.php").'?section=types">&raquo; ' . __('Property types') . '</a></li>
+        <li><a href="'.osc_admin_configure_plugin_url("realstate_attributes/index.php").'">&raquo; ' . __('Configure plugin', 'realstate_attributes') . '</a></li>
+        <li><a href="'.osc_admin_render_plugin_url("realstate_attributes/conf.php").'?section=types">&raquo; ' . __('Property types', 'realstate_attributes') . '</a></li>
     </ul>';
 }
 

@@ -1,5 +1,5 @@
 <?php
-    $locale = osc_current_user_locale();
+    $locale       = osc_current_user_locale();
     
     $numFloor     = explode(" - ", Params::getParam('numFloor'));
     $numFloorMin  = ($numFloor[0]!='')?$numFloor[0]:'1';
@@ -93,7 +93,6 @@
         $("#sq").val($("#sq-range").slider("values", 0) + ' - ' + $("#sq-range").slider("values", 1));
     });
 </script>
-
 <fieldset>
     <h3><stong style="font-weight: normal;"><?php _e("Realestate attributes", 'realstate_attributes');?></stong></h3>
     <div class="row one_input">
@@ -110,20 +109,18 @@
             <h6><?php _e('Property type', 'realstate_attributes'); ?></h6>
             <div class="">
                 <select name="p_type" id="p_type">
-                <option value=""><?php _e('Select a property type', 'realstate_attributes');?></option>
+                <option value=""><?php _e('Select a property type', 'realstate_attributes'); ?></option>
                 <?php foreach($p_type[$locale] as $k => $v) { ?>
-                    <option value="<?php echo  $k; ?>" <?php echo (Params::getParam('p_type')== $k)?'selected':''; ?>><?php echo  @$v;?></option>
-                <?php }; ?>
+                    <option value="<?php echo  $k; ?>" <?php echo (Params::getParam('p_type')== $k) ? 'selected' : ''; ?>><?php echo @$v; ?></option>
+                <?php } ?>
                 </select>
             </div>
         </p>
     </div>
     
     <div class="row one_input">
-        
-            <h6 for="numFloor"><?php _e('Num. Floors Range', 'realstate_attributes'); ?></h6>
-            <input type="text" id="numFloor" name="numFloor" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/><br/>
-        
+        <h6 for="numFloor"><?php _e('Num. Floors Range', 'realstate_attributes'); ?></h6>
+        <input type="text" id="numFloor" name="numFloor" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/><br/>
         <div id="slider" >
             <div id="floor-range"></div>
         </div>
@@ -183,28 +180,28 @@
         <h6><?php _e('Other characteristics', 'realstate_attributes'); ?></h6>
         <ul>
             <li>
-                <input <?php if(Params::getParam('heating') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="heating" id="heating" value="1" /> <label for="heating"><strong><?php _e('Heating', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('heating') == 1 ) { echo 'checked="yes"'; } ?> style="width:20px;" type="checkbox" name="heating" id="heating" value="1" /> <label for="heating"><strong><?php _e('Heating', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input <?php if(Params::getParam('airCondition') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="airCondition" id="airCondition" value="1" /> <label for="airCondition"><strong><?php _e('Air condition', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('airCondition') == 1 ) { echo 'checked="yes"'; } ?> style="width:20px;" type="checkbox" name="airCondition" id="airCondition" value="1" /> <label for="airCondition"><strong><?php _e('Air condition', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input <?php if(Params::getParam('elevator') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="elevator" id="elevator" value="1" /> <label for="elevator"><strong><?php _e('Elevator', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('elevator') == 1 ) { echo 'checked="yes"'; } ?> style="width:20px;" type="checkbox" name="elevator" id="elevator" value="1" /> <label for="elevator"><strong><?php _e('Elevator', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input <?php if(Params::getParam('terrace') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="terrace" id="terrace" value="1" /> <label for="terrace"><strong><?php _e('Terrace', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('terrace') == 1 ) { echo 'checked="yes"'; } ?> style="width:20px;" type="checkbox" name="terrace" id="terrace" value="1" /> <label for="terrace"><strong><?php _e('Terrace', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input <?php if(Params::getParam('parking') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="parking" id="parking" value="1" /> <label for="parking"><strong><?php _e('Parking', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('parking') == 1 ) { echo 'checked="yes"'; } ?> style="width:20px;" type="checkbox" name="parking" id="parking" value="1" /> <label for="parking"><strong><?php _e('Parking', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input <?php if(Params::getParam('furnished') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="furnished" id="furnished" value="1" /> <label for="furnished"><strong><?php _e('Furnished', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('furnished') == 1 ) { echo 'checked="yes"'; } ?> style="width:20px;" type="checkbox" name="furnished" id="furnished" value="1" /> <label for="furnished"><strong><?php _e('Furnished', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input <?php if(Params::getParam('new') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="new" id="new" value="1" /> <label for="new"><strong><?php _e('New', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('new') == 1 ) { echo 'checked="yes"'; } ?> style="width:20px;" type="checkbox" name="new" id="new" value="1" /> <label for="new"><strong><?php _e('New', 'realstate_attributes'); ?></strong></label>
             </li>
             <li>
-                <input <?php if(Params::getParam('by_owner') == 1 ) {echo 'checked="yes"';}?> style="width:20px;" type="checkbox" name="by_owner" id="by_owner" value="1" /> <label for="by_owner"><strong><?php _e('By owner', 'realstate_attributes'); ?></strong></label>
+                <input <?php if(Params::getParam('by_owner') == 1 ) { echo 'checked="yes"'; } ?> style="width:20px;" type="checkbox" name="by_owner" id="by_owner" value="1" /> <label for="by_owner"><strong><?php _e('By owner', 'realstate_attributes'); ?></strong></label>
             </li>
         </ul>
     </div>

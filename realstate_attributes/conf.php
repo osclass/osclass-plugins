@@ -83,13 +83,13 @@ if(Params::getParam('plugin_action')!='') {
                                 <?php
                                     if(count($data)>0) {
                                         foreach(isset($data[$locale['pk_c_code']])?$data[$locale['pk_c_code']]:$data['new'] as $property_type) { ?>
-                                            <li><input name="property_type[<?php echo  $property_type['pk_i_id'];?>][<?php echo  $locale['pk_c_code'];?>]" id="<?php echo $property_type['pk_i_id'];?>" type="text" value="<?php echo  $property_type['s_name'];?>" /> <a href="<?php echo osc_admin_base_url(true);?>?page=plugins&action=renderplugin&file=realstate_attributes/conf.php?plugin_action=type_delete&id=<?php echo  $property_type['pk_i_id'];?>" ><button><?php _e('Delete');?></button></a> </li>
+                                            <li><input name="property_type[<?php echo  $property_type['pk_i_id'];?>][<?php echo  $locale['pk_c_code'];?>]" id="<?php echo $property_type['pk_i_id'];?>" type="text" value="<?php echo  $property_type['s_name'];?>" /> <a href="<?php echo osc_admin_base_url(true);?>?page=plugins&action=renderplugin&file=realstate_attributes/conf.php?plugin_action=type_delete&id=<?php echo  $property_type['pk_i_id'];?>" ><button><?php _e('Delete', 'realstate_attributes'); ?></button></a> </li>
                                         <?php };
                                     }; ?>
                                 </ul>
                         </div>
                         <?php }; ?>
-                        <button type="submit"><?php echo  __('Edit', 'realstate_attributes');?></button>
+                        <button type="submit"><?php _e('Edit', 'realstate_attributes'); ?></button>
                     </form>
                 </div>
             </fieldset>
@@ -97,7 +97,7 @@ if(Params::getParam('plugin_action')!='') {
         <div style="float: left; width: 50%;">
             <fieldset>
                 <legend><?php _e('Add new property types', 'realstate_attributes'); ?></legend>
-                <form name="propertys_form" id="propertys_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                <form name="propertys_form" id="propertys_form" action="<?php echo osc_admin_base_url(true); ?>" method="GET" enctype="multipart/form-data" >
                     <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
                     <input type="hidden" name="file" value="realstate_attributes/conf.php" />
@@ -118,7 +118,7 @@ if(Params::getParam('plugin_action')!='') {
                         </div>
                     <?php }; ?>
                     </div>
-                    <button type="submit" ><?php echo  __('Add new', 'realstate_attributes'); ?></button>
+                    <button type="submit" ><?php _e('Add new', 'realstate_attributes'); ?></button>
                 </form>
             </fieldset>
         </div>
@@ -131,7 +131,7 @@ if(Params::getParam('plugin_action')!='') {
             <fieldset style="border: 1px solid #ff0000;">
                 <legend><?php _e('Warning', 'realstate_attributes'); ?></legend>
                 <p>
-                    <?php _e('Deleting property types may end in errors. Some of those property types could be attached to some actual items.', 'realstate_attributes') ; ?>
+                    <?php _e('Deleting property types may end in errors. Some of those property types could be attached to some actual items', 'realstate_attributes') ; ?>.
                 </p>
             </fieldset>
         </div>

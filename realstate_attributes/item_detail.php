@@ -3,13 +3,13 @@
 ?>
 <h3 style="margin-left: 40px;margin-top: 20px;"><?php _e('Realestate attributes', 'realstate_attributes') ; ?></h3>
 <table style="width: 100%;margin-left: 20px;">
-    <?php if(@@$detail['e_type'] != "") {?>
+    <?php if(@$detail['e_type'] != "") {?>
     <tr>
 	<td width="150px"><label><?php _e('Type', 'realstate_attributes'); ?></label></td>
 	<td><?php echo @$detail['e_type']; ?></td>
     </tr>
     <?php } ?>
-    <?php if(@@$detail['locale'][$locale]['s_name'] != "") {?>
+    <?php if(@$detail['locale'][$locale]['s_name'] != "") {?>
     <tr>
         <td><label><?php _e('Property type', 'realstate_attributes'); ?></label></td>
         <td><?php echo  @@$detail['locale'][$locale]['s_name']; ?></td>
