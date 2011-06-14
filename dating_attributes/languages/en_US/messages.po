@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass 2.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-14 16:19+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SearchPath-0: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes\n"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:1
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_detail.php:1
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:1
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:1
+msgid "Dating attributes"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:4
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:4
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:4
+msgid "You are"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:6
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:14
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:6
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:14
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:6
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:14
+msgid "Man"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:7
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:15
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:7
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:15
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:7
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:15
+msgid "Woman"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:8
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:16
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:8
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:16
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:8
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:16
+msgid "Not informed"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:12
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:12
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:12
+msgid "Looking for"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:20
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:20
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:20
+msgid "Relation type"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:22
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:22
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:22
+msgid "Friendship"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:23
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:23
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:23
+msgid "Formal relation"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/form.php:24
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_edit.php:24
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/search_form.php:24
+msgid "Informal relation"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/dating_attributes/item_detail.php:2
+#, php-format
+msgid "%s looking for %s for %s"
+msgstr ""
+

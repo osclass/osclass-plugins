@@ -3,7 +3,7 @@
 Plugin Name: Dating attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store dating attributes such as gender you're looking for and the type of relation.
-Version: 2.0
+Version: 2.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: dating_plugin
