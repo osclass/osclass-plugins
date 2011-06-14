@@ -94,7 +94,7 @@
                                 <div style="padding: 20px;">
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
-                                        <legend><?php echo __('Makes'); ?></legend>
+                                        <legend><?php _e('Makes', 'cars_attributes'); ?></legend>
                                         <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
                                         <input type="hidden" name="page" value="plugins" />
                                         <input type="hidden" name="action" value="renderplugin" />
@@ -105,18 +105,18 @@
                                         <?php
                                             $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
                                             foreach($makes as $make) {
-                                                echo '<li><input name="make['.$make['pk_i_id'].']" id="'.$make['pk_i_id'].'" type="text" value="'.$make['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=makes&plugin_action=make_delete&id='.$make['pk_i_id'].'" ><button>'.__('Delete').'</button></a> </li>';
+                                                echo '<li><input name="make['.$make['pk_i_id'].']" id="'.$make['pk_i_id'].'" type="text" value="'.$make['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=makes&plugin_action=make_delete&id='.$make['pk_i_id'].'" ><button>'.__('Delete', 'cars_attributes').'</button></a> </li>';
                                             }
                                         ?>
                                         </ul>
-                                        <button type="submit"><?php echo  __('Edit');?></button>
+                                        <button type="submit"><?php _e('Edit', 'cars_attributes');?></button>
                                         </form>
                                         </fieldset>
                                     </div>
                             
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
-                                        <legend><?php echo __('Add new make'); ?></legend>
+                                        <legend><?php _e('Add new make', 'cars_attributes'); ?></legend>
                                         <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
                                         <input type="hidden" name="page" value="plugins" />
                                         <input type="hidden" name="action" value="renderplugin" />
@@ -125,7 +125,7 @@
                                         <input type="hidden" name="plugin_action" value="make_add" />
                             
                                         
-                                        <input name="make" id="make" value="" /><button type="submit" ><?php echo  __('Add new'); ?></button>
+                                        <input name="make" id="make" value="" /><button type="submit" ><?php _e('Add new', 'cars_attributes'); ?></button>
                                         </form>
                                         </fieldset>
                                     </div>
@@ -142,10 +142,10 @@
                                 <div style="padding: 20px;">
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
-                                        <legend><?php echo __('Models'); ?></legend>
+                                        <legend><?php _e('Models', 'cars_attributes'); ?></legend>
                                         <?php $make = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX); ?>
                                         <select name="make" id="make" onchange="location.href = '<?php echo osc_admin_base_url(true);?>?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&makeId=' + this.value" >
-                                            <option value=""><?php echo  __('Select a make'); ?></option>
+                                            <option value=""><?php _e('Select a make', 'cars_attributes'); ?></option>
                                             <?php foreach($make as $a): ?>
                                             <option value="<?php echo $a['pk_i_id']; ?>" <?php if($makeId==$a['pk_i_id']) { echo 'selected'; };?>><?php echo $a['s_name']; ?></option>
                                             <?php endforeach; ?>
@@ -162,21 +162,21 @@
                                             if($makeId!="") {
                                                 $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE fk_i_make_id = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $makeId);
                                                 foreach($models as $model) {
-                                                    echo '<li><input name="model['.$model['pk_i_id'].']" id="'.$model['pk_i_id'].'" type="text" value="'.$model['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&plugin_action=model_delete&makeId='.$makeId.'&id='.$model['pk_i_id'].'" ><button>'.__('Delete').'</button></a> </li>';
+                                                    echo '<li><input name="model['.$model['pk_i_id'].']" id="'.$model['pk_i_id'].'" type="text" value="'.$model['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&plugin_action=model_delete&makeId='.$makeId.'&id='.$model['pk_i_id'].'" ><button>'.__('Delete', 'cars_attributes').'</button></a> </li>';
                                                 }
                                             } else {
                                                 echo '<li>Select a make first.</li>';
                                             }
                                         ?>
                                         </ul>
-                                        <button type="submit"><?php echo  __('Edit');?></button>
+                                        <button type="submit"><?php _e('Edit', 'cars_attributes'); ?></button>
                                         </form>
                                         </fieldset>
                                     </div>
                             
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
-                                        <legend><?php echo __('Add new model'); ?></legend>
+                                        <legend><?php _e('Add new model', 'cars_attributes'); ?></legend>
                                         <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
                                         <input type="hidden" name="page" value="plugins" />
                                         <input type="hidden" name="action" value="renderplugin" />
@@ -186,7 +186,7 @@
                             
                                         <?php if($makeId!='') { ?>
                                             <input type="hidden" name="makeId" value="<?php echo $makeId;?>" />
-                                            <input name="model" id="model" value="" /><button type="submit" ><?php echo  __('Add new'); ?></button>
+                                            <input name="model" id="model" value="" /><button type="submit" ><?php _e('Add new', 'cars_attributes'); ?></button>
                                         <?php }; ?>
                                         </form>
                                         </fieldset>
@@ -203,7 +203,7 @@
                                 <div style="padding: 20px;">
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
-                                        <legend><?php echo __('Vehicle types'); ?></legend>
+                                        <legend><?php _e('Vehicle types', 'cars_attributes'); ?></legend>
                                         <div class="tabber">
                                         <?php $locales = osc_get_locales();
                                             $car_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
@@ -225,10 +225,10 @@
                                             <?php
                                             if(count($data)>0) {
                                             foreach($data[$locale['pk_c_code']] as $car_type) { ?>
-                                            <li><input name="car_type[<?php echo  $car_type['pk_i_id'];?>][<?php echo  $locale['pk_c_code'];?>]" id="<?php echo  $car_type['pk_i_id'];?>" type="text" value="<?php echo  $car_type['s_name'];?>" /> <a href="<?php echo osc_admin_base_url(true);?>?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=types&plugin_action=type_delete&id=<?php echo  $car_type['pk_i_id'];?>" ><button><?php echo __('Delete');?></button></a> </li>
+                                            <li><input name="car_type[<?php echo  $car_type['pk_i_id'];?>][<?php echo  $locale['pk_c_code'];?>]" id="<?php echo  $car_type['pk_i_id'];?>" type="text" value="<?php echo  $car_type['s_name'];?>" /> <a href="<?php echo osc_admin_base_url(true);?>?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=types&plugin_action=type_delete&id=<?php echo  $car_type['pk_i_id'];?>" ><button><?php _e('Delete', 'cars_attributes'); ?></button></a> </li>
                                             <?php }; }; ?>
                                         </ul>
-                                        <button type="submit"><?php echo  __('Edit');?></button>
+                                        <button type="submit"><?php _e('Edit', 'cars_attributes'); ?></button>
                                         </form>
                                         </div>
                                         <?php }; ?>
@@ -238,7 +238,7 @@
                             
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
-                                        <legend><?php echo __('Add new car type'); ?></legend>
+                                        <legend><?php _e('Add new car type', 'cars_attributes'); ?></legend>
                                         <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
                                         <input type="hidden" name="page" value="plugins" />
                                         <input type="hidden" name="action" value="renderplugin" />
@@ -263,7 +263,7 @@
                                         </div>
                                         
                                         
-                                        <button type="submit" ><?php echo  __('Add new'); ?></button>
+                                        <button type="submit" ><?php _e('Add new', 'cars_attributes'); ?></button>
                                         </form>
                                         </fieldset>
                                     </div>
@@ -280,9 +280,9 @@
     <div style="padding: 20px;">
         <div style="float: left; width: 100%;">
             <fieldset style="border: 1px solid #ff0000;">
-            <legend><?php echo __('Warning'); ?></legend>
+            <legend><?php _e('Warning', 'cars_attributes'); ?></legend>
                 <p>
-                <?php _e("Deleting makes or models may end in errors. Some of those makes/models could be attached to some actual items."); ?>
+                <?php _e("Deleting makes or models may end in errors. Some of those makes/models could be attached to some actual items", 'cars_attributes'); ?>.
                 </p>
             </fieldset>
         </div>

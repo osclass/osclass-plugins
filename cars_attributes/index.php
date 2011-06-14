@@ -3,7 +3,7 @@
 Plugin Name: Cars attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store cars attributes such as model, year, brand, color, accessories, and so on.
-Version: 2.0.1
+Version: 2.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: cars_plugin
