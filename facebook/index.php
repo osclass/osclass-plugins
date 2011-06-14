@@ -3,7 +3,7 @@
 Plugin Name: Facebook Connect
 Plugin URI: http://www.osclass.org/
 Description: Use Facebook to connect and log in your users accounts
-Version: 1.0
+Version: 0.9
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: facebook
@@ -11,22 +11,17 @@ Short Name: facebook
 
 require_once 'OSCFacebook.php';
 function fbc_init() {
-    
-
-    $facebook = OSCFacebook::newInstance()->init(
-            osc_get_preference('fbc_appId', 'facebook_connect'),
-            osc_get_preference('fbc_secret', 'facebook_connect')
-            );
-
+    $facebook = OSCFacebook::newInstance()->init( osc_get_preference('fbc_appId', 'facebook_connect')
+                                                 ,osc_get_preference('fbc_secret', 'facebook_connect') );
 }
 
 function fbc_button() {
     $osc_facebook = OSCFacebook::newInstance();
     $user = $osc_facebook->getUser();
     if ($user) {
-        echo '<a href="' . $osc_facebook->logoutUrl() . '">Logout</a>';
+        echo '<a href="' . $osc_facebook->logoutUrl() . '">' . __('Logout', 'facebook') . '</a>';
     } else {
-        echo '<div><a href="' . $osc_facebook->loginUrl() . '">Login with Facebook</a></div>';
+        echo '<div><a href="' . $osc_facebook->loginUrl() . '">' . __('Login with Facebook', 'facebook') . '</a></div>';
     };
 }
 

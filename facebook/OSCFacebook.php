@@ -44,11 +44,11 @@ class OSCFacebook {
                     $logged = $uActions->bootstrap_login($user['fk_i_user_id']) ;
                                         
                     if($logged==0) {
-                        osc_add_flash_error_message(_m('The username doesn\'t exist')) ;
+                        osc_add_flash_error_message(__('The username doesn\'t exist', 'facebook')) ;
                     } else if($logged==1) {
-                        osc_add_flash_error_message(_m('The user has not been validated yet'));
+                        osc_add_flash_error_message(__('The user has not been validated yet', 'facebook'));
                     } else if($logged==2) {
-                        osc_add_flash_error_message(_m('The user has been suspended'));
+                        osc_add_flash_error_message(__('The user has been suspended', 'facebook'));
                     } else if($logged==3) {
                     
                     }
@@ -63,7 +63,7 @@ class OSCFacebook {
                                 if($user) {
                                     $conn->osc_dbExec(sprintf("REPLACE INTO `%st_facebook_connect` SET `fk_i_user_id` = %d, `i_facebook_uid` = '%s'", DB_TABLE_PREFIX, osc_logged_user_id(), $this->user_profile['id']));
                                 } else {
-                                    osc_add_flash_ok_message(__('Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook.', 'facebook'));
+                                    osc_add_flash_ok_message(__('Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook', 'facebook'));
                                 }
                             } else {
                                 osc_add_flash_ok_message(__('Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook.', 'facebook'));
@@ -158,13 +158,13 @@ class OSCFacebook {
                     ) ;
                     osc_sendMail($emailParams);
                 }
-                osc_add_flash_ok_message(sprintf(__("An automatic account for %s has been created. You'll receive an email to confirm.", 'facebook'), osc_page_title()));
+                osc_add_flash_ok_message(sprintf(__("An automatic account for %s has been created. You'll receive an email to confirm", 'facebook'), osc_page_title()));
             } else {
                 $manager->update(
                                 array('b_active' => '1')
                                 ,array('pk_i_id' => $userId)
                 );
-                osc_add_flash_ok_message(sprintf(__("An automatic account for %s has been created. You're ready to go.", 'facebook'), osc_page_title()));
+                osc_add_flash_ok_message(sprintf(__("An automatic account for %s has been created. You're ready to go", 'facebook'), osc_page_title()));
             }
         }
     }

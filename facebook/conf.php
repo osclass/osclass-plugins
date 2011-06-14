@@ -43,7 +43,7 @@ if(Params::getParam('plugin_action')=='done') {
                     <label>appId:</label> <input type="text" name="fbc_appId" id="fbc_appId" value="<?php echo osc_get_preference('fbc_appId','facebook_connect'); ?>" maxlength="100" size="60" /><br />
                     <label>secret:</label> <input type="text" name="fbc_secret" id="fbc_secret" value="<?php echo osc_get_preference('fbc_secret', 'facebook_connect'); ?>" maxlength="100" size="60" /><br />
 
-                    <button type="submit"><?php echo  __('Update', 'facebook');?></button>
+                    <button type="submit"><?php _e('Update', 'facebook');?></button>
                     </form>
             </fieldset>
         </div>
@@ -51,18 +51,18 @@ if(Params::getParam('plugin_action')=='done') {
             <fieldset>
             <legend><?php _e("Facebook Connect Help", 'facebook');?></legend>
 
-            <h3><?php _e("What is Facebook Connect Plugin?");?></h3>
-            <?php _e("Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts.", 'facebook');?>
+            <h3><?php _e("What is Facebook Connect Plugin?", 'facebook'); ?></h3>
+            <?php _e("Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts", 'facebook'); ?>.
             <br/>
             <br/>
-            <h3><?php _e("Using Facebook login", 'facebook');?></h3>
-            <?php echo __('You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL:','facebook'); ?> <a rel="nofollow" target="_blank" href="http://www.facebook.com/developers/createapp.php">http://www.facebook.com/developers/createapp.php</a><br />
-            <?php _e("In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear:",'facebook');?><br/>
+            <h3><?php _e("Using Facebook login", 'facebook'); ?></h3>
+            <?php _e('You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL','facebook'); ?>: <a rel="nofollow" target="_blank" href="http://www.facebook.com/developers/createapp.php">http://www.facebook.com/developers/createapp.php</a><br />
+            <?php _e("In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear",'facebook'); ?>:<br/>
             <pre>
             &lt;?php fbc_button(); ?&gt;
             </pre>
             <br />
-            <div style="font-size: small;"><strong>*</strong> <?php echo __('You can freely obtain an appId and secret key after signing up on this URL:'); ?> <a rel="nofollow" target="_blank" href="http://www.facebook.com/developers/createapp.php">http://www.facebook.com/developers/createapp.php</a>.</div>
+            <div style="font-size: small;"><strong>*</strong> <?php _e('You can freely obtain an appId and secret key after signing up on this URL'); ?>: <a rel="nofollow" target="_blank" href="http://www.facebook.com/developers/createapp.php">http://www.facebook.com/developers/createapp.php</a>.</div>
             <br/>
 
             </fieldset>
