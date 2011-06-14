@@ -1,4 +1,4 @@
-<h3><?php _e('Realestate attributes', 'products_attributes') ; ?></h3>
+<h3><?php _e('Products attributes', 'products_attributes') ; ?></h3>
 <table>
     <tr>
         <td><label for="make"><?php _e('Make', 'products_attributes'); ?></label></td>
