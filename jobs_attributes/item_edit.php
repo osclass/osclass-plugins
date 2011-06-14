@@ -120,9 +120,9 @@
                 </div>
                 <div style="clear:both;"></div>
             </div>
-        <?php }; ?>
+        <?php } ?>
         </div>
-<?php }; ?>
+<?php } ?>
 <script type="text/javascript">
     tabberAutomatic();
 </script>

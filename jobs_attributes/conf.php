@@ -66,7 +66,7 @@ if(Params::getParam('plugin_action')=='done') {
                     <label><?php _e('Salary slider step value', 'jobs_plugins');?></label><input type="text" name="salary_step" id="salary_step" value="<?php echo osc_get_preference('salary_step', 'jobs_plugin'); ?>" />
                     <br/>
 
-                    <button type="submit"><?php echo  __('Update', 'jobs_attributes');?></button>
+                    <button type="submit"><?php _e('Update', 'jobs_attributes'); ?></button>
                     </form>
             </fieldset>
         </div>

@@ -3,7 +3,7 @@
 Plugin Name: Jobs attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store jobs attributes such as salary, requirements, timetable, and so on.
-Version: 2.3
+Version: 2.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobs_plugin
@@ -250,8 +250,8 @@ function job_delete_item($item) {
 function jobs_admin_menu() {
     echo '<h3><a href="#">Jobs plugin</a></h3>
     <ul> 
-        <li><a href="'.osc_admin_configure_plugin_url("jobs_attributes/index.php").'">&raquo; ' . __('Configure plugin') . '</a></li>
-        <li><a href="'.osc_admin_render_plugin_url("jobs_attributes/conf.php").'?section=types">&raquo; ' . __('Plugin Options') . '</a></li>
+        <li><a href="'.osc_admin_configure_plugin_url("jobs_attributes/index.php").'">&raquo; ' . __('Configure plugin', 'jobs_attributes') . '</a></li>
+        <li><a href="'.osc_admin_render_plugin_url("jobs_attributes/conf.php").'?section=types">&raquo; ' . __('Plugin Options', 'jobs_attributes') . '</a></li>
     </ul>';
 }
 

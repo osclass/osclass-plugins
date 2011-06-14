@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: OSClass 2.0\n"
+"Project-Id-Version: OSClass 2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-15 15:56+0100\n"
+"POT-Creation-Date: 2011-06-14 12:41+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
 "Language-Team: OSClass <info@osclass.org>\n"
@@ -16,147 +16,212 @@ msgstr ""
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SearchPath-0: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes\n"
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:1
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:7
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:1
-msgid "Job attributes"
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:40
+msgid "Jobs Options"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:4
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:10
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:4
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:4
-msgid "Relation"
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:48
+msgid "Allow upload of resumes"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:6
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:52
+msgid "Allow unregistered users to upload their resumes"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:56
+msgid "Send all emails to the following email (if not checked the resumes will be send to ad's author)"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:59
+msgid "E-mail"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:62
+msgid "Salary slider min value"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:64
+msgid "Salary slider max value"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:66
+msgid "Salary slider step value"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:69
+msgid "Update"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:75
+msgid "Help"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:78
+msgid "You could allow users to send their resumes to a specific email address or to send them to the author of the ad. Also you could specify is unregistered users could or could not upload their resumes."
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/conf.php:80
+msgid "The salary range will appear as a slider, at the search page and at the publish page. You could modify the minimum and maximum values of that slider as well as the value of the \"steps\" or increments."
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/cv_uploader.php:110
+msgid "Server error. Upload directory isn't writable."
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/cv_uploader.php:114
+msgid "No files were uploaded."
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/cv_uploader.php:120
+msgid "File is empty"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/cv_uploader.php:124
+msgid "File is too large"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/cv_uploader.php:132
+msgid "File has an invalid extension"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/cv_uploader.php:137
+#, php-format
+msgid "Someone sent you his/her resume. ( %s )"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/cv_uploader.php:138
+#, php-format
+msgid "Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here : %s"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/cv_uploader.php:158
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/cv_uploader.php:161
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/cv_uploader.php:180
+msgid "Could not save uploaded file. The upload was cancelled, or server error encountered"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/index.php:253
+msgid "Configure plugin"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/index.php:254
+msgid "Plugin Options"
+msgstr ""
+
 #: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:2
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:6
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:6
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:23
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:31
 msgid "Hire someone"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:7
 #: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:2
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:7
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:7
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:27
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:34
 msgid "Looking for a job"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:11
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:14
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:11
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:11
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:7
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:17
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:26
+msgid "Job attributes"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:11
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:20
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:28
+msgid "Relation"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:17
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:31
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:39
 msgid "Company name"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:15
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:18
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:15
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:15
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:23
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:35
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:43
 msgid "Position type"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:18
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:18
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:18
-msgid "Undefined"
-msgstr ""
-
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:19
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:19
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:20
-msgid "Part time"
-msgstr ""
-
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:20
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:20
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:19
-msgid "Full-time"
-msgstr ""
-
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:25
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:22
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:25
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:25
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:29
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:43
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:53
 msgid "Salary range"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:29
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:29
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:29
-msgid "Hour"
-msgstr ""
-
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:30
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:30
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:30
-msgid "Week"
-msgstr ""
-
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:31
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:31
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:31
-msgid "Month"
-msgstr ""
-
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:32
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:32
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:32
-msgid "Year"
-msgstr ""
-
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:43
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:72
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:29
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:58
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:42
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:71
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:39
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:69
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:98
 msgid "Desired experience"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:47
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:76
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:33
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:62
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:46
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:75
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:45
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:73
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:102
 msgid "Studies"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:51
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:80
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:37
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:66
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:50
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:79
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:51
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:77
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:106
 msgid "Minimum requirements"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:55
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:84
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:41
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:70
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:54
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:83
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:57
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:81
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:110
 msgid "Desired requirements"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:59
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:88
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:45
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:74
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:58
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:87
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:63
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:85
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:114
 msgid "Contract"
 msgstr ""
 
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:63
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/form.php:92
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:49
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:78
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:62
-#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:91
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:69
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:89
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:118
 msgid "Company description"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_detail.php:79
+msgid "Please enable JavaScript to use cv uploader"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:37
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:46
+msgid "Undefined"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:38
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:48
+msgid "Part time"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:39
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:47
+msgid "Full-time"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:50
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:60
+msgid "Hour"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:51
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:61
+msgid "Week"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:52
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:62
+msgid "Month"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/item_edit.php:53
+#: /Users/juanramon/htdocs/osclass-plugins/jobs_attributes/search_form.php:63
+msgid "Year"
 msgstr ""
 

@@ -107,43 +107,35 @@ class qqFileUploader {
      */
     function handleUpload($uploadDirectory, $replaceOldFile = FALSE){
         if (!is_writable($uploadDirectory)){
-            return array('error' => __("Server error. Upload directory isn't writable.", "jobs_plugin"));
+            return array('error' => __("Server error. Upload directory isn't writable.", "jobs_attributes"));
         }
         
         if (!$this->file){
-            return array('error' => __('No files were uploaded.', "jobs_plugin"));
+            return array('error' => __('No files were uploaded.', "jobs_attributes"));
         }
         
         $size = $this->file->getSize();
         
         if ($size == 0) {
-            return array('error' => __('File is empty', "jobs_plugin"));
+            return array('error' => __('File is empty', "jobs_attributes"));
         }
         
         if ($size > $this->sizeLimit) {
-            return array('error' => __('File is too large', "jobs_plugin"));
+            return array('error' => __('File is too large', "jobs_attributes"));
         }
         
         $pathinfo = pathinfo($this->file->getName());
         $filename = date("YmdHis") . "_" . $pathinfo['filename'];
-        //$filename = md5(uniqid());
         $ext = $pathinfo['extension'];
 
         if($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)){
-            return array('error' => __('File has an invalid extension', "jobs_plugin"));
+            return array('error' => __('File has an invalid extension', "jobs_attributes"));
         }
-        
-        /*if(!$replaceOldFile){
-            /// don't overwrite previous files that were uploaded
-            while (file_exists($uploadDirectory . $filename . '.' . $ext)) {
-                $filename .= rand(10, 99);
-            }
-        }*/
         
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)){
             $params = array();
-            $params['subject'] = sprintf(__('Someone sent you his/her resume. ( %s )', 'jobs_plugin'), osc_item_title());
-            $params['body'] = sprintf(__('Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here : %s', 'jobs_plugin'), osc_item_url());
+            $params['subject'] = sprintf(__('Someone sent you his/her resume. ( %s )', 'jobs_attributes'), osc_item_title());
+            $params['body'] = sprintf(__('Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here : %s', 'jobs_attributes'), osc_item_url());
             $params['alt_body'] = $params['body'];
             $params['attachment'] = $uploadDirectory . $filename . '.' . $ext;
 
@@ -161,12 +153,12 @@ class qqFileUploader {
 
             @unlink($uploadDirectory . $filename . '.' . $ext);
             if($error==0) {
-                return array('success'=>true);
+                return array('success' => true);
             } else {
-                return array('error'=> __('Could not save uploaded file. The upload was cancelled, or server error encountered', 'jobs_plugin'));
+                return array('error'=> __('Could not save uploaded file. The upload was cancelled, or server error encountered', 'jobs_attributes'));
             }
         } else {
-            return array('error'=> __('Could not save uploaded file. The upload was cancelled, or server error encountered', 'jobs_plugin'));
+            return array('error'=> __('Could not save uploaded file. The upload was cancelled, or server error encountered', 'jobs_attributes'));
         }
         
     }    
@@ -175,7 +167,6 @@ class qqFileUploader {
 if(osc_get_preference('allow_cv_upload', 'jobs_plugin')=='1' && ((osc_get_preference('allow_cv_unreg', 'jobs_plugin')=='1' && !osc_is_web_user_logged_in()) || osc_is_web_user_logged_in())) {
     View::newInstance()->_exportVariableToView('item', Item::newInstance()->findByPrimaryKey(Params::getParam('id')));
 
-    
     // list of valid extensions, ex. array("jpeg", "xml", "bmp")
     $allowedExtensions = array();
     // max file size in bytes
@@ -186,6 +177,7 @@ if(osc_get_preference('allow_cv_upload', 'jobs_plugin')=='1' && ((osc_get_prefer
     // to pass data through iframe you will need to encode all html tags
     echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
 } else { 
-    echo htmlspecialchars(json_encode(array('error'=> __('Could not save uploaded file. The upload was cancelled, or server error encountered', 'jobs_plugin'))), ENT_NOQUOTES);
+    echo htmlspecialchars(json_encode(array('error'=> __('Could not save uploaded file. The upload was cancelled, or server error encountered', 'jobs_attributes'))), ENT_NOQUOTES);
 }
+
 ?>

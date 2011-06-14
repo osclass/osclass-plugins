@@ -1,6 +1,6 @@
 <?php $salaryRange = explode(" - ", Params::getParam('salaryRange'));
-    $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
-    $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
+    $salaryMin = ($salaryRange[0]!='') ? $salaryRange[0] : job_plugin_salary_min();
+    $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='') ? $salaryRange[1] : job_plugin_salary_max();
 ?>
 <style type="text/css">
     .right .selector {
@@ -23,8 +23,7 @@
     });
 </script>
 <fieldset>
-    <h3><?php _e("Job attributes", 'jobs_attributes');?></h3>
-    
+    <h3><?php _e("Job attributes", 'jobs_attributes'); ?></h3>
     <div class="row one_input">
         <h6><?php _e('Relation', 'jobs_attributes'); ?></h6>
         <ul>
