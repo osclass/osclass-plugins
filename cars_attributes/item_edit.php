@@ -46,6 +46,11 @@
 <h3><?php _e('Cars attributes', 'cars_attributes') ; ?></h3>
 <div class="box">
     <div class="row _200">
+        <?php
+            if( Session::newInstance()->_getForm('pc_make') != "" ) {
+                $detail['fk_i_make_id'] = Session::newInstance()->_getForm('pc_make');
+            }
+        ?>
         <label><?php _e('Make', 'cars_attributes'); ?></label>
         <select name="make" id="make" >
             <option value=""><?php _e('Select a make', 'cars_attributes'); ?></option>
@@ -55,15 +60,23 @@
         </select>
     </div>
     <div class="row _200">
+        <?php
+            if( Session::newInstance()->_getForm('pc_model') != "" ) {
+                $detail['fk_i_model_id'] = Session::newInstance()->_getForm('pc_model');
+            }
+        ?>
         <label><?php _e('Model', 'cars_attributes'); ?></label>
         <select name="model" id="model">
             <?php foreach($models as $a): ?>
-            <option value="<?php echo $a['pk_i_id']; ?>"><?php echo $a['s_name']; ?></option>
+            <option value="<?php echo $a['pk_i_id']; ?>" <?php if(@$detail['fk_i_model_id'] == $a['pk_i_id']) { echo 'selected';}; ?>><?php echo $a['s_name']; ?></option>
             <?php endforeach; ?>
         </select>
     </div>
     <div class="row _200">
         <?php $locales = osc_get_locales();
+        if( Session::newInstance()->_getForm('pc_car_type') != "" ) {
+            $detail['fk_vehicle_type_id'] = Session::newInstance()->_getForm('pc_car_type');
+        }
         if(count($locales)==1) {
             $locale = $locales[0];?>
             <p>
@@ -93,10 +106,20 @@
         <?php }; ?>
     </div>
     <div class="row _200">
+        <?php
+            if( Session::newInstance()->_getForm('pc_year') != "" ) {
+                $detail['i_year'] = Session::newInstance()->_getForm('pc_year');
+            }
+        ?>
         <label><?php _e('Year', 'cars_attributes'); ?></label>
         <input type="text" name="year" id="year" value="<?php echo @$detail['i_year']; ?>" size=4/>
     </div>
     <div class="row auto">
+        <?php
+            if( Session::newInstance()->_getForm('pc_doors') != "" ) {
+                $detail['i_doors'] = Session::newInstance()->_getForm('pc_doors');
+            }
+        ?>
         <label><?php _e('Doors', 'cars_attributes'); ?></label>
         <select name="doors" id="doors">
         <?php foreach(range(3, 5) as $n) { ?>
@@ -105,6 +128,11 @@
         </select>
     </div>
     <div class="row auto">
+        <?php
+            if( Session::newInstance()->_getForm('pc_seats') != "" ) {
+                $detail['i_seats'] = Session::newInstance()->_getForm('pc_seats');
+            }
+        ?>
         <label><?php _e('Seats', 'cars_attributes'); ?></label>
         <select name="seats" id="seats">
             <?php foreach(range(1, 17) as $n) { ?>
@@ -113,14 +141,29 @@
         </select>
     </div>
     <div class="row _200">
+        <?php
+            if( Session::newInstance()->_getForm('pc_mileage') != "" ) {
+                $detail['i_mileage'] = Session::newInstance()->_getForm('pc_mileage');
+            }
+        ?>
         <label><?php _e('Mileage', 'cars_attributes'); ?></label>
         <input type="text" name="mileage" id="mileage" value="<?php echo @$detail['i_mileage']; ?>" />
     </div>
     <div class="row _200">
+        <?php
+            if( Session::newInstance()->_getForm('pc_engine_size') != "" ) {
+                $detail['i_engine_size'] = Session::newInstance()->_getForm('pc_engine_size');
+            }
+        ?>
         <label><?php _e('Engine size (cc)', 'cars_attributes'); ?></label>
         <input type="text" name="engine_size" id="engine_size" value="<?php echo  @$detail['i_engine_size']; ?>" />
     </div>
     <div class="row auto">
+        <?php
+            if( Session::newInstance()->_getForm('pc_num_airbags') != "" ) {
+                $detail['i_num_airbags'] = Session::newInstance()->_getForm('pc_num_airbags');
+            }
+        ?>
         <label><?php _e('Num. Airbags', 'cars_attributes'); ?></label>
         <select name="num_airbags" id="num_airbags">
             <?php foreach(range(0, 8) as $n) { ?>
@@ -129,6 +172,11 @@
         </select>
     </div>
     <div class="row _200">
+        <?php
+            if( Session::newInstance()->_getForm('pc_transmission') != "" ) {
+                $detail['e_transmission'] = Session::newInstance()->_getForm('pc_transmission');
+            }
+        ?>
         <label><?php _e('Transmission', 'cars_attributes'); ?></label>
         <select name="transmission" id="transmission">
             <option value="MANUAL" <?php if(@$detail['e_transmission'] == 'MANUAL') { echo 'selected'; } ?>><?php _e('Manual', 'cars_attributes'); ?></option>
@@ -136,6 +184,11 @@
         </select>
     </div>
     <div class="row _200">
+        <?php
+            if( Session::newInstance()->_getForm('pc_fuel') != "" ) {
+                $detail['e_fuel'] = Session::newInstance()->_getForm('pc_fuel');
+            }
+        ?>
         <label><?php _e('Fuel', 'cars_attributes'); ?></label>
         <select name="fuel" id="fuel">
             <option value="DIESEL" <?php if(@$detail['e_fuel'] == 'DIESEL') { echo 'selected'; } ?>><?php _e('Diesel', 'cars_attributes'); ?></option>
@@ -145,6 +198,11 @@
         </select>
     </div>
     <div class="row _200">
+        <?php
+            if( Session::newInstance()->_getForm('pc_seller') != "" ) {
+                $detail['e_seller'] = Session::newInstance()->_getForm('pc_seller');
+            }
+        ?>
         <label><?php _e('Seller', 'cars_attributes'); ?></label>
         <select name="seller" id="seller">
             <option value="DEALER" <?php if(@$detail['e_seller'] == 'DEALER') { echo 'selected'; } ?>><?php _e('Dealer', 'cars_attributes'); ?></option>
@@ -152,12 +210,30 @@
         </select>
     </div>
     <div class="row _20">
+        <?php
+            if( Session::newInstance()->_getForm('pc_warranty') != "" ) {
+                $detail['b_warranty'] = Session::newInstance()->_getForm('pc_warranty');
+            }
+        ?>
         <input type="checkbox" name="warranty" id="warranty" value="1" <?php if(@$detail['b_warranty'] == 1) { echo 'checked="yes"'; } ?> /> <label><?php _e('Warranty', 'cars_attributes'); ?></label> <br />
     </div>
     <div class="row _20">
+        <?php
+            if( Session::newInstance()->_getForm('pc_new') != "" ) {
+                $detail['b_new'] = Session::newInstance()->_getForm('pc_new');
+            }
+        ?>
         <input type="checkbox" name="new" id="new" value="1" <?php if(@$detail['b_new'] == 1) { echo 'checked="yes"'; } ?> /> <label><?php _e('New', 'cars_attributes'); ?></label> <br />
     </div>
     <div class="row auto _200">
+        <?php
+            if( Session::newInstance()->_getForm('pc_power_unit') != "" ) {
+                $detail['e_power_unit'] = Session::newInstance()->_getForm('pc_power_unit');
+            }
+            if( Session::newInstance()->_getForm('pc_power') != "" ) {
+                $detail['i_power'] = Session::newInstance()->_getForm('pc_power');
+            }
+        ?>
         <label><?php _e('Power', 'cars_attributes'); ?></label>
         <input type="text" name="power" id="power" value="<?php echo @$detail['i_power']; ?>" />
         <select name="power_unit" id="power_unit">
@@ -172,6 +248,11 @@
         </select>
     </div>
     <div class="row auto">
+        <?php
+            if( Session::newInstance()->_getForm('pc_gears') != "" ) {
+                $detail['i_gears'] = Session::newInstance()->_getForm('pc_gears');
+            }
+        ?>
         <label><?php _e('Gears', 'cars_attributes'); ?></label>
         <select name="gears" id="gears">
         <?php foreach(range(1, 8) as $n) { ?>
