@@ -136,6 +136,7 @@ function job_form($catId = null) {
             require_once 'item_edit.php';
         }
     }
+    Session::newInstance()->_clearVariables();
 }
 
 function job_search_form($catId = null) {
@@ -207,6 +208,7 @@ function job_item_edit($catId = null, $item_id = null) {
         }
         require_once 'item_edit.php';
     }
+    Session::newInstance()->_clearVariables();
 }
 
 function job_item_edit_post($catId = null, $item_id = null) {
@@ -272,6 +274,53 @@ function job_plugin_salary_step() {
     return osc_get_preference('salary_step', 'jobs_plugin');
 }
 
+function job_pre_item_post()
+{
+    $salaryRange = explode(" - ", Params::getParam('salaryRange'));
+    $salaryMin   = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min() ;
+    $salaryMax   = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max() ;
+    // extract digits from salary Min & Max
+    $salaryMin   = preg_match('/(\d*)/', $salaryMin, $matches);
+    $salaryMin   = $matches[0];
+    $salaryMax   = preg_match('/(\d*)/', $salaryMax, $matches);
+    $salaryMax   = $matches[0];
+    Session::newInstance()->_setForm('pj_salaryMin', $salaryMin );
+    Session::newInstance()->_setForm('pj_salaryMax', $salaryMax );
+    Session::newInstance()->_setForm('pj_relation',  Params::getParam('relation') );
+    Session::newInstance()->_setForm('pj_companyName',  Params::getParam('companyName') );
+    Session::newInstance()->_setForm('pj_positionType',  Params::getParam('positionType') );
+    Session::newInstance()->_setForm('pj_salaryPeriod',  Params::getParam('salaryPeriod') );
+    // prepare locales
+    $dataItem = array();
+    $request = Params::getParamsAsArray();
+    foreach ($request as $k => $v) {
+        if (preg_match('|(.+?)#(.+)|', $k, $m)) {
+            $dataItem[$m[1]][$m[2]] = $v;
+        }
+    }
+    Session::newInstance()->_setForm('pj_data', $dataItem );
+
+    // keep values on session
+    Session::newInstance()->_keepForm('pj_salaryMin');
+    Session::newInstance()->_keepForm('pj_salaryMax');
+    Session::newInstance()->_keepForm('pj_relation');
+    Session::newInstance()->_keepForm('pj_companyName');
+    Session::newInstance()->_keepForm('pj_positionType');
+    Session::newInstance()->_keepForm('pj_salaryPeriod');
+    Session::newInstance()->_keepForm('pj_data');
+}
+
+function job_save_inputs_into_session()
+{
+    Session::newInstance()->_keepForm('pj_salaryMin');
+    Session::newInstance()->_keepForm('pj_salaryMax');
+    Session::newInstance()->_keepForm('pj_relation');
+    Session::newInstance()->_keepForm('pj_companyName');
+    Session::newInstance()->_keepForm('pj_positionType');
+    Session::newInstance()->_keepForm('pj_salaryPeriod');
+    Session::newInstance()->_keepForm('pj_data');
+}
+
 // This is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'job_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
@@ -305,4 +354,9 @@ osc_add_hook('delete_item', 'job_delete_item');
 // Admin menu
 osc_add_hook('admin_menu', 'jobs_admin_menu');
 
+// previous to insert item
+osc_add_hook('pre_item_post', 'job_pre_item_post') ;
+osc_add_hook('pre_item_edit', 'job_pre_item_post') ;
+// save input values into session
+osc_add_hook('save_input_session', 'job_save_inputs_into_session' );
 ?>
