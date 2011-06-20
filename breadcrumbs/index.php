@@ -23,55 +23,110 @@
 Plugin Name: Bread crumbs
 Plugin URI: http://www.osclass.org/
 Description: Breadcrumbs navigation system.
-Version: 1.5.1
+Version: 1.6
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: breadcrumbs
 */
 
     function breadcrumbs($separator = '/') {
-        $separator = ' ' . $separator . ' ';
+        $text       = '';
+        $location   = Rewrite::newInstance()->get_location();
+        $section    = Rewrite::newInstance()->get_section();
+        $separator  = ' ' . trim($separator) . ' ';
+        $page_title = '<a href="' . osc_base_url() .  '"><span class="bc_root">' . osc_page_title() . '</span></a>';
 
-        $location = Rewrite::newInstance()->get_location();
-        $section  = Rewrite::newInstance()->get_section();
-        // You DO NOT have to modify anything else
-        if($location=='search') {
-            $category = osc_search_category_id();
-            var_dump($category);
-            if(count($category)==1) {
-                $category = $category[0];
-            }
-        } else if($location=='item' && osc_item()!=null) {
-            $category = osc_item_category_id();
-        }
-
-        $bc_text = "<a href='".osc_base_url()."' ><span class='bc_root'>".osc_page_title()."</span></a>";
-        $deep_c = -1;
-        if(isset($category)) {
-            $cats = Category::newInstance()->toRootTree($category);
-            var_dump($cats);
-            if(count($cats)>0) {
-                foreach($cats as $cat) {
-                    $deep_c++;
-                    $bc_text .= $separator."<a href='".breadcrumbs_category_url($cat['pk_i_id'])."' ><span class='bc_level_".$deep_c."'>".$cat['s_name']."</span></a>";
+        switch ($location) {
+            case ('item'):
+                switch ($section) {
+                    case 'item_add':    $text = $page_title . $separator . '<span class="bc_last">' . __('Publish an item', 'breadcrumbs'); break;
+                    case 'item_edit':   $category = '<a href="' . breadcrumbs_category_url(osc_item_category_id()) .'"><span class="bc_category">' . osc_item_category() . '</span></a>';
+                                        $text = $page_title . $separator . $category . $separator . '<a href="' . osc_item_url() . '"><span class="bc_item">' . osc_item_title() . '</span></a>' . $separator .  '<span class="bc_last">' . __('Edit your item', 'breadcrumbs') . '</span>'; break;
+                    case 'send_friend': $category = '<a href="' . breadcrumbs_category_url(osc_item_category_id()) .'"><span class="bc_category">' . osc_item_category() . '</span></a>';
+                                        $text = $page_title . $separator . $category . $separator . '<a href="' . osc_item_url() . '"><span class="bc_item">' . osc_item_title() . '</span></a>' . $separator .  '<span class="bc_last">' . __('Send to a friend', 'breadcrumbs') . '</span>'; break;
+                    case 'contact':     $category = '<a href="' . breadcrumbs_category_url(osc_item_category_id()) .'"><span class="bc_category">' . osc_item_category() . '</span></a>';
+                                        $text = $page_title . $separator . $category . $separator . '<a href="' . osc_item_url() . '"><span class="bc_item">' . osc_item_title() . '</span></a>' . $separator .  '<span class="bc_last">' . __('Contact seller', 'breadcrumbs') . '</span>'; break;
+                    default:            $category = '<a href="' . breadcrumbs_category_url(osc_item_category_id()) .'"><span class="bc_category">' . osc_item_category() . '</span></a>';
+                                        $text = $page_title . $separator . $category . $separator . '<span class="bc_last">' . osc_item_title() . '</span>'; break;
                 }
-            }
-        } else if($location!='index' && $location!='') {
-            $bc_text .= $separator."<span class='bc_location'>".$location."</span>";
+            break;
+            case('page'):
+                $text = $page_title . $separator . '<span class="bc_last">' . osc_static_page_title() . '</span>';
+            break;
+            case('search'):
+                $pattern    = Params::getParam('sPattern');
+                $category   = osc_search_category_id();
+                $category   = ((count($category) == 1) ? $category[0] : '');
+
+                $b_show_all = ($pattern == '' && $category == '');
+                $b_category = ($category != '');
+                $b_pattern  = ($pattern != '');
+
+                if($b_show_all) {
+                    $text = $page_title . $separator . '<span class="bc_last">' . __('Search', 'breadcrumbs') . '</span>' ;
+                    break; 
+                }
+
+                // init
+                $result = $page_title . $separator;
+
+                if($b_category) {
+                    $list        = array();
+                    $aCategories = Category::newInstance()->toRootTree($category);
+                    if(count($aCategories) > 0) {
+                        $deep = 1;
+                        foreach ($aCategories as $single) {
+                            $list[] = '<a href="' . breadcrumbs_category_url($single['pk_i_id']) . '"><span class="bc_level_' . $deep . '">' . $single['s_name']. '</span></a>';
+                            $deep++;
+                        }
+                        // remove last link
+                        if(!$b_pattern) {
+                            $list[count($list) - 1] = preg_replace('|<a href.*?>(.*?)</a>|', '$01', $list[count($list) - 1]);
+                        }
+                        $result .= implode($separator, $list) . $separator;
+                    }
+                }
+
+                if($b_pattern) {
+                    $result .= '<span class="bc_last">' . __('Search Results', 'breadcrumbs') . ': ' . $pattern  . '</span>'. $separator;
+                }
+
+                // remove last separator
+                $result = preg_replace('|' . trim($separator) . '\s*$|', '', $result);
+                $text   = $result;
+            break;
+            case('login'):
+                switch ($section) {
+                    case('recover'): $text = $page_title . $separator . '<span class="bc_last">' . __('Recover your password', 'breadcrumbs') . '</span>';
+                    default:         $text = $page_title . $separator . '<span class="bc_last">' . __('Login', 'breadcrumbs') . '</span>';
+                }
+            break;
+            case('register'):
+                $text = $page_title . $separator . '<span class="bc_last">' . __('Create a new account', 'breadcrumbs') . '</span>';
+            break;
+            case('user'):
+                $user_dashboard = '<a href="' . osc_user_dashboard_url() . '"><span class="bc_user">' . __('My account', 'breadcrumbs') . '</span></a>';
+                switch ($section) {
+                    case('dashboard'):       $text = $page_title . $separator . $user_dashboard . $separator . '<span class="bc_last">' . __('Dashboard', 'breadcrumbs') . '</span>'; break;
+                    case('items'):           $text = $page_title . $separator . $user_dashboard . $separator . '<span class="bc_last">' . __('Manage my items', 'breadcrumbs') . '</span>'; break;
+                    case('alerts'):          $text = $page_title . $separator . $user_dashboard . $separator . '<span class="bc_last">' . __('Manage my alerts', 'breadcrumbs') . '</span>'; break;
+                    case('profile'):         $text = $page_title . $separator . $user_dashboard . $separator . '<span class="bc_last">' . __('Update my profile', 'breadcrumbs') . '</span>'; break;
+                    case('change_email'):    $text = $page_title . $separator . $user_dashboard . $separator . '<span class="bc_last">' . __('Change my email', 'breadcrumbs') . '</span>'; break;
+                    case('change_password'): $text = $page_title . $separator . $user_dashboard . $separator . '<span class="bc_last">' . __('Change my password', 'breadcrumbs') . '</span>'; break;
+                    case('forgot'):          $text = $page_title . $separator . $user_dashboard . $separator . '<span class="bc_last">' . __('Recover my password', 'breadcrumbs') . '</span>'; break;
+                }
+            break;
+            case('contact'):
+                $text = $page_title . $separator . '<span class="bc_last">' . __('Contact', 'breadcrumbs') . '</span>';
+            break;
+            default:
+            break;
         }
 
-        if($location=='item' && osc_item()!=null) {
-            $bc_text .= $separator."<a href='".osc_item_url()."' ><span class='bc_last'>".osc_item_title()."</span></a>";
-        } else if($section!='') {
-            $bc_text .= $separator."<span class='bc_last'>".$section."</span>";
-        } else {
-            $bc_text = str_replace('bc_level_'.$deep_c, 'bc_last', str_replace('bc_location', 'bc_last', $bc_text));
-        }
+        echo $text;
 
-        echo $bc_text;
-
+        return true;
     }
-
 
     function breadcrumbs_category_url($category_id) {
         $path = '' ;
@@ -90,11 +145,10 @@ Short Name: breadcrumbs
         return $path ;
     }
 
-
     function breadcrumbs_admin_menu() {
         echo '<h3><a href="#">Breadcrumbs</a></h3>
         <ul> 
-            <li><a href="'.osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/help.php').'">&raquo; '.__('F.A.Q. / Help', 'breadcrumbs').'</a></li>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/help.php') . '">&raquo; ' . __('F.A.Q. / Help', 'breadcrumbs') . '</a></li>
         </ul>';
     }
 
@@ -105,9 +159,9 @@ Short Name: breadcrumbs
     // This is needed in order to be able to activate the plugin
     osc_register_plugin(osc_plugin_path(__FILE__), '');
     // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-    osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'breadcrumbs_help');
+    osc_add_hook(osc_plugin_path(__FILE__) . '_configure', 'breadcrumbs_help');
     // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-    osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
+    osc_add_hook(osc_plugin_path(__FILE__) . '_uninstall', '');
     // Add the help to the menu
     osc_add_hook('admin_menu', 'breadcrumbs_admin_menu');
 

@@ -49,7 +49,7 @@
                     <?php _e("Of course you can. The main crumb has a style class of 'bc_root'. The last crumb of 'bc_last'. The middle crumbs have classes as 'bc_level_X' where X is the number of depth. For example 'OSClass / category / subcategory / item_title' has style classes as 'bc_root / bc_level_1 / bc_level_2 / bc_last'. You should modify your theme's .css file to change the style", 'breadcrumbs'); ?>. 
                 </p>
                 <p>
-                    <?php _e("You could also specify the separator you want. The default one is '/', but you could feel more comfortable with '&raquo;', ':'... For example:", 'breadcrumbs'); ?>
+                    <?php _e("You could also specify the separator you want. The default one is '/', but you could feel more comfortable with '&raquo;', ':', etc. For example:", 'breadcrumbs'); ?>
                 </p>
                 <pre>
                     &lt;?php breadcrumbs('&raquo;'); ?&gt;
