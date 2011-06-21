@@ -23,7 +23,7 @@
 Plugin Name: Bread crumbs
 Plugin URI: http://www.osclass.org/
 Description: Breadcrumbs navigation system.
-Version: 1.6
+Version: 1.6.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: breadcrumbs
@@ -39,28 +39,47 @@ Short Name: breadcrumbs
         switch ($location) {
             case ('item'):
                 switch ($section) {
+                    case 'item_add':    break;
+                    default :           $aCategories = Category::newInstance()->toRootTree( (string) osc_item_category_id() );
+                                        $category    = '';
+                                        if(count($aCategories) == 0) {
+                                            break;
+                                        }
+
+                                        $deep = 1;
+                                        foreach ($aCategories as $aCategory) {
+                                            $list[] = '<a href="' . breadcrumbs_category_url($aCategory['pk_i_id']) . '"><span class="bc_level_' . $deep . '">' . $aCategory['s_name']. '</span></a>';
+                                            $deep++;
+                                        }
+                                        $category = implode($separator, $list) . $separator;
+                                        $category = preg_replace('|' . trim($separator) . '\s*$|', '', $category);
+                                        break;
+                }
+
+                switch ($section) {
                     case 'item_add':    $text = $page_title . $separator . '<span class="bc_last">' . __('Publish an item', 'breadcrumbs'); break;
-                    case 'item_edit':   $category = '<a href="' . breadcrumbs_category_url(osc_item_category_id()) .'"><span class="bc_category">' . osc_item_category() . '</span></a>';
-                                        $text = $page_title . $separator . $category . $separator . '<a href="' . osc_item_url() . '"><span class="bc_item">' . osc_item_title() . '</span></a>' . $separator .  '<span class="bc_last">' . __('Edit your item', 'breadcrumbs') . '</span>'; break;
-                    case 'send_friend': $category = '<a href="' . breadcrumbs_category_url(osc_item_category_id()) .'"><span class="bc_category">' . osc_item_category() . '</span></a>';
-                                        $text = $page_title . $separator . $category . $separator . '<a href="' . osc_item_url() . '"><span class="bc_item">' . osc_item_title() . '</span></a>' . $separator .  '<span class="bc_last">' . __('Send to a friend', 'breadcrumbs') . '</span>'; break;
-                    case 'contact':     $category = '<a href="' . breadcrumbs_category_url(osc_item_category_id()) .'"><span class="bc_category">' . osc_item_category() . '</span></a>';
-                                        $text = $page_title . $separator . $category . $separator . '<a href="' . osc_item_url() . '"><span class="bc_item">' . osc_item_title() . '</span></a>' . $separator .  '<span class="bc_last">' . __('Contact seller', 'breadcrumbs') . '</span>'; break;
-                    default:            $category = '<a href="' . breadcrumbs_category_url(osc_item_category_id()) .'"><span class="bc_category">' . osc_item_category() . '</span></a>';
-                                        $text = $page_title . $separator . $category . $separator . '<span class="bc_last">' . osc_item_title() . '</span>'; break;
+                    case 'item_edit':   $text = $page_title . $separator . $category . $separator . '<a href="' . osc_item_url() . '"><span class="bc_item">' . osc_item_title() . '</span></a>' . $separator .  '<span class="bc_last">' . __('Edit your item', 'breadcrumbs') . '</span>'; break;
+                    case 'send_friend': $text = $page_title . $separator . $category . $separator . '<a href="' . osc_item_url() . '"><span class="bc_item">' . osc_item_title() . '</span></a>' . $separator .  '<span class="bc_last">' . __('Send to a friend', 'breadcrumbs') . '</span>'; break;
+                    case 'contact':     $text = $page_title . $separator . $category . $separator . '<a href="' . osc_item_url() . '"><span class="bc_item">' . osc_item_title() . '</span></a>' . $separator .  '<span class="bc_last">' . __('Contact seller', 'breadcrumbs') . '</span>'; break;
+                    default:            $text = $page_title . $separator . $category . $separator . '<span class="bc_last">' . osc_item_title() . '</span>'; break;
                 }
             break;
             case('page'):
                 $text = $page_title . $separator . '<span class="bc_last">' . osc_static_page_title() . '</span>';
             break;
             case('search'):
+                $region     = Params::getParam('sRegion');
+                $city       = Params::getParam('sCity');
                 $pattern    = Params::getParam('sPattern');
                 $category   = osc_search_category_id();
                 $category   = ((count($category) == 1) ? $category[0] : '');
 
-                $b_show_all = ($pattern == '' && $category == '');
+                $b_show_all = ($pattern == '' && $category == '' && $region == '' && $city == '');
                 $b_category = ($category != '');
                 $b_pattern  = ($pattern != '');
+                $b_region   = ($region != '');
+                $b_city     = ($city != '');
+                $b_location = ($b_region || $b_city);
 
                 if($b_show_all) {
                     $text = $page_title . $separator . '<span class="bc_last">' . __('Search', 'breadcrumbs') . '</span>' ;
@@ -80,7 +99,42 @@ Short Name: breadcrumbs
                             $deep++;
                         }
                         // remove last link
-                        if(!$b_pattern) {
+                        if( !$b_pattern && !$b_location ) {
+                            $list[count($list) - 1] = preg_replace('|<a href.*?>(.*?)</a>|', '$01', $list[count($list) - 1]);
+                        }
+                        $result .= implode($separator, $list) . $separator;
+                    }
+                }
+
+                if( $b_location ) {
+                    $list   = array();
+                    $params = array();
+                    if($b_category) $params['sCategory'] = $category;
+
+                    if($b_city) {
+                        $aCity = City::newInstance()->findByName($city);
+                        if( count($aCity) == 0 ) {
+                            $params['sCity'] = $city;
+                            $list[] = '<a href="' . osc_search_url($params) . '"><span class="bc_city">' . $city . '</span></a>';
+                        } else {
+                            $aRegion = Region::newInstance()->findByPrimaryKey($aCity['fk_i_region_id']);
+
+                            $params['sRegion'] = $aRegion['s_name'];
+                            $list[] = '<a href="' . osc_search_url($params) . '"><span class="bc_region">' . $aRegion['s_name'] . '</span></a>';
+
+                            $params['sCity'] = $aCity['s_name'];
+                            $list[] = '<a href="' . osc_search_url($params) . '"><span class="bc_city">' . $aCity['s_name'] . '</span></a>';
+                        }
+
+                        if( !$b_pattern ) {
+                            $list[count($list) - 1] = preg_replace('|<a href.*?>(.*?)</a>|', '$01', $list[count($list) - 1]);
+                        }
+                        $result .= implode($separator, $list) . $separator;
+                    } else if( $b_region ) {
+                        $params['sRegion'] = $region;
+                        $list[]  = '<a href="' . osc_search_url($params) . '"><span class="bc_region">' . $region . '</span></a>';
+
+                        if( !$b_pattern ) {
                             $list[count($list) - 1] = preg_replace('|<a href.*?>(.*?)</a>|', '$01', $list[count($list) - 1]);
                         }
                         $result .= implode($separator, $list) . $separator;
