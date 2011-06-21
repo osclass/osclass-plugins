@@ -77,7 +77,7 @@ Plugin update URI:
             return '';
         }
         
-        $youtube_url = preg_replace('|.*?youtube.*?v[\?/=](.{11})|', 'http://www.youtube.com/v/$01?fs=1', $url);
+        $youtube_url = preg_replace('|.*?youtube.*?v[\?/=](.{11}).*|', 'http://www.youtube.com/v/$01?fs=1', $url);
         return $youtube_url;
     }
 
