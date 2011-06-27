@@ -52,7 +52,7 @@ if($make!='') {
     $models = array();
 }
 
-$types = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr WHERE fk_c_locale_code = \'%s\'', DB_TABLE_PREFIX, osc_locale());
+$types = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr WHERE fk_c_locale_code = \'%s\'', DB_TABLE_PREFIX, osc_current_user_locale());
 ?>
 <fieldset>
     <h3><?php _e('Cars attributes', 'cars_attributes') ; ?></h3>
