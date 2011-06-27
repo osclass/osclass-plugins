@@ -1,0 +1,54 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Seller Post\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-27 20:36+0100\n"
+"PO-Revision-Date: 2011-06-27 20:37+0100\n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: Richard Martin <keny10@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: CANADA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post\n"
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:28
+msgid "Seller Post Help"
+msgstr "Aide Seller Post"
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:31
+msgid "What is Seller Post Plugin?"
+msgstr "C'est quoi le module Seller Post?"
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:34
+msgid "Seller Post plugin allows you to display a link that will display all seller items for sale"
+msgstr "Le module Seller Postvous permet d'afficher un lien qui affichera à sont tour tout les items que le vendeur à por vendre"
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:37
+msgid "How does Seller Post plugin work?"
+msgstr "Comment le module Seller Post fonctionne?"
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:40
+msgid "In order to use Seller Post plugin, you should edit your theme item detail page (<code>item_detail.php</code>) and add the following line anywhere in the code you want the Seller Post link to appear"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:46
+msgid "Could I cutomize the style of Seller Post plugin?"
+msgstr "Est-ce que je peut personnaliser le module Seller Post?"
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:49
+msgid "Of course you can. Seller Post display a link only you can use css to make a button or anything else"
+msgstr "Bien-sûr !.Le module Seller Post affiche seulement un lien vous pouvez donc utiliser le CSS pour modifier le lien, vous pouvez même en faire un bouton"
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:52
+msgid "You can in the default theme use it like a button by using this code"
+msgstr "Vous pouvez dans le thème par default avoir l'apparence d'un bouton en utilisant ce code"
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/index.php:36
+msgid "List all items from this seller"
+msgstr "Afficher tout les items en vente par ce vendeur"
+

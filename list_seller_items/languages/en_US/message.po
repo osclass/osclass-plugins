@@ -1,0 +1,54 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Seller Post\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-27 20:36+0100\n"
+"PO-Revision-Date: 2011-06-27 20:36+0100\n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: Richard Martin <keny10@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post\n"
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:28
+msgid "Seller Post Help"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:31
+msgid "What is Seller Post Plugin?"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:34
+msgid "Seller Post plugin allows you to display a link that will display all seller items for sale"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:37
+msgid "How does Seller Post plugin work?"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:40
+msgid "In order to use Seller Post plugin, you should edit your theme item detail page (<code>item_detail.php</code>) and add the following line anywhere in the code you want the Seller Post link to appear"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:46
+msgid "Could I cutomize the style of Seller Post plugin?"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:49
+msgid "Of course you can. Seller Post display a link only you can use css to make a button or anything else"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/help.php:52
+msgid "You can in the default theme use it like a button by using this code"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass/oc-content/plugins/seller_post/index.php:36
+msgid "List all items from this seller"
+msgstr ""
+
