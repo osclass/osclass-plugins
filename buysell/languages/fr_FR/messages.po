@@ -1,0 +1,40 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Buy Sell\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-27 10:37-0500\n"
+"PO-Revision-Date: 2011-06-28 00:50+0100\n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: Richard Martin <keny10@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Poedit-SearchPath-0: C:\\wamp\\www\\osclass.2.1.1\\oc-content\\plugins\\buysell\n"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\buysell/form.php:1
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\buysell/item_detail.php:2
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\buysell/search_form.php:3
+msgid "Offer type"
+msgstr "Type d'offre"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\buysell/index.php:15
+msgid "Sell"
+msgstr "Offre"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\buysell/index.php:16
+msgid "Buy"
+msgstr "Recherche"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\buysell/item_detail.php:2
+msgid "Not specified"
+msgstr "Non spécifié"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\buysell/search_form.php:6
+msgid "All"
+msgstr "Tous"
+
