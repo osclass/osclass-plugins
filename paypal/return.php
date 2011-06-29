@@ -64,7 +64,7 @@
         //Save transaction to DB
         $rpl = explode('|', Params::getParam('rpl'));
         $product_type = explode('x', urldecode($response['L_PAYMENTREQUEST_0_NUMBER0']));
-        $paypal_id    = paypal_save_log(urldecode($response['L_PAYMENTREQUEST_0_NAME0']), urldecode($doresponse['PAYMENTINFO_0_TRANSACTIONID']), urldecode($doresponse['PAYMENTINFO_0_AMT']), urldecode($doresponse['PAYMENTINFO_0_CURRENCYCODE']), isset($response['EMAIL']) ? urldecode($response['EMAIL']) : '', $rpl[0], $rpl[1], $produt_type[0], 'PAYPAL');
+        $paypal_id    = paypal_save_log(urldecode($response['L_PAYMENTREQUEST_0_NAME0']), urldecode($doresponse['PAYMENTINFO_0_TRANSACTIONID']), urldecode($doresponse['PAYMENTINFO_0_AMT']), urldecode($doresponse['PAYMENTINFO_0_CURRENCYCODE']), isset($response['EMAIL']) ? urldecode($response['EMAIL']) : '', $rpl[0], $rpl[1], $product_type[0], 'PAYPAL');
         if ($product_type[0] == '101') {
             // PUBLISH FEE
             $conn = getConnection();
@@ -86,8 +86,16 @@
 
             $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php') . '">' . __("Click here to continue", 'paypal') . '</a></p>';
         } else {
-            // THIS SHOULD NEVER HAPPEN (YET)
             // PUBLISH/PREMIUM PACKS
+            $conn = getConnection();
+            $wallet = $conn->osc_dbFetchResult("SELECT * FROM %st_paypal_wallet WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, $rpl[0]);
+            if(isset($wallet['f_amount'])) {
+                $conn->osc_dbExec("UPDATE %st_paypal_wallet SET f_amount = '%f' WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, ($wallet['f_amount'] + urldecode($doresponse['PAYMENTINFO_0_AMT'])),$rpl[0]);
+            } else {
+                $conn->osc_dbExec("INSERT INTO  %st_paypal_wallet (`fk_i_user_id`, `f_amount`) VALUES ('%d',  '%f')", DB_TABLE_PREFIX, $rpl[0], urldecode($doresponse['PAYMENTINFO_0_AMT']));
+            }
+
+            $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_user_dashboard_url() . '">' . __("Click here to continue", 'paypal') . '</a></p>';
         }
 
         osc_add_flash_ok_message(__("Payment processed correctly","paypal"));
@@ -111,7 +119,7 @@
     <body>
         <script type="text/javascript">
             top.rd.innerHTML = '<?php echo $html; ?>';
-            //top.dg.closeFlow();
+            top.dg_<?php echo $rpl[3];?>.closeFlow();
         </script>
     </body>
 </html>

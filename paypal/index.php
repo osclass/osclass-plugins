@@ -32,6 +32,9 @@ Short Name: paypal
         osc_set_preference('api_username', '', 'paypal', 'STRING');
         osc_set_preference('api_password', '', 'paypal', 'STRING');
         osc_set_preference('api_signature', '', 'paypal', 'STRING');
+        osc_set_preference('pack_price_1', '', 'paypal', 'STRING');
+        osc_set_preference('pack_price_2', '', 'paypal', 'STRING');
+        osc_set_preference('pack_price_3', '', 'paypal', 'STRING');
 
         $items = $conn->osc_dbFetchResults("SELECT pk_i_id FROM %st_item", DB_TABLE_PREFIX);
         $date  = date('Y-m-d H:i:s');
@@ -40,8 +43,8 @@ Short Name: paypal
         }
 
         $conn->osc_dbExec("INSERT INTO %st_pages (s_internal_name, b_indelible, dt_pub_date) VALUES ('email_paypal', 1, NOW() )", DB_TABLE_PREFIX);
-        $conn->osc_dbExec("INSERT INTO %st_pages_description (fk_i_pages_id, fk_c_locale_code, s_title, s_text) VALUES (%d, '%s', '{WEB_TITLE} - Publish option for your ad: {ITEM_TITLE}', '<p>Hi {CONTACT_NAME}!</p>\r\n<p> </p>\r\n<p>We just published your item ({ITEM_TITLE}) on {WEB_TITLE}.</p>\r\n<p>{START_PUBLISH_FEE}</p>\r\n<p>In order to make your ad available to anyone on {WEB_TITLE}, you should complete the process and pay the publish fee. You could do that on the following link: {PUBLISH_LINK}</p>\r\n<p>{END_PUBLISH_FEE}</p>\r\n<p> </p>\r\n<p>{START_PREMIUM_FEE}</p>\r\n<p>You could make your ad premium and make it to appear on top result of the searches made on {WEB_TITLE}. You could do that on the following link: {PREMIUM_LINK}</p>\r\n<p>{END_PREMIUM_FEE}</p>\r\n<p> </p>\r\n<p>This is an automatic email, if you already did that, please ignore this email.</p>\r\n<p> </p>\r\n<p>Thanks</p>');
-                          ')", DB_TABLE_PREFIX, $conn->get_last_id(), osc_language());
+        $conn->osc_dbExec("INSERT INTO %st_pages_description (fk_i_pages_id, fk_c_locale_code, s_title, s_text) VALUES (%d, '%s', '{WEB_TITLE} - Publish option for your ad: {ITEM_TITLE}', '<p>Hi {CONTACT_NAME}!</p>\r\n<p> </p>\r\n<p>We just published your item ({ITEM_TITLE}) on {WEB_TITLE}.</p>\r\n<p>{START_PUBLISH_FEE}</p>\r\n<p>In order to make your ad available to anyone on {WEB_TITLE}, you should complete the process and pay the publish fee. You could do that on the following link: {PUBLISH_LINK}</p>\r\n<p>{END_PUBLISH_FEE}</p>\r\n<p> </p>\r\n<p>{START_PREMIUM_FEE}</p>\r\n<p>You could make your ad premium and make it to appear on top result of the searches made on {WEB_TITLE}. You could do that on the following link: {PREMIUM_LINK}</p>\r\n<p>{END_PREMIUM_FEE}</p>\r\n<p> </p>\r\n<p>This is an automatic email, if you already did that, please ignore this email.</p>\r\n<p> </p>\r\n<p>Thanks</p>')", DB_TABLE_PREFIX, $conn->get_last_id(), osc_language());
+        $conn->autocommit(true);
     }
 
     /**
@@ -68,6 +71,11 @@ Short Name: paypal
         osc_delete_preference('api_username', 'paypal');
         osc_delete_preference('api_password', 'paypal');
         osc_delete_preference('api_signature', 'paypal');
+        osc_delete_preference('pack_price_1', 'paypal');
+        osc_delete_preference('pack_price_2', 'paypal');
+        osc_delete_preference('pack_price_3', 'paypal');
+        $conn->autocommit(true);
+
     }
 
     /**
@@ -99,6 +107,9 @@ Short Name: paypal
             $REDIRECTURL  = "https://www.sandbox.paypal.com/incontext?token=";
         }
         
+        $r = rand(0,1000);
+        $rpl .= "|".$r;
+        
         //Build the Credential String:
         $cred_str = 'USER=' . $APIUSERNAME . '&PWD=' . $APIPASSWORD . '&SIGNATURE=' . $APISIGNATURE . '&VERSION=' . $VERSION;
         //For Testing this is hardcoded. You would want to set these variable values dynamically
@@ -128,13 +139,12 @@ Short Name: paypal
         if($response['ACK'] == "Success" || $response['ACK'] == "SuccessWithWarning") {
             //setup redirect URL
             $redirect_url = $REDIRECTURL . urldecode($response['TOKEN']);
-            $r = rand(0,1000);
             ?>
             <a href="<?php echo $redirect_url; ?>" id='paypalBtn_<?php echo $r; ?>'>
                 <img src='<?php echo paypal_path(); ?>paypal.gif' border='0' />
             </a>
             <script>
-                var dg = new PAYPAL.apps.DGFlow({
+                var dg_<?php echo $r; ?> = new PAYPAL.apps.DGFlow({
                     trigger: "paypalBtn_<?php echo $r; ?>"
                 });
             </script><?php
@@ -212,7 +222,10 @@ Short Name: paypal
      * Create a new menu option on users' dashboards
      */
     function paypal_user_menu() {
-        echo '<li class="opt_paypal" ><a href="' . osc_render_file_url(osc_plugin_folder(__FILE__)."user_menu.php") . '" >' . __("Paypal Options", "paypal") . '</a></li>' ;
+        echo '<li class="opt_paypal" ><a href="' . osc_render_file_url(osc_plugin_folder(__FILE__)."user_menu.php") . '" >' . __("Item payment status", "paypal") . '</a></li>' ;
+        if((osc_get_preference('pack_price_1', 'paypal')!='' && osc_get_preference('pack_price_1', 'paypal')!='0') || (osc_get_preference('pack_price_2', 'paypal')!='' && osc_get_preference('pack_price_2', 'paypal')!='0') || (osc_get_preference('pack_price_3', 'paypal')!='' && osc_get_preference('pack_price_3', 'paypal')!='0')) {
+            echo '<li class="opt_paypal_pack" ><a href="' . osc_render_file_url(osc_plugin_folder(__FILE__)."user_menu_pack.php") . '" >' . __("Buy credit for payments", "paypal") . '</a></li>' ;
+        }
     }
 
     /**

@@ -30,6 +30,9 @@
         osc_set_preference('api_password', Params::getParam("api_password"), 'paypal', 'STRING');
         osc_set_preference('api_signature', Params::getParam("api_signature"), 'paypal', 'STRING');
         echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'paypal') . '.</p></div>' ;
+        osc_set_preference('pack_price_1', Params::getParam("pack_price_1"), 'paypal', 'STRING');
+        osc_set_preference('pack_price_2', Params::getParam("pack_price_2"), 'paypal', 'STRING');
+        osc_set_preference('pack_price_3', Params::getParam("pack_price_3"), 'paypal', 'STRING');
         osc_reset_preferences();
     }
 ?>
@@ -65,6 +68,24 @@
                         <label><?php _e('Default publish cost', 'paypal'); ?></label><input type="text" name="default_publish_cost" id="default_publish_cost" value="<?php echo osc_get_preference('default_publish_cost', 'paypal'); ?>" />
                         <br/>
                         <label><?php _e('Currency (3-character code)', 'paypal'); ?></label><input type="text" name="currency" id="currency" value="<?php echo osc_get_preference('currency', 'paypal'); ?>" />
+                        <br/>
+                    </div>
+                    <br/>
+                    <div style="clear:both;"></div>
+                    <br/>
+                    <div style="float: left; width: 50%;">
+                        <p>
+                            <?php _e("You could specify up to 3 'packs' that users can buy, so they don't need to pay each time the publish an as. The credit from the pack will be stored for later uses.",'paypal'); ?>
+                        </p>
+                        <br/>
+                    </div>
+                    <div style="float: left; width: 50%;">
+
+                        <label><?php echo sprintf(__('Price of pack #%d', 'paypal'), '1'); ?></label><input type="text" name="pack_price_1" id="pack_price_1" value="<?php echo osc_get_preference('pack_price_1', 'paypal'); ?>" />
+                        <br/>
+                        <label><?php echo sprintf(__('Price of pack #%d', 'paypal'), '2'); ?></label><input type="text" name="pack_price_2" id="pack_price_2" value="<?php echo osc_get_preference('pack_price_2', 'paypal'); ?>" />
+                        <br/>
+                        <label><?php echo sprintf(__('Price of pack #%d', 'paypal'), '3'); ?></label><input type="text" name="pack_price_3" id="pack_price_3" value="<?php echo osc_get_preference('pack_price_3', 'paypal'); ?>" />
                         <br/>
                         <button type="submit" style="float: right;"><?php _e('Update', 'paypal');?></button>
                     </div>

@@ -4,10 +4,14 @@
     require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'functions.php';
 
     $ppl_data = explode('|', Params::getParam('rpl'));
-    $item     = Item::newInstance()->findByPrimaryKey($ppl_data[1]);
-    $category = Category::newInstance()->findByPrimaryKey($item['fk_i_category_id']);
-    View::newInstance()->_exportVariableToView('category', $category);
-    $url = osc_search_category_url();
+    if($ppl_data[1]=='dash') { // PACK PAYMENT FROM USER'S DASHBOARD
+        $url = '';
+    } else {
+        $item     = Item::newInstance()->findByPrimaryKey($ppl_data[1]);
+        $category = Category::newInstance()->findByPrimaryKey($item['fk_i_category_id']);
+        View::newInstance()->_exportVariableToView('category', $category);
+        $url = osc_search_category_url();
+    }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,8 +22,10 @@
     </head>
     <body>
         <script type="text/javascript">
+            <?php if($url!='') { ?>
             top.rd.innerHTML = '<?php _e('You cancel the payment process or there was an error. If the error continue, please contact the administrator', 'paypal'); ?>.<br/><br/><?php _e('If you do not want to continue the process', 'paypal'); ?> <a href="<?php echo $url; ?>" /><?php _e('click here', 'paypal'); ?></a>';
-            top.dg.closeFlow();
+            <?php }; ?>
+            top.dg_<?php echo $ppl_data[3];?>.closeFlow();
         </script>
     </body>
 </html>
