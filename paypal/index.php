@@ -87,6 +87,19 @@ Short Name: paypal
         return osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__);
     }
 
+    
+    /**
+    * Create and print a "Wallet" button
+    * 
+    * @param float $amount
+    * @param string $description
+    * @param string $rpl custom variables
+    * @param string $itemnumber (publish fee, premium, pack and which category)
+    */
+    function wallet_button($amount = '0.00', $description = '', $rpl = '||', $itemnumber = '101') {
+        echo '<a href="'.osc_render_file_url(osc_plugin_folder(__FILE__)."wallet.php?a=".$amount."&desc=".$description."&rpl=".$rpl."&inumber=".$itemnumber).'"><button>'.__("Pay with your credit", "paypal").'</button></a>';
+    }
+
     /**
     * Create and print a "Pay with Paypal" button
     * 
@@ -181,6 +194,17 @@ Short Name: paypal
         header('Location: ' . $url);
         exit;
     }
+
+    /**
+     * Redirect to function via JS
+     *
+     * @param string $url 
+     */
+    function paypal_js_redirect_to($url) { ?>
+        <script type="text/javascript">
+            window.location = "<?php echo $url; ?>"
+        </script>
+    <?php }
 
 
     /**

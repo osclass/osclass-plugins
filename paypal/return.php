@@ -81,7 +81,7 @@
             if ($paid) {
                 $conn->osc_dbExec("UPDATE %st_paypal_premium SET dt_date = '%s', fk_i_paypal_id = '%d' WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), $paypal_id, $rpl[1]);
             } else {
-                $conn->osc_dbExec("INSERT INTO  %st_paypal_premium (`fk_i_item_id, dt_date, fk_i_paypal_id) VALUES ('%d',  '%s',  '%s')", DB_TABLE_PREFIX, $rpl[1], date('Y-m-d H:i:s'), $paypal_id);
+                $conn->osc_dbExec("INSERT INTO  %st_paypal_premium (fk_i_item_id, dt_date, fk_i_paypal_id) VALUES ('%d',  '%s',  '%s')", DB_TABLE_PREFIX, $rpl[1], date('Y-m-d H:i:s'), $paypal_id);
             }
 
             $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php') . '">' . __("Click here to continue", 'paypal') . '</a></p>';
