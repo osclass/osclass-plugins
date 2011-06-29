@@ -1,0 +1,2 @@
+Changelog Facebook connect
+==========================
