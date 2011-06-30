@@ -151,8 +151,11 @@ function cars_form_post($catId = null, $item_id = null)
     if($catId!=null) {
         // We check if the category is the same as our plugin
         if(osc_is_this_category('cars_plugin', $catId) && $item_id!=null) {
+            $make   = (Params::getParam("make") == '')  ? DB_CONST_NULL : Params::getParam("make");
+            $model  = (Params::getParam("model") == '') ? DB_CONST_NULL : Params::getParam("model");
+            $type   = (Params::getParam("car_type") == '') ? 1 : Params::getParam("car_type");
             // Insert the data in our plugin's table
-            $conn->osc_dbExec("INSERT INTO %st_item_car_attr (fk_i_item_id, i_year, i_doors, i_seats, i_mileage, i_engine_size, i_num_airbags, e_transmission, e_fuel, e_seller, b_warranty, b_new, i_power, e_power_unit, i_gears, fk_i_make_id, fk_i_model_id, fk_vehicle_type_id) VALUES (%d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, %d, %d)",
+            $conn->osc_dbExec("INSERT INTO %st_item_car_attr (fk_i_item_id, i_year, i_doors, i_seats, i_mileage, i_engine_size, i_num_airbags, e_transmission, e_fuel, e_seller, b_warranty, b_new, i_power, e_power_unit, i_gears, fk_i_make_id, fk_i_model_id, fk_vehicle_type_id) VALUES (%d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', %d, %d, %d, '%s', %d, %s, %s, %s)",
                                             DB_TABLE_PREFIX,
                                             $item_id,
                                             Params::getParam("year"),
@@ -169,9 +172,9 @@ function cars_form_post($catId = null, $item_id = null)
                                             Params::getParam("power"),
                                             Params::getParam("power_unit"),
                                             Params::getParam("gears"),
-                                            Params::getParam("make"),
-                                            Params::getParam("model"),
-                                            Params::getParam("car_type")
+                                            $make,
+                                            $model,
+                                            $type
                                     );
         }
     }
