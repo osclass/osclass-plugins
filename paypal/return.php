@@ -95,7 +95,12 @@
                 $conn->osc_dbExec("INSERT INTO  %st_paypal_wallet (`fk_i_user_id`, `f_amount`) VALUES ('%d',  '%f')", DB_TABLE_PREFIX, $rpl[0], urldecode($doresponse['PAYMENTINFO_0_AMT']));
             }
 
-            $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_user_dashboard_url() . '">' . __("Click here to continue", 'paypal') . '</a></p>';
+            osc_add_flash_ok_message(__('Payment processed correctly', 'paypal'));
+            $html = '<p>
+                <script type="text/javascript">
+                    window.location = "'.osc_render_file_url(osc_plugin_folder(__FILE__)."user_menu_pack.php").'"
+                </script>
+            </p>';
         }
 
         osc_add_flash_ok_message(__("Payment processed correctly","paypal"));
