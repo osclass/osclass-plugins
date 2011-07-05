@@ -1,11 +1,9 @@
 <script type="text/javascript">
     $(document).ready(function(){
-
         $("#make").change(function(){
             var make_id = $(this).val();
-            var url = '<?php echo osc_ajax_plugin_url("cars_attributes/ajax.php")."&makeId="; ?>' + make_id;
+            var url = '<?php echo osc_ajax_plugin_url('cars_attributes/ajax.php') . '&makeId='; ?>' + make_id;
             var result = '';
-            var model_id = '';
             if(make_id != '') {
                 $("#model").attr('disabled',false);
                 $.ajax({
@@ -15,39 +13,42 @@
                     success: function(data){
                         var length = data.length;
                         if(length > 0) {
-                            result += '<option value=""><?php _e('Select a model', 'cars_attributes'); ?>...</option>';
+                            result += '<option value="" selected><?php _e('Select a model', 'cars_attributes'); ?></option>';
                             for(key in data) {
-                                if(data[key].pk_i_id==model_id) {
-                                    result += '<option value="' + data[key].pk_i_id + '" selected>' + data[key].s_name + '</option>';
-                                } else {
-                                    result += '<option value="' + data[key].pk_i_id + '">' + data[key].s_name + '</option>';
-                                }
+                                result += '<option value="' + data[key].pk_i_id + '">' + data[key].s_name + '</option>';
                             }
                         } else {
                             result += '<option value=""><?php _e('No results', 'cars_attributes'); ?></option>';
                         }
                         $("#model").html(result);
+                        if (typeof $.uniform != 'undefined') {
+                            $.uniform.restore('#model');
+                            $("#model").uniform();
+                        }
                     }
                  });
              } else {
+                result += '<option value="" selected><?php _e('Select a model', 'cars_attributes'); ?></option>';
                 $("#model").attr('disabled',true);
+                $("#model").html(result);
+                if (typeof $.uniform != 'undefined') {
+                    $.uniform.restore('#model');
+                    $("#model").uniform();
+                }
              }
         });
         
         // uniform()
-        $('#plugin-hook input:text, select#make, select#model, select#car_type, select#doors, select#seats, select#num_airbags, select#transmission, select#fuel, select#seller, select#power_unit, select#gears').uniform();
-        
-        
+        if (typeof $.uniform != 'undefined') {
+            $('#plugin-hook input:text, select#make, select#model, select#car_type, select#doors, select#seats, select#num_airbags, select#transmission, select#fuel, select#seller, select#power_unit, select#gears').uniform();
+        }
     });
-
-
-
 </script>
-<h3><?php _e('Cars attributes', 'cars_attributes') ; ?></h3>
-<div class="box">
+<h2><?php _e('Cars attributes', 'cars_attributes') ; ?></h2>
+<div>
     <div class="row _200">
         <?php
-            if( Session::newInstance()->_getForm('pc_make') != "" ) {
+            if( Session::newInstance()->_getForm('pc_make') != '' ) {
                 $detail['fk_i_make_id'] = Session::newInstance()->_getForm('pc_make');
             }
         ?>
@@ -61,31 +62,33 @@
     </div>
     <div class="row _200">
         <?php
-            if( Session::newInstance()->_getForm('pc_model') != "" ) {
+            if( Session::newInstance()->_getForm('pc_model') != '' ) {
                 $detail['fk_i_model_id'] = Session::newInstance()->_getForm('pc_model');
             }
         ?>
         <label><?php _e('Model', 'cars_attributes'); ?></label>
         <select name="model" id="model">
-            <?php foreach($models as $a): ?>
-            <option value="<?php echo $a['pk_i_id']; ?>" <?php if(@$detail['fk_i_model_id'] == $a['pk_i_id']) { echo 'selected';}; ?>><?php echo $a['s_name']; ?></option>
-            <?php endforeach; ?>
+            <option value="" selected><?php _e('Select a model', 'cars_attributes'); ?></option>
+            <?php foreach($models as $a) { ?>
+            <option value="<?php echo $a['pk_i_id']; ?>" <?php if(@$detail['fk_i_model_id'] == $a['pk_i_id']) { echo 'selected'; } ?>><?php echo $a['s_name']; ?></option>
+            <?php } ?>
         </select>
     </div>
     <div class="row _200">
         <?php $locales = osc_get_locales();
-        if( Session::newInstance()->_getForm('pc_car_type') != "" ) {
+        if( Session::newInstance()->_getForm('pc_car_type') != '' ) {
             $detail['fk_vehicle_type_id'] = Session::newInstance()->_getForm('pc_car_type');
         }
         if(count($locales)==1) {
-            $locale = $locales[0];?>
+            $locale = $locales[0]; ?>
             <p>
-            <label><?php _e('Car type', 'cars_attributes'); ?></label><br />
-            <select name="car_type" id="car_type">
-            <?php foreach($car_types[$locale['pk_c_code']] as $k => $v) { ?>
-            <option value="<?php echo  $k; ?>" <?php if(@$detail['fk_vehicle_type_id'] == $k) { echo 'selected'; } ?>><?php echo @$v; ?></option>
-            <?php } ?>
-            </select>
+                <label><?php _e('Car type', 'cars_attributes'); ?></label>
+                <select name="car_type" id="car_type">
+                    <option value="" selected><?php _e('Select a car type', 'cars_attributes'); ?></option>
+                    <?php foreach($car_types[$locale['pk_c_code']] as $k => $v) { ?>
+                    <option value="<?php echo  $k; ?>" <?php if(@$detail['fk_vehicle_type_id'] == $k) { echo 'selected'; } ?>><?php echo @$v; ?></option>
+                    <?php } ?>
+                </select>
             </p>
         <?php } else { ?>
             <div class="tabber">
@@ -93,30 +96,31 @@
                 <div class="tabbertab">
                     <h2><?php echo $locale['s_name']; ?></h2>
                     <p>
-                        <label><?php _e('Car type', 'cars_attributes'); ?></label><br />
+                        <label><?php _e('Car type', 'cars_attributes'); ?></label>
                         <select name="car_type" id="car_type">
-                        <?php foreach($car_type[$locale['pk_c_code']] as $k => $v) { ?>
-                        <option value="<?php echo  $k; ?>" <?php if(@$detail['fk_vehicle_type_id'] == $k) { echo 'selected'; } ?>><?php echo @$v; ?></option>
-                        <?php } ?>
+                            <option value="" selected><?php _e('Select a car type', 'cars_attributes'); ?></option>
+                            <?php foreach($car_type[$locale['pk_c_code']] as $k => $v) { ?>
+                            <option value="<?php echo  $k; ?>" <?php if(@$detail['fk_vehicle_type_id'] == $k) { echo 'selected'; } ?>><?php echo @$v; ?></option>
+                            <?php } ?>
                         </select>
                     </p>
                 </div>
             <?php } ?>
             </div>
-        <?php }; ?>
+        <?php } ?>
     </div>
     <div class="row _200">
         <?php
-            if( Session::newInstance()->_getForm('pc_year') != "" ) {
+            if( Session::newInstance()->_getForm('pc_year') != '' ) {
                 $detail['i_year'] = Session::newInstance()->_getForm('pc_year');
             }
         ?>
         <label><?php _e('Year', 'cars_attributes'); ?></label>
-        <input type="text" name="year" id="year" value="<?php echo @$detail['i_year']; ?>" size=4/>
+        <input type="text" name="year" id="year" value="<?php echo @$detail['i_year']; ?>" size=4 />
     </div>
     <div class="row auto">
         <?php
-            if( Session::newInstance()->_getForm('pc_doors') != "" ) {
+            if( Session::newInstance()->_getForm('pc_doors') != '' ) {
                 $detail['i_doors'] = Session::newInstance()->_getForm('pc_doors');
             }
         ?>
@@ -129,7 +133,7 @@
     </div>
     <div class="row auto">
         <?php
-            if( Session::newInstance()->_getForm('pc_seats') != "" ) {
+            if( Session::newInstance()->_getForm('pc_seats') != '' ) {
                 $detail['i_seats'] = Session::newInstance()->_getForm('pc_seats');
             }
         ?>
@@ -142,7 +146,7 @@
     </div>
     <div class="row _200">
         <?php
-            if( Session::newInstance()->_getForm('pc_mileage') != "" ) {
+            if( Session::newInstance()->_getForm('pc_mileage') != '' ) {
                 $detail['i_mileage'] = Session::newInstance()->_getForm('pc_mileage');
             }
         ?>
@@ -151,16 +155,16 @@
     </div>
     <div class="row _200">
         <?php
-            if( Session::newInstance()->_getForm('pc_engine_size') != "" ) {
+            if( Session::newInstance()->_getForm('pc_engine_size') != '' ) {
                 $detail['i_engine_size'] = Session::newInstance()->_getForm('pc_engine_size');
             }
         ?>
         <label><?php _e('Engine size (cc)', 'cars_attributes'); ?></label>
-        <input type="text" name="engine_size" id="engine_size" value="<?php echo  @$detail['i_engine_size']; ?>" />
+        <input type="text" name="engine_size" id="engine_size" value="<?php echo @$detail['i_engine_size']; ?>" />
     </div>
     <div class="row auto">
         <?php
-            if( Session::newInstance()->_getForm('pc_num_airbags') != "" ) {
+            if( Session::newInstance()->_getForm('pc_num_airbags') != '' ) {
                 $detail['i_num_airbags'] = Session::newInstance()->_getForm('pc_num_airbags');
             }
         ?>
@@ -173,7 +177,7 @@
     </div>
     <div class="row _200">
         <?php
-            if( Session::newInstance()->_getForm('pc_transmission') != "" ) {
+            if( Session::newInstance()->_getForm('pc_transmission') != '' ) {
                 $detail['e_transmission'] = Session::newInstance()->_getForm('pc_transmission');
             }
         ?>
@@ -185,7 +189,7 @@
     </div>
     <div class="row _200">
         <?php
-            if( Session::newInstance()->_getForm('pc_fuel') != "" ) {
+            if( Session::newInstance()->_getForm('pc_fuel') != '' ) {
                 $detail['e_fuel'] = Session::newInstance()->_getForm('pc_fuel');
             }
         ?>
@@ -199,7 +203,7 @@
     </div>
     <div class="row _200">
         <?php
-            if( Session::newInstance()->_getForm('pc_seller') != "" ) {
+            if( Session::newInstance()->_getForm('pc_seller') != '' ) {
                 $detail['e_seller'] = Session::newInstance()->_getForm('pc_seller');
             }
         ?>
@@ -211,26 +215,26 @@
     </div>
     <div class="row _20">
         <?php
-            if( Session::newInstance()->_getForm('pc_warranty') != "" ) {
+            if( Session::newInstance()->_getForm('pc_warranty') != '' ) {
                 $detail['b_warranty'] = Session::newInstance()->_getForm('pc_warranty');
             }
         ?>
-        <input type="checkbox" name="warranty" id="warranty" value="1" <?php if(@$detail['b_warranty'] == 1) { echo 'checked="yes"'; } ?> /> <label><?php _e('Warranty', 'cars_attributes'); ?></label> <br />
+        <input type="checkbox" name="warranty" id="warranty" value="1" <?php if(@$detail['b_warranty'] == 1) { echo 'checked="yes"'; } ?> /> <label><?php _e('Warranty', 'cars_attributes'); ?></label>
     </div>
     <div class="row _20">
         <?php
-            if( Session::newInstance()->_getForm('pc_new') != "" ) {
+            if( Session::newInstance()->_getForm('pc_new') != '' ) {
                 $detail['b_new'] = Session::newInstance()->_getForm('pc_new');
             }
         ?>
-        <input type="checkbox" name="new" id="new" value="1" <?php if(@$detail['b_new'] == 1) { echo 'checked="yes"'; } ?> /> <label><?php _e('New', 'cars_attributes'); ?></label> <br />
+        <input type="checkbox" name="new" id="new" value="1" <?php if(@$detail['b_new'] == 1) { echo 'checked="yes"'; } ?> /> <label><?php _e('New', 'cars_attributes'); ?></label>
     </div>
     <div class="row auto _200">
         <?php
-            if( Session::newInstance()->_getForm('pc_power_unit') != "" ) {
+            if( Session::newInstance()->_getForm('pc_power_unit') != '' ) {
                 $detail['e_power_unit'] = Session::newInstance()->_getForm('pc_power_unit');
             }
-            if( Session::newInstance()->_getForm('pc_power') != "" ) {
+            if( Session::newInstance()->_getForm('pc_power') != '' ) {
                 $detail['i_power'] = Session::newInstance()->_getForm('pc_power');
             }
         ?>
@@ -248,8 +252,7 @@
         </select>
     </div>
     <div class="row auto">
-        <?php
-            if( Session::newInstance()->_getForm('pc_gears') != "" ) {
+        <?php if( Session::newInstance()->_getForm('pc_gears') != '' ) {
                 $detail['i_gears'] = Session::newInstance()->_getForm('pc_gears');
             }
         ?>

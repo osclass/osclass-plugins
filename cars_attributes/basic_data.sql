@@ -256,4 +256,411 @@ INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES 
 INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (12, 'F1');
 INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (12, 'F4');
 INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (12, 'F5');
+/* MAKE: Ferrari */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (14, '360');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (14, '430');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (14, '550');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (14, '575');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (14, '599');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (14, '612');
+/* MAKE: Fiat */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, '500');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, 'Abarth');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, 'Albea');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, 'Bravo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, 'Ducato Cargo Van');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, 'Grande Punto');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, 'Idea Adventure');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, 'Palio');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, 'Panda');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, 'Stilo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (15, 'Strada Pick-Up');
+/* MAKE: Ford */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Aerostar');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Bronco');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Contour');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Cougar');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Courier');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Crown');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'E-150');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Ecoline');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'EcoSport');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Edge');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Escape');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Escort');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Excurcion');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Expedition');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Explorer');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'F-100');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'F-150');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'F-200');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'F-250');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'F-350');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'F-450');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'F-550');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Fairlane');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Fairmont');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Falcon');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Fiesta');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'FiveHundred');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Focus');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Freestar');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Fusion');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Galaxie');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Ghia');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Grand Marquis');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Ikon');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Ka');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Lobo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'LTD');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Maverick');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Mercury');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Mondeo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Mustang');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Mystique');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Ranger');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Sable');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Taurus');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'ThunderBird');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Topaz');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Transit');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Vanette');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (16, 'Windstar');
+/* MAKE: GEO */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (17, 'Metro');
+/* MAKE: GMC */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (18, 'Acadia');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (18, 'Canyon');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (18, 'Jimmy');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (18, 'Safari');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (18, 'Savana Van');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (18, 'Sierra');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (18, 'Sonoma');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (18, 'Yukon');
+/* MAKE: Honda */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (19, 'Accord');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (19, 'City');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (19, 'Civic');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (19, 'Crosstour');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (19, 'CR-V');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (19, 'Fit');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (19, 'Odissey');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (19, 'Passaport');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (19, 'Pilot');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (19, 'Ridgeline');
+/* MAKE: Hummer */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (20, 'H1');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (20, 'H2');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (20, 'H2 Alpha');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (20, 'H3');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (20, 'H3 Alpha');
+/* MAKE: Hyundai */
+/* MAKE: Infiniti */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (22, 'Q-45');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (22, 'I-35');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (22, 'Q-30');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (22, 'I-30');
+/* MAKE: Izusu */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (23, 'Rodeo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (23, 'Amigo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (23, 'ELF');
+/* MAKE: Jaguar */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (24, 'S-Type');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (24, 'Vanden Plas');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (24, 'XK8');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (24, 'XKR');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (24, 'X-Type');
+/* MAKE: Jeep */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Cherokee');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'CJ7');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Commander');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Compass');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Grand Cherokee');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Grand Wagon');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Laredo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Liberty');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Patriot');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Rubicon');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Sahara');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Wagoneer');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (25, 'Wrangler');
+/* MAKE: Lamborghini */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (26, 'Gallardo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (26, 'Murcielago');
+/* MAKE: Land Rover */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (27, 'Defender');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (27, 'Discovery');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (27, 'FreeLander');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (27, 'LR2');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (27, 'LR3');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (27, 'RangeRover');
+/* MAKE: Lincoln */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (28, 'Aviator');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (28, 'Continental');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (28, 'LS');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (28, 'Mark');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (28, 'MKX');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (28, 'Navigator');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (28, 'Town Car');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (28, 'Zephyr');
+/* MAKE: Maserati */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (29, 'Quattroporte');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (29, '3200 GT');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (29, 'Gran Turismo');
+/* MAKE: Mazda */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (30, '3');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (30, '5');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (30, '6');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (30, 'CX7');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (30, 'CX9');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (30, 'LX');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (30, 'MPV');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (30, 'MX-5');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (30, 'Pick Up');
+/* MAKE: Mercedes Benz */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, '220');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, '230');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, '280 SE');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, '450');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, '450 SLC');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, '500SEL');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'B-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'C-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'CL-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'CLK-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'CLS-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'A-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'E-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'G-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'GL-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'GLK-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'ML-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'R-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'S-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'SL-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'SLK-Class');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'Sprinter');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'Unimog');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (31, 'Vito');
+/* MAKE: Mercury */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (32, 'Cougar');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (32, 'Grand Marquis');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (32, 'Mariner');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (32, 'Milan');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (32, 'Montego');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (32, 'Mountaineer');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (32, 'Sable');
+/* MAKE: Villager */
+/* MAKE: MG */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (34, 'Magnett');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (34, 'MG');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (34, 'MGA');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (34, 'MGB');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (34, 'TF');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (34, 'ZR');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (34, 'ZT');
+/* MAKE: Mini */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (35, 'Cooper');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (35, 'Morris');
+/* MAKE: Mitsubishi */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (36, '3000 GT');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (36, 'Eclipse');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (36, 'Endeavor');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (36, 'Galant');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (36, 'L-200');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (36, 'Lancer');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (36, 'Montero');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (36, 'Montero Sport');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (36, 'Outlander');
+/* MAKE: Nissan */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, '350Z');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Almera');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Altima');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Aprio');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Armada');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Cabstar');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Datsun');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Estacas');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Frontier');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Lucino');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Maxima');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Micra');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Murano');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Nx 2000');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Pathfinder');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Pick Up');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Platina');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Quest');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Rogue');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Sakura');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Samurai');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Sentra');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Serie 200');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Serie 240');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Serie 300');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'TIIDA');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Titan');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Tsuru');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'Urban');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'X-Terra');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (37, 'X-Trail');
+/* MAKE: Oldsmobile */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (38, 'Bravada');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (38, 'Delta 88');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (38, 'Eigthy');
+/* MAKE: Peugeot */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (39, '206');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (39, '207');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (39, '306');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (39, '307');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (39, '405');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (39, '405');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (39, '407');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (39, '607');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (39, 'Grand Raid');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (39, 'Partner');
+/* MAKE: Plymouth */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (40, 'Grand Voyager');
+/* MAKE: Pontiac */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Aztek');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Boneville');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Fiero');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Firebird');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'G3');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'G4');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'G5');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'G6');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Grand Am');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Grand Prix');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'GTO');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Matiz');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Montana');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Solstice');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Sunfire');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Torrent');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Trans Am');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (41, 'Transport');
+/* MAKE: Porsche */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (42, '550');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (42, '911');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (42, '914');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (42, '924');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (42, 'Boxter');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (42, 'Carrera GT');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (42, 'Cayenne');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (42, 'Cayman');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (42, 'GT3 Cup');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (42, 'Panamera');
+/* MAKE: Rambler */
+/* MAKE: Renault */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (44, '10');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (44, '12');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (44, 'Clio');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (44, 'Kangoo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (44, 'Laguna');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (44, 'Megane');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (44, 'Scenic');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (44, 'Scenic ll');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (44, 'Trafic');
+/* MAKE: RollsRoyce */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (45, 'Silver Shadow');
+/* MAKE: Rover */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (46, '75');
+/* MAKE: Saab */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (47, '9-3');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (47, '9-5');
+/* MAKE: Seat */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (48, 'Alhambra');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (48, 'Altea');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (48, 'Cordoba');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (48, 'Ibiza');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (48, 'Leon');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (48, 'Toledo');
+/* MAKE: Smart */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (49, 'Impreza');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (49, 'Tribeca');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (49, 'Legacy');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (49, 'Outback');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (49, 'Forester');
+/* MAKE: Suzuki */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (50, 'Aerio');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (50, 'Grand Vitara');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (50, 'Swift');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (50, 'SX4');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (50, 'Samurai');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (50, 'Kazashi');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (50, 'Xl7');
+/* MAKE: Toyota */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, '4 Runner');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Avalon');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Avanza');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Camry');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Corolla');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Echo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'FJ Cruiser');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Hiace');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Highlander');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Hilux');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Matrix');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'MR2');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Pick Up');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Previa');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'RAV-4');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Sequoia');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Sienna');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Solara');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'SR5');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Supra');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Tacoma');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Tercel');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Tundra');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (51, 'Yaris');
+/* MAKE: Volkswagen */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Atlantic');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Beetle');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Bora');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Brasilia');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Buggy');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Cabrio');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Caribe');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Combi');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Crafter');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'CrossFox');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Derby');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Eos');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Eurovan');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Golf');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'GTI');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Jetta');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Lupo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'New Beetle');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Passat');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Pointer');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Polo');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Polo Classic');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Routan');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Safari');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Sedan');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Sharan');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'SportVan');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Touareg');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (52, 'Van');
+/* MAKE: Volvo */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (53, 'C70');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (53, 'S40');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (53, 'S60');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (53, 'S80');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (53, 'V50');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (53, 'V70');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (53, 'XC');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (53, 'XC 60');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_model_attr (fk_i_make_id, s_name) VALUES (53, 'XC 90');
 
+/* VEHICLES TYPES */
+INSERT INTO /*TABLE_PREFIX*/t_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (1, 'en_US', 'Convertible');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (2, 'en_US', 'Coupe');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (3, 'en_US', 'Mini Van');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (4, 'en_US', 'Sedan');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (5, 'en_US', 'SUV');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (6, 'en_US', 'Van');
+INSERT INTO /*TABLE_PREFIX*/t_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (7, 'en_US', 'Wagon');

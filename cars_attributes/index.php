@@ -11,8 +11,7 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
 */
 
     // Adds some plugin-specific search conditions
-    function cars_search_conditions($params)
-    {
+    function cars_search_conditions($params) {
         // we need conditions and search tables (only if we're using our custom tables)
         $has_conditions = false;
         foreach($params as $key => $value) {
@@ -104,72 +103,77 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
     function cars_form($catId = '') {
         $conn = getConnection() ;
         // We received the categoryID
-        if($catId!="") {
-            // We check if the category is the same as our plugin
-            if(osc_is_this_category('cars_plugin', $catId)) {
-                $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
-                $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
-                $car_types = array();
-                foreach($data as $d) {
-                    $car_types[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
-                }
-                unset($data);
-                $models = array();
-                if(Session::newInstance()->_getForm('pc_make') != '') {
-                    $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, Session::newInstance()->_getForm('pc_make') );
-                }
-                require_once 'item_edit.php';
-                Session::newInstance()->_clearVariables();
+        if($catId == '') {
+            return false;
+        }
+        
+        // We check if the category is the same as our plugin
+        if(osc_is_this_category('cars_plugin', $catId)) {
+            $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
+            $data  = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
+            $car_types = array();
+            foreach($data as $d) {
+                $car_types[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
             }
+            unset($data);
+            $models = array();
+            if(Session::newInstance()->_getForm('pc_make') != '') {
+                $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, Session::newInstance()->_getForm('pc_make') );
+            }
+            require_once 'item_edit.php';
+            Session::newInstance()->_clearVariables();
         }
     }
 
     function cars_search_form($catId = null) {
         // We received the categoryID
-        if($catId!=null) {
-            // We check if the category is the same as our plugin
-            foreach($catId as $id) {
-                if(osc_is_this_category('cars_plugin', $id)) {
-                    include_once 'search_form.php';
-                    break;
-                }
+        if($catId == null) {
+            return false;
+        }
+        
+        // We check if the category is the same as our plugin
+        foreach($catId as $id) {
+            if(osc_is_this_category('cars_plugin', $id)) {
+                include_once 'search_form.php';
+                break;
             }
         }
     }
 
-
     function cars_form_post($catId = null, $item_id = null) {
         $conn = getConnection() ;
         // We received the categoryID and the Item ID
-        if($catId!=null) {
-            // We check if the category is the same as our plugin
-            if(osc_is_this_category('cars_plugin', $catId) && $item_id!=null) {
-                $make   = (Params::getParam("make") == '')  ? DB_CONST_NULL : Params::getParam("make");
-                $model  = (Params::getParam("model") == '') ? DB_CONST_NULL : Params::getParam("model");
-                $type   = (Params::getParam("car_type") == '') ? 1 : Params::getParam("car_type");
-                // Insert the data in our plugin's table
-                $conn->osc_dbExec("INSERT INTO %st_item_car_attr (fk_i_item_id, i_year, i_doors, i_seats, i_mileage, i_engine_size, i_num_airbags, e_transmission, e_fuel, e_seller, b_warranty, b_new, i_power, e_power_unit, i_gears, fk_i_make_id, fk_i_model_id, fk_vehicle_type_id) VALUES (%d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', %d, %d, %d, '%s', %d, %s, %s, %s)",
-                                                DB_TABLE_PREFIX,
-                                                $item_id,
-                                                Params::getParam("year"),
-                                                Params::getParam("doors"),
-                                                Params::getParam("seats"),
-                                                Params::getParam("mileage"),
-                                                Params::getParam("engine_size"),
-                                                Params::getParam("num_airbags"),
-                                                Params::getParam("transmission"),
-                                                Params::getParam("fuel"),
-                                                Params::getParam("seller"),
-                                                (Params::getParam("warranty")!='') ? 1 : 0,
-                                                (Params::getParam("new")!='') ? 1 : 0,
-                                                Params::getParam("power"),
-                                                Params::getParam("power_unit"),
-                                                Params::getParam("gears"),
-                                                $make,
-                                                $model,
-                                                $type
-                                        );
-            }
+        if($catId == null) {
+            return false;
+        }
+        
+        // We check if the category is the same as our plugin
+        if(osc_is_this_category('cars_plugin', $catId) && $item_id!=null) {
+            $make   = (Params::getParam("make") == '')  ? DB_CONST_NULL : Params::getParam("make");
+            $model  = (Params::getParam("model") == '') ? DB_CONST_NULL : Params::getParam("model");
+            $type   = (Params::getParam("car_type") == '') ? 1 : Params::getParam("car_type");
+            // Insert the data in our plugin's table
+            $conn->osc_dbExec("INSERT INTO %st_item_car_attr (fk_i_item_id, i_year, i_doors, i_seats, i_mileage, i_engine_size, i_num_airbags, e_transmission, e_fuel, e_seller, b_warranty, b_new, i_power, e_power_unit, i_gears, fk_i_make_id, fk_i_model_id, fk_vehicle_type_id) VALUES (%d, %s, %d, %d, %s, %s, %d, '%s', '%s', '%s', %d, %d, %s, '%s', %d, %s, %s, %s)",
+                                            DB_TABLE_PREFIX,
+                                            $item_id,
+                                            (Params::getParam("year") == '') ? DB_CONST_NULL : Params::getParam("year"),
+                                            Params::getParam("doors"),
+                                            Params::getParam("seats"),
+                                            (Params::getParam("mileage") == '') ? DB_CONST_NULL : Params::getParam("mileage"),
+                                            (Params::getParam("engine_size") == '') ? DB_CONST_NULL : Params::getParam("engine_size"),
+                                            Params::getParam("num_airbags"),
+                                            Params::getParam("transmission"),
+                                            Params::getParam("fuel"),
+                                            Params::getParam("seller"),
+                                            (Params::getParam("warranty")!='') ? 1 : 0,
+                                            (Params::getParam("new")!='') ? 1 : 0,
+                                            (Params::getParam("power") == '') ? DB_CONST_NULL : Params::getParam("power"),
+                                            Params::getParam("power_unit"),
+                                            Params::getParam("gears"),
+                                            $make,
+                                            $model,
+                                            $type
+                              );
         }
     }
 
@@ -177,13 +181,13 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
     function cars_item_detail() {
         $conn = getConnection() ;
         if(osc_is_this_category('cars_plugin', osc_item_category_id())) {
-            $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
-            $make = $conn->osc_dbFetchResult('SELECT * FROM %st_item_car_make_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_make_id']);
-            $model = $conn->osc_dbFetchResult('SELECT * FROM %st_item_car_model_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_model_id']);
+            $detail   = $conn->osc_dbFetchResult("SELECT * FROM %st_item_car_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
+            $make     = $conn->osc_dbFetchResult('SELECT * FROM %st_item_car_make_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_make_id']);
+            $model    = $conn->osc_dbFetchResult('SELECT * FROM %st_item_car_model_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_model_id']);
             $car_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_vehicle_type_id']);
-            $detail['s_make'] = $make['s_name'];
+            $detail['s_make']  = $make['s_name'];
             $detail['s_model'] = $model['s_name'];
-            $detail['locale'] = array();
+            $detail['locale']  = array();
             foreach ($car_type as $c) {
                 $detail['locale'][$c['fk_c_locale_code']]['s_car_type'] = $c['s_name'];
             }
@@ -213,33 +217,35 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
 
     function cars_item_edit_post($catId = null, $item_id = null) {
         // We received the categoryID and the Item ID
-        if($catId!=null) {
-            // We check if the category is the same as our plugin
-            if(osc_is_this_category('cars_plugin', $catId)) {
-                $conn = getConnection() ;
-                // Insert the data in our plugin's table
-                $conn->osc_dbExec("REPLACE INTO %st_item_car_attr (fk_i_item_id, i_year, i_doors, i_seats, i_mileage, i_engine_size, i_num_airbags, e_transmission, e_fuel, e_seller, b_warranty, b_new, i_power, e_power_unit, i_gears, fk_i_make_id, fk_i_model_id, fk_vehicle_type_id) VALUES (%d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', %d, %d, %d, '%s', %d, %d, %d, %d)",
-                            DB_TABLE_PREFIX,
-                            $item_id,
-                            Params::getParam("year"),
-                            Params::getParam("doors"),
-                            Params::getParam("seats"),
-                            Params::getParam("mileage"),
-                            Params::getParam("engine_size"),
-                            Params::getParam("num_airbags"),
-                            Params::getParam("transmission"),
-                            Params::getParam("fuel"),
-                            Params::getParam("seller"),
-                            (Params::getParam("warranty")!='') ? 1 : 0,
-                            (Params::getParam("new")!='') ? 1 : 0,
-                            Params::getParam("power"),
-                            Params::getParam("power_unit"),
-                            Params::getParam("gears"),
-                            Params::getParam("make"),
-                            Params::getParam("model"),
-                            Params::getParam("car_type")
-                    );
-            }
+        if($catId == null) {
+            return false;
+        }
+
+        // We check if the category is the same as our plugin
+        if(osc_is_this_category('cars_plugin', $catId)) {
+            $conn = getConnection() ;
+            // Insert the data in our plugin's table
+            $conn->osc_dbExec("REPLACE INTO %st_item_car_attr (fk_i_item_id, i_year, i_doors, i_seats, i_mileage, i_engine_size, i_num_airbags, e_transmission, e_fuel, e_seller, b_warranty, b_new, i_power, e_power_unit, i_gears, fk_i_make_id, fk_i_model_id, fk_vehicle_type_id) VALUES (%d, %s, %d, %d, %s, %s, %d, '%s', '%s', '%s', %d, %d, %s, '%s', %d, %s, %s, %d)",
+                        DB_TABLE_PREFIX,
+                        $item_id,
+                        (Params::getParam("year") == '') ? DB_CONST_NULL : Params::getParam("year"),
+                        Params::getParam("doors"),
+                        Params::getParam("seats"),
+                        (Params::getParam("mileage") == '') ? DB_CONST_NULL : Params::getParam("mileage"),
+                        (Params::getParam("engine_size") == '') ? DB_CONST_NULL : Params::getParam("engine_size"),
+                        Params::getParam("num_airbags"),
+                        Params::getParam("transmission"),
+                        Params::getParam("fuel"),
+                        Params::getParam("seller"),
+                        (Params::getParam("warranty")!='') ? 1 : 0,
+                        (Params::getParam("new")!='') ? 1 : 0,
+                        (Params::getParam("power") == '') ? DB_CONST_NULL : Params::getParam("power"),
+                        Params::getParam("power_unit"),
+                        Params::getParam("gears"),
+                        (Params::getParam("make") == '') ? DB_CONST_NULL : Params::getParam("make"),
+                        (Params::getParam("model") == '') ? DB_CONST_NULL : Params::getParam("model"),
+                        Params::getParam("car_type")
+                );
         }
     }
 

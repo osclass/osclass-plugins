@@ -1,7 +1,10 @@
 Changelog Cars attributes
 ===============================
 
-##version 2.1.1 - 30/06/2011
+##version 2.1.1 - 05/07/2011
 
 * Minor fix: vehicle type in default web locale
 * Added makes and models by default
+* Minor bug adding/editing an item fixed
+* Minor style changes
+* minor changes related to empty fields

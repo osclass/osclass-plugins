@@ -19,9 +19,9 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-    if(Params::getParam("makeId")!='') {
+    if(Params::getParam("makeId") != '') {
         $conn = getConnection() ;
-        $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, Params::getParam("makeId"));
+        $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE fk_i_make_id = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, Params::getParam("makeId"));
 
         echo json_encode($models);
     }

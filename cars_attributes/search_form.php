@@ -1,11 +1,9 @@
 <script type="text/javascript">
     $(document).ready(function(){
-
         $("#make").change(function(){
             var make_id = $(this).val();
             var url = '<?php echo osc_ajax_plugin_url("cars_attributes/ajax.php")."&makeId="; ?>' + make_id;
             var result = '';
-            var model_id = '';
             if(make_id != '') {
                 $("#model").attr('disabled',false);
                 $.ajax({
@@ -15,44 +13,40 @@
                     success: function(data){
                         var length = data.length;
                         if(length > 0) {
-                            result += '<option value=""><?php _e("Select a model", 'cars_attributes'); ?>...</option>';
+                            result += '<option value=""><?php _e("Select a model", 'cars_attributes'); ?></option>';
                             for(key in data) {
-                                if(data[key].pk_i_id==model_id) {
-                                    result += '<option value="' + data[key].pk_i_id + '" selected>' + data[key].s_name + '</option>';
-                                } else {
-                                    result += '<option value="' + data[key].pk_i_id + '">' + data[key].s_name + '</option>';
-                                }
+                                result += '<option value="' + data[key].pk_i_id + '">' + data[key].s_name + '</option>';
                             }
                         } else {
                             result += '<option value=""><?php _e('No results', 'cars_attributes'); ?></option>';
                         }
                         $("#model").html(result);
+                        if (typeof $.uniform != 'undefined') {
+                            $.uniform.restore('#model');
+                            $("#model").uniform();
+                        }
                     }
                  });
              } else {
                 $("#model").attr('disabled',true);
              }
         });
-        
-        // uniform()
-        //$('#plugin-hook input:text, select#make, select#model, select#car_type, select#doors, select#seats, select#num_airbags, select#transmission, select#fuel, select#seller, select#power_unit, select#gears').uniform();        
     });
-
 </script>
 <?php 
-$make = Params::getParam('make') ;
-$model = Params::getParam('model') ;
-$type = Params::getParam('type') ;
+    $make  = Params::getParam('make') ;
+    $model = Params::getParam('model') ;
+    $type  = Params::getParam('type') ;
 
-$conn = getConnection();
-$makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
-if($make!='') {
-    $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $make);
-} else {
-    $models = array();
-}
+    $conn  = getConnection();
+    $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
+    if($make!='') {
+        $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $make);
+    } else {
+        $models = array();
+    }
 
-$types = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr WHERE fk_c_locale_code = \'%s\'', DB_TABLE_PREFIX, osc_current_user_locale());
+    $types = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr WHERE fk_c_locale_code = \'%s\'', DB_TABLE_PREFIX, osc_current_user_locale());
 ?>
 <fieldset>
     <h3><?php _e('Cars attributes', 'cars_attributes') ; ?></h3>
