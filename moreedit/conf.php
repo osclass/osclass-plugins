@@ -61,7 +61,7 @@
                         <br/>
                         <?php _e("Note that max ads per month should be a greater value than max ads per week.",'moreedit'); ?>
                         <br/>
-                        <span style="float:right;"><button type="submit" style="float: right;"><?php _e('Update', 'paypal');?></button></span>
+                        <span style="float:right;"><button type="submit" style="float: right;"><?php _e('Update', 'moreedit');?></button></span>
                     </div>
                     <br/>
                     <div style="clear:both;"></div>

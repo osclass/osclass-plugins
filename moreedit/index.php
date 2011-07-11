@@ -168,7 +168,7 @@ Short Name: moreedit
     function moreedit_admin_menu() {
         echo '<h3><a href="#">More Edit Options</a></h3>
         <ul> 
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('More Options', 'paypal') . '</a></li>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('More Options', 'moreedit') . '</a></li>
         </ul>';
     }
 
