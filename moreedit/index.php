@@ -3,7 +3,7 @@
 Plugin Name: More edit
 Plugin URI: http://www.osclass.org/
 Description: More edit options
-Version: 0.9
+Version: 1.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: moreedit
@@ -20,7 +20,7 @@ Short Name: moreedit
         osc_set_preference('notify_edit', '0', 'moreedit', 'INTEGER');
 
         $conn->osc_dbExec("INSERT INTO %st_pages (s_internal_name, b_indelible, dt_pub_date) VALUES ('email_moreedit_notify_edit', 1, NOW() )", DB_TABLE_PREFIX);
-        $conn->osc_dbExec("INSERT INTO %st_pages_description (fk_i_pages_id, fk_c_locale_code, s_title, s_text) VALUES (%d, '%s', '{WEB_TITLE} - Notification of ad: {ITEM_TITLE}', '<p>Hi {ADMIN_NAME}!</p>\r\n<p> </p>\r\n<p>We just published an item ({ITEM_TITLE}) on {WEB_TITLE} from user {USER_NAME} ( {ITEM_URL} ).</p>\r\n<p>Edit it here : {EDIT_LINK}</p>\r\n<p> </p>\r\n<p>Thanks</p>')", DB_TABLE_PREFIX, $conn->get_last_id(), osc_language());        $conn->autocommit(true);
+        $conn->osc_dbExec("INSERT INTO %st_pages_description (fk_i_pages_id, fk_c_locale_code, s_title, s_text) VALUES (%d, '%s', '{WEB_TITLE} - Notification of ad: {ITEM_TITLE}', '<p>Hi Admin!</p>\r\n<p> </p>\r\n<p>We just published an item ({ITEM_TITLE}) on {WEB_TITLE} from user {USER_NAME} ( {ITEM_URL} ).</p>\r\n<p>Edit it here : {EDIT_LINK}</p>\r\n<p> </p>\r\n<p>Thanks</p>')", DB_TABLE_PREFIX, $conn->get_last_id(), osc_language());        $conn->autocommit(true);
     }
 
     function moreedit_uninstall() {
@@ -42,10 +42,10 @@ Short Name: moreedit
             if(osc_get_preference('max_ads_week', 'moreedit')>0) {
                 $conn = getConnection();
                 $items = $conn->osc_dbFetchResult("SELECT COUNT(pk_i_id) as total FROM %st_item WHERE fk_i_user_id = %d AND TIMESTAMPDIFF(DAY,%st_item.dt_pub_date,NOW()) < 7", DB_TABLE_PREFIX, osc_logged_user_id(), DB_TABLE_PREFIX);
-                if($items['total']>=osc_get_preference('max_ads_week', 'moreedit')) {
+                if($items['total']>=(osc_get_preference('max_ads_week', 'moreedit')+1)) {
                     $item = Item::newInstance()->findByPrimaryKey($item_id);
                     $mItems = new ItemActions(false);
-                    $success = $mItems->delete($item[0]['s_secret'], $item[0]['pk_i_id']);
+                    $success = $mItems->delete($item['s_secret'], $item['pk_i_id']);
                     osc_add_flash_error_message( __('Sorry, you have reached your maximun number of ads per week allowed', 'moreedit') ) ;
                     header( "location: " .osc_base_url() ) ;
                     exit;
@@ -54,10 +54,10 @@ Short Name: moreedit
             if(osc_get_preference('max_ads_month', 'moreedit')>0) {
                 $conn = getConnection();
                 $items = $conn->osc_dbFetchResult("SELECT COUNT(pk_i_id) as total FROM %st_item WHERE fk_i_user_id = %d AND TIMESTAMPDIFF(DAY,%st_item.dt_pub_date,NOW()) < 30", DB_TABLE_PREFIX, osc_logged_user_id(), DB_TABLE_PREFIX);
-                if($items['total']>=osc_get_preference('max_ads_month', 'moreedit')) {
+                if($items['total']>=(osc_get_preference('max_ads_month', 'moreedit')+1)) {
                     $item = Item::newInstance()->findByPrimaryKey($item_id);
                     $mItems = new ItemActions(false);
-                    $success = $mItems->delete($item[0]['s_secret'], $item[0]['pk_i_id']);
+                    $success = $mItems->delete($item['s_secret'], $item['pk_i_id']);
                     osc_add_flash_error_message( __('Sorry, you have reached your maximun number of ads per month allowed', 'moreedit') ) ;
                     header( "location: " .osc_base_url() ) ;
                     exit;
