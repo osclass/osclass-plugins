@@ -3,7 +3,7 @@
 Plugin Name: Sitemap Generator
 Plugin URI: http://www.osclass.org/
 Description: Sitemap Generator
-Version: 1.0.3
+Version: 1.0.4
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
@@ -121,14 +121,14 @@ function sitemap_ping_engines() {
 function sitemap_admin_menu() {
     echo '<h3><a href="#">' . __('Sitemap Generator', 'sitemap_generator') . '</a></h3>
     <ul> 
-        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Help', 'sitemap_generator') . '</a></li>
-        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/generate.php') . '">&raquo; ' . __('Generate sitemap', 'sitemap_generator') . '</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Help', 'sitemap_generator') . '</a></li>
+        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . '/generate.php') . '">&raquo; ' . __('Generate sitemap', 'sitemap_generator') . '</a></li>
     </ul>';
 }
 
 function sitemap_help() {
     sitemap_generator();
-    osc_admin_render_plugin(osc_plugin_path(dirname(__FILE__)) . '/sitemap.php') ;
+    osc_admin_render_plugin(osc_plugin_path(osc_plugin_folder(__FILE__)) . '/sitemap.php') ;
 }
 
 // This is needed in order to be able to activate the plugin
