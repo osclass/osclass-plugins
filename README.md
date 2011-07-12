@@ -17,9 +17,11 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Mobile theme](https://github.com/osclass/osclass-plugins/tree/osc-mobile) _under development_
 - [More Edit](https://github.com/osclass/osclass-plugins/tree/more_edit) _under development_
 - [Paypal](https://github.com/osclass/osclass-plugins/tree/paypal) _under development_
+- [Piwik Analytics](https://github.com/osclass/osclass-plugins/tree/piwik)
 - [Products attributes](https://github.com/osclass/osclass-plugins/tree/products_attributes)
 - [Real Estate attributes](https://github.com/osclass/osclass-plugins/tree/realstate_attributes)
 - [Registered users only](https://github.com/osclass/osclass-plugins/tree/registered_users_only)
+- [Rich Edit](https://github.com/osclass/osclass-plugins/tree/rich_edit)
 - [Sitemap generator](https://github.com/osclass/osclass-plugins/tree/sitemap_generator)
 - [Supertoolbar](https://github.com/osclass/osclass-plugins/tree/supertoolbar) _under development_
 - [Time elapsed](https://github.com/osclass/osclass-plugins/tree/time_elapsed)
