@@ -23,6 +23,7 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Registered users only](https://github.com/osclass/osclass-plugins/tree/registered_users_only)
 - [Rich Edit](https://github.com/osclass/osclass-plugins/tree/rich_edit)
 - [Sitemap generator](https://github.com/osclass/osclass-plugins/tree/sitemap_generator)
+- [Social bookmarks](https://github.com/osclass/osclass-plugins/tree/social_bookmarks)
 - [Supertoolbar](https://github.com/osclass/osclass-plugins/tree/supertoolbar) _under development_
 - [Time elapsed](https://github.com/osclass/osclass-plugins/tree/time_elapsed)
 - [Youtube](https://github.com/osclass/osclass-plugins/tree/youtube)
