@@ -33,6 +33,28 @@
         osc_reset_preferences();
     }
 ?>
+<script type="text/javascript" src="<?php echo osc_base_url().'oc-content/plugins/'.osc_plugin_folder(__FILE__);?>tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript"> 
+    tinyMCE.init({
+        mode : "none",
+        theme : "<?php echo osc_get_preference('theme', 'richedit'); ?>",
+        skin: "<?php echo osc_get_preference('skin', 'richedit'); ?>",
+        width: "<?php echo osc_get_preference('width', 'richedit'); ?>",
+        height: "<?php echo osc_get_preference('height', 'richedit'); ?>",
+        skin_variant : "<?php echo osc_get_preference('skin_variant', 'richedit'); ?>",
+        theme_advanced_buttons1 : "<?php echo osc_get_preference('buttons1', 'richedit'); ?>",
+        theme_advanced_buttons2 : "<?php echo osc_get_preference('buttons2', 'richedit'); ?>",
+        theme_advanced_buttons3 : "<?php echo osc_get_preference('buttons3', 'richedit'); ?>",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_toolbar_location : "top",
+        plugins : "<?php echo osc_get_preference('plugins', 'richedit'); ?>"
+    });
+    $(document).ready(function () {
+        $("textarea[id^=description]").each(function(){
+            tinyMCE.execCommand("mceAddControl", true, this.id);
+        });
+    });
+</script>
 <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
     <div style="padding: 20px;">
         <div style="float: left; width: 100%;">
@@ -69,6 +91,14 @@
                     <br/>
                     <div style="clear:both;"></div>
                 </form>
+            </fieldset>
+            <br/>
+            <fieldset>
+                <legend><?php _e('Preview of the editor', 'richedit'); ?></legend>
+                <div style="float: left; width: 100%;">
+                    <textarea id="description"><?php _e('This is a preview of how the rich editor will look like.', 'richedit'); ?></textarea>
+                </div>
+                <div style="clear:both;"></div>
             </fieldset>
         </div>
         <div style="clear: both;"></div>										

@@ -42,7 +42,7 @@ Short Name: richedit
     function richedit_load_js() {
         $location = Rewrite::newInstance()->get_location();
         $section = Rewrite::newInstance()->get_section();
-        if($location=='item' && ($section=='item_add' || $section=='item_edit')) {
+        if(($location=='item' && ($section=='item_add' || $section=='item_edit')) || ($location=='items' && ($section=='post' || $section=='item_edit'))) {
             ?>
             <script type="text/javascript" src="<?php echo osc_base_url().'oc-content/plugins/'.osc_plugin_folder(__FILE__);?>tiny_mce/tiny_mce.js"></script>
             <script type="text/javascript"> 
@@ -87,5 +87,6 @@ Short Name: richedit
 
     osc_add_hook('admin_menu', 'richedit_admin_menu');
     osc_add_hook('header', 'richedit_load_js');
+    osc_add_hook('admin_header', 'richedit_load_js');
     
 ?>
