@@ -3,7 +3,7 @@
 Plugin Name: Sitemap Generator
 Plugin URI: http://www.osclass.org/
 Description: Sitemap Generator
-Version: 1.0.4
+Version: 1.0.4.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
@@ -46,7 +46,7 @@ function sitemap_generator() {
     // PAGES
     if(osc_count_static_pages() > 0) {
         while(osc_has_static_pages()) {
-            sitemap_add_url(osc_static_page_url(), substr(osc_static_page_mod_date(), 0, 10), 'yearly');
+            sitemap_add_url(osc_static_page_url(), substr(osc_static_page_mod_date()!=''?osc_static_page_mod_date():osc_static_page_pub_date(), 0, 10), 'yearly');
         }
     }
     
@@ -57,7 +57,7 @@ function sitemap_generator() {
             foreach($locales as $locale) {
                 // Check for non-empty item's descriptions
                 if(osc_item_description($locale['pk_c_code'])!='') {
-                    sitemap_add_url(osc_item_url($locale['pk_c_code']), substr(osc_item_mod_date(), 0, 10), 'daily');
+                    sitemap_add_url(osc_item_url($locale['pk_c_code']), substr(osc_item_mod_date()!=''?osc_item_mod_date():osc_item_pub_date(), 0, 10), 'daily');
                 }
             }
         }
