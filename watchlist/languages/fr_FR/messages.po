@@ -1,0 +1,91 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: watchlist\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-11 14:37-0500\n"
+"PO-Revision-Date: 2011-07-11 14:37-0500\n"
+"Last-Translator: Richard Martin <keny10@gmail.com>\n"
+"Language-Team: Richard Martin <keny10@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: CANADA\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Poedit-SearchPath-0: C:\\wamp\\www\\osclass.2.1.1\\oc-content\\plugins\\watchlist\n"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/ajax_watchlist.php:22
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/ajax_watchlist.php:28
+msgid "View your watchlist"
+msgstr "Voir vos favoris"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/ajax_watchlist.php:33
+msgid "Please login"
+msgstr "Veuillez vous connecter"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/help.php:28
+msgid "Watchlist Help"
+msgstr "Aide Watchlist"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/help.php:31
+msgid "What is Watchlist Plugin?"
+msgstr "Le module Watchlist c'est quoi ?"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/help.php:34
+msgid "Watchlist plugin allows you to display a link that will allow user to save items on a watchlist page."
+msgstr "Le module watchlist vous permet d'afficher un lien qui permettra aux utilisateur d'enregistrer desannonces dans une liste de favoris"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/help.php:37
+msgid "How does Watchlist plugin work?"
+msgstr "Comment le module watchlist fonctionne ?"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/help.php:40
+msgid "In order to use Watchlist plugin, you should edit your theme files and add the following line anywhere in the code you want the Watchlist link to appear"
+msgstr "Afin d'utiliser le module Watchlist, vous devez éditer vos fichiers thème et ajoutez la ligne suivante n'importe où dans le code à l'endroit que vous voulez afficher les favorisl.\""
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/help.php:46
+msgid "Could I cutomize the style of Watchlist plugin?"
+msgstr "Puis-je personnaliser le style du module ?"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/help.php:49
+msgid "Of course you can. Watchlist display a link only you can use css to make a button or anything else."
+msgstr "Bien-sûr, Watchlist affiche seulement un lien vous pouvez donc utiliser le css ou autre."
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/help.php:52
+msgid "Did Watchlist plugin work with all version of Osclass ?"
+msgstr "Est-ce que le module Watchlist fonctionne avec toutes les version de OsClass ?"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/help.php:55
+msgid "In order to work this pluggin need OsClass v2.2 and up without this version pluggin will crash. <br />You have OsClass "
+msgstr "Pour pouvoir utiliser le module watchlist vous devez avoir la version 2.2 ou supérieur de OsClass, dans le cas contraire le module ne fonctionnera pas.<br />Votre version de OsClass :"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/index.php:15
+msgid "Add to watchlist"
+msgstr "Ajouter aux favoris"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/index.php:21
+msgid "Watchlist"
+msgstr "Favoris"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/watchlist.php:29
+msgid "Your watchlist"
+msgstr "Vos favoris"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/watchlist.php:35
+msgid "Here is your favorite items"
+msgstr "Voici vos annonces favorites"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/watchlist.php:37
+msgid "You don't have any items yet"
+msgstr "Vous n'avez aucun favoris pour l'instant."
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/watchlist.php:64
+msgid "This action can not be undone. Are you sure you want to continue?"
+msgstr "Êtes-vous sûr de vouloir continuer ?"
+
+#: C:\wamp\www\osclass.2.1.1\oc-content\plugins\watchlist/watchlist.php:64
+msgid "Delete"
+msgstr "Effacer"
+
