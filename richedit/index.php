@@ -3,7 +3,7 @@
 Plugin Name: Rich edit
 Plugin URI: http://www.osclass.org/
 Description: Add a WYSIWYG editor when publishing an ad
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: richedit
@@ -17,10 +17,10 @@ Short Name: richedit
         osc_set_preference('width', '600px', 'richedit', 'STRING');
         osc_set_preference('height', '240px', 'richedit', 'STRING');
         osc_set_preference('skin_variant', 'silver', 'richedit', 'STRING');
-        osc_set_preference('buttons1', 'bold,italic,underline,separator,undo,redo,separator,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,link,unlink,separator,image,code,media', 'richedit', 'STRING');
+        osc_set_preference('buttons1', 'bold,italic,underline,forecolor,separator,undo,redo,separator,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,link,unlink,separator,code', 'richedit', 'STRING');
         osc_set_preference('buttons2', '', 'richedit', 'STRING');
         osc_set_preference('buttons3', '', 'richedit', 'STRING');
-        osc_set_preference('plugins', 'media', 'richedit', 'STRING');
+        osc_set_preference('plugins', '', 'richedit', 'STRING');
         $conn->autocommit(true);
     }
 

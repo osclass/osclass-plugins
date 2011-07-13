@@ -98,6 +98,9 @@
                 <div style="float: left; width: 100%;">
                     <textarea id="description"><?php _e('This is a preview of how the rich editor will look like.', 'richedit'); ?></textarea>
                 </div>
+                <div style="clear:both;"><br/></div>
+                <div><?php echo sprintf(__('Learn more about the configuration of TinyMCE at %s', 'richedit'), '<a href="http://tinymce.moxiecode.com/wiki.php/Configuration">TinyMCE Wiki</a>');?>
+                </div>
                 <div style="clear:both;"></div>
             </fieldset>
         </div>
