@@ -31,7 +31,7 @@
                     <?php _e('What is Watchlist Plugin?', 'watchlist'); ?>
                 </h2>
                 <p>
-                    <?php _e('Watchlist plugin allows you to display a link that will allow user to save items on a watchlist page.', 'watchlist'); ?>
+                    <?php _e('Watchlist plugin allows you to display a link that will allow user to save items on a watchlist page', 'watchlist'); ?>.
                 </p>
                 <h2>
                     <?php _e('How does Watchlist plugin work?', 'watchlist'); ?>
@@ -43,18 +43,21 @@
                     &lt;?php watchlist(); ?&gt;
                 </pre>
                 <h2>
-                <?php _e('Could I cutomize the style of Watchlist plugin?', 'watchlist'); ?>
+                    <?php _e('Could I cutomize the style of Watchlist plugin?', 'watchlist'); ?>
                 </h2>
                 <p>
-                    <?php _e("Of course you can. Watchlist display a link only you can use css to make a button or anything else.", 'watchlist'); ?>. 
+                    <?php _e("Of course you can. Watchlist display a link only you can use css to make a button or anything else", 'watchlist'); ?>. 
                 </p>
-				<h2>
-                <?php _e('Did Watchlist plugin work with all version of Osclass ?', 'watchlist'); ?>
+                <h2>
+                    <?php _e('Did Watchlist plugin work with all version of Osclass?', 'watchlist'); ?>
                 </h2>
                 <p>
-                    <?php _e("In order to work this pluggin need OsClass v2.2 and up without this version pluggin will crash. <br />You have OsClass ", 'watchlist'); ?> <?php echo OSCLASS_VERSION;?>. 
+                    <?php _e("In order to work this pluggin need OsClass v2.2 and up without this version pluggin will crashYou have OsClass ", 'watchlist'); ?>.
                 </p>
-              </fieldset>
+                <p>
+                    <?php printf(__('You have %s version', 'watchlist'), OSCLASS_VERSION); ?>.
+                </p>
+            </fieldset>
         </div>
     </div>
 </div>

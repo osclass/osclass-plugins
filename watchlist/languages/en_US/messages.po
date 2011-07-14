@@ -9,29 +9,29 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: CANADA\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
-"X-Poedit-SearchPath-0: C:\\wamp\\www\\osclass.2.1.1\\oc-content\\plugins\\watchlist\n"
+"X-Poedit-SearchPath-0: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist\n"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/ajax_watchlist.php:19
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/ajax_watchlist.php:25
 msgid "View your watchlist"
-msgstr "Voir vos favoris"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/ajax_watchlist.php:29
 msgid "Please login"
-msgstr "Veuillez vous connecter"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/help.php:28
 msgid "Watchlist Help"
-msgstr "Aide Watchlist"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/help.php:31
 msgid "What is Watchlist Plugin?"
-msgstr "Le module Watchlist c'est quoi ?"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/help.php:34
 msgid "Watchlist plugin allows you to display a link that will allow user to save items on a watchlist page"
@@ -39,15 +39,15 @@ msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/help.php:37
 msgid "How does Watchlist plugin work?"
-msgstr "Comment le module watchlist fonctionne ?"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/help.php:40
 msgid "In order to use Watchlist plugin, you should edit your theme files and add the following line anywhere in the code you want the Watchlist link to appear"
-msgstr "Afin d'utiliser le module Watchlist, vous devez éditer vos fichiers thème et ajoutez la ligne suivante n'importe où dans le code à l'endroit que vous voulez afficher les favorisl.\""
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/help.php:46
 msgid "Could I cutomize the style of Watchlist plugin?"
-msgstr "Puis-je personnaliser le style du module ?"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/help.php:49
 msgid "Of course you can. Watchlist display a link only you can use css to make a button or anything else"
@@ -68,29 +68,29 @@ msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/index.php:16
 msgid "Add to watchlist"
-msgstr "Ajouter aux favoris"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/index.php:21
 msgid "Watchlist"
-msgstr "Favoris"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:30
 msgid "Your watchlist"
-msgstr "Vos favoris"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:36
 msgid "Here is your favorite items"
-msgstr "Voici vos annonces favorites"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:38
 msgid "You don't have any items yet"
-msgstr "Vous n'avez aucun favoris pour l'instant."
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:64
 msgid "This action can not be undone. Are you sure you want to continue?"
-msgstr "Êtes-vous sûr de vouloir continuer ?"
+msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:64
 msgid "Delete"
-msgstr "Effacer"
+msgstr ""
 
