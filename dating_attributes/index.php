@@ -3,7 +3,7 @@
 Plugin Name: Dating attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store dating attributes such as gender you're looking for and the type of relation.
-Version: 2.1
+Version: 2.1.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: dating_plugin
@@ -18,11 +18,11 @@ function dating_search_conditions($params) {
             // We may want to  have param-specific searches
             switch($key) {
                 case 'genderFrom':
-                    Search::newInstance()->addConditions(sprintf("%st_item_dating_attr.e_gender_from = '%s'", DB_TABLE_PREFIX, $value));
+                    Search::newInstance()->addConditions(sprintf("%st_item_dating_attr.e_gender_to = '%s'", DB_TABLE_PREFIX, $value));
                     $has_conditions = true;
                     break;
                 case 'genderTo':
-                    Search::newInstance()->addConditions(sprintf("%st_item_dating_attr.e_gender_to = '%s'", DB_TABLE_PREFIX, $value));
+                    Search::newInstance()->addConditions(sprintf("%st_item_dating_attr.e_gender_from = '%s'", DB_TABLE_PREFIX, $value));
                     $has_conditions = true;
                     break;
                 case 'relation':
@@ -85,7 +85,7 @@ function dating_form($catId = '') {
     if($catId!="") {
         // We check if the category is the same as our plugin
         if(osc_is_this_category('dating_plugin', $catId)) {
-            require_once 'form.php';
+            require_once 'item_edit.php';
         }
     }
 }
