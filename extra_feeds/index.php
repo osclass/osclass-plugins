@@ -3,7 +3,7 @@
 Plugin Name: Extra feeds
 Plugin URI: http://www.osclass.org/
 Description: Extra feeds.
-Version: 2.0
+Version: 2.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: extra_feeds
@@ -123,10 +123,20 @@ function feed_get_product_data($item) {
 }
 
 
+function feed_admin_menu() {
+    echo '<h3><a href="#">Extra Feeds help</a></h3>
+    <ul> 
+        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Help', 'extra_feeds') . '</a></li>
+    </ul>';
+}
+
+
 // This is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), '');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
+
+osc_add_filter('admin_menu', 'feed_admin_menu');
 
 osc_add_filter('feed_indeed', 'feed_indeed');
 osc_add_filter('feed_trovit_houses', 'feed_trovit_houses');
