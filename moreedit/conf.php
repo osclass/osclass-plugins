@@ -35,7 +35,7 @@
         <div style="float: left; width: 100%;">
             <fieldset>
                 <legend><?php _e('More Edit Options', 'moreedit'); ?></legend>
-                <form name="moreedit_form" id="moreedit_form" action="<?php echo osc_admin_base_url(true); ?>" method="GET" enctype="multipart/form-data" >
+                <form name="moreedit_form" id="moreedit_form" action="<?php echo osc_admin_base_url(true); ?>" method="POST" enctype="multipart/form-data" >
                     <div style="float: left; width: 50%;">
                     <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
