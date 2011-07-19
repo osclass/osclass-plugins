@@ -102,7 +102,7 @@
                     <br/>
                     <?php _e('Your Paypal account has to be set as Business or Premier, you could change that at Your Profile, under My Settings', 'paypal'); ?>.
                     <br/>
-                    <?php _e('You need Paypal API credentials', 'paypal'); ?>.
+                    <?php _e('You need Paypal API credentials (before entering here your API credentials, MODIFY index.php file of this plugin and change the value of PAYPAL_CRYPT_KEY variable to make your API more secure)', 'paypal'); ?>.
                     <br/>
                     <?php _e('You need to tell Paypal where is your IPN file', 'paypal'); ?>
                 </p>
