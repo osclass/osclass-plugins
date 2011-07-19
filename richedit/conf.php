@@ -60,7 +60,7 @@
         <div style="float: left; width: 100%;">
             <fieldset>
                 <legend><?php _e('Rich Edit Options', 'richedit'); ?></legend>
-                <form name="richedit_form" id="richedit_form" action="<?php echo osc_admin_base_url(true); ?>" method="GET" enctype="multipart/form-data" >
+                <form name="richedit_form" id="richedit_form" action="<?php echo osc_admin_base_url(true); ?>" method="POST" enctype="multipart/form-data" >
                     <div style="float: left; width: 100%;">
                     <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
