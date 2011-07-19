@@ -103,5 +103,24 @@
         }
         return false;
     }
+    
+    
+    function paypal_crypt($cadena)
+    {
+        $cifrado = MCRYPT_RIJNDAEL_256;
+        $modo = MCRYPT_MODE_ECB;
+        return base64_encode(mcrypt_encrypt($cifrado, PAYPAL_CRYPT_KEY, $cadena, $modo,
+            mcrypt_create_iv(mcrypt_get_iv_size($cifrado, $modo), MCRYPT_RAND)
+            ));
+    }
+
+    function paypal_decrypt($cadena)
+    {
+        $cifrado = MCRYPT_RIJNDAEL_256;
+        $modo = MCRYPT_MODE_ECB;
+        return str_replace("\0", "", mcrypt_decrypt($cifrado, PAYPAL_CRYPT_KEY,  base64_decode($cadena), $modo,
+            mcrypt_create_iv(mcrypt_get_iv_size($cifrado, $modo), MCRYPT_RAND)
+            ));
+    }    
 
 ?>

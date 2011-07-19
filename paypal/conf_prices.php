@@ -27,7 +27,7 @@
         $pub_prices = Params::getParam("pub_prices");
         $pr_prices  = Params::getParam("pr_prices");
         foreach($pr_prices as $k => $v) {
-            $conn->osc_dbExec("REPLACE INTO  %st_paypal_prices (fk_i_category_id, f_publish_cost, f_premium_cost) VALUES ('%d',  '%f',  '%f')", DB_TABLE_PREFIX, $k, $pub_prices[$k], $v);
+            $conn->osc_dbExec("REPLACE INTO  %st_paypal_prices (fk_i_category_id, f_publish_cost, f_premium_cost) VALUES ('%d',  %s,  %s)", DB_TABLE_PREFIX, $k, $pub_prices[$k]==''?'NULL':$pub_prices[$k], $v==''?'NULL':$v);
         }
     }
 
@@ -38,7 +38,6 @@
         $cat_prices[$p['fk_i_category_id']]['f_publish_cost'] = $p['f_publish_cost'];
         $cat_prices[$p['fk_i_category_id']]['f_premium_cost'] = $p['f_premium_cost'];
     }
-
 ?>
 <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
     <div style="padding: 20px;">
@@ -46,7 +45,7 @@
             <fieldset>
                 <legend><?php _e('Paypal Options', 'paypal'); ?></legend>
                 <div style="float: left; width: 100%;">
-                    <form name="paypal_form" id="paypal_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
+                    <form name="paypal_form" id="paypal_form" action="<?php echo osc_admin_base_url(true);?>" method="POST" enctype="multipart/form-data" >
                         <input type="hidden" name="page" value="plugins" />
                         <input type="hidden" name="action" value="renderplugin" />
                         <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf_prices.php" />
@@ -63,10 +62,10 @@
                                         <?php echo $c['s_name']; ?>
                                     </td>
                                     <td>
-                                        <input style="width:150px;text-align:right;" type="text" name="pub_prices[<?php echo $c['pk_i_id']?>]" id="pub_prices[<?php echo $c['pk_i_id']?>]" value="<?php echo isset($cat_prices[$c['pk_i_id']]) ? $cat_prices[$c['pk_i_id']]['f_publish_cost'] : osc_get_preference("default_publish_cost", "paypal"); ?>" />
+                                        <input style="width:150px;text-align:right;" type="text" name="pub_prices[<?php echo $c['pk_i_id']?>]" id="pub_prices[<?php echo $c['pk_i_id']?>]" value="<?php echo isset($cat_prices[$c['pk_i_id']]) ? $cat_prices[$c['pk_i_id']]['f_publish_cost'] : ''; ?>" />
                                     </td>
                                     <td>
-                                        <input style="width:150px;text-align:right;" type="text" name="pr_prices[<?php echo $c['pk_i_id']?>]" id="pr_prices[<?php echo $c['pk_i_id']?>]" value="<?php echo isset($cat_prices[$c['pk_i_id']]) ? $cat_prices[$c['pk_i_id']]['f_premium_cost'] : osc_get_preference("default_premium_cost", "paypal"); ?>" />
+                                        <input style="width:150px;text-align:right;" type="text" name="pr_prices[<?php echo $c['pk_i_id']?>]" id="pr_prices[<?php echo $c['pk_i_id']?>]" value="<?php echo isset($cat_prices[$c['pk_i_id']]) ? $cat_prices[$c['pk_i_id']]['f_premium_cost'] : ''; ?>" />
                                     </td>
                                 </tr>
                                 <?php foreach($c['categories'] as $cc) { ?>
@@ -75,8 +74,8 @@
                                             &nbsp;&nbsp;<?php echo $cc['s_name']; ?>
                                         </td>
                                         <td>
-                                            <input style="width:150px;text-align:right;" type="text" name="pub_prices[<?php echo $cc['pk_i_id']?>]" id="pub_prices[<?php echo $cc['pk_i_id']?>]" value="<?php echo isset($cat_prices[$cc['pk_i_id']]) ? $cat_prices[$cc['pk_i_id']]['f_publish_cost'] : '0'; ?>" /></td>
-                                        <td><input style="width:150px;text-align:right;" type="text" name="pr_prices[<?php echo $cc['pk_i_id']?>]" id="pr_prices[<?php echo $cc['pk_i_id']?>]" value="<?php echo isset($cat_prices[$cc['pk_i_id']]) ? $cat_prices[$cc['pk_i_id']]['f_premium_cost'] : '0'; ?>" /></td>
+                                            <input style="width:150px;text-align:right;" type="text" name="pub_prices[<?php echo $cc['pk_i_id']?>]" id="pub_prices[<?php echo $cc['pk_i_id']?>]" value="<?php echo isset($cat_prices[$cc['pk_i_id']]) ? $cat_prices[$cc['pk_i_id']]['f_publish_cost'] : ''; ?>" /></td>
+                                        <td><input style="width:150px;text-align:right;" type="text" name="pr_prices[<?php echo $cc['pk_i_id']?>]" id="pr_prices[<?php echo $cc['pk_i_id']?>]" value="<?php echo isset($cat_prices[$cc['pk_i_id']]) ? $cat_prices[$cc['pk_i_id']]['f_premium_cost'] : ''; ?>" /></td>
                                     </tr>
                                 <?php } ?>
                             <?php } ?>
@@ -92,7 +91,7 @@
                 <legend><?php _e('Help', 'paypal'); ?></legend>
                 <h3><?php _e('Setting up your fees', 'paypal'); ?></h3>
                 <p>
-                    <?php _e('You could set up different prices for each category', 'paypal'); ?>.
+                    <?php _e('You could set up different prices for each category', 'paypal'); ?>. <?php _e('If the price of a category is left empty, the default value will be applied', 'paypal'); ?>.
                 </p>
             </fieldset>
         </div>

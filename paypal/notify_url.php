@@ -87,11 +87,13 @@
                         }
                     } // ELSE THE PAY IS ALREADY PROCESSED
 
+                    if($email_admin) {
                     $emailtext = '';
-                    foreach ($_REQUEST as $key => $value) {
-                        $emailtext .= $key . ' = ' . $value . '\n\n';
+                        foreach ($_REQUEST as $key => $value) {
+                            $emailtext .= $key . ' = ' . $value . '\n\n';
+                        }
+                        mail(osc_contact_email() , 'OSCLASS PAYPAL DEBUG', $emailtext . '\n\n' . $req);
                     }
-                    mail('juanramon.diaz@gmail.com', 'OSCLASS PAYPAL DEBUG', $emailtext . '\n\n' . $req);
                 }
             } else if (strcmp($res, 'INVALID') == 0) {
                 // INVALID: Do nothing

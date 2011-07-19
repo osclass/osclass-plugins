@@ -10,6 +10,7 @@ Short Name: paypal
 */
 
     define('PAYPAL_SANDBOX', true);
+    define('PAYPAL_CRYPT_KEY', 'randompasswordchangethis');
 
     // load necessary functions
     require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'functions.php';
@@ -425,12 +426,16 @@ Short Name: paypal
         }
     };
 
+    
+    function paypal_configure_link() {
+        paypal_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'conf.php');
+    }
 
     /**
      * ADD HOOKS
      */
     osc_register_plugin(osc_plugin_path(__FILE__), 'paypal_install');
-    osc_add_hook(osc_plugin_path(__FILE__)."_configure", '');
+    osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'paypal_configure_link');
     osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'paypal_uninstall');
 
     osc_add_hook('admin_menu', 'paypal_admin_menu');

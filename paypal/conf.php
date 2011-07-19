@@ -26,9 +26,9 @@
         osc_set_preference('pay_per_post', Params::getParam("pay_per_post") ? Params::getParam("pay_per_post") : '0', 'paypal', 'BOOLEAN');
         osc_set_preference('premium_days', Params::getParam("premium_days") ? Params::getParam("premium_days") : '7', 'paypal', 'INTEGER');
         osc_set_preference('currency', Params::getParam("currency") ? Params::getParam("currency") : 'USD', 'paypal', 'STRING');
-        osc_set_preference('api_username', Params::getParam("api_username"), 'paypal', 'STRING');
-        osc_set_preference('api_password', Params::getParam("api_password"), 'paypal', 'STRING');
-        osc_set_preference('api_signature', Params::getParam("api_signature"), 'paypal', 'STRING');
+        osc_set_preference('api_username', paypal_crypt(Params::getParam("api_username")), 'paypal', 'STRING');
+        osc_set_preference('api_password', paypal_crypt(Params::getParam("api_password")), 'paypal', 'STRING');
+        osc_set_preference('api_signature', paypal_crypt(Params::getParam("api_signature")), 'paypal', 'STRING');
         echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'paypal') . '.</p></div>' ;
         osc_set_preference('pack_price_1', Params::getParam("pack_price_1"), 'paypal', 'STRING');
         osc_set_preference('pack_price_2', Params::getParam("pack_price_2"), 'paypal', 'STRING');
@@ -41,17 +41,17 @@
         <div style="float: left; width: 100%;">
             <fieldset>
                 <legend><?php _e('Paypal Options', 'paypal'); ?></legend>
-                <form name="paypal_form" id="paypal_form" action="<?php echo osc_admin_base_url(true); ?>" method="GET" enctype="multipart/form-data" >
+                <form name="paypal_form" id="paypal_form" action="<?php echo osc_admin_base_url(true); ?>" method="POST" enctype="multipart/form-data" >
                     <div style="float: left; width: 50%;">
                     <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
                     <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
                     <input type="hidden" name="plugin_action" value="done" />
-                        <label><?php _e('API username', 'paypal'); ?></label><input type="text" name="api_username" id="api_username" value="<?php echo osc_get_preference('api_username', 'paypal'); ?>" />
+                        <label><?php _e('API username', 'paypal'); ?></label><input type="text" name="api_username" id="api_username" value="<?php echo paypal_decrypt(osc_get_preference('api_username', 'paypal')); ?>" />
                         <br/>
-                        <label><?php _e('API password', 'paypal'); ?></label><input type="password" name="api_password" id="api_password" value="<?php echo osc_get_preference('api_password', 'paypal'); ?>" />
+                        <label><?php _e('API password', 'paypal'); ?></label><input type="password" name="api_password" id="api_password" value="<?php echo paypal_decrypt(osc_get_preference('api_password', 'paypal')); ?>" />
                         <br/>
-                        <label><?php _e('API signature', 'paypal'); ?></label><input type="text" name="api_signature" id="api_signature" value="<?php echo osc_get_preference('api_signature', 'paypal'); ?>" />
+                        <label><?php _e('API signature', 'paypal'); ?></label><input type="text" name="api_signature" id="api_signature" value="<?php echo paypal_decrypt(osc_get_preference('api_signature', 'paypal')); ?>" />
                         <br/>
                     </div>
                     <div style="float: left; width: 50%;">
@@ -75,7 +75,7 @@
                     <br/>
                     <div style="float: left; width: 50%;">
                         <p>
-                            <?php _e("You could specify up to 3 'packs' that users can buy, so they don't need to pay each time the publish an as. The credit from the pack will be stored for later uses.",'paypal'); ?>
+                            <?php _e("You could specify up to 3 'packs' that users can buy, so they don't need to pay each time they publish an ad. The credit from the pack will be stored for later uses.",'paypal'); ?>
                         </p>
                         <br/>
                     </div>
