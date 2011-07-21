@@ -32,8 +32,8 @@ Short Name: moreedit
         osc_delete_preference('max_ads_month', 'moreedit');
         osc_delete_preference('notify_edit', 'moreedit');
         $page_id = $conn->osc_dbFetchResult("SELECT * FROM %st_pages WHERE s_internal_name = 'email_moreedit_notify_edit'", DB_TABLE_PREFIX);
-        $conn->osc_dbExec("DELETE FROM %st_pages WHERE pk_i_id = %d", DB_TABLE_PREFIX, $page_id['pk_i_id']);
         $conn->osc_dbExec("DELETE FROM %st_pages_description WHERE fk_i_pages_id = %d", DB_TABLE_PREFIX, $page_id['pk_i_id']);
+        $conn->osc_dbExec("DELETE FROM %st_pages WHERE pk_i_id = %d", DB_TABLE_PREFIX, $page_id['pk_i_id']);
         $conn->autocommit(true);
     }
 
