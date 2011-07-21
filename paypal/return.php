@@ -20,9 +20,9 @@
     // is an example only. It is NOT Recommended to use //
     // this method in production........................//
     //**************************************************//
-    $APIUSERNAME  = osc_get_preference('api_username', 'paypal');
-    $APIPASSWORD  = osc_get_preference('api_password', 'paypal');
-    $APISIGNATURE = osc_get_preference('api_signature', 'paypal');
+    $APIUSERNAME  = paypal_decrypt(osc_get_preference('api_username', 'paypal'));
+    $APIPASSWORD  = paypal_decrypt(osc_get_preference('api_password', 'paypal'));
+    $APISIGNATURE = paypal_decrypt(osc_get_preference('api_signature', 'paypal'));
     $ENDPOINT     = 'https://api-3t.paypal.com/nvp';
     if( defined('PAYPAL_SANDBOX') ) {
         $ENDPOINT = 'https://api-3t.sandbox.paypal.com/nvp';
@@ -70,7 +70,7 @@
             $conn = getConnection();
             $conn->osc_dbExec("UPDATE %st_paypal_publish SET dt_date = '%s', b_paid =  '1', fk_i_paypal_id = '%d' WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), $paypal_id, $rpl[1]);
 
-            $item     = Item::newInstance()->findByPrimaryKey($rpl[1]);
+            Item::newInstance()->update(array('b_enabled' => 1), array('pk_i_id' => $rpl[1]));
             $category = Category::newInstance()->findByPrimaryKey($item['fk_i_item_id']);
             View::newInstance()->_exportVariableToView('category', $category);
             $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_search_category_url() . '">' . __('Click here to continue', 'paypal') . '</a></p>';

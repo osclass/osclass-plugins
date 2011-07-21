@@ -60,8 +60,8 @@ Short Name: paypal
         $conn->osc_dbExec('DROP TABLE %st_paypal_prices', DB_TABLE_PREFIX);
         $conn->osc_dbExec('DROP TABLE %st_paypal_log', DB_TABLE_PREFIX);
         $page_id = $conn->osc_dbFetchResult("SELECT * FROM %st_pages WHERE s_internal_name = 'email_paypal'", DB_TABLE_PREFIX);
-        $conn->osc_dbExec("DELETE FROM %st_pages WHERE pk_i_id = %d", DB_TABLE_PREFIX, $page_id['pk_i_id']);
         $conn->osc_dbExec("DELETE FROM %st_pages_description WHERE fk_i_pages_id = %d", DB_TABLE_PREFIX, $page_id['pk_i_id']);
+        $conn->osc_dbExec("DELETE FROM %st_pages WHERE pk_i_id = %d", DB_TABLE_PREFIX, $page_id['pk_i_id']);
             
         osc_delete_preference('default_premium_cost', 'paypal');
         osc_delete_preference('allow_premium', 'paypal');
@@ -111,9 +111,9 @@ Short Name: paypal
     */
     function paypal_button($amount = '0.00', $description = '', $rpl = '||', $itemnumber = '101') {
 
-        $APIUSERNAME  = osc_get_preference('api_username', 'paypal');
-        $APIPASSWORD  = osc_get_preference('api_password', 'paypal');
-        $APISIGNATURE = osc_get_preference('api_signature', 'paypal');
+        $APIUSERNAME  = paypal_decrypt(osc_get_preference('api_username', 'paypal'));
+        $APIPASSWORD  = paypal_decrypt(osc_get_preference('api_password', 'paypal'));
+        $APISIGNATURE = paypal_decrypt(osc_get_preference('api_signature', 'paypal'));
         $ENDPOINT     = 'https://api-3t.sandbox.paypal.com/nvp';
         $VERSION      = '65.1'; // must be >= 65.1
         $REDIRECTURL  = 'https://www.paypal.com/incontext?token=';
@@ -228,6 +228,7 @@ Short Name: paypal
             if($category_fee>0) {
                 // Catch and re-set FlashMessages
                 osc_resend_flash_messages();
+                Item::newInstance()->update(array('b_enabled' => 0), array('pk_i_id' => $item['pk_i_id']));
                 $conn->osc_dbExec("INSERT INTO %st_paypal_publish (fk_i_item_id, dt_date, b_paid) VALUES ('%d',  '%s',  '0')", DB_TABLE_PREFIX, $item['pk_i_id'], date('Y-m-d H:i:s'));
                 paypal_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'payperpublish.php&itemId=' . $item['pk_i_id']));
             } else {
@@ -268,7 +269,6 @@ Short Name: paypal
         $mPages = new Page() ;
         $aPage = $mPages->findByInternalName('email_paypal') ;
         $locale = osc_current_user_locale() ;
-
         $content = array();
         if(isset($aPage['locale'][$locale]['s_title'])) {
             $content = $aPage['locale'][$locale];
@@ -420,8 +420,15 @@ Short Name: paypal
                 $category_fee = osc_get_preference("default_publish_cost", "paypal");
             }
             if($category_fee>0) {
-                osc_add_flash_error_message( __('You need to pay the publish fee in order to make the ad public to the rest of users', 'paypal') );
-                paypal_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__)."payperpublish.php&itemId=".$item['pk_i_id']));
+                if($item['fk_i_user_id']!=null && $item['fk_i_user_id']==osc_logged_user_id()) {
+                    osc_add_flash_error_message( __('You need to pay the publish fee in order to make the ad public to the rest of users', 'paypal') );
+                    paypal_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__)."payperpublish.php&itemId=".$item['pk_i_id']));
+                } else {
+                    osc_add_flash_error_message( __('Sorry, this ad is not available at the moment', 'paypal') );
+                    $category = Category::newInstance()->findByPrimaryKey($item['fk_i_category_id']);
+                    View::newInstance()->_exportVariableToView('category', $category);
+                    paypal_redirect_to(osc_search_category_url());
+                }
             }
         }
     };

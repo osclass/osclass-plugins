@@ -68,6 +68,7 @@
 
                         if ($data[0] == '101') {
                             // PUBLISH FEE
+                            Item::newInstance()->update(array('b_enabled' => 1), array('pk_i_id' => $rpl[1]));
                             $conn->osc_dbExec("UPDATE %st_paypal_publish SET dt_date = '%s', b_paid = '1', fk_i_paypal_id = '%d' WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), $paypal_id, $rpl[1]);
                         } else if ($data[0] == '201') {
                             // PREMIUM FEE
