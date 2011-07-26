@@ -15,8 +15,8 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Jobs attributes](https://github.com/osclass/osclass-plugins/tree/jobs_attributes)
 - [List sellet items](https://github.com/osclass/osclass-plugins/tree/list_seller_items)
 - [Mobile theme](https://github.com/osclass/osclass-plugins/tree/osc-mobile) _under development_
-- [More Edit](https://github.com/osclass/osclass-plugins/tree/more_edit) _under development_
-- [Paypal](https://github.com/osclass/osclass-plugins/tree/paypal)
+- [More Edit](https://github.com/osclass/osclass-plugins/tree/more_edit)
+- [Paypal](https://github.com/osclass/osclass-plugins/tree/paypal) _under development_
 - [Piwik Analytics](https://github.com/osclass/osclass-plugins/tree/piwik)
 - [Products attributes](https://github.com/osclass/osclass-plugins/tree/products_attributes)
 - [Real Estate attributes](https://github.com/osclass/osclass-plugins/tree/realstate_attributes)
@@ -27,5 +27,6 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Supertoolbar](https://github.com/osclass/osclass-plugins/tree/supertoolbar) _under development_
 - [Time elapsed](https://github.com/osclass/osclass-plugins/tree/time_elapsed)
 - [Youtube](https://github.com/osclass/osclass-plugins/tree/youtube)
+- [Watchlist](https://github.com/osclass/osclass-plugins/tree/watchlist) _under development_
 
 If you need more information, you can visit [our forums](http://forums.osclass.org/).
