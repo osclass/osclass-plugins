@@ -3,7 +3,7 @@
 Plugin Name: Rich edit
 Plugin URI: http://www.osclass.org/
 Description: Add a WYSIWYG editor when publishing an ad
-Version: 1.0.1
+Version: 1.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: richedit
@@ -72,12 +72,11 @@ Short Name: richedit
     }
     
     function richedit_admin_menu() {
-        echo '<h3><a href="#">Rich Edit Options</a></h3>
+        echo '<h3><a href="#">' . __('Rich edit options', 'richedit') . '</a></h3>
         <ul> 
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'richedit') . '</a></li>
         </ul>';
     }
-
 
     /**
      * ADD HOOKS

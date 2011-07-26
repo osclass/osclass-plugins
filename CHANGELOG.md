@@ -1,5 +1,11 @@
 Rich Editor plugin
 ==============
 
-Version 1.0.1
-Remove media and image buttons, added one for color change
+##version 1.0.2 - 26/07/2011
+
+* Fixed some string
+* Added language folder
+
+##version 1.0.1
+
+* Remove media and image buttons, added one for color change

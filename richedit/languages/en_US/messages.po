@@ -1,0 +1,89 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Rich edit 1.0.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-26 16:51+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SearchPath-0: /Users/juanramon/htdocs/osclass-plugins/richedit\n"
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:32
+msgid "Congratulations. The plugin is now configured"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:62
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/index.php:75
+msgid "Rich edit options"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:69
+msgid "Theme"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:71
+msgid "Skin"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:73
+msgid "Skin variant"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:75
+msgid "Width (need units, px or %)"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:77
+msgid "Height (need units, px or %)"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:79
+msgid "Line of buttons #1 (separated them by comma)"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:81
+msgid "Line of buttons #2 (separated them by comma)"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:83
+msgid "Line of buttons #3 (separated them by comma)"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:85
+msgid "Plugins (separated them by comma)"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:87
+#, php-format
+msgid "Plugins are located in %s. Feel free to add more plugins if you need it"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:89
+msgid "Update"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:97
+msgid "Preview of the editor"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:99
+msgid "This is a preview of how the rich editor will look like"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/conf.php:103
+#, php-format
+msgid "Learn more about the configuration of TinyMCE at %s"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/richedit/index.php:77
+msgid "Settings"
+msgstr ""
+

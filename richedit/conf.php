@@ -59,7 +59,7 @@
     <div style="padding: 20px;">
         <div style="float: left; width: 100%;">
             <fieldset>
-                <legend><?php _e('Rich Edit Options', 'richedit'); ?></legend>
+                <legend><?php _e('Rich edit options', 'richedit'); ?></legend>
                 <form name="richedit_form" id="richedit_form" action="<?php echo osc_admin_base_url(true); ?>" method="POST" enctype="multipart/form-data" >
                     <div style="float: left; width: 100%;">
                     <input type="hidden" name="page" value="plugins" />
@@ -84,7 +84,7 @@
                         <br/>
                         <label><?php _e('Plugins (separated them by comma)', 'richedit'); ?></label><br/><input type="text" name="plugins" id="plugins" value="<?php echo osc_get_preference('plugins', 'richedit'); ?>" />
                         <br/>
-                        <label><?php echo sprintf(__('Plugins are located in %s. Feel free to add more plugins if you need it.', 'richedit'), osc_plugins_path().osc_plugin_folder(__FILE__).'tiny_mce/plguins'); ?></label>
+                        <label><?php echo sprintf(__('Plugins are located in %s. Feel free to add more plugins if you need it', 'richedit'), osc_plugins_path().osc_plugin_folder(__FILE__).'tiny_mce/plguins'); ?>.</label>
                         <br/>
                         <span style="float:right;"><button type="submit" style="float: right;"><?php _e('Update', 'richedit');?></button></span>
                     </div>
@@ -96,10 +96,11 @@
             <fieldset>
                 <legend><?php _e('Preview of the editor', 'richedit'); ?></legend>
                 <div style="float: left; width: 100%;">
-                    <textarea id="description"><?php _e('This is a preview of how the rich editor will look like.', 'richedit'); ?></textarea>
+                    <textarea id="description"><?php _e('This is a preview of how the rich editor will look like', 'richedit'); ?>.</textarea>
                 </div>
-                <div style="clear:both;"><br/></div>
-                <div><?php echo sprintf(__('Learn more about the configuration of TinyMCE at %s', 'richedit'), '<a href="http://tinymce.moxiecode.com/wiki.php/Configuration">TinyMCE Wiki</a>');?>
+                <div style="clear:both;"></div>
+                <div>
+                    <?php echo sprintf(__('Learn more about the configuration of TinyMCE at %s', 'richedit'), '<a href="http://tinymce.moxiecode.com/wiki.php/Configuration">TinyMCE Wiki</a>');?>
                 </div>
                 <div style="clear:both;"></div>
             </fieldset>
