@@ -1,0 +1,286 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ads 4 OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-26 13:02+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SearchPath-0: /Users/juanramon/htdocs/osclass-plugins/ads4osc\n"
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/create.php:2
+msgid "Create Ad"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/create.php:6
+msgid "Step 1: Import Your Ad Code"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/create.php:7
+msgid "Simply <strong>paste your Ad Code below</strong> and Import!"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/create.php:8
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:189
+msgid "Code"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/create.php:10
+msgid "Ads 4 OSClass will detect if the code is from a supported ad network (currently only Google Adsense)"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/create.php:12
+msgid "Import"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:34
+msgid "Edit Settings for Ad"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:36
+msgid "Enter the name for this ad. Ads with the same name will rotate according to their relative weights"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:40
+msgid "Account Details"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:44
+msgid "Account ID"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:50
+msgid "Partner ID"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:56
+msgid "Slot ID"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:62
+msgid "Max Ads Per Page"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:69
+msgid "Enter the information specific to the Google Adsense ad type. The Partner ID is the ID for a partner revenue sharing account, usually your blog hosting provider.  Note that a Partner ID does not necessarily mean that your partner is sharing revenues.  Google Adsense will notify you if this is the case. Leave the Max Ads Per Page field blank if you do not want to restrict the number of ads per page"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:79
+msgid "Ad Format"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:83
+msgid "Ad Type"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:86
+msgid "Use Custom"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:87
+msgid "All ad types"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:88
+msgid "Text ads"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:89
+msgid "Image & Rich Media ads"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:94
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/list.php:7
+msgid "Format"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:98
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:119
+msgid "300 x 250 Medium Rectangle"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:99
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:118
+msgid "336 x 280 Large Rectangle"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:100
+msgid "728 x 90 Leaderboard"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:101
+msgid "160 x 600 Wide Skyscraper"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:104
+msgid "468 x 60 Banner"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:105
+msgid "234 x 60 Half Banner"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:108
+msgid "120 x 600 Skyscraper"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:109
+msgid "120 x 240 Vertical Banner"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:112
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:120
+msgid "250 x 250 Square"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:113
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:121
+msgid "200 x 200 Small Square"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:114
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:122
+msgid "180 x 150 Small Rectangle"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:115
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:123
+msgid "125 x 125 Button"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:129
+msgid "Dimensions"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:137
+msgid "Select one of the supported ad format sizes. If your ad size is not one of the standard sizes, select Custom and fill in your size"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:177
+msgid "Advanced Options"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:180
+msgid "Weight"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:184
+msgid "Weight determines how often this ad is displayed relative to the other ads with the same name.  A weight of '0' will stop this ad from displaying"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:194
+msgid "HTML Code Before"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:200
+msgid "Ad Code"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:206
+msgid "HTML Code After"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:213
+msgid "Place any HTML code you want to display before or after your tag in the appropriate section. If you want to change your ad network tag, you need to import the new tag again"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/edit.php:216
+msgid "Save"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/help.php:27
+msgid "Ads for OSClass Help"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/help.php:29
+msgid "What is Ads for OSClass Plugin?"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/help.php:31
+msgid "Ads for OSClass -also known as Ads4OSClass- plugin allows you to manage and show ads block from several adsvertishing networks"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/help.php:33
+msgid "How does Ads4OSClass plugin work?"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/help.php:35
+msgid "You need to import the HTML code from your ad using the admin-menu. Some advertishing network are supported and will offer you more options of customization"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/help.php:37
+msgid "How could I show some ads on my website"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/help.php:39
+msgid "First, create some ad in the admin-menu. then, you should edit your theme files and add the following line anywhere in the code you want an ad to appear"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/help.php:45
+msgid "Where 'title_of_the_ad' is the name of the ad(s) you want to show there. If you have several ads with the same title, they will rotate depending on their weight"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/index.php:50
+msgid "Advertising"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/index.php:52
+msgid "Edit Ads"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/index.php:53
+msgid "Create New Ad"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/index.php:54
+msgid "F.A.Q. / Help"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/launcher.php:65
+msgid "Settings saved"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/launcher.php:81
+msgid "Ad deleted correctly"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/launcher.php:83
+msgid "There was a problem deleting the ad"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/list.php:5
+msgid "Name"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/list.php:6
+msgid "Type"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/list.php:8
+msgid "Active"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/list.php:9
+msgid "Default"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/list.php:10
+msgid "Views Today"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/list.php:26
+msgid "Edit"
+msgstr ""
+
+#: /Users/juanramon/htdocs/osclass-plugins/ads4osc/list.php:26
+msgid "Delete"
+msgstr ""
+

@@ -2,7 +2,7 @@
 
     require_once 'Ads.php';
     $ads_action = Params::getParam('ads-action');
-    
+
     switch($ads_action) {
         case 'import':
             $ads = new Ads;
@@ -11,7 +11,6 @@
             $ads->update_ad($ad);
             require 'edit.php';
             break;
-    
         case 'save-settings':
             $ads = new Ads;
             $ad = array();
@@ -68,17 +67,14 @@
     	    echo "<script>location.href='".osc_admin_render_plugin_url("ads4osc/launcher.php")."?ads-action=list'</script>";
     	    exit;
             break;
-
         case 'edit':
             $ad = Ads::newInstance()->get_ad_admin(Params::getParam('ads-id'));
             require 'edit.php';
             break;
-            
         case 'list':
             $ads = Ads::newInstance()->get_ads();
             require 'list.php';
             break;
-                
         case 'delete':
             $return = Ads::newInstance()->delete_ad(Params::getParam('ads-id'));
             if($return) {
@@ -90,14 +86,11 @@
     	    echo "<script>location.href='".osc_admin_render_plugin_url("ads4osc/launcher.php")."?ads-action=list'</script>";
     	    exit;
             break;
-            
         case 'help':
             require 'help.php';
             break;
-                
         default:
             require 'create.php';
     }
-
 
 ?>
