@@ -9,9 +9,7 @@ Author URI: http://www.osclass.org/
 Short Name: extra_feeds
 */
 
-
 function feed_indeed() {
-    print_r("HODASDASD");
     require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . "indeed.php";
     indeed();
 }
@@ -61,8 +59,6 @@ function feed_oodle_realstate() {
     oodle_realstate();
 }
 
-
-
 function feed_get_house_data($item) {
     $conn = getConnection() ;
     $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_house_attr WHERE fk_i_item_id = %d ", DB_TABLE_PREFIX, $item['pk_i_id']);
@@ -89,7 +85,6 @@ function feed_get_car_data($item) {
     }
     return $item;        
 }
-
 
 function feed_get_job_data($item) {
     $conn = getConnection() ;
@@ -122,14 +117,12 @@ function feed_get_product_data($item) {
     return $item;        
 }
 
-
 function feed_admin_menu() {
     echo '<h3><a href="#">Extra Feeds help</a></h3>
     <ul> 
         <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Help', 'extra_feeds') . '</a></li>
     </ul>';
 }
-
 
 // This is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), '');
