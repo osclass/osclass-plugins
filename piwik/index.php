@@ -3,12 +3,11 @@
 Plugin Name: Piwik Web Analytics
 Plugin URI: http://www.osclass.org/
 Description: Enable Piwik Web Analytics
-Version: 0.9
+Version: 0.9.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: piwik
 */
-
 
     function piwik_install() {
         osc_set_preference('js_code', '', 'piwik', 'STRING');
@@ -23,7 +22,7 @@ Short Name: piwik
     }
 
     function piwik_admin_menu() {
-        echo '<h3><a href="#">Piwik Analytics</a></h3>
+        echo '<h3><a href="#">' . __('Piwik Analytics', 'piwik') . '</a></h3>
         <ul> 
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'piwik') . '</a></li>
         </ul>';
