@@ -107,11 +107,11 @@ class qqFileUploader {
      */
     function handleUpload($uploadDirectory, $replaceOldFile = FALSE){
         if (!is_writable($uploadDirectory)){
-            return array('error' => __("Server error. Upload directory isn't writable.", "jobs_attributes"));
+            return array('error' => __("Server error. Upload directory isn't writable", "jobs_attributes"));
         }
         
         if (!$this->file){
-            return array('error' => __('No files were uploaded.', "jobs_attributes"));
+            return array('error' => __('No files were uploaded', "jobs_attributes"));
         }
         
         $size = $this->file->getSize();
@@ -135,7 +135,7 @@ class qqFileUploader {
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)){
             $params = array();
             $params['subject'] = sprintf(__('Someone sent you his/her resume. ( %s )', 'jobs_attributes'), osc_item_title());
-            $params['body'] = sprintf(__('Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here : %s', 'jobs_attributes'), osc_item_url());
+            $params['body'] = sprintf(__('Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here: %s', 'jobs_attributes'), osc_item_url());
             $params['alt_body'] = $params['body'];
             $params['attachment'] = $uploadDirectory . $filename . '.' . $ext;
 
