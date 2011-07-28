@@ -129,6 +129,7 @@ function dating_item_edit($catId = null, $item_id = null) {
     if(osc_is_this_category('dating_plugin', $catId)) {
         $conn = getConnection();
         $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_dating_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $itemId);
+
         if( isset($detail['fk_i_item_id']) ) {
             include_once 'item_edit.php';
         }
@@ -155,6 +156,17 @@ function dating_delete_item($item) {
 function dating_admin_configuration() {
     // Standard configuration page for plugin which extend item's attributes
     osc_plugin_configure_view(osc_plugin_path(__FILE__));
+}
+
+function datting_pre_item_post() {
+
+    Session::newInstance()->_setForm('pd_genderFrom' , Params::getParam('genderFrom'));
+    Session::newInstance()->_setForm('pd_genderTo'   , Params::getParam('genderTo'));
+    Session::newInstance()->_setForm('pd_relation'   , Params::getParam('relation'));
+    // keep values on session
+    Session::newInstance()->_keepForm('pd_genderFrom');
+    Session::newInstance()->_keepForm('pd_genderTo');
+    Session::newInstance()->_keepForm('pd_relation');
 }
 
 // This is needed in order to be able to activate the plugin
@@ -184,5 +196,8 @@ osc_add_hook('item_edit_post', 'dating_item_edit_post');
 
 //Delete item
 osc_add_hook('delete_item', 'dating_delete_item');
+
+// previous to insert item
+osc_add_hook('pre_item_post', 'datting_pre_item_post') ;
 
 ?>
