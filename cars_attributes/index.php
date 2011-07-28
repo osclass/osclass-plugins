@@ -315,27 +315,6 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
         Session::newInstance()->_keepForm('pc_car_type');
     }
 
-    function save_inputs_into_session() {
-        // keep values on session
-        Session::newInstance()->_keepForm('pc_year');
-        Session::newInstance()->_keepForm('pc_doors');
-        Session::newInstance()->_keepForm('pc_seats');
-        Session::newInstance()->_keepForm('pc_mileage');
-        Session::newInstance()->_keepForm('pc_engine_size');
-        Session::newInstance()->_keepForm('pc_num_airbags');
-        Session::newInstance()->_keepForm('pc_transmission');
-        Session::newInstance()->_keepForm('pc_fuel');
-        Session::newInstance()->_keepForm('pc_seller');
-        Session::newInstance()->_keepForm('pc_warranty');
-        Session::newInstance()->_keepForm('pc_new');
-        Session::newInstance()->_keepForm('pc_power');
-        Session::newInstance()->_keepForm('pc_power_unit');
-        Session::newInstance()->_keepForm('pc_gears');
-        Session::newInstance()->_keepForm('pc_make');
-        Session::newInstance()->_keepForm('pc_model');
-        Session::newInstance()->_keepForm('pc_car_type');
-    }
-
     // This is needed in order to be able to activate the plugin
     osc_register_plugin(osc_plugin_path(__FILE__), 'cars_call_after_install');
     // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
@@ -371,7 +350,4 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
 
     // previous to insert item
     osc_add_hook('pre_item_post', 'cars_pre_item_post') ;
-    // save input values into session
-    osc_add_hook('save_input_session', 'save_inputs_into_session' );
-    
 ?>
