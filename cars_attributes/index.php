@@ -121,7 +121,6 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
                 $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, Session::newInstance()->_getForm('pc_make') );
             }
             require_once 'item_edit.php';
-            Session::newInstance()->_clearVariables();
         }
     }
 
@@ -211,7 +210,6 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
             }
             unset($data);
             require_once 'item_edit.php';
-            Session::newInstance()->_clearVariables();
         }
     }
 
