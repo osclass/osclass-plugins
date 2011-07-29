@@ -121,7 +121,7 @@
     <div class="row one_input">
         <h6 for="numFloor"><?php _e('Num. Floors Range', 'realstate_attributes'); ?></h6>
         <input type="text" id="numFloor" name="numFloor" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/><br/>
-        <div id="slider" >
+        <div class="slider" >
             <div id="floor-range"></div>
         </div>
     </div>
@@ -131,7 +131,7 @@
             <h6><?php _e('Rooms Range', 'realstate_attributes'); ?></h6>
             <input type="text" id="rooms" name="rooms" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/>
         </p>
-        <div id="slider" >
+        <div class="slider" >
             <div id="room-range"></div>
         </div>
     </div>
@@ -141,7 +141,7 @@
             <h6><?php _e('Bathrooms Range', 'realstate_attributes'); ?></h6>
             <input type="text" id="bathrooms" name="bathrooms" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/>
         </p>
-        <div id="slider" >
+        <div class="slider" >
             <div id="bathroom-range"></div>
         </div>
     </div>
@@ -151,7 +151,7 @@
             <h6><?php _e('Garages Range', 'realstate_attributes'); ?></h6>
             <input type="text" id="garages" name="garages" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/>
         </p>
-        <div id="slider" >
+        <div class="slider" >
             <div id="garage-range"></div>
         </div>
     </div>
@@ -161,7 +161,7 @@
             <h6><?php _e('Construction year Range', 'realstate_attributes'); ?></h6>
             <input type="text" id="year" name="year" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/>
         </p>
-        <div id="slider" >
+        <div class="slider" >
             <div id="year-range"></div>
         </div>
     </div>
@@ -171,7 +171,7 @@
             <h6><?php _e('Square Meters Range', 'realstate_attributes'); ?></h6>
             <input type="text" name="sq" id="sq" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/>
         </p>
-        <div id="slider" >
+        <div class="slider" >
             <div id="sq-range"></div>
         </div>
     </div>

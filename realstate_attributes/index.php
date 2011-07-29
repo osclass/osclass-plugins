@@ -373,6 +373,72 @@ function realstate_admin_configuration() {
     osc_plugin_configure_view(osc_plugin_path(__FILE__));
 }
 
+function realstate_pre_item_post() {
+    $heating        = (Params::getParam('heating')!='') ? 1 : 0;
+    $airCondition   = (Params::getParam('airCondition')!='') ? 1 : 0;
+    $elevator       = (Params::getParam('elevator')!='') ? 1 : 0;
+    $terrace        = (Params::getParam('terrace')!='') ? 1 : 0;
+    $parking        = (Params::getParam('parking')!='') ? 1 : 0;
+    $furnished      = (Params::getParam('furnished')!='') ? 1 : 0;
+    $new            = (Params::getParam('new')!='') ? 1 : 0;
+    $by_owner       = (Params::getParam('by_owner')!='') ? 1 : 0;
+
+    Session::newInstance()->_setForm('pre_squareMeters'      , Params::getParam('squareMeters') );
+    Session::newInstance()->_setForm('pre_numRooms'          , Params::getParam('numRooms') );
+    Session::newInstance()->_setForm('pre_numBathrooms'      , Params::getParam('numBathrooms') );
+    Session::newInstance()->_setForm('pre_property_type'     , Params::getParam('property_type') );
+    Session::newInstance()->_setForm('pre_p_type'            , Params::getParam('p_type') );
+    Session::newInstance()->_setForm('pre_status'            , Params::getParam('status') );
+    Session::newInstance()->_setForm('pre_numFloors'         , Params::getParam('numFloors') );
+    Session::newInstance()->_setForm('pre_numGarages'        , Params::getParam('numGarages') );
+    Session::newInstance()->_setForm('pre_heating'           , $heating );
+    Session::newInstance()->_setForm('pre_airCondition'      , $airCondition );
+    Session::newInstance()->_setForm('pre_elevator'          , $elevator );
+    Session::newInstance()->_setForm('pre_terrace'           , $terrace );
+    Session::newInstance()->_setForm('pre_parking'           , $parking );
+    Session::newInstance()->_setForm('pre_furnished'         , $furnished );
+    Session::newInstance()->_setForm('pre_new'               , $new );
+    Session::newInstance()->_setForm('pre_by_owner'          , $by_owner );
+    Session::newInstance()->_setForm('pre_condition'         , Params::getParam('condition') );
+    Session::newInstance()->_setForm('pre_year'              , Params::getParam('year') );
+    Session::newInstance()->_setForm('pre_agency'            , Params::getParam('agency') );
+    Session::newInstance()->_setForm('pre_floorNumber'       , Params::getParam('floorNumber') );
+    Session::newInstance()->_setForm('pre_squareMetersTotal' , Params::getParam('squareMetersTotal') );
+
+    $locales = osc_get_locales();
+    foreach($locales as $locale) {
+        Session::newInstance()->_setForm('pre_'.$locale['pk_c_code'].'transport' , Params::getParam($locale['pk_c_code'].'#transport') );
+        Session::newInstance()->_setForm('pre_'.$locale['pk_c_code'].'zone' , Params::getParam($locale['pk_c_code'].'#zone') );
+        Session::newInstance()->_keepForm('pre_'.$locale['pk_c_code'].'transport');
+        Session::newInstance()->_keepForm('pre_'.$locale['pk_c_code'].'zone');
+    }
+
+
+    // keep values on session
+    Session::newInstance()->_keepForm('pre_squareMeters');
+    Session::newInstance()->_keepForm('pre_numRooms');
+    Session::newInstance()->_keepForm('pre_numBathrooms');
+    Session::newInstance()->_keepForm('pre_property_type');
+    Session::newInstance()->_keepForm('pre_p_type');
+    Session::newInstance()->_keepForm('pre_status');
+    Session::newInstance()->_keepForm('pre_numFloors');
+    Session::newInstance()->_keepForm('pre_numGarages');
+    Session::newInstance()->_keepForm('pre_heating');
+    Session::newInstance()->_keepForm('pre_airCondition');
+    Session::newInstance()->_keepForm('pre_elevator');
+    Session::newInstance()->_keepForm('pre_terrace');
+    Session::newInstance()->_keepForm('pre_parking');
+    Session::newInstance()->_keepForm('pre_furnished');
+    Session::newInstance()->_keepForm('pre_new');
+    Session::newInstance()->_keepForm('pre_by_owner');
+    Session::newInstance()->_keepForm('pre_condition');
+    Session::newInstance()->_keepForm('pre_year');
+    Session::newInstance()->_keepForm('pre_agency');
+    Session::newInstance()->_keepForm('pre_floorNumber');
+    Session::newInstance()->_keepForm('pre_floorNumber');
+    Session::newInstance()->_keepForm('pre_squareMetersTotal');
+}
+
 // This is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'realstate_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
@@ -405,5 +471,6 @@ osc_add_hook('delete_locale', 'realstate_delete_locale');
 //Delete item
 osc_add_hook('delete_item', 'realstate_delete_item');
 
-
+// previous to insert item
+osc_add_hook('pre_item_post', 'realstate_pre_item_post') ;
 ?>
