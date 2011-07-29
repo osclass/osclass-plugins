@@ -22,6 +22,17 @@
         $("#salaryRange").val($("#salary-range").slider("values", 0) + ' <?php echo osc_currency();?> - ' + $("#salary-range").slider("values", 1) + ' <?php echo osc_currency();?>');
     });
 </script>
+<style type="" >
+.slider h6 { margin-bottom:0px;}
+.slider input { background:transparent; border:none; color:#999; margin-bottom:3px; text-align: center; width:90%; }
+.slider .ui-slider { margin:0 15px 0 8px; position: relative;}
+.slider .ui-widget-content { background:#bdd7df; border-color:#bdd7df; height:5px; }
+.slider .ui-widget-header { background:#FFF; }
+.slider .ui-slider-horizontal .ui-slider-handle { background:#bac8cd; border-color:#9aafb6; height:15px; top: -0.5em; width:6px; position: absolute;}
+
+
+</style>
+
 <h2><?php _e("Job attributes", 'jobs_attributes');?></h2>
 <div class="box">
     <div class="row">
@@ -77,19 +88,15 @@
         <div class="auto">
             
             <input type="text" id="salaryRange" name="salaryRange" style="width: auto;border:0; color:#f6931f; font-weight:bold;" readonly/>
-            
-<!--            <div class="auto" style="padding-left:10px;">-->
-                <select name="salaryPeriod" id="salaryPeriod">
-                    <option value="HOUR" <?php if(@$detail['e_salary_period']=='HOUR') { echo 'selected'; }; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
-                    <option value="WEEK" <?php if(@$detail['e_salary_period']=='WEEK') { echo 'selected'; }; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
-                    <option value="MONTH" <?php if(@$detail['e_salary_period']=='MONTH') { echo 'selected'; }; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
-                    <option value="YEAR" <?php if(@$detail['e_salary_period']=='YEAR') { echo 'selected'; }; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
-                </select>
-<!--            </div>-->
-            <div id="slider" style="width:200px;clear: both;padding-left:130px;padding-top: 10px;" >
+            <select name="salaryPeriod" id="salaryPeriod">
+                <option value="HOUR" <?php if(@$detail['e_salary_period']=='HOUR') { echo 'selected'; }; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
+                <option value="WEEK" <?php if(@$detail['e_salary_period']=='WEEK') { echo 'selected'; }; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
+                <option value="MONTH" <?php if(@$detail['e_salary_period']=='MONTH') { echo 'selected'; }; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
+                <option value="YEAR" <?php if(@$detail['e_salary_period']=='YEAR') { echo 'selected'; }; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
+            </select>
+            <div class="slider" style="width:200px;clear: both;padding-left:130px;padding-top: 10px;" >
                 <div id="salary-range"></div>
             </div>
-            
         </div>
     </div>
 

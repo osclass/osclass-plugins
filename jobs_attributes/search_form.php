@@ -65,7 +65,7 @@
             </div>
         </div>
         <br/>
-        <div id="slider" >
+        <div class="slider" >
             <div id="salary-range"></div>
         </div>
     </div>
