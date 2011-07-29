@@ -19,11 +19,11 @@ function products_search_conditions($params) {
             // We may want to  have param-specific searches
             switch($key) {
                 case 'make':
-                    Search::newInstance()->addConditions(sprintf("%st_item_products_attr.s_make = '%%%s%%'", DB_TABLE_PREFIX, $value));
+                    Search::newInstance()->addConditions(sprintf("%st_item_products_attr.s_make LIKE '%s%%'", DB_TABLE_PREFIX, $value));
                     $has_conditions = true;
                     break;
                 case 'model':
-                    Search::newInstance()->addConditions(sprintf("%st_item_products_attr.s_model = '%%%s$$'", DB_TABLE_PREFIX, $value));
+                    Search::newInstance()->addConditions(sprintf("%st_item_products_attr.s_model LIKE '%s%%'", DB_TABLE_PREFIX, $value));
                     $has_conditions = true;
                     break;
                 default:
@@ -34,7 +34,7 @@ function products_search_conditions($params) {
         // Only if we have some values at the params we add our table and link with the ID of the item.
         if($has_conditions) {
             Search::newInstance()->addConditions(sprintf("%st_item.pk_i_id = %st_item_products_attr.fk_i_item_id ", DB_TABLE_PREFIX, DB_TABLE_PREFIX));
-            Search::newInstance()->addTable(sprintf("%st_item_house_attr", DB_TABLE_PREFIX));
+            Search::newInstance()->addTable(sprintf("%st_item_products_attr", DB_TABLE_PREFIX));
         }
 }
 
@@ -80,7 +80,7 @@ function products_form($catId = '') {
     if($catId!="") {
         // We check if the category is the same as our plugin
         if(osc_is_this_category('products_plugin', $catId)) {
-            include_once 'form.php';
+            include_once 'item_edit.php';
         }
     }
 }
@@ -126,7 +126,7 @@ function products_item_detail() {
 function products_item_edit($catId = null, $item_id = null) {
     if(osc_is_this_category('products_plugin', $catId)) {
         $conn = getConnection() ;
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_products_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $itemId);
+        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_products_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item_id);
         if(isset($detail['fk_i_item_id'])) {
             include_once 'item_edit.php';
         }
@@ -156,6 +156,13 @@ function products_admin_configuration() {
     osc_plugin_configure_view(osc_plugin_path(__FILE__));
 }
 
+function products_pre_item_post() {
+    Session::newInstance()->_setForm('pp_make' , Params::getParam('make'));
+    Session::newInstance()->_setForm('pp_model'   , Params::getParam('model'));
+    // keep values on session
+    Session::newInstance()->_keepForm('pp_make' );
+    Session::newInstance()->_keepForm('pp_model');
+}
 
 // This is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'products_call_after_install');
@@ -184,5 +191,8 @@ osc_add_hook('item_edit_post', 'products_item_edit_post');
 
 //Delete item
 osc_add_hook('delete_item', 'products_delete_item');
+
+// previous to insert item
+osc_add_hook('pre_item_post', 'products_pre_item_post') ;
 
 ?>
