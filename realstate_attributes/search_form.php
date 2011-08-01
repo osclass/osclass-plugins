@@ -33,7 +33,7 @@
     $(function() {
         $("#floor-range").slider({
             range: true,
-            min: 1,
+            min: 0,
             max: 15,
             values: [<?php echo $numFloorMin;?>, <?php echo $numFloorMax;?>],
             slide: function(event, ui) {
@@ -43,7 +43,7 @@
         $("#numFloor").val($("#floor-range").slider("values", 0) + ' - ' + $("#floor-range").slider("values", 1));
         $("#room-range").slider({
             range: true,
-            min: 1,
+            min: 0,
             max: 10,
             values: [<?php echo $roomsMin; ?>, <?php echo $roomsMax;?>],
             slide: function(event, ui) {
@@ -53,7 +53,7 @@
         $("#rooms").val($("#room-range").slider("values", 0) + ' - ' + $("#room-range").slider("values", 1));
         $("#bathroom-range").slider({
             range: true,
-            min: 1,
+            min: 0,
             max: 5,
             values: [<?php echo $bathroomsMin; ?>, <?php echo $bathroomsMax; ?>],
             slide: function(event, ui) {
@@ -63,7 +63,7 @@
         $("#bathrooms").val($("#bathroom-range").slider("values", 0) + ' - ' + $("#bathroom-range").slider("values", 1));
         $("#garage-range").slider({
             range: true,
-            min: 1,
+            min: 0,
             max: 5,
             values: [<?php echo $garagesMin; ?>, <?php echo $garagesMax; ?>],
             slide: function(event, ui) {
@@ -83,7 +83,7 @@
         $("#year").val($("#year-range").slider("values", 0) + ' - ' + $("#year-range").slider("values", 1));
         $("#sq-range").slider({
             range: true,
-            min: 5,
+            min: 0,
             max: 500,
             values: [<?php echo $sqMin; ?>, <?php echo $sqMax; ?>],
             slide: function(event, ui) {
@@ -99,6 +99,7 @@
         <h6><?php _e('Type', 'realstate_attributes'); ?></h6>
         <div class="">
             <select name="property_type" id="property_type">
+                <option value="" <?php echo (Params::getParam('property_type')=='')?'selected':''; ?>><?php _e('Undefined', 'realstate_attributes'); ?></option>
                 <option value="FOR RENT" <?php echo (Params::getParam('property_type')=='FOR RENT')?'selected':''; ?>><?php _e('For rent', 'realstate_attributes'); ?></option>
                 <option value="FOR SALE" <?php echo (Params::getParam('property_type')=='FOR SALE')?'selected':''; ?>><?php _e('For sale', 'realstate_attributes'); ?></option>
             </select>

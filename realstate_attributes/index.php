@@ -50,7 +50,7 @@ function realstate_search_conditions($params = null) {
                         break;
                     case 'year':
                         if (preg_match('|([0-9]+) - ([0-9]+)|', $value, $match)) {
-                            Search::newInstance()->addConditions(sprintf("%st_item_house_attr.i_year >= %d AND %st_item_house_attr.i_year <= %d", DB_TABLE_PREFIX, $match[1], DB_TABLE_PREFIX, $match[2]));
+                            Search::newInstance()->addConditions(sprintf("(%st_item_house_attr.i_year == 0 || (%st_item_house_attr.i_year >= %d AND %st_item_house_attr.i_year <= %d))", DB_TABLE_PREFIX, DB_TABLE_PREFIX, $match[1], DB_TABLE_PREFIX, $match[2]));
                             $has_conditions = true;
                         }
                         break;
@@ -95,8 +95,10 @@ function realstate_search_conditions($params = null) {
                         $has_conditions = true;
                         break;
                     case 'property_type':
-                        Search::newInstance()->addConditions(sprintf("%st_item_house_attr.e_type = '%s' ", DB_TABLE_PREFIX, $value));
-                        $has_conditions = true;
+                        if($value!='') {
+                            Search::newInstance()->addConditions(sprintf("%st_item_house_attr.e_type = '%s' ", DB_TABLE_PREFIX, $value));
+                            $has_conditions = true;
+                        }
                         break;
                     case 'p_type':
                         if($value!='') {
