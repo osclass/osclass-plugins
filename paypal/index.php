@@ -3,7 +3,7 @@
 Plugin Name: Paypal payment
 Plugin URI: http://www.osclass.org/
 Description: Paypal payment options
-Version: 0.2
+Version: 1.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: paypal
