@@ -2,19 +2,19 @@
     $locale       = osc_current_user_locale();
     
     $numFloor     = explode(" - ", Params::getParam('numFloor'));
-    $numFloorMin  = ($numFloor[0]!='')?$numFloor[0]:'1';
+    $numFloorMin  = ($numFloor[0]!='')?$numFloor[0]:'0';
     $numFloorMax  = (isset($numFloor[1]) && $numFloor[1]!='')?$numFloor[1]:'15';
     
     $rooms        = explode(" - ", Params::getParam('rooms'));
-    $roomsMin     = ($rooms[0]!='')?$rooms[0]:'1';
+    $roomsMin     = ($rooms[0]!='')?$rooms[0]:'0';
     $roomsMax     = (isset($rooms[1]) && $rooms[1]!='')?$rooms[1]:'10';
     
     $bathrooms    = explode(" - ", Params::getParam('bathrooms'));
-    $bathroomsMin = ($bathrooms[0]!='')?$bathrooms[0]:'1';
+    $bathroomsMin = ($bathrooms[0]!='')?$bathrooms[0]:'0';
     $bathroomsMax = (isset($bathrooms[1]) && $bathrooms[1]!='')?$bathrooms[1]:'5';
     
     $garages      = explode(" - ", Params::getParam('garages'));
-    $garagesMin   = ($garages[0]!='')?$garages[0]:'1';
+    $garagesMin   = ($garages[0]!='')?$garages[0]:'0';
     $garagesMax   = (isset($garages[1]) && $garages[1]!='')?$garages[1]:'5';
     
     $year         = explode(" - ", Params::getParam('year'));
@@ -22,7 +22,7 @@
     $yearMax      = (isset($year[1]) && $year[1]!='')?$year[1]:date('Y');
     
     $sq           = explode(" - ", Params::getParam('sq'));
-    $sqMin        = ($sq[0]!='')?$sq[0]:'5';
+    $sqMin        = ($sq[0]!='')?$sq[0]:'0';
     $sqMax        = (isset($sq[1]) && $sq[1]!='')?$sq[1]:'500';
 ?>
 <style type="text/css">
