@@ -1,4 +1,5 @@
-<?php $salaryRange = explode(" - ", Params::getParam('salaryRange'));
+<?php
+    $salaryRange = explode(" - ", str_replace(osc_currency(),'',Params::getParam('salaryRange') ) );
     $salaryMin = ($salaryRange[0]!='') ? $salaryRange[0] : job_plugin_salary_min();
     $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='') ? $salaryRange[1] : job_plugin_salary_max();
 ?>

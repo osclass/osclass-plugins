@@ -63,7 +63,7 @@ function job_search_conditions($params = '') {
                             $has_salary = true;
                         }
                     }*/
-                    break;
+//                    break;
                 default:
                     break;
             }
