@@ -58,6 +58,7 @@
             </div>
             <div style="width: 40%;float:left;" class="right auto">
                 <select name="salaryPeriod" id="salaryPeriod">
+                    <option value="" <?php echo (Params::getParam('salaryPeriod')=='')?'selected':''; ?>><?php _e('Undefined', 'jobs_attributes'); ?></option>
                     <option value="HOUR" <?php echo (Params::getParam('salaryPeriod')=='HOUR')?'selected':''; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
                     <option value="WEEK" <?php echo (Params::getParam('salaryPeriod')=='WEEK')?'selected':''; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
                     <option value="MONTH" <?php echo (Params::getParam('salaryPeriod')=='MONTH')?'selected':''; ?>><?php _e('Month', 'jobs_attributes'); ?></option>

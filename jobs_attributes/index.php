@@ -3,7 +3,7 @@
 Plugin Name: Jobs attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store jobs attributes such as salary, requirements, timetable, and so on.
-Version: 2.1.1
+Version: 2.1.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobs_plugin
@@ -36,34 +36,16 @@ function job_search_conditions($params = '') {
                     }
                     break;
                 case 'salaryRange':
-                    $salaryRange = explode(" - ", $value);
-                    $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
-                    $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
-                    Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_min >= %d", DB_TABLE_PREFIX, $salaryMin));
-                    Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_max <= %d", DB_TABLE_PREFIX, $salaryMax));
-                    Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_salary_period = '%s'", DB_TABLE_PREFIX, $params['salaryPeriod']));
-                    $has_conditions = true;
-                    break;
-                /*case 'salaryMin':
-                    if($value != 0) {
-                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_min >= %d", DB_TABLE_PREFIX, $value));
+                    if($params['salaryPeriod']!='') {
+                        $salaryRange = explode(" - ", $value);
+                        $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
+                        $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
+                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_min >= %d", DB_TABLE_PREFIX, $salaryMin));
+                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_max <= %d", DB_TABLE_PREFIX, $salaryMax));
+                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_salary_period = '%s'", DB_TABLE_PREFIX, $params['salaryPeriod']));
                         $has_conditions = true;
-                        if(!$has_salary) {
-                            Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_salary_period = '%s'", DB_TABLE_PREFIX, $params['salaryPeriod']));
-                            $has_salary = true;
-                        }
                     }
                     break;
-                case 'salaryMax':
-                    if($value > 0) {
-                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_max <= %d", DB_TABLE_PREFIX, $value));
-                        $has_conditions = true;
-                        if(!$has_salary) {
-                            Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_salary_period = '%s'", DB_TABLE_PREFIX, $params['salaryPeriod']));
-                            $has_salary = true;
-                        }
-                    }*/
-//                    break;
                 default:
                     break;
             }
