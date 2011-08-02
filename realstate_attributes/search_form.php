@@ -7,15 +7,15 @@
     
     $rooms        = explode(" - ", Params::getParam('rooms'));
     $roomsMin     = ($rooms[0]!='')?$rooms[0]:'0';
-    $roomsMax     = (isset($rooms[1]) && $rooms[1]!='')?$rooms[1]:'10';
+    $roomsMax     = (isset($rooms[1]) && $rooms[1]!='')?$rooms[1]:'15';
     
     $bathrooms    = explode(" - ", Params::getParam('bathrooms'));
     $bathroomsMin = ($bathrooms[0]!='')?$bathrooms[0]:'0';
-    $bathroomsMax = (isset($bathrooms[1]) && $bathrooms[1]!='')?$bathrooms[1]:'5';
+    $bathroomsMax = (isset($bathrooms[1]) && $bathrooms[1]!='')?$bathrooms[1]:'15';
     
     $garages      = explode(" - ", Params::getParam('garages'));
     $garagesMin   = ($garages[0]!='')?$garages[0]:'0';
-    $garagesMax   = (isset($garages[1]) && $garages[1]!='')?$garages[1]:'5';
+    $garagesMax   = (isset($garages[1]) && $garages[1]!='')?$garages[1]:'15';
     
     $year         = explode(" - ", Params::getParam('year'));
     $yearMin      = ($year[0]!='')?$year[0]:'1900';
@@ -44,7 +44,7 @@
         $("#room-range").slider({
             range: true,
             min: 0,
-            max: 10,
+            max: 15,
             values: [<?php echo $roomsMin; ?>, <?php echo $roomsMax;?>],
             slide: function(event, ui) {
                 $("#rooms").val(ui.values[0] + ' - ' + ui.values[1]);
@@ -54,7 +54,7 @@
         $("#bathroom-range").slider({
             range: true,
             min: 0,
-            max: 5,
+            max: 15,
             values: [<?php echo $bathroomsMin; ?>, <?php echo $bathroomsMax; ?>],
             slide: function(event, ui) {
                 $("#bathrooms").val(ui.values[0] + ' - ' + ui.values[1]);
@@ -64,7 +64,7 @@
         $("#garage-range").slider({
             range: true,
             min: 0,
-            max: 5,
+            max: 15,
             values: [<?php echo $garagesMin; ?>, <?php echo $garagesMax; ?>],
             slide: function(event, ui) {
                 $("#garages").val(ui.values[0] + ' - ' + ui.values[1]);
