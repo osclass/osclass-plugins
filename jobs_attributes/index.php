@@ -20,17 +20,20 @@ function job_search_conditions($params = '') {
             // We may want to  have param-specific searches
             switch($key) {
                 case 'relation':
-                    Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_relation = '%s'", DB_TABLE_PREFIX, $value));
-                    $has_conditions = true;
+                    if($value != "") {
+                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_relation = '%s'", DB_TABLE_PREFIX, $value));
+                        $has_conditions = true;
+                    }
                     break;
                 case 'companyName':
-                    if($value!='') {
-                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.s_company_name = '%%%s%%'", DB_TABLE_PREFIX, $value));
+                    if($value != '') {
+                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.s_company_name LIKE '%%%s%%'", DB_TABLE_PREFIX, $value));
                         $has_conditions = true;
                     }
                     break;
                 case 'positionType':
-                    if($value!='UNDEF') {
+
+                    if($value!='UNDEF' && $value != '') {
                         Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_position_type = '%s'", DB_TABLE_PREFIX, $value));
                         $has_conditions = true;
                     }
@@ -40,9 +43,11 @@ function job_search_conditions($params = '') {
                         $salaryRange = explode(" - ", $value);
                         $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
                         $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
-                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_min >= %d", DB_TABLE_PREFIX, $salaryMin));
-                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_max <= %d", DB_TABLE_PREFIX, $salaryMax));
-                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_salary_period = '%s'", DB_TABLE_PREFIX, $params['salaryPeriod']));
+
+                        $salaryHour = job_to_salary_hour( $params['salaryPeriod'], $salaryMin, $salaryMax) ;
+
+                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_min_hour >= %d", DB_TABLE_PREFIX, $salaryHour['min']));
+                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_max_hour <= %d", DB_TABLE_PREFIX, $salaryHour['max']));
                         $has_conditions = true;
                     }
                     break;
@@ -134,6 +139,36 @@ function job_search_form($catId = null) {
 	}
 }
 
+function job_to_salary_hour($salaryPeriod, $salaryMin, $salaryMax) {
+    switch ($salaryPeriod){
+        case('HOUR'):
+            $salary_hour_min = $salaryMin;
+            $salary_hour_max = $salaryMax;
+        break;
+        case('DAY'):
+            $salary_hour_min = $salaryMin/8;
+            $salary_hour_max = $salaryMax/8;
+        break;
+        case('WEEK'):
+            $salary_hour_min = $salaryMin/40;
+            $salary_hour_max = $salaryMax/40;
+        break;
+        case('MONTH'):
+            $salary_hour_min = $salaryMin/(40*4);
+            $salary_hour_max = $salaryMax/(40*4);
+        break;
+        case('YEAR'):
+            $salary_hour_min = $salaryMin/(40*4*12);
+            $salary_hour_max = $salaryMax/(40*4*12);
+        break;
+        default:
+            $salary_hour_min = $salaryMin;
+            $salary_hour_max = $salaryMax;
+        break;
+    }
+    return array('min' => $salary_hour_min, 'max' => $salary_hour_max);
+}
+
 function job_form_post($catId = null, $item_id = null)  {
     // We received the categoryID and the Item ID
     $conn = getConnection();
@@ -144,7 +179,10 @@ function job_form_post($catId = null, $item_id = null)  {
             $salaryRange = explode(" - ", Params::getParam('salaryRange'));
             $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
             $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
-            $conn->osc_dbExec("INSERT INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s')", DB_TABLE_PREFIX, $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod') );
+
+            $salaryHour = job_to_salary_hour( Params::getParam('salaryPeriod'), $salaryMin, $salaryMax) ;
+
+            $conn->osc_dbExec("INSERT INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period, i_salary_min_hour, i_salary_max_hour) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s', %d, %d)", DB_TABLE_PREFIX, $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod'), $salaryHour['min'], $salaryHour['max'] );
             // prepare locales
             $dataItem = array();
             $request = Params::getParamsAsArray();
@@ -201,8 +239,11 @@ function job_item_edit_post($catId = null, $item_id = null) {
             $salaryRange = explode(" - ", Params::getParam('salaryRange'));
             $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
             $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
+
+            $salaryHour = job_to_salary_hour( Params::getParam('salaryPeriod'), $salaryMin, $salaryMax) ;
+
             $conn = getConnection() ;
-            $conn->osc_dbExec("REPLACE INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s')", DB_TABLE_PREFIX, $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod') );
+            $conn->osc_dbExec("REPLACE INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period, i_salary_min_hour, i_salary_max_hour) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s', %d, %d)", DB_TABLE_PREFIX, $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod'), $salaryHour['min'], $salaryHour['max'] );
             // prepare locales
             $dataItem = array();
             $request = Params::getParamsAsArray();

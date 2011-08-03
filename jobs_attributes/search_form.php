@@ -29,6 +29,9 @@
         <h6><?php _e('Relation', 'jobs_attributes'); ?></h6>
         <ul>
             <li>
+                <input style="width: 20px;" type="radio" name="relation" value="" id="undef" <?php echo (Params::getParam('relation')=='')?'checked':''; ?>/> <label for="undef"><?php _e('Undefined', 'jobs_attributes'); ?></label>
+            </li>
+            <li>
                 <input style="width: 20px;" type="radio" name="relation" value="HIRE" id="hire" <?php echo (Params::getParam('relation')=='HIRE')?'checked':''; ?>/> <label for="hire"><?php _e('Hire someone', 'jobs_attributes'); ?></label>
             </li>
             <li>
@@ -58,7 +61,6 @@
             </div>
             <div style="width: 40%;float:left;" class="right auto">
                 <select name="salaryPeriod" id="salaryPeriod">
-                    <option value="" <?php echo (Params::getParam('salaryPeriod')=='')?'selected':''; ?>><?php _e('Undefined', 'jobs_attributes'); ?></option>
                     <option value="HOUR" <?php echo (Params::getParam('salaryPeriod')=='HOUR')?'selected':''; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
                     <option value="WEEK" <?php echo (Params::getParam('salaryPeriod')=='WEEK')?'selected':''; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
                     <option value="MONTH" <?php echo (Params::getParam('salaryPeriod')=='MONTH')?'selected':''; ?>><?php _e('Month', 'jobs_attributes'); ?></option>

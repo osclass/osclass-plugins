@@ -90,6 +90,7 @@
             <input type="text" id="salaryRange" name="salaryRange" style="width: auto;border:0; color:#f6931f; font-weight:bold;" readonly/>
             <select name="salaryPeriod" id="salaryPeriod">
                 <option value="HOUR" <?php if(@$detail['e_salary_period']=='HOUR') { echo 'selected'; }; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
+                <option value="DAY" <?php if(@$detail['e_salary_period']=='DAY') { echo 'selected'; }; ?>><?php _e('Day', 'jobs_attributes'); ?></option>
                 <option value="WEEK" <?php if(@$detail['e_salary_period']=='WEEK') { echo 'selected'; }; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
                 <option value="MONTH" <?php if(@$detail['e_salary_period']=='MONTH') { echo 'selected'; }; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
                 <option value="YEAR" <?php if(@$detail['e_salary_period']=='YEAR') { echo 'selected'; }; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
