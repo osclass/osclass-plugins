@@ -118,6 +118,7 @@
                 $category = Category::newInstance()->findByPrimaryKey($item['fk_i_category_id']);
                 View::newInstance()->_exportVariableToView('category', $category);
                 $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_search_category_url() . '">' . __('Click here to continue', 'paypal') . '</a></p>';
+                $url = osc_search_category_url();
             } else if ($product_type[0] == '201') {
                 // PREMIUM FEE
                 $conn = getConnection();
@@ -131,6 +132,7 @@
                 $mItem->premium($item['pk_i_id'], true);
 
                 $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php') . '">' . __("Click here to continue", 'paypal') . '</a></p>';
+                $url = osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php');
             } else {
                 // PUBLISH/PREMIUM PACKS
                 $conn = getConnection();
@@ -142,7 +144,8 @@
                 }
 
                 osc_add_flash_ok_message(__('Payment processed correctly', 'paypal'));
-                $html = "<p><script type=\"text/javascript\">window.location = \"".osc_render_file_url(osc_plugin_folder(__FILE__)."user_menu_pack.php")."\"<\/script></p>";
+                $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu_pack.php') . '">' . __("Click here to continue", 'paypal') . '</a></p>';
+                $url = osc_render_file_url(osc_plugin_folder(__FILE__)."user_menu_pack.php");
             }
 
             osc_add_flash_ok_message(__("Payment processed correctly","paypal"));
@@ -167,10 +170,8 @@
         </head>
         <body>
             <script type="text/javascript">
-                <?php $str = htmlentities($html); ?>
-                var aux = ('<?php echo (addcslashes($str, '\'') );?>');
-                var str = $("<div/>").html(aux).text();
-                top.rd.innerHTML = str;
+                top.rd.innerHTML = <?php echo $html; ?>;
+                top.location.href="<?php echo $url; ?>";
                 top.dg_<?php echo $rpl[3];?>.closeFlow();
             </script>
         </body>
