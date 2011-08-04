@@ -76,7 +76,7 @@
 <br/>
 <div id="cv_uploader">
     <noscript>
-        <p><?php _e('Please enable JavaScript to use cv uploader', 'jobs_plugin'); ?>.</p>
+        <p><?php _e('Please enable JavaScript to use cv uploader', 'jobs_attributes'); ?>.</p>
     </noscript>
 </div>
 <link href="<?php echo osc_plugin_url(__FILE__);?>css/fileuploader.css" rel="stylesheet" type="text/css">    
