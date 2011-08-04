@@ -27,17 +27,13 @@
     <h3><?php _e("Job attributes", 'jobs_attributes'); ?></h3>
     <div class="row one_input">
         <h6><?php _e('Relation', 'jobs_attributes'); ?></h6>
-        <ul>
-            <li>
-                <input style="width: 20px;" type="radio" name="relation" value="" id="undef" <?php echo (Params::getParam('relation')=='')?'checked':''; ?>/> <label for="undef"><?php _e('Undefined', 'jobs_attributes'); ?></label>
-            </li>
-            <li>
-                <input style="width: 20px;" type="radio" name="relation" value="HIRE" id="hire" <?php echo (Params::getParam('relation')=='HIRE')?'checked':''; ?>/> <label for="hire"><?php _e('Hire someone', 'jobs_attributes'); ?></label>
-            </li>
-            <li>
-                <input style="width: 20px;" type="radio" name="relation" value="LOOK" id="look" <?php echo (Params::getParam('relation')=='LOOK')?'checked':''; ?>/> <label for="look"><?php _e('Looking for a job', 'jobs_attributes'); ?></label>
-            </li>
-        </ul>
+        <div class="auto">
+            <select name="relation" id="relation">
+                <option value="" <?php echo (Params::getParam('relation')=='')?'selected':''; ?>><?php _e('Undefined', 'jobs_attributes'); ?></option>
+                <option value="HIRE" <?php echo (Params::getParam('relation')=='HIRE')?'selected':''; ?>><?php _e('Hire someone', 'jobs_attributes'); ?></option>
+                <option value="LOOK" <?php echo (Params::getParam('relation')=='LOOK')?'selected':''; ?>><?php _e('Looking for a job', 'jobs_attributes'); ?></option>
+            </select>
+        </div>
     </div>
     <div class="row one_input">
         <h6><?php _e('Company name', 'jobs_attributes'); ?></h6>
