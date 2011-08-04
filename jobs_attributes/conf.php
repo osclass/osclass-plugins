@@ -30,7 +30,8 @@ if(Params::getParam('plugin_action')=='done') {
     osc_set_preference('salary_max', (Params::getParam('salary_max')!='' && Params::getParam('salary_max')!=0)?Params::getParam('salary_max'):80000, 'jobs_plugin', 'INTEGER');
     osc_set_preference('salary_step', (Params::getParam('salary_step')!='' && Params::getParam('salary_step')!=0)?Params::getParam('salary_step'):100, 'jobs_plugin', 'INTEGER');
     osc_reset_preferences();
-    osc_add_flash_ok_message(__('Settings updated', 'jobs_attributes'), 'admin');
+    osc_add_flash_ok_message( __('Settings updated', 'jobs_attributes'), 'admin');
+    
 } else if(Params::getParam('plugin_action') == 'recalculate') {
     $conn   = getConnection();
     $aItems = $conn->osc_dbFetchResults("SELECT * FROM %st_item_job_attr", DB_TABLE_PREFIX);
@@ -38,10 +39,11 @@ if(Params::getParam('plugin_action')=='done') {
         $salaryHour = job_to_salary_hour($item['e_salary_period'], $item['i_salary_min'], $item['i_salary_max']);
         $conn->osc_dbExec("REPLACE INTO %st_item_job_attr (fk_i_item_id, i_salary_min_hour, i_salary_max_hour) VALUES (%d, %d, %d)", DB_TABLE_PREFIX, $item['fk_i_item_id'], $salaryHour['min'], $salaryHour['max'] );
     }
-    osc_add_flash_ok_message(__('Recalculation finished', 'jobs_attributes'), 'admin');
+    osc_add_flash_ok_message( __('Recalculation finished', 'jobs_attributes'), 'admin');
 }
-?>
 
+?>
+<?php osc_show_flash_message('admin') ; ?>
 <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
     <div style="padding: 20px;">
         <div style="float: left; width: 50%;">
