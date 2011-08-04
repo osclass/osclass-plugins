@@ -161,11 +161,16 @@
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
             <script type="text/javascript" src="https://www.paypalobjects.com/js/external/dg.js"></script>
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+
             <title><?php echo osc_page_title(); ?></title>
         </head>
         <body>
             <script type="text/javascript">
-                top.rd.innerHTML = '<?php echo $html; ?>';
+                <?php $str = htmlentities($html); ?>
+                var aux = ('<?php echo (addcslashes($str, '\'') );?>');
+                var str = $("<div/>").html(aux).text();
+                top.rd.innerHTML = str;
                 top.dg_<?php echo $rpl[3];?>.closeFlow();
             </script>
         </body>
