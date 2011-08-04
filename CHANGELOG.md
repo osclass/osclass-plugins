@@ -1,6 +1,12 @@
 Changelog Jobs attributes
 =========================
 
+##version 2.2 - 03/08/2011
+
+* Fixed some string
+* Added fields for search by salary hour, no matter what periodSalary is selected at search (HOUR/DAY/.../YEAR)
+* Improved search
+
 ##version 2.1.1 - 26/07/2011
 
 * Fixed some string
