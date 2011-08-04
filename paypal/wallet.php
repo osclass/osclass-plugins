@@ -33,10 +33,15 @@
             $conn->osc_dbExec("UPDATE %st_paypal_wallet SET f_amount = '%f' WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, ($wallet['f_amount'] - $category_fee),  osc_logged_user_id());
             if ($product_type[0] == '101') {
                 // PUBLISH FEE
-                $conn->osc_dbExec("UPDATE %st_paypal_publish SET dt_date = '%s', b_paid =  '1', fk_i_paypal_id = '%d' WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), $paypal_id, $rpl[1]);
+                $paid = $conn->osc_dbFetchResult("SELECT * FROM %st_paypal_publish WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $rpl[1]);
+                if ($paid) {
+                    $conn->osc_dbExec("UPDATE %st_paypal_publish SET dt_date = '%s', b_paid =  '1', fk_i_paypal_id = '%d' WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), $paypal_id, $rpl[1]);
+                } else {
+                    $conn->osc_dbExec("INSERT INTO  %st_paypal_publish (fk_i_item_id, dt_date, b_paid, fk_i_paypal_id) VALUES ('%d',  '%s', 1, '%s')", DB_TABLE_PREFIX, $rpl[1], date('Y-m-d H:i:s'), $paypal_id);
+                }
 
                 $item     = Item::newInstance()->findByPrimaryKey($rpl[1]);
-                $category = Category::newInstance()->findByPrimaryKey($item['fk_i_item_id']);
+                $category = Category::newInstance()->findByPrimaryKey($item['fk_i_category_id']);
                 View::newInstance()->_exportVariableToView('category', $category);
                 $url = osc_search_category_url();
             } else if ($product_type[0] == '201') {
@@ -47,6 +52,8 @@
                 } else {
                     $conn->osc_dbExec("INSERT INTO  %st_paypal_premium (fk_i_item_id, dt_date, fk_i_paypal_id) VALUES ('%d',  '%s',  '%s')", DB_TABLE_PREFIX, $rpl[1], date('Y-m-d H:i:s'), $paypal_id);
                 }
+                $mItem = new ItemActions(false);
+                $mItem->premium($item['pk_i_id'], true);
 
                 $url = osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php');
             } else {

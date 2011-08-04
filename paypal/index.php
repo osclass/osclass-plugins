@@ -3,13 +3,12 @@
 Plugin Name: Paypal payment
 Plugin URI: http://www.osclass.org/
 Description: Paypal payment options
-Version: 1.0
+Version: 2.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: paypal
 */
 
-    define('PAYPAL_SANDBOX', true);
     define('PAYPAL_CRYPT_KEY', 'randompasswordchangethis');
 
     // load necessary functions
@@ -36,6 +35,10 @@ Short Name: paypal
         osc_set_preference('pack_price_1', '', 'paypal', 'STRING');
         osc_set_preference('pack_price_2', '', 'paypal', 'STRING');
         osc_set_preference('pack_price_3', '', 'paypal', 'STRING');
+        osc_set_preference('pdt', '', 'paypal', 'STRING');
+        osc_set_preference('email', '', 'paypal', 'STRING');
+        osc_set_preference('standard', '1', 'paypal', 'BOOLEAN');
+        osc_set_preference('sandbox', '1', 'paypal', 'BOOLEAN');
 
         $items = $conn->osc_dbFetchResults("SELECT pk_i_id FROM %st_item", DB_TABLE_PREFIX);
         $date  = date('Y-m-d H:i:s');
@@ -75,6 +78,10 @@ Short Name: paypal
         osc_delete_preference('pack_price_1', 'paypal');
         osc_delete_preference('pack_price_2', 'paypal');
         osc_delete_preference('pack_price_3', 'paypal');
+        osc_delete_preference('pdt', 'paypal');
+        osc_delete_preference('email', 'paypal');
+        osc_delete_preference('standard', 'paypal');
+        osc_delete_preference('sandbox', 'paypal');
         $conn->autocommit(true);
 
     }
@@ -110,62 +117,107 @@ Short Name: paypal
     * @param string $itemnumber (publish fee, premium, pack and which category)
     */
     function paypal_button($amount = '0.00', $description = '', $rpl = '||', $itemnumber = '101') {
-
-        $APIUSERNAME  = paypal_decrypt(osc_get_preference('api_username', 'paypal'));
-        $APIPASSWORD  = paypal_decrypt(osc_get_preference('api_password', 'paypal'));
-        $APISIGNATURE = paypal_decrypt(osc_get_preference('api_signature', 'paypal'));
-        $ENDPOINT     = 'https://api-3t.sandbox.paypal.com/nvp';
-        $VERSION      = '65.1'; // must be >= 65.1
-        $REDIRECTURL  = 'https://www.paypal.com/incontext?token=';
-        if( defined('PAYPAL_SANDBOX') ) {
-            $REDIRECTURL  = "https://www.sandbox.paypal.com/incontext?token=";
-        }
         
-        $r = rand(0,1000);
-        $rpl .= "|".$r;
-        
-        //Build the Credential String:
-        $cred_str = 'USER=' . $APIUSERNAME . '&PWD=' . $APIPASSWORD . '&SIGNATURE=' . $APISIGNATURE . '&VERSION=' . $VERSION;
-        //For Testing this is hardcoded. You would want to set these variable values dynamically
-        $nvp_str  = "&METHOD=SetExpressCheckout" 
-        . '&RETURNURL=' . osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__) . 'return.php?rpl=' . $rpl //set your Return URL here
-        . '&CANCELURL=' . osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__) . 'cancel.php?rpl=' . $rpl //set your Cancel URL here
-        . '&PAYMENTREQUEST_0_CURRENCYCODE=' . osc_get_preference('currency', 'paypal')
-        . '&PAYMENTREQUEST_0_AMT=' . $amount
-        . '&PAYMENTREQUEST_0_ITEMAMT=' . $amount
-        . '&PAYMENTREQUEST_0_TAXAMT=0'
-        . '&PAYMENTREQUEST_0_DESC=' . $description
-        . '&PAYMENTREQUEST_0_PAYMENTACTION=Sale'
-        . '&L_PAYMENTREQUEST_0_ITEMCATEGORY0=Digital'
-        . '&L_PAYMENTREQUEST_0_NAME0=' . $description
-        . '&L_PAYMENTREQUEST_0_NUMBER0=' . $itemnumber
-        . '&L_PAYMENTREQUEST_0_QTY0=1'
-        . '&L_PAYMENTREQUEST_0_TAXAMT0=0'
-        . '&L_PAYMENTREQUEST_0_AMT0=' . $amount
-        . '&L_PAYMENTREQUEST_0_DESC0=Download'
-        . '&CUSTOM=' . $rpl
-        . '&useraction=commit';
+        if(osc_get_preference('standard', 'paypal')==1) {
+            if(osc_get_preference('sandbox', 'paypal')==1) {
+                $ENDPOINT     = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+            } else {
+                $ENDPOINT     = 'https://www.paypal.com/cgi-bin/webscr';
+            }
 
-        //combine the two strings and make the API Call
-        $req_str = $cred_str . $nvp_str;
-        $response = PPHttpPost($ENDPOINT, $req_str);
-        //check Response
-        if($response['ACK'] == "Success" || $response['ACK'] == "SuccessWithWarning") {
-            //setup redirect URL
-            $redirect_url = $REDIRECTURL . urldecode($response['TOKEN']);
-            ?>
-            <a href="<?php echo $redirect_url; ?>" id='paypalBtn_<?php echo $r; ?>'>
-                <img src='<?php echo paypal_path(); ?>paypal.gif' border='0' />
-            </a>
-            <script>
-                var dg_<?php echo $r; ?> = new PAYPAL.apps.DGFlow({
-                    trigger: "paypalBtn_<?php echo $r; ?>"
-                });
-            </script><?php
-        } else if($response['ACK'] == 'Failure' || $response['ACK'] == 'FailureWithWarning') {
-            $redirect_url = ''; //SOMETHING FAILED
+            $RETURNURL = osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__) . 'return.php?rpl=' . $rpl;
+            $CANCELURL = osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__) . 'cancel.php?rpl=' . $rpl;
+            $NOTIFYURL = osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__) . 'standard_notify_url.php?rpl=' . $rpl;
+            
+            $r = rand(0,1000);
+            $rpl .= "|".$r;
+        ?>
+
+
+            <form action="<?php echo $ENDPOINT; ?>" method="post" id="payment_<?php echo $r; ?>">
+              <input type="hidden" name="cmd" value="_xclick" />
+              <input type="hidden" name="upload" value="1" />
+              <input type="hidden" name="business" value="<?php echo osc_get_preference('email', 'paypal'); ?>" />
+              <input type="hidden" name="item_name" value="<?php echo $description; ?>" />
+              <input type="hidden" name="item_number" value="<?php echo $itemnumber; ?>" />
+              <input type="hidden" name="amount" value="<?php echo $amount; ?>" />
+              <input type="hidden" name="quantity" value="1" />
+
+              <input type="hidden" name="currency_code" value="<?php echo osc_get_preference('currency', 'paypal'); ?>" />
+              <input type="hidden" name="rm" value="2" />
+              <input type="hidden" name="no_note" value="1" />
+              <input type="hidden" name="charset" value="utf-8" />
+              <input type="hidden" name="return" value="<?php echo $RETURNURL; ?>" />
+              <input type="hidden" name="notify_url" value="<?php echo $NOTIFYURL; ?>" />
+              <input type="hidden" name="cancel_return" value="<?php echo $CANCELURL; ?>" />
+              <input type="hidden" name="custom" value="<?php echo $rpl; ?>" />
+            </form>
+            <div class="buttons">
+              <div class="right"><a id="button-confirm" class="button" onclick="$('#payment_<?php echo $r; ?>').submit();"><span><img src='<?php echo paypal_path(); ?>paypal.gif' border='0' /></span></a></div>
+            </div>
+        <?php
+        } else {
+
+            $APIUSERNAME  = paypal_decrypt(osc_get_preference('api_username', 'paypal'));
+            $APIPASSWORD  = paypal_decrypt(osc_get_preference('api_password', 'paypal'));
+            $APISIGNATURE = paypal_decrypt(osc_get_preference('api_signature', 'paypal'));
+            if(osc_get_preference('sandbox', 'paypal')==1) {
+                $ENDPOINT     = 'https://api-3t.sandbox.paypal.com/nvp';
+            } else {
+                $ENDPOINT     = 'https://api-3t.paypal.com/nvp';
+            }
+            $VERSION      = '65.1'; // must be >= 65.1
+            $REDIRECTURL  = 'https://www.paypal.com/incontext?token=';
+            if(osc_get_preference('sandbox', 'paypal')==1) {
+                $REDIRECTURL  = "https://www.sandbox.paypal.com/incontext?token=";
+            }
+
+            $r = rand(0,1000);
+            $rpl .= "|".$r;
+
+            //Build the Credential String:
+            $cred_str = 'USER=' . $APIUSERNAME . '&PWD=' . $APIPASSWORD . '&SIGNATURE=' . $APISIGNATURE . '&VERSION=' . $VERSION;
+            //For Testing this is hardcoded. You would want to set these variable values dynamically
+            $nvp_str  = "&METHOD=SetExpressCheckout" 
+            . '&RETURNURL=' . osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__) . 'return.php?rpl=' . $rpl //set your Return URL here
+            . '&CANCELURL=' . osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__) . 'cancel.php?rpl=' . $rpl //set your Cancel URL here
+            . '&PAYMENTREQUEST_0_CURRENCYCODE=' . osc_get_preference('currency', 'paypal')
+            . '&PAYMENTREQUEST_0_AMT=' . $amount
+            . '&PAYMENTREQUEST_0_ITEMAMT=' . $amount
+            . '&PAYMENTREQUEST_0_TAXAMT=0'
+            . '&PAYMENTREQUEST_0_DESC=' . $description
+            . '&PAYMENTREQUEST_0_PAYMENTACTION=Sale'
+            . '&L_PAYMENTREQUEST_0_ITEMCATEGORY0=Digital'
+            . '&L_PAYMENTREQUEST_0_NAME0=' . $description
+            . '&L_PAYMENTREQUEST_0_NUMBER0=' . $itemnumber
+            . '&L_PAYMENTREQUEST_0_QTY0=1'
+            . '&L_PAYMENTREQUEST_0_TAXAMT0=0'
+            . '&L_PAYMENTREQUEST_0_AMT0=' . $amount
+            . '&L_PAYMENTREQUEST_0_DESC0=Download'
+            . '&CUSTOM=' . $rpl
+            . '&useraction=commit';
+
+            //combine the two strings and make the API Call
+            $req_str = $cred_str . $nvp_str;
+            $response = PPHttpPost($ENDPOINT, $req_str);
+
+            //check Response
+            if($response['ACK'] == "Success" || $response['ACK'] == "SuccessWithWarning") {
+                //setup redirect URL
+                $redirect_url = $REDIRECTURL . urldecode($response['TOKEN']);
+                ?>
+                <a href="<?php echo $redirect_url; ?>" id='paypalBtn_<?php echo $r; ?>'>
+                    <img src='<?php echo paypal_path(); ?>paypal.gif' border='0' />
+                </a>
+                <script>
+                    var dg_<?php echo $r; ?> = new PAYPAL.apps.DGFlow({
+                        trigger: "paypalBtn_<?php echo $r; ?>"
+                    });
+                </script><?php
+            } else if($response['ACK'] == 'Failure' || $response['ACK'] == 'FailureWithWarning') {
+                $redirect_url = ''; //SOMETHING FAILED
+            }
         }
-
     }
 
     /**

@@ -26,7 +26,17 @@
                     <div style="float:left; width: 50%;">
                         <?php _e("In order to make visible your ad to other users, it's required to pay a fee", 'paypal'); ?>.<br/>
                         <?php echo sprintf(__('The current fee for this category is: %.2f %s', 'paypal'), $category_fee, osc_get_preference('currency', 'paypal')); ?><br/>
-                        <?php paypal_button($category_fee, sprintf(__('Publish fee for item %d at %s', 'paypal'), $item['pk_i_id'], osc_page_title()), $item['fk_i_user_id']."|".$item['pk_i_id']."|".$item['s_contact_email'], "101x".$item['fk_i_category_id']."x".$item['pk_i_id']); ?>
+                        <?php if(osc_is_web_user_logged_in()) {
+                                $conn = getConnection();
+                                $wallet = $conn->osc_dbFetchResult("SELECT * FROM %st_paypal_wallet WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, osc_logged_user_id());
+                                if(isset($wallet['f_amount']) && $wallet['f_amount']>=$category_fee) {
+                                    wallet_button($category_fee, sprintf(__('Publish fee for item %d at %s', 'paypal'), $item['pk_i_id'], osc_page_title()), $item['fk_i_user_id']."|".$item['pk_i_id']."|".$item['s_contact_email'], "101x".$item['fk_i_category_id']."x".$item['pk_i_id']);
+                                } else {
+                                    paypal_button($category_fee, sprintf(__('Publish fee for item %d at %s', 'paypal'), $item['pk_i_id'], osc_page_title()), $item['fk_i_user_id']."|".$item['pk_i_id']."|".$item['s_contact_email'], "101x".$item['fk_i_category_id']."x".$item['pk_i_id']);
+                                }
+                            } else {
+                                paypal_button($category_fee, sprintf(__('Publish fee for item %d at %s', 'paypal'), $item['pk_i_id'], osc_page_title()), $item['fk_i_user_id']."|".$item['pk_i_id']."|".$item['s_contact_email'], "101x".$item['fk_i_category_id']."x".$item['pk_i_id']);
+                            }; ?>
                     </div>
                     <div style="clear:both;"></div>
                     <div name="result_div" id="result_div"></div>

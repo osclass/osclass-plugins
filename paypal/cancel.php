@@ -5,12 +5,17 @@
 
     $ppl_data = explode('|', Params::getParam('rpl'));
     if($ppl_data[1]=='dash') { // PACK PAYMENT FROM USER'S DASHBOARD
-        $url = '';
+        $url = osc_user_dashboard_url();
     } else {
         $item     = Item::newInstance()->findByPrimaryKey($ppl_data[1]);
         $category = Category::newInstance()->findByPrimaryKey($item['fk_i_category_id']);
         View::newInstance()->_exportVariableToView('category', $category);
         $url = osc_search_category_url();
+    }
+    
+    if(osc_get_preference('standard', 'paypal')==1) {
+        osc_add_flash_error_message(__('You cancel the payment process or there was an error. If the error continue, please contact the administrator', 'paypal'));
+        paypal_js_redirect_to($url);
     }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

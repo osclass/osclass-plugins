@@ -5,7 +5,7 @@
      * *************************** */
 
     $sandbox = false; 
-    if( defined('PAYPAL_SANDBOX') ) {
+    if(osc_get_preference('sandbox', 'paypal')==1) {
         $sandbox = true;
     }
     $email_admin = true;
@@ -18,7 +18,9 @@
     $header = '';
     $req    = 'cmd=_notify-validate';
     if (function_exists('get_magic_quotes_gpc')) {
-        $get_magic_quotes_exits = true;
+        $get_magic_quotes_exists = true;
+    } else {
+        $get_magic_quotes_exists = true;
     }
     
     foreach ($_POST as $key => $value) {
@@ -69,7 +71,12 @@
                         if ($data[0] == '101') {
                             // PUBLISH FEE
                             Item::newInstance()->update(array('b_enabled' => 1), array('pk_i_id' => $rpl[1]));
-                            $conn->osc_dbExec("UPDATE %st_paypal_publish SET dt_date = '%s', b_paid = '1', fk_i_paypal_id = '%d' WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), $paypal_id, $rpl[1]);
+                            $paid = $conn->osc_dbFetchResult("SELECT * FROM %st_paypal_publish WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $rpl[1]);
+                            if ($paid) {
+                                $conn->osc_dbExec("UPDATE %st_paypal_publish SET dt_date = '%s', b_paid =  '1', fk_i_paypal_id = '%d' WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), $paypal_id, $rpl[1]);
+                            } else {
+                                $conn->osc_dbExec("INSERT INTO  %st_paypal_publish (fk_i_item_id, dt_date, b_paid, fk_i_paypal_id) VALUES ('%d',  '%s', 1, '%s')", DB_TABLE_PREFIX, $rpl[1], date('Y-m-d H:i:s'), $paypal_id);
+                            }
                         } else if ($data[0] == '201') {
                             // PREMIUM FEE
                             $paid = $conn->osc_dbFetchResult("SELECT * FROM %st_paypal_premium WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $rpl[1]);
@@ -93,7 +100,7 @@
                         foreach ($_REQUEST as $key => $value) {
                             $emailtext .= $key . ' = ' . $value . '\n\n';
                         }
-                        mail(osc_contact_email() , 'OSCLASS PAYPAL DEBUG', $emailtext . '\n\n' . $req);
+                        mail(osc_contact_email() , 'NOTIFY EC OSCLASS PAYPAL DEBUG', $emailtext . '\n\n' . $req);
                     }
                 }
             } else if (strcmp($res, 'INVALID') == 0) {

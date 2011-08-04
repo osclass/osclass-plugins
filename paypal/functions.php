@@ -59,7 +59,7 @@
     function paypal_save_log($concept, $code, $amount, $currency, $email, $user, $item, $product_type, $source) {
 
         $conn = getConnection();
-        $conn->osc_dbExec("INSERT INTO %st_paypal_log (s_concept, dt_date, s_code, f_amount, s_currency_code, s_email, fk_i_user_id, fk_i_item_id, s_source, i_product_type) VALUES 
+        $conn->osc_dbExec("INSERT INTO %st_paypal_log (s_concept, dt_date, s_code, f_amount, s_currency_code, s_email, fk_i_user_id, fk_i_item_id, i_product_type, s_source) VALUES 
                           ('" . $concept . "',"
                         . "'" . date("Y-m-d H:i:s") . "',"
                         . "'" . $code . "',"
