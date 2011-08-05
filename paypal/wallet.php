@@ -40,6 +40,7 @@
                     $conn->osc_dbExec("INSERT INTO  %st_paypal_publish (fk_i_item_id, dt_date, b_paid, fk_i_paypal_id) VALUES ('%d',  '%s', 1, '%s')", DB_TABLE_PREFIX, $rpl[1], date('Y-m-d H:i:s'), $paypal_id);
                 }
 
+                Item::newInstance()->update(array('b_enabled' => 1), array('pk_i_id' => $rpl[1]));
                 $item     = Item::newInstance()->findByPrimaryKey($rpl[1]);
                 $category = Category::newInstance()->findByPrimaryKey($item['fk_i_category_id']);
                 View::newInstance()->_exportVariableToView('category', $category);
