@@ -3,7 +3,7 @@
 Plugin Name: Paypal payment
 Plugin URI: http://www.osclass.org/
 Description: Paypal payment options
-Version: 2.0
+Version: 2.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: paypal
@@ -450,7 +450,7 @@ Short Name: paypal
      * @param array $item 
      */
     function paypal_before_edit($item) {
-        if(osc_get_preference('pay_per_post', 'paypal') == '1' || (osc_get_preferentce('allow_premium','paypal') == '1' && paypal_is_premium($item['pk_i_id']))) {
+        if(osc_get_preference('pay_per_post', 'paypal') == '1' || (osc_get_preference('allow_premium','paypal') == '1' && paypal_is_premium($item['pk_i_id']))) {
             $cat[0] = Category::newInstance()->findByPrimaryKey($item['fk_i_category_id']);
             View::newInstance()->_exportVariableToView('categories', $cat);
         }
