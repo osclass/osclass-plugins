@@ -25,8 +25,9 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Sitemap generator](https://github.com/osclass/osclass-plugins/tree/sitemap_generator)
 - [Social bookmarks](https://github.com/osclass/osclass-plugins/tree/social_bookmarks)
 - [Supertoolbar](https://github.com/osclass/osclass-plugins/tree/supertoolbar) _under development_
+- [Theme languages](https://github.com/osclass/osclass-plugins/tree/theme_languages)
 - [Time elapsed](https://github.com/osclass/osclass-plugins/tree/time_elapsed)
 - [Youtube](https://github.com/osclass/osclass-plugins/tree/youtube)
-- [Watchlist](https://github.com/osclass/osclass-plugins/tree/watchlist) _under development_
+- [Watchlist](https://github.com/osclass/osclass-plugins/tree/watchlist)
 
 If you need more information, you can visit [our forums](http://forums.osclass.org/).
