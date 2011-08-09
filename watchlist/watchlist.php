@@ -8,6 +8,7 @@
     $iPage        = (Params::getParam('iPage') != '') ? Params::getParam('iPage') : 0;
 
     Search::newInstance()->addConditions(sprintf("%st_item_watchlist.fk_i_user_id = %d", DB_TABLE_PREFIX, $i_userId));
+    Search::newInstance()->addConditions(sprintf("%st_item_watchlist.fk_i_item_id = %st_item.pk_i_id", DB_TABLE_PREFIX, DB_TABLE_PREFIX));
     Search::newInstance()->addTable(sprintf("%st_item_watchlist", DB_TABLE_PREFIX));
     Search::newInstance()->page($iPage, $itemsPerPage);
 
