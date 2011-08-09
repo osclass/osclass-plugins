@@ -16,7 +16,7 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [List sellet items](https://github.com/osclass/osclass-plugins/tree/list_seller_items)
 - [Mobile theme](https://github.com/osclass/osclass-plugins/tree/osc-mobile) _under development_
 - [More Edit](https://github.com/osclass/osclass-plugins/tree/more_edit)
-- [Paypal](https://github.com/osclass/osclass-plugins/tree/paypal) _under development_
+- [Paypal](https://github.com/osclass/osclass-plugins/tree/paypal)
 - [Piwik Analytics](https://github.com/osclass/osclass-plugins/tree/piwik)
 - [Products attributes](https://github.com/osclass/osclass-plugins/tree/products_attributes)
 - [Real Estate attributes](https://github.com/osclass/osclass-plugins/tree/realstate_attributes)
