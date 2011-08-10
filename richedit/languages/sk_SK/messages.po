@@ -1,0 +1,67 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "Gratulujeme. Plugin je teraz nakonfigurovaný"
+
+msgid "Update"
+msgstr "Aktualizácia"
+
+msgid "Rich edit options"
+msgstr "Rich edit možnosti"
+
+msgid "Theme"
+msgstr "Téma"
+
+msgid "Skin"
+msgstr "Vzhľad"
+
+msgid "Skin variant"
+msgstr "Variant vzhľadu"
+
+msgid "Width (need units, px or %)"
+msgstr "Šírka (potrebné jednotky, px alebo %)"
+
+msgid "Height (need units, px or %)"
+msgstr "Výška (potrebné jednotky, px alebo %)"
+
+msgid "Line of buttons #1 (separated them by comma)"
+msgstr "Riadok s tlačidlami #1 (oddeľte ich čiarkou)"
+
+msgid "Line of buttons #2 (separated them by comma)"
+msgstr "Riadok s tlačidlami #2 (oddeľte ich čiarkou)"
+
+msgid "Line of buttons #3 (separated them by comma)"
+msgstr "Riadok s tlačidlami #3 (oddeľte ich čiarkou)"
+
+msgid "Plugins (separated them by comma)"
+msgstr "Pluginy (oddeľte ich čiarkou)"
+
+msgid "Plugins are located in %s. Feel free to add more plugins if you need it"
+msgstr "Pluginy sú umiestnené v %s. Môžete pridať viac pluginov ak potrebujete"
+
+msgid "Preview of the editor"
+msgstr "Náhľad editora"
+
+msgid "This is a preview of how the rich editor will look like"
+msgstr "Toto je náhľad ako bude vyzerať rich editor"
+
+msgid "Learn more about the configuration of TinyMCE at %s"
+msgstr "Zistiť viac o konfigurácii TinyMCE na %s"
+
+msgid "Settings"
+msgstr "Nastavenia"
+
