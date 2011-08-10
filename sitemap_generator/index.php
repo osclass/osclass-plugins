@@ -3,7 +3,7 @@
 Plugin Name: Sitemap Generator
 Plugin URI: http://www.osclass.org/
 Description: Sitemap Generator
-Version: 1.0.4.1
+Version: 1.0.5
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
