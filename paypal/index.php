@@ -46,7 +46,7 @@ Short Name: paypal
             $conn->osc_dbExec("INSERT INTO %st_paypal_publish (fk_i_item_id, dt_date, b_paid) VALUES ('%d', '%s', '1')", DB_TABLE_PREFIX, $item['pk_i_id'], $date);
         }
 
-        $conn->osc_dbExec("INSERT INTO %st_pages (s_internal_name, b_indelible, dt_pub_date) VALUES ('email_paypal', 1, NOW() )", DB_TABLE_PREFIX);
+        $conn->osc_dbExec("INSERT INTO %st_pages (s_internal_name, b_indelible, dt_pub_date) VALUES ('email_paypal', 1,'%s' )", DB_TABLE_PREFIX, date('Y-m-d H:i:s'));
         $conn->osc_dbExec("INSERT INTO %st_pages_description (fk_i_pages_id, fk_c_locale_code, s_title, s_text) VALUES (%d, '%s', '{WEB_TITLE} - Publish option for your ad: {ITEM_TITLE}', '<p>Hi {CONTACT_NAME}!</p>\r\n<p> </p>\r\n<p>We just published your item ({ITEM_TITLE}) on {WEB_TITLE}.</p>\r\n<p>{START_PUBLISH_FEE}</p>\r\n<p>In order to make your ad available to anyone on {WEB_TITLE}, you should complete the process and pay the publish fee. You could do that on the following link: {PUBLISH_LINK}</p>\r\n<p>{END_PUBLISH_FEE}</p>\r\n<p> </p>\r\n<p>{START_PREMIUM_FEE}</p>\r\n<p>You could make your ad premium and make it to appear on top result of the searches made on {WEB_TITLE}. You could do that on the following link: {PREMIUM_LINK}</p>\r\n<p>{END_PREMIUM_FEE}</p>\r\n<p> </p>\r\n<p>This is an automatic email, if you already did that, please ignore this email.</p>\r\n<p> </p>\r\n<p>Thanks</p>')", DB_TABLE_PREFIX, $conn->get_last_id(), osc_language());
         $conn->autocommit(true);
     }
@@ -426,12 +426,12 @@ Short Name: paypal
      */
     function paypal_cron() {
         $conn  = getConnection();
-        $items = $conn->osc_dbFetchResults("SELECT fk_i_item_id FROM %st_paypal_premium WHERE TIMESTAMPDIFF(DAY,dt_date,NOW()) >= %d", DB_TABLE_PREFIX, osc_get_preference("premium_days", "paypal"));
+        $items = $conn->osc_dbFetchResults("SELECT fk_i_item_id FROM %st_paypal_premium WHERE TIMESTAMPDIFF(DAY,dt_date,'%s') >= %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), osc_get_preference("premium_days", "paypal"));
         $mItem = new ItemActions(false);
         foreach($itemas as $item) {
             $mItem->premium($item['fk_i_item_id'], false);
         }
-        $conn->osc_dbExec("DELETE FROM %st_paypal_premium WHERE TIMESTAMPDIFF(DAY,dt_date,NOW()) >= %d", DB_TABLE_PREFIX, osc_get_preference("premium_days", "paypal"));
+        $conn->osc_dbExec("DELETE FROM %st_paypal_premium WHERE TIMESTAMPDIFF(DAY,dt_date,'%s') >= %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), osc_get_preference("premium_days", "paypal"));
     }
 
     /**

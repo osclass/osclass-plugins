@@ -97,7 +97,7 @@
      */
     function paypal_is_premium($itemId) {
         $conn = getConnection();
-        $paid = $conn->osc_dbFetchResult("SELECT dt_date FROM %st_paypal_premium WHERE fk_i_item_id = %d AND TIMESTAMPDIFF(DAY,dt_date,NOW()) < %d", DB_TABLE_PREFIX, $itemId, osc_get_preference("premium_days", "paypal"));
+        $paid = $conn->osc_dbFetchResult("SELECT dt_date FROM %st_paypal_premium WHERE fk_i_item_id = %d AND TIMESTAMPDIFF(DAY,dt_date,'%s') < %d", DB_TABLE_PREFIX, $itemId, date('Y-m-d H:i:s'), osc_get_preference("premium_days", "paypal"));
         if ($paid) {
             return true;
         }
