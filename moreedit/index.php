@@ -19,7 +19,7 @@ Short Name: moreedit
         osc_set_preference('max_ads_month', '0', 'moreedit', 'INTEGER');
         osc_set_preference('notify_edit', '0', 'moreedit', 'INTEGER');
 
-        $conn->osc_dbExec("INSERT INTO %st_pages (s_internal_name, b_indelible, dt_pub_date) VALUES ('email_moreedit_notify_edit', 1, NOW() )", DB_TABLE_PREFIX);
+        $conn->osc_dbExec("INSERT INTO %st_pages (s_internal_name, b_indelible, dt_pub_date) VALUES ('email_moreedit_notify_edit', 1, '%s' )", DB_TABLE_PREFIX, date('Y-m-d H:i:s'));
         $conn->osc_dbExec("INSERT INTO %st_pages_description (fk_i_pages_id, fk_c_locale_code, s_title, s_text) VALUES (%d, '%s', '{WEB_TITLE} - Notification of ad: {ITEM_TITLE}', '<p>Hi Admin!</p>\r\n<p> </p>\r\n<p>We just published an item ({ITEM_TITLE}) on {WEB_TITLE} from user {USER_NAME} ( {ITEM_URL} ).</p>\r\n<p>Edit it here : {EDIT_LINK}</p>\r\n<p> </p>\r\n<p>Thanks</p>')", DB_TABLE_PREFIX, $conn->get_last_id(), osc_language());        $conn->autocommit(true);
     }
 
@@ -41,7 +41,7 @@ Short Name: moreedit
         if(osc_is_web_user_logged_in()) {
             if(osc_get_preference('max_ads_week', 'moreedit')>0) {
                 $conn = getConnection();
-                $items = $conn->osc_dbFetchResult("SELECT COUNT(pk_i_id) as total FROM %st_item WHERE fk_i_user_id = %d AND TIMESTAMPDIFF(DAY,%st_item.dt_pub_date,NOW()) < 7", DB_TABLE_PREFIX, osc_logged_user_id(), DB_TABLE_PREFIX);
+                $items = $conn->osc_dbFetchResult("SELECT COUNT(pk_i_id) as total FROM %st_item WHERE fk_i_user_id = %d AND TIMESTAMPDIFF(DAY,%st_item.dt_pub_date,'%s') < 7", DB_TABLE_PREFIX, osc_logged_user_id(), DB_TABLE_PREFIX, date('Y-m-d H:i:s'));
                 if($items['total']>=(osc_get_preference('max_ads_week', 'moreedit')+1)) {
                     $item = Item::newInstance()->findByPrimaryKey($item_id);
                     $mItems = new ItemActions(false);
@@ -53,7 +53,7 @@ Short Name: moreedit
             }
             if(osc_get_preference('max_ads_month', 'moreedit')>0) {
                 $conn = getConnection();
-                $items = $conn->osc_dbFetchResult("SELECT COUNT(pk_i_id) as total FROM %st_item WHERE fk_i_user_id = %d AND TIMESTAMPDIFF(DAY,%st_item.dt_pub_date,NOW()) < 30", DB_TABLE_PREFIX, osc_logged_user_id(), DB_TABLE_PREFIX);
+                $items = $conn->osc_dbFetchResult("SELECT COUNT(pk_i_id) as total FROM %st_item WHERE fk_i_user_id = %d AND TIMESTAMPDIFF(DAY,%st_item.dt_pub_date,'%s') < 30", DB_TABLE_PREFIX, osc_logged_user_id(), DB_TABLE_PREFIX, date('Y-m-d H:i:s'));
                 if($items['total']>=(osc_get_preference('max_ads_month', 'moreedit')+1)) {
                     $item = Item::newInstance()->findByPrimaryKey($item_id);
                     $mItems = new ItemActions(false);
@@ -118,7 +118,7 @@ Short Name: moreedit
         if(osc_is_web_user_logged_in()) {
             if(osc_get_preference('max_ads_week', 'moreedit')>0) {
                 $conn = getConnection();
-                $items = $conn->osc_dbFetchResult("SELECT COUNT(pk_i_id) as total FROM %st_item WHERE fk_i_user_id = %d AND TIMESTAMPDIFF(DAY,%st_item.dt_pub_date,NOW()) < 7", DB_TABLE_PREFIX, osc_logged_user_id(), DB_TABLE_PREFIX);
+                $items = $conn->osc_dbFetchResult("SELECT COUNT(pk_i_id) as total FROM %st_item WHERE fk_i_user_id = %d AND TIMESTAMPDIFF(DAY,%st_item.dt_pub_date,'%s') < 7", DB_TABLE_PREFIX, osc_logged_user_id(), DB_TABLE_PREFIX, date('Y-m-d H:i:s'));
                 if($items['total']>=osc_get_preference('max_ads_week', 'moreedit')) {
                     osc_add_flash_error_message( __('Sorry, you have reached your maximun number of ads per week allowed', 'moreedit') ) ;
                     header( "location: " .osc_base_url() ) ;
@@ -127,7 +127,7 @@ Short Name: moreedit
             }
             if(osc_get_preference('max_ads_month', 'moreedit')>0) {
                 $conn = getConnection();
-                $items = $conn->osc_dbFetchResult("SELECT COUNT(pk_i_id) as total FROM %st_item WHERE fk_i_user_id = %d AND TIMESTAMPDIFF(DAY,%st_item.dt_pub_date,NOW()) < 30", DB_TABLE_PREFIX, osc_logged_user_id(), DB_TABLE_PREFIX);
+                $items = $conn->osc_dbFetchResult("SELECT COUNT(pk_i_id) as total FROM %st_item WHERE fk_i_user_id = %d AND TIMESTAMPDIFF(DAY,%st_item.dt_pub_date,'%s') < 30", DB_TABLE_PREFIX, osc_logged_user_id(), DB_TABLE_PREFIX, date('Y-m-d H:i:s'));
                 if($items['total']>=osc_get_preference('max_ads_month', 'moreedit')) {
                     osc_add_flash_error_message( __('Sorry, you have reached your maximun number of ads per month allowed', 'moreedit') ) ;
                     header( "location: " .osc_base_url() ) ;
