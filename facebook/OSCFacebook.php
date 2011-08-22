@@ -117,7 +117,7 @@ class OSCFacebook {
         $input['s_name'] = $user['name'];
         $input['s_email'] = $user['email'];
         $input['s_password'] = sha1(osc_genRandomPassword());
-        $input['dt_reg_date'] = DB_FUNC_NOW;
+        $input['dt_reg_date'] = date('Y-m-d H:i:s');
            
         $code = osc_genRandomPassword();
         $input['s_secret'] = $code;
