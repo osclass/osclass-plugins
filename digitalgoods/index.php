@@ -18,8 +18,9 @@ Short Name: digitalgoods
             $sql = file_get_contents($path);
             $conn->osc_dbImportSQL($sql);
             $conn->commit();
+            mkdir(osc_content_path().'uploads/digitalgoods/');
             osc_set_preference('max_files', '1', 'digitalgoods', 'INTEGER');
-            osc_set_preference('upload_path', osc_content_path().'uploads/', 'digitalgoods', 'STRING');
+            osc_set_preference('upload_path', osc_content_path().'uploads/digitalgoods/', 'digitalgoods', 'STRING');
             osc_set_preference('allowed_ext', 'zip,rar,tgz', 'digitalgoods', 'INTEGER');
         } catch (Exception $e) {
             $conn->rollback();
@@ -32,6 +33,11 @@ Short Name: digitalgoods
         $conn = getConnection();
         $conn->autocommit(false);
         try {
+            $dgs = $conn->osc_dbFetchResults("SELECT * FROM %st_item_dg_files", DB_TABLE_PREFIX);
+            foreach($dgs as $dg) {
+                @unlink(osc_get_preference('upload_path', 'digitalgoods').$dg['s_code']."_".$dg['fk_i_item_id']."_".$dg['s_name']);
+                @rmdir(osc_get_preference('upload_path','digitalgoods'));
+            }
             $conn->osc_dbExec("DELETE FROM %st_plugin_category WHERE s_plugin_name = 'digitalgoods'", DB_TABLE_PREFIX);
             $conn->osc_dbExec('DROP TABLE %st_item_dg_files', DB_TABLE_PREFIX);
             $conn->commit();
@@ -141,7 +147,7 @@ Short Name: digitalgoods
                             }
                         }
                     }
-                    if(!$failed) { // THIS MESSAGE IS NOT SHOW
+                    if($failed) { // THIS MESSAGE IS NOT SHOW
                         osc_add_flash_error_message(__('Some of the files were not uploaded because they have incorrect extension', 'digitalgoods'));
                     }
                 }
