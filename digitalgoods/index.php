@@ -49,6 +49,7 @@ Short Name: digitalgoods
         echo '<h3><a href="#">Digital Goods</a></h3>
         <ul> 
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'digitalgoods') . '</a></li>
+            <li><a href="'.osc_admin_configure_plugin_url("digitalgoods/index.php").'">&raquo; ' . __('Configure categories', 'digitalgoods') . '</a></li>
         </ul>';
     }
     

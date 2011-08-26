@@ -20,10 +20,9 @@
      */
 
     if(Params::getParam('plugin_action')=='done') {
-        osc_set_preference('bucket', Params::getParam('bucket'), 'amazons3', 'STRING');
-        osc_set_preference('access_key', Params::getParam('access_key'), 'amazons3', 'STRING');
-        osc_set_preference('secret_key', Params::getParam('secret_key'), 'amazons3', 'STRING');
-        echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'amazons3') . '.</p></div>' ;
+        osc_set_preference('max_files', Params::getParam('max_files'), 'digitalgoods', 'INTEGER');
+        osc_set_preference('allowed_ext', Params::getParam('allowed_ext'), 'digitalgoods', 'STRING');
+        echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'digitalgoods') . '.</p></div>' ;
         osc_reset_preferences();
     }
 ?>
@@ -31,28 +30,22 @@
     <div style="padding: 20px;">
         <div style="float: left; width: 100%;">
             <fieldset>
-                <legend><?php _e('Amazon S3 Settings', 'amazons3'); ?></legend>
-                <form name="amazons3_form" id="amazons3_form" action="<?php echo osc_admin_base_url(true); ?>" method="POST" enctype="multipart/form-data" >
+                <legend><?php _e('Digital Goods Settings', 'digitalgoods'); ?></legend>
+                <form name="digitalgoods_form" id="digitalgoods_form" action="<?php echo osc_admin_base_url(true); ?>" method="POST" enctype="multipart/form-data" >
                     <div style="float: left; width: 100%;">
                     <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
                     <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
                     <input type="hidden" name="plugin_action" value="done" />
-                        <label for="bucket"><?php _e('Name of the bucket (it should be a worldwide-unique name)', 'amazons3'); ?></label>
+                        <label for="max_files"><?php _e('Number of max files per ad (0 for unlimited)', 'digitalgoods'); ?></label>
                         <br/>
-                        <input type="text" name="bucket" id="bucket" value="<?php echo osc_get_preference('bucket', 'amazons3'); ?>"/>
+                        <input type="text" name="max_files" id="max_files" value="<?php echo osc_get_preference('max_files', 'digitalgoods'); ?>"/>
                         <br/>
-                        <label for="access_key"><?php _e('Access key', 'amazons3'); ?></label>
+                        <label for="allowed_ext"><?php _e('Allowed filetypes (separated by comma)', 'digitalgoods'); ?></label>
                         <br/>
-                        <input type="text" name="access_key" id="access_key" value="<?php echo osc_get_preference('access_key', 'amazons3'); ?>"/>
+                        <input type="text" name="allowed_ext" id="allowed_ext" value="<?php echo osc_get_preference('allowed_ext', 'digitalgoods'); ?>"/>
                         <br/>
-                        <label for="secret_key"><?php _e('Secret key', 'amazons3'); ?></label>
-                        <br/>
-                        <input type="text" name="secret_key" id="secret_key" value="<?php echo osc_get_preference('secret_key', 'amazons3'); ?>"/>
-                        <br/>
-                        <?php _e("You need an Amazon S3 account. More information on http://aws.amazon.com/s3/",'amazons3k'); ?>
-                        <br/>
-                        <span style="float:right;"><button type="submit" style="float: right;"><?php _e('Update', 'amazons3');?></button></span>
+                        <span style="float:right;"><button type="submit" style="float: right;"><?php _e('Update', 'digitalgoods');?></button></span>
                     </div>
                     <br/>
                     <div style="clear:both;"></div>
