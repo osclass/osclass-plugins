@@ -4,6 +4,7 @@ OSClass Plugins
 There is a branch for each plugin. So, each branch has the latest version. Here is a list of the plugins:
 
 - [Ads 4 osc](https://github.com/osclass/osclass-plugins/tree/ads4osc)
+- [Amazon S3](https://github.com/osclass/osclass-plugins/tree/amazons3)
 - [Breadcrumbs](https://github.com/osclass/osclass-plugins/tree/breadcrumbs)
 - [Buy & sell options](https://github.com/osclass/osclass-plugins/tree/buysell)
 - [Cars attributes](https://github.com/osclass/osclass-plugins/tree/cars_attributes)
