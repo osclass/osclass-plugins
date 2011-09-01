@@ -23,16 +23,20 @@ CREATE TABLE /*TABLE_PREFIX*/t_shop_transactions (
     fk_i_user_id INT UNSIGNED NOT NULL,
     fk_i_buyer_id INT UNSIGNED NOT NULL,
     i_amount INT UNSIGNED NULL,
+    i_buyer_score INT UNSIGNED NULL,
+    i_seller_score INT UNSIGNED NULL,
+    s_buyer_comment VARCHAR( 200 ) NULL ,
+    s_seller_comment VARCHAR( 200 ) NULL ,
     f_item_price FLOAT NULL DEFAULT 0,
     s_currency VARCHAR(3) NULL,
-    e_status ENUM('SOLD','PAID', 'SHIPPED', 'VOTE_BUYER', 'VOTE_SELLER', 'ENDED'),
+    e_status ENUM('SOLD','PAID', 'SHIPPED', 'VOTE_BUYER', 'ENDED'),
 
         PRIMARY KEY(pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
 
 CREATE TABLE /*TABLE_PREFIX*/t_shop_log (
     fk_i_transaction_id INT UNSIGNED NOT NULL,
-    e_status ENUM('SOLD','PAID', 'SHIPPED', 'VOTE_BUYER', 'VOTE_SELLER', 'ENDED'),
+    e_status ENUM('SOLD','PAID', 'SHIPPED', 'VOTE_BUYER', 'ENDED'),
     fk_i_user_id INT UNSIGNED NOT NULL,
     dt_date DATETIME NOT NULL,
 

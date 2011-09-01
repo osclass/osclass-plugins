@@ -1,6 +1,6 @@
 <?php 
     $conn = getConnection();
-    $items = $conn->osc_dbFetchResults('SELECT l.*, i.*, shopt.e_status FROM %st_item i, %st_item_location l, %st_shop_transactions shopt WHERE l.fk_i_item_id = i.pk_i_id AND shopt.fk_i_user_id = %d AND i.pk_i_id = shopt.fk_i_item_id ORDER BY i.pk_i_id DESC', DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, osc_logged_user_id());
+    $items = $conn->osc_dbFetchResults('SELECT l.*, i.*, shopt.e_status, shopt.pk_i_id as txn_id FROM %st_item i, %st_item_location l, %st_shop_transactions shopt WHERE l.fk_i_item_id = i.pk_i_id AND shopt.fk_i_user_id = %d AND i.pk_i_id = shopt.fk_i_item_id ORDER BY i.pk_i_id DESC', DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, osc_logged_user_id());
     $items = Item::newInstance()->extendData($items);
     $data = array();
     foreach($items as $item) {
@@ -35,10 +35,7 @@
                                             echo _e('Buyer have to vote', 'shop');
                                             break;
                                         case 'VOTE_BUYER':
-                                            echo '<a href=\'#\' >'.__('Vote transaction', 'shop').'</a>';
-                                            break;
-                                        case 'VOTE_SELLER':
-                                            echo _e('No action needed', 'shop');
+                                            echo '<a href=\''.osc_render_file_url(osc_plugin_folder(__FILE__)."vote.php").'&paction=vote_buyer&txn_id='.$item['txn_id'].'\' >'.__('Vote transaction', 'shop').'</a>';
                                             break;
                                         case 'ENDED':
                                             echo _e('No action needed', 'shop');
