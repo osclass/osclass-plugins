@@ -1,28 +1,29 @@
-<h2><?php _e("Digital Goods", 'digitalgoods');?></h2>
-
+<h2><?php _e("Digital Goods", 'digitalgoods') ; ?></h2>
 <div class="box">
     <div class="box dg_files">
-        <label><?php echo sprintf(__('Allowed extensions are %s. Any other file will not be uploaded', 'digitalgoods'), osc_get_preference('allowed_ext', 'digitalgoods'));?></label>
+        <div class="row">
+            <p><?php printf(__('Allowed extensions are %s. Any other file will not be uploaded', 'digitalgoods'), osc_get_preference('allowed_ext', 'digitalgoods')) ; ?></p>
+        </div>
             <?php
-            if($dg_files!=null && is_array($dg_files) && count($dg_files)>0) {
+            if($dg_files != null && is_array($dg_files) && count($dg_files) > 0) {
                 foreach($dg_files as $_r) { ?>
-                    <div id="<?php echo $_r['pk_i_id'];?>" fkid="<?php echo $_r['fk_i_item_id'];?>" name="<?php echo $_r['s_name'];?>">
-                        <label><?php echo $_r['s_name']; ?></label><a href="javascript:delete_dg_file(<?php echo $_r['pk_i_id'].", ".$_r['fk_i_item_id'].", '".$_r['s_name']."', '".$secret."'" ;?>);"  class="delete"><?php _e('Delete', 'digitalgoods'); ?></a>
+                    <div id="<?php echo $_r['pk_i_id'] ; ?>" fkid="<?php echo $_r['fk_i_item_id'];?>" name="<?php echo $_r['s_name'];?>">
+                        <p><?php echo $_r['s_name'] ; ?> <a href="javascript:delete_dg_file(<?php echo $_r['pk_i_id'] . ", " . $_r['fk_i_item_id'] . ", '" . $_r['s_name'] . "', '" . $secret . "'" ;?>);"  class="delete"><?php _e('Delete', 'digitalgoods') ; ?></a></p>
                     </div>
                 <?php }
-            }; ?>
+            } ?>
         <div id="dg_files">
-            <?php if(osc_get_preference('max_files', 'digital_goods')==0 || (osc_get_preference('max_files', 'digital_goods')!=0 && count($dg_files)<  osc_get_preference('max_files', 'digital_goods'))) { ?>
+            <?php if(osc_get_preference('max_files', 'digital_goods') == 0 || (osc_get_preference('max_files', 'digital_goods') != 0 && count($dg_files) < osc_get_preference('max_files', 'digital_goods'))) { ?>
             <div class="row">
                 <input type="file" name="dg_files[]" />
             </div>
-            <?php }; ?>
+            <?php } ?>
         </div>
-        <a href="#" onclick="addNewDG(); return false;"><?php _e('Add new digital file', 'digitalgoods'); ?></a>
+        <div class="row">
+            <a href="#" onclick="addNewDG(); return false;"><?php _e('Add new digital file', 'digitalgoods') ; ?></a>
+        </div>
     </div>
 </div>
-
-
 <script type="text/javascript">
     var dgIndex = 0;
     function gebi(id) { return document.getElementById(id); }
@@ -60,7 +61,7 @@
 
             $("#"+id+" input:file").uniform();
         } else {
-            alert('<?php _e('Sorry, you have reached the maximum number of files per ad');?>');
+            alert('<?php _e('Sorry, you have reached the maximum number of files per ad'); ?>');
         }
     }
 
@@ -101,5 +102,4 @@
             });
         }
     }
-    
 </script>
