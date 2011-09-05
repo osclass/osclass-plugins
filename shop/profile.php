@@ -5,7 +5,7 @@ $items = $conn->osc_dbFetchResults("SELECT * FROM %st_item i, %st_shop_item si W
 $items = Item::newInstance()->extendData($items);
 View::newInstance()->_exportVariableToView('items', $items);
 ?>
-<h1><?php echo sprintf(__('Mi world : %s', 'shop'), osc_user_name()); ?></h1>
+<h1><?php echo sprintf(__('My world : %s', 'shop'), osc_user_name()); ?></h1>
 <div style="clear:both;"></div>
 <div style="width:30%; float:left;">
     <br />

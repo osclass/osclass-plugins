@@ -98,6 +98,21 @@ Short Name: shop
     function shop_user_menu() {
         echo '<li class="opt_shop" ><a href="' . osc_render_file_url(osc_plugin_folder(__FILE__)."menu_buyer.php") . '" >' . __("Items bought", "shop") . '</a></li>' ;
         echo '<li class="opt_shop" ><a href="' . osc_render_file_url(osc_plugin_folder(__FILE__)."menu_seller.php") . '" >' . __("Items sold", "shop") . '</a></li>' ;
+        echo '<li class="opt_shop" ><a href="' . osc_render_file_url(osc_plugin_folder(__FILE__)."favorites.php") . '" >' . __("Favourite sellers", "shop") . '</a></li>' ;
+    }
+    
+    function shop_profile_link($id = NULL) {
+        if($id==NULL || $id=='') {
+            $id = osc_user_id();
+            if($id=='') {
+                $id = osc_item_user_id();
+            }
+        }
+        if($id!='') {
+            return osc_render_file_url(osc_plugin_folder(__FILE__)."profile.php&user_id=").$id;
+        } else {
+            return '';
+        }
     }
 
     /**

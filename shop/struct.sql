@@ -55,3 +55,13 @@ CREATE TABLE  /*TABLE_PREFIX*/t_shop_paypal_log (
 
     PRIMARY KEY(pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
+
+
+CREATE TABLE /*TABLE_PREFIX*/t_shop_favs (
+    fk_i_user_id INT UNSIGNED NOT NULL,
+    fk_i_seller_id INT UNSIGNED NOT NULL,
+
+        FOREIGN KEY (fk_i_user_id) REFERENCES /*TABLE_PREFIX*/t_user (pk_i_id),
+        FOREIGN KEY (fk_i_seller_id) REFERENCES /*TABLE_PREFIX*/t_user (pk_i_id)
+) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
+
