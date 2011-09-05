@@ -104,7 +104,7 @@ Short Name: digitalgoods
                 $files = Params::getFiles('dg_files');
                 if(count($files)>0) {
                     $conn = getConnection() ;
-                    require LIB_PATH . 'osclass/classes/mimes.php';
+                    require LIB_PATH . 'osclass/mimes.php';
                     $aMimesAllowed = array();
                     $aExt = explode(',', osc_get_preference('allowed_ext', 'digitalgoods'));
                     foreach($aExt as $ext){
