@@ -23,7 +23,7 @@
 Plugin Name: Demo hteme
 Plugin URI: http://www.osclass.org/
 Description: Rewrite all the urls adding the parameter theme. In addition, it loads the theme passed in the url as parameter. Ideal for showing different themes.
-Version: 0.9.1
+Version: 1.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: demo_theme
