@@ -30,10 +30,20 @@ Short Name: demo_theme
 */
 
     function change_theme ( ) {
+        if ( Params::getParam('theme') == '' ) {
+            return false ;
+        }
+
         $theme_path = osc_themes_path() . Params::getParam('theme') . '/';
         if ( file_exists($theme_path) ) {
-            WebThemes::newInstance()->setCurrentTheme( Params::getParam('theme') ) ;        
+            WebThemes::newInstance()->setCurrentTheme( Params::getParam('theme') ) ;
+            $functions_path = WebThemes::newInstance()->getCurrentThemePath() . 'functions.php';
+            if ( file_exists($functions_path) ) {
+                require_once $functions_path;
+            }
         }
+
+        return true ;
     }
 
     function urls_theme_parameter ( ) {
@@ -56,8 +66,45 @@ JAVASCRIPT;
         }
     }
 
+    function theme_selector_css ( ) {
+        echo '<link href="' . osc_base_url() . 'oc-content/plugins/demo_theme/custom.css" media="screen" rel="stylesheet" type="text/css" />' ;
+    }
+
+    function theme_selector_top ( ) {
+        $themes         = array();
+        $selected_theme = ( Params::getParam("theme") != '' ) ? Params::getParam("theme") : osc_theme( ) ;
+        $aThemes        = WebThemes::newInstance()->getListThemes();
+        foreach($aThemes as $theme) {
+            $theme_info = WebThemes::newInstance()->loadThemeInfo($theme) ;
+            $themes[]   = array('name' => $theme_info['name'], 'theme' => $theme) ;
+        }
+
+        echo '<script type="text/javascript">' ;
+        echo '    $(document).ready(function () {' ;
+        echo '        var theme = {' ;
+        foreach($themes as $t) {
+            echo '        ' . $t['theme'] . ': "' . $t['name'] . '", ' ;
+        }
+        echo '        } ;';
+        echo '        var base_url = "' . osc_base_url() . '?theme=" ;' ;
+        echo '        $("body").prepend( $("<div>").attr("id", "theme_selector") ) ;' ;
+        echo '        $("#theme_selector").append("' . __('Choose a theme', 'demo_theme') . ' ") ;' ;
+        echo '        $("#theme_selector").append( $("<select>").attr("id", "select_theme") ) ;' ;
+        echo '        $.each(theme, function(key, value) {' ;
+        echo '            $("#select_theme").prepend( $("<option>").html(value).attr("value", key) ) ;' ;
+        echo '        }) ;' ;
+        echo '        $("#select_theme option[value=\'' . $selected_theme .'\']").attr(\'selected\', \'selected\') ;' ;
+        echo '        $("#select_theme").change(function () {' ;
+        echo '            window.location = base_url + $(this).val() ;' ;
+        echo '        }) ;' ;
+        echo '    }) ;' ;
+        echo '</script>' ;
+    }
+
     osc_add_hook('before_html', 'change_theme') ;
 
-    osc_add_hook('footer', 'urls_theme_parameter') ;
+    osc_add_hook('header', 'theme_selector_css') ;
 
+    osc_add_hook('footer', 'urls_theme_parameter') ;
+    osc_add_hook('footer', 'theme_selector_top') ;
 ?>
