@@ -18,9 +18,9 @@ Short Name: digitalgoods
             $sql = file_get_contents($path);
             $conn->osc_dbImportSQL($sql);
             $conn->commit();
-            mkdir(osc_content_path().'uploads/digitalgoods/');
-            osc_set_preference('max_files', '1', 'digitalgoods', 'INTEGER');
+            @mkdir(osc_content_path().'uploads/digitalgoods/');
             osc_set_preference('upload_path', osc_content_path().'uploads/digitalgoods/', 'digitalgoods', 'STRING');
+            osc_set_preference('max_files', '1', 'digitalgoods', 'INTEGER');
             osc_set_preference('allowed_ext', 'zip,rar,tgz', 'digitalgoods', 'INTEGER');
         } catch (Exception $e) {
             $conn->rollback();
@@ -56,6 +56,7 @@ Short Name: digitalgoods
         <ul> 
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'digitalgoods') . '</a></li>
             <li><a href="'.osc_admin_configure_plugin_url("digitalgoods/index.php").'">&raquo; ' . __('Configure categories', 'digitalgoods') . '</a></li>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'stats.php') . '">&raquo; ' . __('Stats', 'digitalgoods') . '</a></li>
         </ul>';
     }
     
@@ -147,8 +148,8 @@ Short Name: digitalgoods
                             }
                         }
                     }
-                    if($failed) { // THIS MESSAGE IS NOT SHOW
-                        osc_add_flash_error_message(__('Some of the files were not uploaded because they have incorrect extension', 'digitalgoods'));
+                    if($failed) {
+                        osc_add_flash_error_message(__('Some of the files were not uploaded because they have incorrect extension', 'digitalgoods'),'admin');
                     }
                 }
             }
