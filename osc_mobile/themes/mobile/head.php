@@ -32,5 +32,6 @@
 
 <script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.min.js') ; ?>"></script>
 <script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.mobile-1.0b2.min.js') ; ?>"></script>
+<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery-ui.js') ; ?>"></script>
 
 <?php osc_run_hook('header') ; ?>

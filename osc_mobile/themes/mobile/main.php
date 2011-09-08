@@ -27,25 +27,37 @@
         <meta name="googlebot" content="index, follow" />
     </head>
     <body>
-        <?php osc_current_web_theme_path('header.php') ; ?>
-        <?php if(osc_count_categories () > 0) { ?>
-            <?php while ( osc_has_categories() ) { ?>
-            <div data-role="collapsible" data-collapsed="true">
-                <?php if ( osc_count_subcategories() > 0 ) { ?>
-                <h3><?php echo osc_category_name() ; ?></h3>
-                <ul data-role="listview" data-inset="true" data-theme="d">
-                    <?php while ( osc_has_subcategories() ) { ?>
-                    <li><a href="<?php echo str_replace(osc_base_url(), '', osc_search_category_url() ) ; ?>"><?php echo osc_category_name() ; ?></a></li>
+        <div data-role="page" data-title="<?php echo osc_page_title() ; ?>">
+
+            <div data-role="header">
+                <?php osc_current_web_theme_path('header.php') ; ?>
+                <h1><?php echo osc_page_title() ; ?></h1>
+            </div><!-- /header -->
+
+            <div data-role="content">
+                <?php if(osc_count_categories () > 0) { ?>
+                    <?php while ( osc_has_categories() ) { ?>
+                    <div data-role="collapsible" data-collapsed="true">
+                        <?php if ( osc_count_subcategories() > 0 ) { ?>
+                        <h3><?php echo osc_category_name() ; ?></h3>
+                        <ul data-role="listview" data-inset="true" data-theme="d">
+                            <?php while ( osc_has_subcategories() ) { ?>
+                            <li><a href="<?php echo str_replace(osc_base_url(), '', osc_search_category_url() ) ; ?>"><?php echo osc_category_name() ; ?></a></li>
+                            <?php } ?>
+                        </ul>
+                        <?php } else { ?>
+                        <h3><a href="<?php echo str_replace(osc_base_url(), '', osc_search_category_url() ) ; ?>"><?php echo osc_category_name() ; ?></a></h3>
+                        <?php } ?>
+                    </div>
                     <?php } ?>
-                </ul>
-                <?php } else { ?>
-                <h3><a href="<?php echo str_replace(osc_base_url(), '', osc_search_category_url() ) ; ?>"><?php echo osc_category_name() ; ?></a></h3>
                 <?php } ?>
-            </div>
-            <?php } ?>
-        <?php } ?>
-        <?php osc_current_web_theme_path('footer.php') ; ?>
-        <?php osc_show_flash_message() ; ?>
-        <?php osc_run_hook('footer'); ?>
+            </div><!-- /content -->
+
+            <div data-role="footer">
+                <?php osc_current_web_theme_path('footer.php') ; ?>
+                <?php osc_run_hook('footer'); ?>
+            </div><!-- /footer -->
+            
+        </div>
     </body>
 </html>
