@@ -1,6 +1,10 @@
 Changelog demo theme
 ====================
 
+##version 1.0.1 - 08/09/2011
+
+* Added z-index to class .FlashMessage so it will appear above the selector of the themes
+
 ##version 1.0 - 07/09/2011
 
 * Fixed some minor bugs and added a css style to the div
