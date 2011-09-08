@@ -34,10 +34,10 @@
         <?php echo osc_private_user_menu(); ?>
     </div>
     <div id="main">
-        <h2><?php _e('Here is your favorite items', 'watchlist'); ?></h2>
         <?php if (osc_count_items() == 0) { ?>
         <h3><?php _e('You don\'t have any items yet', 'watchlist'); ?></h3>
         <?php } else { ?>
+        <h3><?php printf(_n('You are watching %d item', 'You are watcihng %d items', $iTotalItems, 'watchlist'), $iTotalItems) ; ?></h3>
         <div class="ad_list">
             <div id="list_head"></div>
             <table border="0" cellspacing="0">

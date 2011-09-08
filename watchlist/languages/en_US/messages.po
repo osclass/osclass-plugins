@@ -2,18 +2,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: watchlist\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-14 13:07+0100\n"
-"PO-Revision-Date: 2011-07-14 13:08+0100\n"
+"POT-Creation-Date: 2011-09-08 18:18+0100\n"
+"PO-Revision-Date: 2011-09-08 18:18+0100\n"
 "Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
 "Language-Team: Richard Martin <keny10@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Language: French\n"
-"X-Poedit-Country: CANADA\n"
-"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
 "X-Poedit-SearchPath-0: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist\n"
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/ajax_watchlist.php:19
@@ -54,11 +55,11 @@ msgid "Of course you can. Watchlist display a link only you can use css to make 
 msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/help.php:52
-msgid "Did Watchlist plugin work with all version of Osclass?"
+msgid "Did Watchlist plugin work with all version of OSClass?"
 msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/help.php:55
-msgid "In order to work this pluggin need OsClass v2.2 and up without this version pluggin will crashYou have OsClass "
+msgid "In order to work this pluggin need OSClass v2.2 and up without this version pluggin will crash"
 msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/help.php:58
@@ -66,31 +67,34 @@ msgstr ""
 msgid "You have %s version"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/index.php:16
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/index.php:18
 msgid "Add to watchlist"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/index.php:21
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/index.php:23
 msgid "Watchlist"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:30
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:31
 msgid "Your watchlist"
-msgstr ""
-
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:36
-msgid "Here is your favorite items"
 msgstr ""
 
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:38
 msgid "You don't have any items yet"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:64
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:40
+#, php-format
+msgid "You are watching %d item"
+msgid_plural "You are watcihng %d items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:65
 msgid "This action can not be undone. Are you sure you want to continue?"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:64
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:65
 msgid "Delete"
 msgstr ""
 

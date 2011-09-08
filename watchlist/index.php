@@ -3,13 +3,15 @@
   Plugin Name: Watchlist
   Plugin URI: http://www.osclass.org/
   Description: This plugin add possibility for user to watch items.
-  Version: 1.0.1
+  Version: 1.0.2
   Author: Richard Martin (keny)
   Author URI: http://www.proodi.com
   Author Email: keny10@gmail.com
   Short Name: WatchList
   Plugin update URI: http://www.osclass.org/
  */
+
+    define('WATCHLIST_VERSION', '1.0.2') ;
 
     function watchlist() {
         echo '<a href="javascript://" class="watchlist" id="' . osc_item_id() . '">' ;
@@ -34,11 +36,12 @@
     }
 
     function watchlist_header() {
-        echo '<!-- Watchlist js -->';
-        echo '<script type="text/javascript">';
-        echo 'var watchlist_url = "' . osc_ajax_plugin_url('watchlist/ajax_watchlist.php') . '";';
-        echo '</script>';
-        echo '<script type="text/javascript" src="' . osc_plugin_url('watchlist/js/watchlist.js') . 'watchlist.js"></script>';
+        echo '<!-- Watchlist js -->' ;
+        echo '<script type="text/javascript">' ;
+        echo 'var watchlist_url = "' . osc_ajax_plugin_url('watchlist/ajax_watchlist.php') . '" ;' ;
+        echo '</script>' ;
+        echo '<script type="text/javascript" src="' . osc_plugin_url('watchlist/js/watchlist.js') . 'watchlist.js"></script>' ;
+        echo '<!-- Watchlist js end -->' ;
     }
 
     function watchlist_delete_item($item) {
