@@ -27,6 +27,7 @@ CREATE TABLE /*TABLE_PREFIX*/t_shop_transactions (
     i_seller_score INT UNSIGNED NULL,
     s_buyer_comment VARCHAR( 200 ) NULL ,
     s_seller_comment VARCHAR( 200 ) NULL ,
+    s_code VARCHAR( 12 ) NULL ,
     f_item_price FLOAT NULL DEFAULT 0,
     s_currency VARCHAR(3) NULL,
     e_status ENUM('SOLD','PAID', 'SHIPPED', 'VOTE_BUYER', 'ENDED'),
@@ -63,5 +64,19 @@ CREATE TABLE /*TABLE_PREFIX*/t_shop_favs (
 
         FOREIGN KEY (fk_i_user_id) REFERENCES /*TABLE_PREFIX*/t_user (pk_i_id),
         FOREIGN KEY (fk_i_seller_id) REFERENCES /*TABLE_PREFIX*/t_user (pk_i_id)
+) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
+
+CREATE TABLE /*TABLE_PREFIX*/t_shop_message (
+    pk_i_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    fk_i_item_id INT UNSIGNED NULL,
+    fk_i_from_id INT UNSIGNED NOT NULL,
+    fk_i_to_id INT UNSIGNED NOT NULL,
+    s_comment TEXT NULL,
+    dt_date DATETIME NOT NULL,
+
+        PRIMARY KEY(pk_i_id),
+        FOREIGN KEY (fk_i_item_id) REFERENCES /*TABLE_PREFIX*/t_item (pk_i_id),
+        FOREIGN KEY (fk_i_from_id) REFERENCES /*TABLE_PREFIX*/t_user (pk_i_id),
+        FOREIGN KEY (fk_i_to_id) REFERENCES /*TABLE_PREFIX*/t_user (pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
 

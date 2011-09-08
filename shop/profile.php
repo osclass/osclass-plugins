@@ -15,9 +15,9 @@ View::newInstance()->_exportVariableToView('items', $items);
     <br />
     <br />
     <ul>
-        <li><a href="<?php echo osc_render_file_url(osc_plugin_folder(__FILE__)."items.php"); ?>" ><?php echo sprintf(__("More items from %s", "shop"), osc_user_name()); ?></a></li>
-        <li><a href="<?php echo osc_render_file_url(osc_plugin_folder(__FILE__)."favorites.php"); ?>" ><?php _e("Add seller to favorites", "shop"); ?></a></li>
-        <li><a href="<?php echo osc_render_file_url(osc_plugin_folder(__FILE__)."contact.php"); ?>" ><?php _e("Contact seller", "shop"); ?></a></li>
+        <li><a href="<?php echo osc_search_url(array('sUser' => osc_user_id()));?>" ><?php echo sprintf(__("More items from %s", "shop"), osc_user_name()); ?></a></li>
+        <li><a href="<?php echo osc_render_file_url(osc_plugin_folder(__FILE__)."favorites.php?add=".osc_user_id()); ?>" ><?php _e("Add seller to favorites", "shop"); ?></a></li>
+        <li><a href="<?php echo osc_render_file_url(osc_plugin_folder(__FILE__)."contact.php?toid=".osc_user_id()); ?>" ><?php _e("Contact seller", "shop"); ?></a></li>
     </ul>
 </div>
 <div style="width:70%; float:left;">

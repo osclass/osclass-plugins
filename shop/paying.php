@@ -25,6 +25,7 @@ if($amount<0) { $amount = 1; }; ?>
          </div>
      </div>
 </div>
+<?php if(osc_item_user_id()!=null && osc_item_user_id()!=0) { ?>
 <?php if(Params::getParam('step')=='done') { ?>
 <div style="width:50%; float:left; height:150px;">
     <?php if(osc_item_user_id()!=osc_logged_user_id()) {
@@ -36,14 +37,16 @@ if($amount<0) { $amount = 1; }; ?>
             if($amount>$shop_item['i_amount']) {
                 $amount = $shop_item['i_amount'];
             }
-                $conn->osc_dbExec("INSERT INTO %st_shop_transactions (fk_i_item_id, fk_i_user_id, fk_i_buyer_id, i_amount, f_item_price, s_currency, e_status) VALUES (%d, %d, %d, %d, %f, '%s', 'SOLD')", DB_TABLE_PREFIX, osc_item_id(), osc_item_user_id(), osc_logged_user_id(), $amount, osc_item_price(), osc_item_currency());
+                $txn_code = strtoupper(osc_genRandomPassword(12));
+                $conn->osc_dbExec("INSERT INTO %st_shop_transactions (fk_i_item_id, fk_i_user_id, fk_i_buyer_id, i_amount, f_item_price, s_currency, e_status, s_code) VALUES (%d, %d, %d, %d, %f, '%s', 'SOLD', '%s')", DB_TABLE_PREFIX, osc_item_id(), osc_item_user_id(), osc_logged_user_id(), $amount, osc_item_price(), osc_item_currency(), $txn_code);
                 $transaction = $conn->get_last_id();
                 $conn->osc_dbExec("INSERT INTO %st_shop_log (fk_i_transaction_id, e_status, fk_i_user_id, dt_date) VALUES (%d, 'SOLD', %d, '%s')", DB_TABLE_PREFIX, $transaction, osc_item_user_id(), date('Y-m-d H:i:s'));
                 $conn->osc_dbExec("UPDATE %st_shop_item SET i_amount = %d WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $shop_item['i_amount']-$amount, osc_item_id());
+                shop_send_sold_email($transaction);
 
             if($detail['b_accept_paypal']==1) {
-                $ENDPOINT     = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
-                //$ENDPOINT     = 'https://www.paypal.com/cgi-bin/webscr';
+                //$ENDPOINT     = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+                $ENDPOINT     = 'https://www.paypal.com/cgi-bin/webscr';
 
                 $r = rand(0,1000);
                 $rpl = osc_item_id()."|".$amount."|".osc_item_price()."|".osc_item_currency()."|".$r;
@@ -58,7 +61,7 @@ if($amount<0) { $amount = 1; }; ?>
                 <form action="<?php echo $ENDPOINT; ?>" method="post" id="payment_<?php echo $r; ?>">
                   <input type="hidden" name="cmd" value="_xclick" />
                   <input type="hidden" name="upload" value="1" />
-                  <input type="hidden" name="business" value="<?php echo "user_1290337858_per@deportivosantaana.com";/*osc_item_contact_email();*/ ?>" />
+                  <input type="hidden" name="business" value="<?php echo osc_item_contact_email(); ?>" />
                   <input type="hidden" name="item_name" value="<?php echo osc_item_title(); ?>" />
                   <input type="hidden" name="item_number" value="<?php echo $transaction; ?>" />
                   <input type="hidden" name="amount" value="<?php echo osc_item_price(); ?>" />
@@ -77,9 +80,13 @@ if($amount<0) { $amount = 1; }; ?>
                   <div class="right"><a id="button-confirm" class="button" onclick="$('#payment_<?php echo $r; ?>').submit();"><span><img src='<?php echo osc_base_url().'oc-content/plugins/'.osc_plugin_folder(__FILE__); ?>paypal.gif' border='0' /></span></a></div>
                 </div>
             <?php }; ?>
-            <?php if($detail['b_accept_bank_transfer']==1) { ?>
-                CODE FOR BANK TRANSFER
-            <?php }; ?>
+            <?php if($detail['b_accept_bank_transfer']==1) { 
+                $instructions = sprintf(__('Seller accepts bank transfers as payment, please contact the seller to knowmore details about this payment option. Remember your transaction #ID is "%s"', 'shop'), $txn_code);
+                $instructions .= "<br /><br />";
+                $instructions .= '<a href="'.osc_render_file_url(osc_plugin_folder(__FILE__)."contact.php?toid=".osc_item_user_id()."&related=".osc_item_id()).'" >'.__('Click here to contact seller', 'shop').'</a>';
+                $instructions .= "<br /><br />";
+                echo $instructions;
+            }; ?>
             <br />
             <?php _e('Contact the seller to gather more information about payment methods allowed', 'shop'); ?>
             <?php /* CODE FOR PRIVATE MESSAGES MODULE */ ?>
@@ -128,3 +135,8 @@ if($amount<0) { $amount = 1; }; ?>
 </div>
 <?php }; ?>
 <div style="clear:both;"></div>
+<?php } else { ?>
+<div style="width:50%; float:left; height:150px;">
+    <?php _e('Some error ocurred, we can not process the payment right now', 'shop'); ?>
+</div>
+<?php } ?>

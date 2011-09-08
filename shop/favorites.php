@@ -20,43 +20,53 @@ $favs = $conn->osc_dbFetchResults("SELECT * FROM %st_shop_favs f, %st_user u WHE
 
 
 ?>
-<h1><?php echo _e('My favourites', 'shop'); ?></h1>
-<div style="clear:both;"></div>
-<div>
-    <?php foreach($favs as $fav) {
-        View::newInstance()->_exportVariableToView('items', Item::newInstance()->findByUserIDEnabled($fav['fk_i_seller_id'], 0, 5));
-        View::newInstance()->_exportVariableToView('user', $fav);
-    ?>
-    <h2><?php _e("Seller", 'shop');?></h2>
-    <?php echo osc_user_name(); ?> 
-        <h3><?php _e('Items'); ?></h3>
-        <table border="0" cellspacing="0">
-            <tbody>
-                <?php $class = "even" ; ?>
-                <?php while(osc_has_items()) { ?>
-                    <tr class="<?php echo $class; ?>">
-                        <?php if( osc_images_enabled_at_items() ) { ?>
-                         <td class="photo">
-                             <?php if(osc_count_item_resources()) { ?>
-                                <a href="<?php echo osc_item_url() ; ?>"><img src="<?php echo osc_resource_thumbnail_url() ; ?>" width="75px" height="56px" title="" alt="" /></a>
-                            <?php } else { ?>
-                                <img src="<?php echo osc_current_web_theme_url('images/no_photo.gif') ; ?>" title="" alt="" />
-                            <?php } ?>
-                         </td>
-                         <?php } ?>
-                         <td class="text">
-                             <h3>
-                                 <a href="<?php echo osc_item_url() ; ?>"><?php echo osc_item_title() ; ?></a>
-                             </h3>
-                             <p>
-                                 <strong><?php if( osc_price_enabled_at_items() ) { echo osc_item_formated_price() ; ?> - <?php } echo osc_item_city(); ?> (<?php echo osc_item_region(); ?>) - <?php echo osc_format_date(osc_item_pub_date()); ?></strong>
-                             </p>
-                             <p><?php echo osc_highlight( strip_tags( osc_item_description() ) ) ; ?></p>
-                         </td>
-                     </tr>
-                    <?php $class = ($class == 'even') ? 'odd' : 'even' ; ?>
-                <?php } ?>
-            </tbody>
-        </table>
-        <?php }; ?>
+<div class="content user_account">
+    <h1>
+        <strong><?php _e('User account manager', 'shop') ; ?></strong>
+    </h1>
+    <div id="sidebar">
+        <?php echo osc_private_user_menu() ; ?>
+    </div>
+    <div id="main">
+        <h2><?php echo _e('My favourites', 'shop'); ?></h2>
+        <div style="clear:both;"></div>
+        <div>
+            <?php foreach($favs as $fav) {
+                View::newInstance()->_exportVariableToView('items', Item::newInstance()->findByUserIDEnabled($fav['fk_i_seller_id'], 0, 3));
+                View::newInstance()->_exportVariableToView('user', $fav);
+            ?>
+            <h2><?php _e("Seller", 'shop');?></h2>
+            <?php echo osc_user_name(); ?> 
+                <h3><?php _e('Items'); ?></h3>
+                <table border="0" cellspacing="0">
+                    <tbody>
+                        <?php $class = "even" ; ?>
+                        <?php while(osc_has_items()) { ?>
+                            <tr class="<?php echo $class; ?>">
+                                <?php if( osc_images_enabled_at_items() ) { ?>
+                                 <td class="photo">
+                                     <?php if(osc_count_item_resources()) { ?>
+                                        <a href="<?php echo osc_item_url() ; ?>"><img src="<?php echo osc_resource_thumbnail_url() ; ?>" width="75px" height="56px" title="" alt="" /></a>
+                                    <?php } else { ?>
+                                        <img src="<?php echo osc_current_web_theme_url('images/no_photo.gif') ; ?>" title="" alt="" />
+                                    <?php } ?>
+                                 </td>
+                                 <?php } ?>
+                                 <td class="text">
+                                     <h3>
+                                         <a href="<?php echo osc_item_url() ; ?>"><?php echo osc_item_title() ; ?></a>
+                                     </h3>
+                                     <p>
+                                         <strong><?php if( osc_price_enabled_at_items() ) { echo osc_item_formated_price() ; ?> - <?php } echo osc_item_city(); ?> (<?php echo osc_item_region(); ?>) - <?php echo osc_format_date(osc_item_pub_date()); ?></strong>
+                                     </p>
+                                     <p><?php echo osc_highlight( strip_tags( osc_item_description() ) ) ; ?></p>
+                                 </td>
+                             </tr>
+                            <?php $class = ($class == 'even') ? 'odd' : 'even' ; ?>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <?php }; ?>
+        </div>
+    </div>
 </div>
