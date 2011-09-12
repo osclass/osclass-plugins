@@ -321,6 +321,39 @@ Short Name: shop
         
     }
     
+    
+    
+    function shop_calculate_scores() {
+        $conn = getConnection();
+        $buyers = $conn->osc_dbFetchResults("SELECT fk_i_buyer_id as pk_i_id, SUM(i_buyer_score) as i_score, COUNT(*) as i_transactions FROM `oc_t_shop_transactions` WHERE e_status = 'ENDED' GROUP BY fk_i_buyer_id");
+        $sellers = $conn->osc_dbFetchResults("SELECT fk_i_user_id as pk_i_id, SUM(i_seller_score) as i_score, COUNT(*) as i_transactions FROM `oc_t_shop_transactions` WHERE e_status = 'ENDED' GROUP BY fk_i_buyer_id");
+        $users = array();
+        foreach($buyers as $u) {
+            $users[$u['pk_i_id']]['score'] = $u['i_score'];
+            $users[$u['pk_i_id']]['txn'] = $u['i_transactions'];
+        }
+        foreach($sellers as $u) {
+            if(!isset($users[$u['pk_i_id']])) {
+                $users[$u['pk_i_id']]['score'] = $u['i_score'];
+                $users[$u['pk_i_id']]['txn'] = $u['i_transactions'];
+            } else {
+                $users[$u['pk_i_id']]['score'] = $users[$u['pk_i_id']]['score']+$u['i_score'];
+                $users[$u['pk_i_id']]['txn'] = $users[$u['pk_i_id']]['txn']+$u['i_transactions'];
+            }
+        }
+        foreach($users as $k => $v) {
+            $conn->osc_dbExec("UPDATE %st_shop_user SET `f_score` = %f WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, ($v['score']/$v['txn']), $k);
+        }
+    }
+    
+    function shop_new_user($user_id) {
+        $conn->osc_dbExec("INSERT INTO %st_shop_user (fk_i_user_id, f_score, i_total_sales, i_total_buys) values (%d, 0, 0, 0)", DB_TABLE_PREFIX, $user_id);
+    }
+    
+    function shop_new_item($cat_id, $item_id) {
+        $conn->osc_dbExec("INSERT INTO %st_shop_item (fk_i_item_id, i_amount, b_digital, b_accept_paypal, b_accept_bank_transfer) values (%d, 0, 0, 0, 0)", DB_TABLE_PREFIX, $item_id);
+    }
+    
 
     /**
      * ADD HOOKS
@@ -339,7 +372,10 @@ Short Name: shop
 
     osc_add_hook('delete_item', 'shop_delete_item');
     
-    
     osc_add_hook('user_menu', 'shop_user_menu');
+    
+    osc_add_hook('cron_hourly', 'shop_calculate_scores');
+    osc_add_hook('user_register_completed', 'shop_new_user');
+    osc_add_hook('item_form_post', 'shop_new_item');
       
 ?>

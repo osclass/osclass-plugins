@@ -42,6 +42,10 @@ if($amount<0) { $amount = 1; }; ?>
                 $transaction = $conn->get_last_id();
                 $conn->osc_dbExec("INSERT INTO %st_shop_log (fk_i_transaction_id, e_status, fk_i_user_id, dt_date) VALUES (%d, 'SOLD', %d, '%s')", DB_TABLE_PREFIX, $transaction, osc_item_user_id(), date('Y-m-d H:i:s'));
                 $conn->osc_dbExec("UPDATE %st_shop_item SET i_amount = %d WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $shop_item['i_amount']-$amount, osc_item_id());
+                $seller = $conn->osc_dbFetchResult("SELECT * FROM %st_shop_user WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, osc_item_user_id());
+                $buyer = $conn->osc_dbFetchResult("SELECT * FROM %st_shop_user WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, osc_logged_user_id());
+                $conn->osc_dbExec("UPDATE %st_shop_user SET i_total_sales = %d WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, $seller['i_total_sales']+1, $seller['fk_i_user_id']);
+                $conn->osc_dbExec("UPDATE %st_shop_user SET i_total_buys = %d WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, $buyer['i_total_buys']+1, $buyer['fk_i_user_id']);
                 shop_send_sold_email($transaction);
 
             if($detail['b_accept_paypal']==1) {
