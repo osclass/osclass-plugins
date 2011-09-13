@@ -1,0 +1,76 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "View your watchlist"
+msgstr "Ver la lista de seguimiento"
+
+msgid "Please login"
+msgstr "Porfavor inicie sesión"
+
+msgid "Watchlist Help"
+msgstr "Ayuda lista de seguimiento "
+
+msgid "What is Watchlist Plugin?"
+msgstr "Qué es la lista de seguimiento?"
+
+msgid "Watchlist plugin allows you to display a link that will allow user to save items on a watchlist page"
+msgstr "Lista de seguimiento te permite visualizar un enlance que permitirá guardar items en la página lista de seguimiento"
+
+msgid "How does Watchlist plugin work?"
+msgstr "¿Cómo funciona el plugin Lista de seguimiento?"
+
+msgid "In order to use Watchlist plugin, you should edit your theme files and add the following line anywhere in the code you want the Watchlist link to appear"
+msgstr "Con el fin de utilizar el plugin lista de seguimiento, debes editar los archivos de temas y añadir la siguiente línea en cualquier parte del código que desee que aprezca el enlace de lista de seguimiento"
+
+msgid "Could I cutomize the style of Watchlist plugin?"
+msgstr "¿Puedo personalizar el estilo de plugin de la lista de seguimiento?"
+
+msgid "Of course you can. Watchlist display a link only you can use css to make a button or anything else"
+msgstr "Por supuesto que puede. Lista de seguimiento mostrará un enlace usted sólo se puede usar CSS para hacer un botón o cualquier otra cosa"
+
+msgid "Did Watchlist plugin work with all version of OSClass?"
+msgstr "¿El plugin Lista de seguimiento funcinona con todas las versiones de OSClass?"
+
+msgid "In order to work this pluggin need OSClass v2.2 and up without this version pluggin will crash"
+msgstr "Para trabajar con este plugin necesita OSClass v2.2 y superiores sin el plugin fallará"
+
+msgid "You have %s version"
+msgstr "Usted tiene la versión %s"
+
+msgid "Add to watchlist"
+msgstr "Anadir a Lista de seguimiento"
+
+msgid "Watchlist"
+msgstr "Lista de seguimiento"
+
+msgid "Your watchlist"
+msgstr "Tú Lista de seguimiento"
+
+msgid "You don't have any items yet"
+msgstr "Aún no tiene ningún item"
+
+msgid "You are watching %d item"
+msgid_plural "You are watcihng %d items"
+msgstr[0] "Estas mirando %d item"
+msgstr[1] "Estas mirando %d items"
+
+msgid "This action can not be undone. Are you sure you want to continue?"
+msgstr "Esta acción no se puede deshacer. ¿Está seguro de que quiere continuar?"
+

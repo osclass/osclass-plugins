@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "View your watchlist"
+msgstr "Просмотреть избранное"
+
+msgid "Please login"
+msgstr "Пожалуйста, войдите"
+
+msgid "Watchlist Help"
+msgstr "Помошь по Избранному"
+
+msgid "What is Watchlist Plugin?"
+msgstr "Что такое плагин \"Избранное\"?"
+
+msgid "Watchlist plugin allows you to display a link that will allow user to save items on a watchlist page"
+msgstr "Плагин \"Избранное\" позволяет вам отображать ссылку, которая даст возможность пользователю добавлять объявления в Избранное"
+
+msgid "How does Watchlist plugin work?"
+msgstr "Как работает плагин \"Избранное\"?"
+
+msgid "In order to use Watchlist plugin, you should edit your theme files and add the following line anywhere in the code you want the Watchlist link to appear"
+msgstr "Для того, что использовать плагин \"Избранное\", вам необходимо отредактировать файлы вашей темы и добавить следующую строчку в том месте, где вы хотите видеть ссылку \"добавить в избранное\""
+
+msgid "Could I cutomize the style of Watchlist plugin?"
+msgstr "Могу ли я изменить стиль плагина \"Избранное\"?"
+
+msgid "Of course you can. Watchlist display a link only you can use css to make a button or anything else"
+msgstr "Конечно, можете. \"Избранное\" отображает ссылку. Можно использовать CSS чтобы превратить её в кнопку или что-нибудь ещё."
+
+msgid "Did Watchlist plugin work with all version of OSClass?"
+msgstr "Плагин \"Избранное\" работает со всеми версиями OSClass?"
+
+msgid "In order to work this pluggin need OSClass v2.2 and up without this version pluggin will crash"
+msgstr "Для работы плагину требуется OSClass версии 2.2 и выше. В противном случае плагин не будет работать"
+
+msgid "You have %s version"
+msgstr "Вы используете версию %s "
+
+msgid "Add to watchlist"
+msgstr "Добавить в избранное"
+
+msgid "Watchlist"
+msgstr "Избранное"
+
+msgid "Your watchlist"
+msgstr "Ваше избранное"
+
+msgid "You don't have any items yet"
+msgstr "У вас ещё нет избранных объявлений"
+
+msgid "You are watching %d item"
+msgstr "Объявлений в избранном %d"
+
+msgid "This action can not be undone. Are you sure you want to continue?"
+msgstr "Это действие невозможно будет отменить. Вы уверены, что хотите продолжить?"
+
+msgid "You are watcihng %d items"
+msgstr "Объявлений в избранном: %в"
+
