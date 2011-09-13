@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "Поздравляю. Теперь плагин настроен"
+
+msgid "Facebook Options"
+msgstr "Опции Facebook"
+
+msgid "Please enter your Facebook appId and secret*:"
+msgstr "Пожалуйста, введите ваш appid и secret* для Facebook"
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Facebook Connect Help"
+msgstr "Помошь по Facebook Connect"
+
+msgid "What is Facebook Connect Plugin?"
+msgstr "Что такое - плагин \"Facebook connect\"?"
+
+msgid "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
+msgstr "Facebook Connect позволяет вашим пользователям авторизироваться на вашем сайте с помошью их аккаунтов в Facebook"
+
+msgid "Using Facebook login"
+msgstr "Как использовать плагин \"Facebook Connect\"?"
+
+msgid "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
+msgstr "Вы можете получить appid и секретный ключ (необходимы для работы плагина) посетив эту ссылку"
+
+msgid "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
+msgstr "Для того, что использовать авторизацию через Facebook, вы должны подключить как минимум одну кнопку для аторизации (и выхода). Для этого поместите следующий код туда, где хотите видеть кнопку"
+
+msgid "You can freely obtain an appId and secret key after signing up on this URL"
+msgstr "Вы можете свободно получить appid и секретный ключ после перехода по этой ссылке"
+
+msgid "Logout"
+msgstr "Выйти"
+
+msgid "Login with Facebook"
+msgstr "Войти через Facebook"
+
+msgid "The username doesn't exist"
+msgstr "Такого пользователя не существует"
+
+msgid "The user has not been validated yet"
+msgstr "Пользователь ещё не подтвердил регистрацию"
+
+msgid "The user has been suspended"
+msgstr "Пользователь заблокирован"
+
+msgid "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook"
+msgstr "Пользователь с таки e-mail адресом уже существует. Зайдите в свой аккаунт, чтобы связать его с Facebook"
+
+msgid "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook."
+msgstr "Пользователь с таки e-mail адресом уже существует. Зайдите в свой аккаунт, чтобы связать его с Facebook"
+
+msgid "Some error occured trying to connect with Facebook."
+msgstr "Произошла ошибка во время авторизации через Facebook"
+
+msgid "An automatic account for %s has been created. You'll receive an email to confirm"
+msgstr "Автоматический аккаунт для %s был создан. Вы получите e-mail для подтверждения"
+
+msgid "An automatic account for %s has been created. You're ready to go"
+msgstr "Автоматический аккаунт для %s был создан. Пользуйтесь."
+
