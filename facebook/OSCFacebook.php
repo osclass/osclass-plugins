@@ -129,7 +129,7 @@ class OSCFacebook {
             $userId = $manager->getConnection()->get_last_id() ;
             $conn->osc_dbExec(sprintf("REPLACE INTO `%st_facebook_connect` SET `fk_i_user_id` = %d, `i_facebook_uid` = '%s'", DB_TABLE_PREFIX, $userId, $user['id']));
 
-            osc_run_hook('user_register_completed') ;
+            osc_run_hook('user_register_completed', $userId) ;
             
             if( osc_user_validation_enabled()) {
                 $user = $manager->findByPrimaryKey($userId) ;
