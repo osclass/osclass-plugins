@@ -16,8 +16,8 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 
 msgid "Youtube video"
-msgstr "Video de Youtube"
+msgstr "Youtube ویدیو"
 
 msgid "Enter the youtube url, i.e.: <em>%s</em> or <em>%s</em>"
-msgstr "Introduce la dirección del vídeo en youtube, p.e.: <em>%s</em> o <em>%s</em>"
+msgstr "آدرس ویدیو خود را در یوتیوب وارد کنید, i.e.: <em>%s</em> or <em>%s</em>"
 
