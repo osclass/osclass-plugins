@@ -1,0 +1,161 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Add new"
+msgstr "Pievienot jaunu"
+
+msgid "Warning"
+msgstr "Uzmanību"
+
+msgid "Configure plugin"
+msgstr "Nokonfigurēt plugin"
+
+msgid "New"
+msgstr "Jauns"
+
+msgid "Type"
+msgstr "Veids"
+
+msgid "Heating"
+msgstr "Apkure"
+
+msgid "Air condition"
+msgstr "Kondicionieris"
+
+msgid "Elevator"
+msgstr "Lifts"
+
+msgid "Terrace"
+msgstr "Terase"
+
+msgid "Parking"
+msgstr "Stāvvieta"
+
+msgid "Property types"
+msgstr "Īpašuma veidi"
+
+msgid "Add new property types"
+msgstr "Pievienot jaunu īpašuma veidu"
+
+msgid "Deleting property types may end in errors. Some of those property types could be attached to some actual items"
+msgstr "Izdzēšot īpašuma veidiem var beigties kļūdas. Daži no tiem īpašuma veidiem varētu pievienot kādas faktiskās preces"
+
+msgid "Realestate attributes"
+msgstr "Nekustamo īpašumu atribūti"
+
+msgid "Property type"
+msgstr "Īpašuma veids"
+
+msgid "Num. Rooms"
+msgstr "Istabas"
+
+msgid "Num. Bathrooms"
+msgstr "Vanasistabas"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Square Meters"
+msgstr "Kvadrātmetru"
+
+msgid "Square Meters (total)"
+msgstr "Kopējā platība"
+
+msgid "Num. Floors"
+msgstr "Stāvu skaits"
+
+msgid "Construction Year"
+msgstr "Uzcelšanas gads"
+
+msgid "Condition"
+msgstr "Stāvoklis"
+
+msgid "Agency"
+msgstr "Kompānija"
+
+msgid "Floor Number"
+msgstr "Stāvs"
+
+msgid "Transport"
+msgstr "Transports"
+
+msgid "Zone"
+msgstr "Zona"
+
+msgid "Other characteristics"
+msgstr "Papilldus informācija"
+
+msgid "Furnished"
+msgstr "Mēbelēts"
+
+msgid "By Owner"
+msgstr "Īpašnieks"
+
+msgid "For rent"
+msgstr "Iznomā"
+
+msgid "For sale"
+msgstr "Pārdod"
+
+msgid "Num. of rooms"
+msgstr "Istabu skaits"
+
+msgid "Num. of bathrooms"
+msgstr "Vanasistabu skaits"
+
+msgid "New construction"
+msgstr "Jaunceltne"
+
+msgid "To renovate"
+msgstr "Renovācijai"
+
+msgid "Good condition"
+msgstr "Labā stāvoklī"
+
+msgid "Num. of floors"
+msgstr "Stāvu skaits"
+
+msgid "Num. of garages (place for a car = one garage)"
+msgstr "Garāžu skaits ( vieta vienai mašīnai = viena garāža)"
+
+msgid "Select a property type"
+msgstr "Izvēlieties īpašuma veidu"
+
+msgid "Num. Floors Range"
+msgstr "Stāvu skaits"
+
+msgid "Rooms Range"
+msgstr "Istabu platība"
+
+msgid "Bathrooms Range"
+msgstr "Vannas istabas platība"
+
+msgid "Garages Range"
+msgstr "Garāžas platība"
+
+msgid "Construction year Range"
+msgstr "Uzcelta"
+
+msgid "Square Meters Range"
+msgstr "Kopējā platība"
+
