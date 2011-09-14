@@ -3,7 +3,7 @@
 Plugin Name: Ads 4 OSClass
 Plugin URI: http://www.osclass.org/
 Description: Manage your advertising strategy.
-Version: 0.9.1
+Version: 0.9.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: advman

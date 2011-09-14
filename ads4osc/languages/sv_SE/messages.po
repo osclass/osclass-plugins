@@ -1,0 +1,212 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Edit"
+msgstr "Redigera"
+
+msgid "Create Ad"
+msgstr "Sapa annons"
+
+msgid "Step 1: Import Your Ad Code"
+msgstr "Steg 1: importera din kod"
+
+msgid "Simply <strong>paste your Ad Code below</strong> and Import!"
+msgstr "<STRONG>Kopiera in din kod nedan</STRONG> och importera!!"
+
+msgid "Code"
+msgstr "Kod"
+
+msgid "Ads 4 OSClass will detect if the code is from a supported ad network (currently only Google Adsense)"
+msgstr "Ads for OSClass känner av om koden är från ett godkänt annonsnätverk (just nu endast Google Adsense)"
+
+msgid "Import"
+msgstr "Importera"
+
+msgid "Edit Settings for Ad"
+msgstr "Redigera inställningarna för annonsen"
+
+msgid "Enter the name for this ad. Ads with the same name will rotate according to their relative weights"
+msgstr "Skriv in namnet på denna annons. Annonser med samma namn kommer att roteras beroende på deras relativa vikt"
+
+msgid "Account Details"
+msgstr "Kontodetaljer"
+
+msgid "Account ID"
+msgstr "Konto ID"
+
+msgid "Partner ID"
+msgstr "Partner ID"
+
+msgid "Slot ID"
+msgstr "Slot ID"
+
+msgid "Max Ads Per Page"
+msgstr "Max antal annonser per sida"
+
+msgid "Enter the information specific to the Google Adsense ad type. The Partner ID is the ID for a partner revenue sharing account, usually your blog hosting provider.  Note that a Partner ID does not necessarily mean that your partner is sharing revenues.  Google Adsense will notify you if this is the case. Leave the Max Ads Per Page field blank if you do not want to restrict the number of ads per page"
+msgstr "Skriv in informationen som rör Google Adsense annonstyp. Partner ID är ID:n för ett partner revenue sharing konto, vanligtvis ditt webbhotell. Notera att ett partner ID behöver inte betyda att din partner delar intäkterna med dig. Google Adsense meddelar dig om så skulle vara fallet. Lämna Max antal annonser per sida fältet tomt om du inte vill begränsa antalet annonser som visas på din sida"
+
+msgid "Ad Format"
+msgstr "Annonsformat"
+
+msgid "Ad Type"
+msgstr "Annonstyp"
+
+msgid "Use Custom"
+msgstr "Använd egna"
+
+msgid "All ad types"
+msgstr "Alla annonstyper"
+
+msgid "Text ads"
+msgstr "Textannonser"
+
+msgid "Image & Rich Media ads"
+msgstr "Bild &amp; Rich Media annonser"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "300 x 250 Medium Rectangle"
+msgstr "300 x 250 Medium rektangel"
+
+msgid "336 x 280 Large Rectangle"
+msgstr "336 x 280 Stor rektangel"
+
+msgid "728 x 90 Leaderboard"
+msgstr "728 x 90 Leaderboard"
+
+msgid "160 x 600 Wide Skyscraper"
+msgstr "160 x 600 Vid skyskrapa"
+
+msgid "468 x 60 Banner"
+msgstr "468 x 60 Banner"
+
+msgid "234 x 60 Half Banner"
+msgstr "234 x 60 Halv Banner"
+
+msgid "120 x 600 Skyscraper"
+msgstr "120 x 600 Skyskrapa"
+
+msgid "120 x 240 Vertical Banner"
+msgstr "120 x 240 Vertikal Banner"
+
+msgid "250 x 250 Square"
+msgstr "250 x 250 Fyrkant"
+
+msgid "200 x 200 Small Square"
+msgstr "200 x 200 Liten fyrkant"
+
+msgid "180 x 150 Small Rectangle"
+msgstr "180 x 150 Liten rektangel"
+
+msgid "125 x 125 Button"
+msgstr "125 x 125 Knapp"
+
+msgid "Dimensions"
+msgstr "Dimensioner"
+
+msgid "Select one of the supported ad format sizes. If your ad size is not one of the standard sizes, select Custom and fill in your size"
+msgstr "Välj ett av annonsformaten som stöds. Om din annonsstorlek inte är  en av standard storlekarna, så välj anpassad och fyll i dina storlekar"
+
+msgid "Advanced Options"
+msgstr "Mer val"
+
+msgid "Weight"
+msgstr "Vikt"
+
+msgid "Weight determines how often this ad is displayed relative to the other ads with the same name.  A weight of '0' will stop this ad from displaying"
+msgstr "Vikt bestämmer hur ofta denna annons visas relativt till övriga annonser med samma namn. Vikt 0 stoppar denna annons från visning"
+
+msgid "HTML Code Before"
+msgstr "HTML kod före"
+
+msgid "Ad Code"
+msgstr "Annonskod"
+
+msgid "HTML Code After"
+msgstr "HTML kod efter"
+
+msgid "Place any HTML code you want to display before or after your tag in the appropriate section. If you want to change your ad network tag, you need to import the new tag again"
+msgstr "Placera den HTML kod du vill visa före eller efter din tag i lämplig sektion. Om du vill ändra din nätverks-tag, så måste du importera din nya tag igen"
+
+msgid "Save"
+msgstr "Spara"
+
+msgid "Ads for OSClass Help"
+msgstr "Ads for OSClass hjälp"
+
+msgid "What is Ads for OSClass Plugin?"
+msgstr "Vad är Ads for OSClass plugin?"
+
+msgid "Ads for OSClass -also known as Ads4OSClass- plugin allows you to manage and show ads block from several adsvertishing networks"
+msgstr "Ads for OSClass (också känd som Ads4OSClass plugin) tillåter dig att hantera och visa annonsblock från flera kända annonsnätverk"
+
+msgid "How does Ads4OSClass plugin work?"
+msgstr "Hur fungerar Ads4OSClass pluginen?"
+
+msgid "You need to import the HTML code from your ad using the admin-menu. Some advertishing network are supported and will offer you more options of customization"
+msgstr "Du måste importera HTML koden från din annonsleverantör via adminpanelen. En del annonsnätverk stöds och kommer att erbjuda dig fler möjligheter till anpassningar "
+
+msgid "How could I show some ads on my website"
+msgstr "Hur kan jag visa annonser på min sida?"
+
+msgid "First, create some ad in the admin-menu. then, you should edit your theme files and add the following line anywhere in the code you want an ad to appear"
+msgstr "Först måste du skapa en annons i adminpanelen. Sedan måste du redigera dina temafiler genom att lägga till följande kod där du vill att annonserna skall visas"
+
+msgid "Where 'title_of_the_ad' is the name of the ad(s) you want to show there. If you have several ads with the same title, they will rotate depending on their weight"
+msgstr "'title_of_the_ad' är annonsnamnet du vill visa. Om du har flera annonser med samma namn så kommer annonserna att rotera beroende på deras inbördes vikt"
+
+msgid "Advertising"
+msgstr "Annonsering"
+
+msgid "Edit Ads"
+msgstr "Redigera annonser"
+
+msgid "Create New Ad"
+msgstr "Skapa ny annons"
+
+msgid "F.A.Q. / Help"
+msgstr "F.A.Q. / Hjälp"
+
+msgid "Settings saved"
+msgstr "Inställningar sparade"
+
+msgid "Ad deleted correctly"
+msgstr "Annonsen raderades"
+
+msgid "There was a problem deleting the ad"
+msgstr "Det uppstod ett problem vid radering av annonsen"
+
+msgid "Name"
+msgstr "Namn"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "Views Today"
+msgstr "Visningar idag"
+

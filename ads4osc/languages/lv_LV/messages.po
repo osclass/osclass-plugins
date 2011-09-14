@@ -1,0 +1,212 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Edit"
+msgstr "Labot"
+
+msgid "Create Ad"
+msgstr "Izveidot reklāmu"
+
+msgid "Step 1: Import Your Ad Code"
+msgstr "Solis 1: Importēt Jūsu reklāmas kodu"
+
+msgid "Simply <strong>paste your Ad Code below</strong> and Import!"
+msgstr "Vienkārši <strong>ievadiet savu reklāmas kodu zemāk</strong> un importējiet!"
+
+msgid "Code"
+msgstr "Kods"
+
+msgid "Ads 4 OSClass will detect if the code is from a supported ad network (currently only Google Adsense)"
+msgstr "Reklāmas 4 OSClass būs atklāt, ja kods ir no atbalstītās reklāmu tīkla (pašlaik tikai Google Adsense)"
+
+msgid "Import"
+msgstr "Importēt"
+
+msgid "Edit Settings for Ad"
+msgstr "Labot reklāmas iestātījumus"
+
+msgid "Enter the name for this ad. Ads with the same name will rotate according to their relative weights"
+msgstr "Ievadiet nosaukumu šai reklāmai. Reklāmas ar tādu pašu nosaukumu rotēs atbilstīgi to relatīvajam svaru"
+
+msgid "Account Details"
+msgstr "Profila detaļas"
+
+msgid "Account ID"
+msgstr "Profila ID"
+
+msgid "Partner ID"
+msgstr "Partnera ID"
+
+msgid "Slot ID"
+msgstr "Slota ID"
+
+msgid "Max Ads Per Page"
+msgstr "Maksimālais reklāmu skaits lapā"
+
+msgid "Enter the information specific to the Google Adsense ad type. The Partner ID is the ID for a partner revenue sharing account, usually your blog hosting provider.  Note that a Partner ID does not necessarily mean that your partner is sharing revenues.  Google Adsense will notify you if this is the case. Leave the Max Ads Per Page field blank if you do not want to restrict the number of ads per page"
+msgstr " Ievadiet specifiska informācija par Google Adsense reklāmas veidu. Partner ID ir ID partneri ieņēmumu sadali kontu, parasti jūsu blog hosting sniedzējs. Ņemiet vērā, ka Partner ID nenozīmē, ka jūsu partneris ir koplietošanas ieņēmumiem. Google Adsense jūs brīdinās, ja tas tā ir. Atstājiet Max reklāmu skaits lapā lauku tukšu, ja jūs nevēlaties ierobežot reklāmu skaita lapā"
+
+msgid "Ad Format"
+msgstr "Reklāmas Formāts"
+
+msgid "Ad Type"
+msgstr "Reklāmas veids"
+
+msgid "Use Custom"
+msgstr "Izmantot savu"
+
+msgid "All ad types"
+msgstr "Visi reklāmu veidi"
+
+msgid "Text ads"
+msgstr "Teksta reklāmas"
+
+msgid "Image & Rich Media ads"
+msgstr "Fotogrāfijas &amp; Media reklāmas"
+
+msgid "Format"
+msgstr "Formāts"
+
+msgid "300 x 250 Medium Rectangle"
+msgstr "300 x 250 Vidējs Taisnstūris"
+
+msgid "336 x 280 Large Rectangle"
+msgstr "336 x 280 Liels Taisnstūris"
+
+msgid "728 x 90 Leaderboard"
+msgstr "728 x 90 Līderis"
+
+msgid "160 x 600 Wide Skyscraper"
+msgstr "160 x 600 Nams"
+
+msgid "468 x 60 Banner"
+msgstr "468 x 60 Banneris"
+
+msgid "234 x 60 Half Banner"
+msgstr "234 x 60 Pusbanneris"
+
+msgid "120 x 600 Skyscraper"
+msgstr "120 x 600 Nams"
+
+msgid "120 x 240 Vertical Banner"
+msgstr "120 x 240 Vertikāls banneris"
+
+msgid "250 x 250 Square"
+msgstr "250 x 250 Kvadrāts"
+
+msgid "200 x 200 Small Square"
+msgstr "200 x 200 mazs kvadrāts"
+
+msgid "180 x 150 Small Rectangle"
+msgstr "180 x 150 Mazs taisnstūris"
+
+msgid "125 x 125 Button"
+msgstr "125 x 125 Poga"
+
+msgid "Dimensions"
+msgstr "Izmērs"
+
+msgid "Select one of the supported ad format sizes. If your ad size is not one of the standard sizes, select Custom and fill in your size"
+msgstr " Izvēlieties vienu no atbalstīto reklāmas formātu izmēros. Ja jūsu reklāmas izmērs nav viena standarta izmēru, atlasiet Pielāgots un aizpildīt jūsu izmērs"
+
+msgid "Advanced Options"
+msgstr "Iestātījumi"
+
+msgid "Weight"
+msgstr "Svars"
+
+msgid "Weight determines how often this ad is displayed relative to the other ads with the same name.  A weight of '0' will stop this ad from displaying"
+msgstr " Svars nosaka, cik bieži šī reklāma tiek parādīta, salīdzinot ar citām reklāmām ar tādu pašu nosaukumu. No 0 svars \", pārtrauks šo reklāmu rādīšanu"
+
+msgid "HTML Code Before"
+msgstr "HTML kods"
+
+msgid "Ad Code"
+msgstr "Reklāmas kods"
+
+msgid "HTML Code After"
+msgstr "Html kods"
+
+msgid "Place any HTML code you want to display before or after your tag in the appropriate section. If you want to change your ad network tag, you need to import the new tag again"
+msgstr "Vieta jebkuru HTML kodu, kuru vēlaties rādīt pirms vai pēc jūsu tag atbilstošajā sadaļā. Ja vēlaties mainīt savu reklāmu tīklu tag, Jums nepieciešams importēt jaunu tagu vēlreiz"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Ads for OSClass Help"
+msgstr "Reklāma no OSClass Palīdzības"
+
+msgid "What is Ads for OSClass Plugin?"
+msgstr "Kas ir Reklāmas plugins?"
+
+msgid "Ads for OSClass -also known as Ads4OSClass- plugin allows you to manage and show ads block from several adsvertishing networks"
+msgstr " Reklāmas OSClass-pazīstams arī kā Ads4OSClass-spraudnis ļauj jums pārvaldīt un rādīt reklāmas bloku no vairākām adsvertishing tīkli"
+
+msgid "How does Ads4OSClass plugin work?"
+msgstr "Kā Ads4OSClass spraudnis darbojas?"
+
+msgid "You need to import the HTML code from your ad using the admin-menu. Some advertishing network are supported and will offer you more options of customization"
+msgstr "Jums ir nepieciešams importēt HTML kodu no jūsu reklāmu, izmantojot admin-menu. Daži advertishing tīklā ir atbalstījusi un piedāvās Jums vairāk iespējas pielāgošanu"
+
+msgid "How could I show some ads on my website"
+msgstr "Kā es varu parādīt dažas reklāmas manā mājas lapā"
+
+msgid "First, create some ad in the admin-menu. then, you should edit your theme files and add the following line anywhere in the code you want an ad to appear"
+msgstr " Pirmkārt, izveidot dažas reklāmu admin-menu. tad, jums vajadzētu rediģēt jūsu theme failus un pievieno šādu rindu jebkurā kodu, kuru vēlaties reklāmu"
+
+msgid "Where 'title_of_the_ad' is the name of the ad(s) you want to show there. If you have several ads with the same title, they will rotate depending on their weight"
+msgstr " Ja \"title_of_the_ad\" ir nosaukums, reklāma (s), kuru vēlaties rādīt tur. Ja jums ir vairākas reklāmas ar vienādu nosaukumu, tās rotēs atkarībā no to svara"
+
+msgid "Advertising"
+msgstr "Reklāma"
+
+msgid "Edit Ads"
+msgstr "Labot Reklāmu"
+
+msgid "Create New Ad"
+msgstr "Izveidot jaunu reklāmu"
+
+msgid "F.A.Q. / Help"
+msgstr "BUJ / Palīdzība"
+
+msgid "Settings saved"
+msgstr "Iestātījumi saglabāti"
+
+msgid "Ad deleted correctly"
+msgstr "Reklāma veiksmīgi dzēsta"
+
+msgid "There was a problem deleting the ad"
+msgstr "Notika kļūda dzēšot reklāmu"
+
+msgid "Name"
+msgstr "Vārds"
+
+msgid "Type"
+msgstr "Veids"
+
+msgid "Active"
+msgstr "Aktīvs"
+
+msgid "Default"
+msgstr "Standarta"
+
+msgid "Views Today"
+msgstr "Šodien apskatījušies"
+

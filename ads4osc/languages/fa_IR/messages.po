@@ -1,0 +1,212 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Create Ad"
+msgstr "ساختن آگهی"
+
+msgid "Step 1: Import Your Ad Code"
+msgstr "گام نخست: کد آگهی خود را وارد کنید"
+
+msgid "Simply <strong>paste your Ad Code below</strong> and Import!"
+msgstr "به سادگی <strong>کد تبلیغ خود را در زیر جایگذاری کنید</strong> و وارد کنید!"
+
+msgid "Code"
+msgstr "کد"
+
+msgid "Ads 4 OSClass will detect if the code is from a supported ad network (currently only Google Adsense)"
+msgstr "Ads 4 OSClass will detect if the code is from a supported ad network (currently only Google Adsense)"
+
+msgid "Import"
+msgstr "وارد کردن"
+
+msgid "Edit Settings for Ad"
+msgstr "تغییر تنظیمات آگهی"
+
+msgid "Enter the name for this ad. Ads with the same name will rotate according to their relative weights"
+msgstr "Enter the name for this ad. Ads with the same name will rotate according to their relative weights"
+
+msgid "Account Details"
+msgstr "جزئیات حساب"
+
+msgid "Account ID"
+msgstr "آی دی حساب"
+
+msgid "Partner ID"
+msgstr "آی دی شریک"
+
+msgid "Slot ID"
+msgstr "Slot ID"
+
+msgid "Max Ads Per Page"
+msgstr "آگهی حداکثر در هر صفحه"
+
+msgid "Enter the information specific to the Google Adsense ad type. The Partner ID is the ID for a partner revenue sharing account, usually your blog hosting provider.  Note that a Partner ID does not necessarily mean that your partner is sharing revenues.  Google Adsense will notify you if this is the case. Leave the Max Ads Per Page field blank if you do not want to restrict the number of ads per page"
+msgstr "Enter the information specific to the Google Adsense ad type. The Partner ID is the ID for a partner revenue sharing account, usually your blog hosting provider. Note that a Partner ID does not necessarily mean that your partner is sharing revenues. Google Adsense will notify you if this is the case. Leave the Max Ads Per Page field blank if you do not want to restrict the number of ads per page"
+
+msgid "Ad Format"
+msgstr "فرمت آگهی"
+
+msgid "Ad Type"
+msgstr "نوع آگهی"
+
+msgid "Use Custom"
+msgstr "استفاده از سفارشی"
+
+msgid "All ad types"
+msgstr "همه نوع آگهی"
+
+msgid "Text ads"
+msgstr "تبلیغات متنی"
+
+msgid "Image & Rich Media ads"
+msgstr "تصویر و تبلیغات چندرسانه ای"
+
+msgid "Format"
+msgstr "فرمت"
+
+msgid "300 x 250 Medium Rectangle"
+msgstr "300 × 250 مستطیل متوسط"
+
+msgid "336 x 280 Large Rectangle"
+msgstr "336 x 280 مستطیل بزرگ"
+
+msgid "728 x 90 Leaderboard"
+msgstr "728 x 90 Leaderboard"
+
+msgid "160 x 600 Wide Skyscraper"
+msgstr "160 x 600 Wide Skyscraper"
+
+msgid "468 x 60 Banner"
+msgstr "468 x 60 بنر"
+
+msgid "234 x 60 Half Banner"
+msgstr "234 x 60 نیمه بنر"
+
+msgid "120 x 600 Skyscraper"
+msgstr "120 x 600 Skyscraper"
+
+msgid "120 x 240 Vertical Banner"
+msgstr "120 x 240 بنر عمودی"
+
+msgid "250 x 250 Square"
+msgstr "250 x 250 مربع"
+
+msgid "200 x 200 Small Square"
+msgstr "200 x 200 مربع کوچک"
+
+msgid "180 x 150 Small Rectangle"
+msgstr "180 x 150 مستطیل کوچک"
+
+msgid "125 x 125 Button"
+msgstr "125 x 125 دکمه"
+
+msgid "Dimensions"
+msgstr "ابعاد"
+
+msgid "Select one of the supported ad format sizes. If your ad size is not one of the standard sizes, select Custom and fill in your size"
+msgstr "یکی از سایز های مورد پشتیبانی(استاندارد)را انتخاب کنید.اگر سایز تبلیغ شما استاندارد نیست فرم سایز اختیاری را پر کنید"
+
+msgid "Advanced Options"
+msgstr "تنظیمات پیشرفته"
+
+msgid "Weight"
+msgstr "سنگینی"
+
+msgid "Weight determines how often this ad is displayed relative to the other ads with the same name.  A weight of '0' will stop this ad from displaying"
+msgstr "Weight determines how often this ad is displayed relative to the other ads with the same name. A weight of '0' will stop this ad from displaying"
+
+msgid "HTML Code Before"
+msgstr "HTML کد قبل"
+
+msgid "Ad Code"
+msgstr "کد آگهی"
+
+msgid "HTML Code After"
+msgstr "HTML کد بعد"
+
+msgid "Place any HTML code you want to display before or after your tag in the appropriate section. If you want to change your ad network tag, you need to import the new tag again"
+msgstr "محل کد HTML مورد نیاز شما که می خواهید قبل یا بعد از برچسب ها در قسمت مربوطه نمایش داده شود. If you want to change your ad network tag, you need to import the new tag again"
+
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "Ads for OSClass Help"
+msgstr "Ads for OSClass Help"
+
+msgid "What is Ads for OSClass Plugin?"
+msgstr "What is Ads for OSClass Plugin?"
+
+msgid "Ads for OSClass -also known as Ads4OSClass- plugin allows you to manage and show ads block from several adsvertishing networks"
+msgstr "Ads for OSClass -also known as Ads4OSClass- plugin allows you to manage and show ads block from several adsvertishing networks"
+
+msgid "How does Ads4OSClass plugin work?"
+msgstr "How does Ads4OSClass plugin work?"
+
+msgid "You need to import the HTML code from your ad using the admin-menu. Some advertishing network are supported and will offer you more options of customization"
+msgstr "You need to import the HTML code from your ad using the admin-menu. Some advertishing network are supported and will offer you more options of customization"
+
+msgid "How could I show some ads on my website"
+msgstr "How could I show some ads on my website"
+
+msgid "First, create some ad in the admin-menu. then, you should edit your theme files and add the following line anywhere in the code you want an ad to appear"
+msgstr "First, create some ad in the admin-menu. then, you should edit your theme files and add the following line anywhere in the code you want an ad to appear"
+
+msgid "Where 'title_of_the_ad' is the name of the ad(s) you want to show there. If you have several ads with the same title, they will rotate depending on their weight"
+msgstr "Where 'title_of_the_ad' is the name of the ad(s) you want to show there. If you have several ads with the same title, they will rotate depending on their weight"
+
+msgid "Advertising"
+msgstr "تبلیغات"
+
+msgid "Edit Ads"
+msgstr "تغییر تبلیغ"
+
+msgid "Create New Ad"
+msgstr "ساخت تبلیغ جدید"
+
+msgid "F.A.Q. / Help"
+msgstr "پرسش و پاسخ / راهنما"
+
+msgid "Settings saved"
+msgstr "تنظیمات ذخیره شد"
+
+msgid "Ad deleted correctly"
+msgstr "آگهی به درستی حذف شد"
+
+msgid "There was a problem deleting the ad"
+msgstr "خطایی در هنگام حذف آگهی رخ داد"
+
+msgid "Name"
+msgstr "نام"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Default"
+msgstr "پیشفرض"
+
+msgid "Views Today"
+msgstr "بازدید امروز"
+
