@@ -20,7 +20,7 @@
 Plugin Name: Buy/Sell type
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store a buy/sell type of the offer
-Version: 1.0.1
+Version: 1.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: buysell
