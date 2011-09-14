@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "F.A.Q. / Help"
+msgstr "BUJ / Palīdzība"
+
+msgid "Breadcrumbs Help"
+msgstr "Norādes Palīdzība"
+
+msgid "What is Breadcrumbs Plugin?"
+msgstr "Kas ir Norādes plugin?"
+
+msgid "Breadcrumbs plugin allows you to show a breadcrumbs-style navigation bar on any part of your site you want, something like <blockquote>OSClass / Category / Subcategory / Item title</blockquote>"
+msgstr "Norādes plugin ļauj jums parādīt , kur lietotājs atrodas<blockquote>OSClass / Kategorija / Zemkategorija / Sludinājuma nosaukums</blockquote>"
+
+msgid "How does Breadcrumbs plugin work?"
+msgstr "Kā darbojas Norādes plugin?"
+
+msgid "In order to use Breadcrumbs plugin, you should edit your theme files and add the following line anywhere in the code you want the breadcrumb-style navigation bar to appear"
+msgstr "Lai izmantotu Norādes plugin, jums jānokopē sekojošu kodu un jāievieto dizainā, kur Jūs vēlaties, lai tiek parādīts šis plugin"
+
+msgid "Could I cutomize the style of Breadcrumbs plugin?"
+msgstr "Vai es varu pārveidot Norādes plugin?"
+
+msgid "Of course you can. The main crumb has a style class of 'bc_root'. The last crumb of 'bc_last'. The middle crumbs have classes as 'bc_level_X' where X is the number of depth. For example 'OSClass / category / subcategory / item_title' has style classes as 'bc_root / bc_level_1 / bc_level_2 / bc_last'. You should modify your theme's .css file to change the style"
+msgstr "Protams, ka Jūs varat. Galvenā lapa ir \"bc_root\". Pēdējā lapa ir \"bc_last\". Videjās lapas ir \"bc_level_X\" kur X ir lapas dziļums. Piemēram \"OSClass / kategorija / zemkategorija / sludinājums \" ir 'bc_root / bc_level_1 / bc_level_2 / bc_last '. Jums jāmodificē tēmas.css failu, lai mainītu stilu"
+
+msgid "You could also specify the separator you want. The default one is '/', but you could feel more comfortable with '&raquo;', ':', etc. For example:"
+msgstr "Jūs varat izvēlēties seprātoru. Parasti ta ir '/', bet Jūs varat izvēlēties piem. '»', ':' "
+
+msgid "Publish an item"
+msgstr "Publicēt sludinājumu"
+
+msgid "Edit your item"
+msgstr "Labot sludinājumu"
+
+msgid "Send to a friend"
+msgstr "Pastāstīt draugam"
+
+msgid "Contact seller"
+msgstr "Kontaktēties ar pārdevēju"
+
+msgid "Search"
+msgstr "Meklēt"
+
+msgid "Search Results"
+msgstr "Meklēšanas rezultāti"
+
+msgid "Recover your password"
+msgstr "Atjaunot paroli"
+
+msgid "Login"
+msgstr "Ienākt"
+
+msgid "Create a new account"
+msgstr "Izveidot jaunu kontu"
+
+msgid "My account"
+msgstr "Mans konts"
+
+msgid "Dashboard"
+msgstr "Galvenā"
+
+msgid "Manage my items"
+msgstr "Labot manu sludinājumu"
+
+msgid "Manage my alerts"
+msgstr "Mainīt manus paziņojumus"
+
+msgid "Update my profile"
+msgstr "Labot manu profilu"
+
+msgid "Change my email"
+msgstr "Labot manu epastu"
+
+msgid "Change my password"
+msgstr "Labot manu paroli"
+
+msgid "Recover my password"
+msgstr "Atjaunot manu paroli"
+
+msgid "Contact"
+msgstr "Kontakti"
+

@@ -1,6 +1,10 @@
 Changelog Breadcrumbs
 =====================
 
+##version 1.6.3 - 14/09/2011
+
+* Added latvian, russian, german and persian translations
+
 ##version 1.6.2 - 05/08/2011
 
 * Added german, spanish and swedish translations
