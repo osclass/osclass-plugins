@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "Herzlichen Glückwunsch, das Plugin ist jetzt konfiguriert"
+
+msgid "Facebook Options"
+msgstr "Facebook-Optionen"
+
+msgid "Please enter your Facebook appId and secret*:"
+msgstr "Geben Sie Ihre Facebook App-ID und den geheimen Schlüssel ein:"
+
+msgid "Update"
+msgstr "Aktualisierung"
+
+msgid "Facebook Connect Help"
+msgstr "Facebook Hilfe"
+
+msgid "What is Facebook Connect Plugin?"
+msgstr "Was ist das Facebook-Verbindungs-Plugin?"
+
+msgid "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
+msgstr "Mit Facebook verknüpfungs Plugin können sich Benutzer mit ihren Facebook Konto vebinden"
+
+msgid "Using Facebook login"
+msgstr "Mit Facebook anmelden"
+
+msgid "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
+msgstr "Sie können kostenlos eine App-ID und einen geheimen Schlüssel erhalten (diese werden für die Facebook-Anmeldung auf Ihren Seiten benötigt), nachdem Sie sich unter dieser URL angemeldet haben"
+
+msgid "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
+msgstr "Wenn Sie die Facebook-Anmeldung auf Ihren Seiten verwenden möchten, sollten Sie mindestens eine Facebook-Schaltfläche zum Anmelden und Abmelden hinzufügen. Dafür fügen Sie bei sich den folgenden Code an der gewünschten Stelle ein"
+
+msgid "You can freely obtain an appId and secret key after signing up on this URL"
+msgstr "Sie können kostenlos eine App-ID und einen geheimen Schlüssel erhalten, nachdem Sie sich unter dieser URL angemeldet haben"
+
+msgid "Logout"
+msgstr "Abmelden"
+
+msgid "Login with Facebook"
+msgstr "Mit dem Facebook-Konto anmelden"
+
+msgid "The username doesn't exist"
+msgstr "Der Benutzername wurde nicht gefunden"
+
+msgid "The user has not been validated yet"
+msgstr "Der Benutzer wurde noch nicht bestätigt"
+
+msgid "The user has been suspended"
+msgstr "Der Benutzer ist gesperrt"
+
+msgid "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook"
+msgstr "Es gibt einen Benutzer mit Ihrer eMail-Adresse. Melden Sie sich an, um Ihr Konto mit Facebook zu verknüpfen"
+
+msgid "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook."
+msgstr "Es gibt einen Benutzer mit Ihrer eMail-Adresse. Melden Sie sich an, um Ihr Konto mit Facebook zu verknüpfen"
+
+msgid "Some error occured trying to connect with Facebook."
+msgstr "Fehler beim Verbinden mit Facebook"
+
+msgid "An automatic account for %s has been created. You'll receive an email to confirm"
+msgstr "Ein Konto für %s wurde automatisch angelegt. Sie erhalten in Kürze eine Bestätigungs-eMail"
+
+msgid "An automatic account for %s has been created. You're ready to go"
+msgstr "Ein Konto für %s wurde automatisch angelegt. Sie können sich jetzt anmelden"
+

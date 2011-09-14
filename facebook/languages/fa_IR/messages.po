@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "تبریک می گویم. پلاگین در حال حاضر پیکربندی شده است"
+
+msgid "Facebook Options"
+msgstr "تنظیمات فیس بوک"
+
+msgid "Please enter your Facebook appId and secret*:"
+msgstr "وارد کنید your Facebook appId and secret*:"
+
+msgid "Update"
+msgstr "به روزرسانی"
+
+msgid "Facebook Connect Help"
+msgstr "Facebook Connect Help"
+
+msgid "What is Facebook Connect Plugin?"
+msgstr "What is Facebook Connect Plugin?"
+
+msgid "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
+msgstr "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
+
+msgid "Using Facebook login"
+msgstr "Using Facebook login"
+
+msgid "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
+msgstr "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
+
+msgid "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
+msgstr "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
+
+msgid "You can freely obtain an appId and secret key after signing up on this URL"
+msgstr "You can freely obtain an appId and secret key after signing up on this URL"
+
+msgid "Logout"
+msgstr "خروج"
+
+msgid "Login with Facebook"
+msgstr "ورود با فیس بوک"
+
+msgid "The username doesn't exist"
+msgstr "نام کاربری وجود ندارد"
+
+msgid "The user has not been validated yet"
+msgstr "کاربر دارای اعتبار نیست"
+
+msgid "The user has been suspended"
+msgstr "کاربر متوقف شده است"
+
+msgid "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook"
+msgstr "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook"
+
+msgid "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook."
+msgstr "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook."
+
+msgid "Some error occured trying to connect with Facebook."
+msgstr "Some error occured trying to connect with Facebook."
+
+msgid "An automatic account for %s has been created. You'll receive an email to confirm"
+msgstr "An automatic account for %s has been created. You'll receive an email to confirm"
+
+msgid "An automatic account for %s has been created. You're ready to go"
+msgstr "An automatic account for %s has been created. You're ready to go"
+

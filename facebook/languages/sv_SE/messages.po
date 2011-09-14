@@ -1,0 +1,80 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "Pluginen är nu konfigurerad"
+
+msgid "Facebook Options"
+msgstr "Facebook val"
+
+msgid "Please enter your Facebook appId and secret*:"
+msgstr "Skriv in din Facebook appID och secret*:"
+
+msgid "Update"
+msgstr "Uppdatera"
+
+msgid "Facebook Connect Help"
+msgstr "Facebook Connect hjälp"
+
+msgid "What is Facebook Connect Plugin?"
+msgstr "Vad är Facebook Connect plugin?"
+
+msgid "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
+msgstr "Facebook Connect plugin tillåter dina användare att logga in via deras Facebook konto"
+
+msgid "Using Facebook login"
+msgstr "Använder Facebook login"
+
+msgid "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
+msgstr "Du kan erhålla en gratis appID och secret key (du måste använda Facebook login på din hemsida) efter att du registrerat dig via denna länk "
+
+msgid "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
+msgstr "För att kunna använda Facebook login på din sida måste du inkludera åtminstone en facebook knapp för login (och logut). För att göra detta skall du placera följande kod där du vill att knappen skall visas"
+
+msgid "You can freely obtain an appId and secret key after signing up on this URL"
+msgstr "Du kan helt gratis erhålla en appID och secret key efter att du registrerat dig via denna länk"
+
+msgid "Logout"
+msgstr "Logga ut"
+
+msgid "Login with Facebook"
+msgstr "Logga in via Facebook"
+
+msgid "The username doesn't exist"
+msgstr "Användarnamnet existerar inte"
+
+msgid "The user has not been validated yet"
+msgstr "Användaren har inte validerats än"
+
+msgid "The user has been suspended"
+msgstr "Användaren har stängts av"
+
+msgid "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook"
+msgstr "Vi har just upptäckt en användare med samma mailadress som dig. Logga in till ditt konto för att länka den till Facebook"
+
+msgid "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook."
+msgstr "Vi har just upptäckt en användare med samma mailadress som dig. Logga in till ditt konto för att länka den till Facebook"
+
+msgid "Some error occured trying to connect with Facebook."
+msgstr "Ett fel uppstod vid uppkoppling till Facebook"
+
+msgid "An automatic account for %s has been created. You'll receive an email to confirm"
+msgstr "Ett automatiskt konto för %s har skapats. Du kommer att erhålla ett konfirmeringsmail"
+
+msgid "An automatic account for %s has been created. You're ready to go"
+msgstr "Ett automatiskt konto för %s har skapats. Klart!"
+
