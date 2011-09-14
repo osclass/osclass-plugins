@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Dating attributes"
+msgstr "Iepazīšanās"
+
+msgid "You are"
+msgstr "Jūs esat"
+
+msgid "Man"
+msgstr "Vīrietis"
+
+msgid "Woman"
+msgstr "Sieviete"
+
+msgid "Not informed"
+msgstr "Nav nozīmes"
+
+msgid "Looking for"
+msgstr "Jūs meklējat"
+
+msgid "Relation type"
+msgstr "Iepazīšanās veids"
+
+msgid "Friendship"
+msgstr "Draudzība"
+
+msgid "Formal relation"
+msgstr "Nopietnām attiecībām"
+
+msgid "Informal relation"
+msgstr "Retām tikšanās reizēm"
+
+msgid "%s looking for %s for %s"
+msgstr "%s meklē %s priekš %s"
+
