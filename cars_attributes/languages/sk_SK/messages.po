@@ -1,0 +1,182 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Makes"
+msgstr "Značky"
+
+msgid "Delete"
+msgstr "Zmazať"
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "Add new make"
+msgstr "Pridať novú značku"
+
+msgid "Add new"
+msgstr "Pridať nové"
+
+msgid "Models"
+msgstr "Modely"
+
+msgid "Select a make"
+msgstr "Zvoľte značku"
+
+msgid "Add new model"
+msgstr "Pridať nový model"
+
+msgid "Vehicle types"
+msgstr "Typy vozidiel"
+
+msgid "Add new car type"
+msgstr "Pridať nový typ vozidla"
+
+msgid "Warning"
+msgstr "Upozornenie"
+
+msgid "Deleting makes or models may end in errors. Some of those makes/models could be attached to some actual items"
+msgstr "Zmazanie značiek alebo modelov môže skončiť s chybami. Niektoré z týchto značiek/modelov už môžu byť priradené k aktuálnym inzerátom"
+
+msgid "Configure plugin"
+msgstr "Nastaviť plugin"
+
+msgid "Manage makes"
+msgstr "Spravovať značky"
+
+msgid "Manage models"
+msgstr "Spravovať modely"
+
+msgid "Manage vehicle types"
+msgstr "Spravovať typy vozidiel"
+
+msgid "Cars attributes"
+msgstr "Atribúty vozidiel"
+
+msgid "Make"
+msgstr "Značka"
+
+msgid "Model"
+msgstr "Model"
+
+msgid "Car type"
+msgstr "Typ vozidla"
+
+msgid "Year"
+msgstr "Rok"
+
+msgid "Doors"
+msgstr "Dvere"
+
+msgid "Seats"
+msgstr "Sedadlá"
+
+msgid "Mileage"
+msgstr "Kilometre"
+
+msgid "Engine size (cc)"
+msgstr "Objem motora (cc)"
+
+msgid "Num. Airbags"
+msgstr "Airbagy"
+
+msgid "Manual"
+msgstr "Manuál"
+
+msgid "Auto"
+msgstr "Automat"
+
+msgid "Transmission"
+msgstr "Prevodovka"
+
+msgid "Diesel"
+msgstr "Diesel"
+
+msgid "Gasoline"
+msgstr "Benzín"
+
+msgid "Electric-hibrid"
+msgstr "Elektrický/Hybrid"
+
+msgid "Other"
+msgstr "Iné"
+
+msgid "Fuel"
+msgstr "Palivo"
+
+msgid "Dealer"
+msgstr "Díler"
+
+msgid "Owner"
+msgstr "Majiteľ"
+
+msgid "Seller"
+msgstr "Predávajúci"
+
+msgid "Warranty"
+msgstr "Záruka"
+
+msgid "Yes"
+msgstr "Áno"
+
+msgid "No"
+msgstr "Nie"
+
+msgid "New"
+msgstr "Nové"
+
+msgid "Power"
+msgstr "Výkon"
+
+msgid "Gears"
+msgstr "Prevody"
+
+msgid "Select a model"
+msgstr "Zvoľte model"
+
+msgid "No results"
+msgstr "Žiadne výsledky"
+
+msgid "Select a car type"
+msgstr "Zvoľte typ auta"
+
+msgid "Kw"
+msgstr "kW"
+
+msgid "Cv"
+msgstr "CV"
+
+msgid "Ch"
+msgstr "Ch"
+
+msgid "Km"
+msgstr "km"
+
+msgid "Hp"
+msgstr "HP"
+
+msgid "Ps"
+msgstr "PS"
+
+msgid "Pk"
+msgstr "PK"
+
+msgid "Cp"
+msgstr "CP"
+
+msgid "Automatic"
+msgstr "Automat"
+
