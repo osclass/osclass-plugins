@@ -88,7 +88,9 @@ function sitemap_generator() {
             $cities = Search::newInstance()->listCities($region['pk_i_id']);
             $l = min(count($cities), 30);
             for($k=0;$k<$l;$k++) {
-                sitemap_add_url(osc_search_url(array('sCountry' => $country['s_name'], 'sRegion' => $region['s_name'], 'sCity' => $city['s_name'])), date('Y-m-d'), 'hourly');
+                if($cities[$k]['items']>$min) {
+                    sitemap_add_url(osc_search_url(array('sCountry' => $country['s_name'], 'sRegion' => $region['s_name'], 'sCity' => $cities[$k]['s_name'])), date('Y-m-d'), 'hourly');
+                }
             }
         }        
     }
