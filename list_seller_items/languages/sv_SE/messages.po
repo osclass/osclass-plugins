@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Seller Post Help"
+msgstr "Seller Post hjälp"
+
+msgid "What is Seller Post Plugin?"
+msgstr "Vad är Seller Post plugin?"
+
+msgid "Seller Post plugin allows you to display a link that will display all seller items for sale"
+msgstr "Seller Post pluginen placerar en länk som visar annonsörens alla annonser "
+
+msgid "How does Seller Post plugin work?"
+msgstr "Hur fungerar Seller Post pluginen?"
+
+msgid "In order to use Seller Post plugin, you should edit your theme item detail page (<code>item_detail.php</code>) and add the following line anywhere in the code you want the Seller Post link to appear"
+msgstr "För att kunna använda Seller Post pluginen måste du redigera (<CODE>item_detail.php</CODE>) genom att lägga till följande kod där du vill att Seller Post länken skall synas"
+
+msgid "Could I cutomize the style of Seller Post plugin?"
+msgstr "Kan jag skräddarsy utseendet av Seller Post plugin?"
+
+msgid "Of course you can. Seller Post display a link only you can use css to make a button or anything else"
+msgstr "Naturligtvis! Seller Post visar endast en länk, så du kan använda dig av css för att visa en knapp eller liknande istället"
+
+msgid "You can in the default theme use it like a button by using this code"
+msgstr "Du kan i default temat använda den som en knapp genom att använda denna kod"
+
+msgid "List all items from this seller"
+msgstr "Visa alla anonnser från denna annonsör"
+

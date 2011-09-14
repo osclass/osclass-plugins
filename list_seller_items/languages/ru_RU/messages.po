@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Seller Post Help"
+msgstr "Помощь продавца Сообщение"
+
+msgid "What is Seller Post Plugin?"
+msgstr "Что такое плагин Продавец сообщения?"
+
+msgid "Seller Post plugin allows you to display a link that will display all seller items for sale"
+msgstr " Плагин Продавец Сообщение позволяет отображать ссылку, которая будет отображать все продавцом предметов для продажи"
+
+msgid "How does Seller Post plugin work?"
+msgstr "Как плагин Продавец Сообщение работу?"
+
+msgid "In order to use Seller Post plugin, you should edit your theme item detail page (<code>item_detail.php</code>) and add the following line anywhere in the code you want the Seller Post link to appear"
+msgstr " Для того чтобы использовать плагин Продавец сообщения, вы должны редактировать свои темы пункт подробно страница ( <code>item_detail.php ) и добавьте следующую строку в любом месте кода, который нужно ссылке продавца Сообщение появляться"
+
+msgid "Could I cutomize the style of Seller Post plugin?"
+msgstr " Мог ли я cutomize стиль Продавец плагин Post?"
+
+msgid "Of course you can. Seller Post display a link only you can use css to make a button or anything else"
+msgstr " Конечно, можно. Продавец сообщение Показать ссылки только вы можете использовать CSS, чтобы сделать кнопку или что-нибудь еще"
+
+msgid "You can in the default theme use it like a button by using this code"
+msgstr " Вы можете в теме по умолчанию использовать его как кнопка, с помощью этого кода"
+
+msgid "List all items from this seller"
+msgstr "Все объявления пользователя"
+

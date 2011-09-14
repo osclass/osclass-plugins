@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Seller Post Help"
+msgstr "Verkäuferanzeigen Hilfe"
+
+msgid "What is Seller Post Plugin?"
+msgstr "Was ist das Verkäuferanzeigen-Plugin?"
+
+msgid "Seller Post plugin allows you to display a link that will display all seller items for sale"
+msgstr "Sas Verkäuferanzeigen-Plugin zeigt einen Link an, der alle Anzeigen eines Verkäufers auflistet"
+
+msgid "How does Seller Post plugin work?"
+msgstr "Wie arbeitet das Verkäuferanzeigen-Plugin?"
+
+msgid "In order to use Seller Post plugin, you should edit your theme item detail page (<code>item_detail.php</code>) and add the following line anywhere in the code you want the Seller Post link to appear"
+msgstr "Um das Verkäuferanzeigen-Plugin zu verwenden, müssen Sie die Detailseite Ihres Designs (<code>item_detail.php</code>) bearbeiten und die folgende Zeile an der gewünschten Stelle im Code einfügen"
+
+msgid "Could I cutomize the style of Seller Post plugin?"
+msgstr "Kann ich das Layout des Verkäuferanzeigen-Plugin anpassen?"
+
+msgid "Of course you can. Seller Post display a link only you can use css to make a button or anything else"
+msgstr "Selbstverständlich. Das Verkäuferanzeigen-Plugin fügt nur einen Link ein. Sie können CSS verwenden, um diesen als Schaltfläche oder anders darzustellen"
+
+msgid "You can in the default theme use it like a button by using this code"
+msgstr "Im Standard-Design können Sie den Link wie eine Schaltfläche verwenden, indem Sie diesen Code verwenden"
+
+msgid "List all items from this seller"
+msgstr "Alle Anzeigen dieses Verkäufers anzeigen"
+

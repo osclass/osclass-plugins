@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Seller Post Help"
+msgstr "Seller Post Pomoc"
+
+msgid "What is Seller Post Plugin?"
+msgstr "Čo je Seller Post Plugin?"
+
+msgid "Seller Post plugin allows you to display a link that will display all seller items for sale"
+msgstr "Seller Post plugin Vám umožňuje zobraziť odkaz pre zobrazenie všetkých inzerátov predávajúceho"
+
+msgid "How does Seller Post plugin work?"
+msgstr "Ako funguje Seller Post plugin?"
+
+msgid "In order to use Seller Post plugin, you should edit your theme item detail page (<code>item_detail.php</code>) and add the following line anywhere in the code you want the Seller Post link to appear"
+msgstr "Aby bolo možné používať plugin Seller Post, mali by ste upraviť stránku s detailom o položke v aktívnej téme (<code>item_detail.php</code>) a pridať nasledujúci riadok kamkoľvek chcete aby sa Seller Post odkaz zobrazoval"
+
+msgid "Could I cutomize the style of Seller Post plugin?"
+msgstr "Môžem upraviť vzhľad Seller Post pluginu?"
+
+msgid "Of course you can. Seller Post display a link only you can use css to make a button or anything else"
+msgstr "Samozrejme môžete. Seller Post zobrazuje iba odkaz, ktorý môžete pomocou CSS zobraziť ako tlačidlo alebo hocičo iné"
+
+msgid "You can in the default theme use it like a button by using this code"
+msgstr "V základnej téme ho môžete zobraziť ako tlačidlo použitím tohto kódu"
+
+msgid "List all items from this seller"
+msgstr "Zobraziť všetky inzeráty predávajúceho"
+
