@@ -1,6 +1,10 @@
 Changelog Watchlist
 ===================
 
+##version 1.0.3 - 14/09/2011
+
+* Added persian language and updated spanish language
+
 ##version 1.0.2 - 08/09/2011
 
 * Using plural forms in translatable strings

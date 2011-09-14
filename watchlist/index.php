@@ -3,7 +3,7 @@
   Plugin Name: Watchlist
   Plugin URI: http://www.osclass.org/
   Description: This plugin add possibility for user to watch items.
-  Version: 1.0.2
+  Version: 1.0.3
   Author: Richard Martin (keny)
   Author URI: http://www.proodi.com
   Author Email: keny10@gmail.com
@@ -11,7 +11,7 @@
   Plugin update URI: http://www.osclass.org/
  */
 
-    define('WATCHLIST_VERSION', '1.0.2') ;
+    define('WATCHLIST_VERSION', '1.0.3') ;
 
     function watchlist() {
         echo '<a href="javascript://" class="watchlist" id="' . osc_item_id() . '">' ;

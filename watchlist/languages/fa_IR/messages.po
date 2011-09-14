@@ -16,62 +16,62 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 
 msgid "Delete"
-msgstr "Eliminar"
+msgstr "حذف"
 
 msgid "View your watchlist"
-msgstr "Ver la lista de seguimiento"
+msgstr "دیدن watchlist شما"
 
 msgid "Please login"
-msgstr "Porfavor inicie sesión"
+msgstr "لطفا وارد سایت شوید"
 
 msgid "Watchlist Help"
-msgstr "Ayuda lista de seguimiento "
+msgstr "Watchlist راهنما"
 
 msgid "What is Watchlist Plugin?"
-msgstr "Qué es la lista de seguimiento?"
+msgstr "What is Watchlist Plugin?"
 
 msgid "Watchlist plugin allows you to display a link that will allow user to save items on a watchlist page"
-msgstr "Lista de seguimiento te permite visualizar un enlance que permitirá guardar anuncios en la página lista de seguimiento"
+msgstr "Watchlist plugin allows you to display a link that will allow user to save items on a watchlist page"
 
 msgid "How does Watchlist plugin work?"
-msgstr "¿Cómo funciona el plugin Lista de seguimiento?"
+msgstr "How does Watchlist plugin work?"
 
 msgid "In order to use Watchlist plugin, you should edit your theme files and add the following line anywhere in the code you want the Watchlist link to appear"
-msgstr "Con el fin de utilizar el plugin lista de seguimiento, debes editar los archivos de temas y añadir la siguiente línea en cualquier parte del código que desee que aprezca el enlace de lista de seguimiento"
+msgstr "In order to use Watchlist plugin, you should edit your theme files and add the following line anywhere in the code you want the Watchlist link to appear"
 
 msgid "Could I cutomize the style of Watchlist plugin?"
-msgstr "¿Puedo personalizar el estilo de plugin de la lista de seguimiento?"
+msgstr "Could I cutomize the style of Watchlist plugin?"
 
 msgid "Of course you can. Watchlist display a link only you can use css to make a button or anything else"
-msgstr "Por supuesto que puede. Lista de seguimiento mostrará un enlace usted sólo se puede usar CSS para hacer un botón o cualquier otra cosa"
+msgstr "Of course you can. Watchlist display a link only you can use css to make a button or anything else"
 
 msgid "Did Watchlist plugin work with all version of OSClass?"
-msgstr "¿El plugin Lista de seguimiento funcinona con todas las versiones de OSClass?"
+msgstr "Did Watchlist plugin work with all version of OSClass?"
 
 msgid "In order to work this pluggin need OSClass v2.2 and up without this version pluggin will crash"
-msgstr "Para trabajar con este plugin necesita OSClass v2.2 y superiores sin el plugin fallará"
+msgstr "In order to work this pluggin need OSClass v2.2 and up without this version pluggin will crash"
 
 msgid "You have %s version"
-msgstr "Usted tiene la versión %s"
+msgstr "شما دارید نسخه %s "
 
 msgid "Add to watchlist"
-msgstr "Anadir a Lista de seguimiento"
+msgstr "اضافه کردن به watchlist"
 
 msgid "Watchlist"
-msgstr "Lista de seguimiento"
+msgstr "Watchlist"
 
 msgid "Your watchlist"
-msgstr "Tú Lista de seguimiento"
+msgstr "watchlist شما"
 
 msgid "You don't have any items yet"
-msgstr "Aún no tiene ningún anuncio"
+msgstr "شما هنوز هیچ آیتمی ندارید"
 
 msgid "You are watching %d item"
-msgstr "Estas mirando %d anuncio"
+msgstr "شما در حال مشاهده %d هستید"
 
 msgid "This action can not be undone. Are you sure you want to continue?"
-msgstr "Esta acción no se puede deshacer. ¿Está seguro de que quiere continuar?"
+msgstr "این اقدام را نمی توان باز گرداند. آیا شما برای ادامه مطمئن هستید؟"
 
 msgid "You are watcihng %d items"
-msgstr "Estas mirando %d anuncios"
+msgstr "شما در حال مشاهده %d هستید"
 
