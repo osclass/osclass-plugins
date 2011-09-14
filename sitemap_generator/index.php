@@ -158,8 +158,8 @@ osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
 osc_add_hook('admin_menu', 'sitemap_admin_menu');
 
 // Generate sitemap every day
-// CHANGE THIS LINE TO  'cron_hourly' or 'cron_weekly' to modify the frequent of running it
+// CHANGE THIS LINE TO  'cron_hourly' or 'cron_daily' to modify the frequent of running it
 // REMOVE IT if you want to generate the sitemap manually
-osc_add_hook('cron_daily', 'sitemap_generator');
+osc_add_hook('cron_weekly', 'sitemap_generator');
 
 ?>
