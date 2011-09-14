@@ -3,7 +3,7 @@
 Plugin Name: Jobs attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store jobs attributes such as salary, requirements, timetable, and so on.
-Version: 2.1.2
+Version: 2.2.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobs_plugin

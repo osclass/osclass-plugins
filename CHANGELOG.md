@@ -1,6 +1,10 @@
 Changelog Jobs attributes
 =========================
 
+##version 2.2.1 - 14/09/2011
+
+* New languages: arabic, german, persian, latvian, russian, swedish
+
 ##version 2.2 - 03/08/2011
 
 * Fixed some string

@@ -1,0 +1,146 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "Configure plugin"
+msgstr "Настройка плагина"
+
+msgid "Year"
+msgstr "Год"
+
+msgid "Help"
+msgstr "Помощь"
+
+msgid "Part time"
+msgstr "Неполный рабочий день"
+
+msgid "Undefined"
+msgstr "Неопределенные"
+
+msgid "Jobs Options"
+msgstr "Вакансии параметры"
+
+msgid "Allow upload of resumes"
+msgstr "Разрешить загружать резюме"
+
+msgid "Allow unregistered users to upload their resumes"
+msgstr "Разрешить незарегистрированным пользователям загружать свои резюме"
+
+msgid "Send all emails to the following email (if not checked the resumes will be send to ad's author)"
+msgstr "Передать все письма на следующий адрес электронной почты (если не установлен резюме будет отправлено автору объявления)"
+
+msgid "E-mail"
+msgstr "Электронная почта"
+
+msgid "Salary slider min value"
+msgstr "Зарплата слайдер минимальное значение"
+
+msgid "Salary slider max value"
+msgstr "Зарплата слайдер максимальное значение"
+
+msgid "Salary slider step value"
+msgstr "Зарплата слайдер значение шага"
+
+msgid "You could allow users to send their resumes to a specific email address or to send them to the author of the ad. Also you could specify is unregistered users could or could not upload their resumes"
+msgstr " Можно разрешить пользователям отправлять свои резюме на конкретные адреса электронной почты или отправить их автор объявления. Также Вы можете указать это незарегистрированные пользователи могут или не могут загружать свои резюме"
+
+msgid "The salary range will appear as a slider, at the search page and at the publish page. You could modify the minimum and maximum values of that slider as well as the value of the \"steps\" or increments"
+msgstr " Зарплата будет выглядеть как слайдер, на странице поиска и на странице публикации. Вы могли бы изменить минимальные и максимальные значения этого слайдера, а также значение \\ \"шагами \\\" или приращения"
+
+msgid "Server error. Upload directory isn't writable"
+msgstr " Ошибка сервера. Загрузить каталог недоступен для записи"
+
+msgid "No files were uploaded"
+msgstr "Фаилы не были загружены"
+
+msgid "File is empty"
+msgstr "Файл пуст"
+
+msgid "File is too large"
+msgstr "Файл слишком велик"
+
+msgid "File has an invalid extension"
+msgstr "Файл имеет недопустимое расширение"
+
+msgid "Someone sent you his/her resume. ( %s )"
+msgstr " Кто-то отправил вам его / ее CV. (%s )"
+
+msgid "Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here: %s"
+msgstr "Кто-то Вам отравил свое резюме. Оно добавлено к этому емаилу. Объявление можете посмотреть здесь: %s"
+
+msgid "Could not save uploaded file. The upload was cancelled, or server error encountered"
+msgstr " Невозможно сохранить загруженный файл. Загрузка была отменена, или ошибка сервера столкнулись"
+
+msgid "Plugin Options"
+msgstr "Плагин параметры"
+
+msgid "Hire someone"
+msgstr "Нанять кого-то"
+
+msgid "Looking for a job"
+msgstr "Ищу работу"
+
+msgid "Job attributes"
+msgstr "Работа атрибуты"
+
+msgid "Relation"
+msgstr "Связь"
+
+msgid "Company name"
+msgstr "Название фирмы"
+
+msgid "Position type"
+msgstr "Занятость"
+
+msgid "Salary range"
+msgstr "Шкала заработной платы"
+
+msgid "Desired experience"
+msgstr "Желаемый опыт"
+
+msgid "Studies"
+msgstr "Образование "
+
+msgid "Minimum requirements"
+msgstr "Минимальные требования"
+
+msgid "Desired requirements"
+msgstr "Желаемые требования"
+
+msgid "Contract"
+msgstr "Контракт"
+
+msgid "Company description"
+msgstr "Описание компании"
+
+msgid "Please enable JavaScript to use cv uploader"
+msgstr "Пожалуйста, включите JavaScript, чтобы использовать резюме загрузчик"
+
+msgid "Full-time"
+msgstr "Полный рабочий день"
+
+msgid "Hour"
+msgstr " Час"
+
+msgid "Week"
+msgstr "Неделя"
+
+msgid "Month"
+msgstr "Месяц"
+

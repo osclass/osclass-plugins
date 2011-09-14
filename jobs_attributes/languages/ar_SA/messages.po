@@ -1,0 +1,146 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Update"
+msgstr "تحديث"
+
+msgid "Configure plugin"
+msgstr "مساعد التكوين"
+
+msgid "Year"
+msgstr "سنة"
+
+msgid "Help"
+msgstr "مساعدة"
+
+msgid "Part time"
+msgstr "دوام جزئي"
+
+msgid "Undefined"
+msgstr "غير محدد"
+
+msgid "Jobs Options"
+msgstr "خيارات الوظائف"
+
+msgid "Allow upload of resumes"
+msgstr "السماح برفع (تحميل) السير الذاتية"
+
+msgid "Allow unregistered users to upload their resumes"
+msgstr "السماح للمستخدمين غير المسجلين بتحميل سيرهم الذاتية"
+
+msgid "Send all emails to the following email (if not checked the resumes will be send to ad's author)"
+msgstr "يرجى إرسال جميع الايميلات على البريد الإلكتروني الآتي ( إذا لم تكن السيرة الذاتية مُراجعة فسوف يتم إرسالها إلى المحرر"
+
+msgid "E-mail"
+msgstr "بريد إلكتروني"
+
+msgid "Salary slider min value"
+msgstr "أدنة فيمة لخيارات الراتب"
+
+msgid "Salary slider max value"
+msgstr "أعلى قيمة لخيارات الراتب"
+
+msgid "Salary slider step value"
+msgstr "قيمة تدرج خيارات الراتب"
+
+msgid "You could allow users to send their resumes to a specific email address or to send them to the author of the ad. Also you could specify is unregistered users could or could not upload their resumes"
+msgstr "بالإمكان السماح للمستخدمين بإرسال سيرهم الذاتية إلى بريد معين أو إرسالهم إلى إعلان آخر. أيضاً يمكن تحديد ما إن كان بإمكان المستخدمين غير المسجلين إرسال سيرهم الذاتية أم لا"
+
+msgid "The salary range will appear as a slider, at the search page and at the publish page. You could modify the minimum and maximum values of that slider as well as the value of the \"steps\" or increments"
+msgstr "تظهر خيارات الراتب في صفحة البحث وصفحة النشر. بإمكانك تعديل قيم الحد الأدنى والحد الأعلى للراتب لهذه الخانة وكذلك قيم تدرج الراتب والزيادات "
+
+msgid "Server error. Upload directory isn't writable"
+msgstr "مشكلة في الخادم، دليل التحميل غير قابل للكتابة"
+
+msgid "No files were uploaded"
+msgstr "لم يتم تحميل الملفات"
+
+msgid "File is empty"
+msgstr "الملف فارغ"
+
+msgid "File is too large"
+msgstr "الملف كبير جدا"
+
+msgid "File has an invalid extension"
+msgstr "تمييز نوع الملف خطأ"
+
+msgid "Someone sent you his/her resume. ( %s )"
+msgstr "شخص ما أرسل إإليك سيرته/ها الذاتية"
+
+msgid "Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here: %s"
+msgstr "شخص ما أرسل إإليك سيرته/ها الذاتية, بالإمكان إيجادها مرفقة مع الإيميل, كما يمكنك إيجاد عرض الوظيفة هنا"
+
+msgid "Could not save uploaded file. The upload was cancelled, or server error encountered"
+msgstr "الملفات المحملة لم يتم حفظها, تم إلغاء التحميل أو هناك مشكلة واجهت الخادم"
+
+msgid "Plugin Options"
+msgstr "خيارات المساعد"
+
+msgid "Hire someone"
+msgstr "استئجار شخص ما"
+
+msgid "Looking for a job"
+msgstr "البحث عن وظيفة"
+
+msgid "Job attributes"
+msgstr "سمات الوظيفة"
+
+msgid "Relation"
+msgstr "علاقة"
+
+msgid "Company name"
+msgstr "اسم الشركة"
+
+msgid "Position type"
+msgstr "نوع الوضعية"
+
+msgid "Salary range"
+msgstr "مجال الراتب"
+
+msgid "Desired experience"
+msgstr "الخبرة المطلوبة"
+
+msgid "Studies"
+msgstr "الدراسات"
+
+msgid "Minimum requirements"
+msgstr "الحد الأدنى للمتطلبات"
+
+msgid "Desired requirements"
+msgstr "المتطلبات الرغوبة"
+
+msgid "Contract"
+msgstr "عقد"
+
+msgid "Company description"
+msgstr "وصف الشركة"
+
+msgid "Please enable JavaScript to use cv uploader"
+msgstr "من فضلك, فعل أداة الجافا للتمكن من استخدام مُحمل السيرة الذاتية"
+
+msgid "Full-time"
+msgstr "دوام كامل"
+
+msgid "Hour"
+msgstr "ساعة"
+
+msgid "Week"
+msgstr "أسبوع"
+
+msgid "Month"
+msgstr "شهر"
+

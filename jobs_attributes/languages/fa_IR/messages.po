@@ -1,0 +1,146 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Update"
+msgstr "به روزرسانی"
+
+msgid "Configure plugin"
+msgstr "تنظیمات افزونه"
+
+msgid "Year"
+msgstr "سال"
+
+msgid "Help"
+msgstr "راهنما"
+
+msgid "Part time"
+msgstr "پاره وقت"
+
+msgid "Undefined"
+msgstr "تعریف نشده"
+
+msgid "Jobs Options"
+msgstr "تنظیمات مشاغل"
+
+msgid "Allow upload of resumes"
+msgstr "اجازه آپلود رزومه"
+
+msgid "Allow unregistered users to upload their resumes"
+msgstr "اجازه به کاربران غیر عضو برای آپلود رزومه"
+
+msgid "Send all emails to the following email (if not checked the resumes will be send to ad's author)"
+msgstr "(اگر تیک زده نشود رزومه به نویسنده آگهی ارسال خواهد شد)ارسال تمام ایمیل ها به ایمیل زیر"
+
+msgid "E-mail"
+msgstr "ایمیل"
+
+msgid "Salary slider min value"
+msgstr "کمترین مقدار حقوق متغیر"
+
+msgid "Salary slider max value"
+msgstr "بیشترین مقدار حقوق متغیر"
+
+msgid "Salary slider step value"
+msgstr "Salary slider step value"
+
+msgid "You could allow users to send their resumes to a specific email address or to send them to the author of the ad. Also you could specify is unregistered users could or could not upload their resumes"
+msgstr "شما می توانید اجازه  دهید به کاربران عضو برای ارسال رزومه خود به یک آدرس ایمیل خاص و یا ارسال آن به نویسنده آگهی. همچنین شما می توانید تعیین کنید که کاربران غیر عضو می توانند رزومه خود را آپلود کنند یا نه."
+
+msgid "The salary range will appear as a slider, at the search page and at the publish page. You could modify the minimum and maximum values of that slider as well as the value of the \"steps\" or increments"
+msgstr "The salary range will appear as a slider, at the search page and at the publish page. You could modify the minimum and maximum values of that slider as well as the value of the \\\"steps\\\" or increments"
+
+msgid "Server error. Upload directory isn't writable"
+msgstr "خطای سرور.پوشه آپلود قابل نوشتن نیست"
+
+msgid "No files were uploaded"
+msgstr "فایلی آپلود نشد"
+
+msgid "File is empty"
+msgstr "فایل بدون محتوا است"
+
+msgid "File is too large"
+msgstr "پرونده بیش از حد بزرگ است"
+
+msgid "File has an invalid extension"
+msgstr "فرمت فایل نامعتبر"
+
+msgid "Someone sent you his/her resume. ( %s )"
+msgstr "کسی برای شما رزومه کاری خود را فرستاده است. ( %s )"
+
+msgid "Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here: %s"
+msgstr "کسی برای شما رزومه کاری اش را فرستاده.شما می توانید رزومه این شخص را در ضمیمه این ایمیل دریافت کنید.شما می توانید پیشنهاد کار را در اینجا بیابید:%s"
+
+msgid "Could not save uploaded file. The upload was cancelled, or server error encountered"
+msgstr "نمی توان فایل |آپلود را ذخیره کرد.یا آپلود لغو شده و یا خطای سرور رخ داده."
+
+msgid "Plugin Options"
+msgstr "تنظیمات افزونه"
+
+msgid "Hire someone"
+msgstr "استخدام کسی"
+
+msgid "Looking for a job"
+msgstr "جستجو برای یک شفل"
+
+msgid "Job attributes"
+msgstr "ویژگی های شغلی"
+
+msgid "Relation"
+msgstr "مرتبط"
+
+msgid "Company name"
+msgstr "نام شرکت"
+
+msgid "Position type"
+msgstr "نوع موقعیت"
+
+msgid "Salary range"
+msgstr "محدوده حقوق"
+
+msgid "Desired experience"
+msgstr "سابقه لازم"
+
+msgid "Studies"
+msgstr "مطالعات"
+
+msgid "Minimum requirements"
+msgstr "حداقل ملزومات"
+
+msgid "Desired requirements"
+msgstr "ملزومات مطلوب"
+
+msgid "Contract"
+msgstr "قرارداد"
+
+msgid "Company description"
+msgstr "توضیحات شرکت"
+
+msgid "Please enable JavaScript to use cv uploader"
+msgstr "لطفا برای استفاده از \"سی وی آپلودر\" جاوا را فعال کنید"
+
+msgid "Full-time"
+msgstr "تمام وقت"
+
+msgid "Hour"
+msgstr "ساعت"
+
+msgid "Week"
+msgstr "هفته"
+
+msgid "Month"
+msgstr "ماه"
+
