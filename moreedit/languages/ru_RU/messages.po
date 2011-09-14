@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Update"
+msgstr "Обновить"
+
+msgid "More Edit Options"
+msgstr "Более Изменить параметры"
+
+msgid "Moderate all ads (admins have to moderate them)"
+msgstr "Умеренный все объявления (администраторы, чтобы смягчить их)"
+
+msgid "Moderate edit (admins have to approve them, ads previouslyapproved will not be visible until new approved)"
+msgstr "Умеренный редактировать (администраторы должны утвердить их, объявления previouslyapproved не будет виден, пока новый утвержден)"
+
+msgid "Disable edit (users will not be able to edit their ads)"
+msgstr " Отключить редактирование (пользователи не смогут редактировать свои объявления)"
+
+msgid "Notify admin in case of ad editing (useful for moderation, but it could be a problem if there are many edits)"
+msgstr "Уведомлять администратора в случае объявления редактирования (полезно для умеренности, но это может быть проблемой, если Есть много правки)"
+
+msgid "Max ads published per week (0 for no limit)"
+msgstr " Макс объявления опубликованы в неделю (0 без ограничений)"
+
+msgid "Max ads published per month (0 for no limit)"
+msgstr " Макс объявления опубликованы в месяц (0 без ограничений)"
+
+msgid "Note that max ads per month should be a greater value than max ads per week."
+msgstr " Обратите внимание, что макс объявления в месяц должно быть больше значения, чем объявления макс в неделю."
+

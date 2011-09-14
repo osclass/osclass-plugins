@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Update"
+msgstr "به روزرسانی"
+
+msgid "More Edit Options"
+msgstr "ویرایش تنظیمات بیشتر"
+
+msgid "Moderate all ads (admins have to moderate them)"
+msgstr "متوسط ​​تمام تبلیغات (مدیران کرده اند آنها را در حد متوسط​​)"
+
+msgid "Moderate edit (admins have to approve them, ads previouslyapproved will not be visible until new approved)"
+msgstr "Moderate edit (admins have to approve them, ads previouslyapproved will not be visible until new approved)"
+
+msgid "Disable edit (users will not be able to edit their ads)"
+msgstr "غیر فعال کردن تغییر(کاربران نمی توانند آگهی خود را تغییر دهند)"
+
+msgid "Notify admin in case of ad editing (useful for moderation, but it could be a problem if there are many edits)"
+msgstr "باخبر کردن مدیر از ویرایش آگهی ها(در حد معمول میتواند مفید باشد اما در صورت ویرایش زیاد مشکل ساز خواهد بود)"
+
+msgid "Max ads published per week (0 for no limit)"
+msgstr "بیشترین حد انتشار آگهی در هر هفته (0 برای هیچ محدودیتی)"
+
+msgid "Max ads published per month (0 for no limit)"
+msgstr "بیشترین حد انتشار آگهی در هر ماه (0 برای هیچ محدودیتی)"
+
+msgid "Note that max ads per month should be a greater value than max ads per week."
+msgstr "نکته:توجه داشته باشید که باید بیشترین مقدار انتشار آگهی در هر ماه بیشتر باشد از بیشترین حد انتشار آگهی در هر هفته."
+
