@@ -3,7 +3,7 @@
 Plugin Name: Sitemap Generator
 Plugin URI: http://www.osclass.org/
 Description: Sitemap Generator
-Version: 1.0.5
+Version: 1.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
@@ -33,32 +33,6 @@ function sitemap_generator() {
     
     // INDEX
     sitemap_add_url(osc_base_url(), date('Y-m-d'), 'always');
-
-    // CATEGORIES 
-    /*if(osc_count_categories () > 0) {
-        while ( osc_has_categories() ) {
-            sitemap_add_url(osc_search_category_url(), date('Y-m-d'), 'hourly');
-            if ( osc_count_subcategories() > 0 ) {
-                while ( osc_has_subcategories() ) {
-                    sitemap_add_url(osc_search_category_url(), date('Y-m-d'), 'hourly');
-                    // COUNTRIES
-                    $countries = Country::newInstance()->listAll();
-                    foreach($countries as $country) {
-                        // REGIONS
-                        $regions = Region::newInstance()->getByCountry($country['pk_c_code']);
-                        foreach($regions as $region) {
-                            sitemap_add_url(osc_search_url(array('sCategory' => osc_category_id(), 'sRegion' => $region['s_name'])), date('Y-m-d'), 'hourly');
-                            // CITIES
-                            $cities = City::newInstance()->getByRegion($region['pk_i_id']);
-                            foreach($cities as $city) {
-                                sitemap_add_url(osc_search_url(array('sCategory' => osc_category_id(), 'sCity' => $city['s_name'])), date('Y-m-d'), 'hourly');
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }*/
     
     $categories = Category::newInstance()->toTree();
     $countries = Country::newInstance()->listAll();
