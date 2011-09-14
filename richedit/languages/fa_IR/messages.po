@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "تبریک می گویم. پلاگین در حال حاضر پیکربندی شده است"
+
+msgid "Update"
+msgstr "به روزرسانی"
+
+msgid "Rich edit options"
+msgstr "Rich edit تنظیمات"
+
+msgid "Theme"
+msgstr "پوسته"
+
+msgid "Skin"
+msgstr "پوسته"
+
+msgid "Skin variant"
+msgstr "نوع پوسته"
+
+msgid "Width (need units, px or %)"
+msgstr "عرض (need units, px or %)"
+
+msgid "Height (need units, px or %)"
+msgstr "ارتفاع (need units, px or %)"
+
+msgid "Line of buttons #1 (separated them by comma)"
+msgstr "Line of buttons #1 (separated them by comma)"
+
+msgid "Line of buttons #2 (separated them by comma)"
+msgstr "Line of buttons #2 (separated them by comma)"
+
+msgid "Line of buttons #3 (separated them by comma)"
+msgstr "Line of buttons #3 (separated them by comma)"
+
+msgid "Plugins (separated them by comma)"
+msgstr "افزونه ها (separated them by comma)"
+
+msgid "Plugins are located in %s. Feel free to add more plugins if you need it"
+msgstr "پلاگین ها واقع شده در %s .شما میتوانید به راحتی  اضافه کنید پلاگین های بیشتر اگر شما به آنها نیاز دارید"
+
+msgid "Preview of the editor"
+msgstr "پیش نمایش ویرایشگر"
+
+msgid "This is a preview of how the rich editor will look like"
+msgstr "این یک پیشنمایش از rich editor است که شبیه آن است"
+
+msgid "Learn more about the configuration of TinyMCE at %s"
+msgstr "یادگیری بیشتر درباره تنظیمات TinyMCE  در %s"
+
+msgid "Settings"
+msgstr "تنظیمات"
+

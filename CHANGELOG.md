@@ -1,6 +1,10 @@
 Rich Editor plugin
 ==============
 
+##version 1.0.4 - 14/09/2011
+
+* Added new languages: german, persian, latvian, russian
+
 ##version 1.0.3 - 10/08/2011
 
 * Added new languages: slovak, swedish

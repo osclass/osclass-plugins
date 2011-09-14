@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "Apsveicam. Plugin ir nokonfigurēts"
+
+msgid "Update"
+msgstr "Atjaunot"
+
+msgid "Rich edit options"
+msgstr "Iestātījumi"
+
+msgid "Theme"
+msgstr "Tēma"
+
+msgid "Skin"
+msgstr "Dizains"
+
+msgid "Skin variant"
+msgstr "Dizainu varianti"
+
+msgid "Width (need units, px or %)"
+msgstr "Platums (pikseļos vai %)"
+
+msgid "Height (need units, px or %)"
+msgstr "Augstums ( pikseļos vai %)"
+
+msgid "Line of buttons #1 (separated them by comma)"
+msgstr "Līnija pogas # 1 (atdalot tos ar komatu)"
+
+msgid "Line of buttons #2 (separated them by comma)"
+msgstr "Līnija pogas # 2 (atdalot tos ar komatu)"
+
+msgid "Line of buttons #3 (separated them by comma)"
+msgstr "Līnija pogas # 3 (atdalot tos ar komatu)"
+
+msgid "Plugins (separated them by comma)"
+msgstr "Plugins (tos šķīra ar komatu)"
+
+msgid "Plugins are located in %s. Feel free to add more plugins if you need it"
+msgstr "Plugins atrodas %s. Jūtieties brīvi, lai pievienotu vairāk plugins, ja tas nepieciešams"
+
+msgid "Preview of the editor"
+msgstr "Editora paraugs"
+
+msgid "This is a preview of how the rich editor will look like"
+msgstr "Šis ir priekšskatījums, kā redaktors izskatās"
+
+msgid "Learn more about the configuration of TinyMCE at %s"
+msgstr " Uzziniet vairāk par konfigurāciju TinyMCE ar %s"
+
+msgid "Settings"
+msgstr "Iestātījumi"
+
