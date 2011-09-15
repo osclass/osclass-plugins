@@ -16,6 +16,7 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Google Maps](https://github.com/osclass/osclass-plugins/tree/google_maps)
 - [Jobs attributes](https://github.com/osclass/osclass-plugins/tree/jobs_attributes)
 - [List sellet items](https://github.com/osclass/osclass-plugins/tree/list_seller_items)
+- [Location required](https://github.com/osclass/osclass-plugins/tree/location_required)
 - [Mobile theme](https://github.com/osclass/osclass-plugins/tree/osc-mobile) _under development_
 - [More Edit](https://github.com/osclass/osclass-plugins/tree/more_edit)
 - [Paypal](https://github.com/osclass/osclass-plugins/tree/paypal)
