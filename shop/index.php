@@ -211,7 +211,7 @@ Short Name: shop
             $content = current($aPage['locale']);
         }
 
-        $price = ($item['f_price']*$txn['i_amount'])." ".$item['fk_c_currency_code'];
+        $price = (osc_prepare_price($item['i_price'])*$txn['i_amount'])." ".$item['fk_c_currency_code'];
         $instructions = '';
         if($shop_item['b_accept_paypal']==1) {
             if($detail['b_accept_paypal']==1) {
@@ -347,10 +347,12 @@ Short Name: shop
     }
     
     function shop_new_user($user_id) {
+        $conn = getConnection();
         $conn->osc_dbExec("INSERT INTO %st_shop_user (fk_i_user_id, f_score, i_total_sales, i_total_buys) values (%d, 0, 0, 0)", DB_TABLE_PREFIX, $user_id);
     }
     
     function shop_new_item($cat_id, $item_id) {
+        $conn = getConnection();
         $conn->osc_dbExec("INSERT INTO %st_shop_item (fk_i_item_id, i_amount, b_digital, b_accept_paypal, b_accept_bank_transfer) values (%d, 0, 0, 0, 0)", DB_TABLE_PREFIX, $item_id);
     }
     
