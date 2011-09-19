@@ -20,37 +20,36 @@
      */
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<!DOCTYPE html>
+<html>
     <head>
         <?php osc_current_web_theme_path('head.php') ; ?>
-        <meta name="robots" content="noindex, nofollow" />
-        <meta name="googlebot" content="noindex, nofollow" />
     </head>
     <body>
-        <div class="container">
-            <?php osc_current_web_theme_path('header.php') ; ?>
-            <div class="content user_forms">
-                <div class="inner">
-                    <h1><?php _e('Access to your account', 'modern'); ?></h1>
-                    <form action="<?php echo osc_base_url(true); ?>" method="post" >
-                        <input type="hidden" name="page" value="login" />
-                        <input type="hidden" name="action" value="login_post" />
-                        <fieldset>
-                            <label for="email"><?php _e('E-mail', 'modern'); ?></label> <?php UserForm::email_login_text() ; ?><br />
-                            <label for="password"><?php _e('Password', 'modern'); ?></label> <?php UserForm::password_login_text() ; ?><br />
-                            <p class="checkbox"><?php UserForm::rememberme_login_checkbox();?> <label for="rememberMe"><?php _e('Remember me', 'modern') ; ?></label></p>
-                            <button type="submit"><?php _e("Log in", 'modern');?></button>
-                            <div class="more-login">
-                                <a href="<?php echo osc_register_account_url() ; ?>"><?php _e("Register for a free account", 'modern') ; ?></a> · <a href="<?php echo osc_recover_user_password_url() ; ?>"><?php _e("Forgot password?", 'modern') ; ?></a>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
+        <div data-role="page">
+            <div data-role="header">
+                <h1><?php _e('Log in','modern');?></h1>
             </div>
-            <?php osc_current_web_theme_path('footer.php') ; ?>
-        </div>
-        <?php osc_show_flash_message() ; ?>
-        <?php osc_run_hook('footer'); ?>
+
+            <div data-role="content" data-theme="c">
+                    <form action="<?php echo osc_base_url(true); ?>" method="post" class="ui-body ui-body-a ui-corner-all">
+                        <input type="hidden" name="page" value="login"  data-role="none" />
+                        <input type="hidden" name="action" value="login_post"  data-role="none" />
+                        <div data-role="fieldcontain">
+                            <label for="email"><?php _e('E-mail', 'modern'); ?></label>
+                            <input type="text" name="email" id="email" value=""  />
+                            <br/><br/>
+                            <label for="password"><?php _e('Password', 'modern'); ?></label>
+                            <input type="password" name="password" id="password" value="" />
+                            <br/><br/>
+                            <input type="checkbox" name="rememberMe" id="rememberMe" class="custom" />
+                            <label for="rememberMe"><?php _e('Remember me', 'modern') ; ?></label>                            
+                        </div>
+                        <button style="width:99%" type="submit" name="submit" value="submit-value" data-icon="check" data-role="button" data-inline="false"><?php _e("Log in", 'modern');?></button>
+                    </form>
+                 <a href="<?php echo osc_register_account_url() ; ?>" data-role="button"><?php _e("Register for a free account", 'modern') ; ?></a>
+                 <a href="<?php echo osc_recover_user_password_url() ; ?>" data-role="button"><?php _e("Forgot password?", 'modern') ; ?></a>
+            </div>
+        </div>       
     </body>
 </html>

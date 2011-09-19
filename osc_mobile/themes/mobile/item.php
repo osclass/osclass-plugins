@@ -40,7 +40,7 @@
             </div><!-- /header -->
 
             <div data-role="content" class="content" style="padding-top:0px;">
-                <p><strong><?php echo osc_item_category() ; ?></strong></p>
+                <p><strong><?php breadcrumbs(); ?></strong></p>
                 <a data-role="button" href="<?php echo osc_base_url(true)."?page=item&action=markas&id=".osc_item_id();?>"><strong><?php _e('Mark as', 'modern') ; ?></strong></a>
 
                 <div class="ui-grid-a">

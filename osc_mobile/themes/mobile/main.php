@@ -37,20 +37,22 @@
             <div data-role="content">
                 <?php if(osc_count_categories () > 0) { ?>
                     <?php while ( osc_has_categories() ) { ?>
-                    <div data-role="collapsible" data-collapsed="true">
-                        <?php if ( osc_count_subcategories() > 0 ) { ?>
-                        <h3><?php echo osc_category_name() ; ?></h3>
-                        <ul data-role="listview" data-inset="true" data-theme="d">
-                            <?php while ( osc_has_subcategories() ) { ?>
-                            <li><a href="<?php echo str_replace(osc_base_url(), '', osc_search_category_url() ) ; ?>"><?php echo osc_category_name() ; ?></a></li>
-                            <?php } ?>
-                        </ul>
-                        <?php } else { ?>
-                        <h3><a href="<?php echo str_replace(osc_base_url(), '', osc_search_category_url() ) ; ?>"><?php echo osc_category_name() ; ?></a></h3>
-                        <?php } ?>
-                    </div>
+                        <div data-role="collapsible" data-collapsed="true">
+                            <?php $cat_title =  osc_category_name() ; ?>
+                            <?php $cat_link = str_replace(osc_base_url(), '', osc_search_category_url() ) ; ?>
+                            <h3><?php echo $cat_title ?></h3>
+                            <ul data-role="listview" data-inset="true" data-theme="d">
+                                <?php if ( osc_count_subcategories() > 0 ) { ?>
+                                    <?php while ( osc_has_subcategories() ) { ?>
+                                        <li><a href="<?php echo str_replace(osc_base_url(), '', osc_search_category_url() ) ; ?>"><?php echo osc_category_name() ; ?></a></li>
+                                    <?php } ?>
+                                <?php }  else {?>
+                                        <li><a href="<?php echo $cat_link ; ?>"><?php echo $cat_title ; ?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
                     <?php } ?>
-                <?php } ?>
+                <?php }?>               
             </div><!-- /content -->
 
             <div data-role="footer">
