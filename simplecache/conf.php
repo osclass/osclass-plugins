@@ -18,8 +18,11 @@
      *      You should have received a copy of the GNU Affero General Public
      * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
+
     if(Params::getParam('plugin_action')=='done') {
-        osc_set_preference('hours', Params::getParam('hours'), 'simplecache', 'INTEGER');
+        osc_set_preference('search_hours', Params::getParam('search_hours'), 'simplecache', 'INTEGER');
+        osc_set_preference('item_hours', Params::getParam('item_hours'), 'simplecache', 'INTEGER');
+        osc_set_preference('page_hours', Params::getParam('page_hours'), 'simplecache', 'INTEGER');
         echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'simplecache') . '.</p></div>' ;
         osc_reset_preferences();
     } else if(Params::getParam('plugin_action')=='clear') {
@@ -68,9 +71,17 @@
                     <input type="hidden" name="action" value="renderplugin" />
                     <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
                     <input type="hidden" name="plugin_action" value="done" />
-                        <label for="hours"><?php _e('Hours between re-generation of cache files for homepage and search results (0 for no cache)', 'simplecache'); ?></label>
+                        <label for="search_hours"><?php _e('Hours between re-generation of cache files for search results', 'simplecache'); ?></label>
                         <br/>
-                        <input type="text" name="hours" id="hours" value="<?php echo osc_get_preference('hours', 'simplecache'); ?>"/>
+                        <input type="text" name="search_hours" id="search_hours" value="<?php echo osc_get_preference('search_hours', 'simplecache'); ?>"/>
+                        <br/>
+                        <label for="item_hours"><?php _e('Hours between re-generation of cache files for item\'s page', 'simplecache'); ?></label>
+                        <br/>
+                        <input type="text" name="item_hours" id="item_hours" value="<?php echo osc_get_preference('item_hours', 'simplecache'); ?>"/>
+                        <br/>
+                        <label for="page_hours"><?php _e('Hours between re-generation of cache files for static pages', 'simplecache'); ?></label>
+                        <br/>
+                        <input type="text" name="page_hours" id="page_hours" value="<?php echo osc_get_preference('page_hours', 'simplecache'); ?>"/>
                         <br/>
                         <span style="float:right;"><button type="submit" style="float: right;"><?php _e('Update', 'simplecache');?></button></span>
                     </div>

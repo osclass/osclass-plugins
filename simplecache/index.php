@@ -14,14 +14,18 @@ Short Name: simplecache
         @mkdir(osc_content_path().'uploads/simplecache/');
         $conn= getConnection();
         osc_set_preference('upload_path', osc_content_path().'uploads/simplecache/', 'simplecache', 'STRING');
-        osc_set_preference('hours', '1', 'simplecache', 'INTEGER');
+        osc_set_preference('search_hours', '1', 'simplecache', 'INTEGER');
+        osc_set_preference('item_hours', '1', 'simplecache', 'INTEGER');
+        osc_set_preference('page_hours', '24', 'simplecache', 'INTEGER');
         $conn->commit();
     }
 
     function simplecache_uninstall() {
         $conn= getConnection();
         osc_delete_preference('upload_path', 'simplecache');
-        osc_delete_preference('hours', 'simplecache');
+        osc_delete_preference('search_hours', 'simplecache');
+        osc_delete_preference('item_hours', 'simplecache');
+        osc_delete_preference('page_hours', 'simplecache');
         $conn->commit();
         $files = glob(osc_get_preference('upload_path', 'simplecache')."*.cache");
         foreach($files as $f) {
@@ -102,7 +106,7 @@ Short Name: simplecache
                     }
                 }
                 if($should_be_cached) {
-                    $filename = "search".$cat_str.$co_str.$re_str.$ci_str.$feed_str.$pg_str.$pgsz_str.$sa_str.".cache";
+                    $filename = osc_current_user_locale()."_search".$cat_str.$co_str.$re_str.$ci_str.$feed_str.$pg_str.$pgsz_str.$sa_str.".cache";
                     View::newInstance()->_exportVariableToView("simplecache_filename", $filename);
                     if(!file_exists(osc_get_preference('upload_path', 'simplecache').$filename)) {
                         ob_start();
@@ -118,17 +122,17 @@ Short Name: simplecache
     function simplecache_before_html() {
         if(!osc_is_web_user_logged_in()) {
             if(osc_is_ad_page()) {
-                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."item_".Params::getParam('id').".cache")) {
+                if(!file_exists(osc_get_preference('upload_path', 'simplecache').osc_current_user_locale()."_item_".Params::getParam('id').".cache")) {
                     ob_start();
                 } else {
-                    require_once(osc_get_preference('upload_path', 'simplecache')."item_".Params::getParam('id').".cache");
+                    require_once(osc_get_preference('upload_path', 'simplecache').osc_current_user_locale()."_item_".Params::getParam('id').".cache");
                     die;
                 }
             } else if(osc_is_static_page()) {
-                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."page_".Params::getParam('id').".cache")) {
+                if(!file_exists(osc_get_preference('upload_path', 'simplecache').osc_current_user_locale()."_page_".Params::getParam('id').".cache")) {
                     ob_start();
                 } else {
-                    require_once(osc_get_preference('upload_path', 'simplecache')."page_".Params::getParam('id').".cache");
+                    require_once(osc_get_preference('upload_path', 'simplecache').osc_current_user_locale()."_page_".Params::getParam('id').".cache");
                     die;
                 }
             }
@@ -138,18 +142,18 @@ Short Name: simplecache
     function simplecache_after_html() {
         if(!osc_is_web_user_logged_in()) {
             if(osc_is_ad_page()) {
-                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."item_".Params::getParam('id').".cache")) {
+                if(!file_exists(osc_get_preference('upload_path', 'simplecache').osc_current_user_locale()."_item_".Params::getParam('id').".cache")) {
                     $contents = ob_get_contents();
                     ob_end_flush();
-                    $handle = fopen(osc_get_preference('upload_path', 'simplecache').'item_'.Params::getParam('id').'.cache', "w");
+                    $handle = fopen(osc_get_preference('upload_path', 'simplecache').osc_current_user_locale()."_item_".Params::getParam('id').'.cache', "w");
                     @fwrite($handle, $contents);
                     fclose($handle);
                 }
             } else if(osc_is_static_page()) {
-                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."page_".Params::getParam('id').".cache")) {
+                if(!file_exists(osc_get_preference('upload_path', 'simplecache').osc_current_user_locale()."_page_".Params::getParam('id').".cache")) {
                     $contents = ob_get_contents();
                     ob_end_flush();
-                    $handle = fopen(osc_get_preference('upload_path', 'simplecache').'page_'.Params::getParam('id').'.cache', "w");
+                    $handle = fopen(osc_get_preference('upload_path', 'simplecache').osc_current_user_locale()."_page_".Params::getParam('id').'.cache', "w");
                     @fwrite($handle, $contents);
                     fclose($handle);
                 }
@@ -167,41 +171,41 @@ Short Name: simplecache
     }
     
     function simplecache_delete_file($cat_id, $item_id) {
-        @unlink(osc_get_preference('upload_path', 'simplecache').'item_'.$item_id.'.cache');
+        @unlink(osc_get_preference('upload_path', 'simplecache').'*_item_'.$item_id.'.cache');
     }
     
     function simplecache_delete_item($item) {
-        @unlink(osc_get_preference('upload_path', 'simplecache').'item_'.$item['pk_i_id'].'.cache');
+        @unlink(osc_get_preference('upload_path', 'simplecache').'*_item_'.$item['pk_i_id'].'.cache');
     }
     
     function simplecache_clear_items() {
-        $files = glob(osc_get_preference('upload_path', 'simplecache')."item_*.cache");
+        $files = glob(osc_get_preference('upload_path', 'simplecache')."*_item_*.cache");
         foreach($files as $f) {
             @unlink($f);
         }
     }
     
     function simplecache_clear_feeds() {
-        $files = glob(osc_get_preference('upload_path', 'simplecache').'search*_feed_*.cache');
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*_search*_feed_*.cache');
         foreach($files as $f) {
             @unlink($f);
         }
     }
     
     function simplecache_clear_search() {
-        $files = glob(osc_get_preference('upload_path', 'simplecache').'search_pg_*.cache');
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*_search_pg_*.cache');
         foreach($files as $f) {
             @unlink($f);
         }
-        $files = glob(osc_get_preference('upload_path', 'simplecache').'search_pgsz_*.cache');
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*_search_pgsz_*.cache');
         foreach($files as $f) {
             @unlink($f);
         }
-        $files = glob(osc_get_preference('upload_path', 'simplecache').'search_sa_*.cache');
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*_search_sa_*.cache');
         foreach($files as $f) {
             @unlink($f);
         }
-        @unlink(osc_get_preference('upload_path', 'simplecache').'search.cache');
+        @unlink(osc_get_preference('upload_path', 'simplecache').'*_search.cache');
     }
     
     function simplecache_clear_all() {
@@ -212,21 +216,21 @@ Short Name: simplecache
     }
     
     function simplecache_clear_category($id = '') {
-        $files = glob(osc_get_preference('upload_path', 'simplecache').'search_cat_'.$id.'*.cache');
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*_search_cat_'.$id.'*.cache');
         foreach($files as $f) {
             @unlink($f);
         }
     }
     
     function simplecache_clear_country($id = '') {
-        $files = glob(osc_get_preference('upload_path', 'simplecache').'search*_co_'.$id.'*.cache');
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*_search*_co_'.$id.'*.cache');
         foreach($files as $f) {
             @unlink($f);
         }
     }
     
     function simplecache_clear_region($id = '') {
-        $files = glob(osc_get_preference('upload_path', 'simplecache').'search*_re_'.$id.'*.cache');
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*_search*_re_'.$id.'*.cache');
         foreach($files as $f) {
             @unlink($f);
         }
@@ -236,19 +240,42 @@ Short Name: simplecache
         echo '<h3><a href="#">Simple Cache</a></h3>
         <ul> 
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'simplecache') . '</a></li>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'simplecache') . '</a></li>
         </ul>';
     }
     
-    function simplecache_configure_link() {
-        osc_plugin_configure_view(osc_plugin_path(__FILE__) );
+    
+    function simplecache_cron() {
+        $time = time();
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*_search*.cache');
+        $secs = osc_get_preference('search_hours', 'simplecache')*3600;
+        foreach($files as $f) {
+            if(($time-filemtime($f))>=$secs) {
+                @unlink($f);
+            };
+        }
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*_page_*.cache');
+        $secs = osc_get_preference('page_hours', 'simplecache')*3600;
+        foreach($files as $f) {
+            if(($time-filemtime($f))>=$secs) {
+                @unlink($f);
+            };
+        }
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*_item_*.cache');
+        $secs = osc_get_preference('item_hours', 'simplecache')*3600;
+        foreach($files as $f) {
+            if(($time-filemtime($f))>=$secs) {
+                @unlink($f);
+            };
+        }
     }
+    
     
     /**
      * ADD HOOKS
      */
     osc_register_plugin(osc_plugin_path(__FILE__), 'simplecache_install');
     osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'simplecache_uninstall');
-    osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'simplecache_configure_link');
     
     osc_add_hook('before_search', 'simplecache_before_search');
     osc_add_hook('before_html', 'simplecache_before_html');
@@ -259,5 +286,9 @@ Short Name: simplecache
     osc_add_hook('theme_activate', 'simplecache_change_theme');
     
     osc_add_hook('admin_menu', 'simplecache_admin_menu');
+    
+    
+    // COMMENT THIS LINE IF YOU'RE CALLING manual_cron.php FILE DIRECTLY
+    osc_add_hook('cron_hourly', 'simplecache_cron');
     
 ?>
