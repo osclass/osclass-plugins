@@ -35,6 +35,9 @@
         if(Params::getParam('search')==1) {
             simplecache_clear_search();
         }
+        if(Params::getParam('pages')==1) {
+            simplecache_clear_pages();
+        }
         if(Params::getParam('allcache')==1) {
             simplecache_clear_all();
         }
@@ -60,6 +63,11 @@
 ?>
 <link href="<?php echo osc_current_admin_theme_styles_url('jquery.treeview.css') ; ?>" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<?php echo osc_current_admin_theme_js_url('jquery.treeview.js') ; ?>"></script>
+<?php if(!osc_auto_cron()) { ?>
+<div id="warning" style="background: #9f0909; padding:20px">
+    <center><?php _e('Auto-cron is not enabled, please enable it or use your server\'s cron system', 'simplecache');?></center>
+</div>
+<?php }; ?>
 <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
     <div style="padding: 20px;">
         <div style="float: left; width: 100%;">
@@ -175,6 +183,17 @@
                                     <td>
                                         <input type="checkbox" name="feeds" value="1" >
                                         <span><?php _e("Clear cache of feeds"); ?></span>
+                                    </td>
+                                </tr>
+                                <tr style="vertical-align: top;">
+                                    <td>
+                                        <span><?php _e("Static pages"); ?></span>
+                                    </td>
+                                </tr>
+                                <tr style="vertical-align: top;">
+                                    <td>
+                                        <input type="checkbox" name="pages" value="1" >
+                                        <span><?php _e("Clear cache of static pages"); ?></span>
                                     </td>
                                 </tr>
                                 <tr style="vertical-align: top;">

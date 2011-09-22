@@ -170,16 +170,33 @@ Short Name: simplecache
         }
     }
     
-    function simplecache_delete_file($cat_id, $item_id) {
-        @unlink(osc_get_preference('upload_path', 'simplecache').'*_item_'.$item_id.'.cache');
+    function simplecache_item_edit_post($cat_id, $item_id) {
+        simplecache_clear_category($cat_id);
+        simplecache_clear_item($id);
     }
     
-    function simplecache_delete_item($item) {
-        @unlink(osc_get_preference('upload_path', 'simplecache').'*_item_'.$item['pk_i_id'].'.cache');
+    function simplecache_delete_item($id) {
+        $conn = getConnection();
+        $cat = $conn->osc_dbFetchResult("SELECT fk_i_category_id FROM %st_item WHERE pk_i_id = %d", DB_TABLE_PREFIX, $id);
+        simplecache_item_edit_post($cat['fk_i_category_id'], $id);
+    }
+    
+    function simplecache_clear_item($id) {
+        $files = glob(osc_get_preference('upload_path', 'simplecache')."*_item_".$id.".cache");
+        foreach($files as $f) {
+            @unlink($f);
+        }
     }
     
     function simplecache_clear_items() {
         $files = glob(osc_get_preference('upload_path', 'simplecache')."*_item_*.cache");
+        foreach($files as $f) {
+            @unlink($f);
+        }
+    }
+    
+    function simplecache_clear_pages() {
+        $files = glob(osc_get_preference('upload_path', 'simplecache')."*_page_*.cache");
         foreach($files as $f) {
             @unlink($f);
         }
@@ -216,6 +233,10 @@ Short Name: simplecache
     }
     
     function simplecache_clear_category($id = '') {
+        $cat= Category::newInstance()->findByPrimaryKey($id);
+        if($cat['fk_i_parent_id']!=null) {
+            simplecache_clear_category($cat['fk_i_parent_id']);
+        }
         $files = glob(osc_get_preference('upload_path', 'simplecache').'*_search_cat_'.$id.'*.cache');
         foreach($files as $f) {
             @unlink($f);
@@ -277,15 +298,19 @@ Short Name: simplecache
     osc_register_plugin(osc_plugin_path(__FILE__), 'simplecache_install');
     osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'simplecache_uninstall');
     
+    // CREATE CACHE HOOKS
     osc_add_hook('before_search', 'simplecache_before_search');
     osc_add_hook('before_html', 'simplecache_before_html');
     osc_add_hook('after_html', 'simplecache_after_html');
 
-    osc_add_hook('item_edit_post', 'simplecache_delete_file');
-    osc_add_hook('delete_item', 'simplecache_delete_item');
-    osc_add_hook('theme_activate', 'simplecache_change_theme');
-    
+    // FANCY MENU
     osc_add_hook('admin_menu', 'simplecache_admin_menu');
+
+    // CLEAR CACHE HOOKS
+    osc_add_hook('item_edit_post', 'simplecache_item_edit_post');
+    osc_add_hook('delete_item', 'simplecache_delete_item');
+    osc_add_hook('theme_activate', 'simplecache_clear_all');
+    
     
     
     // COMMENT THIS LINE IF YOU'RE CALLING manual_cron.php FILE DIRECTLY
