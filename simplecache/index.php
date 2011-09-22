@@ -33,6 +33,7 @@ Short Name: simplecache
     function simplecache_before_search() {
         if(!osc_is_web_user_logged_in()) {
             if(osc_is_search_page()) {
+                $conn = getConnection();
                 $params = Params::getParamsAsArray();
                 $should_be_cached = true;
                 $cat_str = '';
@@ -43,45 +44,72 @@ Short Name: simplecache
                 $pg_str = '';
                 $pgsz_str = '';
                 $sa_str = '';
-                foreach($params as $k => $v) {
-                    if($v!='') {
-                        if($k=='page') {
-                        } else if($k=='sCategory') {
-                            $tmp = explode(",", $v);
-                            if(count($v)>1) {
+                if(@$params['sPattern']=='') { // SPEED HACK, sPattern is one of the most use filters, Check it first
+                    unset($params['sPattern']);
+                    foreach($params as $k => $v) {
+                        if($v!='') {
+                            if($k=='page') {
+                            } else if($k=='sCategory') {
+                                $tmp = explode(",", $v);
+                                if(count($v)>1) {
+                                    $should_be_cached = false;
+                                    break;
+                                } else {
+                                    if(is_numeric($v)) {
+                                        $cat_str = '_cat_'.$v;
+                                    } else {
+                                        $category = preg_replace('|/$|','',$v);
+                                        $aCategory = explode('/', $category) ;
+                                        $category = Category::newInstance()->find_by_slug($aCategory[count($aCategory)-1]) ;
+                                        $cat_str = '_cat_'.$category['pk_i_id'];
+                                    }
+                                }
+                            } else if($k=='sCountry') {
+                                if(strlen($v)==2) {
+                                    $co_str = '_co_'.$v;
+                                } else {
+                                    $tmp = $conn->osc_dbFetchResult("SELECT pk_c_code FROM %st_country WHERE s_name = '%s'", DB_TABLE_PREFIX, $v);
+                                    $co_str = '_co_'.$tmp['pk_c_code'];
+                                }
+                            } else if($k=='sRegion') {
+                                if(is_numeric($v)) {
+                                    $re_str = '_re_'.$v;
+                                } else {
+                                    $tmp = $conn->osc_dbFetchResult("SELECT pk_i_id FROM %st_region WHERE s_name = '%s'", DB_TABLE_PREFIX, $v);
+                                    $re_str = '_re_'.$tmp['pk_i_id'];
+                                }
+                            /*} else if($k=='sCity') {
+                                if(is_numeric($v)) {
+                                    $ci_str = '_ci_'.$v;
+                                } else {
+                                    $tmp = $conn->osc_dbFetchResult("SELECT pk_i_id FROM %st_city WHERE s_name = '%s'", DB_TABLE_PREFIX, $v);
+                                    $ci_str = '_ci_'.$tmp['pk_i_id'];
+                                }*/
+                            } else if($k=='sFeed') {
+                                $feed_str = '_feed_'.$v;
+                            } else if($k=='iPage') {
+                                $pg_str = '_pg_'.$v;
+                            } else if($k=='iPageSize') {
+                                $pgsz_str = '_pgsz_'.$v;
+                            } else if($k=='sShowAs') {
+                                $sa_str = '_sa_'.$v;
+                            } else {
                                 $should_be_cached = false;
                                 break;
-                            } else {
-                                $cat_str = '_cat_'.$v;
                             }
-                        } else if($k=='sCountry') {
-                            $cat_str = '_co_'.$v;
-                        } else if($k=='sRegion') {
-                            $cat_str = '_re_'.$v;
-                        } else if($k=='sCity') {
-                            $cat_str = '_ci_'.$v;
-                        } else if($k=='sFeed') {
-                            $cat_str = '_feed_'.$v;
-                        } else if($k=='iPage') {
-                            $cat_str = '_pg_'.$v;
-                        } else if($k=='iPageSize') {
-                            $cat_str = '_pgsz_'.$v;
-                        } else if($k=='sShowAs') {
-                            $cat_str = '_sa_'.$v;
-                        } else {
-                            $should_be_cached = false;
-                            break;
                         }
+
                     }
-                    
                 }
-                $filename = "search".$cat_str.$co_str.$re_str.$ci_str.$feed_str.$pg_str.$pgsz_str.$sa_str.".cache";
-                View::newInstance()->_exportVariableToView("simplecache_filename", $filename);
-                if(!file_exists(osc_get_preference('upload_path', 'simplecache').$filename)) {
-                    ob_start();
-                } else {
-                    require_once(osc_get_preference('upload_path', 'simplecache').$filename);
-                    die;
+                if($should_be_cached) {
+                    $filename = "search".$cat_str.$co_str.$re_str.$ci_str.$feed_str.$pg_str.$pgsz_str.$sa_str.".cache";
+                    View::newInstance()->_exportVariableToView("simplecache_filename", $filename);
+                    if(!file_exists(osc_get_preference('upload_path', 'simplecache').$filename)) {
+                        ob_start();
+                    } else {
+                        require_once(osc_get_preference('upload_path', 'simplecache').$filename);
+                        die;
+                    }
                 }
             }
         }
@@ -90,19 +118,19 @@ Short Name: simplecache
     function simplecache_before_html() {
         if(!osc_is_web_user_logged_in()) {
             if(osc_is_ad_page()) {
-                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."item_".osc_item_id().".cache")) {
+                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."item_".Params::getParam('id').".cache")) {
                     ob_start();
                 } else {
-                    require_once(osc_get_preference('upload_path', 'simplecache')."item_".osc_item_id().".cache");
+                    require_once(osc_get_preference('upload_path', 'simplecache')."item_".Params::getParam('id').".cache");
                     die;
                 }
-            /*} else if(osc_is_static_page()) {
-                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."page_".osc_static_page_id().".cache")) {
+            } else if(osc_is_static_page()) {
+                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."page_".Params::getParam('id').".cache")) {
                     ob_start();
                 } else {
-                    require_once(osc_get_preference('upload_path', 'simplecache')."page_".osc_static_page_id().".cache");
+                    require_once(osc_get_preference('upload_path', 'simplecache')."page_".Params::getParam('id').".cache");
                     die;
-                }*/
+                }
             }
         }
     }
@@ -110,18 +138,18 @@ Short Name: simplecache
     function simplecache_after_html() {
         if(!osc_is_web_user_logged_in()) {
             if(osc_is_ad_page()) {
-                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."item_".osc_item_id().".cache")) {
+                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."item_".Params::getParam('id').".cache")) {
                     $contents = ob_get_contents();
                     ob_end_flush();
-                    $handle = fopen(osc_get_preference('upload_path', 'simplecache').'item_'.osc_item_id().'.cache', "w");
+                    $handle = fopen(osc_get_preference('upload_path', 'simplecache').'item_'.Params::getParam('id').'.cache', "w");
                     @fwrite($handle, $contents);
                     fclose($handle);
                 }
             } else if(osc_is_static_page()) {
-                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."page_".osc_static_page_id().".cache")) {
+                if(!file_exists(osc_get_preference('upload_path', 'simplecache')."page_".Params::getParam('id').".cache")) {
                     $contents = ob_get_contents();
                     ob_end_flush();
-                    $handle = fopen(osc_get_preference('upload_path', 'simplecache').'page_'.osc_static_page_id().'.cache', "w");
+                    $handle = fopen(osc_get_preference('upload_path', 'simplecache').'page_'.Params::getParam('id').'.cache', "w");
                     @fwrite($handle, $contents);
                     fclose($handle);
                 }
@@ -139,15 +167,66 @@ Short Name: simplecache
     }
     
     function simplecache_delete_file($cat_id, $item_id) {
-        @unlink(osc_get_preference('upload_path', 'simplecache').'osc_item_'.$item_id.'.cache');
+        @unlink(osc_get_preference('upload_path', 'simplecache').'item_'.$item_id.'.cache');
     }
     
     function simplecache_delete_item($item) {
-        @unlink(osc_get_preference('upload_path', 'simplecache').'osc_item_'.$item['pk_i_id'].'.cache');
+        @unlink(osc_get_preference('upload_path', 'simplecache').'item_'.$item['pk_i_id'].'.cache');
     }
     
-    function simplecache_change_theme($theme) {
-        $files = glob(osc_get_preference('upload_path', 'simplecache')."*.cache");
+    function simplecache_clear_items() {
+        $files = glob(osc_get_preference('upload_path', 'simplecache')."item_*.cache");
+        foreach($files as $f) {
+            @unlink($f);
+        }
+    }
+    
+    function simplecache_clear_feeds() {
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'search*_feed_*.cache');
+        foreach($files as $f) {
+            @unlink($f);
+        }
+    }
+    
+    function simplecache_clear_search() {
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'search_pg_*.cache');
+        foreach($files as $f) {
+            @unlink($f);
+        }
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'search_pgsz_*.cache');
+        foreach($files as $f) {
+            @unlink($f);
+        }
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'search_sa_*.cache');
+        foreach($files as $f) {
+            @unlink($f);
+        }
+        @unlink(osc_get_preference('upload_path', 'simplecache').'search.cache');
+    }
+    
+    function simplecache_clear_all() {
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'*.cache');
+        foreach($files as $f) {
+            @unlink($f);
+        }
+    }
+    
+    function simplecache_clear_category($id = '') {
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'search_cat_'.$id.'*.cache');
+        foreach($files as $f) {
+            @unlink($f);
+        }
+    }
+    
+    function simplecache_clear_country($id = '') {
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'search*_co_'.$id.'*.cache');
+        foreach($files as $f) {
+            @unlink($f);
+        }
+    }
+    
+    function simplecache_clear_region($id = '') {
+        $files = glob(osc_get_preference('upload_path', 'simplecache').'search*_re_'.$id.'*.cache');
         foreach($files as $f) {
             @unlink($f);
         }
