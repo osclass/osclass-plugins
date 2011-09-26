@@ -316,6 +316,7 @@ Short Name: simplecache
     osc_add_hook('enable_comment', 'simplecache_delete_item');
     osc_add_hook('disable_comment', 'simplecache_delete_item');
     osc_add_hook('delete_comment', 'simplecache_delete_item');
+    osc_add_hook('add_comment', 'simplecache_delete_item');
 
     osc_add_hook('activate_item', 'simplecache_delete_item');
     osc_add_hook('deactivate_item', 'simplecache_delete_item');
