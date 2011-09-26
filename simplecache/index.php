@@ -311,6 +311,17 @@ Short Name: simplecache
     osc_add_hook('delete_item', 'simplecache_delete_item');
     osc_add_hook('theme_activate', 'simplecache_clear_all');
     
+    osc_add_hook('activate_comment', 'simplecache_delete_item');
+    osc_add_hook('deactivate_comment', 'simplecache_delete_item');
+    osc_add_hook('enable_comment', 'simplecache_delete_item');
+    osc_add_hook('disable_comment', 'simplecache_delete_item');
+    osc_add_hook('delete_comment', 'simplecache_delete_item');
+
+    osc_add_hook('activate_item', 'simplecache_delete_item');
+    osc_add_hook('deactivate_item', 'simplecache_delete_item');
+    osc_add_hook('enable_item', 'simplecache_delete_item');
+    osc_add_hook('disable_item', 'simplecache_delete_item');
+
     
     
     // COMMENT THIS LINE IF YOU'RE CALLING manual_cron.php FILE DIRECTLY
