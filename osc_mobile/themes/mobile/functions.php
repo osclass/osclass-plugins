@@ -19,30 +19,148 @@
      * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
 
-    function add_logo_header() {
-         $html = '<img border="0" alt="' . osc_page_title() . '" src="' . osc_current_web_theme_url('images/logo.jpg') . '">';
-         $js = " <script>
+    if(!function_exists('mbl_breadcrumbs') ){
+        
+        function mbl_breadcrumbs() {
+
+            // You could modify the separator
+            $separator = " / ";
+
+            $location = Rewrite::newInstance()->get_location();
+            $section = Rewrite::newInstance()->get_section();
+            // You DO NOT have to modify anything else
+            if($location=='search') {
+                $category = osc_search_category_id();
+                if(count($category)==1) {
+                    $category = $category[0];
+                }
+            } else if($location=='item' && osc_item()!=null) {
+                $category = osc_item_category_id();
+            }
+
+            $bc_text = "<a href='".osc_base_url()."' ><span class='bc_root'>".osc_page_title()."</span></a>";
+            $deep_c = -1;
+            if(isset($category)) {
+                $cats = Category::newInstance()->toRootTree($category);
+                if(count($cats)>0) {
+                    foreach($cats as $cat) {
+                        $deep_c++;
+                        $bc_text .= $separator."<a href='".mbl_breadcrumbs_category_url($cat['pk_i_id'])."' ><span class='bc_level_".$deep_c."'>".$cat['s_name']."</span></a>";
+                    }
+                }
+            } else if($location!='index' && $location!='') {
+                $bc_text .= $separator."<span class='bc_location'>".$location."</span>";
+            }
+
+            if($location=='item' && osc_item()!=null) {
+                $bc_text .= $separator."<a href='".osc_item_url()."' ><span class='bc_last'>".osc_item_title()."</span></a>";
+            } else if($section!='') {
+                $bc_text .= $separator."<span class='bc_last'>".$section."</span>";
+            } else {
+                $bc_text = str_replace('bc_level_'.$deep_c, 'bc_last', str_replace('bc_location', 'bc_last', $bc_text));
+            }
+
+            echo $bc_text;
+
+        }
+
+        function mbl_breadcrumbs_category_url($category_id) {
+            $path = '' ;
+            if ( osc_rewrite_enabled() ) {
+                if ($category_id != '') {
+                    $category = Category::newInstance()->hierarchy($category_id) ;
+                    $sanitized_category = "" ;
+                    for ($i = count($category); $i > 0; $i--) {
+                        $sanitized_category .= $category[$i - 1]['s_slug'] . '/' ;
+                    }
+                    $path = osc_base_url() . $sanitized_category ;
+                }
+            } else {
+                $path = sprintf( osc_base_url(true) . '?page=search&sCategory=%d', $category_id ) ;
+            }
+            return $path ;
+        }
+    }
+
+    $mbl_item_formated_price = function_exists('mbl_item_formated_price');
+    if(!$mbl_item_formated_price){
+
+        function mbl_item_formated_price()
+        {
+            $price = osc_item_field("i_price");
+            if ($price == null) return osc_apply_filter ('item_price_null', __('Check') ) ;
+            if ($price == 0) return osc_apply_filter ('item_price_zero', __('Free') ) ;
+
+            $price = $price/1000000;
+
+            $currencyFormat = '{NUMBER}{CURRENCY}';
+            $currencyFormat = str_replace('{NUMBER}', number_format($price, 0, osc_locale_dec_point(), osc_locale_thousands_sep()), $currencyFormat);
+            $currencyFormat = str_replace('{CURRENCY}', osc_item_currency(), $currencyFormat);
+            return osc_apply_filter('item_price', $currencyFormat ) ;
+        }
+
+    }
+    if(!function_exists('mbl_search_pagination')){
+        function mbl_search_pagination() {
+            $params = array('text_prev' => sprintf(__('%s Previous', 'twitter_bootstrap'), '&laquo;'),
+                            'text_next' => sprintf(__('Next %s', 'twitter_bootstrap'), '&raquo;')
+                            ) ;
+            $pagination = new mlb_pagination($params);
+            return $pagination->doPagination();
+        }
+    }
+
+    class mlb_pagination extends Pagination{
+
+        public function get_links()
+        {
+            $pages = $this->get_pages();
+            $links = array();
+
+            $links[] = '<fieldset class="ui-grid-a">';
+            if( !isset($pages['prev']) && isset($pages['next']) ) {
+                $links[] = '<div class="ui-block-a"></div>';
+                $links[] = '<div class="ui-block-b"><a href="' . str_replace('{PAGE}', $pages['next'], str_replace(urlencode('{PAGE}'), $pages['next'], $this->url)) . '" data-role="button">'.$this->text_next.'</a></div>';
+            }
+            if( isset($pages['prev']) && isset($pages['next']) ) {
+                $links[] = '<div class="ui-block-a"><a href="' . str_replace('{PAGE}', $pages['prev'], str_replace(urlencode('{PAGE}'), $pages['prev'], $this->url)) . '" data-role="button">'.$this->text_prev.'</a></div>';
+                $links[] = '<div class="ui-block-b"><a href="' . str_replace('{PAGE}', $pages['next'], str_replace(urlencode('{PAGE}'), $pages['next'], $this->url)) . '" data-role="button">'.$this->text_next.'</a></div>';
+            }
+            if( isset($pages['prev']) && !isset($pages['next']) ) {
+                $links[] = '<div class="ui-block-a"><a href="' . str_replace('{PAGE}', $pages['prev'], str_replace(urlencode('{PAGE}'), $pages['prev'], $this->url)) . '" data-role="button">'.$this->text_prev.'</a></div>';
+            }
+            $links[] = '</fieldset>';
+            return $links;
+        }
+    }
+    
+     if(!function_exists('add_logo_header')){
+        function add_logo_header() {
+            $html = '<img border="0" alt="' . osc_page_title() . '" src="' . osc_current_web_theme_url('images/logo.jpg') . '">';
+            $js = " <script>
                     $(document).ready(function () {
                         $('#logo').html('".$html."');
                     });
                  </script>";
 
-         if( file_exists( WebThemes::newInstance()->getCurrentThemePath() . "images/logo.jpg" ) ) {
-            echo $js;
-         }
-    }
+            if( file_exists( WebThemes::newInstance()->getCurrentThemePath() . "images/logo.jpg" ) ) {
+                echo $js;
+            }
+        }
 
-    osc_add_hook("header", "add_logo_header");
+        osc_add_hook("header", "add_logo_header");
+     }
 
-    function modern_admin_menu() {
-        echo '<h3><a href="#">'. __('Modern theme','modern') .'</a></h3>
-        <ul>
-            <li><a href="' . osc_admin_render_theme_url('oc-content/themes/modern/admin/admin_settings.php') . '">&raquo; '.__('Settings theme', 'modern').'</a></li>
-        </ul>';
-    }
+     if(!function_exists('modern_admin_menu')){
+         function modern_admin_menu() {
+            echo '<h3><a href="#">'. __('Modern theme','modern') .'</a></h3>
+            <ul>
+                <li><a href="' . osc_admin_render_theme_url('oc-content/themes/modern/admin/admin_settings.php') . '">&raquo; '.__('Settings theme', 'modern').'</a></li>
+            </ul>';
+        }
 
-    osc_add_hook('admin_menu', 'modern_admin_menu');
-
+        osc_add_hook('admin_menu', 'modern_admin_menu');
+     }
      if( !function_exists('meta_title') ) {
          function meta_title( ) {
             $location = Rewrite::newInstance()->get_location();

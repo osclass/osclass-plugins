@@ -32,14 +32,14 @@
             <img style="padding-left:4px;float:left;padding-right: 10px;" height="50px" src="<?php echo osc_current_web_theme_url('images/no_photo.gif') ; ?>" title="" alt="" />
             <?php } ?>
 
-            <p>
+            <p style="padding-bottom: 5px;">
                 <strong>
                     <?php echo osc_item_title() ; ?>
                 </strong>
             </p>
-            <p>
+            <p style="padding-top:5px;">
                 <span style="float:left;"><?php echo osc_item_city();?></span>
-                <span style="float:right;padding-top:3px;"><strong><?php if( osc_price_enabled_at_items() ) { echo osc_item_formated_price() ; }?> </strong></span>
+                <span style="float:right;"><strong><?php if( osc_price_enabled_at_items() ) { echo mbl_item_formated_price() ; }?> </strong></span>
             </p>
         </a>
     </li>
@@ -57,14 +57,14 @@
             <img style="padding-left:4px;float:left;padding-right: 10px;" height="50px" src="<?php echo osc_current_web_theme_url('images/no_photo.gif') ; ?>" title="" alt="" />
             <?php } ?>
 
-            <p>
+            <p style="padding-bottom: 5px;">
                 <strong>
                     <?php echo osc_item_title() ; ?>
                 </strong>
             </p>
-            <p>
+            <p style="padding-top:5px;">
                 <span style="float:left;"><?php echo osc_item_city();?></span>
-                <span style="float:right;padding-top:3px;"><strong><?php if( osc_price_enabled_at_items() ) { echo osc_item_formated_price() ; }?> </strong></span>
+                <span style="float:right;"><strong><?php if( osc_price_enabled_at_items() ) { echo mbl_item_formated_price() ; }?> </strong></span>
             </p>
         </a>
     </li>

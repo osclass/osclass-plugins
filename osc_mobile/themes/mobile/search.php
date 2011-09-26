@@ -34,53 +34,55 @@
     </head>
     <body>
         <div data-role="page">
-        <div data-role="header">
-            <?php osc_current_web_theme_path('header.php') ; ?>
-            <h1><?php echo osc_page_title() ; ?></h1>
-        </div><!-- /header -->
+            <div data-role="header">
+                <?php osc_current_web_theme_path('header.php') ; ?>
+                <a data-icon="back" data-role="button" data-inline="true" data-iconpos="notext" data-back="true" href="<?php echo osc_base_url(true); ?>"></a>
+                <h1><?php echo osc_page_title() ; ?></h1> 
+            </div><!-- /header -->
 
-        <div data-role="content" class="content">
-            <div class="">
-                <?php
-                    $id = osc_search_category();
-                    if( count($id) == 1 ){
-                        $category  = Category::newInstance()->findByPrimaryKey($id[0]);
-                        echo $category['s_name'];
-                    }
-                ?>
-            </div>
-            <div class="">
-                <div data-role="controlgroup">
-                    <?php $i = 0 ; ?>
-                    <?php $orders = osc_list_orders();
-                    foreach($orders as $label => $params) {
-                        $orderType = ($params['iOrderType'] == 'asc') ? '0' : '1'; ?>
-                        <?php if(osc_search_order() == $params['sOrder'] && osc_search_order_type() == $orderType) { ?>
-                            <a data-role="button" class="current" href="<?php echo osc_update_search_url($params) ; ?>"><?php echo $label; ?></a>
-                        <?php } else { ?>
-                            <a data-role="button" href="<?php echo osc_update_search_url($params) ; ?>"><?php echo $label; ?></a>
-                        <?php } ?>
-
-                        <?php $i++ ; ?>
-                    <?php } ?>
+            <div data-role="content" class="content">
+                <div class="">
+                    <?php
+                        $id = osc_search_category();
+                        if( count($id) == 1 ){
+                            echo osc_category_name();
+                            $category  = Category::newInstance()->findByPrimaryKey($id[0]);
+                            echo $category['s_name'];
+                        }
+                    ?>
+                    <hr/>
                 </div>
-
-                
+                <div class="">
                     <?php if(osc_count_items() == 0) { ?>
                         <p class="empty" ><?php printf(__('There are no results matching "%s"', 'modern'), osc_search_pattern()) ; ?></p>
                     <?php } else { ?>
                         <?php require(osc_search_show_as() == 'list' ? 'search_list.php' : 'search_gallery.php') ; ?>
                     <?php } ?>
                     <div class="paginate" >
-                    <?php echo osc_search_pagination(); ?>
+                    <?php echo mbl_search_pagination(); ?>
                     </div>
-                
-            </div>
-        </div><!-- /content -->
+                </div>
+            </div><!-- /content -->
 
-        <div data-role="footer">
-            <?php osc_current_web_theme_path('footer.php') ; ?>
-        </div><!-- /footer -->
+            <div data-role="footer" data-id="myfooter" data-position="fixed">
+                <div data-role="navbar">
+                    <ul>
+                        <?php $i = 0 ; ?>
+                        <?php $orders = osc_list_orders();
+                        foreach($orders as $label => $params) {
+                            $orderType = ($params['iOrderType'] == 'asc') ? '0' : '1'; ?>
+                            <?php if(osc_search_order() == $params['sOrder'] && osc_search_order_type() == $orderType) { ?>
+                        <li><a class="ui-btn-active" href="<?php echo osc_update_search_url($params) ; ?>"><?php echo $label; ?></a></li>
+                            <?php } else { ?>
+                        <li><a href="<?php echo osc_update_search_url($params) ; ?>"><?php echo $label; ?></a></li>
+                            <?php } ?>
+
+                            <?php $i++ ; ?>
+                        <?php } ?>
+                    </ul>
+                </div><!-- /navbar -->
+                <?php osc_current_web_theme_path('footer.php') ; ?>
+            </div><!-- /footer -->
         </div>
     </body>
 </html>
