@@ -27,28 +27,27 @@
     </head>
     <body>
         <div data-role="page">
-            <div data-role="header">
-                <h1><?php _e('Log in','modern');?></h1>
+            <div data-role="header" data-theme="">
+                <a data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back" href=""></a>
+                <h1><?php _e('Log in','mobile');?></h1>
+                <?php osc_show_flash_message() ; ?>
             </div>
 
-            <div data-role="content" data-theme="c">
-                    <form action="<?php echo osc_base_url(true); ?>" method="post" class="ui-body ui-body-a ui-corner-all">
-                        <input type="hidden" name="page" value="login"  data-role="none" />
-                        <input type="hidden" name="action" value="login_post"  data-role="none" />
-                        <div data-role="fieldcontain">
-                            <label for="email"><?php _e('E-mail', 'modern'); ?></label>
-                            <input type="text" name="email" id="email" value=""  />
-                            <br/><br/>
-                            <label for="password"><?php _e('Password', 'modern'); ?></label>
-                            <input type="password" name="password" id="password" value="" />
-                            <br/><br/>
-                            <input type="checkbox" name="rememberMe" id="rememberMe" class="custom" />
-                            <label for="rememberMe"><?php _e('Remember me', 'modern') ; ?></label>                            
-                        </div>
-                        <button style="width:99%" type="submit" name="submit" value="submit-value" data-icon="check" data-role="button" data-inline="false"><?php _e("Log in", 'modern');?></button>
-                    </form>
-                 <a href="<?php echo osc_register_account_url() ; ?>" data-role="button"><?php _e("Register for a free account", 'modern') ; ?></a>
-                 <a href="<?php echo osc_recover_user_password_url() ; ?>" data-role="button"><?php _e("Forgot password?", 'modern') ; ?></a>
+            <div data-role="content" data-theme="">
+                <form action="<?php echo osc_base_url(true); ?>" method="post">
+                    <input type="hidden" name="page" value="login"  data-role="none" />
+                    <input type="hidden" name="action" value="login_post"  data-role="none" />
+                    <fieldset data-role="fieldcontain">
+                        <label for="email"><?php _e('E-mail', 'mobile'); ?></label>
+                        <input type="text" name="email" id="email" value=""  />
+                        <label for="password"><?php _e('Password', 'mobile'); ?></label>
+                        <input type="password" name="password" id="password" value="" />
+                        <input type="checkbox" name="rememberMe" id="rememberMe" class="custom" />
+                        <label for="rememberMe"><?php _e('Remember me', 'mobile') ; ?></label>                            
+                        <button style="width:99%" type="submit" name="submit" value="submit-value" data-icon="check" data-role="button" data-inline="false"><?php _e("Log in", 'mobile');?></button>
+                    </fieldset>
+                </form>
+                <a href="<?php echo osc_recover_user_password_url() ; ?>" data-role="button"><?php _e("Forgot password?", 'mobile') ; ?></a>
             </div>
         </div>       
     </body>

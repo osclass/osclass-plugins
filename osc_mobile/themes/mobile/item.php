@@ -34,11 +34,11 @@
     </head>
     <body>
         <div data-role="page" id="main">
-            <div data-role="header">
-                <?php osc_current_web_theme_path('header.php') ; ?>
-                <a data-icon="back" data-role="button" data-inline="true" data-iconpos="notext" data-back="true" href=""></a>
-                
-                <h1><a href="<?php echo osc_base_url(true); ?>"><?php echo osc_item_title() ; ?></a></h1>
+            <div data-role="header" >
+                <a data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back" href=""></a>
+                <h1><?php echo osc_page_title(); ?></h1>
+                <a data-icon="home" data-inline="true" data-iconpos="notext" href="<?php echo osc_base_url(true); ?>"></a>
+                <?php osc_show_flash_message() ; ?>
                 <div data-role="navbar">
                     <ul>
                         <li>
@@ -60,11 +60,10 @@
                         <?php } ?>
                     </ul>
                 </div><!-- /navbar -->
-                <?php osc_show_flash_message() ; ?>
             </div><!-- /header -->
-
+            
             <div data-role="content" class="content" style="padding-top:0px;">
-                <p><strong><?php mbl_breadcrumbs(); ?></strong></p>
+                <p><strong><?php //mbl_breadcrumbs(); ?><?php echo osc_item_title(); ?></strong></p>
                 
                 
 
@@ -91,7 +90,7 @@
                     <?php } ?>
                     <div class="ui-block-b">
                         <p><strong><?php if( osc_price_enabled_at_items() ) { echo osc_item_formated_price() ; }?> </strong></p>
-                        <a data-role="button" data-transition="pop" data-rel="dialog" href="#share"><?php _e('Share'); ?></a>
+                        <a rel="external" data-role="button" data-transition="pop" data-rel="dialog" href="#share"><?php _e('Share'); ?></a>
                     </div>
                 </div>
                 <br/><br/>
@@ -151,7 +150,7 @@
         </div>
         
         <!-- Start of MARKAS page -->
-        <div data-role="page" data-theme="b" id="markas">
+        <div data-role="dialog" data-theme="b" id="markas">
             <div data-theme="b" data-role="header">
                 <h1><?php _e("Mark as", 'mobile') ; ?></h1>
             </div><!-- /header -->
@@ -168,7 +167,7 @@
         </div><!-- /page -->
 
         <!-- Start of CONTACT page -->
-        <div data-role="page" data-theme="b" id="contact">
+        <div data-role="dialog" data-theme="b" id="contact">
             <div data-theme="b" data-role="header">
                 <h1><?php _e('Contact us', 'mobile') ; ?></h1>
             </div><!-- /header -->
@@ -193,10 +192,9 @@
         </div><!-- /page -->
         
         <!-- Start of COMMENT page -->
-        <div data-role="page" data-theme="b" id="comment">
+        <div data-role="dialog" data-theme="b" id="comment">
             <div data-theme="b" data-role="header">
                 <h1><?php _e('Leave your comment', 'mobile') ; ?></h1>
-                <?php _e('spam and offensive messages will be removed)','mobile'); ?>
             </div><!-- /header -->
 
             <div data-theme="b" data-role="content">
@@ -224,7 +222,7 @@
         
         
         <!-- Start of SHARE page -->
-        <div data-role="page" data-theme="b" id="share">
+        <div data-role="dialog" data-theme="b" id="share">
             <div data-theme="b" data-role="header">
                 <h1><?php _e('Send to a friend', 'mobile'); ?></h1>
             </div><!-- /header -->

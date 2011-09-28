@@ -29,14 +29,20 @@
 <meta http-equiv="Expires" content="Fri, Jan 01 1970 00:00:00 GMT" />
 
 <script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.min.js') ; ?>"></script>
+<!--<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.js') ; ?>"></script>-->
 <script type="text/javascript">
     $(document).bind("mobileinit", function(){
         $.mobile.ajaxEnabled= false;
     });
 </script>
-<link href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" rel="stylesheet" type="text/css" />
-<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 
+<!--<link href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" rel="stylesheet" type="text/css" />-->
+
+<link href="<?php echo osc_current_web_theme_styles_url('jquery.mobile-1.0rc1pre.min.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo osc_current_web_theme_styles_url('style.css') ?>" rel="stylesheet" type="text/css" />
+
+<!--<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.mobile-1.0b3.js') ; ?>"></script>-->
+<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.mobile-1.0rc1pre.min.js') ; ?>"></script>
 <script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('global.js') ; ?>"></script>
 
 

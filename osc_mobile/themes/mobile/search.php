@@ -34,10 +34,11 @@
     </head>
     <body>
         <div data-role="page">
-            <div data-role="header">
-                <?php osc_current_web_theme_path('header.php') ; ?>
-                <a data-icon="back" data-role="button" data-inline="true" data-iconpos="notext" data-back="true" href="<?php echo osc_base_url(true); ?>"></a>
-                <h1><?php echo osc_page_title() ; ?></h1> 
+            <div data-role="header" data-position="inline">
+                <h1><?php echo osc_page_title() ; ?></h1>
+                <a data-icon="back" data-rel="back" data-iconpos="notext" href=""></a>
+                <a data-icon="home" data-inline="true" data-iconpos="notext" href="<?php echo osc_base_url(true); ?>"></a>
+                <?php osc_show_flash_message() ; ?>
             </div><!-- /header -->
 
             <div data-role="content" class="content">
@@ -81,7 +82,7 @@
                         <?php } ?>
                     </ul>
                 </div><!-- /navbar -->
-                <?php osc_current_web_theme_path('footer.php') ; ?>
+                
             </div><!-- /footer -->
         </div>
     </body>

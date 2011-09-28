@@ -19,6 +19,206 @@
      * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
 
+     class MblItemForm extends ItemForm {
+        
+        static public function title_input($name, $locale = 'en_US', $value = '')
+        {
+            $locale = osc_current_user_locale();
+            parent::generic_input_text($name . '[' . $locale . ']', $value) ;
+            return true ;
+        }
+        
+        static public function multilanguage_title_description($locales = null, $item = null) 
+        {
+            if($item==null) { $item = osc_item(); }
+            
+            $locale = osc_current_user_locale();
+            echo '<fieldset data-role="fieldcontain"><label for="title">' . __('Title') . ' *</label>';
+            $title = (isset($item) && isset($item['locale'][$locale['pk_c_code']]) && isset($item['locale'][$locale['pk_c_code']]['s_title'])) ? $item['locale'][$locale['pk_c_code']]['s_title'] : '' ;
+            if( Session::newInstance()->_getForm('title') != "" ) {
+                $title_ = Session::newInstance()->_getForm('title');
+                if( $title_[$locale['pk_c_code']] != "" ){
+                    $title = $title_[$locale['pk_c_code']];
+                }
+            }
+            parent::title_input('title', $locale['pk_c_code'], $title);
+            echo "</fieldset>";
+            echo '<fieldset data-role="fieldcontain"><label for="description">' . __('Description') . ' *</label>';
+            $description = (isset($item) && isset($item['locale'][$locale['pk_c_code']]) && isset($item['locale'][$locale['pk_c_code']]['s_description'])) ? $item['locale'][$locale['pk_c_code']]['s_description'] : '';
+            if( Session::newInstance()->_getForm('description') != "" ) {
+                $description_ = Session::newInstance()->_getForm('description');
+                if( $description_[$locale['pk_c_code']] != "" ){
+                    $description = $description_[$locale['pk_c_code']];
+                }
+            }
+            parent::description_textarea('description', $locale['pk_c_code'], $description);
+            echo "</fieldset>";
+        }
+        
+        static public function region_text_hidden()
+        {
+            $region   = '';
+            $regionId = '';
+            if( Session::newInstance()->_getForm('regionId') != "" ) {
+                $regionId = Session::newInstance()->_getForm('regionId');
+            }
+            if( Session::newInstance()->_getForm('region') != "" ) {
+                $region = Session::newInstance()->_getForm('region');
+            }
+            parent::generic_input_hidden('region', $region) ;
+            parent::generic_input_hidden('regionId', $regionId) ;
+        }
+        
+        static public function city_text_hidden()
+        {
+            $city   = '';
+            $cityId = '';
+            if( Session::newInstance()->_getForm('cityId') != "" ) {
+                $cityId = Session::newInstance()->_getForm('cityId');
+            }
+            if( Session::newInstance()->_getForm('city') != "" ) {
+                $city = Session::newInstance()->_getForm('city');
+            }
+            parent::generic_input_hidden('city', $city) ;
+            parent::generic_input_hidden('cityId', $cityId) ;
+        }
+         
+        
+        static public function location_javascript($path = "front") {
+?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#countryId").live("change",function(){
+            var pk_c_code = $(this).val();
+            
+            var url = '<?php echo osc_base_url(true)."?page=ajax&action=regions&countryId="; ?>' + pk_c_code;
+            
+            var result = '';
+
+            if(pk_c_code != '') {
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: 'json',
+                    success: function(data){
+                        var length = data.length;
+                        if(length > 0) {
+                            for(key in data) {
+                                result += '<li><a href="#" onclick="select_region(\''+ data[key].s_name +'\',\''+ data[key].pk_i_id +'\');" value="' + data[key].pk_i_id + '">' + data[key].s_name + '</a></li>';
+                            }
+                        } else {
+                        }
+                        $("#list_regions").html(result);
+                        $('#field_select_region').show();
+                    }
+                 });
+
+             } else {
+             }
+        });
+
+        $("#regionId").live("change",function(){
+            var pk_c_code = $(this).val();
+            
+            var url = '<?php echo osc_base_url(true)."?page=ajax&action=cities&regionId="; ?>' + pk_c_code;
+
+            var result = '';
+
+            if(pk_c_code != '') {
+                
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: 'json',
+                    success: function(data){
+                        var length = data.length;
+                        if(length > 0) {
+                            for(key in data) {
+                                result += '<li><a href="#" onclick="select_city(\''+ data[key].s_name +'\',\''+ data[key].pk_i_id +'\');" value="' + data[key].pk_i_id + '">' + data[key].s_name + '</a></li>';
+                            }
+                        } else {
+                        }
+                        $("#list_cities").html(result);
+                        
+                        $('#field_select_city').show();
+                        $('#field_select_city_area').show();
+                        $('#field_select_address').show();
+                    }
+                 });
+             } else {
+             }
+        });
+
+    });
+    
+    function select_region(region_name, region_id){
+        $('#a_select_region').find('span.ui-btn-text').text( region_name );
+        $('#region').val(region_name);
+        $('#regionId').val(region_id).trigger('change');
+        $('.ui-dialog').dialog('close');
+    }
+    
+    function select_city(city_name, city_id){
+        $('#a_select_city').find('span.ui-btn-text').text( city_name );
+        $('#city').val(city_name);
+        $('#cityId').val(city_id);
+        $('.ui-dialog').dialog('close');
+    }
+    
+    
+    /**
+     * Strip HTML tags to count number of visible characters.
+     */
+    function strip_tags(html) {
+        if (arguments.length < 3) {
+            html=html.replace(/<\/?(?!\!)[^>]*>/gi, '');
+        } else {
+            var allowed = arguments[1];
+            var specified = eval("["+arguments[2]+"]");
+            if (allowed){
+                var regex='</?(?!(' + specified.join('|') + '))\b[^>]*>';
+                html=html.replace(new RegExp(regex, 'gi'), '');
+            } else{
+                var regex='</?(' + specified.join('|') + ')\b[^>]*>';
+                html=html.replace(new RegExp(regex, 'gi'), '');
+            }
+        }
+        return html;
+    }
+    
+    function delete_image(id, item_id,name, secret) {
+        //alert(id + " - "+ item_id + " - "+name+" - "+secret);
+        var result = confirm('<?php _e('This action can\\\'t be undone. Are you sure you want to continue?'); ?>');
+        if(result) {
+            $.ajax({
+                type: "POST",
+                url: '<?php echo osc_base_url(true); ?>?page=ajax&action=delete_image&id='+id+'&item='+item_id+'&code='+name+'&secret='+secret,
+                dataType: 'json',
+                success: function(data){
+                    var class_type = "error";
+                    if(data.success) {
+                        $("div[name="+name+"]").remove();
+                        class_type = "ok";
+                    }
+                    var flash = $("#flash_js");
+                    var message = $('<div>').addClass('pubMessages').addClass(class_type).attr('id', 'FlashMessage').html(data.msg);
+                    flash.html(message);
+                    $("#FlashMessage").slideDown('slow').delay(3000).slideUp('slow');
+                }
+            });
+        }
+    }
+    
+    
+</script>
+<?php
+        }
+        
+     }
+
+     // ------------------------------------------------------------------------
+
     if(!function_exists('mbl_breadcrumbs') ){
         
         function mbl_breadcrumbs() {
@@ -38,10 +238,11 @@
                 $category = osc_item_category_id();
             }
 
-            $bc_text = "<a href='".osc_base_url()."' ><span class='bc_root'>".osc_page_title()."</span></a>";
+            $bc_text = "";
             $deep_c = -1;
             if(isset($category)) {
                 $cats = Category::newInstance()->toRootTree($category);
+                
                 if(count($cats)>0) {
                     foreach($cats as $cat) {
                         $deep_c++;

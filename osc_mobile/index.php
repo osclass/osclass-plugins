@@ -36,7 +36,14 @@ Short Name: mobile
         
         if ( $userAgent->is_mobile() ) {
             WebThemes::newInstance()->setPath( dirname( osc_plugin_path(__FILE__) ) . '/themes/' ) ;
+            
+//            WebThemes::newInstance()->setCurrentTheme('doat-TouchyBP') ;
             WebThemes::newInstance()->setCurrentTheme('mobile') ;
+            $functions_path = WebThemes::newInstance()->getCurrentThemePath() . 'functions.php';
+//            echo $functions_path."\n";
+            if(file_exists($functions_path)) {
+                require_once $functions_path;
+            }
         }
     }
     

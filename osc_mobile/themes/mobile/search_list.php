@@ -39,7 +39,7 @@
             </p>
             <p style="padding-top:5px;">
                 <span style="float:left;"><?php echo osc_item_city();?></span>
-                <span style="float:right;"><strong><?php if( osc_price_enabled_at_items() ) { echo mbl_item_formated_price() ; }?> </strong></span>
+                <span style="float:right;"><strong><?php if( osc_price_enabled_at_items() ) { echo osc_item_formated_price() ; }?> </strong></span>
             </p>
         </a>
     </li>
@@ -64,7 +64,7 @@
             </p>
             <p style="padding-top:5px;">
                 <span style="float:left;"><?php echo osc_item_city();?></span>
-                <span style="float:right;"><strong><?php if( osc_price_enabled_at_items() ) { echo mbl_item_formated_price() ; }?> </strong></span>
+                <span style="float:right;"><strong><?php if( osc_price_enabled_at_items() ) { echo osc_item_formated_price() ; }?> </strong></span>
             </p>
         </a>
     </li>
