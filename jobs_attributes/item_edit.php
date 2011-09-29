@@ -8,7 +8,6 @@
         }
     ?>
     $(document).ready(function(){
-        $('#plugin-hook input:text, #plugin-hook select').uniform();
         $("#salary-range").slider({
             range: true,
             min: <?php echo job_plugin_salary_min();?>,

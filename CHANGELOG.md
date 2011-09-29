@@ -1,6 +1,10 @@
 Changelog Jobs attributes
 =========================
 
+##version 2.2.2 - XX/XX/XXXX
+
+* Removed uniform.js
+
 ##version 2.2.1 - 14/09/2011
 
 * New languages: arabic, german, persian, latvian, russian, swedish
