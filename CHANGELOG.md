@@ -1,6 +1,10 @@
 Changelog Cars attributes
 ===============================
 
+##version 2.1.2 - XX/XX/XXXX
+
+* Remove uniform.js
+
 ##version 2.1.1 - 05/07/2011
 
 * Minor fix: vehicle type in default web locale
@@ -8,3 +12,4 @@ Changelog Cars attributes
 * Minor bug adding/editing an item fixed
 * Minor style changes
 * minor changes related to empty fields
+

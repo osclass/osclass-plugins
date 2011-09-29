@@ -21,27 +21,14 @@
                             result += '<option value=""><?php _e('No results', 'cars_attributes'); ?></option>';
                         }
                         $("#model").html(result);
-                        if (typeof $.uniform != 'undefined') {
-                            $.uniform.restore('#model');
-                            $("#model").uniform();
-                        }
                     }
                  });
              } else {
                 result += '<option value="" selected><?php _e('Select a model', 'cars_attributes'); ?></option>';
                 $("#model").attr('disabled',true);
                 $("#model").html(result);
-                if (typeof $.uniform != 'undefined') {
-                    $.uniform.restore('#model');
-                    $("#model").uniform();
-                }
              }
         });
-        
-        // uniform()
-        if (typeof $.uniform != 'undefined') {
-            $('#plugin-hook input:text, select#make, select#model, select#car_type, select#doors, select#seats, select#num_airbags, select#transmission, select#fuel, select#seller, select#power_unit, select#gears').uniform();
-        }
     });
 </script>
 <h2><?php _e('Cars attributes', 'cars_attributes') ; ?></h2>

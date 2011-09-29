@@ -21,10 +21,6 @@
                             result += '<option value=""><?php _e('No results', 'cars_attributes'); ?></option>';
                         }
                         $("#model").html(result);
-                        if (typeof $.uniform != 'undefined') {
-                            $.uniform.restore('#model');
-                            $("#model").uniform();
-                        }
                     }
                  });
              } else {
