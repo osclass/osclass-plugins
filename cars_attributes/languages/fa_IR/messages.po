@@ -1,0 +1,182 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Makes"
+msgstr "ساخت"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Add new make"
+msgstr "افزودن ساخت جدید"
+
+msgid "Add new"
+msgstr "اضافه کردن جدید"
+
+msgid "Models"
+msgstr "مدل"
+
+msgid "Select a make"
+msgstr "انتخاب یک ساخت"
+
+msgid "Add new model"
+msgstr "اضافه کردن مدل جدید"
+
+msgid "Vehicle types"
+msgstr "نوع وسیله نقلیه"
+
+msgid "Add new car type"
+msgstr "اضافه کردن یک مدل جدید خودرو"
+
+msgid "Warning"
+msgstr "هشدار"
+
+msgid "Deleting makes or models may end in errors. Some of those makes/models could be attached to some actual items"
+msgstr "Deleting makes or models may end in errors. Some of those makes/models could be attached to some actual items"
+
+msgid "Configure plugin"
+msgstr "تنظیمات افزونه"
+
+msgid "Manage makes"
+msgstr "مدیریت ساخت ها"
+
+msgid "Manage models"
+msgstr "مدیریت مدل ها"
+
+msgid "Manage vehicle types"
+msgstr "مدیریت نوع وسیله نقلیه"
+
+msgid "Cars attributes"
+msgstr "خواص خودرو"
+
+msgid "Make"
+msgstr "ساخت"
+
+msgid "Model"
+msgstr "مدل"
+
+msgid "Car type"
+msgstr "نوع خودرو"
+
+msgid "Year"
+msgstr "سال"
+
+msgid "Doors"
+msgstr "درب ها"
+
+msgid "Seats"
+msgstr "صندلی ها"
+
+msgid "Mileage"
+msgstr "سنجش برحسب میل"
+
+msgid "Engine size (cc)"
+msgstr "حجم موتور (سی سی)"
+
+msgid "Num. Airbags"
+msgstr "تعداد. کیسه های هوا"
+
+msgid "Manual"
+msgstr "دستی"
+
+msgid "Auto"
+msgstr "خودکار"
+
+msgid "Transmission"
+msgstr "انتقال"
+
+msgid "Diesel"
+msgstr "دیزل"
+
+msgid "Gasoline"
+msgstr "بنزین"
+
+msgid "Electric-hibrid"
+msgstr "برق-هیبرید"
+
+msgid "Other"
+msgstr "دیگر"
+
+msgid "Fuel"
+msgstr "سوخت"
+
+msgid "Dealer"
+msgstr "دلال"
+
+msgid "Owner"
+msgstr "مالک"
+
+msgid "Seller"
+msgstr "فروشنده"
+
+msgid "Warranty"
+msgstr "گارانتی"
+
+msgid "Yes"
+msgstr "بله"
+
+msgid "No"
+msgstr "خیر"
+
+msgid "New"
+msgstr "جدید"
+
+msgid "Power"
+msgstr "توان"
+
+msgid "Gears"
+msgstr "چرخ دنده"
+
+msgid "Select a model"
+msgstr "انتخاب یک مدل"
+
+msgid "No results"
+msgstr "بی نتیجه"
+
+msgid "Select a car type"
+msgstr "انتخاب یک نوع خودرو"
+
+msgid "Kw"
+msgstr "Kw"
+
+msgid "Cv"
+msgstr "Cv"
+
+msgid "Ch"
+msgstr "Ch"
+
+msgid "Km"
+msgstr "Km"
+
+msgid "Hp"
+msgstr "Hp"
+
+msgid "Ps"
+msgstr "Ps"
+
+msgid "Pk"
+msgstr "Pk"
+
+msgid "Cp"
+msgstr "Cp"
+
+msgid "Automatic"
+msgstr "خودکار"
+

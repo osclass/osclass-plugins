@@ -1,9 +1,13 @@
 Changelog Cars attributes
 ===============================
 
-##version 2.1.2 - XX/XX/XXXX
+##version 2.1.3 - XX/XX/XXXX
 
 * Remove uniform.js
+
+##version 2.1.2 - 14/09/2011
+
+* New languages: arabic, german, persian, latvian, russian, slovak, swedish
 
 ##version 2.1.1 - 05/07/2011
 
