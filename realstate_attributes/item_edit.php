@@ -1,8 +1,3 @@
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#plugin-hook input:text, #plugin-hook select').uniform();
-    });
-</script>
 <h2><?php _e('Realestate attributes', 'realstate_attributes'); ?></h2>
 <div class="box">
     <div class="row">
