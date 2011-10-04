@@ -1,6 +1,10 @@
 Rich Editor plugin
 ==============
 
+##version 1.0.5 - 04/10/2011
+
+* Updated tinyMCE, version 3.4.6
+
 ##version 1.0.4 - 14/09/2011
 
 * Added new languages: german, persian, latvian, russian
