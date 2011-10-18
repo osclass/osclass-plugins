@@ -1,11 +1,21 @@
 Changelog sitemap generator
 ===========================
 
-##version 1.0.5 . 10/08/2011
-- Added new languages: czech, slovak, swedish
+##version 1.1 - 18/10/2011
+
+* New structure of the list of urls: https://github.com/osclass/osclass-plugins/issues/16
+* Removed urls without ads
+* Removed item and static pages urls
+* Changed from cron_daily to cron_weekly
+
+##version 1.0.5 - 10/08/2011
+
+* Added new languages: czech, slovak, swedish
 
 ##version 1.0.4.1
-- Fixed date when the item was not modified
+
+* Fixed date when the item was not modified
 
 ##version 1.0.4
-- Fixed some problems with symbolic links
+
+* Fixed some problems with symbolic links
