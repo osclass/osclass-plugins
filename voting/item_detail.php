@@ -100,7 +100,9 @@
         }
 
         .votes_vote {
-            display:inline;
+            display: inline;
+            float: left;
+            margin-right: 5px;
         }
 
         .votes_star a:hover {
@@ -126,7 +128,7 @@
                         <a href="#" rel="nofollow" title="<?php _e('Essential', 'voting');?>" class="aPs vote5"></a>
                     </span>
                 </div>
-                <img width="1" height="13" alt="" src="/im/ico_separador_horizontal.gif">
+                <img width="1" height="13" alt="" src="<?php echo $path; ?>/img/ico_separator.gif">
             </div>
             <?php } ?>
             <div class="votes_results"><?php _e('Result', 'voting');?> 
