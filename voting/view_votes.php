@@ -11,10 +11,11 @@
                         <a href="#" rel="nofollow" title="<?php _e('Essential', 'voting');?>" class="aPs vote5"></a>
                     </span>
                 </div>
-                <img width="1" height="13" alt="" src="/img/ico_separator.gif">
+                <img width="1" height="19" alt="" src="<?php echo $path; ?>/img/ico_separator.gif">
             </div>
             <?php } ?>
-            <div class="votes_results"><?php _e('Result', 'voting');?> 
+            <div class="votes_results">
+                <span style="float:left; padding-right: 4px;"><?php _e('Result', 'voting');?>  </span>
                 <?php 
                     $avg_vote = $vote_['vote'];
                 ?>
@@ -22,6 +23,7 @@
                 <img title="<?php _e('Uninteresting', 'voting');?>" src="<?php voting_star(2, $avg_vote); ?>">
                 <img title="<?php _e('Interesting', 'voting');?>" src="<?php voting_star(3, $avg_vote); ?>">
                 <img title="<?php _e('Very interesting', 'voting');?>" src="<?php voting_star(4, $avg_vote); ?>">
-                <img title="<?php _e('Essential', 'voting');?>"  src="<?php voting_star(5, $avg_vote); ?>"> <?php echo $vote_['total'];?> <?php _e('votes', 'voting');?>
+                <img title="<?php _e('Essential', 'voting');?>"  src="<?php voting_star(5, $avg_vote); ?>"> 
+                <span style="float:left; padding-right: 4px; padding-left: 4px;"><?php echo $vote['total'];?> <?php _e('votes', 'voting');?></span>
             </div>
         </div>
