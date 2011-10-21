@@ -34,6 +34,11 @@
     </script>
 
     <style>
+        #wrapper_voting_plugin{
+            margin-top:10px;
+            padding: 5px;
+        }
+        
         .votes_txt_vote {
             display: inline;
             float: left;
@@ -94,8 +99,8 @@
             width: 76px;
         }
 
-        .onOver {
-            background: url("<?php echo osc_base_url().'/oc-content/plugins/'.  osc_plugin_folder(__FILE__);?>img/ico_vot_ov.gif") repeat scroll 0 0 transparent;
+        .votes_vote {
+            display:inline;
         }
 
         .votes_star a:hover {
