@@ -1,0 +1,102 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Voting 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-10-24 10:24+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: carlos <carlos@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SearchPath-0: /Users/ssuareza/projects/osclass-plugins/voting\n"
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:27
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:31
+msgid "Congratulations. The plugin is now configured"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:41
+#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:63
+msgid "Voting options"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:50
+msgid "Open voting"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:50
+msgid "All can vote the items"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:54
+msgid "Users voting"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:54
+msgid "Only registered users can vote"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:65
+msgid "Settings"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:115
+msgid "Loading"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:120
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:4
+msgid "Vote"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:123
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:138
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:7
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:22
+msgid "Without interest"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:124
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:139
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:8
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:23
+msgid "Uninteresting"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:125
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:140
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:9
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:24
+msgid "Interesting"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:126
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:141
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:10
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:25
+msgid "Very interesting"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:127
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:142
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:11
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:26
+msgid "Essential"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:134
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:18
+msgid "Result"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:143
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:27
+msgid "votes"
+msgstr ""
+
