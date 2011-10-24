@@ -22,18 +22,18 @@
     });
 </script>
 <style type="" >
-.slider h6 { margin-bottom:0px;}
-.slider input { background:transparent; border:none; color:#999; margin-bottom:3px; text-align: center; width:90%; }
-.slider .ui-slider { margin:0 15px 0 8px; position: relative;}
-.slider .ui-widget-content { background:#bdd7df; border-color:#bdd7df; height:5px; }
-.slider .ui-widget-header { background:#FFF; }
-.slider .ui-slider-horizontal .ui-slider-handle { background:#bac8cd; border-color:#9aafb6; height:15px; top: -0.5em; width:6px; position: absolute;}
+.jobs-attributes div.slider h6 { margin-bottom:0px;}
+.jobs-attributes div.slider input { background:transparent; border:none; color:#999; margin-bottom:3px; text-align: center; width:90%; }
+.jobs-attributes div.slider .ui-slider { margin:0 15px 0 8px; position: relative;}
+.jobs-attributes div.slider .ui-widget-content { background:#bdd7df; border-color:#bdd7df; height:5px; }
+.jobs-attributes div.slider .ui-widget-header { background:#FFF; }
+.jobs-attributes div.slider .ui-slider-horizontal .ui-slider-handle { background:#bac8cd; border-color:#9aafb6; height:15px; top: -0.5em; width:6px; position: absolute;}
 
 
 </style>
 
 <h2><?php _e("Job attributes", 'jobs_attributes');?></h2>
-<div class="box">
+<div class="jobs-attributes box">
     <div class="row">
         <label for="relation"><?php _e('Relation', 'jobs_attributes'); ?></label>
     </div>
