@@ -22,12 +22,12 @@
     });
 </script>
 <style type="" >
-.jobs-attributes div.slider h6 { margin-bottom:0px;}
-.jobs-attributes div.slider input { background:transparent; border:none; color:#999; margin-bottom:3px; text-align: center; width:90%; }
-.jobs-attributes div.slider .ui-slider { margin:0 15px 0 8px; position: relative;}
-.jobs-attributes div.slider .ui-widget-content { background:#bdd7df; border-color:#bdd7df; height:5px; }
-.jobs-attributes div.slider .ui-widget-header { background:#FFF; }
-.jobs-attributes div.slider .ui-slider-horizontal .ui-slider-handle { background:#bac8cd; border-color:#9aafb6; height:15px; top: -0.5em; width:6px; position: absolute;}
+#jobs-attributes-slider h6 { margin-bottom:0px;}
+#jobs-attributes-slider input { background:transparent; border:none; color:#999; margin-bottom:3px; text-align: center; width:90%; }
+#jobs-attributes-slider .ui-slider { margin:0 15px 0 8px; position: relative;}
+#jobs-attributes-slider .ui-widget-content { background:#bdd7df; border-color:#bdd7df; height:5px; }
+#jobs-attributes-slider .ui-widget-header { background:#FFF; }
+#jobs-attributes-slider .ui-slider-horizontal .ui-slider-handle { background:#bac8cd; border-color:#9aafb6; height:15px; top: -0.5em; width:6px; position: absolute;}
 
 
 </style>
@@ -94,7 +94,7 @@
                 <option value="MONTH" <?php if(@$detail['e_salary_period']=='MONTH') { echo 'selected'; }; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
                 <option value="YEAR" <?php if(@$detail['e_salary_period']=='YEAR') { echo 'selected'; }; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
             </select>
-            <div class="slider" style="width:200px;clear: both;padding-left:130px;padding-top: 10px;" >
+            <div id="jobs-attributes-slider" style="width:200px;clear: both;padding-left:130px;padding-top: 10px;" >
                 <div id="salary-range"></div>
             </div>
         </div>
