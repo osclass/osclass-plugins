@@ -170,12 +170,12 @@
         </head>
         <body>
             <script type="text/javascript">
-                top.rd.innerHTML = <?php echo $html; ?>;
-                top.location.href="<?php echo $url; ?>";
-                top.dg_<?php echo $rpl[3];?>.closeFlow();
+                top.rd.innerHTML = "<?php echo $html ; ?>" ;
+                top.location.href = "<?php echo $url ; ?>" ;
+                top.dg_<?php echo $rpl[3] ; ?>.closeFlow() ;
             </script>
         </body>
     </html>
 <?php
-    };
+    } ;
 ?>
