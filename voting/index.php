@@ -74,9 +74,8 @@ Short Name: voting_plugin
             $aux_vote  = $conn->osc_dbFetchResult('SELECT format(avg(i_vote),1) as vote FROM %st_voting_item WHERE fk_i_item_id = %s', DB_TABLE_PREFIX, osc_item_id());
             $aux_count = $conn->osc_dbFetchResult('SELECT count(*) as total FROM %st_voting_item WHERE fk_i_item_id = %s', DB_TABLE_PREFIX, osc_item_id());
             $vote['vote']  = $aux_vote['vote'];
-            $vote['total'] = $aux_count['total'];
-             
-            //
+            $vote['total'] = $aux_count['total']; 
+            
             $hash   = '';
             if( osc_logged_user_id() == 0 ) {
                 $hash   = $_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR'];
@@ -96,8 +95,65 @@ Short Name: voting_plugin
                 $vote['can_vote'] = false;
             }
              
-             require_once 'item_detail.php';
+            require 'item_detail.php';
          }
+    }
+    
+    /**
+     * Return layout optimized for sidebar at main web page, with the best items voted with item limit
+     *
+     * @param int $num number of items 
+     */
+    function echo_voted_better($num = 5){
+        $filter = array(
+            'order'       => 'desc',
+            'num_items'   => $num
+        );
+        $results = get_votes($filter);
+        $locale  = osc_current_user_locale();
+        require 'set_results.php';
+    }
+    
+    /**
+     * Return an array of votes with given filters
+     * <code>
+     * array(   
+     * 'category_id' => (integer_category_id),
+     *          'order'       => ('desc','asc'),
+     *          'num_items'   => (integer)
+     *      );
+     * </code>
+     * @param type $array_filters
+     * @return array of item votes
+     */
+    function get_votes($array_filters)
+    {
+        $category_id = null;
+        $order       = null;
+        if(isset($array_filters['category_id'])){
+            $category_id = $array_filters['category_id'];
+        }
+        if(isset($array_filters['order'])){
+            $order = strtolower($array_filters['order']);
+            if( !in_array($order, array('desc', 'asc') ) ){
+                $order = 'desc';
+            }
+        }      
+        
+        $sql  = 'SELECT fk_i_item_id as item_id, format(avg(i_vote),1) as avg_vote, count(*) as num_votes, '.DB_TABLE_PREFIX.'t_item.fk_i_category_id as category_id ';
+        if(!is_null($category_id)) {
+            $sql .= ', '.DB_TABLE_PREFIX.'t_category.fk_i_parent_id as parent_category_id ';
+        }
+        $sql .= 'FROM '.DB_TABLE_PREFIX.'t_voting_item ';
+        $sql .= 'LEFT JOIN '.DB_TABLE_PREFIX.'t_item ON '.DB_TABLE_PREFIX.'t_item.pk_i_id = '.DB_TABLE_PREFIX.'t_voting_item.fk_i_item_id ';
+        if(!is_null($category_id)) {
+            $sql .= 'LEFT JOIN '.DB_TABLE_PREFIX.'t_category ON '.DB_TABLE_PREFIX.'t_category.pk_i_id = '.DB_TABLE_PREFIX.'t_item.fk_i_category_id ';
+            $sql .= 'WHERE '.DB_TABLE_PREFIX.'t_item.fk_i_category_id = '.$category_id.' ';
+            $sql .= 'OR '.DB_TABLE_PREFIX.'t_category.fk_i_parent_id = '.$category_id.' ';
+        }
+        $sql .= 'GROUP BY item_id ORDER BY avg_vote '.$order.' LIMIT 0, 5';
+        $conn = getConnection();
+        return $conn->osc_dbFetchResults($sql);
     }
     
     function voting_admin_configuration() 
@@ -122,6 +178,7 @@ Short Name: voting_plugin
         } else {
             $result = $conn->osc_dbFetchResult("SELECT i_vote FROM %st_voting_item WHERE fk_i_item_id = %s AND fk_i_user_id = %s AND s_hash = '%s'", DB_TABLE_PREFIX, $itemId, $userId, $hash);
         }
+        
         if( count($result) > 0 ) 
             return false;
         else 
