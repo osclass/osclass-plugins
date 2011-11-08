@@ -428,7 +428,7 @@ Short Name: paypal
         $conn  = getConnection();
         $items = $conn->osc_dbFetchResults("SELECT fk_i_item_id FROM %st_paypal_premium WHERE TIMESTAMPDIFF(DAY,dt_date,'%s') >= %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), osc_get_preference("premium_days", "paypal"));
         $mItem = new ItemActions(false);
-        foreach($itemas as $item) {
+        foreach($items as $item) {
             $mItem->premium($item['fk_i_item_id'], false);
         }
         $conn->osc_dbExec("DELETE FROM %st_paypal_premium WHERE TIMESTAMPDIFF(DAY,dt_date,'%s') >= %d", DB_TABLE_PREFIX, date('Y-m-d H:i:s'), osc_get_preference("premium_days", "paypal"));
