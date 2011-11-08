@@ -4,6 +4,7 @@ Changelog Jobs attributes
 ##version 2.2.2 - XX/XX/XXXX
 
 * Removed uniform.js
+* Fixed slider styles
 
 ##version 2.2.1 - 14/09/2011
 
