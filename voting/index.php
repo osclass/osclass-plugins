@@ -110,8 +110,10 @@ Short Name: voting_plugin
             'num_items'   => $num
         );
         $results = get_votes($filter);
-        $locale  = osc_current_user_locale();
-        require 'set_results.php';
+        if(count($results) > 0 ) {
+            $locale  = osc_current_user_locale();
+            require 'set_results.php';
+        }
     }
     
     /**
@@ -146,12 +148,21 @@ Short Name: voting_plugin
         }
         $sql .= 'FROM '.DB_TABLE_PREFIX.'t_voting_item ';
         $sql .= 'LEFT JOIN '.DB_TABLE_PREFIX.'t_item ON '.DB_TABLE_PREFIX.'t_item.pk_i_id = '.DB_TABLE_PREFIX.'t_voting_item.fk_i_item_id ';
+        $sql .= 'LEFT JOIN '.DB_TABLE_PREFIX.'t_category ON '.DB_TABLE_PREFIX.'t_category.pk_i_id = '.DB_TABLE_PREFIX.'t_item.fk_i_category_id ';
         if(!is_null($category_id)) {
-            $sql .= 'LEFT JOIN '.DB_TABLE_PREFIX.'t_category ON '.DB_TABLE_PREFIX.'t_category.pk_i_id = '.DB_TABLE_PREFIX.'t_item.fk_i_category_id ';
             $sql .= 'WHERE '.DB_TABLE_PREFIX.'t_item.fk_i_category_id = '.$category_id.' ';
             $sql .= 'OR '.DB_TABLE_PREFIX.'t_category.fk_i_parent_id = '.$category_id.' ';
+            $sql .= ' AND ';
+        }else{
+            $sql .= 'WHERE ';
         }
+        $sql .= ''.DB_TABLE_PREFIX.'t_item.b_active = 1 ';
+        $sql .= 'AND '.DB_TABLE_PREFIX.'t_item.b_enabled = 1 ';
+        $sql .= 'AND '.DB_TABLE_PREFIX.'t_item.b_spam = 0 ';
+        $sql .= 'AND ('.DB_TABLE_PREFIX.'t_item.b_premium = 1 || '.DB_TABLE_PREFIX.'t_category.i_expiration_days = 0 ||DATEDIFF(\''.date('Y-m-d H:i:s').'\','.DB_TABLE_PREFIX.'t_item.dt_pub_date) < '.DB_TABLE_PREFIX.'t_category.i_expiration_days) ';
+        $sql .= 'AND '.DB_TABLE_PREFIX.'t_category.b_enabled = 1 ';
         $sql .= 'GROUP BY item_id ORDER BY avg_vote '.$order.' LIMIT 0, 5';
+        
         $conn = getConnection();
         return $conn->osc_dbFetchResults($sql);
     }
@@ -216,6 +227,12 @@ Short Name: voting_plugin
             }
         }
     }
+    
+    function voting_delete ($itemID) {
+        $conn = getConnection();
+        $conn->osc_dbExec("DELETE FROM %st_voting_item WHERE fk_i_item_id = '%d'", DB_TABLE_PREFIX, $itemID);
+    }
+    
     /**
      * ADD HOOKS
      */
@@ -224,6 +241,7 @@ Short Name: voting_plugin
     osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'voting_uninstall');
     
     osc_add_hook('item_detail', 'voting_item_detail');
+    osc_add_hook('delete_item', 'voting_delete');
 
     osc_add_hook('admin_menu', 'voting_admin_menu');
 ?>
