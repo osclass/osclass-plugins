@@ -63,6 +63,7 @@ Short Name: voting_plugin
         echo '<h3><a href="#">' . __('Voting options', 'voting') . '</a></h3>
         <ul> 
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'voting') . '</a></li>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'voting') . '</a></li>
         </ul>';
     }
     
@@ -104,7 +105,7 @@ Short Name: voting_plugin
      *
      * @param int $num number of items 
      */
-    function echo_voted_better($num = 5){
+    function echo_best_rated($num = 5){
         $filter = array(
             'order'       => 'desc',
             'num_items'   => $num
