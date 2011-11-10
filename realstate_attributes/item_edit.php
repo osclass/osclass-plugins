@@ -242,11 +242,6 @@
             </li>
         </ul>
     </div>
-    <?php
-        echo "<pre>";
-        Session::newInstance()->_viewForm();
-        echo "</pre>";
-    ?>
     <?php $locales = osc_get_locales();
     if(count($locales)==1) { ?>
 
