@@ -132,6 +132,7 @@ Short Name: voting_plugin
     {
         $category_id = null;
         $order       = null;
+        $num         = 5;
         if(isset($array_filters['category_id'])){
             $category_id = $array_filters['category_id'];
         }
@@ -140,7 +141,10 @@ Short Name: voting_plugin
             if( !in_array($order, array('desc', 'asc') ) ){
                 $order = 'desc';
             }
-        }      
+        }
+        if(isset($array_filters['num_items'])){
+            $num = (int)$array_filters['num_items'];
+        }
         
         $sql  = 'SELECT fk_i_item_id as item_id, format(avg(i_vote),1) as avg_vote, count(*) as num_votes, '.DB_TABLE_PREFIX.'t_item.fk_i_category_id as category_id ';
         if(!is_null($category_id)) {
@@ -161,7 +165,7 @@ Short Name: voting_plugin
         $sql .= 'AND '.DB_TABLE_PREFIX.'t_item.b_spam = 0 ';
         $sql .= 'AND ('.DB_TABLE_PREFIX.'t_item.b_premium = 1 || '.DB_TABLE_PREFIX.'t_category.i_expiration_days = 0 ||DATEDIFF(\''.date('Y-m-d H:i:s').'\','.DB_TABLE_PREFIX.'t_item.dt_pub_date) < '.DB_TABLE_PREFIX.'t_category.i_expiration_days) ';
         $sql .= 'AND '.DB_TABLE_PREFIX.'t_category.b_enabled = 1 ';
-        $sql .= 'GROUP BY item_id ORDER BY avg_vote '.$order.' LIMIT 0, 5';
+        $sql .= 'GROUP BY item_id ORDER BY avg_vote '.$order.', num_votes '.$order.' LIMIT 0, '.$num;
         
         $conn = getConnection();
         return $conn->osc_dbFetchResults($sql);
