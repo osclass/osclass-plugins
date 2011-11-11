@@ -21,11 +21,10 @@
 ?>
 
 <?php
-    $conn = getConnection();
 if(Params::getParam('plugin_action')!='') {
     if(Params::getParam('plugin_action')=="type_delete") {
         if(Params::getParam('id')!="") {
-            $conn->osc_dbExec('DELETE FROM %st_item_house_property_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, Params::getParam('id'));
+            ModelRealState::newInstance()->deletePropertyType( Params::getParam('id') ) ;
         }
     } else if(Params::getParam('plugin_action')=="type_add") {
         $dataItem = array();
@@ -36,16 +35,16 @@ if(Params::getParam('plugin_action')!='') {
             }
         }
         // insert locales
-        $lastId = $conn->osc_dbFetchResult('SELECT pk_i_id FROM %st_item_house_property_type_attr ORDER BY pk_i_id DESC LIMIT 1', DB_TABLE_PREFIX);
+        $lastId = ModelRealState::newInstance()->getLastPropertyTypeId();
         $lastId = $lastId['pk_i_id'] + 1 ;
         foreach ($dataItem as $k => $_data) {
-            $conn->osc_dbExec("REPLACE INTO %st_item_house_property_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $lastId, $k, $_data['property_type'] );
+            ModelRealState::newInstance()->insertPropertyType($lastId, $k, $_data['property_type']);
         }
     } else if(Params::getParam('plugin_action')=="type_edit") {
         $property_type = Params::getParam('property_type');
         foreach($property_type as $k => $v) {
             foreach($v as $kj => $vj) {
-                $conn->osc_dbExec("REPLACE INTO %st_item_house_property_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $k, $kj, $vj );
+                ModelRealState::newInstance()->replacePropertyType($k, $kj, $vj);
             }
         }
     }
@@ -65,7 +64,7 @@ if(Params::getParam('plugin_action')!='') {
                     <input type="hidden" name="plugin_action" value="type_edit" />
                 <div class="tabber">
                 <?php $locales = osc_get_locales();
-                    $property_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr', DB_TABLE_PREFIX);
+                    $property_type = ModelRealState::newInstance()->getPropertyTypes(false) ;
                     $data = array();
                     foreach ($property_type as $c) {
                         $data[$c['fk_c_locale_code']][] = array('pk_i_id' => $c['pk_i_id'], 's_name' => $c['s_name']);
@@ -105,7 +104,6 @@ if(Params::getParam('plugin_action')!='') {
 
                     <div class="tabber">
                     <?php $locales = osc_get_locales();
-                        $property_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr', DB_TABLE_PREFIX);
                         $data = array();
                         foreach ($property_type as $c) {
                             $data[$locale['pk_c_code']] = array('pk_i_id' => $c['pk_i_id'], 's_name' => $c['s_name']);

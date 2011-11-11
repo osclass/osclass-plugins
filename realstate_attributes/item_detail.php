@@ -12,7 +12,7 @@
     <?php if(@$detail['locale'][$locale]['s_name'] != "") {?>
     <tr>
         <td><label><?php _e('Property type', 'realstate_attributes'); ?></label></td>
-        <td><?php echo  @@$detail['locale'][$locale]['s_name']; ?></td>
+        <td><?php echo @$detail['locale'][$locale]['s_name']; ?></td>
     </tr>
     <?php } ?>
     <?php if(@$detail['i_num_rooms'] != "") {?>

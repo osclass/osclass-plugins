@@ -3,13 +3,14 @@
   Plugin Name: Real state attributes
   Plugin URI: http://www.osclass.org/
   Description: This plugin extends a category of items to store real estate attributes such as square feets, number of bathrooms, garage, and so on.
-  Version: 2.1.2
+  Version: 3.0
   Author: OSClass
   Author URI: http://www.osclass.org/
   Short Name: realstate_plugin
   Plugin update URI: http://www.osclass.org/files/plugins/realstate_attributes/update.php
  */
 
+require_once 'ModelRealState.php';
 // Adds some plugin-specific search conditions
 function realstate_search_conditions($params = null) {
 
@@ -125,38 +126,17 @@ function realstate_search_conditions($params = null) {
 function realstate_call_after_install() {
     // Insert here the code you want to execute after the plugin's install
     // for example you might want to create a table or modify some values
+    
     // In this case we'll create a table to store the Example attributes
-    $conn = getConnection() ;
-    $conn->autocommit(false) ;
-    try {
-        $path = osc_plugin_resource('realstate_attributes/struct.sql');
-        $sql = file_get_contents($path);
-        $conn->osc_dbImportSQL($sql);
-        $conn->commit();
-    } catch (Exception $e) {
-        $conn->rollback();
-        echo $e->getMessage();
-    }
-    $conn->autocommit(true);
+    ModelRealState::newInstance()->import('realstate_attributes/struct.sql') ;
 }
 
 function realstate_call_after_uninstall() {
     // Insert here the code you want to execute after the plugin's uninstall
     // for example you might want to drop/remove a table or modify some values
+    
     // In this case we'll remove the table we created to store Example attributes
-    $conn = getConnection() ;
-    $conn->autocommit(false);
-    try {
-        $conn->osc_dbExec("DELETE FROM %st_plugin_category WHERE s_plugin_name = 'realstate_plugin'", DB_TABLE_PREFIX);
-        $conn->osc_dbExec('DROP TABLE %st_item_house_attr', DB_TABLE_PREFIX);
-        $conn->osc_dbExec('DROP TABLE %st_item_house_description_attr', DB_TABLE_PREFIX);
-        $conn->osc_dbExec('DROP TABLE %st_item_house_property_type_attr', DB_TABLE_PREFIX);
-        $conn->commit();
-    } catch (Exception $e) {
-        $conn->rollback();
-        echo $e->getMessage();
-    }
-    $conn->autocommit(true);
+    ModelRealState::newInstance()->uninstall();
 }
 
 function realstate_form($catId = null) {
@@ -164,13 +144,7 @@ function realstate_form($catId = null) {
     if ($catId!= null) {
         // We check if the category is the same as our plugin
         if (osc_is_this_category('realstate_plugin', $catId)) {
-            $conn = getConnection() ;
-            $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr', DB_TABLE_PREFIX);
-            $p_type = array();
-            foreach ($data as $d) {
-                $p_type[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
-            }
-            unset($data);
+            $p_type = ModelRealState::newInstance()->getPropertyTypes() ;
             include_once 'item_edit.php';
         }
     }
@@ -182,70 +156,91 @@ function realstate_search_form($catId = null) {
         // We check if the category is the same as our plugin
         foreach($catId as $id) {
     		if(osc_is_this_category('realstate_plugin', $id)) {
-            $conn = getConnection() ;
-            $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr', DB_TABLE_PREFIX);
-            $p_type = array();
-            foreach ($data as $d) {
-                $p_type[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
-            }
-            unset($data);
-	    		include_once 'search_form.php';
-	    		break;
+                    $p_type = ModelRealState::newInstance()->getPropertyTypes() ;
+                    include_once 'search_form.php';
+                    break;
 	    	}
         }
     }
 }
 
+/**
+ * Get parameters from form
+ * 
+ * @return array
+ */
+function _getParameters()
+{
+    
+    $heating        = Params::getParam('heating')!='' ? 1 : 0;
+    $airCondition   = Params::getParam('airCondition')!='' ? 1 : 0;
+    $elevator       = Params::getParam('elevator')!='' ? 1 : 0;
+    $terrace        = Params::getParam('terrace')!='' ? 1 : 0;
+    $parking        = Params::getParam('parking')!='' ? 1 : 0;
+    $furnished      = Params::getParam('furnished')!='' ? 1 : 0;
+    $new            = Params::getParam('new')!='' ? 1 : 0;
+    $by_owner       = Params::getParam('by_owner')!='' ? 1 : 0;
+
+    $insertArray = array(
+        'squareMeters'  =>  Params::getParam('squareMeters'),
+        'numRooms'      =>  Params::getParam('numRooms'),
+        'numBathrooms'  =>  Params::getParam('numBathrooms'),
+        'property_type' =>  Params::getParam('property_type'),
+        'p_type'        =>  Params::getParam('p_type'),
+        'status'        =>  Params::getParam('status'),
+        'numFloors'     =>  Params::getParam('numFloors'),
+        'numGarages'    =>  Params::getParam('numGarages'),
+        'heating'       =>  $heating,
+        'airCondition'  =>  $airCondition,
+        'elevator'      =>  $elevator,
+        'terrace'       =>  $terrace,
+        'parking'       =>  $parking,
+        'furnished'     =>  $furnished,
+        'new'           =>  $new,
+        'by_owner'      =>  $by_owner,
+        'condition'     =>  Params::getParam('condition'),
+        'year'          =>  Params::getParam('year'),
+        'agency'        =>  Params::getParam('agency'),
+        'floorNumber'   =>  Params::getParam('floorNumber'),
+        'squareMetersTotal' => Params::getParam('squareMetersTotal')
+    );
+    return $insertArray;
+}
+
+/**
+ * Prepare locales
+ * 
+ * @return array
+ */
+function _prepareLocales()
+{
+    $dataItem = array();
+    foreach ($_REQUEST as $k => $v) {
+        if (preg_match('|(.+?)#(.+)|', $k, $m)) {
+            $dataItem[$m[1]][$m[2]] = $v;
+        }
+    }
+    return $dataItem;
+}
+
 function realstate_form_post($catId = null, $item_id = null) {
     // We received the categoryID and the Item ID
-    $conn = getConnection() ;
     if ($catId!=null) {
         // We check if the category is the same as our plugin
         if (osc_is_this_category('realstate_plugin', $catId) && $item_id!=null) {
-                // Insert the data in our plugin's table
-                $conn->osc_dbExec("REPLACE INTO %st_item_house_attr (fk_i_item_id, s_square_meters, i_num_rooms, i_num_bathrooms, e_type, fk_i_property_type_id, e_status, i_num_floors, i_num_garages, b_heating, b_air_condition, b_elevator, b_terrace, b_parking, b_furnished, b_new, b_by_owner, s_condition, i_year, s_agency, i_floor_number, i_plot_area ) VALUES (%d, %d, %d, %d, '%s', %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', %d, '%s', %d, %d)",
-                        DB_TABLE_PREFIX,
-                        $item_id,
-                        Params::getParam('squareMeters'),
-                        Params::getParam('numRooms'),
-                        Params::getParam('numBathrooms'),
-                        Params::getParam('property_type'),
-                        Params::getParam('p_type'),
-                        Params::getParam('status'),
-                        Params::getParam('numFloors'),
-                        Params::getParam('numGarages'),
-                        (Params::getParam('heating')!='') ? 1 : 0,
-                        (Params::getParam('airCondition')!='') ? 1 : 0,
-                        (Params::getParam('elevator')!='') ? 1 : 0,
-                        (Params::getParam('terrace')!='') ? 1 : 0,
-                        (Params::getParam('parking')!='') ? 1 : 0,
-                        (Params::getParam('furnished')!='') ? 1 : 0,
-                        (Params::getParam('new')!='') ? 1 : 0,
-                        (Params::getParam('by_owner')!='') ? 1 : 0,
-                        Params::getParam('condition'),
-                        Params::getParam('year'),
-                        Params::getParam('agency'),
-                        Params::getParam('floorNumber'),
-                        Params::getParam('squareMetersTotal')
-                );
-                // prepare locales
-                $dataItem = array();
-                foreach ($_REQUEST as $k => $v) {
-                    if (preg_match('|(.+?)#(.+)|', $k, $m)) {
-                        $dataItem[$m[1]][$m[2]] = $v;
-                    }
-                }
+            
+            // Insert the data in our plugin's table
+            $insertArray = _getParameters();
+            $insertArray['itemId'] = $item_id;
+            ModelRealState::newInstance()->insertAttr($insertArray);
+                
+            // prepare locales
+            $dataItem = _prepareLocales();
 
-                // insert locales
-                foreach ($dataItem as $k => $_data) {
-                    $conn->osc_dbExec("REPLACE INTO %st_item_house_description_attr (fk_i_item_id, fk_c_locale_code, s_transport, s_zone) VALUES (%d, '%s', '%s', '%s')",
-                            DB_TABLE_PREFIX,
-                            $item_id,
-                            $k,
-                            $_data['transport'],
-                            $_data['zone']
-                    );
-                }
+            // insert locales
+            foreach ($dataItem as $k => $_data) {
+                ModelRealState::newInstance()->insertDescriptions($item_id, $k, $_data['transport'], $_data['zone']) ;
+            }
         }
     }
 }
@@ -253,43 +248,21 @@ function realstate_form_post($catId = null, $item_id = null) {
 // Self-explanatory
 function realstate_item_detail() {
     if (osc_is_this_category('realstate_plugin', osc_item_category_id())) {
-        $conn = getConnection() ;
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_house_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
-
-        $descriptions = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_description_attr WHERE fk_i_item_id = %d', DB_TABLE_PREFIX, osc_item_id());
-        $detail['locale'] = array();
-        foreach ($descriptions as $desc) {
-            $detail['locale'][$desc['fk_c_locale_code']] = $desc;
-        }
-        if(isset($detail['fk_i_property_type_id'])) {
-            $types = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, $detail['fk_i_property_type_id']);
+        $detail = ModelRealState::newInstance()->getAttributes( osc_item_id() );
+        $keys = array_keys($detail) ;
+        if(count($keys) == 1 && $keys[0] == 'locale' && is_null($detail[0]['locale']) ){
+            // nothing to do
         } else {
-            $types = array();
+            require_once 'item_detail.php';
         }
-        foreach ($types as $type) {
-            $detail['locale'][$type['fk_c_locale_code']]['s_name'] = $type['s_name'];
-        }
-        require_once 'item_detail.php';
     }
 }
 
 // Self-explanatory
 function realstate_item_edit($catId = null, $item_id = null) {
     if (osc_is_this_category('realstate_plugin', $catId)) {
-        $conn = getConnection() ;
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_house_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item_id);
-
-        $descriptions = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_description_attr WHERE fk_i_item_id = %d', DB_TABLE_PREFIX, $item_id);
-        $detail['locale'] = array();
-        foreach ($descriptions as $desc) {
-            $detail['locale'][$desc['fk_c_locale_code']] = $desc;
-        }
-        $data = $conn->osc_dbFetchResults('SELECT * FROM %st_item_house_property_type_attr', DB_TABLE_PREFIX);
-        $p_type = array();
-        foreach ($data as $d) {
-            $p_type[$d['fk_c_locale_code']][$d['pk_i_id']] = $d['s_name'];
-        }
-        unset($data);
+        $detail = ModelRealState::newInstance()->getAttributes( $item_id );
+        $p_type = ModelRealState::newInstance()->getPropertyTypes() ;
         require_once 'item_edit.php';
     }
 }
@@ -299,65 +272,27 @@ function realstate_item_edit_post($catId = null, $item_id = null) {
     if ($catId!=null) {
         // We check if the category is the same as our plugin
         if (osc_is_this_category('realstate_plugin', $catId)) {
-            $conn = getConnection() ;
-            $conn->osc_dbExec("REPLACE INTO %st_item_house_attr (fk_i_item_id, s_square_meters, i_num_rooms, i_num_bathrooms, e_type, fk_i_property_type_id, e_status, i_num_floors, i_num_garages, b_heating, b_air_condition, b_elevator, b_terrace, b_parking, b_furnished, b_new, b_by_owner, s_condition, i_year, s_agency, i_floor_number, i_plot_area ) VALUES (%d, '%s', %d, %d, '%s', %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, '%s', '%s', '%s', %d, %d)",
-                    DB_TABLE_PREFIX,
-                    $item_id,
-                    Params::getParam('squareMeters'),
-                    Params::getParam('numRooms'),
-                    Params::getParam('numBathrooms'),
-                    Params::getParam('property_type'),
-                    Params::getParam('p_type'),
-                    Params::getParam('status'),
-                    Params::getParam('numFloors'),
-                    Params::getParam('numGarages'),
-                    (Params::getParam('heating')) ? 1 : 0,
-                    (Params::getParam('airCondition')) ? 1 : 0,
-                    (Params::getParam('elevator')) ? 1 : 0,
-                    (Params::getParam('terrace')) ? 1 : 0,
-                    (Params::getParam('parking')) ? 1 : 0,
-                    (Params::getParam('furnished')) ? 1 : 0,
-                    (Params::getParam('new')) ? 1 : 0,
-                    (Params::getParam('by_owner')) ? 1 : 0,
-                    Params::getParam('condition'),
-                    Params::getParam('year'),
-                    Params::getParam('agency'),
-                    Params::getParam('floorNumber'),
-                    Params::getParam('squareMetersTotal')
-            );
+            $replaceArray = _getParameters();
+            $replaceArray['itemId'] = $item_id;
+            ModelRealState::newInstance()->replaceAttr($replaceArray) ;
 
             // prepare locales
-            $dataItem = array();
-            foreach ($_REQUEST as $k => $v) {
-                if (preg_match('|(.+?)#(.+)|', $k, $m)) {
-                    $dataItem[$m[1]][$m[2]] = $v;
-                }
-            }
+            $dataItem = _prepareLocales();
 
             // insert locales
             foreach ($dataItem as $k => $_data) {
-                $conn->osc_dbExec("REPLACE INTO %st_item_house_description_attr (fk_i_item_id, fk_c_locale_code, s_transport, s_zone) VALUES (%d, '%s', '%s', '%s')",
-                        DB_TABLE_PREFIX,
-                        $item_id,
-                        $k,
-                        $_data['transport'],
-                        $_data['zone']
-                );
+                ModelRealState::newInstance()->replaceDescriptions($item_id, $k, $_data['transport'], $_data['zone']) ;
             }
         }
     }
 }
 
 function realstate_delete_locale($locale) {
-    $conn = getConnection();
-    $conn->osc_dbExec("DELETE FROM %st_item_house_description_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
-    $conn->osc_dbExec("DELETE FROM %st_item_house_property_type_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
+    ModelRealState::newInstance()->deleteLocale( $locale ) ;
 }
 
-function realstate_delete_item($item) {
-    $conn = getConnection();
-    $conn->osc_dbExec("DELETE FROM %st_item_house_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
-    $conn->osc_dbExec("DELETE FROM %st_item_house_description_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
+function realstate_delete_item($item_id) {
+    ModelRealState::newInstance()->deleteItem( $item_id ) ;
 }
 
 
@@ -414,8 +349,7 @@ function realstate_pre_item_post() {
         Session::newInstance()->_keepForm('pre_'.$locale['pk_c_code'].'transport');
         Session::newInstance()->_keepForm('pre_'.$locale['pk_c_code'].'zone');
     }
-
-
+    
     // keep values on session
     Session::newInstance()->_keepForm('pre_squareMeters');
     Session::newInstance()->_keepForm('pre_numRooms');
