@@ -1,8 +1,9 @@
 Changelog Cars attributes
 ===============================
 
-##version 2.1.3 - XX/XX/XXXX
+##version 3.0 - XX/XX/XXXX
 
+* implemented new DAO (Data Access Object)
 * Remove uniform.js
 
 ##version 2.1.2 - 14/09/2011
