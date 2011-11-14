@@ -34,7 +34,7 @@
          * 
          * @access private
          * @since unknown
-         * @var Currency
+         * @var ModelCars
          */
         private static $instance ;
 
@@ -44,7 +44,7 @@
          * 
          * @access public
          * @since unknown
-         * @return Currency
+         * @return ModelCars
          */
         public static function newInstance()
         {
