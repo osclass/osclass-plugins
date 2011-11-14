@@ -34,15 +34,13 @@
     $model = Params::getParam('model') ;
     $type  = Params::getParam('type') ;
 
-    $conn  = getConnection();
-    $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
+    $makes = ModelCars::newInstance()->getCarMakes();
+    $models = array();
     if($make!='') {
-        $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE `fk_i_make_id` = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $make);
-    } else {
-        $models = array();
+        $models = ModelCars::newInstance()->getCarModels($make);
     }
 
-    $types = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr WHERE fk_c_locale_code = \'%s\'', DB_TABLE_PREFIX, osc_current_user_locale());
+    $types = ModelCars::newInstance()->getVehiclesType( osc_current_user_locale() );
 ?>
 <fieldset>
     <h3><?php _e('Cars attributes', 'cars_attributes') ; ?></h3>

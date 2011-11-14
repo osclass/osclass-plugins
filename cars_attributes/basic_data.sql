@@ -1,7 +1,6 @@
 /* MAKES */
 INSERT INTO /*TABLE_PREFIX*/t_item_car_make_attr (pk_i_id, s_name) VALUES (1,'Acura');
 INSERT INTO /*TABLE_PREFIX*/t_item_car_make_attr (pk_i_id, s_name) VALUES (2,'Audi');
-INSERT INTO /*TABLE_PREFIX*/t_item_car_make_attr (pk_i_id, s_name) VALUES (3, 'Alfa Romeo');
 INSERT INTO /*TABLE_PREFIX*/t_item_car_make_attr (pk_i_id, s_name) VALUES (3,'Alfa Romeo');
 INSERT INTO /*TABLE_PREFIX*/t_item_car_make_attr (pk_i_id, s_name) VALUES (4,'Aston Martin');
 INSERT INTO /*TABLE_PREFIX*/t_item_car_make_attr (pk_i_id, s_name) VALUES (5,'BMW');

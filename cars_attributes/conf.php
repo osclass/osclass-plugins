@@ -20,45 +20,42 @@
  */
 ?>
 <?php 
-
-    $conn = getConnection() ;
-    
+//    require_once 'ModelCars.php';
     if(Params::getParam("plugin_action") != '') {
         switch(Params::getParam("plugin_action")) {
             case("make_delete"):    if(Params::getParam("id")!="") {
-                                        $conn->osc_dbExec('DELETE FROM %st_item_car_model_attr WHERE fk_i_make_id = %d', DB_TABLE_PREFIX, Params::getParam("id"));
-                                        $conn->osc_dbExec('DELETE FROM %st_item_car_make_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, Params::getParam("id"));
+                                        ModelCars::newInstance()->deleteMake( Params::getParam("id") );
                                     }
             break;
             case("make_add"):       if(Params::getParam("make")!="") {
-                                        $conn->osc_dbExec("INSERT INTO `%st_item_car_make_attr` ( `s_name`) VALUES ( '%s')", DB_TABLE_PREFIX, Params::getParam("make"));
+                                        ModelCars::newInstance()->insertMake( Params::getParam("make") );
                                     }
             break;
             case("make_edit"):      $make = Params::getParam("make");
                                     if(is_array($make)) {
                                         foreach($make as $k => $v) {
-                                            $conn->osc_dbExec("UPDATE  `%st_item_car_make_attr` SET  `s_name` =  '%s' WHERE  `pk_i_id` = %d ;", DB_TABLE_PREFIX, $v, $k);
+                                            ModelCars::newInstance()->updateMake( $k, $v );
                                         }
                                     }
             break;
             case("model_delete"):   if(Params::getParam("id") != "") {
-                                        $conn->osc_dbExec('DELETE FROM %st_item_car_model_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, Params::getParam("id"));
+                                        ModelCars::newInstance()->deleteModel(Params::getParam("id"));
                                     }
             break;
             case("model_add"):      if(Params::getParam("makeId")!='' && Params::getParam("model")!='') {
-                                        $conn->osc_dbExec("INSERT INTO `%st_item_car_model_attr` ( `fk_i_make_id`, `s_name`) VALUES ( %d, '%s')", DB_TABLE_PREFIX, Params::getParam("makeId"), Params::getParam("model"));
+                                        ModelCars::newInstance()->insertModel( Params::getParam("makeId"), Params::getParam("model") );
                                     }
             break;
             case("model_edit"):     $makeId = Params::getParam("makeId");
                                     $model  = Params::getParam("model");
                                     if($makeId != '' && is_array($model)) {
                                         foreach($model as $k => $v) {
-                                            $conn->osc_dbExec("UPDATE  `%st_item_car_model_attr` SET  `s_name` =  '%s' WHERE  `pk_i_id` = %d AND `fk_i_make_id` = %d;", DB_TABLE_PREFIX, $v, $k, $makeId);
+                                            ModelCars::newInstance()->updateModel($k, $makeId, $v );
                                         }
                                     }
             break;
             case("type_delete"):    if(Params::getParam("id")!="") {
-                                        $conn->osc_dbExec('DELETE FROM %st_item_car_vehicle_type_attr WHERE pk_i_id = %d', DB_TABLE_PREFIX, Params::getParam("id"));
+                                        ModelCars::newInstance()->deleteVehicleType( Params::getParam("id") );
                                     }
             break;
             case("type_add"):       $dataItem      = array();
@@ -69,16 +66,16 @@
                                         }
                                     }
                                     // insert locales
-                                    $lastId = $conn->osc_dbFetchResult('SELECT pk_i_id FROM %st_item_car_vehicle_type_attr ORDER BY pk_i_id DESC LIMIT 1', DB_TABLE_PREFIX) ;
+                                    $lastId = ModelCars::newInstance()->getLastVehicleTypeId();
                                     $lastId = $lastId['pk_i_id'] + 1 ;
                                     foreach ($dataItem as $k => $_data) {
-                                        $conn->osc_dbExec("REPLACE INTO %st_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $lastId, $k, $_data['car_type']);
+                                        ModelCars::newInstance()->insertVehicleType($lastId, $k, $_data['car_type']);
                                     }
             break;
             case("type_edit"):      $car_type = Params::getParam("car_type");
                                     foreach($car_type as $k => $v) {
                                         foreach($v as $kj => $vj) {
-                                            $conn->osc_dbExec("REPLACE INTO %st_item_car_vehicle_type_attr (pk_i_id, fk_c_locale_code, s_name) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $k, $kj, $vj );
+                                            ModelCars::newInstance()->updateVehicleType($k, $kj, $vj);
                                         }
                                     }
         }
@@ -100,7 +97,7 @@
                                                 <input type="hidden" name="plugin_action" value="make_edit" />
                                                 <ul>
                                                 <?php
-                                                    $makes = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX);
+                                                    $makes = ModelCars::newInstance()->getCarMakes() ;
                                                     foreach($makes as $make) {
                                                         echo '<li><input name="make[' . $make['pk_i_id'] . ']" id="' . $make['pk_i_id'] . '" type="text" value="' . $make['s_name'] . '" /> <a href="' . osc_admin_base_url(true) . '?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=makes&plugin_action=make_delete&id=' . $make['pk_i_id'] . '" ><button>' . __('Delete', 'cars_attributes') . '</button></a> </li>';
                                                     }
@@ -137,7 +134,7 @@
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
                                             <legend><?php _e('Models', 'cars_attributes'); ?></legend>
-                                            <?php $make = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_make_attr ORDER BY s_name ASC', DB_TABLE_PREFIX); ?>
+                                            <?php $make = ModelCars::newInstance()->getCarMakes() ; ?>
                                             <select name="make" id="make" onchange="location.href = '<?php echo osc_admin_base_url(true);?>?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&makeId=' + this.value" >
                                                 <option value=""><?php _e('Select a make', 'cars_attributes'); ?></option>
                                                 <?php foreach($make as $a) { ?>
@@ -154,7 +151,7 @@
                                                 <ul>
                                                 <?php
                                                     if($makeId != "") {
-                                                        $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE fk_i_make_id = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, $makeId);
+                                                        $models = ModelCars::newInstance()->getCarModels($makeId) ;
                                                         foreach($models as $model) {
                                                             echo '<li><input name="model['.$model['pk_i_id'].']" id="'.$model['pk_i_id'].'" type="text" value="'.$model['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&plugin_action=model_delete&makeId='.$makeId.'&id='.$model['pk_i_id'].'" ><button>'.__('Delete', 'cars_attributes').'</button></a> </li>';
                                                         }
@@ -199,7 +196,7 @@
                                             <legend><?php _e('Vehicle types', 'cars_attributes'); ?></legend>
                                             <div class="tabber">
                                                 <?php $locales = osc_get_locales();
-                                                    $car_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
+                                                    $car_type = ModelCars::newInstance()->getVehiclesType() ;
                                                     $data = array();
                                                     foreach ($car_type as $c) {
                                                         $data[$c['fk_c_locale_code']][] = array('pk_i_id' => $c['pk_i_id'], 's_name' => $c['s_name']);
@@ -244,7 +241,7 @@
 
                                                 <div class="tabber">
                                                     <?php $locales = osc_get_locales();
-                                                        $car_type = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_vehicle_type_attr', DB_TABLE_PREFIX);
+                                                        $car_type = ModelCars::newInstance()->getVehiclesType() ;
                                                         $data = array();
                                                         foreach ($car_type as $c) {
                                                             $data[$locale['pk_c_code']] = array('pk_i_id' => $c['pk_i_id'], 's_name' => $c['s_name']);
