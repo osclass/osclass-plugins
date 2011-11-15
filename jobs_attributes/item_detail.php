@@ -67,7 +67,7 @@
     <?php if(isset($detail['locale'][$locale]['s_company_description']) && $detail['locale'][$locale]['s_company_description']!='') { ?>
     <p>
         <label style="font-weight:bold;" for="company_desc"><?php _e('Company description', 'jobs_attributes'); ?></label><br />
-        <p style="padding-left: 10px;">"<?php echo nl2br( @$detail['locale'][$locale]['s_company_description'] ) ; ?></p>
+        <p style="padding-left: 10px;"><?php echo nl2br( @$detail['locale'][$locale]['s_company_description'] ) ; ?></p>
     </p>
     <?php } ?>
 </div>
