@@ -1,8 +1,9 @@
 Changelog Jobs attributes
 =========================
 
-##version 2.2.2 - XX/XX/XXXX
+##version 3.0 - XX/XX/XXXX
 
+* Implemented new DAO (Data Access Object)
 * Removed uniform.js
 * Fixed slider styles
 
