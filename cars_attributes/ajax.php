@@ -18,11 +18,9 @@
  *      You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+    require_once 'ModelCars.php';
     if(Params::getParam("makeId") != '') {
-        $conn = getConnection() ;
-        $models = $conn->osc_dbFetchResults('SELECT * FROM %st_item_car_model_attr WHERE fk_i_make_id = %d ORDER BY s_name ASC', DB_TABLE_PREFIX, Params::getParam("makeId"));
-
+        $models = ModelCars::newInstance()->getCarModels( Params::getParam("makeId") );
         echo json_encode($models);
     }
 
