@@ -10,6 +10,7 @@ Short Name: jobs_plugin
 Plugin update URI: http://www.osclass.org/files/plugins/jobs_attributes/update.php
 */
 
+require_once 'ModelJobs.php';
 // Adds some plugin-specific search conditions
 function job_search_conditions($params = '') {
     // we need conditions and search tables (only if we're using our custom tables)
@@ -71,25 +72,15 @@ function job_call_after_install() {
     // for example you might want to create a table or modify some values
 	
     // In this case we'll create a table to store the Example attributes
-    $conn = getConnection();
-    $conn->autocommit(false);
-    try {
-        $path = osc_plugin_resource('jobs_attributes/struct.sql');
-        $sql = file_get_contents($path);
-        $conn->osc_dbImportSQL($sql);
-        $conn->commit();
-        osc_set_preference('cv_email', '', 'jobs_plugin', 'STRING');
-        osc_set_preference('allow_cv_upload', '0', 'jobs_plugin', 'BOOLEAN');
-        osc_set_preference('allow_cv_unreg', '1', 'jobs_plugin', 'BOOLEAN');
-        osc_set_preference('send_me_cv', '0', 'jobs_plugin', 'BOOLEAN');
-        osc_set_preference('salary_min', '0', 'jobs_plugin', 'INTEGER');
-        osc_set_preference('salary_max', '80000', 'jobs_plugin', 'INTEGER');
-        osc_set_preference('salary_step', '100', 'jobs_plugin', 'INTEGER');
-    } catch (Exception $e) {
-        $conn->rollback();
-        echo $e->getMessage();
-    }
-    $conn->autocommit(true);
+    ModelJobs::newInstance()->import('jobs_attributes/struct.sql');
+
+    osc_set_preference('cv_email', '', 'jobs_plugin', 'STRING');
+    osc_set_preference('allow_cv_upload', '0', 'jobs_plugin', 'BOOLEAN');
+    osc_set_preference('allow_cv_unreg', '1', 'jobs_plugin', 'BOOLEAN');
+    osc_set_preference('send_me_cv', '0', 'jobs_plugin', 'BOOLEAN');
+    osc_set_preference('salary_min', '0', 'jobs_plugin', 'INTEGER');
+    osc_set_preference('salary_max', '80000', 'jobs_plugin', 'INTEGER');
+    osc_set_preference('salary_step', '100', 'jobs_plugin', 'INTEGER');
 }
 
 function job_call_after_uninstall() {
@@ -97,22 +88,12 @@ function job_call_after_uninstall() {
     // for example you might want to drop/remove a table or modify some values
 
     // In this case we'll remove the table we created to store Example attributes
-    $conn = getConnection();
-    $conn->autocommit(false);
-    try {
-        $conn->osc_dbExec("DELETE FROM %st_plugin_category WHERE s_plugin_name = 'jobs_plugin'", DB_TABLE_PREFIX);
-        $conn->osc_dbExec('DROP TABLE %st_item_job_description_attr', DB_TABLE_PREFIX);
-        $conn->osc_dbExec('DROP TABLE %st_item_job_attr', DB_TABLE_PREFIX);
-        $conn->commit();
-        osc_delete_preference('cv_email', 'jobs_plugin');
-        osc_delete_preference('allow_cv_upload', 'jobs_plugin');
-        osc_delete_preference('allow_cv_unreg', 'jobs_plugin');
-        osc_delete_preference('send_me_cv', 'jobs_plugin');
-    } catch (Exception $e) {
-        $conn->rollback();
-        echo $e->getMessage();
-    }
-    $conn->autocommit(true);
+    ModelJobs::newInstance()->uninstall();
+    
+    osc_delete_preference('cv_email', 'jobs_plugin');
+    osc_delete_preference('allow_cv_upload', 'jobs_plugin');
+    osc_delete_preference('allow_cv_unreg', 'jobs_plugin');
+    osc_delete_preference('send_me_cv', 'jobs_plugin');
 }
 
 function job_form($catId = null) {
@@ -127,16 +108,16 @@ function job_form($catId = null) {
 }
 
 function job_search_form($catId = null) {
-	// We received the categoryID
-	if($catId!=null) {
-		// We check if the category is the same as our plugin
+    // We received the categoryID
+    if($catId!=null) {
+        // We check if the category is the same as our plugin
         foreach($catId as $id) {
-    		if(osc_is_this_category('jobs_plugin', $id)) {
-	    		include_once 'search_form.php';
-	    		break;
-	    	}
+            if(osc_is_this_category('jobs_plugin', $id)) {
+                include_once 'search_form.php';
+                break;
+            }
         }
-	}
+    }
 }
 
 function job_to_salary_hour($salaryPeriod, $salaryMin, $salaryMax) {
@@ -182,7 +163,8 @@ function job_form_post($catId = null, $item_id = null)  {
 
             $salaryHour = job_to_salary_hour( Params::getParam('salaryPeriod'), $salaryMin, $salaryMax) ;
 
-            $conn->osc_dbExec("INSERT INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period, i_salary_min_hour, i_salary_max_hour) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s', %d, %d)", DB_TABLE_PREFIX, $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod'), $salaryHour['min'], $salaryHour['max'] );
+            ModelJobs::newInstance()->insertJobsAttr($item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod'), $salaryHour['min'], $salaryHour['max'] );
+
             // prepare locales
             $dataItem = array();
             $request = Params::getParamsAsArray();
@@ -194,7 +176,7 @@ function job_form_post($catId = null, $item_id = null)  {
 
             // insert locales
             foreach ($dataItem as $k => $_data) {
-                $conn->osc_dbExec("INSERT INTO %st_item_job_description_attr (fk_i_item_id, fk_c_locale_code, s_desired_exp, s_studies, s_minimum_requirements, s_desired_requirements, s_contract, s_company_description) VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s')", DB_TABLE_PREFIX, $item_id, $k, $_data['desired_exp'], $_data['studies'], $_data['min_reqs'], $_data['desired_reqs'], $_data['contract'], $_data['company_desc'] );
+                ModelJobs::newInstance()->insertJobsAttrDescription($item_id, $k, $_data['desired_exp'], $_data['studies'], $_data['min_reqs'], $_data['desired_reqs'], $_data['contract'], $_data['company_desc'] );
             }
         }
     }
@@ -203,10 +185,8 @@ function job_form_post($catId = null, $item_id = null)  {
 // Self-explanatory
 function job_item_detail() {
     if(osc_is_this_category('jobs_plugin', osc_item_category_id())) {
-        $conn = getConnection();
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_job_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
-
-        $descriptions = $conn->osc_dbFetchResults('SELECT * FROM %st_item_job_description_attr WHERE fk_i_item_id = %d', DB_TABLE_PREFIX, osc_item_id());
+        $detail = ModelJobs::newInstance()->getJobsAttrByItemId(osc_item_id());
+        $descriptions = ModelJobs::newInstance()->getJobsAttrDescriptionsByItemId(osc_item_id());
         $detail['locale'] = array();
         foreach ($descriptions as $desc) {
             $detail['locale'][$desc['fk_c_locale_code']] = $desc;
@@ -219,9 +199,8 @@ function job_item_detail() {
 function job_item_edit($catId = null, $item_id = null) {
     if(osc_is_this_category('jobs_plugin', $catId)) {
         $conn = getConnection();
-        $detail = $conn->osc_dbFetchResult("SELECT * FROM %st_item_job_attr WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item_id);
-
-        $descriptions = $conn->osc_dbFetchResults('SELECT * FROM %st_item_job_description_attr WHERE fk_i_item_id = %d', DB_TABLE_PREFIX, $item_id);
+        $detail = ModelJobs::newInstance()->getJobsAttrByItemId($item_id);
+        $descriptions = ModelJobs::newInstance()->getJobsAttrDescriptionsByItemId($item_id);
         $detail['locale'] = array();
         foreach ($descriptions as $desc) {
             $detail['locale'][$desc['fk_c_locale_code']] = $desc;
@@ -242,8 +221,7 @@ function job_item_edit_post($catId = null, $item_id = null) {
 
             $salaryHour = job_to_salary_hour( Params::getParam('salaryPeriod'), $salaryMin, $salaryMax) ;
 
-            $conn = getConnection() ;
-            $conn->osc_dbExec("REPLACE INTO %st_item_job_attr (fk_i_item_id, e_relation, s_company_name, e_position_type, i_salary_min, i_salary_max, e_salary_period, i_salary_min_hour, i_salary_max_hour) VALUES (%d, '%s', '%s', '%s', %d, %d, '%s', %d, %d)", DB_TABLE_PREFIX, $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod'), $salaryHour['min'], $salaryHour['max'] );
+            ModelJobs::newInstance()->replaceJobsAttr( $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod'), $salaryHour['min'], $salaryHour['max'] );
             // prepare locales
             $dataItem = array();
             $request = Params::getParamsAsArray();
@@ -255,21 +233,18 @@ function job_item_edit_post($catId = null, $item_id = null) {
 
             // insert locales
             foreach ($dataItem as $k => $_data) {
-                $conn->osc_dbExec("REPLACE INTO %st_item_job_description_attr (fk_i_item_id, fk_c_locale_code, s_desired_exp, s_studies, s_minimum_requirements, s_desired_requirements, s_contract, s_company_description) VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s')", DB_TABLE_PREFIX, $item_id, $k, $_data['desired_exp'], $_data['studies'], $_data['min_reqs'], $_data['desired_reqs'], $_data['contract'], $_data['company_desc'] );
+                ModelJobs::newInstance()->replaceJobsAttrDescriptions( $item_id, $k, $_data['desired_exp'], $_data['studies'], $_data['min_reqs'], $_data['desired_reqs'], $_data['contract'], $_data['company_desc'] );
             }
         }
     }
 }
 
 function job_delete_locale($locale) {
-    $conn = getConnection();
-    $conn->osc_dbExec("DELETE FROM %st_item_job_description_attr WHERE fk_c_locale_code = '" . $locale . "'", DB_TABLE_PREFIX);
+    ModelJobs::newInstance()->deleteLocale($locale);
 }
 
-function job_delete_item($item) {
-    $conn = getConnection();
-    $conn->osc_dbExec("DELETE FROM %st_item_job_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
-    $conn->osc_dbExec("DELETE FROM %st_item_job_description_attr WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
+function job_delete_item($item_id) {
+    ModelJobs::newInstance()->deleteItem($item_id);
 }
 
 function jobs_admin_menu() {

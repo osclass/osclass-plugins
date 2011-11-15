@@ -20,6 +20,7 @@
  */
 ?>
 <?php
+require_once('ModelJobs.php');
 
 if(Params::getParam('plugin_action')=='done') {
     osc_set_preference('cv_email', Params::getParam('cv_email'), 'jobs_plugin', 'STRING');
@@ -33,11 +34,10 @@ if(Params::getParam('plugin_action')=='done') {
     osc_add_flash_ok_message( __('Settings updated', 'jobs_attributes'), 'admin');
     
 } else if(Params::getParam('plugin_action') == 'recalculate') {
-    $conn   = getConnection();
-    $aItems = $conn->osc_dbFetchResults("SELECT * FROM %st_item_job_attr", DB_TABLE_PREFIX);
+    $aItems = ModelJobs::newInstance()->getAllAttributes();
     foreach($aItems as $item) {
         $salaryHour = job_to_salary_hour($item['e_salary_period'], $item['i_salary_min'], $item['i_salary_max']);
-        $conn->osc_dbExec("REPLACE INTO %st_item_job_attr (fk_i_item_id, i_salary_min_hour, i_salary_max_hour) VALUES (%d, %d, %d)", DB_TABLE_PREFIX, $item['fk_i_item_id'], $salaryHour['min'], $salaryHour['max'] );
+        ModelJobs::newInstance()->replaceJobSalaryAttr( $item['fk_i_item_id'], $salaryHour['min'], $salaryHour['max']);
     }
     osc_add_flash_ok_message( __('Recalculation finished', 'jobs_attributes'), 'admin');
 }
