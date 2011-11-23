@@ -3,7 +3,7 @@
 Plugin Name: Paypal payment
 Plugin URI: http://www.osclass.org/
 Description: Paypal payment options
-Version: 2.0.1
+Version: 2.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: paypal
@@ -485,6 +485,11 @@ Short Name: paypal
         }
     };
 
+    function paypal_item_delete($itemId) {
+        $conn = getConnection();
+        $conn->osc_dbExec("DELETE FROM %st_paypal_premium WHERE fk_i_item_id = '%d'", DB_TABLE_PREFIX, $itemId);
+        $conn->osc_dbExec("DELETE FROM %st_paypal_publish WHERE fk_i_item_id = '%d'", DB_TABLE_PREFIX, $itemId);
+    }
     
     function paypal_configure_link() {
         paypal_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'conf.php');
@@ -506,4 +511,5 @@ Short Name: paypal
     osc_add_hook('item_premium_off', 'paypal_premium_off');
     osc_add_hook('before_item_edit', 'paypal_before_edit');
     osc_add_hook('show_item', 'paypal_show_item');
+    osc_add_hook('delete_item', 'paypal_item_delete');
 ?>
