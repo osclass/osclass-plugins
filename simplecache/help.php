@@ -35,6 +35,9 @@
                 <pre>osc_add_hook('cron_hourly', 'simplecache_cron');</pre>
                 <p><?php _e('And add oc-content/plugins/simplecache/manual_cron.php to your system\'s cron.', 'simplecache');?></p>
                 <br />
+                <h3><?php _e('Changes on theme are not reflected, why?', 'simplecache');?></h3>
+                <p><?php _e('Simple Cache is a cache system, that means it make a copy of the pages on the hard-drive, so next time it will load faster. The copy is delete and re-created on set intervals as well as on specific actions (you edit and item for example). Individual changes made to files can not be controlled, and that is the reason why you are still viewing an old copy. To avoid it, clean the cache after the modifications. If you plan to work on the theme for a while, clear the cache, turn it off and work. After you are done with your modifications. Enable the plugin again.', 'simplecache');?></p>
+                <br />
                 <h3><?php _e('Important', 'simplecache');?></h3>
                 <p><?php _e('Simple Cache NEEDS some kind of cron running, it could be the automatic cron OSClass offers, or a manual cron system set up pointing to either OSClass\' cron files or Simple Cache\'s cron files. Cron is a program that will runs some files in set intervals, allowing us to clear the cache and regenerate again.');?></p>
                 <br />
