@@ -1,6 +1,7 @@
-OSClass Plugins
-==============
+Embed youtube videos
+====================
 
+<<<<<<< HEAD
 There is a branch for each plugin. So, each branch has the latest version. Here is a list of the plugins:
 
 - [Ads 4 osc](https://github.com/osclass/osclass-plugins/tree/ads4osc)
@@ -32,3 +33,6 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Watchlist](https://github.com/osclass/osclass-plugins/tree/watchlist)
 
 If you need more information, you can visit [our forums](http://forums.osclass.org/).
+=======
+This plugin extends the item to embed youtube videos.
+>>>>>>> 9d375a381ff1ad8516517613444f7e8c8d5333b7
