@@ -63,7 +63,7 @@
             if (!isset($payment['pk_i_id'])) {
                     $rpl = explode('|', Params::getParam('custom'));
                     $product_type = explode('x', Params::getParam('item_number'));
-                    $paypal_id    = paypal_save_log(Params::getParam('item_name'), Params::getParam('txn_id'), Params::getParam('payment_gross'), Params::getParam('mc_currency'), Params::getParam('payer_email')!=''?Params::getParam('payer_email'):'', $rpl[0], $rpl[1]=='dash'?0:$rpl[1], $product_type[0], 'PAYPAL');
+                    $paypal_id    = paypal_save_log(Params::getParam('item_name'), Params::getParam('txn_id'), Params::getParam('mc_gross')!=''?Params::getParam('mc_gross'):Params::getParam('payment_gross'), Params::getParam('mc_currency'), Params::getParam('payer_email')!=''?Params::getParam('payer_email'):'', $rpl[0], $rpl[1]=='dash'?0:$rpl[1], $product_type[0], 'PAYPAL');
                     if ($product_type[0] == '101') {
                         // PUBLISH FEE
                         $conn = getConnection();
@@ -86,15 +86,15 @@
                             $conn->osc_dbExec("INSERT INTO  %st_paypal_premium (fk_i_item_id, dt_date, fk_i_paypal_id) VALUES ('%d',  '%s',  '%s')", DB_TABLE_PREFIX, $rpl[1], date('Y-m-d H:i:s'), $paypal_id);
                         }
                         $mItem = new ItemActions(false);
-                        $mItem->premium($item['pk_i_id'], true);
+                        $mItem->premium($rpl[1], true);
                     } else {
                         // PUBLISH/PREMIUM PACKS
                         $conn = getConnection();
                         $wallet = $conn->osc_dbFetchResult("SELECT * FROM %st_paypal_wallet WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, $rpl[0]);
                         if(isset($wallet['f_amount'])) {
-                            $conn->osc_dbExec("UPDATE %st_paypal_wallet SET f_amount = '%f' WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, ($wallet['f_amount'] + Params::getParam('payment_gross')),$rpl[0]);
+                            $conn->osc_dbExec("UPDATE %st_paypal_wallet SET f_amount = '%f' WHERE fk_i_user_id = %d", DB_TABLE_PREFIX, ($wallet['f_amount'] + (Params::getParam('mc_gross')!=''?Params::getParam('mc_gross'):Params::getParam('payment_gross'))),$rpl[0]);
                         } else {
-                            $conn->osc_dbExec("INSERT INTO  %st_paypal_wallet (`fk_i_user_id`, `f_amount`) VALUES ('%d',  '%f')", DB_TABLE_PREFIX, $rpl[0], Params::getParam('payment_gross'));
+                            $conn->osc_dbExec("INSERT INTO  %st_paypal_wallet (`fk_i_user_id`, `f_amount`) VALUES ('%d',  '%f')", DB_TABLE_PREFIX, $rpl[0], Params::getParam('mc_gross')!=''?Params::getParam('mc_gross'):Params::getParam('payment_gross'));
                         }
                     }
             } // ELSE THE PAY IS ALREADY PROCESSED
