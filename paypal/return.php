@@ -117,7 +117,7 @@
                 $item = Item::newInstance()->findByPrimaryKey($rpl[1]);
                 $category = Category::newInstance()->findByPrimaryKey($item['fk_i_category_id']);
                 View::newInstance()->_exportVariableToView('category', $category);
-                $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_search_category_url() . '">' . __('Click here to continue', 'paypal') . '</a></p>';
+                $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href=\\"' . osc_search_category_url() . '\\">' . __('Click here to continue', 'paypal') . '</a></p>';
                 $url = osc_search_category_url();
             } else if ($product_type[0] == '201') {
                 // PREMIUM FEE
@@ -131,7 +131,7 @@
                 $mItem = new ItemActions(false);
                 $mItem->premium($item['pk_i_id'], true);
 
-                $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php') . '">' . __("Click here to continue", 'paypal') . '</a></p>';
+                $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href=\\"' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php') . '\\">' . __("Click here to continue", 'paypal') . '</a></p>';
                 $url = osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php');
             } else {
                 // PUBLISH/PREMIUM PACKS
@@ -144,7 +144,7 @@
                 }
 
                 osc_add_flash_ok_message(__('Payment processed correctly', 'paypal'));
-                $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href="' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu_pack.php') . '">' . __("Click here to continue", 'paypal') . '</a></p>';
+                $html = '<p>' . __('Payment processed correctly', 'paypal') . ' <a href=\\"' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu_pack.php') . '\\">' . __("Click here to continue", 'paypal') . '</a></p>';
                 $url = osc_render_file_url(osc_plugin_folder(__FILE__)."user_menu_pack.php");
             }
 
@@ -154,7 +154,7 @@
             $item = Item::newInstance()->findByPrimaryKey($rpl[1]);
             $category = Category::newInstance()->findByPrimaryKey($item['fk_i_item_id']);
             View::newInstance()->_exportVariableToView('category', $category);
-            $html = '<p>'.__("There was a problem processing your payment. Please contact the administrators and","paypal").' <a href="'.osc_search_category_url().'">'.__("Click here to continue", "paypal").'</a></p>';
+            $html = '<p>'.__("There was a problem processing your payment. Please contact the administrators and","paypal").' <a href=\\"'.osc_search_category_url().'\\">'.__("Click here to continue", "paypal").'</a></p>';
 
             osc_add_flash_error_message(__("There was a problem processing your payment. Please contact the administrators","paypal"));
         }

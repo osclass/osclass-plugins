@@ -5,10 +5,11 @@
      * *************************** */
 
     $sandbox = false; 
+    $email_admin = false;
     if(osc_get_preference('sandbox', 'paypal')==1) {
         $sandbox = true;
+        $email_admin = true;
     }
-    $email_admin = true;
 
     /* * ****************************
      * STANDARD PAYPAL NOTIFY URL *
@@ -96,7 +97,7 @@
                     } // ELSE THE PAY IS ALREADY PROCESSED
 
                     if($email_admin) {
-                    $emailtext = '';
+                        $emailtext = '';
                         foreach ($_REQUEST as $key => $value) {
                             $emailtext .= $key . ' = ' . $value . '\n\n';
                         }
