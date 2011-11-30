@@ -59,6 +59,6 @@
                 </form>
             </fieldset>
         </div>
-        <div style="clear: both;"></div>										
+        <div style="clear: both;"></div>
     </div>
 </div>
