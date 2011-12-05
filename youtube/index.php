@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Embed youtuve videos
+Plugin Name: Embed Youtube videos
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends the item to embed youtube videos.
-Version: 0.9.4
+Version: 0.9.4.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: youtube
