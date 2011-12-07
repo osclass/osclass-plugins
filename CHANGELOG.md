@@ -1,6 +1,10 @@
 Changelog sitemap generator
 ===========================
 
+##version 1.2 - 07/12/2011
+
+* Small fix on install process bug
+
 ##version 1.1 - 18/10/2011
 
 * New structure of the list of urls: https://github.com/osclass/osclass-plugins/issues/16
