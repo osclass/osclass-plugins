@@ -21,17 +21,78 @@
     
     font-size: 11px;
     font-weight: bold;
-    margin-top: -0.9em;
     padding: 0.2em 0.5em;
-    position: absolute;
+   
     right: 38px;
     top: 50%;
     
     -moz-background-clip: padding;
     
-    
+   float:right; 
     
     color: #444444;
     font-weight: bold;
     text-shadow: 0 1px 1px #F6F6F6;
+}
+
+/* */
+
+h1 {
+    font-size: 16px;
+}
+
+/* image slider */
+.square {
+    float: left;
+    padding: 15px 0;
+}
+.scroll-container {
+    background-color: #999999;
+    border: 1px solid black;
+    height: 250px;
+    overflow: hidden;
+/*                    width: 300px;*/
+    width: 100%;
+}
+.square img {
+    -moz-box-shadow: 1px 1px 10px #000000;
+    height: 162px;
+    margin: 0 15px !important;
+    width: 225px;
+}
+            
+.ui-content.ui-scrollview-clip
+{
+    padding: 0;
+}
+.ui-content.ui-scrollview-clip > div.ui-scrollview-view
+{
+    margin: 0;
+    padding: 15px 0;
+}
+.ui-content.ui-scrollview-clip > .ui-listview.ui-scrollview-view
+{
+    margin: 0;
+}
+.scroll-container
+{
+    border: solid 1px black;
+    background-color: #999;
+    overflow: hidden;
+    width: 300px;
+    height: 250px;
+}
+
+.square
+{
+    float: left;
+    padding: 15px 0;
+}
+.demo1
+{
+    border: 1px #ccc solid;
+    padding: 0; /* -moz-box-shadow: inset 0px 1px 13px rgba(0,0,0,.7);
+    -webkit-box-shadow: inset 0px 1px 13px rgba(0,0,0,.7);*/
+    height: auto;
+    width: 100%;
 }

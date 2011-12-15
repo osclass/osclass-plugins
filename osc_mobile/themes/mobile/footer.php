@@ -21,6 +21,6 @@
 ?>
 
 <?php osc_show_widgets('footer'); ?>
-
-<h6><?php _e('This website is proudly using the <a title="OSClass web" href="http://osclass.org/">open source classifieds</a> software <strong>OSClass</strong>', 'mobile'); ?>.</h6>
+<p><a href="#" data-role="none" class="ui-link"><?php _e('Switch to Desktop version','mobile');?></a></p>
+<p><?php _e('This website is proudly using the <a title="OSClass web" href="http://osclass.org/">open source classifieds</a> software <strong>OSClass</strong>', 'mobile'); ?>.</p>
 

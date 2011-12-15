@@ -18,6 +18,7 @@
      *      You should have received a copy of the GNU Affero General Public
      * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
+    $wSizeImage = 255;
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -29,27 +30,19 @@
 <meta http-equiv="Expires" content="Fri, Jan 01 1970 00:00:00 GMT" />
 
 <script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.min.js') ; ?>"></script>
-<!--<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.js') ; ?>"></script>-->
+
 <script type="text/javascript">
     $(document).bind("mobileinit", function(){
-        $.mobile.ajaxEnabled= false;
+        $.mobile.ajaxEnabled = false;
     });
 </script>
 
-<!--<link href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" rel="stylesheet" type="text/css" />-->
+<link href="<?php echo osc_current_web_theme_styles_url('jquery.mobile-1.0.css') ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo osc_current_web_theme_styles_url('jquery.mobile.structure-1.0.css') ?>" rel="stylesheet" type="text/css" />
 
-<link href="<?php echo osc_current_web_theme_styles_url('jquery.mobile-1.0rc1pre.min.css') ?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo osc_current_web_theme_styles_url('style.css') ?>" rel="stylesheet" type="text/css" />
 
-<!--<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.mobile-1.0b3.js') ; ?>"></script>-->
-<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.mobile-1.0rc1pre.min.js') ; ?>"></script>
+<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.mobile-1.0.js') ; ?>"></script>
 <script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('global.js') ; ?>"></script>
-
-
-
-<!--<link href="<?php echo osc_current_web_theme_styles_url('jquery.mobile-1.0b2.min.css') ; ?>" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.min.js') ; ?>"></script>
-<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.mobile-1.0b2.min.js') ; ?>"></script>
-<script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery-ui.js') ; ?>"></script>-->
 
 <?php osc_run_hook('header') ; ?>

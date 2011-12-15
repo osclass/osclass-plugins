@@ -25,9 +25,9 @@
         <?php osc_current_web_theme_path('head.php') ; ?>
     </head>
     <body>
-        <div data-role="page">
+        <div data-theme="c" data-role="page">
             <div data-role="header">
-                <a data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back" href=""></a>
+                <a data-rel="back" data-icon="back"  data-iconpos="notext"></a>
                 <h1><?php _e('Register an account for free', 'mobile') ; ?></h1>
                 <?php osc_show_flash_message() ; ?>
             </div>
@@ -37,20 +37,21 @@
                     <input type="hidden" name="page" value="register" />
                     <input type="hidden" name="action" value="register_post" />
 
-                    <fieldset data-role="fieldcontain">
-                        <label for="name"><?php _e('Name', 'mobile') ; ?></label> <?php UserForm::name_text(); ?><br />
-                        <label for="password"><?php _e('Password', 'mobile') ; ?></label> <?php UserForm::password_text(); ?><br />
-                        <label for="password"><?php _e('Re-type password', 'mobile') ; ?></label> <?php UserForm::check_password_text(); ?><br />
-                        <p id="password-error" style="display:none;">
-                            <?php _e('Passwords don\'t match', 'mobile') ; ?>.
-                        </p>
-                        <label for="email"><?php _e('E-mail', 'mobile') ; ?></label> <?php UserForm::email_text() ; ?><br />
-                        <?php osc_show_recaptcha('register'); ?>
-                        <button type="submit"><?php _e('Create', 'mobile') ; ?></button>
-                        <?php osc_run_hook('user_register_form') ; ?>
-                    </fieldset>
+                        <div data-role="fieldcontain">
+                            <label for="name" class="ui-input-text"><?php _e('Name', 'mobile') ; ?></label> <?php UserForm::name_text(); ?><br />
+                            <label for="password" class="ui-input-text"><?php _e('Password', 'mobile') ; ?></label> <?php UserForm::password_text(); ?><br />
+                            <label for="password" class="ui-input-text"><?php _e('Re-type password', 'mobile') ; ?></label> <?php UserForm::check_password_text(); ?><br />
+                            <p id="password-error" style="display:none;">
+                                <?php _e('Passwords don\'t match', 'mobile') ; ?>.
+                            </p>
+                            <label for="email" class="ui-input-text"><?php _e('E-mail', 'mobile') ; ?></label> <?php UserForm::email_text() ; ?><br />
+                            </div>
+                            <?php osc_show_recaptcha('register'); ?>
+                            <button type="submit"><?php _e('Create', 'mobile') ; ?></button>
+                            <?php osc_run_hook('user_register_form') ; ?>
+                        </div>
+                    </div>	
                 </form>
-                <?php //UserForm::js_validation() ; ?>
             </div>
         </div>       
     </body>

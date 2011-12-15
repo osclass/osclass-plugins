@@ -47,7 +47,7 @@
 </ul>
 <?php } ?>
 
-<ul data-role="listview" data-inset="true" data-theme="d">
+<ul data-role="listview"  data-theme="d">
     <?php while(osc_has_items()) { ?>
     <li>
         <a style="min-height: 30px; height: 30px;" href="<?php echo osc_item_url() ; ?>">
@@ -58,13 +58,13 @@
             <?php } ?>
 
             <p style="padding-bottom: 5px;">
+                <span><strong><?php if( osc_price_enabled_at_items() ) { echo osc_item_formated_price() ; }?> - </strong></span> 
                 <strong>
                     <?php echo osc_item_title() ; ?>
                 </strong>
             </p>
             <p style="padding-top:5px;">
-                <span style="float:left;"><?php echo osc_item_city();?></span>
-                <span style="float:right;"><strong><?php if( osc_price_enabled_at_items() ) { echo osc_item_formated_price() ; }?> </strong></span>
+                <span style="float:left;"><?php echo time_diff(osc_item_pub_date()).' - '.osc_item_city();?></span>
             </p>
         </a>
     </li>

@@ -35,14 +35,16 @@
     <body>
         <div data-role="page">
             <div data-role="header" data-position="inline">
-                <h1><?php echo osc_page_title() ; ?></h1>
                 <a data-icon="back" data-rel="back" data-iconpos="notext" href=""></a>
+                <h1><?php echo osc_page_title() ; ?></h1>
+                <?php osc_show_flash_message() ; ?>
                 <a data-icon="home" data-inline="true" data-iconpos="notext" href="<?php echo osc_base_url(true); ?>"></a>
                 <?php osc_show_flash_message() ; ?>
             </div><!-- /header -->
 
-            <div data-role="content" class="content">
-                <div class="">
+            <div data-role="content" style="padding-top: 0px;">
+                <div class="ui-block">
+                    <h1>
                     <?php
                         $id = osc_search_category();
                         if( count($id) == 1 ){
@@ -51,18 +53,18 @@
                             echo $category['s_name'];
                         }
                     ?>
-                    <hr/>
+                    </h1>
                 </div>
-                <div class="">
+                <div class="ui-block" style="padding-top:15px;padding-bottom: 15px;">
                     <?php if(osc_count_items() == 0) { ?>
                         <p class="empty" ><?php printf(__('There are no results matching "%s"', 'modern'), osc_search_pattern()) ; ?></p>
                     <?php } else { ?>
                         <?php require(osc_search_show_as() == 'list' ? 'search_list.php' : 'search_gallery.php') ; ?>
                     <?php } ?>
+                </div>
                     <div class="paginate" >
                     <?php echo mbl_search_pagination(); ?>
                     </div>
-                </div>
             </div><!-- /content -->
 
             <div data-role="footer" data-id="myfooter" data-position="fixed">

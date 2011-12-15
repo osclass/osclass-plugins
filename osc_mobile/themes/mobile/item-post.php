@@ -35,10 +35,8 @@
     <body>
         <div data-role="page">
             <div data-role="header">
-                <a data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back" href=""></a>
+                <a data-rel="back" data-icon="back"  data-iconpos="notext"></a>
                 <h1><strong><?php _e('Publish an item', 'mobile'); ?></strong></h1>
-                <a data-icon="home" data-inline="true" data-iconpos="notext" href="<?php echo osc_base_url(true); ?>"></a>
-                <?php osc_show_flash_message(); ?>
             </div>
 
             <div data-role="content" data-theme="c">
@@ -58,6 +56,7 @@
                     <fieldset data-role="fieldcontain">
                         <label for="price"><?php _e('Price', 'mobile'); ?></label>
                         <?php MblItemForm::price_input_text(); ?>
+                        <label for="currency"> </label>
                         <?php MblItemForm::currency_select(); ?>
                     </fieldset>
                     <hr/>

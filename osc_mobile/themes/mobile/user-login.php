@@ -28,7 +28,7 @@
     <body>
         <div data-role="page">
             <div data-role="header" data-theme="">
-                <a data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back" href=""></a>
+                <a data-rel="back" data-icon="back"  data-iconpos="notext"></a>
                 <h1><?php _e('Log in','mobile');?></h1>
                 <?php osc_show_flash_message() ; ?>
             </div>
@@ -42,9 +42,12 @@
                         <input type="text" name="email" id="email" value=""  />
                         <label for="password"><?php _e('Password', 'mobile'); ?></label>
                         <input type="password" name="password" id="password" value="" />
-                        <input type="checkbox" name="rememberMe" id="rememberMe" class="custom" />
-                        <label for="rememberMe"><?php _e('Remember me', 'mobile') ; ?></label>                            
-                        <button style="width:99%" type="submit" name="submit" value="submit-value" data-icon="check" data-role="button" data-inline="false"><?php _e("Log in", 'mobile');?></button>
+                        <p>
+                        <input type="checkbox" name="rememberMe" id="rememberMe" />
+                        <label for="rememberMe" style="font-size:12px; margin-left:5px; margin-right:5px;"><?php _e('Remember me', 'mobile') ; ?></label>
+                        </p>
+                    <button style="width:99%" type="submit" name="submit" value="submit-value" data-icon="check" data-role="button" data-inline="false"><?php _e("Log in", 'mobile');?></button>
+
                     </fieldset>
                 </form>
                 <a href="<?php echo osc_recover_user_password_url() ; ?>" data-role="button"><?php _e("Forgot password?", 'mobile') ; ?></a>
