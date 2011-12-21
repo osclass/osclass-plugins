@@ -29,25 +29,56 @@ Author URI: http://www.osclass.org/
 Short Name: mobile
 */
 
-    function load_mobile_theme( ) {
-        require_once dirname( osc_plugin_path(__FILE__) ) . '/UserAgentClass.php' ;
+    function load_mobile_theme( ) 
+    {
         
+        if(Params::getParam('desktop') != '') {
+            if(Params::getParam('desktop') == 1) {
+                Cookie::newInstance()->push('osc-mobile-desktop', 'desktop') ;
+                Cookie::newInstance()->set() ;
+                if(isset($_SERVER['HTTP_REFERER'])) {
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                    exit;
+                } 
+                header('Location: ' . osc_base_url());
+                exit;
+            } else {
+                Cookie::newInstance()->pop('osc-mobile-desktop', 'mobile') ;
+                Cookie::newInstance()->set() ;
+                if(isset($_SERVER['HTTP_REFERER'])) {
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                    exit;
+                } 
+                header('Location: ' . osc_base_url());
+                exit;
+            }
+        }
+        
+        require_once dirname( osc_plugin_path(__FILE__) ) . '/UserAgentClass.php' ;
         $userAgent = new UserAgent() ;
         
-        if ( $userAgent->is_mobile() ) {
+        $desktopVersion = Cookie::newInstance()->get_value('osc-mobile-desktop');
+        
+        if ( $userAgent->is_mobile() && $desktopVersion != 'desktop' ) {
             WebThemes::newInstance()->setPath( dirname( osc_plugin_path(__FILE__) ) . '/themes/' ) ;
-            
-//            WebThemes::newInstance()->setCurrentTheme('doat-TouchyBP') ;
             WebThemes::newInstance()->setCurrentTheme('mobile') ;
             $functions_path = WebThemes::newInstance()->getCurrentThemePath() . 'functions.php';
-//            echo $functions_path."\n";
             if(file_exists($functions_path)) {
                 require_once $functions_path;
             }
         }
     }
     
-    
+    function show_switch() 
+    {
+        require_once dirname( osc_plugin_path(__FILE__) ) . '/UserAgentClass.php' ;
+        $userAgent = new UserAgent() ;
+        
+        if ( $userAgent->is_mobile() ) {
+            $url = osc_base_url(true).'?desktop=mobile'; 
+            echo '<p><a href="'.$url.'" data-role="none" class="ui-link">'. __('Switch to Mobile version','mobile').'</a></p>';
+        }   
+    }    
 
     // This is needed in order to be able to activate the plugin
     osc_register_plugin(osc_plugin_path(__FILE__), '') ;

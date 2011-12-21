@@ -41,7 +41,7 @@
         /* Private */
         private function _load_data( )
         {
-            include_once dirname( osc_plugin_path(__FILE__) ) . '/user_agents.php' ;
+            include dirname( osc_plugin_path(__FILE__) ) . '/user_agents.php' ;
             
             if ( isset($_SERVER['HTTP_USER_AGENT']) ) {
                 $this->user_agent = trim($_SERVER['HTTP_USER_AGENT']) ;

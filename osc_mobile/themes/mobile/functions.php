@@ -24,7 +24,7 @@
         static public function title_input($name, $locale = 'en_US', $value = '')
         {
             $locale = osc_current_user_locale();
-            parent::generic_input_text($name . '[' . $locale . ']', $value) ;
+            parent::generic_input_text($name . '[' . $locale . ']'.$locale, $value) ;
             return true ;
         }
         
@@ -33,25 +33,25 @@
             if($item==null) { $item = osc_item(); }
             
             $locale = osc_current_user_locale();
-            echo '<fieldset data-role="fieldcontain"><label for="title">' . __('Title') . ' *</label>';
-            $title = (isset($item) && isset($item['locale'][$locale['pk_c_code']]) && isset($item['locale'][$locale['pk_c_code']]['s_title'])) ? $item['locale'][$locale['pk_c_code']]['s_title'] : '' ;
+            echo '<fieldset data-role="fieldcontain"><label for="title['.$locale.']">' . __('Title') . ' *</label>';
+            $title = (isset($item) && isset($item['locale'][$locale]) && isset($item['locale'][$locale]['s_title'])) ? $item['locale'][$locale]['s_title'] : '' ;
             if( Session::newInstance()->_getForm('title') != "" ) {
                 $title_ = Session::newInstance()->_getForm('title');
-                if( $title_[$locale['pk_c_code']] != "" ){
-                    $title = $title_[$locale['pk_c_code']];
+                if( $title_[$locale] != "" ){
+                    $title = $title_[$locale];
                 }
             }
-            parent::title_input('title', $locale['pk_c_code'], $title);
+            parent::title_input('title', $locale, $title);
             echo "</fieldset>";
-            echo '<fieldset data-role="fieldcontain"><label for="description">' . __('Description') . ' *</label>';
-            $description = (isset($item) && isset($item['locale'][$locale['pk_c_code']]) && isset($item['locale'][$locale['pk_c_code']]['s_description'])) ? $item['locale'][$locale['pk_c_code']]['s_description'] : '';
+            echo '<fieldset data-role="fieldcontain"><label for="description['.$locale.']">' . __('Description') . ' *</label>';
+            $description = (isset($item) && isset($item['locale'][$locale]) && isset($item['locale'][$locale]['s_description'])) ? $item['locale'][$locale]['s_description'] : '';
             if( Session::newInstance()->_getForm('description') != "" ) {
                 $description_ = Session::newInstance()->_getForm('description');
-                if( $description_[$locale['pk_c_code']] != "" ){
-                    $description = $description_[$locale['pk_c_code']];
+                if( $description_[$locale] != "" ){
+                    $description = $description_[$locale];
                 }
             }
-            parent::description_textarea('description', $locale['pk_c_code'], $description);
+            parent::description_textarea('description', $locale, $description);
             echo "</fieldset>";
         }
         
@@ -135,7 +135,7 @@
                         var length = data.length;
                         if(length > 0) {
                             for(key in data) {
-                                result += '<li><a href="#" onclick="select_city(\''+ data[key].s_name +'\',\''+ data[key].pk_i_id +'\');" value="' + data[key].pk_i_id + '">' + data[key].s_name + '</a></li>';
+                                result += '<li><a data-rel="back" onclick="select_city(\''+ data[key].s_name +'\',\''+ data[key].pk_i_id +'\');" value="' + data[key].pk_i_id + '">' + data[key].s_name + '</a></li>';
                             }
                         } else {
                         }
@@ -163,7 +163,7 @@
         $('#a_select_city').find('span.ui-btn-text').text( city_name );
         $('#city').val(city_name);
         $('#cityId').val(city_id);
-        $('.ui-dialog').dialog('close');
+//        $('.ui-dialog').dialog('close');
     }
     
     
@@ -523,4 +523,38 @@
             return ($text);
          }
      }
+     
+    function time_diff($s)
+    {
+        $s = substr($s, 0, -3);
+        $_s = strtotime($s);
+//        $d_start    = new DateTime($s);
+//        $_s = $d_start->getTimestamp();
+        
+        $s = time()-$_s;
+        
+        $m=0;$hr=0;$d=0;
+        $td="now";
+        if($s>59) {
+            $m = (int)($s/60);
+            $s = $s-($m*60); // sec left over
+            $td = "$m min";
+        }
+        if($m>59){
+            $hr = (int)($m/60);
+            $m = $m-($hr*60); // min left over
+            $td = "$hr hr"; if($hr>1) $td .= "s";
+            if($m>0) $td .= ", $m min";
+        }
+        if($hr>23){
+            $d = (int)($hr/24);
+            $hr = $hr-($d*24); // hr left over
+            $td = "$d day"; if($d>1) $td .= "s";
+            if($d<3){
+                if($hr>0) $td .= ", $hr hr"; if($hr>1) $td .= "s";
+            } 
+        }
+        return $td;
+    }
+  
 ?>

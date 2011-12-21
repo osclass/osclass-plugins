@@ -21,6 +21,8 @@
 ?>
 
 <?php osc_show_widgets('footer'); ?>
-<p><a href="#" data-role="none" class="ui-link"><?php _e('Switch to Desktop version','mobile');?></a></p>
+<?php $url = osc_base_url(true).'?desktop=1'; ?>
+<p><a href="<?php echo $url; ?>" data-role="none" class="ui-link"><?php _e('Switch to Desktop version','mobile');?></a></p>
+
 <p><?php _e('This website is proudly using the <a title="OSClass web" href="http://osclass.org/">open source classifieds</a> software <strong>OSClass</strong>', 'mobile'); ?>.</p>
 
