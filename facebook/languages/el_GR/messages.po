@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "Συγχαρητήρια. Οι ρυθμίσεις του plugin έγιναν"
+
+msgid "Facebook Options"
+msgstr "Επιλογές Facebook"
+
+msgid "Please enter your Facebook appId and secret*:"
+msgstr "Παρακαλώ εισάγετε τον Facebook appId σας και secret*:"
+
+msgid "Update"
+msgstr "Αναβάθμιση"
+
+msgid "Facebook Connect Help"
+msgstr "Βοήθεια Facebook Connect "
+
+msgid "What is Facebook Connect Plugin?"
+msgstr "Τι είναι το Facebook Connect Plugin;"
+
+msgid "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
+msgstr "Το Facebook Connect plugin επιτρέπει στους χρήστες να εισέλθουν στην σελίδα σας με τον λογαριασμό του Facebook τους"
+
+msgid "Using Facebook login"
+msgstr "Χρήση του Facebook login"
+
+msgid "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
+msgstr "Μπορείτε να πάρετε ένα appid και secret key (απαιτείται για τη χρήση Facebook login στη σελίδα σας) αφού συνδεθείτε σε αυτή τη διεύθυνση"
+
+msgid "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
+msgstr "Για να χρησιμοποιήσετε τη σύνδεση μέσω Facebook πρέπει να βάλετε ένα κουμπί για σύνδεση (και αποσύνδεση) στο facebook. Για να το κάνετε προσθέστε τον ακόλουθο κώδικα στο σημείο που θέλετε να εμφανίζεται"
+
+msgid "You can freely obtain an appId and secret key after signing up on this URL"
+msgstr "Μπορείτε να πάρετε ένα appid και secret key αφού συνδεθείτε σε αυτή τη διεύθυνση"
+
+msgid "Logout"
+msgstr "Αποσύνδεση"
+
+msgid "Login with Facebook"
+msgstr "Σύνδεση μέσω Facebook"
+
+msgid "The username doesn't exist"
+msgstr "Το όνομα χρήστη δεν υπάρχει"
+
+msgid "The user has not been validated yet"
+msgstr "Ο χρήστης δεν έχει επιβεβαιωθεί ακόμη"
+
+msgid "The user has been suspended"
+msgstr "Ο χρήστης έχει αποκλειστεί"
+
+msgid "Some error occured trying to connect with Facebook."
+msgstr "Κάποιο σφάλμα προέκυψε κατά τη σύνδεση μέσω facebook"
+
+msgid "You already have an user with this e-mail address. We've merged your accounts"
+msgstr ""
+
+msgid "Error importing the database structure of the jobboard plugin"
+msgstr ""
+
+msgid "Your account has been created successfully"
+msgstr ""
+

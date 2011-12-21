@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "Čestitamo. Dodatak je sada konfiguriran"
+
+msgid "Update"
+msgstr "Ažuriraj"
+
+msgid "Facebook Options"
+msgstr "Facebook postavke"
+
+msgid "Please enter your Facebook appId and secret*:"
+msgstr "Unesite vaš Facebook appId i secret*:"
+
+msgid "Facebook Connect Help"
+msgstr "Pomoć za Facebook Connect"
+
+msgid "What is Facebook Connect Plugin?"
+msgstr "Što je dodatak Facebook Connect?"
+
+msgid "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
+msgstr "Facebook Connect omogućuje korisnicima da se prijave na vašu stranicu pomoću Facebook naloga."
+
+msgid "Using Facebook login"
+msgstr "Uporaba Facebook dodatka"
+
+msgid "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
+msgstr "Besplatno možete preuzeti appld i tajni ključ koji vam trebaju da možete upotrebljavati Facebook Connect na vašoj stranici sa sljedeće poveznice "
+
+msgid "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
+msgstr "Da biste mogli koristiti prijavu za Facebook na vašoj stranici, morate uključiti barem jedan facebook gumb za prijavu (i odjavu). Umetnite sljedeći kod tamo gdje želite da se pojavi"
+
+msgid "You can freely obtain an appId and secret key after signing up on this URL"
+msgstr "appld i tajni ključ preuzmite na ovoj stranici"
+
+msgid "Logout"
+msgstr "Odjava"
+
+msgid "Login with Facebook"
+msgstr "Facebook prijava"
+
+msgid "The username doesn't exist"
+msgstr "Korisničko ime ne postoji"
+
+msgid "The user has not been validated yet"
+msgstr "Korisnik još nije potvrđen"
+
+msgid "The user has been suspended"
+msgstr "Korisnik je deaktiviran"
+
+msgid "Some error occured trying to connect with Facebook."
+msgstr "Greška prilikom povezivanja sa Facebookom"
+
+msgid "You already have an user with this e-mail address. We've merged your accounts"
+msgstr ""
+
+msgid "Error importing the database structure of the jobboard plugin"
+msgstr ""
+
+msgid "Your account has been created successfully"
+msgstr ""
+

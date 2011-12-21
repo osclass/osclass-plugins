@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: OSClass 2.1\n"
+"Project-Id-Version: Facebook plugin 1.0-alpha\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-14 16:44+0100\n"
+"POT-Creation-Date: 2011-12-21 17:58+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
 "Language-Team: OSClass <info@osclass.org>\n"
@@ -16,89 +16,83 @@ msgstr ""
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SearchPath-0: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook\n"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:28
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:24
 msgid "Congratulations. The plugin is now configured"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:36
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:32
 msgid "Facebook Options"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:42
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:38
 msgid "Please enter your Facebook appId and secret*:"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:46
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:41
 msgid "Update"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:52
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:47
 msgid "Facebook Connect Help"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:54
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:49
 msgid "What is Facebook Connect Plugin?"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:55
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:50
 msgid "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:58
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:53
 msgid "Using Facebook login"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:59
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:54
 msgid "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:60
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:55
 msgid "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:65
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/conf.php:60
 msgid "You can freely obtain an appId and secret key after signing up on this URL"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/index.php:22
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/index.php:40
 msgid "Logout"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/index.php:24
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/index.php:42
 msgid "Login with Facebook"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:47
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:83
 msgid "The username doesn't exist"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:49
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:85
 msgid "The user has not been validated yet"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:51
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:87
 msgid "The user has been suspended"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:66
-msgid "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook"
-msgstr ""
-
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:69
-msgid "Hey! We just discovered some user with your same email address. Log into your account to link it to Facebook."
-msgstr ""
-
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:76
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:95
 msgid "Some error occured trying to connect with Facebook."
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:161
-#, php-format
-msgid "An automatic account for %s has been created. You'll receive an email to confirm"
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:114
+msgid "You already have an user with this e-mail address. We've merged your accounts"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:167
-#, php-format
-msgid "An automatic account for %s has been created. You're ready to go"
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:140
+msgid "Error importing the database structure of the jobboard plugin"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/facebook/OSCFacebook.php:221
+msgid "Your account has been created successfully"
 msgstr ""
 

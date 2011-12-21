@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "Felicitari.Plugin-ul este configurat"
+
+msgid "Facebook Options"
+msgstr "Optiuni Facebook"
+
+msgid "Please enter your Facebook appId and secret*:"
+msgstr "Introdu app Id si parola Facebook"
+
+msgid "Update"
+msgstr "Actualizare"
+
+msgid "Facebook Connect Help"
+msgstr "Ajutor Facebook Connect"
+
+msgid "What is Facebook Connect Plugin?"
+msgstr "Ce reprezinta Plugin-ul Facebook Connect ?"
+
+msgid "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
+msgstr "Facebook Connect permite utilizatorilor sa se logheze la site folosind contul lor de Facebook"
+
+msgid "Using Facebook login"
+msgstr "Utilizeaza datele de logare Facebook"
+
+msgid "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
+msgstr "Poti obtine gratuit un app Id si cheia secreta (necesare pentru a facilita logarea prin intermediul site-ului tau) dupa ce te-ai logat urmand acest URL"
+
+msgid "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
+msgstr "Pentru a putea corela ecranul de logare Facebook cu cel al site-ului tau,se impune sa creezi cel putin un buton de logare/delogare Facebook.Pentru aceasta trebuie sa introduci codul acolo unde vrei sa fie afisat"
+
+msgid "You can freely obtain an appId and secret key after signing up on this URL"
+msgstr "Poti obtine gratuit app Id si cheia secreta dupa logarea pe site-ul al carui link il ai aici"
+
+msgid "Logout"
+msgstr "Delogare"
+
+msgid "Login with Facebook"
+msgstr "Logare prin Facebook"
+
+msgid "The username doesn't exist"
+msgstr "Nume utilizator inexistent"
+
+msgid "The user has not been validated yet"
+msgstr "Utilizatorul nu a fost validat inca"
+
+msgid "The user has been suspended"
+msgstr "Utilizator suspendat"
+
+msgid "Some error occured trying to connect with Facebook."
+msgstr "Au aparut ceva erori in incercarea de a te conecta prin Facebook"
+
+msgid "You already have an user with this e-mail address. We've merged your accounts"
+msgstr ""
+
+msgid "Error importing the database structure of the jobboard plugin"
+msgstr ""
+
+msgid "Your account has been created successfully"
+msgstr ""
+

@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "تهانينا. لقد تم الآن تكوين الأداة الإضافية "
+
+msgid "Facebook Options"
+msgstr "خيارات فيس بوك "
+
+msgid "Please enter your Facebook appId and secret*:"
+msgstr "يرجى إدخال معرف تطبيق فيس بوك والرقم السري: "
+
+msgid "Update"
+msgstr "تحديث "
+
+msgid "Facebook Connect Help"
+msgstr "تعليمات الاتصال عبر فيس بوك  "
+
+msgid "What is Facebook Connect Plugin?"
+msgstr "ما أداة الاتصال عبر فيس بوك ؟ "
+
+msgid "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
+msgstr "تسمح أداة الاتصال عبر فيس بوك للمستخدمين بتسجيل الدخول إلى صفحة الويب باستخدام حسابهم على فيس بوك "
+
+msgid "Using Facebook login"
+msgstr "استخدام تسجيل الدخول إلى فيس بوك "
+
+msgid "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
+msgstr "يمكنك الحصول بحرية على معرف التطبيق وكلمة المرور (اللازمين لاستخدام تسجيل الدخول عبر فيس بوك على موقع الويب خاصتك) بعد التسجيل عبر محدد موقع المعلومات هذا "
+
+msgid "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
+msgstr "لتتمكن من استخدام تسجيل الدخول عبر فيس بوك في موقع الويب خاصتك، ينبغي عليك تضمين زر فيس بوك واحد على الأقل من أجل التسجل (وتسجيل الخروج). لتتمكن من فعل ذلك يرجى وضع الكود التالي حيثما ترغب في ظهوره "
+
+msgid "You can freely obtain an appId and secret key after signing up on this URL"
+msgstr "يمكنك الحصول بحرية على معرف تطبيق وكلمة مرور بعد التسجيل عبر محدد موقع المعلومات هذا "
+
+msgid "Logout"
+msgstr "تسجيل الخروج "
+
+msgid "Login with Facebook"
+msgstr "تسجيل الدخول عبر فيس بوك "
+
+msgid "The username doesn't exist"
+msgstr "اسم المستخدم غير موجود "
+
+msgid "The user has not been validated yet"
+msgstr "لم يتم التحقق من المستخدم بعد "
+
+msgid "The user has been suspended"
+msgstr "لقد تم توقيف المستخدم "
+
+msgid "Some error occured trying to connect with Facebook."
+msgstr "حدث خطأ أثناء محاولة الاتصال عبر فيس بوك "
+
+msgid "You already have an user with this e-mail address. We've merged your accounts"
+msgstr ""
+
+msgid "Error importing the database structure of the jobboard plugin"
+msgstr ""
+
+msgid "Your account has been created successfully"
+msgstr ""
+

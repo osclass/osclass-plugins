@@ -1,5 +1,5 @@
 CREATE TABLE /*TABLE_PREFIX*/t_facebook_connect (
-    fk_i_user_id INT UNSIGNED NOT NULL,
+    fk_i_user_id INT(10) UNSIGNED NOT NULL,
     i_facebook_uid VARCHAR(30) NULL,
 
         PRIMARY KEY (fk_i_user_id),

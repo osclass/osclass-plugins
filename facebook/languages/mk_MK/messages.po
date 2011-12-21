@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Congratulations. The plugin is now configured"
+msgstr "Честитки. Додатокот е конфигуриран"
+
+msgid "Facebook Options"
+msgstr "Facebook Опции"
+
+msgid "Please enter your Facebook appId and secret*:"
+msgstr "Ќе ве молам впишете го Facebook appld и тајното"
+
+msgid "Update"
+msgstr "Обнови"
+
+msgid "Facebook Connect Help"
+msgstr "Facebook конекција помиш"
+
+msgid "What is Facebook Connect Plugin?"
+msgstr "Што е Facebook Connect Plugin?"
+
+msgid "Facebook Connect plugin allows your users to log into your webpage with their Facebook accounts"
+msgstr "Facebook Connect плагинот ви овозможува да се логирате  на нашиот сајт со корисничкото име на Facebook"
+
+msgid "Using Facebook login"
+msgstr "Користете Facebook корисничко име"
+
+msgid "You can freely obtain an appId and secret key (needed to use Facebook login on your website) after signing up on this URL"
+msgstr "Вие ќе треба да го впишете вашето appld  и тајниот клуч (Потребно е за да можете да се логирате  да го користите вашето Facebook корисничко име на нашиот сајт) на овој сајт"
+
+msgid "In order to use Facebook login in your website you should include at least one facebook button for login (and logout). To do that place the following code where you want it to appear"
+msgstr "Доколку сакате да се пријавите со Facebook сметката на вашата страна, вие ќе треба да додадете едно копче за влез/излез. За да го направите тоа изберете позиција за тоа."
+
+msgid "You can freely obtain an appId and secret key after signing up on this URL"
+msgstr "Слободно може да го внесете вашиот appld и тајниот клуч после креирањето на адресата"
+
+msgid "Logout"
+msgstr "Одјави се"
+
+msgid "Login with Facebook"
+msgstr "Пријавете се на Facebook"
+
+msgid "The username doesn't exist"
+msgstr "Корисничкото име не постои"
+
+msgid "The user has not been validated yet"
+msgstr "Користникот сеуште не е активиран"
+
+msgid "The user has been suspended"
+msgstr "Корисникот е суспендиран"
+
+msgid "Some error occured trying to connect with Facebook."
+msgstr "Се појави грешка при поврзување со Facebook"
+
+msgid "You already have an user with this e-mail address. We've merged your accounts"
+msgstr ""
+
+msgid "Error importing the database structure of the jobboard plugin"
+msgstr ""
+
+msgid "Your account has been created successfully"
+msgstr ""
+
