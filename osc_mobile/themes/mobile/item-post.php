@@ -23,6 +23,8 @@
 <html>
     <head>
         <?php osc_current_web_theme_path('head.php') ; ?>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex, nofollow" />
         <?php MblItemForm::location_javascript(); ?>
         <?php if(osc_images_enabled_at_items()) MblItemForm::photos_javascript(); ?>
         <style>
@@ -33,10 +35,11 @@
         </style>
     </head>
     <body>
-        <div data-role="page">
+        <div data-role="page" id="item-post">
             <div data-role="header">
                 <a data-rel="back" data-icon="back"  data-iconpos="notext"></a>
                 <h1><strong><?php _e('Publish an item', 'mobile'); ?></strong></h1>
+                <?php osc_show_flash_message() ; ?>
             </div>
 
             <div data-role="content" data-theme="c">
@@ -85,12 +88,12 @@
                         </fieldset>
                         <fieldset id="field_select_region" data-role="fieldcontain" style="display:none;">
                             <label for="regionId"><?php _e('Region', 'mobile'); ?></label>
-                            <a id="a_select_region" data-role="button" data-rel="dialog" href="#page_list_regions"><?php _e("Select a region..."); ?></a>
+                            <a id="a_select_region" data-role="button" href="#page_list_regions"><?php _e("Select a region...", 'mobile'); ?></a>
                             <?php MblItemForm::region_text_hidden(); ?>
                         </fieldset>
                         <fieldset id="field_select_city" data-role="fieldcontain" style="display:none;">
                             <label class="ui-select" for="city"><?php _e('City', 'mobile'); ?></label>
-                            <a id="a_select_city" data-role="button" data-rel="dialog" href="#page_list_cities"><?php _e("Select a city..."); ?></a>
+                            <a id="a_select_city" data-role="button" href="#page_list_cities"><?php _e("Select a city...", 'mobile'); ?></a>
                             <?php MblItemForm::city_text_hidden(); ?>
                         </fieldset>
                         <fieldset id="field_select_city_area" data-role="fieldcontain" style="display:none;">
@@ -138,26 +141,26 @@
         </div>   
         
         <!-- Start of SELECT REGION page -->
-        <div data-role="dialog" data-theme="b" id="page_list_regions">
+        <div data-role="page" data-theme="b" id="page_list_regions">
             <div data-theme="b" data-role="header">
-                <h1><?php _e("Select a region..."); ?></h1>
+                <h1><?php _e("Select a region...", 'mobile'); ?></h1>
             </div><!-- /header -->
 
             <div data-theme="b" data-role="content">
-                <ul id="list_regions" data-role="listview" >
+                <ul id="list_regions" data-role="listview" data-filter="true">
 
                 </ul>
             </div><!-- /content -->
         </div><!-- /page -->
         
         <!-- Start of SELECT CITY page -->
-        <div data-role="dialog" data-theme="b" id="page_list_cities">
+        <div data-role="page" data-theme="b" id="page_list_cities">
             <div data-theme="b" data-role="header">
-                <h1><?php _e("Select a city..."); ?></h1>
+                <h1><?php _e("Select a city...", 'mobile'); ?></h1>
             </div><!-- /header -->
 
             <div data-theme="b" data-role="content">
-                <ul id="list_cities" data-role="listview" >
+                <ul id="list_cities" data-role="listview" data-filter="true">
 
                 </ul>
             </div><!-- /content -->

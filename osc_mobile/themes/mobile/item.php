@@ -25,13 +25,12 @@ $wSizeImage = 255;
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
     <head>
             <?php osc_current_web_theme_path('head.php') ; ?>
-       
-            <?php if(osc_count_items() == 0) { ?>
-                <meta name="robots" content="noindex, nofollow" />
-                <meta name="googlebot" content="noindex, nofollow" />
+            <?php if( osc_item_is_expired () ) { ?>
+            <meta name="robots" content="noindex, nofollow" />
+            <meta name="googlebot" content="noindex, nofollow" />
             <?php } else { ?>
-                <meta name="robots" content="index, follow" />
-                <meta name="googlebot" content="index, follow" />
+            <meta name="robots" content="index, follow" />
+            <meta name="googlebot" content="index, follow" />
             <?php } ?>
     </head>
     <body>
@@ -121,7 +120,7 @@ $wSizeImage = 255;
                         <?php } ?>
                     <?php } ?>
                     <div class="ui-block">
-                        <a onclick="$.mobile.showPageLoadingMsg();" data-role="button" data-transition="pop" data-ajax="false" data-rel="dialog" href="<?php echo $_SERVER['REQUEST_URI']; ?>#share"><?php _e('Share'); ?></a>
+                        <a onclick="$.mobile.showPageLoadingMsg();" data-role="button" data-transition="pop" data-ajax="false" data-rel="dialog" href="<?php echo $_SERVER['REQUEST_URI']; ?>#share"><?php _e('Share', 'mobile'); ?></a>
                     </div>
                 </div>
                 <div class="ui-block" style="padding-top:15px;">
@@ -206,17 +205,24 @@ $wSizeImage = 255;
 
             <div data-theme="a" data-role="content">
                 <div>
-                    <form action="<?php echo osc_base_url(true) ; ?>" method="post" name="contact" id="contact-form">
-                        <input type="hidden" name="page" value="contact" />
-                        <input type="hidden" name="action" value="contact_post" />
+                    <form action="<?php echo osc_base_url(true); ?>" method="post" name="contact_form" id="contact_form" >
+                        <?php ContactForm::primary_input_hidden() ; ?>
+                        <?php ContactForm::action_hidden() ; ?>
+                        <?php ContactForm::page_hidden() ; ?>
                         <fieldset>
-                            <label for="subject"><?php _e('Subject', 'mobile') ; ?> (<?php _e('optional', 'mobile'); ?>)</label> <?php ContactForm::the_subject() ; ?><br />
-                            <label for="message"><?php _e('Message', 'mobile') ; ?></label> <?php ContactForm::your_message() ; ?><br />
-                            <label for="yourName"><?php _e('Your name', 'mobile') ; ?> (<?php _e('optional', 'mobile'); ?>)</label> <?php ContactForm::your_name() ; ?><br />
-                            <label for="yourEmail"><?php _e('Your e-mail address', 'mobile') ; ?></label> <?php ContactForm::your_email(); ?><br />
+                            <p><?php _e('To (seller)', 'mobile'); ?>: <?php echo osc_item_contact_name() ;?></p>
+                            <p><?php _e('Item', 'mobile'); ?>: <a href="<?php echo osc_item_url(); ?>"><?php echo osc_item_title() ; ?></a></p>
+                            <?php if(osc_is_web_user_logged_in()) { ?>
+                                <input type="hidden" name="yourName" value="<?php echo osc_logged_user_name(); ?>" />
+                                <input type="hidden" name="yourEmail" value="<?php echo osc_logged_user_email();?>" />
+                            <?php } else { ?>
+                                <label for="yourName"><?php _e('Your name', 'mobile'); ?></label> <?php ContactForm::your_name(); ?><br/>
+                                <label for="yourEmail"><?php _e('Your e-mail address', 'mobile'); ?></label> <?php ContactForm::your_email(); ?><br />
+                            <?php }; ?>
+                            <label for="phoneNumber"><?php _e('Phone number', 'mobile'); ?> (<?php _e('optional', 'mobile'); ?>)</label> <?php ContactForm::your_phone_number(); ?><br/>
+                            <label for="message"><?php _e('Message', 'mobile'); ?></label> <?php ContactForm::your_message(); ?><br />
                             <?php osc_show_recaptcha(); ?>
-                            <button type="submit"><?php _e('Send', 'mobile') ; ?></button>
-                            <?php osc_run_hook('user_register_form') ; ?>
+                            <button type="submit"><?php _e('Send message', 'mobile'); ?></button>
                         </fieldset>
                     </form>
                 </div>
@@ -266,7 +272,7 @@ $wSizeImage = 255;
                             <input type="hidden" name="action" value="send_friend_post" />
                             <input type="hidden" name="page" value="item" />
                             <input type="hidden" name="id" value="<?php echo osc_item_id(); ?>" />
-                            <label><?php _e('Item', 'modern'); ?>: <a href="<?php echo osc_item_url( ); ?>"><?php echo osc_item_title(); ?></a></label><br/>
+                            <label><?php _e('Item', 'mobile'); ?>: <a href="<?php echo osc_item_url( ); ?>"><?php echo osc_item_title(); ?></a></label><br/>
                             <?php if(osc_is_web_user_logged_in()) { ?>
                                 <input type="hidden" name="yourName" value="<?php echo osc_logged_user_name(); ?>" />
                                 <input type="hidden" name="yourEmail" value="<?php echo osc_logged_user_email();?>" />

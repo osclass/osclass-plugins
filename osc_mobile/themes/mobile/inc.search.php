@@ -21,7 +21,7 @@
 ?>
 
 <script type="text/javascript">
-    var sQuery = '<?php _e("ie. PHP Programmer", 'modern') ; ?>' ;
+    var sQuery = '<?php _e("ie. PHP Programmer", 'mobile') ; ?>' ;
 
     $(document).ready(function(){
         if($('input[name=sPattern]').val() == sQuery) {
@@ -58,12 +58,12 @@
 <form action="<?php echo osc_base_url(true) ; ?>" method="get" class="search" onsubmit="javascript:return doSearch();">
     <input type="hidden" name="page" value="search" />
     <fieldset class="main">
-        <input type="text" name="sPattern"  id="query" value="<?php echo ( osc_search_pattern() != '' ) ? osc_search_pattern() : __("ie. PHP Programmer", 'modern') ; ?>" />
+        <input type="text" name="sPattern"  id="query" value="<?php echo ( osc_search_pattern() != '' ) ? osc_search_pattern() : __("ie. PHP Programmer_", 'mobile') ; ?>" />
 
         <?php  if ( osc_count_categories() ) { ?>
             <?php osc_categories_select() ; ?>
         <?php  } ?>
 
-        <button type="submit"><?php _e('Search', 'modern') ; ?></button>
+        <button type="submit"><?php _e('Search', 'mobile') ; ?></button>
     </fieldset>
 </form>

@@ -28,33 +28,38 @@
         <meta name="googlebot" content="noindex, nofollow" />
     </head>
     <body>
-        <div class="container">
-            <?php osc_current_web_theme_path('header.php') ; ?>
-            <div class="content user_forms">
-                <div class="inner">
-                    <h1><?php _e('Recover your password', 'modern') ; ?></h1>
-                    <form action="<?php echo osc_base_url(true) ; ?>" method="post" >
-                        <input type="hidden" name="page" value="login" />
-                        <input type="hidden" name="action" value="forgot_post" />
-                        <input type="hidden" name="userId" value="<?php echo Params::getParam('userId'); ?>" />
-                        <input type="hidden" name="code" value="<?php echo Params::getParam('code'); ?>" />
-                        <fieldset>
-                            <p>
-                                <label for="new_email"><?php _e('New pasword', 'modern') ; ?></label><br />
-                                <input type="password" name="new_password" value="" />
-                            </p>
-                            <p>
-                                <label for="new_email"><?php _e('Repeat new pasword', 'modern') ; ?></label><br />
-                                <input type="password" name="new_password2" value="" />
-                            </p>
-                            <button type="submit"><?php _e('Change password', 'modern') ; ?></button>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-            <?php osc_current_web_theme_path('footer.php') ; ?>
+        <div data-theme="c" data-role="page" data-title="<?php echo osc_page_title() ; ?>">
+            <div data-role="header">
+                <h1><?php _e('Recover your password', 'mobile') ; ?></h1>
+                <?php osc_show_flash_message() ; ?>                
+            </div><!-- /header -->
+
+            <div data-role="content" style="height: auto;">
+                <form action="<?php echo osc_base_url(true) ; ?>" method="post" >
+                    <input type="hidden" name="page" value="login" />
+                    <input type="hidden" name="action" value="forgot_post" />
+                    <input type="hidden" name="userId" value="<?php echo Params::getParam('userId'); ?>" />
+                    <input type="hidden" name="code" value="<?php echo Params::getParam('code'); ?>" />
+                    <fieldset>
+                        <p>
+                            <label for="new_email"><?php _e('New pasword', 'mobile') ; ?></label>
+                            <input type="password" name="new_password" value="" /><br />
+                        </p>
+                        <p>
+                            <label for="new_email"><?php _e('Repeat new pasword', 'mobile') ; ?></label>
+                            <input type="password" name="new_password2" value="" /><br />
+                        </p>
+                        <button type="submit"><?php _e('Change password', 'mobile') ; ?></button>
+                    </fieldset>
+                </form>
+            </div><!-- /content -->
+            
+            <div data-role="footer" class="footer-docs" data-theme="a" style="font-size: 12px; text-align: center;">
+                <?php osc_current_web_theme_path('footer.php') ; ?>
+                <?php osc_run_hook('footer'); ?>
+            </div><!-- /footer -->
         </div>
-        <?php osc_show_flash_message() ; ?>
-        <?php osc_run_hook('footer'); ?>
+        
+        
     </body>
 </html>

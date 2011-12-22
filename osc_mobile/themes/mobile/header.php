@@ -4,5 +4,4 @@
 <?php } else {?>
 <a href="<?php echo osc_user_login_url(); ?>" data-role="button"><?php _e('Log in','mobile')?></a>
 <?php } ?>
-
 </ul>

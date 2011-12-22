@@ -24,6 +24,8 @@
 <html>
     <head>
         <?php osc_current_web_theme_path('head.php') ; ?>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex, nofollow" />
     </head>
     <body>
         <div data-role="page">
@@ -34,9 +36,13 @@
             </div>
 
             <div data-role="content" data-theme="">
+                <p>
+                    <a href="<?php echo osc_recover_user_password_url() ; ?>" data-role="button"><?php _e("Forgot password?", 'mobile') ; ?></a>
+                </p>
                 <form action="<?php echo osc_base_url(true); ?>" method="post">
                     <input type="hidden" name="page" value="login"  data-role="none" />
                     <input type="hidden" name="action" value="login_post"  data-role="none" />
+                    <input type="hidden" name="http_referer" value="<?php echo osc_base_url(true); ?>"/>
                     <fieldset data-role="fieldcontain">
                         <label for="email"><?php _e('E-mail', 'mobile'); ?></label>
                         <input type="text" name="email" id="email" value=""  />
@@ -46,11 +52,9 @@
                         <input type="checkbox" name="rememberMe" id="rememberMe" />
                         <label for="rememberMe" style="font-size:12px; margin-left:5px; margin-right:5px;"><?php _e('Remember me', 'mobile') ; ?></label>
                         </p>
-                    <button style="width:99%" type="submit" name="submit" value="submit-value" data-icon="check" data-role="button" data-inline="false"><?php _e("Log in", 'mobile');?></button>
-
+                        <button style="width:99%" type="submit" name="submit" value="submit-value" data-icon="check" data-role="button" data-inline="false"><?php _e("Log in", 'mobile');?></button>
                     </fieldset>
                 </form>
-                <a href="<?php echo osc_recover_user_password_url() ; ?>" data-role="button"><?php _e("Forgot password?", 'mobile') ; ?></a>
             </div>
         </div>       
     </body>

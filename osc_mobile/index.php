@@ -76,7 +76,7 @@ Short Name: mobile
         
         if ( $userAgent->is_mobile() ) {
             $url = osc_base_url(true).'?desktop=mobile'; 
-            echo '<p><a href="'.$url.'" data-role="none" class="ui-link">'. __('Switch to Mobile version','mobile').'</a></p>';
+            echo '<a href="'.$url.'" data-role="none" class="ui-link">'. __('Switch to Mobile version','mobile').'</a>';
         }   
     }    
 

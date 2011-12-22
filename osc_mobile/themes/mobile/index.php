@@ -19,11 +19,11 @@
      * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
 
-    function modern_theme_info() {
+    function mobile_theme_info() {
         return array(
-             'name'        => 'OSClass Modern Theme'
-            ,'version'     => '2.1'
-            ,'description' => 'This is the OSClass modern theme'
+             'name'        => 'OSClass Mobile Theme'
+            ,'version'     => '0.2'
+            ,'description' => 'This is the OSClass mobile theme'
             ,'author_name' => 'OSClass Team'
             ,'author_url'  => 'http://osclass.org'
             ,'locations'   => array('header', 'categories', 'footer')

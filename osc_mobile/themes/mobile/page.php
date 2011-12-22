@@ -28,15 +28,23 @@
         <meta name="googlebot" content="noindex, nofollow" />
     </head>
     <body>
-        <div class="container">
-            <?php osc_current_web_theme_path('header.php') ; ?>
-            <div class="page">
+        <div data-theme="c" data-role="page" data-title="<?php echo osc_page_title() ; ?>">
+            <div data-role="header">
+                <a data-icon="back" data-rel="back" data-iconpos="notext" href=""></a>
+                <h1><?php echo osc_page_title() ; ?></h1>
+                <a data-icon="home" data-inline="true" data-iconpos="notext" href="<?php echo osc_base_url(true); ?>"></a>
+                <?php osc_show_flash_message() ; ?>
+            </div><!-- /header -->
+            
+            <div data-role="content" style="padding-top: 0px;">
                 <h1><?php echo osc_static_page_title() ; ?></h1>
                 <div><?php echo osc_static_page_text() ; ?></div>
             </div>
-            <?php osc_current_web_theme_path('footer.php') ; ?>
+            
+            <div data-role="footer" class="footer-docs" data-theme="a" style="font-size: 12px; text-align: center;">
+                <?php osc_current_web_theme_path('footer.php') ; ?>
+                <?php osc_run_hook('footer'); ?>
+            </div><!-- /footer -->
         </div>
-        <?php osc_show_flash_message() ; ?>
-        <?php osc_run_hook('footer'); ?>
     </body>
 </html>

@@ -105,7 +105,7 @@
                         var length = data.length;
                         if(length > 0) {
                             for(key in data) {
-                                result += '<li><a href="#" onclick="select_region(\''+ data[key].s_name +'\',\''+ data[key].pk_i_id +'\');" value="' + data[key].pk_i_id + '">' + data[key].s_name + '</a></li>';
+                                result += '<li><a data-rel="back" onclick="select_region(\''+ data[key].s_name +'\',\''+ data[key].pk_i_id +'\');" value="' + data[key].pk_i_id + '">' + data[key].s_name + '</a></li>';
                             }
                         } else {
                         }
@@ -351,17 +351,7 @@
 
         osc_add_hook("header", "add_logo_header");
      }
-
-     if(!function_exists('modern_admin_menu')){
-         function modern_admin_menu() {
-            echo '<h3><a href="#">'. __('Modern theme','modern') .'</a></h3>
-            <ul>
-                <li><a href="' . osc_admin_render_theme_url('oc-content/themes/modern/admin/admin_settings.php') . '">&raquo; '.__('Settings theme', 'modern').'</a></li>
-            </ul>';
-        }
-
-        osc_add_hook('admin_menu', 'modern_admin_menu');
-     }
+     
      if( !function_exists('meta_title') ) {
          function meta_title( ) {
             $location = Rewrite::newInstance()->get_location();
@@ -370,10 +360,10 @@
             switch ($location) {
                 case ('item'):
                     switch ($section) {
-                        case 'item_add':    $text = __('Publish an item','modern') . ' - ' . osc_page_title(); break;
-                        case 'item_edit':   $text = __('Edit your item','modern') . ' - ' . osc_page_title(); break;
-                        case 'send_friend': $text = __('Send to a friend','modern') . ' - ' . osc_item_title() . ' - ' . osc_page_title(); break;
-                        case 'contact':     $text = __('Contact seller','modern') . ' - ' . osc_item_title() . ' - ' . osc_page_title(); break;
+                        case 'item_add':    $text = __('Publish an item','mobile') . ' - ' . osc_page_title(); break;
+                        case 'item_edit':   $text = __('Edit your item','mobile') . ' - ' . osc_page_title(); break;
+                        case 'send_friend': $text = __('Send to a friend','mobile') . ' - ' . osc_item_title() . ' - ' . osc_page_title(); break;
+                        case 'contact':     $text = __('Contact seller','mobile') . ' - ' . osc_item_title() . ' - ' . osc_page_title(); break;
                         default:            $text = osc_item_title() . ' - ' . osc_page_title(); break;
                     }
                 break;
@@ -390,7 +380,7 @@
                     $i_page = Params::getParam('iPage');
 
                     if($i_page != '' && $i_page > 0) {
-                        $s_page = __('page', 'modern') . ' ' . ($i_page + 1) . ' - ';
+                        $s_page = __('page', 'mobile') . ' ' . ($i_page + 1) . ' - ';
                     }
 
                     $b_show_all = ($region == '' && $city == '' & $pattern == '' && $category == '');
@@ -400,7 +390,7 @@
                     $b_region   = ($region != '');
 
                     if($b_show_all) {
-                        $text = __('Show all items', 'modern') . ' - ' . $s_page . osc_page_title();
+                        $text = __('Show all items', 'mobile') . ' - ' . $s_page . osc_page_title();
                     }
 
                     $result = '';
@@ -430,34 +420,34 @@
                     $result = preg_replace('|\s?&raquo;\s$|', '', $result);
 
                     if($result == '') {
-                        $result = __('Search', 'modern');
+                        $result = __('Search', 'mobile');
                     }
 
                     $text = $result . ' - ' . $s_page . osc_page_title();
                 break;
                 case('login'):
                     switch ($section) {
-                        case('recover'): $text = __('Recover your password','modern') . ' - ' . osc_page_title();
-                        default:         $text = __('Login','modern') . ' - ' . osc_page_title();
+                        case('recover'): $text = __('Recover your password','mobile') . ' - ' . osc_page_title();
+                        default:         $text = __('Login','mobile') . ' - ' . osc_page_title();
                     }
                 break;
                 case('register'):
-                    $text = __('Create a new account','modern') . ' - ' . osc_page_title();
+                    $text = __('Create a new account','mobile') . ' - ' . osc_page_title();
                 break;
                 case('user'):
                     switch ($section) {
-                        case('dashboard'):       $text = __('Dashboard','modern') . ' - ' . osc_page_title(); break;
-                        case('items'):           $text = __('Manage my items','modern') . ' - ' . osc_page_title(); break;
-                        case('alerts'):          $text = __('Manage my alerts','modern') . ' - ' . osc_page_title(); break;
-                        case('profile'):         $text = __('Update my profile','modern') . ' - ' . osc_page_title(); break;
-                        case('change_email'):    $text = __('Change my email','modern') . ' - ' . osc_page_title(); break;
-                        case('change_password'): $text = __('Change my password','modern') . ' - ' . osc_page_title(); break;
-                        case('forgot'):          $text = __('Recover my password','modern') . ' - ' . osc_page_title(); break;
+                        case('dashboard'):       $text = __('Dashboard','mobile') . ' - ' . osc_page_title(); break;
+                        case('items'):           $text = __('Manage my items','mobile') . ' - ' . osc_page_title(); break;
+                        case('alerts'):          $text = __('Manage my alerts','mobile') . ' - ' . osc_page_title(); break;
+                        case('profile'):         $text = __('Update my profile','mobile') . ' - ' . osc_page_title(); break;
+                        case('change_email'):    $text = __('Change my email','mobile') . ' - ' . osc_page_title(); break;
+                        case('change_password'): $text = __('Change my password','mobile') . ' - ' . osc_page_title(); break;
+                        case('forgot'):          $text = __('Recover my password','mobile') . ' - ' . osc_page_title(); break;
                         default:                 $text = osc_page_title(); break;
                     }
                 break;
                 case('contact'):
-                    $text = __('Contact','modern') . ' - ' . osc_page_title();
+                    $text = __('Contact','mobile') . ' - ' . osc_page_title();
                 break;
                 default:
                     $text = osc_page_title();

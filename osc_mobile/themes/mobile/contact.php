@@ -29,33 +29,35 @@
         <script type="text/javascript" src="<?php echo osc_current_web_theme_js_url('jquery.validate.min.js') ; ?>"></script>
     </head>
     <body>
-        <div class="container">
-            <?php osc_current_web_theme_path('header.php') ; ?>
-            <div class="content user_forms">
-                <div class="inner">
-                    <h1><?php _e('Contact us', 'modern') ; ?></h1>
-                    <ul id="error_list"></ul>
-                    <form action="<?php echo osc_base_url(true) ; ?>" method="post" name="contact" id="contact">
+        <div data-theme="c" data-role="page" data-title="<?php echo osc_page_title() ; ?>">
+            <div data-role="header">
+                <h1><?php _e('Contact us', 'mobile') ; ?></h1>
+                <?php osc_show_flash_message() ; ?>
+                <a data-icon="back" data-iconpos="notext" data-transition="pop" data-rel="back" href="#"></a>
+            </div><!-- /header -->
+
+            <div data-role="content" style="height: auto;">
+                <div>
+                    <form action="<?php echo osc_base_url(true) ; ?>" method="post" name="contact" id="contact-form">
                         <input type="hidden" name="page" value="contact" />
                         <input type="hidden" name="action" value="contact_post" />
-
                         <fieldset>
-                            <label for="subject"><?php _e('Subject', 'modern') ; ?> (<?php _e('optional', 'modern'); ?>)</label> <?php ContactForm::the_subject() ; ?><br />
-                            <label for="message"><?php _e('Message', 'modern') ; ?></label> <?php ContactForm::your_message() ; ?><br />
-                            <label for="yourName"><?php _e('Your name', 'modern') ; ?> (<?php _e('optional', 'modern'); ?>)</label> <?php ContactForm::your_name() ; ?><br />
-                            <label for="yourEmail"><?php _e('Your e-mail address', 'modern') ; ?></label> <?php ContactForm::your_email(); ?><br />
-                            
+                            <label for="subject"><?php _e('Subject', 'mobile') ; ?> (<?php _e('optional', 'mobile'); ?>)</label> <?php ContactForm::the_subject() ; ?><br />
+                            <label for="message"><?php _e('Message', 'mobile') ; ?></label> <?php ContactForm::your_message() ; ?><br />
+                            <label for="yourName"><?php _e('Your name', 'mobile') ; ?> (<?php _e('optional', 'mobile'); ?>)</label> <?php ContactForm::your_name() ; ?><br />
+                            <label for="yourEmail"><?php _e('Your e-mail address', 'mobile') ; ?></label> <?php ContactForm::your_email(); ?><br />
                             <?php osc_show_recaptcha(); ?>
-                            <button type="submit"><?php _e('Send', 'modern') ; ?></button>
+                            <button type="submit"><?php _e('Send', 'mobile') ; ?></button>
                             <?php osc_run_hook('user_register_form') ; ?>
                         </fieldset>
                     </form>
                 </div>
             </div>
-            <?php ContactForm::js_validation() ; ?>
-            <?php osc_current_web_theme_path('footer.php') ; ?>
+            
+            <div data-role="footer" class="footer-docs" data-theme="a" style="font-size: 12px; text-align: center;">
+                <?php osc_current_web_theme_path('footer.php') ; ?>
+                <?php osc_run_hook('footer'); ?>
+            </div><!-- /footer -->
         </div>
-        <?php osc_show_flash_message() ; ?>
-        <?php osc_run_hook('footer'); ?>
     </body>
 </html>
