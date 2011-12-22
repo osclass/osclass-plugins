@@ -22,13 +22,13 @@
 
 <?php osc_show_widgets('footer'); ?>
 <?php $url = osc_base_url(true).'?desktop=1'; ?>
-<p><a href="<?php echo $url; ?>" data-role="none" class="ui-link"><?php _e('Switch to Desktop version','mobile');?></a></p>
+<p><a href="<?php echo $url; ?>" data-role="none" class="ui-link"><?php _e('Switch to Desktop version','osc_mobile');?></a></p>
 <p>
-    <a data-role="none" class="ui-link" href="<?php echo osc_contact_url(); ?>"><?php _e('Contact', 'mobile') ; ?></a> |
+    <a data-role="none" class="ui-link" href="<?php echo osc_contact_url(); ?>"><?php _e('Contact', 'osc_mobile') ; ?></a> |
     <?php osc_reset_static_pages() ; ?>
     <?php while( osc_has_static_pages() ) { ?>
         <a data-role="none" class="ui-link" href="<?php echo osc_static_page_url() ; ?>"><?php echo osc_static_page_title() ; ?></a> |
     <?php } ?>
-    <?php _e('This website is proudly using the <a title="OSClass web" data-role="none" class="ui-link" href="http://osclass.org/">open source classifieds</a> software <strong>OSClass</strong>', 'mobile'); ?>.
+    <?php _e('This website is proudly using the <a title="OSClass web" data-role="none" class="ui-link" href="http://osclass.org/">open source classifieds</a> software <strong>OSClass</strong>', 'osc_mobile'); ?>.
 </p>
 

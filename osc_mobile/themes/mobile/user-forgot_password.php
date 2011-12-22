@@ -30,7 +30,7 @@
     <body>
         <div data-theme="c" data-role="page" data-title="<?php echo osc_page_title() ; ?>">
             <div data-role="header">
-                <h1><?php _e('Recover your password', 'mobile') ; ?></h1>
+                <h1><?php _e('Recover your password', 'osc_mobile') ; ?></h1>
                 <?php osc_show_flash_message() ; ?>                
             </div><!-- /header -->
 
@@ -42,14 +42,14 @@
                     <input type="hidden" name="code" value="<?php echo Params::getParam('code'); ?>" />
                     <fieldset>
                         <p>
-                            <label for="new_email"><?php _e('New pasword', 'mobile') ; ?></label>
+                            <label for="new_email"><?php _e('New pasword', 'osc_mobile') ; ?></label>
                             <input type="password" name="new_password" value="" /><br />
                         </p>
                         <p>
-                            <label for="new_email"><?php _e('Repeat new pasword', 'mobile') ; ?></label>
+                            <label for="new_email"><?php _e('Repeat new pasword', 'osc_mobile') ; ?></label>
                             <input type="password" name="new_password2" value="" /><br />
                         </p>
-                        <button type="submit"><?php _e('Change password', 'mobile') ; ?></button>
+                        <button type="submit"><?php _e('Change password', 'osc_mobile') ; ?></button>
                     </fieldset>
                 </form>
             </div><!-- /content -->

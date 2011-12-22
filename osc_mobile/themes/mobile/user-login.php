@@ -31,28 +31,28 @@
         <div data-role="page">
             <div data-role="header" data-theme="">
                 <a data-rel="back" data-icon="back"  data-iconpos="notext"></a>
-                <h1><?php _e('Log in','mobile');?></h1>
+                <h1><?php _e('Log in','osc_mobile');?></h1>
                 <?php osc_show_flash_message() ; ?>
             </div>
 
             <div data-role="content" data-theme="">
                 <p>
-                    <a href="<?php echo osc_recover_user_password_url() ; ?>" data-role="button"><?php _e("Forgot password?", 'mobile') ; ?></a>
+                    <a href="<?php echo osc_recover_user_password_url() ; ?>" data-role="button"><?php _e("Forgot password?", 'osc_mobile') ; ?></a>
                 </p>
                 <form action="<?php echo osc_base_url(true); ?>" method="post">
                     <input type="hidden" name="page" value="login"  data-role="none" />
                     <input type="hidden" name="action" value="login_post"  data-role="none" />
                     <input type="hidden" name="http_referer" value="<?php echo osc_base_url(true); ?>"/>
                     <fieldset data-role="fieldcontain">
-                        <label for="email"><?php _e('E-mail', 'mobile'); ?></label>
+                        <label for="email"><?php _e('E-mail', 'osc_mobile'); ?></label>
                         <input type="text" name="email" id="email" value=""  />
-                        <label for="password"><?php _e('Password', 'mobile'); ?></label>
+                        <label for="password"><?php _e('Password', 'osc_mobile'); ?></label>
                         <input type="password" name="password" id="password" value="" />
                         <p>
                         <input type="checkbox" name="rememberMe" id="rememberMe" />
-                        <label for="rememberMe" style="font-size:12px; margin-left:5px; margin-right:5px;"><?php _e('Remember me', 'mobile') ; ?></label>
+                        <label for="rememberMe" style="font-size:12px; margin-left:5px; margin-right:5px;"><?php _e('Remember me', 'osc_mobile') ; ?></label>
                         </p>
-                        <button style="width:99%" type="submit" name="submit" value="submit-value" data-icon="check" data-role="button" data-inline="false"><?php _e("Log in", 'mobile');?></button>
+                        <button style="width:99%" type="submit" name="submit" value="submit-value" data-icon="check" data-role="button" data-inline="false"><?php _e("Log in", 'osc_mobile');?></button>
                     </fieldset>
                 </form>
             </div>

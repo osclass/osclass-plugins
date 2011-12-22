@@ -36,7 +36,7 @@ if(osc_count_premiums() > 0) {
             <?php } ?>
         <?php } ?>
 
-            <p><span style="font-size: 12px;float:right;"><?php _e("Sponsored ad", "mobile"); ?></span></p>
+            <p><span style="font-size: 12px;float:right;"><?php _e("Sponsored ad", 'osc_mobile'); ?></span></p>
             <p style="padding-bottom: 5px;">
                 <span><strong><?php if( osc_price_enabled_at_items() ) { echo osc_premium_formated_price() ; }?> - </strong></span> 
                 <strong>

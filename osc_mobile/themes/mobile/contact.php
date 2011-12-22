@@ -31,7 +31,7 @@
     <body>
         <div data-theme="c" data-role="page" data-title="<?php echo osc_page_title() ; ?>">
             <div data-role="header">
-                <h1><?php _e('Contact us', 'mobile') ; ?></h1>
+                <h1><?php _e('Contact us', 'osc_mobile') ; ?></h1>
                 <?php osc_show_flash_message() ; ?>
                 <a data-icon="back" data-iconpos="notext" data-transition="pop" data-rel="back" href="#"></a>
             </div><!-- /header -->
@@ -42,12 +42,12 @@
                         <input type="hidden" name="page" value="contact" />
                         <input type="hidden" name="action" value="contact_post" />
                         <fieldset>
-                            <label for="subject"><?php _e('Subject', 'mobile') ; ?> (<?php _e('optional', 'mobile'); ?>)</label> <?php ContactForm::the_subject() ; ?><br />
-                            <label for="message"><?php _e('Message', 'mobile') ; ?></label> <?php ContactForm::your_message() ; ?><br />
-                            <label for="yourName"><?php _e('Your name', 'mobile') ; ?> (<?php _e('optional', 'mobile'); ?>)</label> <?php ContactForm::your_name() ; ?><br />
-                            <label for="yourEmail"><?php _e('Your e-mail address', 'mobile') ; ?></label> <?php ContactForm::your_email(); ?><br />
+                            <label for="subject"><?php _e('Subject', 'osc_mobile') ; ?> (<?php _e('optional', 'osc_mobile'); ?>)</label> <?php ContactForm::the_subject() ; ?><br />
+                            <label for="message"><?php _e('Message', 'osc_mobile') ; ?></label> <?php ContactForm::your_message() ; ?><br />
+                            <label for="yourName"><?php _e('Your name', 'osc_mobile') ; ?> (<?php _e('optional', 'osc_mobile'); ?>)</label> <?php ContactForm::your_name() ; ?><br />
+                            <label for="yourEmail"><?php _e('Your e-mail address', 'osc_mobile') ; ?></label> <?php ContactForm::your_email(); ?><br />
                             <?php osc_show_recaptcha(); ?>
-                            <button type="submit"><?php _e('Send', 'mobile') ; ?></button>
+                            <button type="submit"><?php _e('Send', 'osc_mobile') ; ?></button>
                             <?php osc_run_hook('user_register_form') ; ?>
                         </fieldset>
                     </form>

@@ -18,7 +18,7 @@
      *      You should have received a copy of the GNU Affero General Public
      * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
-    $sQuery = __("ie. PHP Programmer", 'mobile');
+    $sQuery = __("ie. PHP Programmer", 'osc_mobile');
 ?>
 <!DOCTYPE html>
 <html>
@@ -71,20 +71,20 @@
                     <ul>
                         <li>
                             <?php if( osc_is_web_user_logged_in() ) { ?>
-                            <a href="<?php echo osc_user_logout_url() ; ?>"><?php _e('Logout', 'mobile') ; ?></a>
+                            <a href="<?php echo osc_user_logout_url() ; ?>"><?php _e('Logout', 'osc_mobile') ; ?></a>
                             <?php } else {?>
-                            <a href="<?php echo osc_user_login_url(); ?>"><?php _e('Log in','mobile')?></a>
+                            <a href="<?php echo osc_user_login_url(); ?>"><?php _e('Log in','osc_mobile')?></a>
                             <?php } ?>
                         </li>
                         <?php if( !osc_is_web_user_logged_in() ) { ?>
                         <li>
                             <?php if(osc_user_registration_enabled()) { ?>
-                            <a href="<?php echo osc_register_account_url() ; ?>"><?php _e('Register for a free account', 'mobile'); ?></a>
+                            <a href="<?php echo osc_register_account_url() ; ?>"><?php _e('Register for a free account', 'osc_mobile'); ?></a>
                             <?php }; ?>
                         </li>
                         <?php } ?>
                         <li>
-                            <a data-icon="" href="<?php echo osc_item_post_url_in_category() ; ?>"><?php _e("Publish", 'mobile');?></a>
+                            <a data-icon="" href="<?php echo osc_item_post_url_in_category() ; ?>"><?php _e("Publish", 'osc_mobile');?></a>
                         </li>
                     </ul>
                 </div>
@@ -120,7 +120,7 @@
             
         </div>
         
-        <div data-theme="c" data-role="dialog" id="search_form" data-title="<?php _e('Search','mobile');?>">
+        <div data-theme="c" data-role="dialog" id="search_form" data-title="<?php _e('Search','osc_mobile');?>">
             <div data-role="header">
                 <h1><?php echo osc_page_title() ; ?></h1>
             </div>

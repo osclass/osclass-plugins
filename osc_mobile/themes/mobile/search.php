@@ -74,7 +74,7 @@
                 
                 <div class="ui-block" style="padding-top:15px;padding-bottom: 15px;">
                     <?php if(osc_count_items() == 0) { ?>
-                        <p class="empty" ><?php printf(__('There are no results matching "%s"', 'mobile'), osc_search_pattern()) ; ?></p>
+                        <p class="empty" ><?php printf(__('There are no results matching "%s"', 'osc_mobile'), osc_search_pattern()) ; ?></p>
                     <?php } else { ?>
                         <?php require(osc_search_show_as() == 'list' ? 'search_list.php' : 'search_gallery.php') ; ?>
                     <?php } ?>

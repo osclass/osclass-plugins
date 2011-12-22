@@ -303,8 +303,8 @@
     }
     if(!function_exists('mbl_search_pagination')){
         function mbl_search_pagination() {
-            $params = array('text_prev' => sprintf(__('%s Previous', 'twitter_bootstrap'), '&laquo;'),
-                            'text_next' => sprintf(__('Next %s', 'twitter_bootstrap'), '&raquo;')
+            $params = array('text_prev' => sprintf(__('%s Previous', 'osc_mobile'), '&laquo;'),
+                            'text_next' => sprintf(__('Next %s', 'osc_mobile'), '&raquo;')
                             ) ;
             $pagination = new mlb_pagination($params);
             return $pagination->doPagination();
@@ -360,10 +360,10 @@
             switch ($location) {
                 case ('item'):
                     switch ($section) {
-                        case 'item_add':    $text = __('Publish an item','mobile') . ' - ' . osc_page_title(); break;
-                        case 'item_edit':   $text = __('Edit your item','mobile') . ' - ' . osc_page_title(); break;
-                        case 'send_friend': $text = __('Send to a friend','mobile') . ' - ' . osc_item_title() . ' - ' . osc_page_title(); break;
-                        case 'contact':     $text = __('Contact seller','mobile') . ' - ' . osc_item_title() . ' - ' . osc_page_title(); break;
+                        case 'item_add':    $text = __('Publish an item','osc_mobile') . ' - ' . osc_page_title(); break;
+                        case 'item_edit':   $text = __('Edit your item','osc_mobile') . ' - ' . osc_page_title(); break;
+                        case 'send_friend': $text = __('Send to a friend','osc_mobile') . ' - ' . osc_item_title() . ' - ' . osc_page_title(); break;
+                        case 'contact':     $text = __('Contact seller','osc_mobile') . ' - ' . osc_item_title() . ' - ' . osc_page_title(); break;
                         default:            $text = osc_item_title() . ' - ' . osc_page_title(); break;
                     }
                 break;
@@ -380,7 +380,7 @@
                     $i_page = Params::getParam('iPage');
 
                     if($i_page != '' && $i_page > 0) {
-                        $s_page = __('page', 'mobile') . ' ' . ($i_page + 1) . ' - ';
+                        $s_page = __('page', 'osc_mobile') . ' ' . ($i_page + 1) . ' - ';
                     }
 
                     $b_show_all = ($region == '' && $city == '' & $pattern == '' && $category == '');
@@ -390,7 +390,7 @@
                     $b_region   = ($region != '');
 
                     if($b_show_all) {
-                        $text = __('Show all items', 'mobile') . ' - ' . $s_page . osc_page_title();
+                        $text = __('Show all items', 'osc_mobile') . ' - ' . $s_page . osc_page_title();
                     }
 
                     $result = '';
@@ -420,34 +420,34 @@
                     $result = preg_replace('|\s?&raquo;\s$|', '', $result);
 
                     if($result == '') {
-                        $result = __('Search', 'mobile');
+                        $result = __('Search', 'osc_mobile');
                     }
 
                     $text = $result . ' - ' . $s_page . osc_page_title();
                 break;
                 case('login'):
                     switch ($section) {
-                        case('recover'): $text = __('Recover your password','mobile') . ' - ' . osc_page_title();
-                        default:         $text = __('Login','mobile') . ' - ' . osc_page_title();
+                        case('recover'): $text = __('Recover your password','osc_mobile') . ' - ' . osc_page_title();
+                        default:         $text = __('Login','osc_mobile') . ' - ' . osc_page_title();
                     }
                 break;
                 case('register'):
-                    $text = __('Create a new account','mobile') . ' - ' . osc_page_title();
+                    $text = __('Create a new account','osc_mobile') . ' - ' . osc_page_title();
                 break;
                 case('user'):
                     switch ($section) {
-                        case('dashboard'):       $text = __('Dashboard','mobile') . ' - ' . osc_page_title(); break;
-                        case('items'):           $text = __('Manage my items','mobile') . ' - ' . osc_page_title(); break;
-                        case('alerts'):          $text = __('Manage my alerts','mobile') . ' - ' . osc_page_title(); break;
-                        case('profile'):         $text = __('Update my profile','mobile') . ' - ' . osc_page_title(); break;
-                        case('change_email'):    $text = __('Change my email','mobile') . ' - ' . osc_page_title(); break;
-                        case('change_password'): $text = __('Change my password','mobile') . ' - ' . osc_page_title(); break;
-                        case('forgot'):          $text = __('Recover my password','mobile') . ' - ' . osc_page_title(); break;
+                        case('dashboard'):       $text = __('Dashboard','osc_mobile') . ' - ' . osc_page_title(); break;
+                        case('items'):           $text = __('Manage my items','osc_mobile') . ' - ' . osc_page_title(); break;
+                        case('alerts'):          $text = __('Manage my alerts','osc_mobile') . ' - ' . osc_page_title(); break;
+                        case('profile'):         $text = __('Update my profile','osc_mobile') . ' - ' . osc_page_title(); break;
+                        case('change_email'):    $text = __('Change my email','osc_mobile') . ' - ' . osc_page_title(); break;
+                        case('change_password'): $text = __('Change my password','osc_mobile') . ' - ' . osc_page_title(); break;
+                        case('forgot'):          $text = __('Recover my password','osc_mobile') . ' - ' . osc_page_title(); break;
                         default:                 $text = osc_page_title(); break;
                     }
                 break;
                 case('contact'):
-                    $text = __('Contact','mobile') . ' - ' . osc_page_title();
+                    $text = __('Contact','osc_mobile') . ' - ' . osc_page_title();
                 break;
                 default:
                     $text = osc_page_title();
@@ -518,8 +518,6 @@
     {
         $s = substr($s, 0, -3);
         $_s = strtotime($s);
-//        $d_start    = new DateTime($s);
-//        $_s = $d_start->getTimestamp();
         
         $s = time()-$_s;
         

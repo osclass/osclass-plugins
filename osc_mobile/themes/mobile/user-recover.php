@@ -30,7 +30,7 @@
         <div data-role="page">
             <div data-role="header">
                 <a data-icon="back" data-inline="true" data-iconpos="notext" data-rel="back" href=""></a>
-                <h1><?php _e('Recover your password', 'mobile') ; ?></h1>
+                <h1><?php _e('Recover your password', 'osc_mobile') ; ?></h1>
                 <?php osc_show_flash_message() ; ?>
             </div>
 
@@ -39,9 +39,9 @@
                     <input type="hidden" name="page" value="login" />
                     <input type="hidden" name="action" value="recover_post" />
                     <fieldset data-role="fieldcontain">
-                        <label for="email"><?php _e('E-mail', 'mobile') ; ?></label> <?php UserForm::email_text() ; ?><br />
+                        <label for="email"><?php _e('E-mail', 'osc_mobile') ; ?></label> <?php UserForm::email_text() ; ?><br />
                         <?php osc_show_recaptcha('recover_password'); ?>
-                        <button type="submit"><?php _e('Send me a new password', 'mobile') ; ?></button>
+                        <button type="submit"><?php _e('Send me a new password', 'osc_mobile') ; ?></button>
                     </fieldset>
                 </form>
             </div>

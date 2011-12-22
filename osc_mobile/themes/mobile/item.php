@@ -78,19 +78,19 @@ $wSizeImage = 255;
                 <div data-role="navbar">
                     <ul>
                         <li>
-                            <a onclick="$.mobile.showPageLoadingMsg();" data-transition="pop" data-rel="dialog" data-ajax="false" href="<?php echo $_SERVER['REQUEST_URI']; ?>#markas"><strong><?php _e('Mark as', 'mobile') ; ?></strong></a>
+                            <a onclick="$.mobile.showPageLoadingMsg();" data-transition="pop" data-rel="dialog" data-ajax="false" href="<?php echo $_SERVER['REQUEST_URI']; ?>#markas"><strong><?php _e('Mark as', 'osc_mobile') ; ?></strong></a>
                         </li>
                         <?php if( !osc_item_is_expired () ) { ?>
                         <?php     if(osc_reg_user_can_contact() && osc_is_web_user_logged_in() || !osc_reg_user_can_contact() ) { ?>
                         <li>
-                            <a onclick="$.mobile.showPageLoadingMsg();" data-transition="pop" data-ajax="false" data-rel="dialog" href="<?php echo $_SERVER['REQUEST_URI']; ?>#contact"><?php _e('Contact seller', 'mobile') ; ?></a>
+                            <a onclick="$.mobile.showPageLoadingMsg();" data-transition="pop" data-ajax="false" data-rel="dialog" href="<?php echo $_SERVER['REQUEST_URI']; ?>#contact"><?php _e('Contact seller', 'osc_mobile') ; ?></a>
                         </li>
                         <?php     } ?>
                         <?php } ?>
                         <?php if( osc_comments_enabled() ) { ?>
                         <?php   if( osc_reg_user_post_comments () && osc_is_web_user_logged_in() || !osc_reg_user_post_comments() ) { ?>
                         <li>
-                            <a onclick="$.mobile.showPageLoadingMsg();" data-transition="pop" data-ajax="false" data-rel="dialog" href="<?php echo $_SERVER['REQUEST_URI']; ?>#comment"><?php _e('Comment', 'mobile') ; ?></a>
+                            <a onclick="$.mobile.showPageLoadingMsg();" data-transition="pop" data-ajax="false" data-rel="dialog" href="<?php echo $_SERVER['REQUEST_URI']; ?>#comment"><?php _e('Comment', 'osc_mobile') ; ?></a>
                         </li>
                         <?php     } ?>
                         <?php } ?>
@@ -120,17 +120,17 @@ $wSizeImage = 255;
                         <?php } ?>
                     <?php } ?>
                     <div class="ui-block">
-                        <a onclick="$.mobile.showPageLoadingMsg();" data-role="button" data-transition="pop" data-ajax="false" data-rel="dialog" href="<?php echo $_SERVER['REQUEST_URI']; ?>#share"><?php _e('Share', 'mobile'); ?></a>
+                        <a onclick="$.mobile.showPageLoadingMsg();" data-role="button" data-transition="pop" data-ajax="false" data-rel="dialog" href="<?php echo $_SERVER['REQUEST_URI']; ?>#share"><?php _e('Share', 'osc_mobile'); ?></a>
                     </div>
                 </div>
                 <div class="ui-block" style="padding-top:15px;">
                     <ul data-role="listview">
-                        <?php if ( osc_price_enabled_at_items() ) { ?><li><?php _e("Price", 'mobile'); ?>: <strong><?php echo osc_item_formated_price() ; ?></strong></li><?php } ?>
-                        <?php if ( osc_item_country() != "" ) { ?><li><?php _e("Country", 'mobile'); ?>: <strong><?php echo osc_item_country() ; ?></strong></li><?php } ?>
-                        <?php if ( osc_item_region() != "" ) { ?><li><?php _e("Region", 'mobile'); ?>: <strong><?php echo osc_item_region() ; ?></strong></li><?php } ?>
-                        <?php if ( osc_item_city() != "" ) { ?><li><?php _e("City", 'mobile'); ?>: <strong><?php echo osc_item_city() ; ?></strong></li><?php } ?>
-                        <?php if ( osc_item_city_area() != "" ) { ?><li><?php _e("City area", 'mobile'); ?>: <strong><?php echo osc_item_city_area() ; ?></strong></li><?php } ?>
-                        <?php if ( osc_item_address() != "" ) { ?><li><?php _e("Address", 'mobile') ; ?>: <strong><?php echo osc_item_address() ; ?></strong></li><?php } ?>
+                        <?php if ( osc_price_enabled_at_items() ) { ?><li><?php _e("Price", 'osc_mobile'); ?>: <strong><?php echo osc_item_formated_price() ; ?></strong></li><?php } ?>
+                        <?php if ( osc_item_country() != "" ) { ?><li><?php _e("Country", 'osc_mobile'); ?>: <strong><?php echo osc_item_country() ; ?></strong></li><?php } ?>
+                        <?php if ( osc_item_region() != "" ) { ?><li><?php _e("Region", 'osc_mobile'); ?>: <strong><?php echo osc_item_region() ; ?></strong></li><?php } ?>
+                        <?php if ( osc_item_city() != "" ) { ?><li><?php _e("City", 'osc_mobile'); ?>: <strong><?php echo osc_item_city() ; ?></strong></li><?php } ?>
+                        <?php if ( osc_item_city_area() != "" ) { ?><li><?php _e("City area", 'osc_mobile'); ?>: <strong><?php echo osc_item_city_area() ; ?></strong></li><?php } ?>
+                        <?php if ( osc_item_address() != "" ) { ?><li><?php _e("Address", 'osc_mobile') ; ?>: <strong><?php echo osc_item_address() ; ?></strong></li><?php } ?>
                     </ul>  
                 </div>
                 
@@ -140,8 +140,8 @@ $wSizeImage = 255;
                     <?php osc_run_hook('item_detail', osc_item() ) ; ?>
 
                     <div id="type_dates">
-                        <em class="publish"><?php if ( osc_item_pub_date() != '' ) echo __('Published date', 'mobile') . ': ' . osc_format_date( osc_item_pub_date() ) ; ?></em>
-                        <em class="update"><?php if ( osc_item_mod_date() != '' ) echo __('Modified date', 'mobile') . ': ' . osc_format_date( osc_item_mod_date() ) ; ?></em>
+                        <em class="publish"><?php if ( osc_item_pub_date() != '' ) echo __('Published date', 'osc_mobile') . ': ' . osc_format_date( osc_item_pub_date() ) ; ?></em>
+                        <em class="update"><?php if ( osc_item_mod_date() != '' ) echo __('Modified date', 'osc_mobile') . ': ' . osc_format_date( osc_item_mod_date() ) ; ?></em>
                     </div>
 
                 </div>
@@ -149,17 +149,17 @@ $wSizeImage = 255;
                 <?php if( osc_comments_enabled() ) { ?>
                     <?php if( osc_reg_user_post_comments () && osc_is_web_user_logged_in() || !osc_reg_user_post_comments() ) { ?>
                     <div id="comments">
-                        <h3><?php _e('Comments', 'mobile'); ?></h3>
+                        <h3><?php _e('Comments', 'osc_mobile'); ?></h3>
                         <ul id="comment_error_list"></ul>
                         <?php if( osc_count_item_comments() >= 1 ) { ?>
                             <div class="comments_list">
                                 <?php while ( osc_has_item_comments() ) { ?>
                                     <div class="comment">
-                                        <h4><strong><?php echo osc_comment_title() ; ?></strong> <em><?php _e("by", 'mobile') ; ?> <?php echo osc_comment_author_name() ; ?>:</em></h4>
+                                        <h4><strong><?php echo osc_comment_title() ; ?></strong> <em><?php _e("by", 'osc_mobile') ; ?> <?php echo osc_comment_author_name() ; ?>:</em></h4>
                                         <p><?php echo osc_comment_body() ; ?> </p>
                                         <?php if ( osc_comment_user_id() && (osc_comment_user_id() == osc_logged_user_id()) ) { ?>
                                         <p>
-                                            <a rel="nofollow" href="<?php echo osc_delete_comment_url(); ?>" title="<?php _e('Delete your comment', 'mobile'); ?>"><?php _e('Delete', 'mobile'); ?></a>
+                                            <a rel="nofollow" href="<?php echo osc_delete_comment_url(); ?>" title="<?php _e('Delete your comment', 'osc_mobile'); ?>"><?php _e('Delete', 'osc_mobile'); ?></a>
                                         </p>
                                         <?php } ?>
                                     </div>
@@ -183,16 +183,16 @@ $wSizeImage = 255;
         <!-- Start of MARKAS page -->
         <div data-role="dialog" data-theme="a" id="markas">
             <div data-theme="a" data-role="header">
-                <h1><?php _e("Mark as", 'mobile') ; ?></h1>
+                <h1><?php _e("Mark as", 'osc_mobile') ; ?></h1>
             </div><!-- /header -->
 
             <div data-theme="a" data-role="content">
                 <div data-theme="a" data-role="controlgroup">
-                    <a href="<?php echo osc_item_link_spam() ; ?>" data-role="button"><?php _e('spam', 'mobile') ; ?></a>
-                    <a href="<?php echo osc_item_link_bad_category() ; ?>" data-role="button"><?php _e('misclassified', 'mobile') ; ?></a>
-                    <a href="<?php echo osc_item_link_repeated() ; ?>" data-role="button"><?php _e('duplicated', 'mobile') ; ?></a>
-                    <a href="<?php echo osc_item_link_expired() ; ?>" data-role="button"><?php _e('expired', 'mobile') ; ?></a>
-                    <a href="<?php echo osc_item_link_offensive() ; ?>" data-role="button"><?php _e('offensive', 'mobile') ; ?></a>
+                    <a href="<?php echo osc_item_link_spam() ; ?>" data-role="button"><?php _e('spam', 'osc_mobile') ; ?></a>
+                    <a href="<?php echo osc_item_link_bad_category() ; ?>" data-role="button"><?php _e('misclassified', 'osc_mobile') ; ?></a>
+                    <a href="<?php echo osc_item_link_repeated() ; ?>" data-role="button"><?php _e('duplicated', 'osc_mobile') ; ?></a>
+                    <a href="<?php echo osc_item_link_expired() ; ?>" data-role="button"><?php _e('expired', 'osc_mobile') ; ?></a>
+                    <a href="<?php echo osc_item_link_offensive() ; ?>" data-role="button"><?php _e('offensive', 'osc_mobile') ; ?></a>
                 </div>
             </div><!-- /content -->
         </div><!-- /page -->
@@ -200,7 +200,7 @@ $wSizeImage = 255;
         <!-- Start of CONTACT page -->
         <div data-role="dialog" data-theme="a" id="contact">
             <div data-theme="a" data-role="header">
-                <h1><?php _e('Contact us', 'mobile') ; ?></h1>
+                <h1><?php _e('Contact us', 'osc_mobile') ; ?></h1>
             </div><!-- /header -->
 
             <div data-theme="a" data-role="content">
@@ -210,19 +210,19 @@ $wSizeImage = 255;
                         <?php ContactForm::action_hidden() ; ?>
                         <?php ContactForm::page_hidden() ; ?>
                         <fieldset>
-                            <p><?php _e('To (seller)', 'mobile'); ?>: <?php echo osc_item_contact_name() ;?></p>
-                            <p><?php _e('Item', 'mobile'); ?>: <a href="<?php echo osc_item_url(); ?>"><?php echo osc_item_title() ; ?></a></p>
+                            <p><?php _e('To (seller)', 'osc_mobile'); ?>: <?php echo osc_item_contact_name() ;?></p>
+                            <p><?php _e('Item', 'osc_mobile'); ?>: <a href="<?php echo osc_item_url(); ?>"><?php echo osc_item_title() ; ?></a></p>
                             <?php if(osc_is_web_user_logged_in()) { ?>
                                 <input type="hidden" name="yourName" value="<?php echo osc_logged_user_name(); ?>" />
                                 <input type="hidden" name="yourEmail" value="<?php echo osc_logged_user_email();?>" />
                             <?php } else { ?>
-                                <label for="yourName"><?php _e('Your name', 'mobile'); ?></label> <?php ContactForm::your_name(); ?><br/>
-                                <label for="yourEmail"><?php _e('Your e-mail address', 'mobile'); ?></label> <?php ContactForm::your_email(); ?><br />
+                                <label for="yourName"><?php _e('Your name', 'osc_mobile'); ?></label> <?php ContactForm::your_name(); ?><br/>
+                                <label for="yourEmail"><?php _e('Your e-mail address', 'osc_mobile'); ?></label> <?php ContactForm::your_email(); ?><br />
                             <?php }; ?>
-                            <label for="phoneNumber"><?php _e('Phone number', 'mobile'); ?> (<?php _e('optional', 'mobile'); ?>)</label> <?php ContactForm::your_phone_number(); ?><br/>
-                            <label for="message"><?php _e('Message', 'mobile'); ?></label> <?php ContactForm::your_message(); ?><br />
+                            <label for="phoneNumber"><?php _e('Phone number', 'osc_mobile'); ?> (<?php _e('optional', 'osc_mobile'); ?>)</label> <?php ContactForm::your_phone_number(); ?><br/>
+                            <label for="message"><?php _e('Message', 'osc_mobile'); ?></label> <?php ContactForm::your_message(); ?><br />
                             <?php osc_show_recaptcha(); ?>
-                            <button type="submit"><?php _e('Send message', 'mobile'); ?></button>
+                            <button type="submit"><?php _e('Send message', 'osc_mobile'); ?></button>
                         </fieldset>
                     </form>
                 </div>
@@ -232,7 +232,7 @@ $wSizeImage = 255;
         <!-- Start of COMMENT page -->
         <div data-role="dialog" data-theme="a" id="comment">
             <div data-theme="a" data-role="header">
-                <h1><?php _e('Leave your comment', 'mobile') ; ?></h1>
+                <h1><?php _e('Leave your comment', 'osc_mobile') ; ?></h1>
             </div><!-- /header -->
 
             <div data-theme="a" data-role="content">
@@ -246,12 +246,12 @@ $wSizeImage = 255;
                                 <input type="hidden" name="authorName" value="<?php echo osc_logged_user_name(); ?>" />
                                 <input type="hidden" name="authorEmail" value="<?php echo osc_logged_user_email();?>" />
                             <?php } else { ?>
-                                <label for="authorName"><?php _e('Your name', 'mobile') ; ?>:</label> <?php CommentForm::author_input_text(); ?><br />
-                                <label for="authorEmail"><?php _e('Your e-mail', 'mobile') ; ?>:</label> <?php CommentForm::email_input_text(); ?><br />
+                                <label for="authorName"><?php _e('Your name', 'osc_mobile') ; ?>:</label> <?php CommentForm::author_input_text(); ?><br />
+                                <label for="authorEmail"><?php _e('Your e-mail', 'osc_mobile') ; ?>:</label> <?php CommentForm::email_input_text(); ?><br />
                             <?php }; ?>
-                            <label for="title"><?php _e('Title', 'mobile') ; ?>:</label><?php CommentForm::title_input_text(); ?><br />
-                            <label for="body"><?php _e('Comment', 'mobile') ; ?>:</label><?php CommentForm::body_input_textarea(); ?><br />
-                            <button type="submit"><?php _e('Send', 'mobile') ; ?></button>
+                            <label for="title"><?php _e('Title', 'osc_mobile') ; ?>:</label><?php CommentForm::title_input_text(); ?><br />
+                            <label for="body"><?php _e('Comment', 'osc_mobile') ; ?>:</label><?php CommentForm::body_input_textarea(); ?><br />
+                            <button type="submit"><?php _e('Send', 'osc_mobile') ; ?></button>
                         </fieldset>
                     </form>
                 </div>
@@ -262,7 +262,7 @@ $wSizeImage = 255;
         <!-- Start of SHARE page -->
         <div data-role="dialog" data-theme="a" id="share">
             <div data-theme="a" data-role="header">
-                <h1><?php _e('Send to a friend', 'mobile'); ?></h1>
+                <h1><?php _e('Send to a friend', 'osc_mobile'); ?></h1>
             </div><!-- /header -->
 
             <div data-theme="a" data-role="content">
@@ -272,20 +272,20 @@ $wSizeImage = 255;
                             <input type="hidden" name="action" value="send_friend_post" />
                             <input type="hidden" name="page" value="item" />
                             <input type="hidden" name="id" value="<?php echo osc_item_id(); ?>" />
-                            <label><?php _e('Item', 'mobile'); ?>: <a href="<?php echo osc_item_url( ); ?>"><?php echo osc_item_title(); ?></a></label><br/>
+                            <label><?php _e('Item', 'osc_mobile'); ?>: <a href="<?php echo osc_item_url( ); ?>"><?php echo osc_item_title(); ?></a></label><br/>
                             <?php if(osc_is_web_user_logged_in()) { ?>
                                 <input type="hidden" name="yourName" value="<?php echo osc_logged_user_name(); ?>" />
                                 <input type="hidden" name="yourEmail" value="<?php echo osc_logged_user_email();?>" />
                             <?php } else { ?>
-                                <label for="yourName"><?php _e('Your name', 'mobile'); ?></label> <?php SendFriendForm::your_name(); ?> <br/>
-                                <label for="yourEmail"><?php _e('Your e-mail address', 'mobile'); ?></label> <?php SendFriendForm::your_email(); ?> <br/>
+                                <label for="yourName"><?php _e('Your name', 'osc_mobile'); ?></label> <?php SendFriendForm::your_name(); ?> <br/>
+                                <label for="yourEmail"><?php _e('Your e-mail address', 'osc_mobile'); ?></label> <?php SendFriendForm::your_email(); ?> <br/>
                             <?php }; ?>
-                            <label for="friendName"><?php _e("Your friend's name", 'mobile'); ?></label> <?php SendFriendForm::friend_name(); ?> <br/>
-                            <label for="friendEmail"><?php _e("Your friend's e-mail address", 'mobile'); ?></label> <?php SendFriendForm::friend_email(); ?> <br/>
-                            <label for="message"><?php _e('Message', 'mobile'); ?></label> <?php SendFriendForm::your_message(); ?> <br/>
+                            <label for="friendName"><?php _e("Your friend's name", 'osc_mobile'); ?></label> <?php SendFriendForm::friend_name(); ?> <br/>
+                            <label for="friendEmail"><?php _e("Your friend's e-mail address", 'osc_mobile'); ?></label> <?php SendFriendForm::friend_email(); ?> <br/>
+                            <label for="message"><?php _e('Message', 'osc_mobile'); ?></label> <?php SendFriendForm::your_message(); ?> <br/>
                             <?php osc_show_recaptcha(); ?>
                             <br/>
-                            <button type="submit"><?php _e('Send', 'mobile'); ?></button>
+                            <button type="submit"><?php _e('Send', 'osc_mobile'); ?></button>
                         </fieldset>
                     </form>
                 </div>
