@@ -37,7 +37,8 @@
             return self::$instance ;
         }
 
-        public function __construct() {
+        public function __construct()
+        {
             parent::__construct() ;
             $this->setTableName( 't_facebook_connect' ) ;
             $this->setPrimaryKey( 'fk_i_user_id' ) ;

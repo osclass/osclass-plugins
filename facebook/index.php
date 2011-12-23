@@ -33,6 +33,15 @@ Short Name: facebook
                                                      ,osc_get_preference('fbc_secret', 'facebook_connect') ) ;
     }
 
+    /**
+     * Just in case you want to customize the loign button with some imag
+     *
+     * @return string Facebook login url
+     */
+    function fbc_login_url() {
+        return OSCFacebook::newInstance()->loginUrl() ;
+    }
+
     function fbc_button() {
         $user = OSCFacebook::newInstance()->getUser() ;
 

@@ -1,6 +1,11 @@
 Changelog Facebook connect
 ==========================
 
+###version 1.0 - 23/12/2011
+
+* Stable version
+* Function to get the facebook login url just in case you want to customize your login button/text
+
 ###version 1.0-alpha - 21/12/2011
 
 * Updated language strings
