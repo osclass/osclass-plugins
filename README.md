@@ -12,7 +12,7 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Dating attributes](https://github.com/osclass/osclass-plugins/tree/dating_attributes)
 - [List themes](https://github.com/osclass/osclass-plugins/tree/demo_theme)
 - [Extra feeds](https://github.com/osclass/osclass-plugins/tree/extra_feeds)
-- [Facebook](https://github.com/osclass/osclass-plugins/tree/facebook) _beta version_
+- [Facebook](https://github.com/osclass/osclass-plugins/tree/facebook)
 - [Google Anaylitics](https://github.com/osclass/osclass-plugins/tree/google_analytics)
 - [Google Maps](https://github.com/osclass/osclass-plugins/tree/google_maps)
 - [Jobs attributes](https://github.com/osclass/osclass-plugins/tree/jobs_attributes)
