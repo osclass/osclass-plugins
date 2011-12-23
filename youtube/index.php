@@ -41,7 +41,6 @@ Plugin update URI:
     }
 
     function youtube_form($catID = null) {
-        echo 'hola' ;
         require_once( YOUTUBE_PATH . 'item_form.php' ) ;
     }
 
