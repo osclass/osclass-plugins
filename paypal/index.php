@@ -224,7 +224,7 @@ Short Name: paypal
     * Create a menu on the admin panel
     */
     function paypal_admin_menu() {
-        echo '<h3><a href="#">Paypal Options</a></h3>
+        echo '<h3><a href="#">' . __('Paypal Options', 'paypal') . '</a></h3>
         <ul> 
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Paypal Options', 'paypal') . '</a></li>
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf_prices.php') . '">&raquo; ' . __('Categories fees', 'paypal') . '</a></li>

@@ -1,0 +1,417 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: paypal plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-29 15:43+0100\n"
+"PO-Revision-Date: 2011-12-29 15:54+0100\n"
+"Last-Translator: carlos <carlos@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: /Users/ssuareza/projects/osclass-plugins/paypal\n"
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/cancel.php:17
+#: /Users/ssuareza/projects/osclass-plugins/paypal/cancel.php:31
+msgid "You cancel the payment process or there was an error. If the error continue, please contact the administrator"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/cancel.php:31
+msgid "If you do not want to continue the process"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/cancel.php:31
+msgid "click here"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:32
+msgid "Congratulations. The plugin is now configured"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:47
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf_prices.php:46
+#: /Users/ssuareza/projects/osclass-plugins/paypal/index.php:229
+msgid "Paypal Options"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:54
+msgid "API username"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:56
+msgid "API password"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:58
+msgid "API signature"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:60
+msgid "Paypal email"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:65
+msgid "Use standard payment"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:67
+msgid "Sandbox environment"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:72
+msgid "Allow premium ads"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:74
+msgid "Default premium cost"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:76
+msgid "Premium days"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:79
+msgid "Pay per post ads"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:81
+msgid "Default publish cost"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:83
+msgid "Currency (3-character code)"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:109
+msgid "You could specify up to 3 'packs' that users can buy, so they don't need to pay each time they publish an ad. The credit from the pack will be stored for later uses."
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:115
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:117
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:119
+#, php-format
+msgid "Price of pack #%d"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:121
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf_prices.php:83
+msgid "Update"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:129
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf_prices.php:91
+msgid "Help"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:130
+msgid "API or Standard Payments?"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:132
+msgid "API payments give you more control over the payment process, it's required for digital goods & micropayments (Note: Not all countries are allowed to have digital goods & micropayments processes). On the other side standard payments are simple, less customizable but works everywhere."
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:134
+msgid "Micropayments offers a reduction on the fee to pay Paypal for orders under 4$ (or equivalent), around 5cents + 5% while standard payments have a fee around 30cents + 5%. Due the nature of OSClass is recommended to use micropayments, but we're aware that they're not available worldwide. Please check with Paypal the avalaibility of the service in your area."
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:137
+msgid "Setting up your Paypal account for Standard Payments"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:139
+msgid "Introduce your paypal email and check the \"Use Standard Payment\" option here."
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:141
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:153
+msgid "You need Paypal API credentials (before entering here your API credentials, MODIFY index.php file of this plugin and change the value of PAYPAL_CRYPT_KEY variable to make your API more secure)"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:143
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:155
+msgid "You need to tell Paypal where is your IPN file"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:145
+msgid "Setting up your Paypal account for micropayments/API"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:147
+msgid "Before being able to use Paypal plugin, you need to set up some configuration at your Paypal account"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:149
+msgid "Your Paypal account has to be set as Business or Premier, you could change that at Your Profile, under My Settings"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:151
+#, php-format
+msgid "You need to sign in up for micropayments/digital good <a href=\"%s\">from here</a>."
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:157
+msgid "Setting up your IPN"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:159
+msgid "Click Profile on the My Account tab"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:161
+msgid "Click Instant Payment Notification Preferences in the Selling Preferences column"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:163
+msgid "Click Choose IPN Settings to specify your listener’s URL and activate the listener (usually is http://www.yourdomain.com/oc-content/plugins/paypal/notify_url.php)"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:165
+msgid "How to obtain API credentials"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:167
+msgid "In order to use the Paypal plugin you will need Paypal API credentials, you could obtain them for free following theses steps"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:169
+msgid "Verify your account status. Go to your PayPal Profile under My Settings and verify that your Account Type is Premier or Business, or upgrade your account"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf.php:171
+msgid "Verify your API settings. Click on My Selling Tools. Click Selling Online and verify your API access. Click Update to view or set up your API signature and credentials"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf_prices.php:55
+msgid "Category Name"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf_prices.php:56
+#, php-format
+msgid "Publish fee (%s)"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf_prices.php:57
+#, php-format
+msgid "Premium fee (%s)"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf_prices.php:92
+msgid "Setting up your fees"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf_prices.php:94
+msgid "You could set up different prices for each category"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/conf_prices.php:94
+msgid "If the price of a category is left empty, the default value will be applied"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/index.php:108
+msgid "Pay with your credit"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/index.php:230
+msgid "Categories fees"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/index.php:303
+msgid "Item payment status"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/index.php:305
+msgid "Buy credit for payments"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/index.php:403
+msgid "Pay to publish it"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/index.php:418
+msgid "Make this ad premium"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/index.php:476
+msgid "You need to pay the publish fee in order to make the ad public to the rest of users"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/index.php:479
+msgid "Sorry, this ad is not available at the moment"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:19
+msgid "Make the ad premium"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:22
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:23
+msgid "Item's title"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:23
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:24
+msgid "Item's description"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:26
+msgid "In order to make premium your ad , it's required to pay a fee"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:27
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:28
+#, php-format
+msgid "The current fee for this category is: %.2f %s"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:32
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:34
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:37
+#, php-format
+msgid "Premium fee for item %d at %s"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:50
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:59
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:68
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:77
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:51
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:60
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:69
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:78
+msgid "There was an error"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:52
+msgid "There's no need to pay the premium fee"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:61
+msgid "The item is already a premium ad"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:70
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:71
+msgid "The item doesn not exists"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/makepremium.php:79
+msgid "Premiums ads are not allowed"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:20
+msgid "Continue the publish process"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:27
+msgid "In order to make visible your ad to other users, it's required to pay a fee"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:33
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:35
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:38
+#, php-format
+msgid "Publish fee for item %d at %s"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:53
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:80
+msgid "There's no need to pay the publish fee"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/payperpublish.php:62
+msgid "The publish fee is already paid"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:25
+msgid "We are processing your payment, if we did not finish in a few seconds, please contact us"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:34
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:120
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:134
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:146
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:147
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:151
+#: /Users/ssuareza/projects/osclass-plugins/paypal/wallet.php:75
+msgid "Payment processed correctly"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:120
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:134
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:147
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:157
+msgid "Click here to continue"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:157
+msgid "There was a problem processing your payment. Please contact the administrators and"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/return.php:159
+msgid "There was a problem processing your payment. Please contact the administrators"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu.php:16
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu_pack.php:19
+msgid "User account manager"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu.php:22
+msgid "Paypal & your items"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu.php:24
+msgid "You don't have any items yet"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu.php:32
+msgid "Publication date"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu.php:33
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu_pack.php:30
+msgid "Price"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu.php:38
+msgid "Paid!"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu.php:40
+msgid "Pay for this item"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu.php:48
+msgid "Already premium!"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu.php:50
+msgid "Make premium"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu_pack.php:25
+#, php-format
+msgid "Credit packs. Your current credit is %.2f %s"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu_pack.php:29
+#, php-format
+msgid "Credit pack #%d"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/user_menu_pack.php:33
+#, php-format
+msgid "Credit for %s %s at %s"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/paypal/wallet.php:78
+msgid "There were some errors, please try again later or contact the administrators"
+msgstr ""
+
