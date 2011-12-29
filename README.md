@@ -23,6 +23,7 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Paypal](https://github.com/osclass/osclass-plugins/tree/paypal)
 - [Piwik Analytics](https://github.com/osclass/osclass-plugins/tree/piwik)
 - [Products attributes](https://github.com/osclass/osclass-plugins/tree/products_attributes)
+- [QR Code](https://github.com/osclass/osclass-plugins/tree/qrcode)
 - [Real Estate attributes](https://github.com/osclass/osclass-plugins/tree/realstate_attributes)
 - [Registered users only](https://github.com/osclass/osclass-plugins/tree/registered_users_only)
 - [Rich Edit](https://github.com/osclass/osclass-plugins/tree/rich_edit)
