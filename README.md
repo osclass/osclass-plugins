@@ -22,6 +22,7 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [More Edit](https://github.com/osclass/osclass-plugins/tree/more_edit)
 - [Paypal](https://github.com/osclass/osclass-plugins/tree/paypal)
 - [Piwik Analytics](https://github.com/osclass/osclass-plugins/tree/piwik)
+- [Print PDF] (https://github.com/osclass/osclass-plugins/tree/printpdf)
 - [Products attributes](https://github.com/osclass/osclass-plugins/tree/products_attributes)
 - [QR Code](https://github.com/osclass/osclass-plugins/tree/qrcode)
 - [Real Estate attributes](https://github.com/osclass/osclass-plugins/tree/realstate_attributes)
