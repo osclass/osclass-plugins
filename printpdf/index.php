@@ -3,7 +3,7 @@
 Plugin Name: Print PDF
 Plugin URI: http://www.osclass.org/
 Description: Create a PDF ready to print and share offline
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: printpdf
@@ -58,7 +58,9 @@ Short Name: printpdf
     }
     
     
-    
+    function show_printpdf() {
+        echo '<a href="'.osc_base_url().'oc-content/plugins/'.osc_plugin_folder(__FILE__).'/download.php?item='.osc_item_id().'" class="printpdf_link" >'.__('Download PDF', 'printpdf').'</a>';
+    }
     
     
     function printpdf_shorturl($url)  {  
