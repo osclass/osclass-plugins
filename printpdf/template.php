@@ -64,7 +64,7 @@
         $width = 100;
         $height = $bottom_y-$y-20;
         
-        $data = getimagesize(osc_resource_original_url());
+        $data = getimagesize(osc_resource_url());
         $w = $data[0];
         $h = $data[1];
 
@@ -76,7 +76,7 @@
             $newW = $w * ($newH / $h);
         }
         
-        $pdf->Image(osc_resource_original_url(), 20 + (($width-$newW)/2), $y+10 + (($height-$newH)/2), $newW, $newH);
+        $pdf->Image(osc_resource_url(), 20 + (($width-$newW)/2), $y+10 + (($height-$newH)/2), $newW, $newH);
         $x = 140;
     } else {
         $x = 20;

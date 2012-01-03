@@ -3,7 +3,7 @@
 Plugin Name: Print PDF
 Plugin URI: http://www.osclass.org/
 Description: Create a PDF ready to print and share offline
-Version: 1.0.1
+Version: 1.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: printpdf
