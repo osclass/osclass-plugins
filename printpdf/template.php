@@ -1,32 +1,39 @@
 <?php
 
-    require_once('fpdf/pdf_rotation.php');
+    require_once('tcpdf/config/lang/eng.php');
+    require_once('tcpdf/tcpdf.php');
 
-    class PDF extends PDF_Rotate {
+    class TCPDF_Rotate extends TCPDF {
         function RotatedText($x,$y,$txt,$angle) {
             //Text rotated around its origin
+            //$this->SetXY($x,$y);
+            $this->StartTransform();
             $this->Rotate($angle,$x,$y);
             $this->Text($x,$y,$txt);
-            $this->Rotate(0);
+            $this->StopTransform();
+            //$this->Rotate(-$angle);
         }
 
         function RotatedMultiText($x,$y,$txt,$angle) {
             //Text rotated around its origin
             $this->SetXY($x,$y);
+            $this->StartTransform();
             $this->Rotate($angle,$x,$y);
             $this->MultiCell((205-$y), 4, $txt);
-            $this->Rotate(0);
+            $this->StopTransform();
+            //$this->Rotate(-$angle);
         }
 
         function RotatedImage($file,$x,$y,$w,$h,$angle) {
             //Image rotated around its upper-left corner
             $this->Rotate($angle,$x,$y);
             $this->Image($file,$x,$y,$w,$h);
-            $this->Rotate(0);
+            $this->Rotate(-$angle);
         }
+        
     }
 
-    $pdf=new PDF('L', 'mm');
+    $pdf=new TCPDF_Rotate('L', 'mm', 'A4', true, 'UTF-8', false);
     $pdf->SetTitle((osc_item_title()));
     $pdf->SetAuthor(osc_page_title());
     
@@ -44,15 +51,20 @@
     $pdf->SetXY($x,10);
     $pdf->SetFillColor(255,255,255);
     $pdf->SetTextColor(255,0,50); // TITLE COLOR
-    $pdf->SetFont('Arial','B',24);
-    $pdf->Cell(0,9,  utf8_decode(html_entity_decode(osc_item_title())),'',1,'L', false);
+    $pdf->SetFont('helvetica','B',24);
+    $pdf->Cell(0,9,  osc_item_title(),'',1,'L', false);
     $pdf->SetTextColor(0,0,0); // BLACK COLOR
         // Contact information
-        $pdf->SetFont('Arial','B',10);
+        $pdf->SetFont('helvetica','B',10);
         $pdf->setX($x);
-        $pdf->Cell(0,4,  sprintf(__('Contact: %s', 'printpdf'), utf8_decode(html_entity_decode(osc_item_contact_name()))),'',1,'L', false);
+        $pdf->Cell(0,4,  sprintf(__('Contact: %s', 'printpdf'), osc_item_contact_name()),'',1,'L', false);
+
+        // QR-CODE
+        $y = $pdf->GetY();
+        $pdf->write2DBarcode(osc_item_url(), 'QRCODE,L', 295 - 10 -20, $y, 20, 20);
+        
         $pdf->setX($x);
-        $pdf->Cell(0,4,  sprintf(__('Email: %s', 'printpdf'), utf8_decode(html_entity_decode(osc_item_contact_email()))),'',1,'L', false);
+        $pdf->Cell(0,4,  sprintf(__('Email: %s', 'printpdf'), osc_item_contact_email()),'',1,'L', false);
         $pdf->setX($x);
         $pdf->Cell(0,4,  (osc_item_url()),'',1,'L', false, (osc_item_url()));
 
@@ -89,37 +101,32 @@
         if ( osc_item_city_area() != "" ) { $address_array[] = osc_item_city_area() ; }
         if ( osc_item_city() != "" ) { $address_array[] = osc_item_city() ; }
         
-        $address = utf8_decode(html_entity_decode(implode(", ", $address_array)));
+        $address = implode(", ", $address_array);
         
-        $pdf->SetFont('Arial','',10);
+        $pdf->SetFont('helvetica','',10);
         $pdf->setX($x);
         $pdf->Cell(0,4,  __('Address:', 'printpdf'),'',0,'L', false);
-        $pdf->SetFont('Arial','B',10);
+        $pdf->SetFont('helvetica','B',10);
         $pdf->setX($x+50);
         $pdf->Cell(0,4,  $address,'',0,'L', false);
         $pdf->Ln();
-        $pdf->SetFont('Arial','',10);
+        $pdf->SetFont('helvetica','',10);
         $pdf->setX($x);
         $pdf->Cell(0,4,  __('Price:', 'printpdf'),'',0,'L', false);
-        $pdf->SetFont('Arial','B',10);
+        $pdf->SetFont('helvetica','B',10);
         $pdf->setX($x+50);
         $pdf->Cell(0,4,  osc_item_formated_price(),'',0,'L', false);
         $pdf->Ln();
     // DESCRIPTION
     $pdf->Ln();
-    $pdf->SetFont('Arial','',10);
+    $pdf->SetFont('helvetica','',10);
     $pdf->setX($x);
-    $pdf->MultiCell(0,4,  strip_tags(preg_replace("|<br([^>]*)>|i", "\n\n", (html_entity_decode(osc_item_description())))),0,'J', false);
+    $y = $pdf->GetY();
+    
+    $pdf->MultiCell(0,4, strip_tags(osc_item_description()),0,'J', false, 0, $x, $y, true, 0, false, true, 80);
+    //$pdf->writeHTMLCell(0,4, $x, $y,"<div style=\"height:100px\">".osc_item_description()."</div>",0,'J', false, 100);
     
     
-    // QR-CODE
-    if(function_exists('qrcode_generateqr')) {
-        $img_filename = osc_item_id()."_".md5(osc_item_url())."_2.png";
-        if(!file_exists(osc_get_preference('upload_path', 'qrcode').$img_filename)) {
-            qrcode_generateqr(osc_item_url(), osc_item_id(), 2);
-        }
-        $pdf->Image(osc_get_preference('upload_url', 'qrcode').$img_filename, 295 - 10 -20, $bottom_y - 10 -20, 20);
-    }
     
     
     
@@ -129,22 +136,20 @@
     $pdf->Line($x, $y, 300, $y);
     for($i = 0;$i<10;$i++) {
 
-        if(function_exists('qrcode_generateqr')) {
-            $img_filename = osc_item_id()."_".md5(osc_item_url())."_2.png";
-            $pdf->Image(osc_get_preference('upload_url', 'qrcode').$img_filename, $x + (29.5*$i) + 5 , $bottom_y + 2, 20);
-            $y = $bottom_y + 19;
-        }
+        // QR-CODE
+        $pdf->write2DBarcode(osc_item_url(), 'QRCODE,L', $x + (29.5*$i) + 2 + (3*(10-$i)/10) , $bottom_y + 2, 20, 20);
+        $y = $bottom_y + 19;
         
         // Title
-        $pdf->SetFont('Arial','B',10);
+        $pdf->SetFont('helvetica','B',10);
         $pdf->SetTextColor(255,0,50); // TITLE COLOR
-        $pdf->RotatedMultiText($x + (29.5*$i) + 24 , $y+5, utf8_decode(html_entity_decode(osc_item_title())), 270);
+        $pdf->RotatedMultiText($x + (29.5*$i) + 24 , $y+5, osc_item_title(), 270);
         // Contact
-        $pdf->SetFont('Arial','',8);
+        $pdf->SetFont('helvetica','',8);
         $pdf->SetTextColor(0,0,0); // BLACK COLOR
-        $pdf->RotatedText($x + (29.5*$i) + 14 , $y+5, utf8_decode(html_entity_decode(osc_item_contact_name())), 270);
+        $pdf->RotatedText($x + (29.5*$i) + 14 , $y+5, osc_item_contact_name(), 270);
         // Email
-        $pdf->RotatedText($x + (29.5*$i) + 10 , $y+5, utf8_decode(html_entity_decode(osc_item_contact_email())), 270);
+        $pdf->RotatedText($x + (29.5*$i) + 10 , $y+5, osc_item_contact_email(), 270);
         // URL
         $pdf->SetTextColor(0,0,155); // BLUE COLOR
         $short_url = printpdf_shorturl(osc_item_url());
@@ -153,6 +158,7 @@
             $pdf->Line((29.5*($i+1)), $bottom_y, (29.5*($i+1)), 210);
         }
         $pdf->SetTextColor(0,0,0); // BLACK COLOR
+ 
     }
     
     

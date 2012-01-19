@@ -19,6 +19,8 @@
         $filename = osc_item_id()."_".osc_sanitizeString(osc_item_title())."_".$lang.".pdf";
         $path = osc_get_preference('upload_path', 'printpdf').$filename;
 
+        
+        @unlink($path);
         if(!file_exists($path)) {
             require_once("template.php");
         }
