@@ -3,7 +3,7 @@
 Plugin Name: Embed Youtube videos
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends the item to embed youtube videos.
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: youtube
@@ -41,6 +41,8 @@ Plugin update URI:
     }
 
     function youtube_form($catID = null) {
+        $detail = array( 's_youtube' => '' ) ;
+
         require_once( YOUTUBE_PATH . 'item_form.php' ) ;
     }
 

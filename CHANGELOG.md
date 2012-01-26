@@ -1,6 +1,11 @@
 Changelog Embed youtube videos
 ==============================
 
+##version 1.0.1 - 26/01/2012
+
+* Fixed a PHP Notice error when adding a new item
+* Added new languages: portuguese, portuguese (BR), romanian, albanian
+
 ##version 1.0 - 23/12/2011
 
 * Improved compatibility with version 2.3+
