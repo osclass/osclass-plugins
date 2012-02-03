@@ -1,21 +1,20 @@
         <div class="votes_stars">
+            <div style="float:left;padding-right: 5px;"><?php echo osc_item_contact_name() ; ?></div>
             <?php if( $vote['can_vote'] ) { ?>
             <div class="votes_vote">
-                <div class="votes_txt_vote"><?php _e('Vote', 'voting');?></div>
                 <div class="votes_star">
                     <span id="">
-                        <a href="#" rel="nofollow" title="<?php _e('Without interest', 'voting');?>" class="aPs vote1"></a>
-                        <a href="#" rel="nofollow" title="<?php _e('Uninteresting', 'voting');?>" class="aPs vote2"></a>
-                        <a href="#" rel="nofollow" title="<?php _e('Interesting', 'voting');?>" class="aPs vote3"></a>
-                        <a href="#" rel="nofollow" title="<?php _e('Very interesting', 'voting');?>" class="aPs vote4"></a>
-                        <a href="#" rel="nofollow" title="<?php _e('Essential', 'voting');?>" class="aPs vote5"></a>
+                        <a href="#" rel="nofollow" title="<?php _e('Without interest', 'voting');?>" class="aPvu vote1"></a>
+                        <a href="#" rel="nofollow" title="<?php _e('Uninteresting', 'voting');?>" class="aPvu vote2"></a>
+                        <a href="#" rel="nofollow" title="<?php _e('Interesting', 'voting');?>" class="aPvu vote3"></a>
+                        <a href="#" rel="nofollow" title="<?php _e('Very interesting', 'voting');?>" class="aPvu vote4"></a>
+                        <a href="#" rel="nofollow" title="<?php _e('Essential', 'voting');?>" class="aPvu vote5"></a>
                     </span>
                 </div>
                 <img width="1" height="19" alt="" src="<?php echo $path; ?>/img/ico_separator.gif">
             </div>
             <?php } ?>
             <div class="votes_results">
-                <span style="float:left; padding-right: 4px;"><?php _e('Result', 'voting');?>  </span>
                 <?php 
                     $avg_vote = $vote['vote'];
                 ?>

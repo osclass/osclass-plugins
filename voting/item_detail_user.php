@@ -3,7 +3,7 @@
     <script type="text/javascript">
     $(document).ready(function(){
         
-        $('.aPs').live('click', function(){
+        $('.aPvu').live('click', function(){
             var params = '';
             var vote   = 0;
             if( $(this).hasClass('vote1') ) vote = 1;
@@ -12,20 +12,20 @@
             if( $(this).hasClass('vote4') ) vote = 4;
             if( $(this).hasClass('vote5') ) vote = 5;
 
-            var itemId = <?php echo osc_item_id(); ?>;
-            params = 'itemId='+itemId+'&vote='+vote;
+            var userId = <?php echo osc_item_user_id(); ?>;
+            params = 'userId='+userId+'&vote='+vote;
 
             $.ajax({
                 type: "POST",
                 url: '<?php echo osc_base_url(true); ?>?page=ajax&action=custom&ajaxfile=<?php echo osc_plugin_folder(__FILE__).'ajax.php'?>&'+params,
                 dataType: 'text',
                 beforeSend: function(){
-                    $('#voting_plugin').hide();
-                    $('#voting_loading').fadeIn('slow');
+                    $('#voting_plugin_user').hide();
+                    $('#voting_loading_user').fadeIn('slow');
                 },
                 success: function(data){
-                    $('#voting_loading').fadeOut('slow', function(){
-                        $('#voting_plugin').html(data).fadeIn('slow');
+                    $('#voting_loading_user').fadeOut('slow', function(){
+                        $('#voting_plugin_user').html(data).fadeIn('slow');
                     });
                 }
             });
@@ -108,13 +108,13 @@
             background: url("<?php echo osc_base_url().'/oc-content/plugins/'.  osc_plugin_folder(__FILE__);?>img/ico_vot_ov.gif") repeat-x scroll 0 0 transparent;
         }
 
-        #voting_plugin {
+        #voting_plugin_user {
             position: relative;
         }
     </style>
-    <span id="voting_loading" style="display:none;"><img src="<?php echo $path; ?>img/spinner.gif" style="margin-left:20px;"/> <?php _e('Loading', 'voting');?></span>
-    <div id="voting_plugin">
-        <?php include('view_votes.php');?>
+    <span id="voting_loading_user" style="display:none;"><img src="<?php echo $path; ?>img/spinner.gif" style="margin-left:20px;"/> <?php _e('Loading', 'voting');?></span>
+    <div id="voting_plugin_user">
+        <?php include('view_votes_user.php');?>
     </div>
     <div style="clear:both;"></div>
 </div>

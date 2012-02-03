@@ -3,10 +3,10 @@
 Plugin Name: Voting
 Plugin URI: http://www.osclass.org/
 Description: Voting system
-Version: 0.1
+Version: 1.0
 Author: OSClass
 Author URI: http://www.osclass.org/
-Short Name: voting_plugin
+Short Name: voting
 */
 
     /**
@@ -20,9 +20,12 @@ Short Name: voting_plugin
             $path = osc_plugin_resource('voting/struct.sql');
             $sql = file_get_contents($path);
             $conn->osc_dbImportSQL($sql);
-            
+            // vote items
+            osc_set_preference('item_voting', '0', 'voting', 'BOOLEAN');
             osc_set_preference('open', '1', 'voting', 'BOOLEAN');
             osc_set_preference('user', '0', 'voting', 'BOOLEAN');
+            // vote users
+            osc_set_preference('user_voting', '0', 'voting', 'BOOLEAN');
             
             $conn->commit();
         } catch (Exception $e) {
@@ -43,9 +46,12 @@ Short Name: voting_plugin
         try {
             $conn->osc_dbExec("DELETE FROM %st_plugin_category WHERE s_plugin_name = 'voting_plugin'", DB_TABLE_PREFIX);
             $conn->osc_dbExec('DROP TABLE %st_voting_item', DB_TABLE_PREFIX);
+            $conn->osc_dbExec('DROP TABLE %st_voting_user', DB_TABLE_PREFIX);
             
+            osc_delete_preference('item_voting', 'voting');
             osc_delete_preference('open', 'voting');
             osc_delete_preference('user', 'voting');
+            osc_delete_preference('user_voting', 'voting');
             
             $conn->commit();
         } catch (Exception $e) {
@@ -67,10 +73,22 @@ Short Name: voting_plugin
         </ul>';
     }
     
+    function voting_admin_configuration() 
+    {
+        // Standard configuration page for plugin which extend item's attributes
+        osc_plugin_configure_view(osc_plugin_path(__FILE__));
+    }
+    
+    /**************************************************************************
+     *                          VOTE ITEMS
+     *************************************************************************/
+    
+    /**
+     * Show form to vote an item. (itemDetail)
+     */
     function voting_item_detail()
     {
-        if (osc_is_this_category('voting_plugin', osc_item_category_id())) {
-            // obtener el avg de las votaciones
+        if (osc_is_this_category('voting_plugin', osc_item_category_id()) && osc_get_preference('item_voting', 'voting') == 1 ) {
             $conn = getConnection();
             $aux_vote  = $conn->osc_dbFetchResult('SELECT format(avg(i_vote),1) as vote FROM %st_voting_item WHERE fk_i_item_id = %s', DB_TABLE_PREFIX, osc_item_id());
             $aux_count = $conn->osc_dbFetchResult('SELECT count(*) as total FROM %st_voting_item WHERE fk_i_item_id = %s', DB_TABLE_PREFIX, osc_item_id());
@@ -101,27 +119,53 @@ Short Name: voting_plugin
     }
     
     /**
-     * Return layout optimized for sidebar at main web page, with the best items voted with item limit
+     * Check if user can vote an item
+     *
+     * @param string $itemId
+     * @param string $userId
+     * @param string $hash
+     * @return bool
+     */
+    function can_vote($itemId, $userId, $hash)
+    {
+        $conn = getConnection();
+        if( $userId == 'NULL' ) {
+            $result = $conn->osc_dbFetchResult("SELECT i_vote FROM %st_voting_item WHERE fk_i_item_id = %s AND fk_i_user_id IS NULL AND s_hash = '%s'", DB_TABLE_PREFIX, $itemId, $hash);
+        } else {
+            $result = $conn->osc_dbFetchResult("SELECT i_vote FROM %st_voting_item WHERE fk_i_item_id = %s AND fk_i_user_id = %s AND s_hash = '%s'", DB_TABLE_PREFIX, $itemId, $userId, $hash);
+        }
+        
+        if( count($result) > 0 ) 
+            return false;
+        else 
+            return true;
+    }
+    
+    /**
+     * Return layout optimized for sidebar at main web page, with the best items voted with a limit
      *
      * @param int $num number of items 
      */
-    function echo_best_rated($num = 5){
-        $filter = array(
-            'order'       => 'desc',
-            'num_items'   => $num
-        );
-        $results = get_votes($filter);
-        if(count($results) > 0 ) {
-            $locale  = osc_current_user_locale();
-            require 'set_results.php';
+    function echo_best_rated($num = 5)
+    {
+        if( osc_get_preference('item_voting', 'voting') == 1 ) {
+            $filter = array(
+                'order'       => 'desc',
+                'num_items'   => $num
+            );
+            $results = get_votes($filter);
+            if(count($results) > 0 ) {
+                $locale  = osc_current_user_locale();
+                require 'set_results.php';
+            }
         }
     }
     
     /**
-     * Return an array of votes with given filters
+     * Return an array of item votes with given filters
      * <code>
      * array(   
-     * 'category_id' => (integer_category_id),
+     *          'category_id' => (integer_category_id),
      *          'order'       => ('desc','asc'),
      *          'num_items'   => (integer)
      *      );
@@ -172,37 +216,136 @@ Short Name: voting_plugin
         return $conn->osc_dbFetchResults($sql);
     }
     
-    function voting_admin_configuration() 
+    /**
+     * hook delete_item
+     * @param type $itemID 
+     */
+    function voting_item_delete($itemID) {
+        $conn = getConnection();
+        $conn->osc_dbExec("DELETE FROM %st_voting_item WHERE fk_i_item_id = '%d'", DB_TABLE_PREFIX, $itemID);
+    }
+    
+    /**************************************************************************
+     *                          VOTE USERS 
+     *************************************************************************/
+    
+    /**
+     * Show form to vote a seller if item belongs to a registered user. (itemDetail)
+     */
+    function voting_item_detail_user()
     {
-        // Standard configuration page for plugin which extend item's attributes
-        osc_plugin_configure_view(osc_plugin_path(__FILE__));
+        $userId = osc_item_user_id() ;
+        if(osc_get_preference('user_voting', 'voting') == 1 && is_numeric($userId) && isset($userId) ) {            
+            if( $userId ) {
+                // obtener el avg de las votaciones
+                $conn = getConnection();
+                $aux_vote  = $conn->osc_dbFetchResult('SELECT format(avg(i_vote),1) as vote FROM %st_voting_user WHERE i_user_voted = %s', DB_TABLE_PREFIX, $userId);
+                $aux_count = $conn->osc_dbFetchResult('SELECT count(*) as total FROM %st_voting_user WHERE i_user_voted = %s', DB_TABLE_PREFIX, $userId);
+                $vote['vote']  = $aux_vote['vote'];
+                $vote['total'] = $aux_count['total']; 
+          
+                $vote['can_vote'] = true;
+                if( !osc_is_web_user_logged_in() || !can_vote_user(osc_item_user_id(), osc_logged_user_id()) ){
+                    $vote['can_vote'] = false;
+                }
+
+                require 'item_detail_user.php';
+            }
+        }
     }
     
     /**
-     * Check if item has been voted
+     * Check if user can vote
      *
      * @param string $itemId
      * @param string $userId
      * @param string $hash
      * @return bool
      */
-    function can_vote($itemId, $userId, $hash)
+    function can_vote_user($userVotedId, $userId)
     {
-        $conn = getConnection();
-        if( $userId == 'NULL' ) {
-            $result = $conn->osc_dbFetchResult("SELECT i_vote FROM %st_voting_item WHERE fk_i_item_id = %s AND fk_i_user_id IS NULL AND s_hash = '%s'", DB_TABLE_PREFIX, $itemId, $hash);
-        } else {
-            $result = $conn->osc_dbFetchResult("SELECT i_vote FROM %st_voting_item WHERE fk_i_item_id = %s AND fk_i_user_id = %s AND s_hash = '%s'", DB_TABLE_PREFIX, $itemId, $userId, $hash);
+        $conn   = getConnection();
+        $result = 0;
+        if( isset($userVotedId) && is_numeric($userVotedId) && isset($userId) && is_numeric($userId) && $userId != $userVotedId) {
+            $result = $conn->osc_dbFetchResult("SELECT i_vote FROM %st_voting_user WHERE i_user_voted = %s AND i_user_voter = %s", DB_TABLE_PREFIX, $userVotedId, $userId);
         }
         
         if( count($result) > 0 ) 
             return false;
         else 
-            return true;
+            return true;   
     }
     
     /**
+     * Return layout optimized for sidebar at main web page, with the best user voted with a limit
      *
+     * @param int $num number of users 
+     */
+    function echo_users_best_rated($num = 5)
+    {
+        if( osc_get_preference('user_voting', 'voting') == 1 ) {
+            $filter = array(
+                'order'       => 'desc',
+                'num_items'   => $num
+            );
+            $results = get_user_votes($filter);
+            if(count($results) > 0 ) {
+                $locale  = osc_current_user_locale();
+                require 'set_results_user.php';
+            }
+        }
+    }
+    
+    /**
+     * Return an array of votes with given filters
+     * <code>
+     * array(   
+     *          'order'       => ('desc','asc'),
+     *          'num_items'   => (integer)
+     *      );
+     * </code>
+     * @param type $array_filters
+     * @return type 
+     */
+    function get_user_votes($array_filters)
+    {
+        $order       = null;
+        $num         = 5;
+        if(isset($array_filters['order'])){
+            $order = strtolower($array_filters['order']);
+            if( !in_array($order, array('desc', 'asc') ) ){
+                $order = 'desc';
+            }
+        }
+        if(isset($array_filters['num_items'])){
+            $num = (int)$array_filters['num_items'];
+        }
+        
+        $sql  = 'SELECT i_user_voted as user_id, format(avg(i_vote),1) as avg_vote, count(*) as num_votes ';
+        $sql .= 'FROM '.DB_TABLE_PREFIX.'t_voting_user ';
+        $sql .= 'LEFT JOIN '.DB_TABLE_PREFIX.'t_user ON '.DB_TABLE_PREFIX.'t_user.pk_i_id = '.DB_TABLE_PREFIX.'t_voting_user.i_user_voted ';
+        $sql .= 'WHERE ';
+        $sql .= ''.DB_TABLE_PREFIX.'t_user.b_active = 1 ';
+        $sql .= 'AND '.DB_TABLE_PREFIX.'t_user.b_enabled = 1 ';
+        $sql .= 'GROUP BY user_id ORDER BY avg_vote '.$order.', num_votes '.$order.' LIMIT 0, '.$num;
+        
+        $conn = getConnection();
+        return $conn->osc_dbFetchResults($sql);
+    }
+    
+    /**
+     * hook delete
+     * @param type $userID 
+     */
+    function voting_user_delete($userID) {
+        $conn = getConnection();
+        $conn->osc_dbExec("DELETE FROM %st_voting_user WHERE i_user_voted = %d", DB_TABLE_PREFIX, $userID);
+        $conn->osc_dbExec("DELETE FROM %st_voting_user WHERE i_user_voter = %d", DB_TABLE_PREFIX, $userID);
+    }
+    
+    /**
+     * Print star img src
+     * 
      * @param type $star
      * @param type $avg_vote
      * @return type 
@@ -233,11 +376,6 @@ Short Name: voting_plugin
         }
     }
     
-    function voting_delete ($itemID) {
-        $conn = getConnection();
-        $conn->osc_dbExec("DELETE FROM %st_voting_item WHERE fk_i_item_id = '%d'", DB_TABLE_PREFIX, $itemID);
-    }
-    
     /**
      * ADD HOOKS
      */
@@ -246,7 +384,10 @@ Short Name: voting_plugin
     osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'voting_uninstall');
     
     osc_add_hook('item_detail', 'voting_item_detail');
-    osc_add_hook('delete_item', 'voting_delete');
+    osc_add_hook('item_detail', 'voting_item_detail_user');
+    
+    osc_add_hook('delete_item', 'voting_item_delete');
+    osc_add_hook('delete_user', 'voting_user_delete');
 
     osc_add_hook('admin_menu', 'voting_admin_menu');
 ?>

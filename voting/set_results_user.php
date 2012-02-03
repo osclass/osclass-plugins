@@ -79,17 +79,15 @@
 </style>
 
 <div class="box location">
-    <h3><strong><?php _e("Best voted", 'voting') ; ?></strong></h3>
+    <h3><strong><?php _e("Best users voted", 'voting') ; ?></strong></h3>
     <ul>
     <?php 
         $count = 0;
-        View::newInstance()->_erase('items');
-        View::newInstance()->_erase('item');
-        foreach($results as $item_vote):
-            $avg_vote = $item_vote['avg_vote'];
-            $total    = $item_vote['num_votes'];
-            $item    = Item::newInstance()->findByPrimaryKey($item_vote['item_id']);
-            View::newInstance()->_exportVariableToView('item', $item ) ;
+        foreach($results as $user_vote):
+            $avg_vote = $user_vote['avg_vote'];
+            $total    = $user_vote['num_votes'];
+            $user    = User::newInstance()->findbyPrimaryKey($user_vote['user_id']);
+            View::newInstance()->_exportVariableToView('user', $user) ;
     ?>
         <li>
             <?php if($count+1 < count($results)){?>
@@ -97,7 +95,7 @@
             <?php } else { ?>
             <div>
             <?php } ?>
-                <p style="text-align: center;"><a href="<?php echo osc_item_url(); ?>"><?php echo osc_item_title(); ?></a></p>
+                <p style="text-align: center;"><a href="<?php echo osc_user_public_profile_url(); ?>"><?php echo osc_user_name(); ?></a></p>
                 <p style="text-align: center;">
                     <img title="<?php _e('Without interest', 'voting');?>" src="<?php voting_star(1, $avg_vote); ?>">
                     <img title="<?php _e('Uninteresting', 'voting');?>" src="<?php voting_star(2, $avg_vote); ?>">
@@ -110,7 +108,7 @@
         </li>
     <?php 
             $count++;
-            View::newInstance()->_erase('item') ;
+            View::newInstance()->_erase('user') ;
         endforeach; 
     ?>
     </ul>
