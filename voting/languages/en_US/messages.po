@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Voting 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-03 17:25+0100\n"
+"POT-Creation-Date: 2012-02-03 18:28+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: carlos <carlos@osclass.org>\n"
 "Language-Team: OSClass <info@osclass.org>\n"
@@ -16,50 +16,48 @@ msgstr ""
 "X-Poedit-Country: UNITED STATES\n"
 "X-Poedit-SearchPath-0: /Users/ssuareza/projects/osclass-plugins/voting\n"
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:36
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:40
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:51
 msgid "Congratulations. The plugin is now configured"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:65
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:59
 #: /Users/ssuareza/projects/osclass-plugins/voting/help.php:27
 #: /Users/ssuareza/projects/osclass-plugins/voting/help.php:82
 msgid "Items"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:68
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:62
 msgid "Enable for items"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:72
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:66
 msgid "Open voting"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:72
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:66
 msgid "All can vote the items"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:76
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:70
 msgid "Users voting"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:76
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:70
 msgid "Only registered users can vote"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:80
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:93
-msgid "Save"
-msgstr ""
-
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:89
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:76
 #: /Users/ssuareza/projects/osclass-plugins/voting/help.php:51
 #: /Users/ssuareza/projects/osclass-plugins/voting/help.php:100
 msgid "Users"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:92
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:77
 msgid "Enable for users"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:78
+msgid "Save"
 msgstr ""
 
 #: /Users/ssuareza/projects/osclass-plugins/voting/help.php:3
