@@ -88,7 +88,7 @@ Short Name: voting
      */
     function voting_item_detail()
     {
-        if (osc_is_this_category('voting_plugin', osc_item_category_id()) && osc_get_preference('item_voting', 'voting') == 1 ) {
+        if (osc_is_this_category('voting', osc_item_category_id()) && osc_get_preference('item_voting', 'voting') == '1' ) {
             $conn = getConnection();
             $aux_vote  = $conn->osc_dbFetchResult('SELECT format(avg(i_vote),1) as vote FROM %st_voting_item WHERE fk_i_item_id = %s', DB_TABLE_PREFIX, osc_item_id());
             $aux_count = $conn->osc_dbFetchResult('SELECT count(*) as total FROM %st_voting_item WHERE fk_i_item_id = %s', DB_TABLE_PREFIX, osc_item_id());
