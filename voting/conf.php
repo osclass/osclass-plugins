@@ -40,9 +40,6 @@
             echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'voting') . '.</p></div>' ;
         }
         osc_reset_preferences();
-        
-        header("Location: ". osc_admin_base_url(true).'?page=plugins&action=renderplugin&file='.osc_plugin_folder(__FILE__).'conf.php') ;
-        
     }
     
     /**
