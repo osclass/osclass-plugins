@@ -52,6 +52,7 @@
         } else {
             osc_set_preference('user_voting', '0', 'voting', 'BOOLEAN');
         }
+        echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'voting') . '.</p></div>' ;
         osc_reset_preferences();
     }
 ?>
