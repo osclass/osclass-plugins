@@ -30,9 +30,8 @@ if(isset($iVote) && is_numeric($iVote) && isset($votedUserId) && is_numeric($vot
     if(!osc_is_web_user_logged_in() || !can_vote_user($votedUserId, $userId) ){
         $vote['can_vote'] = false;
     }
-    require_once 'view_votes_user.php';
+    require 'view_votes_user.php';
 }
-
 
 // Vote Items
 if(isset($iVote) && is_numeric($iVote) && isset($itemId) && is_numeric($itemId) ) 
@@ -62,7 +61,7 @@ if(isset($iVote) && is_numeric($iVote) && isset($itemId) && is_numeric($itemId) 
     // return updated voting
     $item = Item::newInstance()->findByPrimaryKey($itemId);
     View::newInstance()->_exportVariableToView('item', $item);
-    if (osc_is_this_category('voting_plugin', osc_item_category_id())) {
+    if (osc_is_this_category('voting', osc_item_category_id())) {
         $conn = getConnection();
         $aux_vote  = $conn->osc_dbFetchResult('SELECT format(avg(i_vote),1) as vote FROM %st_voting_item WHERE fk_i_item_id = %s', DB_TABLE_PREFIX, osc_item_id());
         $aux_count = $conn->osc_dbFetchResult('SELECT count(*) as total FROM %st_voting_item WHERE fk_i_item_id = %s', DB_TABLE_PREFIX, osc_item_id());
@@ -80,7 +79,7 @@ if(isset($iVote) && is_numeric($iVote) && isset($itemId) && is_numeric($itemId) 
             
         }
         
-        require_once 'view_votes.php';
+        require 'view_votes.php';
     }
 }
 ?>

@@ -21,7 +21,7 @@ Short Name: voting
             $sql = file_get_contents($path);
             $conn->osc_dbImportSQL($sql);
             // vote items
-            osc_set_preference('item_voting', '0', 'voting', 'BOOLEAN');
+            osc_set_preference('item_voting', '1', 'voting', 'BOOLEAN');
             osc_set_preference('open', '1', 'voting', 'BOOLEAN');
             osc_set_preference('user', '0', 'voting', 'BOOLEAN');
             // vote users
@@ -44,7 +44,7 @@ Short Name: voting
         $conn->autocommit(false);
         
         try {
-            $conn->osc_dbExec("DELETE FROM %st_plugin_category WHERE s_plugin_name = 'voting_plugin'", DB_TABLE_PREFIX);
+            $conn->osc_dbExec("DELETE FROM %st_plugin_category WHERE s_plugin_name = 'voting'", DB_TABLE_PREFIX);
             $conn->osc_dbExec('DROP TABLE %st_voting_item', DB_TABLE_PREFIX);
             $conn->osc_dbExec('DROP TABLE %st_voting_user', DB_TABLE_PREFIX);
             
