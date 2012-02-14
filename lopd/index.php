@@ -61,6 +61,13 @@ Short Name: lopd
         ModelLOPD::newInstance()->delete(array('fk_i_user_id' => $userId));
     }
 
+    function lopd_admin_menu() {
+        echo '<h3><a href="#">Ayuda LOPD</a></h3>
+        <ul> 
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Ayuda', 'lopd') . '</a></li>
+        </ul>';
+    }
+    
 
 
     /**
@@ -79,5 +86,6 @@ Short Name: lopd
     osc_add_hook('user_menu', 'lopd_user_menu');
     osc_add_hook('delete_user', 'lopd_delete_user');
 
+    osc_add_hook('admin_menu', 'lopd_admin_menu');
     
 ?>
