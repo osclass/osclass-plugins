@@ -4,7 +4,7 @@ Plugin Name: Ley Organica de Proteccion de Datos
 Plugin URI: http://www.osclass.org/
 Description: Complete the requirements of the Spanish law for personal data protection (LOPD)
 Version: 0.1
-Author: OSClass
+Author: OSClass & Berni2201
 Author URI: http://www.osclass.org/
 Short Name: lopd
 */
@@ -27,6 +27,20 @@ Short Name: lopd
             );
         }
         Page::newInstance()->insert($aFields, $aFieldsDescription);
+        
+        // LOG-OUT every user, so they need to log-in accepting the new terms and conditions
+        $tmp['adminId']         = $_SESSION['adminId'];
+        $tmp['adminUserName']   = $_SESSION['adminUserName'];
+        $tmp['adminName']       = $_SESSION['adminName'];
+        $tmp['adminEmail']      = $_SESSION['adminEmail'];
+        $tmp['adminLocale']     = $_SESSION['adminLocale'];
+        session_destroy();
+        $_SESSION['adminId']          = $tmp['adminId'];
+        $_SESSION['adminUserName']    = $tmp['adminUserName'];
+        $_SESSION['adminName']        = $tmp['adminName'];
+        $_SESSION['adminEmail']       = $tmp['adminEmail'];
+        $_SESSION['adminLocale']      = $tmp['adminLocale'];
+        
     }
     
     function lopd_uninstall() {
@@ -42,12 +56,17 @@ Short Name: lopd
         include_once 'form.php';
     }
 
+
+    function lopd_before_register() {
+        if(Params::getParam('lopd_box')!='1') {
+            osc_add_flash_error_message( __('Debe aceptar la política de privacidad para poder registrarse', 'lopd')) ;
+            header('Location: ' . osc_register_account_url());
+            exit;
+        }
+    }
+    
     function lopd_save($userId) {
-        ModelLOPD::newInstance()->insert(array(
-            'fk_i_user_id' => $userId,
-            'dt_date' => date('Y-m-d H:i:s'),
-            's_ip' => @$_SERVER['REMOTE_ADDR']
-        ));
+        ModelLOPD::newInstance()->acceptLOPD($userId);
     }
     
     /**
@@ -68,6 +87,17 @@ Short Name: lopd
         </ul>';
     }
     
+    function lopd_init() {
+        if(osc_is_web_user_logged_in() && Rewrite::newInstance()->get_location()!='custom' && Rewrite::newInstance()->get_location()!='page') {
+            if(!ModelLOPD::newInstance()->hasAccepted(osc_logged_user_id())) {
+                if(Params::getParam('lopd_r')!='no') {
+                    header('Location: '.osc_render_file_url(osc_plugin_folder(__FILE__)."accept_lopd.php&lopd_r=no"));
+                    exit;
+                }
+            }
+        }
+    }
+    
 
 
     /**
@@ -81,11 +111,13 @@ Short Name: lopd
     
     // run ONCE the user is registered
     osc_add_hook('user_register_completed', 'lopd_save');
+    osc_add_hook('before_user_register', 'lopd_before_register');
 
     
     osc_add_hook('user_menu', 'lopd_user_menu');
     osc_add_hook('delete_user', 'lopd_delete_user');
 
     osc_add_hook('admin_menu', 'lopd_admin_menu');
+    osc_add_hook('init', 'lopd_init');
     
 ?>

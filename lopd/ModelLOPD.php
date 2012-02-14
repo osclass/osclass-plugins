@@ -83,6 +83,27 @@
             $this->dao->query(sprintf('DROP TABLE %s', $this->getTable()) ) ;
         }
         
+        public function hasAccepted($userId) {
+            $this->dao->select('*') ;
+            $this->dao->from($this->getTable()) ;
+            $this->dao->where('fk_i_user_id', $userId);
+            $result = $this->dao->get() ;
+
+            if( $result->numRows == 0 ) {
+                return false ;
+            }
+
+            return $result->row()>0?true:false;
+        }
+        
+        public function acceptLOPD($userId) {
+            ModelLOPD::newInstance()->insert(array(
+                'fk_i_user_id' => $userId,
+                'dt_date' => date('Y-m-d H:i:s'),
+                's_ip' => @$_SERVER['REMOTE_ADDR']
+            ));
+        }
+        
     }
 
 ?>
