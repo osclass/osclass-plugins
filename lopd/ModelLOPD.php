@@ -52,7 +52,7 @@
             parent::__construct();
             $this->setTableName('t_lopd') ;
             $this->setPrimaryKey('fk_i_user_id') ;
-            $this->setFields( array('fk_i_user_id', 'dt_date', 's_ip') ) ;
+            $this->setFields( array('fk_i_user_id', 'dt_date', 's_ip', 'b_could_delete') ) ;
         }
         
         /**
@@ -117,7 +117,46 @@
             $row = $result->row();
             return $row['b_could_delete']==1?true:false;
         }
-        
+
+/**
+         * Return list of users
+         * 
+         * @access public
+         * @since unknown
+         * @param int $start
+         * @param int $end
+         * @param string $order_column
+         * @param string $order_direction
+         * @return array
+         */
+        public function search($start = 0, $end = 10, $order_column = 'pk_i_id', $order_direction = 'DESC')
+        {
+            
+            // SET data, so we always return a valid object
+            $users = array();
+            $users['rows'] = 0;
+            $users['total_results'] = 0;
+            $users['users'] = array();
+            
+            $sql = sprintf("SELECT SQL_CALC_FOUND_ROWS u.* FROM %st_user u, %st_lopd l WHERE u.pk_i_id = l.fk_i_user_id ORDER BY %s %s LIMIT %s, %s", DB_TABLE_PREFIX, DB_TABLE_PREFIX, $order_column, $order_direction, $start, $end);
+            $result = $this->dao->query($sql) ;
+            
+            if(!$result) {
+                return $users;
+            }
+            
+            $datatmp  = $this->dao->query('SELECT FOUND_ROWS() as total');
+            $data = $datatmp->row();
+            if(isset($data['total'])) {
+                $users['total_results'] = $data['total'];
+            }
+            
+            $users['users'] = $result->result();
+            $users['rows'] = $result->numRows();
+            
+            
+            return $users;
+        }        
     }
 
 ?>
