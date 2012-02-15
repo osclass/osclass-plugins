@@ -104,6 +104,20 @@
             ));
         }
         
+        public function couldDelete($userId) {
+            $this->dao->select('*') ;
+            $this->dao->from($this->getTable()) ;
+            $this->dao->where('fk_i_user_id', $userId);
+            $result = $this->dao->get() ;
+
+            if( $result->numRows == 0 ) {
+                return false ;
+            }
+
+            $row = $result->row();
+            return $row['b_could_delete']==1?true:false;
+        }
+        
     }
 
 ?>
