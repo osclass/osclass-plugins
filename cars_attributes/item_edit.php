@@ -86,7 +86,7 @@
                         <label><?php _e('Car type', 'cars_attributes'); ?></label>
                         <select name="car_type" id="car_type">
                             <option value="" selected><?php _e('Select a car type', 'cars_attributes'); ?></option>
-                            <?php foreach($car_type[$locale['pk_c_code']] as $k => $v) { ?>
+                            <?php foreach($car_types[$locale['pk_c_code']] as $k => $v) { ?>
                             <option value="<?php echo  $k; ?>" <?php if(@$detail['fk_vehicle_type_id'] == $k) { echo 'selected'; } ?>><?php echo @$v; ?></option>
                             <?php } ?>
                         </select>
