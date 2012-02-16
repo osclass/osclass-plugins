@@ -113,6 +113,7 @@
         ?>
         <label><?php _e('Doors', 'cars_attributes'); ?></label>
         <select name="doors" id="doors">
+		<option value=""><?php _('Select num. of doors', 'cars_attributes'); ?></option>
         <?php foreach(range(3, 5) as $n) { ?>
             <option value="<?php echo $n; ?>" <?php if(@$detail['i_doors'] == $n) { echo 'selected'; } ?>><?php echo $n; ?></option>
         <?php } ?>
@@ -126,6 +127,7 @@
         ?>
         <label><?php _e('Seats', 'cars_attributes'); ?></label>
         <select name="seats" id="seats">
+		<option value=""><?php _('Select num. of seats', 'cars_attributes'); ?></option>
             <?php foreach(range(1, 17) as $n) { ?>
             <option value="<?php echo $n; ?>" <?php if(@$detail['i_seats'] == $n) { echo 'selected'; } ?>><?php echo $n; ?></option>
             <?php } ?>
@@ -157,6 +159,7 @@
         ?>
         <label><?php _e('Num. Airbags', 'cars_attributes'); ?></label>
         <select name="num_airbags" id="num_airbags">
+			<option value=""><?php _('Select num. of airbags', 'cars_attributes'); ?></option>
             <?php foreach(range(0, 8) as $n) { ?>
             <option value="<?php echo $n; ?>" <?php if(@$detail['i_num_airbags'] == $n) { echo 'selected'; } ?>><?php echo $n; ?></option>
             <?php } ?>
@@ -245,6 +248,7 @@
         ?>
         <label><?php _e('Gears', 'cars_attributes'); ?></label>
         <select name="gears" id="gears">
+		<option value=""><?php _('Select num. of gears', 'cars_attributes'); ?></option>
         <?php foreach(range(1, 8) as $n) { ?>
             <option value="<?php echo $n; ?>" <?php if(@$detail['i_gears'] == $n) { echo 'selected'; } ?>><?php echo $n; ?></option>
         <?php } ?>
