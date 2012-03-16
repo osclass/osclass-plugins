@@ -1,6 +1,11 @@
 Changelog demo theme
 ====================
 
+##version 1.1 - 16/03/2012
+
+* Added background pattern to theme selector bar
+* Now when you change the theme, you stay in the same page instead of returning to the home page
+
 ##version 1.0.1 - 08/09/2011
 
 * Added z-index to class .FlashMessage so it will appear above the selector of the themes
