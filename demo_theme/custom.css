@@ -5,24 +5,44 @@ body{
     z-index: 9999;
 }
 #theme_header{
-    padding: 10px 10px 10px 50px;
     background: url('bgnoise.gif');
     position: fixed;
     *position: absolute;
     top: 0;
     width: 100%;
-    height: 20px;
     z-index: 9999;
     font-size: 14px;
     border-bottom: 2px #08737B solid;
     font-family: Helvetica;
 }
+#theme_selector{
+    margin: 10px;
+}
 #theme_selector label{
     float:left;
     width: 140px;
     text-align: right;
-    padding-top: 2px;
+    padding: 4px 0;
+    font-size: 15px;
 }
 #theme_selector .select{
+    height: 24px;
     margin-left: 150px;
+    padding-top: 2px;
+}
+#theme_selector .select select{
+    padding: 5px;
+}
+#theme_selector .select span{
+    margin-left: 10px;
+    line-height: 17px;
+    font-weight: bold;
+    font-size: 13px;
+}
+#theme_selector a, #theme_selector a:active, #theme_selector a:visited{
+    text-decoration: none;
+    color: #2FBFD1;
+}
+#theme_selector a:hover{
+    color: #08737B;
 }

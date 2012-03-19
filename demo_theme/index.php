@@ -75,9 +75,10 @@ Short Name: demo_theme
      * HTML showed in the top of the page
      */
     function theme_selector_top() {
-        $themes         = array();
-        $selected_theme = selected_theme() ;
-        $aThemes        = WebThemes::newInstance()->getListThemes();
+        $themes              = array();
+        $selected_theme      = selected_theme() ;
+        $info_selected_theme = WebThemes::newInstance()->loadThemeInfo($selected_theme) ;
+        $aThemes             = WebThemes::newInstance()->getListThemes();
         foreach($aThemes as $theme) {
             $theme_info = WebThemes::newInstance()->loadThemeInfo($theme) ;
             $themes[]   = array('name' => $theme_info['name'], 'theme' => $theme) ;
@@ -111,6 +112,7 @@ Short Name: demo_theme
         echo "            }" . PHP_EOL ;
         echo "            window.location = url ;" ;
         echo "        }) ;" . PHP_EOL ;
+        echo "        $('#theme_selector .select').append( $('<span>').html( $('<a>').attr('href', 'http://sourceforge.net/projects/osclass/files/Themes/" . $selected_theme . "').attr('target', '_blank').html('Download " . $info_selected_theme['name'] . " theme') ) ) ; " . PHP_EOL ;
         echo '        $("#theme_header").append( $("<div>").css("clear:both;") ) ;' ;
         echo '    }) ;' . PHP_EOL ;
         echo '</script>' . PHP_EOL ;
