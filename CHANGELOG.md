@@ -1,6 +1,10 @@
 Changelog demo theme
 ====================
 
+##version 1.2 - 19/03/2012
+
+* Save selected theme in a Cookie, so we don't loss the selected theme when submitting a form
+
 ##version 1.1 - 16/03/2012
 
 * Added background pattern to theme selector bar

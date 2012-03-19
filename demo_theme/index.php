@@ -9,6 +9,9 @@ Author URI: http://www.osclass.org/
 Short Name: demo_theme
 */
 
+    /**
+     * Set the theme is going to be loaded. It can be passed by parameter or get from the Cookie
+     */
     function change_theme() {
         $theme = '' ;
         // check first if it has been set in the cookie
@@ -40,14 +43,17 @@ Short Name: demo_theme
     }
 
     /**
-     * 
+     * Echo the link used in the header
      */
     function theme_selector_css() {
         echo '<link href="' . osc_base_url() . 'oc-content/plugins/demo_theme/custom.css" media="screen" rel="stylesheet" type="text/css" />' ;
     }
 
     /**
-     * 
+     * Get the actual theme. There are three options (in order of preference):
+     *     - Theme via parameter
+     *     - Theme via Cookie
+     *     - Default theme
      * 
      * @return string The name of the selected theme
      */
@@ -65,6 +71,9 @@ Short Name: demo_theme
         return $theme ;
     }
 
+    /**
+     * HTML showed in the top of the page
+     */
     function theme_selector_top() {
         $themes         = array();
         $selected_theme = selected_theme() ;
@@ -112,4 +121,5 @@ Short Name: demo_theme
     osc_add_hook('header', 'theme_selector_css') ;
 
     osc_add_hook('footer', 'theme_selector_top') ;
+
 ?>
