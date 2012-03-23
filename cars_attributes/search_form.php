@@ -2,7 +2,7 @@
     $(document).ready(function(){
         $("#make").change(function(){
             var make_id = $(this).val();
-            var url = '<?php echo osc_ajax_plugin_url("cars_attributes/ajax.php")."&makeId="; ?>' + make_id;
+            var url = '<?php echo osc_ajax_plugin_url("cars_attributes/ajax.php") . "&makeId="; ?>' + make_id;
             var result = '';
             if(make_id != '') {
                 $("#model").attr('disabled',false);
@@ -34,13 +34,13 @@
     $model = Params::getParam('model') ;
     $type  = Params::getParam('type') ;
 
-    $makes = ModelCars::newInstance()->getCarMakes();
+    $makes  = ModelCars::newInstance()->getCarMakes();
     $models = array();
-    if($make!='') {
+    if($make != '') {
         $models = ModelCars::newInstance()->getCarModels($make);
     }
 
-    $types = ModelCars::newInstance()->getVehiclesType( osc_current_user_locale() );
+    $types = ModelCars::newInstance()->getVehiclesType(osc_current_user_locale());
 ?>
 <fieldset>
     <h3><?php _e('Cars attributes', 'cars_attributes') ; ?></h3>
@@ -53,7 +53,6 @@
             <?php } ?>
         </select>
     </div>
-
     <div class="row one_input">
         <h6><?php _e('Model', 'cars_attributes'); ?></h6>
         <select name="model" id="model">
@@ -63,7 +62,6 @@
             <?php } ?>
         </select>
     </div>
-
     <div class="row one_input">
         <h6><?php _e('Car type', 'cars_attributes'); ?></h6>
         <select name="type" id="type">
@@ -73,11 +71,9 @@
             <?php } ?>
         </select>
     </div>
-
     <div class="row one_input">
         <?php $transmission = Params::getParam('transmission') ; ?>
         <h6 for="transmission"><?php _e('Transmission', 'cars_attributes'); ?></h6>
-
         <input style="width:20px;" type="radio" name="transmission" value="MANUAL" id="manual" <?php if($transmission == 'MANUAL') { echo 'checked="yes"'; } ?>/> <label for="manual"><?php _e('Manual', 'cars_attributes'); ?></label><br />
         <input style="width:20px;" type="radio" name="transmission" value="AUTO" id="auto" <?php if($transmission == 'AUTO') { echo 'checked="yes"'; } ?>/> <label for="auto"><?php _e('Automatic', 'cars_attributes'); ?></label>
     </div>

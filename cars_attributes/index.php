@@ -7,45 +7,41 @@ Version: 3.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: cars_plugin
-Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.php
+Plugin update URI: 
 */
-    require_once 'ModelCars.php';
+    require_once 'ModelCars.php' ;
 
     // Adds some plugin-specific search conditions
     function cars_search_conditions($params) {
         // we need conditions and search tables (only if we're using our custom tables)
-        $has_conditions = false;
+        $has_conditions = false ;
         foreach($params as $key => $value) {
-
-            // We may want to  have param-specific searches 
+            // we may want to have param-specific searches
             switch($key) {
                 case 'type':
-                    if($value!='') {
+                    if( is_numeric($value) ) {
                         Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_vehicle_type_id = %d", DB_TABLE_PREFIX, $value));
                         $has_conditions = true;
                     }
-                    break;
-
+                break;
                 case 'make':
-                    if($value!='') {
+                    if( is_numeric($value) ) {
                         Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_make_id = %d", DB_TABLE_PREFIX, $value));
                         $has_conditions = true;
                     }
-                    break;
-
+                break;
                 case 'model':
-                    if($value!='') {
+                    if( is_numeric($value) ) {
                         Search::newInstance()->addConditions(sprintf("%st_item_car_attr.fk_i_model_id = %d", DB_TABLE_PREFIX, $value));
                         $has_conditions = true;
                     }
-                    break;
-
+                break;
                 case 'transmission':
-                    if($value=='AUTO' || $value=='MANUAL') {
+                    if( $value == 'AUTO' || $value == 'MANUAL' ) {
                         Search::newInstance()->addConditions(sprintf("%st_item_car_attr.e_transmission = '%s'", DB_TABLE_PREFIX, $value));
                         $has_conditions = true;
                     }
-                    break;
+                break;
                 default:
                 break;
             }
@@ -59,32 +55,24 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
     }
 
     function cars_call_after_install() {
-        // Insert here the code you want to execute after the plugin's install
-        // for example you might want to create a table or modify some values
-
-        // In this case we'll create a table to store the Example attributes
+        // create a table to store the cars attributes
         ModelCars::newInstance()->import('cars_attributes/struct.sql');
         ModelCars::newInstance()->import('cars_attributes/basic_data.sql');
     }
 
     function cars_call_after_uninstall() {
-        // Insert here the code you want to execute after the plugin's uninstall
-        // for example you might want to drop/remove a table or modify some values
-
-        // In this case we'll remove the table we created to store Example attributes
-        error_log('cars_call_after_uninstall');
+        // remove the table we created to store cars attributes
         ModelCars::newInstance()->uninstall();
     }
 
-    function cars_form($catId = '') {
-        $conn = getConnection() ;
+    function cars_form($catID = '') {
         // We received the categoryID
-        if($catId == '') {
+        if($catID == '') {
             return false;
         }
         
-        // We check if the category is the same as our plugin
-        if(osc_is_this_category('cars_plugin', $catId)) {
+        // check if the category is the same as our plugin
+        if( osc_is_this_category('cars_plugin', $catID) ) {
             $makes = ModelCars::newInstance()->getCarMakes();
             $data  = ModelCars::newInstance()->getVehiclesType();
             $car_types = array();
@@ -100,62 +88,74 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
         }
     }
 
-    function cars_search_form($catId = null) {
-        // We received the categoryID
-        if($catId == null) {
+    function cars_search_form($catID = null) {
+        // we received the categoryID
+        if($catID == null) {
             return false;
         }
         
-        // We check if the category is the same as our plugin
-        foreach($catId as $id) {
-            if(osc_is_this_category('cars_plugin', $id)) {
+        // we check if the category is the same as our plugin
+        foreach($catID as $id) {
+            if( osc_is_this_category('cars_plugin', $id) ) {
                 include_once 'search_form.php';
                 break;
             }
         }
     }
-    
-    function cars_form_post($catId = null, $item_id = null) {
-        // We received the categoryID and the Item ID
-        if($catId == null) {
+
+    function cars_form_post($catID = null, $itemID = null) {
+        // we received the categoryID and the Item ID
+        if($catID == null) {
             return false;
         }
         
         // We check if the category is the same as our plugin
-        if(osc_is_this_category('cars_plugin', $catId) && $item_id!=null) {
+        if( osc_is_this_category('cars_plugin', $catID) && $itemID != null ) {
             $arrayInsert = _getParameters();
             // Insert the data in our plugin's table
-            ModelCars::newInstance()->insertCarAttr($arrayInsert, $item_id);
+            ModelCars::newInstance()->insertCarAttr($arrayInsert, $itemID);
         }
     }
 
-    // Self-explanatory
+    // self-explanatory
     function cars_item_detail() {
-        $conn = getConnection() ;
-        if(osc_is_this_category('cars_plugin', osc_item_category_id())) {
-            $detail   = ModelCars::newInstance()->getCarAttr(osc_item_id());
+        if( osc_is_this_category('cars_plugin', osc_item_category_id()) ) {
+            $detail   = ModelCars::newInstance()->getCarAttr(osc_item_id()) ;
+
+            if( count($detail) == 0 ) {
+                return ;
+            }
+
             $make     = ModelCars::newInstance()->getCarMakeById( $detail['fk_i_make_id'] );
             $model    = ModelCars::newInstance()->getCarModelById( $detail['fk_i_model_id'] );
             $car_type = ModelCars::newInstance()->getVehicleTypeById($detail['fk_vehicle_type_id']);
-            
-            $detail['s_make']  = $make['s_name'];
-            $detail['s_model'] = $model['s_name'];
-            $detail['locale']  = array();
-            foreach ($car_type as $c) {
-                $detail['locale'][$c['fk_c_locale_code']]['s_car_type'] = $c['s_name'];
+
+            $detail['s_make'] = '' ;
+            if( array_key_exists('s_name', $make) ) {
+                $detail['s_make']  = $make['s_name'];
             }
-            require_once 'item_detail.php';
+            $detail['s_model'] = '' ;
+            if( array_key_exists('s_name', $model) ) {
+                $detail['s_model']  = $model['s_name'];
+            }
+            $detail['locale']  = array() ;
+            foreach($car_type as $c) {
+                $detail['locale'][$c['fk_c_locale_code']]['s_car_type'] = $c['s_name'] ;
+            }
+
+            require_once 'item_detail.php' ;
         }
     }
 
-
     // Self-explanatory
-    function cars_item_edit($catId = null, $item_id = null) {
-        $conn = getConnection() ;
-        if(osc_is_this_category('cars_plugin', $catId)) {
-            $detail = ModelCars::newInstance()->getCarAttr($item_id);
+    function cars_item_edit($catID = null, $itemID = null) {
+        if(osc_is_this_category('cars_plugin', $catID)) {
+            $detail = ModelCars::newInstance()->getCarAttr($itemID);
             $makes  = ModelCars::newInstance()->getCarMakes();
-            $models = ModelCars::newInstance()->getCarModels( $detail['fk_i_make_id'] );
+            $models = array() ;
+            if( array_key_exists('fk_i_make_id', $detail) ) {
+                $models = ModelCars::newInstance()->getCarModels( $detail['fk_i_make_id'] );
+            }
             $data   = ModelCars::newInstance()->getVehiclesType();
             
             $car_types = array();
@@ -167,16 +167,16 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
         }
     }
 
-    function cars_item_edit_post($catId = null, $item_id = null) {
+    function cars_item_edit_post($catID = null, $itemID = null) {
         // We received the categoryID and the Item ID
-        if($catId == null) {
+        if($catID == null) {
             return false;
         }
 
         // We check if the category is the same as our plugin
-        if(osc_is_this_category('cars_plugin', $catId)) {
+        if( osc_is_this_category('cars_plugin', $catID) ) {
             $arrayUpdate = _getParameters();
-            ModelCars::newInstance()->updateCarAttr($arrayUpdate, $item_id);
+            ModelCars::newInstance()->updateCarAttr($arrayUpdate, $itemID);
         }
     }
 
@@ -191,7 +191,7 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
     }
 
     function cars_delete_locale($locale) {
-        ModelCars::newInstance()->deleteLocale( $locale );
+        ModelCars::newInstance()->deleteLocale($locale);
     }
 
     function cars_delete_item($item_id) {
@@ -199,31 +199,31 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
     }
 
     function cars_admin_configuration() {
-        // Standard configuration page for plugin which extend item's attributes
+        // standard configuration page for plugin which extend item's attributes
         osc_plugin_configure_view(osc_plugin_path(__FILE__));
     }
 
     function cars_pre_item_post() {
-        $warranty = (Params::getParam("warranty")!='') ? 1 : 0 ;
-        $new      = (Params::getParam("new")!='') ? 1 : 0 ;
+        $warranty = (Params::getParam("warranty") != '') ? 1 : 0 ;
+        $new      = (Params::getParam("new") != '') ? 1 : 0 ;
 
-        Session::newInstance()->_setForm('pc_year' ,Params::getParam("year") );
-        Session::newInstance()->_setForm('pc_doors' ,Params::getParam("doors") );
-        Session::newInstance()->_setForm('pc_seats' ,Params::getParam("seats") );
-        Session::newInstance()->_setForm('pc_mileage' ,Params::getParam("mileage") );
-        Session::newInstance()->_setForm('pc_engine_size' ,Params::getParam("engine_size") );
-        Session::newInstance()->_setForm('pc_num_airbags' ,Params::getParam("num_airbags") );
-        Session::newInstance()->_setForm('pc_transmission' ,Params::getParam("transmission") );
-        Session::newInstance()->_setForm('pc_fuel' ,Params::getParam("fuel") );
-        Session::newInstance()->_setForm('pc_seller' ,Params::getParam("seller") );
-        Session::newInstance()->_setForm('pc_warranty' , $warranty );
-        Session::newInstance()->_setForm('pc_new' , $new );
-        Session::newInstance()->_setForm('pc_power' ,Params::getParam("power") );
-        Session::newInstance()->_setForm('pc_power_unit' ,Params::getParam("power_unit") );
-        Session::newInstance()->_setForm('pc_gears' ,Params::getParam("gears") );
-        Session::newInstance()->_setForm('pc_make' ,Params::getParam("make") );
-        Session::newInstance()->_setForm('pc_model' ,Params::getParam("model") );
-        Session::newInstance()->_setForm('pc_car_type' ,Params::getParam("car_type") );
+        Session::newInstance()->_setForm('pc_year', Params::getParam("year"));
+        Session::newInstance()->_setForm('pc_doors', Params::getParam("doors"));
+        Session::newInstance()->_setForm('pc_seats', Params::getParam("seats"));
+        Session::newInstance()->_setForm('pc_mileage', Params::getParam("mileage"));
+        Session::newInstance()->_setForm('pc_engine_size', Params::getParam("engine_size"));
+        Session::newInstance()->_setForm('pc_num_airbags', Params::getParam("num_airbags"));
+        Session::newInstance()->_setForm('pc_transmission', Params::getParam("transmission"));
+        Session::newInstance()->_setForm('pc_fuel', Params::getParam("fuel"));
+        Session::newInstance()->_setForm('pc_seller', Params::getParam("seller"));
+        Session::newInstance()->_setForm('pc_warranty', $warranty);
+        Session::newInstance()->_setForm('pc_new', $new);
+        Session::newInstance()->_setForm('pc_power', Params::getParam("power"));
+        Session::newInstance()->_setForm('pc_power_unit', Params::getParam("power_unit"));
+        Session::newInstance()->_setForm('pc_gears', Params::getParam("gears"));
+        Session::newInstance()->_setForm('pc_make', Params::getParam("make"));
+        Session::newInstance()->_setForm('pc_model', Params::getParam("model"));
+        Session::newInstance()->_setForm('pc_car_type', Params::getParam("car_type"));
         // keep values on session
         Session::newInstance()->_keepForm('pc_year');
         Session::newInstance()->_keepForm('pc_doors');
@@ -244,17 +244,16 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
         Session::newInstance()->_keepForm('pc_car_type');
     }
     
-    function _getParameters()
-    {
-        $make    = (Params::getParam("make") == '')  ? DB_CONST_NULL : Params::getParam("make");
-        $model   = (Params::getParam("model") == '') ? DB_CONST_NULL : Params::getParam("model");
-        $type    = (Params::getParam("car_type") == '') ? 1 : Params::getParam("car_type");
-        $power   = (Params::getParam("power") == '') ? DB_CONST_NULL : Params::getParam("power");
-        $mileage = (Params::getParam("mileage") == '') ? DB_CONST_NULL : Params::getParam("mileage");
-        $e_size  = (Params::getParam("engine_size") == '') ? DB_CONST_NULL : Params::getParam("engine_size");
-        $year    = (Params::getParam("year") == '') ? DB_CONST_NULL : Params::getParam("year");
-        $warranty= (Params::getParam("warranty")!='') ? 1 : 0;
-        $new     = (Params::getParam("new")!='') ? 1 : 0;
+    function _getParameters() {
+        $make     = (Params::getParam("make") == '') ? null : Params::getParam("make");
+        $model    = (Params::getParam("model") == '') ? null : Params::getParam("model");
+        $type     = (Params::getParam("car_type") == '') ? 1 : Params::getParam("car_type");
+        $power    = (Params::getParam("power") == '') ? null : Params::getParam("power");
+        $mileage  = (Params::getParam("mileage") == '') ? null : Params::getParam("mileage");
+        $e_size   = (Params::getParam("engine_size") == '') ? null : Params::getParam("engine_size");
+        $year     = (Params::getParam("year") == '') ? null : Params::getParam("year");
+        $warranty = (Params::getParam("warranty")!='') ? 1 : 0;
+        $new      = (Params::getParam("new")!='') ? 1 : 0;
         
         $array = array(
             'doors'         => Params::getParam("doors"),
@@ -275,15 +274,16 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
             'model'         => $model,
             'type'          => $type
         );
+
         return $array;
     }
     
     // This is needed in order to be able to activate the plugin
     osc_register_plugin(osc_plugin_path(__FILE__), 'cars_call_after_install');
     // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-    osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'cars_admin_configuration');
+    osc_add_hook(osc_plugin_path(__FILE__) . "_configure", 'cars_admin_configuration');
     // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-    osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'cars_call_after_uninstall');
+    osc_add_hook(osc_plugin_path(__FILE__) . "_uninstall", 'cars_call_after_uninstall');
 
     // When publishing an item we show an extra form with more attributes
     osc_add_hook('item_form', 'cars_form');
@@ -295,22 +295,22 @@ Plugin update URI: http://www.osclass.org/files/plugins/cars_attributes/update.p
     // When searching, add some conditions
     osc_add_hook('search_conditions', 'cars_search_conditions');
 
-    // Show an item special attributes
+    // show an item special attributes
     osc_add_hook('item_detail', 'cars_item_detail');
 
-    // Edit an item special attributes
+    // edit an item special attributes
     osc_add_hook('item_edit', 'cars_item_edit');
-    // Edit an item special attributes POST
+    // edit an item special attributes POST
     osc_add_hook('item_edit_post', 'cars_item_edit_post');
 
-    //
     osc_add_hook('admin_menu', 'cars_admin_menu');
 
-    //Delete locale
+    // delete locale
     osc_add_hook('delete_locale', 'cars_delete_locale');
-    //Delete item
+    //d elete item
     osc_add_hook('delete_item', 'cars_delete_item');
 
     // previous to insert item
     osc_add_hook('pre_item_post', 'cars_pre_item_post') ;
+
 ?>

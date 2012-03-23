@@ -18,9 +18,7 @@
  *      You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-?>
-<?php 
-//    require_once 'ModelCars.php';
+
     if(Params::getParam("plugin_action") != '') {
         switch(Params::getParam("plugin_action")) {
             case("make_delete"):    if(Params::getParam("id")!="") {
@@ -80,10 +78,9 @@
                                     }
         }
     }
-    
+
     switch(Params::getParam("section")) {
         case("makes"): ?>
-    
                             <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
                                 <div style="padding: 20px;">
                                     <div style="float: left; width: 50%;">
@@ -107,7 +104,6 @@
                                             </form>
                                         </fieldset>
                                     </div>
-                            
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
                                             <legend><?php _e('Add new make', 'cars_attributes'); ?></legend>
@@ -122,10 +118,10 @@
                                             </form>
                                         </fieldset>
                                     </div>
-                                    <div style="clear: both;"></div>					
+                                    <div style="clear: both;"></div>
                                 </div>
                             </div>
-        <?php 
+        <?php
         break;
         case ("models"):    $makeId = Params::getParam("makeId");
                          ?>
@@ -164,7 +160,6 @@
                                             </form>
                                         </fieldset>
                                     </div>
-                            
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
                                             <legend><?php _e('Add new model', 'cars_attributes'); ?></legend>
@@ -183,10 +178,10 @@
                                             </form>
                                         </fieldset>
                                     </div>
-                                    <div style="clear: both;"></div>									
+                                    <div style="clear: both;"></div>
                                 </div>
                             </div>
-        <?php 
+        <?php
         break;
         case("types"): ?>
                             <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
@@ -214,11 +209,13 @@
                                                         <ul>
                                                             <?php
                                                             if(count($data)>0) {
-                                                                foreach($data[$locale['pk_c_code']] as $car_type) { ?>
-                                                                <li>
-                                                                    <input name="car_type[<?php echo  $car_type['pk_i_id']; ?>][<?php echo  $locale['pk_c_code']; ?>]" id="<?php echo  $car_type['pk_i_id']; ?>" type="text" value="<?php echo  $car_type['s_name']; ?>" /> <a href="<?php echo osc_admin_base_url(true); ?>?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=types&plugin_action=type_delete&id=<?php echo  $car_type['pk_i_id']; ?>" ><button><?php _e('Delete', 'cars_attributes'); ?></button></a>
-                                                                </li>
-                                                            <?php } 
+                                                                if( array_key_exists($locale['pk_c_code'], $data) ) {
+                                                                    foreach($data[$locale['pk_c_code']] as $car_type) { ?>
+                                                                    <li>
+                                                                        <input name="car_type[<?php echo  $car_type['pk_i_id']; ?>][<?php echo  $locale['pk_c_code']; ?>]" id="<?php echo  $car_type['pk_i_id']; ?>" type="text" value="<?php echo  $car_type['s_name']; ?>" /> <a href="<?php echo osc_admin_base_url(true); ?>?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=types&plugin_action=type_delete&id=<?php echo  $car_type['pk_i_id']; ?>" ><button><?php _e('Delete', 'cars_attributes'); ?></button></a>
+                                                                    </li>
+                                                                <?php }
+                                                                }
                                                             } ?>
                                                         </ul>
                                                         <button type="submit"><?php _e('Edit', 'cars_attributes'); ?></button>
@@ -228,7 +225,7 @@
                                             </div>
                                         </fieldset>
                                     </div>
-                            
+
                                     <div style="float: left; width: 50%;">
                                         <fieldset>
                                             <legend><?php _e('Add new car type', 'cars_attributes'); ?></legend>
@@ -258,13 +255,13 @@
                                             </form>
                                         </fieldset>
                                     </div>
-                                    <div style="clear: both;"></div>									
+                                    <div style="clear: both;"></div>
                                 </div>
                             </div>
-        <?php 
+        <?php
         break;
     } ?>
-    
+
 <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
     <div style="padding: 20px;">
         <div style="float: left; width: 100%;">

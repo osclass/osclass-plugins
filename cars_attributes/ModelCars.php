@@ -24,7 +24,7 @@
      * 
      * @package OSClass
      * @subpackage Model
-     * @since unknown
+     * @since 3.0
      */
     class ModelCars extends DAO
     {
@@ -33,7 +33,7 @@
          * It is used as a singleton
          * 
          * @access private
-         * @since unknown
+         * @since 3.0
          * @var ModelCars
          */
         private static $instance ;
@@ -43,7 +43,7 @@
          * before, it return the previous object
          * 
          * @access public
-         * @since unknown
+         * @since 3.0
          * @return ModelCars
          */
         public static function newInstance()
@@ -136,6 +136,10 @@
             $this->dao->where('fk_i_item_id', $itemId);
 
             $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+
             return $result->row();
         }
         
@@ -149,8 +153,12 @@
             $this->dao->select();
             $this->dao->from( $this->getTable_CarMake() ) ;
             $this->dao->orderBy('s_name', 'ASC') ;
-            
+
             $results = $this->dao->get();
+            if( !$results ) {
+                return array() ;
+            }
+
             return $results->result();
         }
         
@@ -167,6 +175,10 @@
             $this->dao->where('pk_i_id', $id );
             
             $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+
             return $result->row();
         }
         
@@ -184,6 +196,10 @@
             $this->dao->orderBy('s_name', 'ASC') ;
             
             $results = $this->dao->get();
+            if( !$results ) {
+                return array() ;
+            }
+
             return $results->result();
         }
         
@@ -200,6 +216,11 @@
             $this->dao->where('pk_i_id', $id );
             
             $result = $this->dao->get();
+
+            if( !$result ) {
+                return array() ;
+            }
+
             return $result->row();
         }
         
@@ -218,6 +239,10 @@
             }
             
             $results = $this->dao->get();
+            if( !$results ) {
+                return array() ;
+            }
+
             return $results->result();
         }
         
@@ -234,7 +259,11 @@
             $this->dao->where('pk_i_id', $id );
             
             $result = $this->dao->get();
-            return $result->row();
+            if( !$result ) {
+                return array() ;
+            }
+
+            return $result->result();
         }
         
         /**
@@ -250,6 +279,10 @@
             $this->dao->limit(1) ;
             
             $result = $this->dao->get() ;
+            if( !$result ) {
+                return array() ;
+            }
+
             $aux = $result->row();
             return $aux['pk_i_id']; 
         }
@@ -411,7 +444,7 @@
          */
         public function deleteLocale( $locale )
         {
-            $this->dao->query( "DELETE FROM ".$this->getTable_CarVehicleType()." WHERE fk_c_locale_code = '" . $locale . "'") ;
+            $this->dao->delete($this->getTable_CarVehicleType(), array('fk_c_locale_code' => $locale));
         }
         
         /**
@@ -452,4 +485,5 @@
             return $this->dao->update() ;
         }
     }
+
 ?>
