@@ -33,13 +33,13 @@ function supertoolbar_show() {
     }
     osc_run_hook("watchlist_user_menu");
     if(osc_is_web_user_logged_in()) {
-        $toolbar->addOption('<a href="' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'watchlist.php') . '" >' . __('Your watchlist', 'watchlist') . '</a>');
-    }
+         $toolbar->addOption('<a href="'.osc_render_file_url('watchlist/watchlist.php').'" >' . __('Your watchlist', 'watchlist') . '</a>');
+   }
     osc_run_hook("offer_user_menu");
     if(osc_is_web_user_logged_in()) {
-        $toolbar->addOption('<a href="' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'offer_byItem.php') . '" >' . __('Offers', 'offer_button') . '</a>');
-		 $toolbar->addOption('<a href="' . osc_render_file_url(osc_plugin_folder(__FILE__) . 'offer_button.php') . '" >' . __('Submitted Offers', 'offer_button') . '</a>');
-   
+      $toolbar->addOption('<a href="' . osc_render_file_url('offerButton/offer_byItem.php') . '" >' . __('Offers', 'offer_button') . '</a>');
+      $toolbar->addOption('<a href="' . osc_render_file_url('offerButton/offer_button.php') . '" >' . __('Submitted Offers', 'offer_button') . '</a>');
+    
     osc_run_hook("supertoolbar_hook");
     if(osc_is_web_user_logged_in()) {
         $toolbar->addOption('<a href="'.osc_user_logout_url().'" />'.__("Logout", "superuser").'</a>');
