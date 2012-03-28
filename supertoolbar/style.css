@@ -1,15 +1,32 @@
 #supertoolbar_toolbar {
     
-    position: fixed;
+    position: relative;
     top: 0px;
     right: 0px;
     left: 0px;
-    background-color: #fcfeb1;
+    background-color: #000000;
     height:18px;
     text-align: left;
-    color: #fefefe;
+    color: #ffffff;
     padding-top: 6px;
     padding-right: 6px;
     padding-left: 6px;
     padding-bottom: 6px;
+	word-spacing: 3px;
 }
+#supertoolbar_toolbar a{
+    
+color:#ffffff;
+text-decoration:none;
+font-weight:bold;
+}
+#supertoolbar_toolbar a:hover{
+    
+color:#000000;
+text-decoration:none;
+font-weight:bold;
+background:#ffffff;
+}
+
+
+
