@@ -24,7 +24,7 @@
      * 
      * @package OSClass
      * @subpackage Model
-     * @since unknown
+     * @since 3.0
      */
     class ModelProducts extends DAO
     {
@@ -33,7 +33,7 @@
          * It is used as a singleton
          * 
          * @access private
-         * @since unknown
+         * @since 3.0
          * @var ModelProducts
          */
         private static $instance ;
@@ -43,7 +43,7 @@
          * before, it return the previous object
          * 
          * @access public
-         * @since unknown
+         * @since 3.0
          * @return ModelProducts
          */
         public static function newInstance()
@@ -106,6 +106,11 @@
             $this->dao->where('fk_i_item_id', $item_id );
             
             $result = $this->dao->get();
+            
+            if( !$result ) {
+                return array();
+            }
+            
             return $result->row();
         }
         
@@ -124,7 +129,7 @@
                 'fk_i_item_id' => $item_id
                 );
             
-            $this->dao->insert( $this->getTable_ProductsAttr(), $aSet);
+            return $this->dao->insert( $this->getTable_ProductsAttr(), $aSet);
         }
         
         /**
@@ -143,7 +148,7 @@
             
             $aWhere = array( 'fk_i_item_id' => $item_id);
             
-            $this->_update($this->getTable_ProductsAttr(), $aSet, $aWhere);
+            return $this->_update($this->getTable_ProductsAttr(), $aSet, $aWhere);
         }
         
          /**
@@ -152,7 +157,7 @@
          */
         public function deleteItem($item_id)
         {
-            $this->dao->delete($this->getTable_ProductsAttr(), array('fk_i_item_id' => $item_id) ) ;
+            return $this->dao->delete($this->getTable_ProductsAttr(), array('fk_i_item_id' => $item_id) ) ;
 
         }
         
