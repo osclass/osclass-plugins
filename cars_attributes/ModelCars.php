@@ -297,7 +297,7 @@
             $aSet = $this->toArrayInsert($arrayInsert);
             $aSet['fk_i_item_id'] = $itemId;
             
-            $this->dao->insert( $this->getTable_CarAttr(), $aSet) ;
+            return $this->dao->insert( $this->getTable_CarAttr(), $aSet) ;
         }
         
         /**
@@ -307,7 +307,7 @@
          */
         public function insertMake( $name )
         {
-            $this->dao->insert($this->getTable_CarMake(), array('s_name' => $name)) ;
+            return $this->dao->insert($this->getTable_CarMake(), array('s_name' => $name)) ;
         }
         
         /**
@@ -322,7 +322,7 @@
                 'fk_i_make_id'  => $makeId,
                 's_name'        => $name
             );
-            $this->dao->insert($this->getTable_CarModel(), $aSet );
+            return $this->dao->insert($this->getTable_CarModel(), $aSet );
         }
         
         /**
@@ -339,7 +339,7 @@
                 'fk_c_locale_code'  => $locale,
                 's_name'            => $name
             );
-            $this->dao->insert($this->getTable_CarVehicleType(), $aSet) ;
+            return $this->dao->insert($this->getTable_CarVehicleType(), $aSet) ;
         }
         
         /**
@@ -350,7 +350,7 @@
         public function updateCarAttr( $arrayUpdate, $itemId )
         {
             $aUpdate = $this->toArrayInsert($arrayUpdate) ;
-            $this->_update( $this->getTable_CarAttr(), $aUpdate, array('fk_i_item_id' => $itemId));
+            return $this->_update( $this->getTable_CarAttr(), $aUpdate, array('fk_i_item_id' => $itemId));
         }
         
         /**
@@ -361,7 +361,7 @@
          */
         public function updateMake( $makeId, $name )
         {
-            $this->_update( $this->getTable_CarMake(), array('s_name' => $name), array('pk_i_id' => $makeId)) ;
+            return $this->_update( $this->getTable_CarMake(), array('s_name' => $name), array('pk_i_id' => $makeId)) ;
         }
         
         /**
@@ -373,7 +373,7 @@
          */
         public function updateModel( $modelId, $makeId, $name )
         {
-            $this->_update($this->getTable_CarModel(), array('s_name' => $name), array('pk_i_id' => $modelId, 'fk_i_make_id' => $makeId));
+            return $this->_update($this->getTable_CarModel(), array('s_name' => $name), array('pk_i_id' => $modelId, 'fk_i_make_id' => $makeId));
         }
         
         /**
@@ -393,7 +393,7 @@
                 's_name'            => $name
             );
             
-            $this->_update($this->getTable_CarVehicleType(), $aSet, $aWhere);
+            return $this->_update($this->getTable_CarVehicleType(), $aSet, $aWhere);
         }
         
         /**
@@ -403,7 +403,7 @@
          */
         public function deleteCarAttr( $itemId )
         {
-            $this->dao->delete( $this->getTable_CarAttr(), array('fk_i_item_id' => $itemId));
+            return $this->dao->delete( $this->getTable_CarAttr(), array('fk_i_item_id' => $itemId));
         }
         
         /**
@@ -414,7 +414,7 @@
         public function deleteMake( $makeId )
         {
             $this->dao->delete( $this->getTable_CarModel(), array('fk_i_make_id' => $makeId)) ;
-            $this->dao->delete( $this->getTable_CarMake() , array('pk_i_id' => $makeId)) ;
+            return $this->dao->delete( $this->getTable_CarMake() , array('pk_i_id' => $makeId)) ;
         }
         
         /**
@@ -424,7 +424,7 @@
          */
         public function deleteModel( $modelId )
         {
-            $this->dao->delete( $this->getTable_CarModel(), array('pk_i_id' => $modelId) ) ;
+            return $this->dao->delete( $this->getTable_CarModel(), array('pk_i_id' => $modelId) ) ;
         }
         
         /**
@@ -434,7 +434,7 @@
          */
         public function deleteVehicleType( $typeId )
         {
-            $this->dao->delete($this->getTable_CarVehicleType(), array('pk_i_id' => $typeId));
+            return $this->dao->delete($this->getTable_CarVehicleType(), array('pk_i_id' => $typeId));
         }
         
         /**
@@ -444,7 +444,7 @@
          */
         public function deleteLocale( $locale )
         {
-            $this->dao->delete($this->getTable_CarVehicleType(), array('fk_c_locale_code' => $locale));
+            return $this->dao->delete($this->getTable_CarVehicleType(), array('fk_c_locale_code' => $locale));
         }
         
         /**
