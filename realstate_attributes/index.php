@@ -1,14 +1,14 @@
 <?php
 /*
-  Plugin Name: Real state attributes
-  Plugin URI: http://www.osclass.org/
-  Description: This plugin extends a category of items to store real estate attributes such as square feets, number of bathrooms, garage, and so on.
-  Version: 3.0
-  Author: OSClass
-  Author URI: http://www.osclass.org/
-  Short Name: realstate_plugin
-  Plugin update URI: http://www.osclass.org/files/plugins/realstate_attributes/update.php
- */
+Plugin Name: Real state attributes
+Plugin URI: http://www.osclass.org/
+Description: This plugin extends a category of items to store real estate attributes such as square feets, number of bathrooms, garage, and so on.
+Version: 3.0
+Author: OSClass
+Author URI: http://www.osclass.org/
+Short Name: realstate_plugin
+Plugin update URI: http://www.osclass.org/files/plugins/realstate_attributes/update.php
+*/
 
 require_once 'ModelRealState.php';
 // Adds some plugin-specific search conditions

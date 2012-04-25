@@ -24,7 +24,7 @@
      * 
      * @package OSClass
      * @subpackage Model
-     * @since unknown
+     * @since 3.0
      */
     class ModelRealState extends DAO
     {
@@ -33,7 +33,7 @@
          * It is used as a singleton
          * 
          * @access private
-         * @since unknown
+         * @since 3.0
          * @var Currency
          */
         private static $instance ;
@@ -43,7 +43,7 @@
          * before, it return the previous object
          * 
          * @access public
-         * @since unknown
+         * @since 3.0
          * @return Currency
          */
         public static function newInstance()
@@ -147,7 +147,7 @@
                 'i_floor_number'    => $array['floorNumber'],
                 'i_plot_area'       => $array['squareMetersTotal']
                 );
-            $this->dao->insert( $this->getTable_HouseAttr(), $aSet) ;
+            return $this->dao->insert( $this->getTable_HouseAttr(), $aSet) ;
         }
         
         public function replaceAttr($array)
@@ -176,7 +176,7 @@
                 'i_floor_number'    => $array['floorNumber'],
                 'i_plot_area'       => $array['squareMetersTotal']
                 );
-            $this->dao->replace( $this->getTable_HouseAttr(), $aSet) ;
+            return $this->dao->replace( $this->getTable_HouseAttr(), $aSet) ;
         } 
        
         /**
@@ -250,6 +250,11 @@
             $this->dao->limit(1) ;
             
             $result = $this->dao->get() ;
+            
+            if( !$result ) {
+                return array() ;
+            }
+            
             $aux = $result->row();
             return $aux['pk_i_id']; 
         }
@@ -270,7 +275,7 @@
             $aSet['s_transport']        = $transport;
             $aSet['s_zone']             = $zone ;
           
-            $this->dao->insert( $this->getTable_HouseAttrDesc(), $aSet);
+            return $this->dao->insert( $this->getTable_HouseAttrDesc(), $aSet);
         }
         
         /**
@@ -289,7 +294,7 @@
             $aSet['s_transport']        = $transport;
             $aSet['s_zone']             = $zone ;
             
-            $this->dao->replace( $this->getTable_HouseAttrDesc(), $aSet) ;
+            return $this->dao->replace( $this->getTable_HouseAttrDesc(), $aSet) ;
         }
         
         /**
@@ -306,7 +311,7 @@
                 'fk_c_locale_code'  => $locale,
                 's_name'            => $name
             );
-            $this->dao->insert( $this->getTable_HousePropertyType(), $aSet) ; 
+            return $this->dao->insert( $this->getTable_HousePropertyType(), $aSet) ; 
         }
         
         /**
@@ -323,7 +328,7 @@
                 'fk_c_locale_code'  => $locale,
                 's_name'            => $name
             );
-            $this->dao->replace( $this->getTable_HousePropertyType(), $aSet) ;
+            return $this->dao->replace( $this->getTable_HousePropertyType(), $aSet) ;
         }
         
         /**
@@ -332,7 +337,7 @@
          */
         public function deletePropertyType($id)
         {
-            $this->dao->query( sprintf('DELETE FROM %s WHERE pk_i_id = %d', $this->getTable_HousePropertyType(), $id) ) ;
+            return $this->dao->query( sprintf('DELETE FROM %s WHERE pk_i_id = %d', $this->getTable_HousePropertyType(), $id) ) ;
         }
         
         /**
@@ -343,7 +348,7 @@
         public function deleteLocale( $locale )
         {
             $this->dao->query( "DELETE FROM ".$this->getTable_HouseAttrDesc()." WHERE fk_c_locale_code = '" . $locale . "'") ;
-            $this->dao->query( "DELETE FROM ".$this->getTable_HousePropertyType()." WHERE fk_c_locale_code = '" . $locale . "'") ;
+            return $this->dao->query( "DELETE FROM ".$this->getTable_HousePropertyType()." WHERE fk_c_locale_code = '" . $locale . "'") ;
         }
         
         /**
@@ -353,7 +358,7 @@
         public function deleteItem($item_id)
         {
             $this->dao->query("DELETE FROM ".$this->getTable_HouseAttr()." WHERE fk_i_item_id = '" . $item_id . "'") ;
-            $this->dao->query("DELETE FROM ".$this->getTable_HouseAttrDesc()." WHERE fk_i_item_id = '" . $item_id . "'") ;
+            return $this->dao->query("DELETE FROM ".$this->getTable_HouseAttrDesc()." WHERE fk_i_item_id = '" . $item_id . "'") ;
         }
     }
 

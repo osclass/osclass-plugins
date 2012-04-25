@@ -17,19 +17,17 @@
         $locales = osc_get_locales();
         if(count($locales)==1) {
         ?>
-            <p>
-                <?php
-                    if( Session::newInstance()->_getForm('pre_p_type') != '' ) {
-                        $detail['fk_i_property_type_id'] = Session::newInstance()->_getForm('pre_p_type');
-                    }
-                ?>
-                <label><?php _e('Property type', 'realstate_attributes'); ?></label><br />
-                <select name="p_type" id="p_type">
-                <?php foreach($p_type[$locales[0]['pk_c_code']] as $k => $v) { ?>
-                    <option value="<?php echo  $k; ?>" <?php if($k == @$detail['fk_i_property_type_id']) { echo 'selected'; } ?>><?php echo @$v; ?></option>
-                <?php } ?>
-                </select>
-            </p>
+            <?php
+                if( Session::newInstance()->_getForm('pre_p_type') != '' ) {
+                    $detail['fk_i_property_type_id'] = Session::newInstance()->_getForm('pre_p_type');
+                }
+            ?>
+            <label><?php _e('Property type', 'realstate_attributes'); ?></label>
+            <select name="p_type" id="p_type">
+            <?php foreach($p_type[$locales[0]['pk_c_code']] as $k => $v) { ?>
+                <option value="<?php echo  $k; ?>" <?php if($k == @$detail['fk_i_property_type_id']) { echo 'selected'; } ?>><?php echo @$v; ?></option>
+            <?php } ?>
+            </select>
         <?php } else { ?>
             <div class="tabber">
             <?php
