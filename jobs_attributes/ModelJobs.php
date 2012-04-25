@@ -24,7 +24,7 @@
      * 
      * @package OSClass
      * @subpackage Model
-     * @since unknown
+     * @since 3.0
      */
     class ModelJobs extends DAO
     {
@@ -33,7 +33,7 @@
          * It is used as a singleton
          * 
          * @access private
-         * @since unknown
+         * @since 3.0
          * @var ModelJobs
          */
         private static $instance ;
@@ -43,7 +43,7 @@
          * before, it return the previous object
          * 
          * @access public
-         * @since unknown
+         * @since 3.0
          * @return ModelJobs
          */
         public static function newInstance()
@@ -112,9 +112,12 @@
         {
             $this->dao->select();
             $this->dao->from($this->getTable_JobsAttr());
-            $results = $this->dao->get();
             
-            return $results->result();
+            $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+            return $result->result();
         }
         
         /**
@@ -128,7 +131,11 @@
             $this->dao->select();
             $this->dao->from($this->getTable_JobsAttr());
             $this->dao->where('fk_i_item_id', $item_id);
+            
             $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
             return $result->row();
         }
         
@@ -143,7 +150,12 @@
             $this->dao->select();
             $this->dao->from($this->getTable_JobsAttrDescription());
             $this->dao->where('fk_i_item_id', $item_id);
+            
             $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+            
             return $result->result();
         }
         
@@ -174,7 +186,7 @@
                 'i_salary_max_hour' => $salaryMaxHour
             );
             
-            $this->dao->insert($this->getTable_JobsAttr(), $aSet);
+            return $this->dao->insert($this->getTable_JobsAttr(), $aSet);
         }
         
         /**
@@ -202,7 +214,7 @@
                 's_company_description'     => $companyDescription
             );
             
-            $this->dao->insert($this->getTable_JobsAttrDescription(), $aSet);
+            return $this->dao->insert($this->getTable_JobsAttrDescription(), $aSet);
         }
         
         /**
@@ -219,7 +231,7 @@
                 'i_salary_min_hour' => $salaryHourmin,
                 'i_salary_max_hour' => $salaryHourMax,
             );
-            $this->dao->replace($this->getTable_JobsAttr(), $aSet);
+            return $this->dao->replace($this->getTable_JobsAttr(), $aSet);
         }
         
         /**
@@ -238,7 +250,7 @@
                 'i_salary_min_hour' => $salaryMinHour,
                 'i_salary_max_hour' => $salaryMaxHour
             );
-            $this->dao->replace( $this->getTable_JobsAttr(), $aSet);
+            return $this->dao->replace( $this->getTable_JobsAttr(), $aSet);
         }
         
         /**
@@ -256,8 +268,7 @@
                 's_contract'                => $contract,
                 's_company_description'     => $companyDescription
             );
-            
-            $this->dao->replace($this->getTable_JobsAttrDescription(), $aSet);
+            return $this->dao->replace($this->getTable_JobsAttrDescription(), $aSet);
         }
         
         /**
@@ -267,7 +278,7 @@
          */
         public function deleteLocale($locale)
         {
-            $this->dao->delete($this->getTable_JobsAttrDescription(), array('fk_c_locale_code' => $locale) );
+            return $this->dao->delete($this->getTable_JobsAttrDescription(), array('fk_c_locale_code' => $locale) );
         }
         
         /**
@@ -278,7 +289,7 @@
         public function deleteItem($item_id)
         {
             $this->dao->delete($this->getTable_JobsAttr(), array('fk_i_item_id' => $item_id) );
-            $this->dao->delete($this->getTable_JobsAttrDescription(), array('fk_i_item_id' => $item_id) );
+            return $this->dao->delete($this->getTable_JobsAttrDescription(), array('fk_i_item_id' => $item_id) );
         }
     }
 ?>
