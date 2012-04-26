@@ -3,7 +3,7 @@
 Plugin Name: Rich edit
 Plugin URI: http://www.osclass.org/
 Description: Add a WYSIWYG editor when publishing an ad
-Version: 1.0.4
+Version: 1.1.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: richedit
@@ -42,6 +42,12 @@ Short Name: richedit
     function richedit_load_js() {
         $location = Rewrite::newInstance()->get_location();
         $section = Rewrite::newInstance()->get_section();
+        if(isset($location)){
+            $location = Params::getParam('page', false, false) ;
+            $section = Params::getParam('action', false, false) ;
+        }
+
+
         if(($location=='item' && ($section=='item_add' || $section=='item_edit')) || ($location=='items' && ($section=='post' || $section=='item_edit'))) {
             ?>
             <script type="text/javascript" src="<?php echo osc_base_url().'oc-content/plugins/'.osc_plugin_folder(__FILE__);?>tiny_mce/tiny_mce.js"></script>
@@ -77,6 +83,16 @@ Short Name: richedit
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'richedit') . '</a></li>
         </ul>';
     }
+    if(!function_exists('do_not_clean_items')) {
+        function do_not_clean_items($catID, $itemID) {
+            $title       = Params::getParam('title', false, false) ;
+            $description = Params::getParam('description', false, false) ;
+            $locale      = osc_current_user_locale() ; 
+
+            $mItems = Item::newInstance() ;
+            $mItems->updateLocaleForce($itemID, $locale, $title[$locale], $description[$locale]) ;
+        }
+    }
 
     /**
      * ADD HOOKS
@@ -87,5 +103,8 @@ Short Name: richedit
     osc_add_hook('admin_menu', 'richedit_admin_menu');
     osc_add_hook('header', 'richedit_load_js');
     osc_add_hook('admin_header', 'richedit_load_js');
+
+    osc_add_hook('item_form_post', 'do_not_clean_items') ;
+    osc_add_hook('item_edit_post', 'do_not_clean_items') ;
     
 ?>
