@@ -1,7 +1,7 @@
 Changelog Products attributes
 =============================
 
-##version 3.0 - XX/XX/XXXX
+##version 3.0 - 02/05/2012
 
 * Implemented new DAO (Data Access Object)
 
