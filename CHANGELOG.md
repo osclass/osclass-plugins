@@ -1,7 +1,7 @@
 Changelog Real estate attributes
 ================================
 
-##version 3.0 
+##version 3.0 - 02/05/2012
 
 * implemented new DAO
 * fixed item-detail (debug missed)
