@@ -8,7 +8,7 @@ Since the version 2.2 has been altered the table structure, if you update the pl
 Changelog Jobs attributes
 =========================
 
-##version 3.0 - 02/05/2012
+##version 3.0 - 02/05/2012 ( only for osclass >= 2.4 )
 
 * Implemented new DAO (Data Access Object)
 * Removed uniform.js
