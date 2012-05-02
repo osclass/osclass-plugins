@@ -5,7 +5,6 @@ This plugin extends the fields of items to store cars attributes such as model, 
 
 version 3.0 - 02/05/2012  Only for osclass >= 2.4
 
-Changelog Cars attributes
 ===============================
 
 ##version 3.0 - 02/05/2012
