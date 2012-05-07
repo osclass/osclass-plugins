@@ -1,0 +1,27 @@
+.realstate-details{
+    
+}
+.realstate-details h3{
+    margin-left: 40px;margin-top: 20px;
+}
+.realstate-details .table-attributes{
+   margin-left: 20px;
+}
+.realstate-details .table-attributes table{
+   width: 100%;
+}
+.realstate-details .row-title{
+    width:150px;
+}
+.realstate-details h4{
+    margin-left: 20px;
+}
+.realstate-details .list-other-attributes li{
+    float:left;width: 140px;
+}
+.realstate-details .list-other-attributes img{
+    height: 14px; width: 14px;
+}
+.realstate-details .clear{
+    clear:both;
+}

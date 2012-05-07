@@ -3,7 +3,7 @@
 Plugin Name: Real state attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store real estate attributes such as square feets, number of bathrooms, garage, and so on.
-Version: 3.0
+Version: 3.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: realstate_plugin
@@ -11,6 +11,7 @@ Plugin update URI: http://www.osclass.org/files/plugins/realstate_attributes/upd
 */
 
 require_once 'ModelRealState.php';
+require_once 'helper.php';
 // Adds some plugin-specific search conditions
 function realstate_search_conditions($params = null) {
 
@@ -247,14 +248,8 @@ function realstate_form_post($catId = null, $item_id = null) {
 
 // Self-explanatory
 function realstate_item_detail() {
-    if (osc_is_this_category('realstate_plugin', osc_item_category_id())) {
-        $detail = ModelRealState::newInstance()->getAttributes( osc_item_id() );
-        $keys = array_keys($detail) ;
-        if(count($keys) == 1 && $keys[0] == 'locale' && is_null($detail[0]['locale']) ){
-            // nothing to do
-        } else {
-            require_once 'item_detail.php';
-        }
+    if (osc_is_this_category('realstate_plugin', osc_item_category_id()) && osc_get_preference('insertion','realstate_attributes') != 'manual') {
+        realstate_attributes();
     }
 }
 
@@ -302,6 +297,7 @@ function realstate_admin_menu() {
     <ul> 
         <li><a href="'.osc_admin_configure_plugin_url("realstate_attributes/index.php").'">&raquo; ' . __('Configure plugin', 'realstate_attributes') . '</a></li>
         <li><a href="'.osc_admin_render_plugin_url("realstate_attributes/conf.php").'?section=types">&raquo; ' . __('Property types', 'realstate_attributes') . '</a></li>
+        <li><a href="'.osc_admin_render_plugin_url("realstate_attributes/view.php").'">&raquo; ' . __('View options', 'realstate_attributes') . '</a></li>
     </ul>';
 }
 
@@ -375,6 +371,11 @@ function realstate_pre_item_post() {
     Session::newInstance()->_keepForm('pre_squareMetersTotal');
 }
 
+function realstate_item_style(){
+    //osc_plugin_url(__FILE__).'img/
+    echo "<link href=\"".osc_plugin_url(__FILE__)."/css/style.css\" rel=\"stylesheet\" type=\"text/css\" />";
+}
+
 // This is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'realstate_call_after_install');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
@@ -409,4 +410,7 @@ osc_add_hook('delete_item', 'realstate_delete_item');
 
 // previous to insert item
 osc_add_hook('pre_item_post', 'realstate_pre_item_post') ;
+
+// Add styles
+osc_add_hook('header', 'realstate_item_style');
 ?>
