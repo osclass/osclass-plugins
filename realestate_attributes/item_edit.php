@@ -15,30 +15,6 @@
     <div class="row">
         <?php
         $locales = osc_get_locales();
-        if(function_exists('multilanguage_form') && Params::getParam("multilanguage_form") == 'true'){
-            $options = array();
-            foreach($locales as $locale) {
-                $options[$locale['pk_c_code']] = array();
-                if($p_type[$locale['pk_c_code']]){
-                    foreach($p_type[$locale['pk_c_code']] as $k => $v) {
-                        $selected = false;
-                        if($k==@$detail['fk_i_property_type_id']) { $selected = true; }
-                        $options[$locale['pk_c_code']][] = array('label'=>@$v,'value'=>$k,'selected'=>$selected);
-                    }
-                }
-            }
-            $field = array(
-                array(
-                    'name'=>'description',
-                    'label'=>__('Property type','realestate_attributes'),
-                    'type'=>'select','args'=>'',
-                    'value'=>$description,
-                    'options' => $options
-                )
-            );
-            multilanguage_form($field);
-        } else {
-        //If theme is realstate
         if(count($locales)==1) {
         ?>
             <?php
@@ -78,7 +54,6 @@
             <?php } ?>
             </div>
         <?php }
-        } //If theme is realstate
         ?>
     </div>
     <div class="row">
@@ -271,37 +246,6 @@
         <div class="clear"></div>
     </div>
     <?php $locales = osc_get_locales();
-    if(function_exists('multilanguage_form') && Params::getParam("multilanguage_form") == 'true'){
-            if( Session::newInstance()->_getForm('pre_'.$locales[0]['pk_c_code'].'transport') != '' ) {
-                $value = Session::newInstance()->_getForm('pre_'.$locales[0]['pk_c_code'].'transport');
-            }
-            $field = array(
-                array(
-                    'name'=>'%locale%#transport',
-                    'label'=>__('Transport','realestate_attributes'),
-                    'type'=>'text','args'=>'',
-                    'value'=>$value
-                )
-            );
-            echo '<div class="row">';
-            multilanguage_form($field);
-            echo '</div>';
-
-            if( Session::newInstance()->_getForm('pre_'.$locales[0]['pk_c_code'].'zone') != '' ) {
-                $value = Session::newInstance()->_getForm('pre_'.$locales[0]['pk_c_code'].'zone');
-            }
-            $field = array(
-                array(
-                    'name'=>'%locale%#zone',
-                    'label'=>__('Zone','realestate_attributes'),
-                    'type'=>'text','args'=>'',
-                    'value'=>$value
-                )
-            );
-            echo '<div class="row">';
-            multilanguage_form($field);
-            echo '</div>';
-        } else { // is theme is realstate
     if(count($locales)==1) { ?>
 
     <div class="row">
@@ -349,7 +293,6 @@
             </p>
         </div>
     <?php }
-    } // is theme is realstate
     ?>
     </div>
 
