@@ -93,8 +93,12 @@
         $("#sq").val($("#sq-range").slider("values", 0) + ' - ' + $("#sq-range").slider("values", 1));
     });
 </script>
+<?php
+$custom = unserialize(osc_get_preference('custom-filter','realestate_attributes'));
+?>
 <fieldset>
     <h3><stong style="font-weight: normal;"><?php _e("Realestate attributes", 'realestate_attributes');?></stong></h3>
+    <?php if(isset($custom['property_type'])){ ?>
     <div class="row one_input">
         <h6><?php _e('Type', 'realestate_attributes'); ?></h6>
         <div class="">
@@ -105,6 +109,8 @@
             </select>
         </div>
     </div>
+    <?php } ?>
+    <?php if(isset($custom['p_type'])){ ?>
     <div class="row one_input">
         <p>
             <h6><?php _e('Property type', 'realestate_attributes'); ?></h6>
@@ -118,7 +124,8 @@
             </div>
         </p>
     </div>
-    
+    <?php } ?>
+    <?php if(isset($custom['numFloor'])){ ?>
     <div class="row one_input">
         <h6 for="numFloor"><?php _e('Num. Floors Range', 'realestate_attributes'); ?></h6>
         <input type="text" id="numFloor" name="numFloor" style="background-color: transparent; border:0; color:#f6931f; font-weight:bold;" readonly/><br/>
@@ -126,7 +133,8 @@
             <div id="floor-range"></div>
         </div>
     </div>
-    
+    <?php } ?>
+    <?php if(isset($custom['rooms'])){ ?>
     <div class="row one_input">
         <p>
             <h6><?php _e('Rooms Range', 'realestate_attributes'); ?></h6>
@@ -136,7 +144,8 @@
             <div id="room-range"></div>
         </div>
     </div>
-    
+    <?php } ?>
+    <?php if(isset($custom['bathrooms'])){ ?>
     <div class="row one_input">
         <p>
             <h6><?php _e('Bathrooms Range', 'realestate_attributes'); ?></h6>
@@ -146,7 +155,8 @@
             <div id="bathroom-range"></div>
         </div>
     </div>
-    
+    <?php } ?>
+    <?php if(isset($custom['garages'])){ ?>
     <div class="row one_input">
         <p>
             <h6><?php _e('Garages Range', 'realestate_attributes'); ?></h6>
@@ -156,7 +166,8 @@
             <div id="garage-range"></div>
         </div>
     </div>
-    
+    <?php } ?>
+    <?php if(isset($custom['year'])){ ?>
     <div class="row one_input">
         <p>
             <h6><?php _e('Construction year Range', 'realestate_attributes'); ?></h6>
@@ -166,7 +177,8 @@
             <div id="year-range"></div>
         </div>
     </div>
-    
+    <?php } ?>
+    <?php if(isset($custom['sq'])){ ?>
     <div class="row one_input">
         <p>
             <h6><?php _e('Square Meters Range', 'realestate_attributes'); ?></h6>
@@ -176,7 +188,8 @@
             <div id="sq-range"></div>
         </div>
     </div>
-    
+    <?php } ?>
+    <?php if(isset($custom['other'])){ ?>
     <div class="row checkboxes">
         <h6><?php _e('Other characteristics', 'realestate_attributes'); ?></h6>
         <ul>
@@ -206,4 +219,5 @@
             </li>
         </ul>
     </div>
+    <?php } ?>
 </fieldset>
