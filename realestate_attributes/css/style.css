@@ -1,0 +1,27 @@
+.realestate-details{
+    
+}
+.realestate-details h3{
+    margin-left: 40px;margin-top: 20px;
+}
+.realestate-details .table-attributes{
+   margin-left: 20px;
+}
+.realestate-details .table-attributes table{
+   width: 100%;
+}
+.realestate-details .row-title{
+    width:150px;
+}
+.realestate-details h4{
+    margin-left: 20px;
+}
+.realestate-details .list-other-attributes li{
+    float:left;width: 140px;
+}
+.realestate-details .list-other-attributes img{
+    height: 14px; width: 14px;
+}
+.realestate-details .clear{
+    clear:both;
+}

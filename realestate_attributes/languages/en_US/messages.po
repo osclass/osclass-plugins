@@ -1,0 +1,261 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Real estate attributes\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-14 13:02+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SearchPath-0: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes\n"
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/conf.php:59
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/index.php:367
+msgid "Property types"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/conf.php:86
+msgid "Delete"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/conf.php:92
+msgid "Edit"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/conf.php:99
+msgid "Add new property types"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/conf.php:121
+msgid "Add new"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/conf.php:132
+msgid "Warning"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/conf.php:134
+msgid "Deleting property types may end in errors. Some of those property types could be attached to some actual items"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/index.php:366
+msgid "Configure plugin"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:4
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:6
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:97
+msgid "Realestate attributes"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:8
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:9
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:99
+msgid "Type"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:14
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:21
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:34
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:109
+msgid "Property type"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:20
+msgid "Num. Rooms"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:26
+msgid "Num. Bathrooms"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:32
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:63
+msgid "Status"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:38
+msgid "Square Meters"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:44
+msgid "Square Meters (total)"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:50
+msgid "Num. Floors"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:56
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:75
+msgid "Construction Year"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:62
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:99
+msgid "Condition"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:68
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:103
+msgid "Agency"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:74
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:107
+msgid "Floor Number"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:80
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:144
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:159
+msgid "Transport"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:86
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:148
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:163
+msgid "Zone"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:92
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:111
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:180
+msgid "Other characteristics"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:98
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:115
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:183
+msgid "Heating"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:104
+msgid "Air Condition"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:110
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:121
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:189
+msgid "Elevator"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:116
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:124
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:192
+msgid "Terrace"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:122
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:127
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:195
+msgid "Parking"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:128
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:130
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:198
+msgid "Furnished"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:134
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:133
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:201
+msgid "New"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_detail.php:140
+msgid "By Owner"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:11
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:102
+msgid "For rent"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:12
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:103
+msgid "For sale"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:47
+msgid "Num. of rooms"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:55
+msgid "Num. of bathrooms"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:65
+msgid "New construction"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:66
+msgid "To renovate"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:67
+msgid "Good condition"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:71
+msgid "Square meters"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:79
+msgid "Square meters (total)"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:83
+msgid "Num. of floors"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:91
+msgid "Num. of garages (place for a car = one garage)"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:118
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:186
+msgid "Air condition"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/item_edit.php:136
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:204
+msgid "By owner"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:112
+msgid "Select a property type"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:122
+msgid "Num. Floors Range"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:131
+msgid "Rooms Range"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:141
+msgid "Bathrooms Range"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:151
+msgid "Garages Range"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:161
+msgid "Construction year Range"
+msgstr ""
+
+#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/realestate_attributes/search_form.php:171
+msgid "Square Meters Range"
+msgstr ""
+

@@ -1,0 +1,161 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "Add new"
+msgstr "اضافه کردن جدید"
+
+msgid "Warning"
+msgstr "هشدار"
+
+msgid "Configure plugin"
+msgstr "تنظیمات افزونه"
+
+msgid "New"
+msgstr "جدید"
+
+msgid "Type"
+msgstr "نوع"
+
+msgid "Heating"
+msgstr "گرمایش"
+
+msgid "Air condition"
+msgstr "وضعیت هوا"
+
+msgid "Elevator"
+msgstr "آسانسور"
+
+msgid "Terrace"
+msgstr "تراس"
+
+msgid "Parking"
+msgstr "پارکینگ"
+
+msgid "Property types"
+msgstr "نوع ملک"
+
+msgid "Add new property types"
+msgstr "اضافه کردن نوع ملک جدید"
+
+msgid "Deleting property types may end in errors. Some of those property types could be attached to some actual items"
+msgstr "Deleting property types may end in errors. Some of those property types could be attached to some actual items"
+
+msgid "Realestate attributes"
+msgstr "ویژگی های مشاور املاک"
+
+msgid "Property type"
+msgstr "نوع ملک"
+
+msgid "Num. Rooms"
+msgstr "تعداد اتاق ها"
+
+msgid "Num. Bathrooms"
+msgstr "نعداد حمام و سرویس بهداشتی"
+
+msgid "Status"
+msgstr "وضعیت"
+
+msgid "Square Meters"
+msgstr "متر مربع"
+
+msgid "Square Meters (total)"
+msgstr "متر مربع (کل)"
+
+msgid "Num. Floors"
+msgstr "تعداد طبقه"
+
+msgid "Construction Year"
+msgstr "سال ساخت"
+
+msgid "Condition"
+msgstr "شرایط"
+
+msgid "Agency"
+msgstr "نمایندگی"
+
+msgid "Floor Number"
+msgstr "شماره طبقه"
+
+msgid "Transport"
+msgstr "حمل و نقل"
+
+msgid "Zone"
+msgstr "منطقه"
+
+msgid "Other characteristics"
+msgstr "ویژگی های دیگر"
+
+msgid "Furnished"
+msgstr "مبله"
+
+msgid "By Owner"
+msgstr "توسط مالک"
+
+msgid "For rent"
+msgstr "برای اجاره"
+
+msgid "For sale"
+msgstr "برای فروش"
+
+msgid "Num. of rooms"
+msgstr "تعداد اتاق ها"
+
+msgid "Num. of bathrooms"
+msgstr "تعداد حمام و سرویس بهداشتی"
+
+msgid "New construction"
+msgstr "ساخت و ساز جدید"
+
+msgid "To renovate"
+msgstr "در تعمیر و نوسازی"
+
+msgid "Good condition"
+msgstr "وضعیت خوب"
+
+msgid "Num. of floors"
+msgstr "تعداد طبقه"
+
+msgid "Num. of garages (place for a car = one garage)"
+msgstr ".تعداد گاراژ ها (جایی برای یک ماشین = یکی گاراژ)"
+
+msgid "Select a property type"
+msgstr "انتخاب نوع ملک"
+
+msgid "Num. Floors Range"
+msgstr "حدود طبقه"
+
+msgid "Rooms Range"
+msgstr "حدود اتاق"
+
+msgid "Bathrooms Range"
+msgstr "حدود حمام و سرویس بهداشتی"
+
+msgid "Garages Range"
+msgstr "حدود گاراژ"
+
+msgid "Construction year Range"
+msgstr "حدود سال ساخت"
+
+msgid "Square Meters Range"
+msgstr "حدود متر مربع"
+
