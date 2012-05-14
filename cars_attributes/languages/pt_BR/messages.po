@@ -1,0 +1,182 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Makes"
+msgstr "Marca"
+
+msgid "Delete"
+msgstr "Apagar"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Add new make"
+msgstr "Adicionar nova marca"
+
+msgid "Add new"
+msgstr "Adicionar novo"
+
+msgid "Models"
+msgstr "Modelos"
+
+msgid "Select a make"
+msgstr "Selecciona marca"
+
+msgid "Add new model"
+msgstr "Adiciona modelo"
+
+msgid "Vehicle types"
+msgstr "Tipo de veiculo "
+
+msgid "Add new car type"
+msgstr "Adiciona novo tipo de carro"
+
+msgid "Warning"
+msgstr "Aviso"
+
+msgid "Deleting makes or models may end in errors. Some of those makes/models could be attached to some actual items"
+msgstr "Apagar marcas ou modelos poderá ocorrer erros.  Algumas destas marcas ou modelos podem ser anexados a alguns artigos."
+
+msgid "Configure plugin"
+msgstr "Configura plugin"
+
+msgid "Manage makes"
+msgstr "Gerir marcas"
+
+msgid "Manage models"
+msgstr "Gerir modelos"
+
+msgid "Manage vehicle types"
+msgstr "Gerir tipo de carros"
+
+msgid "Cars attributes"
+msgstr "Atributos dos carros"
+
+msgid "Make"
+msgstr "Marca"
+
+msgid "Model"
+msgstr "Modelo"
+
+msgid "Car type"
+msgstr "Tipo de carros"
+
+msgid "Year"
+msgstr "Ano"
+
+msgid "Doors"
+msgstr "Portas"
+
+msgid "Seats"
+msgstr "Lugares"
+
+msgid "Mileage"
+msgstr "Quilometragem"
+
+msgid "Engine size (cc)"
+msgstr "Cilindrada (cc)"
+
+msgid "Num. Airbags"
+msgstr "Num. Airbags"
+
+msgid "Manual"
+msgstr "Manual"
+
+msgid "Auto"
+msgstr "Automático"
+
+msgid "Transmission"
+msgstr "Transmissão"
+
+msgid "Diesel"
+msgstr "Gasóleo"
+
+msgid "Gasoline"
+msgstr "Gasolina"
+
+msgid "Electric-hibrid"
+msgstr "Elétrico-híbrido"
+
+msgid "Other"
+msgstr "Outro"
+
+msgid "Fuel"
+msgstr "Combustível"
+
+msgid "Dealer"
+msgstr "Revendedor "
+
+msgid "Owner"
+msgstr "Dono"
+
+msgid "Seller"
+msgstr "Vendedor"
+
+msgid "Warranty"
+msgstr "Garantia"
+
+msgid "Yes"
+msgstr "Sim"
+
+msgid "No"
+msgstr "Não"
+
+msgid "New"
+msgstr "Novo"
+
+msgid "Power"
+msgstr "Força"
+
+msgid "Gears"
+msgstr "Mudanças"
+
+msgid "Select a model"
+msgstr "Selecciona o modelo"
+
+msgid "No results"
+msgstr "Sem resultados"
+
+msgid "Select a car type"
+msgstr "Selecciona o tipo de carro"
+
+msgid "Kw"
+msgstr "Kw"
+
+msgid "Cv"
+msgstr "Cv"
+
+msgid "Ch"
+msgstr "Ch"
+
+msgid "Km"
+msgstr "Km"
+
+msgid "Hp"
+msgstr "Hp"
+
+msgid "Ps"
+msgstr "Ps"
+
+msgid "Pk"
+msgstr "Pk"
+
+msgid "Cp"
+msgstr "Cp"
+
+msgid "Automatic"
+msgstr "Automático"
+
