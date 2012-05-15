@@ -1,5 +1,4 @@
-#supertoolbar_toolbar {
-    
+#supertoolbar_toolbar {    
     position: relative;
     top: 0px;
     right: 0px;
@@ -14,19 +13,16 @@
     padding-bottom: 6px;
 	word-spacing: 3px;
 }
-#supertoolbar_toolbar a{
-    
-color:#ffffff;
-text-decoration:none;
-font-weight:bold;
+
+#supertoolbar_toolbar a {    
+    color:#ffffff;
+    text-decoration:none;
+    font-weight:bold;
 }
+
 #supertoolbar_toolbar a:hover{
-    
-color:#000000;
-text-decoration:none;
-font-weight:bold;
-background:#ffffff;
+    color:#000000;
+    text-decoration:none;
+    font-weight:bold;
+    background:#ffffff;
 }
-
-
-

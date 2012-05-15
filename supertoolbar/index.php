@@ -49,8 +49,6 @@ Short Name: supertoolbar
         <?php }
     }
 
-
-
     function supertoolbar_admin_menu() {
         echo '<h3><a href="#">Super Toolbar</a></h3>';
         echo '<ul>';
@@ -62,18 +60,17 @@ Short Name: supertoolbar
         osc_admin_render_plugin(osc_plugin_path(dirname(__FILE__)) . '/help.php') ;
     }
 
-// This is needed in order to be able to activate the plugin
-osc_register_plugin(osc_plugin_path(__FILE__), '');
+    // This is needed in order to be able to activate the plugin
+    osc_register_plugin(osc_plugin_path(__FILE__), '');
 
-// This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
+    // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
+    osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
 
-// Admin menu
-osc_add_hook('admin_menu', 'supertoolbar_admin_menu');
-// This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'supertoolbar_help');
-// Include the toolbar on the header
-osc_add_hook('header', 'supertoolbar_show');
-
+    // Admin menu
+    osc_add_hook('admin_menu', 'supertoolbar_admin_menu');
+    // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
+    osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'supertoolbar_help');
+    // Include the toolbar on the header
+    osc_add_hook('header', 'supertoolbar_show');
 
 ?>
