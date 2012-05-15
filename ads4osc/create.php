@@ -1,6 +1,6 @@
 <div>
-	<h2><?php _e('Create Ad', 'ads4osc'); ?></h2>
-	<form action="<?php echo osc_admin_render_plugin_url("ads4osc/launcher.php");?>" method="post" id="adv-form" enctype="multipart/form-data">
+    <h2><?php _e('Create Ad', 'ads4osc'); ?></h2>
+    <form action="<?php echo osc_admin_render_plugin_url("ads4osc/launcher.php");?>" method="post" id="adv-form" enctype="multipart/form-data">
         <input type="hidden" name="ads-action" id="ads-action" value="import">
         <div>
             <h3><?php _e('Step 1: Import Your Ad Code', 'ads4osc'); ?></h3>
@@ -13,5 +13,5 @@
             </div>
             <div class="clear"></div>
         </div>
-	</form>
+    </form>
 </div>

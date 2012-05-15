@@ -6,8 +6,8 @@
     switch($ads_action) {
         case 'import':
             $ads = new Ads;
-            $ad = $ads->load_defaults(Params::getParam('ads-code'));
-            $ad['pk_i_id'] = $ads->create_ad(Params::getParam('ads-code'));
+            $ad = $ads->load_defaults(Params::getParam('ads-code', false, false));
+            $ad['pk_i_id'] = $ads->create_ad(Params::getParam('ads-code', false, false));
             $ads->update_ad($ad);
             require 'edit.php';
             break;
@@ -34,7 +34,7 @@
                 $ad['s_ad_format'] = Params::getParam('ads-format-image');
             } else if($ad['e_ad_type']=='VIDEO') {
                 $ad['s_ad_format'] = Params::getParam('ads-format-video');
-            } else {            
+            } else {
                 $ad['s_ad_format'] = $ad['i_ad_width'].'x'.$ad['i_ad_height'];
             }
             $ad['f_weight'] = Params::getParam('ads-weight');
@@ -51,9 +51,9 @@
                 $ad['s_display_categories'] = '';
             }
             $ad['s_html_before'] = Params::getParam('ads-html-before');
-            $ad['s_code'] = Params::getParam('ads-code');
+            $ad['s_code'] = Params::getParam('ads-code', false, false);
             $ad['s_html_after'] = Params::getParam('ads-html-after');
-            
+
             if($ad['s_network']=='adsense') {
                 $ad['s_code'] = preg_replace('|google_ad_client = "([^"]+)|', 'google_ad_client = "'.$ad['s_account_id'], $ad['s_code']);
                 $ad['s_code'] = preg_replace('|google_ad_slot = "([^"]+)|', 'google_ad_slot = "'.$ad['s_slot_id'], $ad['s_code']);
@@ -64,8 +64,8 @@
             $ads->update_ad($ad);
             osc_add_flash_message(__('Settings saved', 'ads4osc'), 'admin');
             // HACK TO DO A REDIRECT
-    	    echo "<script>location.href='".osc_admin_render_plugin_url("ads4osc/launcher.php")."?ads-action=list'</script>";
-    	    exit;
+            echo "<script>location.href='".osc_admin_render_plugin_url("ads4osc/launcher.php")."?ads-action=list'</script>";
+            exit;
             break;
         case 'edit':
             $ad = Ads::newInstance()->get_ad_admin(Params::getParam('ads-id'));
@@ -83,8 +83,8 @@
                 osc_add_flash_message(__('There was a problem deleting the ad', 'ads4osc'), 'admin');
             }
             // HACK TO DO A REDIRECT
-    	    echo "<script>location.href='".osc_admin_render_plugin_url("ads4osc/launcher.php")."?ads-action=list'</script>";
-    	    exit;
+            echo "<script>location.href='".osc_admin_render_plugin_url("ads4osc/launcher.php")."?ads-action=list'</script>";
+            exit;
             break;
         case 'help':
             require 'help.php';

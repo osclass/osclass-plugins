@@ -29,7 +29,7 @@
                                     <td><?php echo @$ad['b_active']; ?></td>
                                     <td><?php echo ''; ?></td>
                                     <td><?php echo $ad['i_num_views']; ?></td>
-                                </tr>                          
+                                </tr>
                             <?php } ?>
                         </tbody>
                     </table>

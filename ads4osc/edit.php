@@ -14,7 +14,7 @@
                 var sizes = clean[0].split("x");
                 $("#ads-width").val(sizes[0]);
                 $("#ads-height").val(sizes[1]);
-            }            
+            }
         });
     });
 
@@ -141,34 +141,34 @@
     <div>
         <h3><span><?php _e('Display Options', 'ads4osc');?></span></h3>
         <div>
-	        <table>
-	        <tr>
-		        <td><label><?php _e('By Page Type:', 'ads4osc');?></label></td>
-		        <td>
-			        <select id="ads-pagetype" name="ads-show-pagetype[]" multiple="multiple" size="3">
+            <table>
+            <tr>
+                <td><label><?php _e('By Page Type:', 'ads4osc');?></label></td>
+                <td>
+                    <select id="ads-pagetype" name="ads-show-pagetype[]" multiple="multiple" size="3">
 
-				        <option value=""></option>
-				        <option value="home" selected='selected'><?php _e('Homepage', 'ads4osc');?></option>
-				        <option value="page" selected='selected'><?php _e('Static Pages', 'ads4osc');?></option>
-				        <option value="search" selected='selected'><?php _e('Search', 'ads4osc');?></option>
+                        <option value=""></option>
+                        <option value="home" selected='selected'><?php _e('Homepage', 'ads4osc');?></option>
+                        <option value="page" selected='selected'><?php _e('Static Pages', 'ads4osc');?></option>
+                        <option value="search" selected='selected'><?php _e('Search', 'ads4osc');?></option>
 
-			        </select>
-		        </td>
-	        </tr>
-	        <tr>
-		        <td><label><?php _e('By Category:', 'ads4osc');?></label></td>
-		        <td>
-			        <input type="hidden" name="ads-show-category[]" value="">
-			        <select id="ads-category" name="ads-show-category[]" multiple="multiple" size="5">
-			        <option selected='selected' value="1"><?php _e('Uncategorized', 'ads4osc');?></option>
-			        <?php $categories = osc_get_categories(); 
-			        foreach($categories as $category) {
-				        echo "<option value=\"".$category['pk_i_id']."\">".$category['s_name']."</option>";
-				    }; ?>
-			        </select>
-		        </td>
-	        </tr>
-	        </table>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label><?php _e('By Category:', 'ads4osc');?></label></td>
+                <td>
+                    <input type="hidden" name="ads-show-category[]" value="">
+                    <select id="ads-category" name="ads-show-category[]" multiple="multiple" size="5">
+                    <option selected='selected' value="1"><?php _e('Uncategorized', 'ads4osc');?></option>
+                    <?php $categories = osc_get_categories(); 
+                    foreach($categories as $category) {
+                        echo "<option value=\"".$category['pk_i_id']."\">".$category['s_name']."</option>";
+                    }; ?>
+                    </select>
+                </td>
+            </tr>
+            </table>
         <br />
         <span style="font-size:x-small;color:gray;"><?php _e('Website display options determine where on your website your ads will appear. You could select multiples values for each option, just press "Ctrl + mouse click"', 'ads4osc');?></span>
         </div>
@@ -177,8 +177,8 @@
             <h2><?php _e('Advanced Options', 'ads4osc'); ?></h2>
             <div>
                 <p>
-	                <label><?php _e('Weight', 'ads4osc'); ?>:</label>
-	                <input type="text" name="ads-weight" style="width:50px" id="ads-weight" value="<?php echo $ad['f_weight']; ?>" />
+                    <label><?php _e('Weight', 'ads4osc'); ?>:</label>
+                    <input type="text" name="ads-weight" style="width:50px" id="ads-weight" value="<?php echo $ad['f_weight']; ?>" />
                 </p>
                 <br />
                 <span style="font-size:x-small; color:gray;"><?php _e('Weight determines how often this ad is displayed relative to the other ads with the same name.  A weight of \'0\' will stop this ad from displaying', 'ads4osc'); ?>.</span>
@@ -190,22 +190,22 @@
         <div>
             <table>
                 <tr>
-	                <td>
-	                <label for="html_before"><?php _e('HTML Code Before', 'ads4osc'); ?></label><br />
-	                <textarea rows="1" cols="57" name="ads-html-before" id="ads-html-before"><?php echo $ad['s_html_before']; ?></textarea>
-	                </td>
+                    <td>
+                    <label for="html_before"><?php _e('HTML Code Before', 'ads4osc'); ?></label><br />
+                    <textarea rows="1" cols="57" name="ads-html-before" id="ads-html-before"><?php echo $ad['s_html_before']; ?></textarea>
+                    </td>
                 </tr>
                 <tr>
-	                <td>
-	                <label for="ad_code"><?php _e('Ad Code', 'ads4osc'); ?></label><br />
-	                <textarea rows="6" cols="60" name="ads-code" id="ads-code" style='background:#cccccc' <?php if($ad['s_network']=='adsense') { echo 'readonly'; } ?>><?php echo $ad['s_code']; ?></textarea>
-	                </td>
+                    <td>
+                    <label for="ad_code"><?php _e('Ad Code', 'ads4osc'); ?></label><br />
+                    <textarea rows="6" cols="60" name="ads-code" id="ads-code" style='background:#cccccc' <?php if($ad['s_network']=='adsense') { echo 'readonly'; } ?>><?php echo $ad['s_code']; ?></textarea>
+                    </td>
                 </tr>
                 <tr>
-	                <td>
-	                <label for="html_after"><?php _e('HTML Code After', 'ads4osc');?></label><br />
-	                <textarea rows="1" cols="57" name="ads-html-after" id="ads-html-after"><?php echo $ad['s_html_after']; ?></textarea>
-	                </td>
+                    <td>
+                    <label for="html_after"><?php _e('HTML Code After', 'ads4osc');?></label><br />
+                    <textarea rows="1" cols="57" name="ads-html-after" id="ads-html-after"><?php echo $ad['s_html_after']; ?></textarea>
+                    </td>
                 </tr>
             </table>
         </div>

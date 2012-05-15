@@ -1,7 +1,7 @@
 <?php
 
-    class Ads {
-
+    class Ads
+    {
         private static $instance ;
 
         public static function newInstance()
@@ -148,7 +148,6 @@
             }
             return $defaults;
         }
-
     }
 
 ?>
