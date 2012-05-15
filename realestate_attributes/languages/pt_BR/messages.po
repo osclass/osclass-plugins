@@ -1,56 +1,53 @@
+# Translation of 3.0.x in Portuguese (Brazil)
+# This file is distributed under the same license as the 3.0.x package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Real estate attributes\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-15 12:11+0100\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
-"Language-Team: OSClass <info@osclass.org>\n"
+"PO-Revision-Date: 2012-05-15 13:02+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: _e;__\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-Country: UNITED STATES\n"
-"X-Poedit-SearchPath-0: /var/www/osclass-plugins-git/realestate_attributes\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: 3.0.x\n"
+"POT-Creation-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: \n"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/conf.php:58
 #: /var/www/osclass-plugins-git/realestate_attributes/index.php:299
 msgid "Property types"
-msgstr ""
+msgstr "Tipos de propriedade"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/conf.php:85
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/conf.php:91
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/conf.php:98
 msgid "Add new property types"
-msgstr ""
+msgstr "Adicionar tipos de imóvel novo"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/conf.php:119
 msgid "Add new"
-msgstr ""
+msgstr "Adicionar novo"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/conf.php:130
 msgid "Warning"
-msgstr ""
+msgstr "Aviso"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/conf.php:132
 msgid "Deleting property types may end in errors. Some of those property types could be attached to some actual items"
-msgstr ""
+msgstr "Exclusão de tipos de propriedade pode terminar em erros. Alguns desses tipos de propriedade poderiam ser anexados a alguns itens reais"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:13
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:9
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:103
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:75
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:19
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:25
@@ -58,237 +55,237 @@ msgstr ""
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:116
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:76
 msgid "Property type"
-msgstr ""
+msgstr "Tipo de propriedade"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:25
 msgid "Num. Rooms"
-msgstr ""
+msgstr "Num. de quartos"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:31
 msgid "Num. Bathrooms"
-msgstr ""
+msgstr "Num. casa de banho"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:37
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:91
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:43
 msgid "Square Meters"
-msgstr ""
+msgstr "Metros quadrados"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:49
 msgid "Square Meters (total)"
-msgstr ""
+msgstr "Metros quadrados (total)"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:55
 msgid "Num. Floors"
-msgstr ""
+msgstr "Num. pisos"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:61
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:113
 msgid "Construction Year"
-msgstr ""
+msgstr "Ano de construção"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:67
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:157
 msgid "Condition"
-msgstr ""
+msgstr "Estado"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:73
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:79
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:166
 msgid "Agency"
-msgstr ""
+msgstr "Agência"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:85
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:175
 msgid "Floor Number"
-msgstr ""
+msgstr "Numero do piso"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:91
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:257
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:282
 msgid "Transport"
-msgstr ""
+msgstr "Transporte"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:97
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:266
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:291
 msgid "Zone"
-msgstr ""
+msgstr "Zona"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:104
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:187
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:197
 msgid "Heating"
-msgstr ""
+msgstr "Aquecimento"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:110
 msgid "Air Condition"
-msgstr ""
+msgstr "ar condicionado"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:116
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:203
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:203
 msgid "Elevator"
-msgstr ""
+msgstr "Elevador"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:122
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:211
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:206
 msgid "Terrace"
-msgstr ""
+msgstr "Terraço"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:128
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:219
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:209
 msgid "Parking"
-msgstr ""
+msgstr "Estacionamento"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:134
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:227
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:212
 msgid "Furnished"
-msgstr ""
+msgstr "Mobilado"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:140
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:235
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:215
 msgid "New"
-msgstr ""
+msgstr "Novo"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:146
 msgid "By Owner"
-msgstr ""
+msgstr "Pelo proprietário"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:156
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:1
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:100
 msgid "Realestate attributes"
-msgstr ""
+msgstr "Atributos de imóveis"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:173
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:179
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:194
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:83
 msgid "Other characteristics"
-msgstr ""
+msgstr "Outras características "
 
 #: /var/www/osclass-plugins-git/realestate_attributes/index.php:298
 msgid "Configure plugin"
-msgstr ""
+msgstr "Configura plugin"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/index.php:300
 msgid "View options"
-msgstr ""
+msgstr "Opções"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:11
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:107
 msgid "For rent"
-msgstr ""
+msgstr "Para arrendar"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:12
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:108
 msgid "For sale"
-msgstr ""
+msgstr "Para venda"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:65
 msgid "Num. of rooms"
-msgstr ""
+msgstr "Numero de quartos"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:78
 msgid "Num. of bathrooms"
-msgstr ""
+msgstr "Num. casa de banho"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:93
 msgid "New construction"
-msgstr ""
+msgstr "Nova construção"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:94
 msgid "To renovate"
-msgstr ""
+msgstr "Para renovar"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:95
 msgid "Good condition"
-msgstr ""
+msgstr "Boa estado"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:104
 msgid "Square meters"
-msgstr ""
+msgstr "Metros quadrados"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:122
 msgid "Square meters (total)"
-msgstr ""
+msgstr "Metros quadrados (total)"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:131
 msgid "Num. of floors"
-msgstr ""
+msgstr "Num. de quartos"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:144
 msgid "Num. of garages (place for a car = one garage)"
-msgstr ""
+msgstr "Num. de garagens (lugar de um carro = uma garagem)"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:195
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:200
 msgid "Air condition"
-msgstr ""
+msgstr "Ar condicionado"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:243
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:218
 msgid "By owner"
-msgstr ""
+msgstr "Por proprietário"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:106
 msgid "Undefined"
-msgstr ""
+msgstr "Indefinido"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:119
 msgid "Select a property type"
-msgstr ""
+msgstr "Selecione um tipo de propriedade"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:130
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:77
 msgid "Num. Floors Range"
-msgstr ""
+msgstr "Num. tamanho de pisos"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:140
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:78
 msgid "Rooms Range"
-msgstr ""
+msgstr "Faixa de quartos"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:151
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:79
 msgid "Bathrooms Range"
-msgstr ""
+msgstr "Faixa de casa de banho"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:162
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:80
 msgid "Garages Range"
-msgstr ""
+msgstr "Faixa de garagens"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:173
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:81
 msgid "Construction year Range"
-msgstr ""
+msgstr "Faixa de anos de construção"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:184
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:82
 msgid "Square Meters Range"
-msgstr ""
+msgstr "Faixa de metros quadrados"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:27
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:34
 msgid "Settings saved!"
-msgstr ""
+msgstr "Configurações guardadas!"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:56
 msgid "Display options"
-msgstr ""
+msgstr "Mostrar opções"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:57
 msgid "Display realestate attributes in listing page..."
-msgstr ""
+msgstr "Mostrar os atributos do imóvel na página da propriedade"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:58
 msgid "After item description"
@@ -296,30 +293,30 @@ msgstr ""
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:59
 msgid "Manually"
-msgstr ""
+msgstr "Manual"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:60
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:86
 msgid "Update options"
-msgstr ""
+msgstr "Atualizar opções"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:68
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:69
 msgid "Show filters in search page"
-msgstr ""
+msgstr "Mostrar os filtros na página de busca"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:70
 msgid "Show all filters"
-msgstr ""
+msgstr "Mostrar todos os filtros"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:71
 msgid "Hide all filters"
-msgstr ""
+msgstr "Esconder todos os filtros"
 
 #: /var/www/osclass-plugins-git/realestate_attributes/view.php:72
 msgid "Show only specified filters"
-msgstr ""
+msgstr "Mostrar unicamente os filtros especificados"
 
