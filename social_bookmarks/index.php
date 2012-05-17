@@ -3,7 +3,7 @@
 Plugin Name: Social bookmarks
 Plugin URI: http://www.osclass.org/
 Description: Social bookmarks for item detail page
-Version: 1.0
+Version: 1.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: social-bookmarks
@@ -18,10 +18,15 @@ Short Name: social-bookmarks
         $content .= '<li class="facebook"><div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like href="" send="false" layout="button_count" show_faces="false" font=""></fb:like></li>' ;
         // google plus
         $content .= '<li class="google-plus"><script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script><g:plusone size="medium"></g:plusone></li>' ;
+        // pinterest
+        $content .= '<li class="pinterest"><script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script><a href="#" class="pin-it-button" count-layout="horizontal"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a></li>' ;
         $content .= '</ul>' ;
         // clear
         $content .= '<div class="clear"></div>' ;
         $content .= '</div>';
+        
+        $content .= '<script type="text/javascript" >$(document).ready(function() {var media = $("img[src*=\"oc-content/uploads/\"]").attr("src"); if(media==undefined) { media = ""; } else { media = "&media="+escape(media); };$(".pinterest").find("a").attr("href","http://pinterest.com/pin/create/button/?url="+escape(document.URL)+"&description="+escape(document.title)+media);});</script>';
+        
         return $content ;
     }
     
