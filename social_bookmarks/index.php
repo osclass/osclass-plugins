@@ -32,7 +32,7 @@ Short Name: social-bookmarks
         if($location == 'item' && $section == '') {
             echo '
             <style type="text/css">
-                .social-bookmarks ul { margin: 10px 0; }
+                .social-bookmarks ul { margin: 10px 0; list-style: none; }
                 .social-bookmarks ul li { float: left; }
                 .social-bookmarks .clear { clear:both; }
             </style>';
