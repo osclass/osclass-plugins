@@ -24,8 +24,8 @@ Short Name: social-bookmarks
         // clear
         $content .= '<div class="clear"></div>' ;
         $content .= '</div>';
-        
-        $content .= '<script type="text/javascript" >$(document).ready(function() {var media = $("img[src*=\"oc-content/uploads/\"]").attr("src"); if(media==undefined) { media = ""; } else { media = "&media="+escape(media); };$(".pinterest").find("a").attr("href","http://pinterest.com/pin/create/button/?url="+escape(document.URL)+"&description="+escape(document.title)+media);});</script>';
+        // pinterest
+        $content .= '<script type="text/javascript" >$(document).ready(function() {var media = $("img[src*=\"oc-content/uploads/\"]").attr("src"); if(media==undefined) { media = ""; $(".pinterest").remove(); } else { media = "&media="+escape(media); };$(".pinterest").find("a").attr("href","http://pinterest.com/pin/create/button/?url="+escape(document.URL)+"&description="+escape(document.title)+media);});</script>';
         
         return $content ;
     }
