@@ -3,12 +3,11 @@
 Plugin Name: Rich edit
 Plugin URI: http://www.osclass.org/
 Description: Add a WYSIWYG editor when publishing an ad
-Version: 1.1.0
+Version: 1.0.6
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: richedit
 */
-
 
     function richedit_install() {
         $conn = getConnection();
@@ -38,7 +37,6 @@ Short Name: richedit
         $conn->autocommit(true);
     }
 
-
     function richedit_load_js() {
         $location = Rewrite::newInstance()->get_location();
         $section = Rewrite::newInstance()->get_section();
@@ -46,7 +44,6 @@ Short Name: richedit
             $location = Params::getParam('page', false, false) ;
             $section = Params::getParam('action', false, false) ;
         }
-
 
         if(($location=='item' && ($section=='item_add' || $section=='item_edit')) || ($location=='items' && ($section=='post' || $section=='item_edit'))) {
             ?>
@@ -71,12 +68,11 @@ Short Name: richedit
                         tinyMCE.execCommand("mceAddControl", true, this.id);
                     });
                 });
-                
             </script>
-            <?php 
+            <?php
         }
     }
-    
+
     function richedit_admin_menu() {
         echo '<h3><a href="#">' . __('Rich edit options', 'richedit') . '</a></h3>
         <ul> 
@@ -104,7 +100,6 @@ Short Name: richedit
     osc_add_hook('header', 'richedit_load_js');
     osc_add_hook('admin_header', 'richedit_load_js');
 
-    osc_add_hook('item_form_post', 'do_not_clean_items') ;
-    osc_add_hook('item_edit_post', 'do_not_clean_items') ;
-    
+    osc_add_hook('item_form_post', 'do_not_clean_items');
+    osc_add_hook('item_edit_post', 'do_not_clean_items');
 ?>

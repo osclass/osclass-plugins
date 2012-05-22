@@ -1,5 +1,8 @@
-Rich Editor plugin
-==============
+#Rich Editor plugin
+
+##version 1.0.6 - 22/05/2012
+
+* Do not clean item description and title; fix for versions > 2.3
 
 ##version 1.0.5 - 04/10/2011
 
