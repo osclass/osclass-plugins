@@ -2,4 +2,4 @@
 .DS_Store
 
 # Sublime 2
-sftp-config.json
+sftp-config*
