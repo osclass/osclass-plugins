@@ -86,7 +86,7 @@ msgstr ""
 #: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/watchlist/watchlist.php:40
 #, php-format
 msgid "You are watching %d item"
-msgid_plural "You are watcihng %d items"
+msgid_plural "You are watching %d items"
 msgstr[0] ""
 msgstr[1] ""
 
