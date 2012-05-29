@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Real estate attributes\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-15 12:11+0100\n"
+"POT-Creation-Date: 2012-05-29 10:47+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
 "Language-Team: OSClass <info@osclass.org>\n"
@@ -163,9 +163,7 @@ msgid "By Owner"
 msgstr ""
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:156
-#: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:1
-#: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:100
-msgid "Realestate attributes"
+msgid "Details"
 msgstr ""
 
 #: /var/www/osclass-plugins-git/realestate_attributes/helper.php:173
@@ -181,6 +179,11 @@ msgstr ""
 
 #: /var/www/osclass-plugins-git/realestate_attributes/index.php:300
 msgid "View options"
+msgstr ""
+
+#: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:1
+#: /var/www/osclass-plugins-git/realestate_attributes/search_form.php:100
+msgid "Realestate attributes"
 msgstr ""
 
 #: /var/www/osclass-plugins-git/realestate_attributes/item_edit.php:11

@@ -153,7 +153,7 @@ function table_realestate_attributes(){
     $detail = get_realestate_attributes();
     if($detail['attributes']){
     ?>
-    <h3><?php _e('Realestate attributes', 'realestate_attributes') ; ?></h3>
+    <h3><?php _e('Details', 'realestate_attributes') ; ?></h3>
     <div class="table-attributes">
         <table>
         <?php
