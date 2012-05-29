@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OSClass 2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-05 18:34+0100\n"
+"POT-Creation-Date: 2012-05-29 10:42+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
 "Language-Team: OSClass <info@osclass.org>\n"
@@ -14,274 +14,293 @@ msgstr ""
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-Country: UNITED STATES\n"
-"X-Poedit-SearchPath-0: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes\n"
+"X-Poedit-SearchPath-0: /var/www/osclass-plugins-git/cars_attributes\n"
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:97
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:88
 msgid "Makes"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:108
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:165
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:228
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:99
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:152
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:215
 msgid "Delete"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:112
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:172
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:231
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:103
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:159
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:221
 msgid "Edit"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:119
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:109
 msgid "Add new make"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:128
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:189
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:266
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:117
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:176
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:254
 msgid "Add new"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:145
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:132
 msgid "Models"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:148
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:57
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:56
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:135
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:44
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:50
 msgid "Select a make"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:179
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:165
 msgid "Add new model"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:206
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:191
 msgid "Vehicle types"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:241
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:231
 msgid "Add new car type"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:283
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:269
 msgid "Warning"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/conf.php:285
+#: /var/www/osclass-plugins-git/cars_attributes/conf.php:271
 msgid "Deleting makes or models may end in errors. Some of those makes/models could be attached to some actual items"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/index.php:255
+#: /var/www/osclass-plugins-git/cars_attributes/index.php:186
 msgid "Configure plugin"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/index.php:256
+#: /var/www/osclass-plugins-git/cars_attributes/index.php:187
 msgid "Manage makes"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/index.php:257
+#: /var/www/osclass-plugins-git/cars_attributes/index.php:188
 msgid "Manage models"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/index.php:258
+#: /var/www/osclass-plugins-git/cars_attributes/index.php:189
 msgid "Manage vehicle types"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:1
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:47
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:52
-msgid "Cars attributes"
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:1
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:34
+msgid "Car details"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:5
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:55
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:54
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:5
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:42
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:48
 msgid "Make"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:11
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:69
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:64
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:11
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:56
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:57
 msgid "Model"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:18
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:85
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:99
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:74
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:18
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:72
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:86
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:66
 msgid "Car type"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:24
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:118
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:24
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:105
 msgid "Year"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:30
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:127
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:30
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:114
 msgid "Doors"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:36
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:140
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:36
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:128
 msgid "Seats"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:42
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:153
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:42
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:142
 msgid "Mileage"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:48
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:162
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:48
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:151
 msgid "Engine size (cc)"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:54
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:171
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:54
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:160
 msgid "Num. Airbags"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:60
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:186
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:87
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:60
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:176
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:77
 msgid "Manual"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:60
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:187
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:60
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:177
 msgid "Auto"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:61
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:184
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:85
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:61
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:174
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:76
 msgid "Transmission"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:67
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:198
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:67
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:188
 msgid "Diesel"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:68
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:199
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:68
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:189
 msgid "Gasoline"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:69
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:200
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:69
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:190
 msgid "Electric-hibrid"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:70
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:201
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:70
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:191
 msgid "Other"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:72
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:196
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:72
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:186
 msgid "Fuel"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:78
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:212
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:78
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:202
 msgid "Dealer"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:78
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:213
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:78
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:203
 msgid "Owner"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:79
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:210
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:79
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:200
 msgid "Seller"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:84
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:222
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:84
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:212
 msgid "Warranty"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:85
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:88
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:85
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:88
 msgid "Yes"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:85
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:88
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:85
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:88
 msgid "No"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:87
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:230
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:87
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:220
 msgid "New"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:92
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:241
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:92
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:231
 msgid "Power"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_detail.php:98
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:259
+#: /var/www/osclass-plugins-git/cars_attributes/item_detail.php:98
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:249
 msgid "Gears"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:16
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:31
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:71
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:16
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:66
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:16
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:27
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:58
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:16
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:59
 msgid "Select a model"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:21
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:21
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:21
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:21
 msgid "No results"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:87
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:101
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:76
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:74
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:88
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:68
 msgid "Select a car type"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:244
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:116
+msgid "Select num. of doors"
+msgstr ""
+
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:130
+msgid "Select num. of seats"
+msgstr ""
+
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:162
+msgid "Select num. of airbags"
+msgstr ""
+
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:234
 msgid "Kw"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:245
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:235
 msgid "Cv"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:246
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:236
 msgid "Ch"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:247
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:237
 msgid "Km"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:248
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:238
 msgid "Hp"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:249
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:239
 msgid "Ps"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:250
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:240
 msgid "Pk"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/item_edit.php:251
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:241
 msgid "Cp"
 msgstr ""
 
-#: /Applications/XAMPP/xamppfiles/htdocs/osclass-plugins/cars_attributes/search_form.php:88
+#: /var/www/osclass-plugins-git/cars_attributes/item_edit.php:251
+msgid "Select num. of gears"
+msgstr ""
+
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:46
+msgid "Cars attributes"
+msgstr ""
+
+#: /var/www/osclass-plugins-git/cars_attributes/search_form.php:78
 msgid "Automatic"
 msgstr ""
 

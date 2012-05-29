@@ -1,4 +1,4 @@
-<h2 style="margin-top: 10px;"><?php _e('Cars attributes', 'cars_attributes') ; ?></h2>
+<h2><?php _e('Car details', 'cars_attributes') ; ?></h2>
 <table style="margin-left: 20px;">
     <?php if( !empty($detail['s_make']) ) { ?>
     <tr>

@@ -31,7 +31,7 @@
         });
     });
 </script>
-<h2><?php _e('Cars attributes', 'cars_attributes') ; ?></h2>
+<h2><?php _e('Car details', 'cars_attributes') ; ?></h2>
 <div>
     <div class="row _200">
         <?php
