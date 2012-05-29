@@ -6,11 +6,11 @@ Description: This plugin extends a category of items to store jobs attributes su
 Version: 3.0
 Author: OSClass
 Author URI: http://www.osclass.org/
-Short Name: jobs_plugin
-Plugin update URI: http://www.osclass.org/files/plugins/jobs_attributes/update.php
+Short Name: jobs_attributes
 */
 
-require_once 'ModelJobs.php';
+require_once('ModelJobs.php');
+
 // Adds some plugin-specific search conditions
 function job_search_conditions($params = '') {
     // we need conditions and search tables (only if we're using our custom tables)
@@ -319,37 +319,37 @@ function job_save_inputs_into_session()
     Session::newInstance()->_keepForm('pj_data');
 }
 
-// This is needed in order to be able to activate the plugin
+// this is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'job_call_after_install');
-// This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
+// this is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'job_admin_configuration');
-// This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
+// this is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'job_call_after_uninstall');
 
-// When publishing an item we show an extra form with more attributes
+// when publishing an item we show an extra form with more attributes
 osc_add_hook('item_form', 'job_form');
-// To add that new information to our custom table
+// to add that new information to our custom table
 osc_add_hook('item_form_post', 'job_form_post');
 
-// When searching, display an extra form with our plugin's fields
+// when searching, display an extra form with our plugin's fields
 osc_add_hook('search_form', 'job_search_form');
-// When searching, add some conditions
+// when searching, add some conditions
 osc_add_hook('search_conditions', 'job_search_conditions');
 
-// Show an item special attributes
+// show an item special attributes
 osc_add_hook('item_detail', 'job_item_detail');
 
-// Edit an item special attributes
+// edit an item special attributes
 osc_add_hook('item_edit', 'job_item_edit');
-// Edit an item special attributes POST
+// edit an item special attributes POST
 osc_add_hook('item_edit_post', 'job_item_edit_post');
 
-//Delete locale
+// delete locale
 osc_add_hook('delete_locale', 'job_delete_locale');
-//Delete item
+// delete item
 osc_add_hook('delete_item', 'job_delete_item');
 
-// Admin menu
+// admin menu
 osc_add_hook('admin_menu', 'jobs_admin_menu');
 
 // previous to insert item
@@ -357,4 +357,9 @@ osc_add_hook('pre_item_post', 'job_pre_item_post') ;
 osc_add_hook('pre_item_edit', 'job_pre_item_post') ;
 // save input values into session
 osc_add_hook('save_input_session', 'job_save_inputs_into_session' );
+
+function css_jobs() {
+    echo '<link href="' . osc_plugin_url(__FILE__) . 'css/styles.css" rel="stylesheet" type="text/css">' . PHP_EOL;
+}
+osc_add_hook('header', 'css_jobs');
 ?>

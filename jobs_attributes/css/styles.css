@@ -1,3 +1,19 @@
+.job-detail table { width: 100%; }
+.job-detail table label { font-weight: bold; }
+.job-detail > div { margin-top: 5px; }
+.job-detail > div > label { font-weight: bold; }
+
+#jobs-attributes-slider { height: 5px;}
+#jobs-attributes-slider h6 { margin-bottom:0px;}
+#jobs-attributes-slider input { background:transparent; border:none; color:#999; margin-bottom:3px; text-align: center; width:90%; }
+#jobs-attributes-slider .ui-slider { position: relative;}
+#jobs-attributes-slider .ui-widget-content { background:#bdd7df; border-color:#bdd7df; height:5px; }
+#jobs-attributes-slider .ui-widget-header { background:#08737B; padding: 0px 0px 0 !important;}
+#jobs-attributes-slider .ui-slider-horizontal .ui-slider-handle { background:#bac8cd; border-color:#9aafb6; height:15px; top: -0.5em; width:6px; position: absolute;}
+.ui-slider-horizontal{ padding:0; margin:0; background:#bdd7df !important; border:0; height:5px; }
+#jobs-attributes-slider .ui-slider-range{ background:#08737b; height:5px; position:absolute;}
+#salaryRange { padding: 7px 7px 6px;}
+/* fileuploader */
 .qq-uploader { position:relative; width: 100%;}
 
 .qq-upload-button {
