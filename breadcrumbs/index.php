@@ -68,9 +68,9 @@ Short Name: breadcrumbs
                 $text = $page_title . $separator . '<span class="bc_last">' . osc_static_page_title() . '</span>';
             break;
             case('search'):
-                $region     = Params::getParam('sRegion');
-                $city       = Params::getParam('sCity');
-                $pattern    = Params::getParam('sPattern');
+                $region     = osc_search_region();
+                $city       = osc_search_city();
+                $pattern    = osc_search_pattern();
                 $category   = osc_search_category_id();
                 $category   = ((count($category) == 1) ? $category[0] : '');
 
@@ -196,7 +196,7 @@ Short Name: breadcrumbs
         } else {
             $path = sprintf( osc_base_url(true) . '?page=search&sCategory=%d', $category_id ) ;
         }
-        return $path ;
+        return rtrim($path, "/");
     }
 
     function breadcrumbs_admin_menu() {
