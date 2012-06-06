@@ -1,0 +1,52 @@
+<h2>Summary</h2>
+Demonstrates how to construct and sign an Amazon Simple Pay 
+IPN POST signature and compare the generated signature against the signature returned from Amazon SimplePay.
+<h2>Requirements</h2>
+<ul>
+	<li>Requires PHP Version 5.1.2 or greater</li>	
+	<li>Requires the PECL Hash package which is enabled by default as of PHP version 5.1.2</li>
+	<li>Requires a publicly available IPN address.  Instant Payment Notifications cannot be sent to a http://localhost/ address.</li>
+	<li>Read through the requirements listed in the <a href="http://docs.amazonwebservices.com/AmazonFPS/2007-01-08/AmazonSimplePayImplementationGuide/index.html?beforeButton.html" target="_blank">Amazon SimplePay Implementation Guide</a>.</li>
+</ul>		
+<h2>Setting up the Sample</h2>
+<ol>
+	<li>Unzip the sample</li>
+	<li>Edit config.php
+		<ul>
+			<li>Enter your AWS Access Key Id</li>
+			<li>Enter your Secret Access Key</li>
+			<li>Enter the URL to your IPN handling script (the example script in this sample is ipn.php)</li>
+			<li>Enter the filename for request logging (this file will need write permissions on your server)</li>
+		</ul>
+	</li>
+	<li>Edit ipntest.php lines 49 and 50 by filling in your Return URL and Abandon URL</li>
+</ol>
+<h2>Example Usage</h2>
+<ol>
+	<li>A customer clicks on your Amazon SimplePay button.</li>
+	<li>The customer is redirected to the co-branded user interface pipeline where they enter their payment credentials.</li>
+	<li>After the customer completes the pipeline they are redirected back to your website.</li>
+	<li>When the transaction completes, Amazon SimplePay will send an Instant Payment Notification (IPN) to your IPN script.</li>
+	<li>The IPN script receives data in the $_POST variable.</li>
+	<li>Use the SimplePay_IPN class to validate the IPN and then take the appropriate action.<br /><br />
+		<pre>			
+			require 'SimplePay_IPN.php';
+			
+			// Create a new SimplePay IPN validator, passing your AWS Secret Access Key
+			$SimplePayIPN = new SimplePay_IPN(AWS_SECRET_ACCESS_KEY);
+			
+			/**
+			 * Pass the $_POST variables to the IPN validator
+			 * $SimplePayIPN->isValid($_POST) will return true if the POST fields match up with the signature from Amazon SimplePay
+			 * $SimplePayIPN->isValid($_POST) will return false if the generated signature does not match
+			 */
+			if ($SimplePayIPN->isValid($_POST)) {
+				// The POST signature is valid
+				// Process the IPN -- log the data, update your database, etc...
+			} else {
+				// The POST signature is not valid
+				// Log the invalid IPN and take any needed actions
+			}
+		</pre>
+	</li>
+</ol>
