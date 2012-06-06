@@ -27,17 +27,11 @@
                                     if(osc_get_preference('paypal_enabled', 'payment')) {
                                         Paypal::button($category_fee, sprintf(__('Publish fee for item %d at %s', 'payment'), $item['pk_i_id'], osc_page_title()), "101x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
                                     };
-                                    /*if(osc_get_preference('amazon_enabled', 'payment')) {
-                                        Amazon::button($category_fee, sprintf(__('Publish fee for item %d at %s', 'payment'), $item['pk_i_id'], osc_page_title()), "101x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
-                                    };*/                                    
                                 }
                             } else {
                                 if(osc_get_preference('paypal_enabled', 'payment')) {
                                     Paypal::button($category_fee, sprintf(__('Publish fee for item %d at %s', 'payment'), $item['pk_i_id'], osc_page_title()), "101x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
                                 }
-                                /*if(osc_get_preference('amazon_enabled', 'payment')) {
-                                    Amazon::button($category_fee, sprintf(__('Publish fee for item %d at %s', 'payment'), $item['pk_i_id'], osc_page_title()), "101x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
-                                }*/
                             }; ?>
                     </div>
                     <div style="clear:both;"></div>

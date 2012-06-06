@@ -22,7 +22,6 @@ Short Name: payments
     require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'ModelPayment.php';
     // Load different methods of payments
     require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/paypal/Paypal.php';
-    require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/amazon/Amazon.php';
 
     /**
     * Create tables and variables on t_preference and t_pages

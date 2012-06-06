@@ -38,13 +38,6 @@
         osc_set_preference('paypal_sandbox', Params::getParam("paypal_sandbox") ? Params::getParam("paypal_sandbox") : '0', 'payment', 'BOOLEAN');
         osc_set_preference('paypal_enabled', Params::getParam("paypal_enabled") ? Params::getParam("paypal_enabled") : '0', 'payment', 'BOOLEAN');
 
-        osc_set_preference('amazon_access_key', payment_crypt(Params::getParam("amazon_access_key")), 'payment', 'STRING');
-        osc_set_preference('amazon_secret', payment_crypt(Params::getParam("amazon_secret")), 'payment', 'STRING');
-        osc_set_preference('amazon_standard', Params::getParam("amazon_standard_payment") ? Params::getParam("amazon_standard_payment") : '0', 'payment', 'BOOLEAN');
-        osc_set_preference('amazon_sandbox', Params::getParam("amazon_sandbox") ? Params::getParam("amazon_sandbox") : '0', 'payment', 'BOOLEAN');
-        osc_set_preference('amazon_enabled', Params::getParam("amazon_enabled") ? Params::getParam("amazon_enabled") : '0', 'payment', 'BOOLEAN');
-
-        osc_set_preference('elitpay_enabled', Params::getParam("elitpay_enabled") ? Params::getParam("elitpay_enabled") : '0', 'payment', 'BOOLEAN');
         osc_reset_preferences();
         echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'payment') . '.</p></div>' ;
     }
@@ -80,25 +73,7 @@
                         
                         
                         
-                        <input style="height: 20px; padding-left: 4px;padding-top: 4px;" type="checkbox" <?php echo (osc_get_preference('amazon_enabled', 'payment') ? 'checked="true"' : ''); ?> name="amazon_enabled" id="amazon_enabled" value="1" />
-                        <label for="sandbox"><?php _e('Enable amazon', 'payment'); ?></label>
-                        <br />
-                        <label for="sandbox"><?php _e('amazon Sandbox environment', 'payment'); ?></label>
-                        <label><?php _e('amazon access key', 'payment'); ?></label><input type="text" name="amazon_access_key" id="amazon_access_key" value="<?php echo payment_decrypt(osc_get_preference('amazon_access_key', 'payment')); ?>" />
-                        <br/>
-                        <label><?php _e('amazon secret', 'payment'); ?></label><input type="password" name="amazon_secret" id="amazon_secret" value="<?php echo payment_decrypt(osc_get_preference('amazon_secret', 'payment')); ?>" />
-                        <br/>
-                        <input style="height: 20px; padding-left: 4px;padding-top: 4px;" type="checkbox" <?php echo (osc_get_preference('amazon_standard', 'payment') ? 'checked="true"' : ''); ?> name="amazon_standard_payment" id="amazon_standard_payment" value="1" />
-                        <label for="standard_payment"><?php _e('Use amazon standard payment', 'payment'); ?></label>
-                        <input style="height: 20px; padding-left: 4px;padding-top: 4px;" type="checkbox" <?php echo (osc_get_preference('amazon_sandbox', 'payment') ? 'checked="true"' : ''); ?> name="amazon_sandbox" id="amazon_sandbox" value="1" />
-                        <label for="sandbox"><?php _e('amazon Sandbox environment', 'payment'); ?></label>
-                        <br/>                        
-                        
-                        
-                        
-                        <input style="height: 20px; padding-left: 4px;padding-top: 4px;" type="checkbox" <?php echo (osc_get_preference('elitpay_enabled', 'payment') ? 'checked="true"' : ''); ?> name="elitpay_enabled" id="elitpay_enabled" value="1" />
-                        <label for="sandbox"><?php _e('Enable Elitpay', 'payment'); ?></label>
-                        <br />
+
                     </div>
                     <div style="float: left; width: 50%;">
                         <input style="height: 20px; padding-left: 4px;padding-top: 4px;" type="checkbox" <?php echo (osc_get_preference('allow_premium', 'payment') ? 'checked="true"' : ''); ?> name="allow_premium" id="allow_premium" value="1" />
