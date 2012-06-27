@@ -3,10 +3,11 @@
 Plugin Name: Paypal payment
 Plugin URI: http://www.osclass.org/
 Description: Paypal payment options
-Version: 2.0.3
+Version: 2.0.4
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: paypal
+Plugin update URI: paypal
 */
 
     define('PAYPAL_CRYPT_KEY', 'randompasswordchangethis');
