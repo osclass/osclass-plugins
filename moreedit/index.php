@@ -3,10 +3,11 @@
 Plugin Name: More edit
 Plugin URI: http://www.osclass.org/
 Description: More edit options
-Version: 1.0.2
+Version: 1.0.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: moreedit
+Plugin update URI: more-edit
 */
 
 
