@@ -7,6 +7,7 @@ Version: 1.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: facebook
+Plugin update URI: facebook-connect
 */
 
     /**
