@@ -3,10 +3,11 @@
 Plugin Name: Registered users only
 Plugin URI: http://www.osclass.org/
 Description: This plugin block non-registered users
-Version: 0.9.2
+Version: 0.9.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: registered_users_only
+Plugin update URI: registered-users-only
 */
 
     function login_necessary( ) {
