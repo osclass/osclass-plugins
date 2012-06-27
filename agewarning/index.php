@@ -3,10 +3,11 @@
 Plugin Name: Age warning
 Plugin URI: http://www.osclass.org/
 Description: Display a warning message about adult content
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: agewarning
+Plugin update URI: agewarning
 */
 
 
