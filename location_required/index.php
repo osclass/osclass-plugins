@@ -3,7 +3,7 @@
 Plugin Name: Location required
 Plugin URI: http://www.osclass.org/
 Description: This Plugin makes the location required when posting or editing ads.
-Version: 1.0
+Version: 1.0.1
 Author: JChapman
 Author URI: http://www.osclass.org/
 Short Name: location_required
