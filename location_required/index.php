@@ -7,6 +7,7 @@ Version: 1.0
 Author: JChapman
 Author URI: http://www.osclass.org/
 Short Name: location_required
+Plugin update URI: location-required
 */
 
 function metadata_js() {
