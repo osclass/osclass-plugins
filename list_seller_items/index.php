@@ -23,10 +23,11 @@
 Plugin Name: List seller items
 Plugin URI: http://www.osclass.org/
 Description: Display all seller items.
-Version: 1.0.2
+Version: 1.0.3
 Author: Richard Martin
 Author URI: http://www.proodi.ca/
 Short Name: list_seller_items
+Plugin update URI: list-seller-items
 */
  
     function seller_post() {
