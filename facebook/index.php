@@ -3,7 +3,7 @@
 Plugin Name: Facebook Connect
 Plugin URI: http://www.osclass.org/
 Description: Use Facebook to connect and log in your users accounts
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: facebook
