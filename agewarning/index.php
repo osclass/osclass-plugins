@@ -7,7 +7,7 @@ Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: agewarning
-Plugin update URI: agewarning
+Plugin update URI: age-warning
 */
 
 
