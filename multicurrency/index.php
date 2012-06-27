@@ -3,10 +3,11 @@
 Plugin Name: Multi currency
 Plugin URI: http://www.osclass.org/
 Description: Display the price of an ad in several currencies
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: multicurrency
+Plugin update URI: multicurrency
 */
 
 
