@@ -23,10 +23,11 @@
 Plugin Name: Specific theme language
 Plugin URI: http://www.osclass.org/
 Description: Load an specify theme for each language in case that the theme exists
-Version: 0.9
+Version: 0.9.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: theme_language
+Plugin update URI: theme-languages
 */
 
     function load_theme_language( ) {
