@@ -3,10 +3,11 @@
 Plugin Name: Social bookmarks
 Plugin URI: http://www.osclass.org/
 Description: Social bookmarks for item detail page
-Version: 1.1
+Version: 1.1.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: social-bookmarks
+Plugin update URI: social-bookmarks
 */
 
     function social_bookmarks($content) {
