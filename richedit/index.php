@@ -3,10 +3,11 @@
 Plugin Name: Rich edit
 Plugin URI: http://www.osclass.org/
 Description: Add a WYSIWYG editor when publishing an ad
-Version: 1.0.6
+Version: 1.0.7
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: richedit
+Plugin update URI: rich-edit
 */
 
     function richedit_install() {
