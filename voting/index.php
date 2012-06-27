@@ -3,10 +3,11 @@
 Plugin Name: Voting
 Plugin URI: http://www.osclass.org/
 Description: Voting system
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: voting
+Plugin update URI: voting
 */
 
     /**
