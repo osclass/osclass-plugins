@@ -3,11 +3,11 @@
 Plugin Name: Replace Indian currency
 Plugin URI: http://www.osclass.org/
 Description: This plugin implements webrupee.com web API
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: webrupee
-Plugin update URI: 
+Plugin update URI: web-rupee
 */
 
     function webrupee_css() {
