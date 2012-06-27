@@ -23,10 +23,11 @@
 Plugin Name: Mobile theme
 Plugin URI: http://www.osclass.org/
 Description: Mobile theme
-Version: 0.2
+Version: 0.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: mobile
+Plugin update URI: osc-mobile
 */
 
     function load_mobile_theme( ) 
