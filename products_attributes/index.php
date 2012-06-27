@@ -3,11 +3,11 @@
 Plugin Name: Products attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store products attributes such as make, model and so on.
-Version: 3.0
+Version: 3.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: products_plugin
-Plugin update URI: http://www.osclass.org/files/plugins/products_attributes/update.php
+Plugin update URI: products-attributes
 */
 
 require_once 'ModelProducts.php';
