@@ -23,10 +23,11 @@
 Plugin Name: Bread crumbs
 Plugin URI: http://www.osclass.org/
 Description: Breadcrumbs navigation system.
-Version: 1.6.3
+Version: 1.6.4
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: breadcrumbs
+Plugin update URI: breadcrumbs
 */
 
     function breadcrumbs($separator = '/') {
