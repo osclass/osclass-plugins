@@ -7,7 +7,7 @@ Version: 0.9.4
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: ads4osc
-Plugin update URI: ads4osc
+Plugin update URI: ads-4-osclass
 */
 
     function ads_call_after_install() {
