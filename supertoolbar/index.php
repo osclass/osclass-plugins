@@ -3,10 +3,11 @@
 Plugin Name: Super ToolBar
 Plugin URI: http://www.osclass.org/
 Description: Add a toolbar to ads from user
-Version: 1.1
+Version: 1.1.1
 Author: OSClass & computerbar
 Author URI: http://www.osclass.org/
 Short Name: supertoolbar
+Plugin update URI: super-toolbar
 */
 
     require_once "SuperToolBar.php";
