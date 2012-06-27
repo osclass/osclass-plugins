@@ -3,10 +3,11 @@
 Plugin Name: Shop
 Plugin URI: http://www.osclass.org/
 Description: This plugin transforms your OSClass into a shop!
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: shop
+Plugin update URI: shop
 */
 
 
