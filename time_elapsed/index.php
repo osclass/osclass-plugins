@@ -3,10 +3,10 @@
 Plugin Name: Time elapsed
 Plugin URI: http://www.osclass.org/
 Description: This plugin shows the times takes to render each page.
-Version: 1.0
+Version: 1.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
-Plugin update URI: http://www.osclass.org/files/plugins/time_elapsed/update.php
+Plugin update URI: time-elapsed
 */
 
 function time_elapsed_info() {
