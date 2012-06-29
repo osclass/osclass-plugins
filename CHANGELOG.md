@@ -1,6 +1,10 @@
 Changelog Cars attributes
 ===============================
 
+##version 3.0.2 - 29/06/2012
+
+*Fixed conflict with real estate attributes plugin
+
 ##version 3.0 - 02/05/2012
 
 * implemented new DAO (Data Access Object)
