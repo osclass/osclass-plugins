@@ -3,7 +3,7 @@
 Plugin Name: Real state attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store real estate attributes such as square feets, number of bathrooms, garage, and so on.
-Version: 3.2.1
+Version: 3.2.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: realestate_plugin
@@ -170,7 +170,7 @@ function realestate_search_form($catId = null) {
  * 
  * @return array
  */
-function _getParameters()
+function _getRealEstateParameters()
 {
     
     $heating        = Params::getParam('heating')!='' ? 1 : 0;
@@ -231,7 +231,7 @@ function realestate_form_post($catId = null, $item_id = null) {
         if (osc_is_this_category('realestate_plugin', $catId) && $item_id!=null) {
             
             // Insert the data in our plugin's table
-            $insertArray = _getParameters();
+            $insertArray = _getRealEstateParameters();
             $insertArray['itemId'] = $item_id;
             ModelRealEstate::newInstance()->insertAttr($insertArray);
                 
@@ -267,7 +267,7 @@ function realestate_item_edit_post($catId = null, $item_id = null) {
     if ($catId!=null) {
         // We check if the category is the same as our plugin
         if (osc_is_this_category('realestate_plugin', $catId)) {
-            $replaceArray = _getParameters();
+            $replaceArray = _getRealEstateParameters();
             $replaceArray['itemId'] = $item_id;
             ModelRealEstate::newInstance()->replaceAttr($replaceArray) ;
 
