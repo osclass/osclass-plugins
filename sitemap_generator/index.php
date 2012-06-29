@@ -10,8 +10,6 @@ Short Name: sitemap_generator
 Plugin update URI: sitemap-generator
 */
 
-
-
 if( !function_exists('osc_plugin_path') ) {
     function osc_plugin_path($file) {
         $file = preg_replace('|/+|','/', str_replace('\\','/',$file));
@@ -22,19 +20,18 @@ if( !function_exists('osc_plugin_path') ) {
 }
 
 function sitemap_generator() {
-
     $min = 1;
-    
+
     $locales = osc_get_locales();
 
     $filename = osc_base_path() . 'sitemap.xml';
     @unlink($filename);
     $start_xml = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
     file_put_contents($filename, $start_xml);
-    
+
     // INDEX
     sitemap_add_url(osc_base_url(), date('Y-m-d'), 'always');
-    
+
     $categories = Category::newInstance()->toTree();
     $countries = Country::newInstance()->listAll();
     foreach($categories as $c) {
@@ -82,7 +79,7 @@ function sitemap_generator() {
             }
         }
     }
-    
+
     foreach($countries as $country) {
         $regions = Region::newInstance()->getByCountry($country['pk_c_code']);
         foreach($regions as $region) {
@@ -93,17 +90,14 @@ function sitemap_generator() {
                     sitemap_add_url(osc_search_url(array('sCountry' => $country['s_name'], 'sRegion' => $region['s_name'], 'sCity' => $cities[$k]['city_name'])), date('Y-m-d'), 'hourly');
                 }
             }
-        }        
+        }
     }
-    
-    
-    
+
     $end_xml = '</urlset>';
     file_put_contents($filename, $end_xml, FILE_APPEND);
     
     // PING SEARCH ENGINES
     sitemap_ping_engines();
-
 }
 
 function sitemap_add_url($url = '', $date = '', $freq = 'daily') {
@@ -150,7 +144,7 @@ function sitemap_help() {
 }
 
 // This is needed in order to be able to activate the plugin
-osc_register_plugin(osc_plugin_path(__FILE__), 'sitemap_help');
+// osc_register_plugin(osc_plugin_path(__FILE__), 'sitemap_help');
 // This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'sitemap_help');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
@@ -163,4 +157,4 @@ osc_add_hook('admin_menu', 'sitemap_admin_menu');
 // REMOVE IT if you want to generate the sitemap manually
 osc_add_hook('cron_weekly', 'sitemap_generator');
 
-?>
+/* end of file */
