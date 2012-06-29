@@ -1,6 +1,10 @@
 Changelog sitemap generator
 ===========================
 
+##version 1.2.2 - 29/06/2012
+
+* Fix bug during the installatino of the process
+
 ##version 1.2 - 07/12/2011
 
 * Small fix on install process bug
