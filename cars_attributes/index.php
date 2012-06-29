@@ -3,7 +3,7 @@
 Plugin Name: Cars attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store cars attributes such as model, year, brand, color, accessories, and so on.
-Version: 3.0.1
+Version: 3.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: cars_plugin
@@ -111,7 +111,7 @@ Plugin update URI: cars-attributes
         
         // We check if the category is the same as our plugin
         if( osc_is_this_category('cars_plugin', $catID) && $itemID != null ) {
-            $arrayInsert = _getParameters();
+            $arrayInsert = _getCarParameters();
             // Insert the data in our plugin's table
             ModelCars::newInstance()->insertCarAttr($arrayInsert, $itemID);
         }
@@ -175,7 +175,7 @@ Plugin update URI: cars-attributes
 
         // We check if the category is the same as our plugin
         if( osc_is_this_category('cars_plugin', $catID) ) {
-            $arrayUpdate = _getParameters();
+            $arrayUpdate = _getCarParameters();
             ModelCars::newInstance()->updateCarAttr($arrayUpdate, $itemID);
         }
     }
@@ -244,7 +244,7 @@ Plugin update URI: cars-attributes
         Session::newInstance()->_keepForm('pc_car_type');
     }
     
-    function _getParameters() {
+    function _getCarParameters() {
         $make     = (Params::getParam("make") == '') ? null : Params::getParam("make");
         $model    = (Params::getParam("model") == '') ? null : Params::getParam("model");
         $type     = (Params::getParam("car_type") == '') ? 1 : Params::getParam("car_type");
