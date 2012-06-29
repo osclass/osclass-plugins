@@ -6,7 +6,11 @@ This plugin extends the fields of items to store real estate attributes such as 
 Changelog Real estate attributes
 ================================
 
-##version 3.0 - 02/05/2012 (only for osclass >= 2.4)
+##version 3.2.2 29/06/2012
+
+* Fixed conflict with cars attributes plugin
+
+##version 3.0 - 02/05/2012
 
 * implemented new DAO
 * fixed item-detail (debug missed)
