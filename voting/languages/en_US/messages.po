@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Voting 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-03 18:28+0100\n"
+"POT-Creation-Date: 2012-07-18 17:00+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: carlos <carlos@osclass.org>\n"
 "Language-Team: OSClass <info@osclass.org>\n"
@@ -21,8 +21,8 @@ msgid "Congratulations. The plugin is now configured"
 msgstr ""
 
 #: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:59
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:27
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:82
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:32
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:63
 msgid "Items"
 msgstr ""
 
@@ -47,8 +47,8 @@ msgid "Only registered users can vote"
 msgstr ""
 
 #: /Users/ssuareza/projects/osclass-plugins/voting/conf.php:76
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:51
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:100
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:46
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:72
 msgid "Users"
 msgstr ""
 
@@ -60,108 +60,127 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:3
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:13
 msgid "Plugin information"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:5
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:15
 msgid "This plugin adds a rating system and allows users to vote among them the quality of the item and quality sellers"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:9
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:19
 msgid "Easy plugin configuration."
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:10
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:20
 msgid "Vote items, can be enabled and disabled. Can be configured what kind of users can vote items, registered users only or guest too"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:11
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:21
 msgid "Vote users, can be enabled and disabled. Only registered users can vote sellers"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:12
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:22
 msgid "Allows to show the best rated items or users at frontend, adding some extra code at your template"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:18
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:28
 msgid "Show best rated"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:20
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:29
 msgid "You can display the best rated list, where you want"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:23
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:30
 msgid "Adding this line of code, you can show the items or users at main web page, into sidebar"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:32
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:56
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:36
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:49
 msgid "Edit main.php (located under root theme folder)"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:78
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:61
 msgid "Change place of \"voting plugin\""
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:80
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:62
 msgid "Vote section"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:80
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:62
 msgid "by default is added below item description, but if you need place into another place follow this instructions:"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:84
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:102
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:65
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:74
 msgid "You need add this line at end of functions.php (located under root theme folder) :"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:92
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:110
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:68
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:77
 msgid "Now you can call function"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:92
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:110
-msgid "directly where you want into item page"
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:68
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:77
+msgid "directly where you want <b>into item page</b>"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:119
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:83
+msgid "Show user ratings on User Dashboard"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:84
+msgid "You can show user ratings on User Dashboard if you pass as argument the user id"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:89
+msgid "Show user ratings on User public profile"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:90
+msgid "You can show user ratings on User public profile if you pass as argument the user id"
+msgstr ""
+
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:95
 msgid "If you want modify the templates, you can find them in the plugin folder"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:120
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:96
 msgid "Template rating items"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:121
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:97
 msgid "Template rating users"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:123
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:99
 msgid "Template best rated items"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:124
+#: /Users/ssuareza/projects/osclass-plugins/voting/help.php:100
 msgid "Template best rated users"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:69
+#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:50
+#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:345
 msgid "Voting options"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:71
+#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:52
+#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:346
 msgid "Settings"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:72
+#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:53
+#: /Users/ssuareza/projects/osclass-plugins/voting/index.php:347
 msgid "Help"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:115
-#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail_user.php:115
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail.php:114
+#: /Users/ssuareza/projects/osclass-plugins/voting/item_detail_user.php:114
 msgid "Loading"
 msgstr ""
 
@@ -171,53 +190,53 @@ msgstr ""
 
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results.php:102
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results_user.php:100
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:7
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:22
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:7
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:21
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:8
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:23
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:8
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:22
 msgid "Without interest"
 msgstr ""
 
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results.php:103
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results_user.php:101
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:8
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:23
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:8
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:22
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:9
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:24
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:9
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:23
 msgid "Uninteresting"
 msgstr ""
 
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results.php:104
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results_user.php:102
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:9
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:24
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:9
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:23
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:10
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:25
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:10
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:24
 msgid "Interesting"
 msgstr ""
 
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results.php:105
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results_user.php:103
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:10
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:25
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:10
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:24
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:11
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:26
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:11
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:25
 msgid "Very interesting"
 msgstr ""
 
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results.php:106
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results_user.php:104
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:11
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:26
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:11
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:25
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:12
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:27
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:12
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:26
 msgid "Essential"
 msgstr ""
 
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results.php:107
 #: /Users/ssuareza/projects/osclass-plugins/voting/set_results_user.php:105
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:27
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:26
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:28
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes_user.php:27
 msgid "votes"
 msgstr ""
 
@@ -225,11 +244,11 @@ msgstr ""
 msgid "Best users voted"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:4
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:5
 msgid "Vote"
 msgstr ""
 
-#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:18
+#: /Users/ssuareza/projects/osclass-plugins/voting/view_votes.php:19
 msgid "Result"
 msgstr ""
 
