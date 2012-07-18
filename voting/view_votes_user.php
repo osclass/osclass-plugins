@@ -1,5 +1,6 @@
+        <?php $path = osc_base_url().'/oc-content/plugins/'.  osc_plugin_folder(__FILE__); ?>
         <div class="votes_stars">
-            <div style="float:left;padding-right: 5px;"><?php echo osc_item_contact_name() ; ?></div>
+            <div style="float:left;padding-right: 5px;"><?php $aux = User::newInstance()->findByPrimaryKey($vote['userId']); echo $aux['s_name']; ?></div>
             <?php if( $vote['can_vote'] ) { ?>
             <div class="votes_vote">
                 <div class="votes_star">
