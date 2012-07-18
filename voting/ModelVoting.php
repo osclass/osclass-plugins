@@ -105,6 +105,29 @@
         }
         
         // item related --------------------------------------------------------
+        
+        /**
+         * Insert Item rating
+         *
+         * @param type $itemId
+         * @param type $userId
+         * @param type $iVote
+         * @param type $hash
+         * @return type 
+         */        
+        function insertItemVote($itemId, $userId, $iVote, $hash)
+        {
+            $aSet = array(
+                'fk_i_item_id'  => (int)$itemId,
+                'i_vote'        => (int)$iVote, 
+                's_hash'        => is_null($hash) ? "" : "$hash" 
+            );
+            if($userId != 'NULL' && is_numeric($userId) ) {
+                $aSet['fk_i_user_id']  = $userId;
+            }
+            
+            return $this->dao->insert($this->getTable_Item(), $aSet);
+        }
         /**
          * Return an average of ratings given an item id
          *
@@ -171,8 +194,9 @@
                 } else {
                     $this->dao->where('fk_i_user_id', (int)$userId);
                 }
-                $this->dao->where('s_hash'      , "$hash" );
-
+                
+                $this->dao->where('s_hash'      , (string)$hash );
+error_log($this->dao->_getSelect());
                 $result = $this->dao->get();
                 if( !$result ) {
                     return array() ;
@@ -233,6 +257,25 @@
         }
         
         // user related --------------------------------------------------------
+        
+        /**
+         * Insert a user rating
+         *
+         * @param type $votedUserId
+         * @param type $userId
+         * @param type $iVote
+         * @return type 
+         */
+        function insertUserVote($votedUserId, $userId, $iVote)
+        {
+            $aSet = array(
+                'i_user_voted'  => (int)$votedUserId,
+                'i_user_voter'  => (int)$userId, 
+                'i_vote'        => (int)$iVote
+            );
+            return $this->dao->insert($this->getTable_User(), $aSet);
+        }
+        
          /**
          * Return an average of ratings given an user id
          *
