@@ -71,7 +71,6 @@ Plugin update URI: voting
     function voting_item_detail()
     {
         if (osc_is_this_category('voting', osc_item_category_id()) && osc_get_preference('item_voting', 'voting') == '1' ) {
-            
             $aux_vote  = ModelVoting::newInstance()->getItemAvgRating( osc_item_id() );
             $aux_count = ModelVoting::newInstance()->getItemNumberOfVotes( osc_item_id() );
             $vote['vote']  = $aux_vote['vote'];
@@ -95,7 +94,6 @@ Plugin update URI: voting
             if(!can_vote(osc_item_id(), osc_logged_user_id(), $hash) ){
                 $vote['can_vote'] = false;
             }
-             
             require 'item_detail.php';
          }
     }
@@ -206,7 +204,7 @@ Plugin update URI: voting
             $vote['total']  = $aux_count['total']; 
             $vote['userId'] = $userId;
 
-            $vote['can_vote'] = false;
+            $vote['can_vote'] = false;            
             if(osc_is_web_user_logged_in() && can_vote_user($userId, osc_logged_user_id()) ) {
                 $vote['can_vote'] = true;
             }
