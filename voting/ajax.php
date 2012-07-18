@@ -6,7 +6,7 @@
 
 $votedUserId = (Params::getParam("userId") == '')  ? null : Params::getParam("userId");
 $itemId      = (Params::getParam("itemId") == '')  ? null : Params::getParam("itemId");
-$iVote        = (Params::getParam("vote") == '')  ? null : Params::getParam("vote");
+$iVote       = (Params::getParam("vote") == '')  ? null : Params::getParam("vote");
 
 $userId = osc_logged_user_id();
 $hash   = '';
@@ -25,7 +25,7 @@ if(isset($iVote) && is_numeric($iVote) && isset($votedUserId) && is_numeric($vot
     $aux_count = $conn->osc_dbFetchResult('SELECT count(*) as total FROM %st_voting_user WHERE i_user_voted = %s', DB_TABLE_PREFIX, $votedUserId);
     $vote['vote']  = $aux_vote['vote'];
     $vote['total'] = $aux_count['total'];
-
+    $vote['userId'] = $votedUserId;
     $vote['can_vote'] = true;
     if(!osc_is_web_user_logged_in() || !can_vote_user($votedUserId, $userId) ){
         $vote['can_vote'] = false;
