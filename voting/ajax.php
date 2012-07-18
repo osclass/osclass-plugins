@@ -14,22 +14,23 @@ $hash   = '';
 // Vote Users
 if(isset($iVote) && is_numeric($iVote) && isset($votedUserId) && is_numeric($votedUserId) ) 
 {
-    $conn = getConnection();
     if( $iVote<=5 && $iVote>=1){
         if(can_vote_user($votedUserId, $userId)) {
-            $conn->osc_dbExec("INSERT INTO %st_voting_user (i_user_voted, i_user_voter, i_vote) VALUES (%s, %s, %s)",DB_TABLE_PREFIX, $votedUserId, $userId, $iVote);
+            ModelVoting::newInstance()->insertUserVote($votedUserId, $userId, $iVote);
         }
     }
     // return updated voting
-    $aux_vote  = $conn->osc_dbFetchResult('SELECT format(avg(i_vote),1) as vote FROM %st_voting_user WHERE i_user_voted = %s', DB_TABLE_PREFIX, $votedUserId);
-    $aux_count = $conn->osc_dbFetchResult('SELECT count(*) as total FROM %st_voting_user WHERE i_user_voted = %s', DB_TABLE_PREFIX, $votedUserId);
+    $aux_vote  = ModelVoting::newInstance()->getUserAvgRating($votedUserId);
+    $aux_count = ModelVoting::newInstance()->getUserNumberOfVotes($votedUserId);
     $vote['vote']  = $aux_vote['vote'];
     $vote['total'] = $aux_count['total'];
     $vote['userId'] = $votedUserId;
+    
     $vote['can_vote'] = true;
-    if(!osc_is_web_user_logged_in() || !can_vote_user($votedUserId, $userId) ){
+    if(!osc_is_web_user_logged_in() || !can_vote_user($votedUserId, $userId) ) {
         $vote['can_vote'] = false;
     }
+    
     require 'view_votes_user.php';
 }
 
@@ -45,16 +46,15 @@ if(isset($iVote) && is_numeric($iVote) && isset($itemId) && is_numeric($itemId) 
             $hash = null;
         }
         
-        $conn = getConnection();
         $open = osc_get_preference('open', 'voting');
         $user = osc_get_preference('user', 'voting');
         if($open == 1) {
             if(can_vote($itemId, $userId, $hash)) {
-                $conn->osc_dbExec("INSERT INTO %st_voting_item (fk_i_item_id, fk_i_user_id, i_vote, s_hash) VALUES (%s, %s, %s, '%s')",DB_TABLE_PREFIX, $itemId, $userId, $iVote, $hash);
+                ModelVoting::newInstance()->insertItemVote($itemId, $userId, $iVote, $hash);
             }
         } else if($user == 1 && is_null($hash) ) {
             if(can_vote($itemId, $userId, $hash)) {
-                $conn->osc_dbExec("INSERT INTO %st_voting_item (fk_i_item_id, fk_i_user_id, i_vote, s_hash) VALUES (%s, %s, %s, '%s')",DB_TABLE_PREFIX, $itemId, $userId, $iVote, $hash);
+                ModelVoting::newInstance()->insertItemVote($itemId, $userId, $iVote, $hash);
             }
         }
     }
@@ -62,9 +62,8 @@ if(isset($iVote) && is_numeric($iVote) && isset($itemId) && is_numeric($itemId) 
     $item = Item::newInstance()->findByPrimaryKey($itemId);
     View::newInstance()->_exportVariableToView('item', $item);
     if (osc_is_this_category('voting', osc_item_category_id())) {
-        $conn = getConnection();
-        $aux_vote  = $conn->osc_dbFetchResult('SELECT format(avg(i_vote),1) as vote FROM %st_voting_item WHERE fk_i_item_id = %s', DB_TABLE_PREFIX, osc_item_id());
-        $aux_count = $conn->osc_dbFetchResult('SELECT count(*) as total FROM %st_voting_item WHERE fk_i_item_id = %s', DB_TABLE_PREFIX, osc_item_id());
+        $aux_vote  = ModelVoting::newInstance()->getItemAvgRating(osc_item_id());
+        $aux_count = ModelVoting::newInstance()->getItemNumberOfVotes(osc_item_id());
         $vote['vote']  = $aux_vote['vote'];
         $vote['total'] = $aux_count['total'];
         
