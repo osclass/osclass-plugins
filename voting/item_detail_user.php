@@ -1,9 +1,8 @@
 <?php $path = osc_base_url().'/oc-content/plugins/'.  osc_plugin_folder(__FILE__); ?>
 <div id="wrapper_voting_plugin">
     <script type="text/javascript">
-    $(document).ready(function(){
-        
-        $('.aPvu').live('click', function(){
+    $(function(){  
+        $('.aPvu').click(function(){
             var params = '';
             var vote   = 0;
             if( $(this).hasClass('vote1') ) vote = 1;
