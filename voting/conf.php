@@ -53,7 +53,7 @@
     }
 ?>
 
-<div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
+<div id="settings_form" style="padding-left: 15px; padding-right: 15px;">
     <div style="padding: 20px;">
         <div style="float: left; width: 100%;">
             <b style="font-size: 1.5em;"><?php _e('Items', 'voting');?></b>
