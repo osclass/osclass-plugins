@@ -6,7 +6,7 @@ Description: This plugin extends a category of items to store jobs attributes su
 Version: 3.0.1
 Author: OSClass
 Author URI: http://www.osclass.org/
-Short Name: jobs_attributes
+Short Name: jobs_plugin
 Plugin update URI: jobs-attributes
 */
 
