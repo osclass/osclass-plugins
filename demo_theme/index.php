@@ -113,10 +113,13 @@ Plugin update URI: demo-theme
         echo "            }" . PHP_EOL ;
         echo "            window.location = url ;" ;
         echo "        }) ;" . PHP_EOL ;
-        echo "        $('#theme_selector .select').append( $('<span>').html( $('<a>').attr('href', 'http://sourceforge.net/projects/osclass/files/Themes/" . $selected_theme . "').attr('target', '_blank').html('Download " . $info_selected_theme['name'] . " theme') ) ) ; " . PHP_EOL ;
+        if( @$info_selected_theme['theme_update_uri'] != "") {
+            echo "        $('#theme_selector .select').append( $('<span>').html( $('<a>').attr('href', 'http://market.osclass.org/api/view/" . @$info_selected_theme['theme_update_uri'] . "').attr('target', '_blank').html('Download " . $info_selected_theme['name'] . " theme') ) ) ; " . PHP_EOL ;
+        }
         echo '        $("#theme_header").append( $("<div>").css("clear:both;") ) ;' ;
         echo '    }) ;' . PHP_EOL ;
         echo '</script>' . PHP_EOL ;
+        
     }
 
     osc_add_hook('before_html', 'change_theme') ;
