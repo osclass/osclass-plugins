@@ -45,14 +45,11 @@ Plugin update URI: voting
      */
     function voting_admin_menu() 
     {
-        // check if osc_version is greather than 3.0
-        if(osc_version()<300) {
-            echo '<h3><a href="#">' . __('Voting options', 'voting') . '</a></h3>
-            <ul> 
-                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'voting') . '</a></li>
-                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'voting') . '</a></li>
-            </ul>';
-        }
+        echo '<h3><a href="#">' . __('Voting options', 'voting') . '</a></h3>
+        <ul> 
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'voting') . '</a></li>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'voting') . '</a></li>
+        </ul>';
     }
     
     function voting_admin_configuration() 
@@ -342,9 +339,11 @@ Plugin update URI: voting
      * ADMIN MENU
      */
     if(osc_version() >= 300) {
-        AdminMenu::newInstance()->add_menu(__('Voting options', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'voting_plugin', 'administrator') ; 
-        AdminMenu::newInstance()->add_submenu( 'voting_plugin', __('Settings', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'voting_plugin_settings', 'administrator') ;
-        AdminMenu::newInstance()->add_submenu( 'voting_plugin', __('Help', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php'), 'voting_plugin_help', 'administrator') ;
+        osc_add_admin_menu_page( __('Voting options', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'voting_plugin', 'administrator' );
+        osc_add_admin_submenu_page('voting_plugin', __('Settings', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'voting_plugin_settings', 'administrator');
+        osc_add_admin_submenu_page('voting_plugin', __('Help', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php'), 'voting_plugin_help', 'administrator');
+    } else {
+        osc_add_hook('admin_menu', 'voting_admin_menu');
     }
     
     function votingmenu() { ?>
@@ -373,5 +372,5 @@ Plugin update URI: voting
     }
     osc_add_hook('admin_header','votingmenu');
     
-    osc_add_hook('admin_menu', 'voting_admin_menu');
+    
 ?>
