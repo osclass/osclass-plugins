@@ -3,7 +3,7 @@
 Plugin Name: Location required
 Plugin URI: http://www.osclass.org/
 Description: This Plugin makes the location required when posting or editing ads.
-Version: 1.0.1
+Version: 1.0.2
 Author: JChapman
 Author URI: http://www.osclass.org/
 Short Name: location_required
@@ -22,8 +22,8 @@ function location_js() {
     <script type="text/javascript">
         $(document).ready(function() {
 	        if( $("form[name=item]").length > 0 ) {
-                $('input[id="region"]').addClass("{required: true, messages: { required: '<?php _e("Region is required", "location_required") ; ?>' } }") ;
-                $('input[id="city"]').addClass("{required: true, messages: { required: '<?php _e("City is required", "location_required") ; ?>' } }") ;
+                $('input[id="region"]').addClass("{required: true, messages: { required: '<?php _e("Region is required", "location_required") ; ?>'}}") ;
+                $('input[id="city"]').addClass("{required: true, messages: { required: '<?php _e("City is required", "location_required") ; ?>'}}") ;
 	        }
         }) ;
     </script>
