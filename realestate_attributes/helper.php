@@ -9,9 +9,13 @@ function get_realestate_attributes(){
         return false;
     } 
     if(@$detail['e_type'] != "") {
+        $typeText = array(
+            'FOR RENT' => __('For rent', 'realestate_attributes'),
+            'FOR SALE' => __('For sale', 'realestate_attributes')
+        );
         $return['attributes']['type'] = array(
                  'label' =>__('Type', 'realestate_attributes')
-                ,'value' => @$detail['e_type']
+                ,'value' => @$typeText[$detail['e_type']]
             );
     }
     if(@$detail['locale'][$locale]['s_name'] != "") {
@@ -33,9 +37,14 @@ function get_realestate_attributes(){
             );
     }
     if(@$detail['e_status'] != "") {
+        $statusText = array(
+            'NEW CONSTRUCTION' => __('New construction', 'realestate_attributes'),
+            'TO RENOVATE'      => __('To renovate', 'realestate_attributes'),
+            'GOOD CONDITION'   => __('Good condition', 'realestate_attributes')
+        );
         $return['attributes']['status'] = array(
                  'label' =>__('Status', 'realestate_attributes')
-                ,'value' => @$detail['e_status']
+                ,'value' => @$statusText[$detail['e_status']]
             );
     }
     if(@$detail['s_square_meters'] != "") {
