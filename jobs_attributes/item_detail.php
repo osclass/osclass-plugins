@@ -26,10 +26,10 @@
             <td><?php echo $positions[$detail['e_position_type']]; ?></td>
         </tr>
         <?php } ?>
-        <?php if(@$detail['i_salary_min'] != 0 || @$detail['i_salary_max'] != 0) { ?>
+        <?php if(@$detail['s_salary_text'] != "" ) { ?>
         <tr>
-            <td><label for="salaryRange"><?php _e('Salary range', 'jobs_attributes'); ?></label></td>
-            <td><?php echo @$detail['i_salary_min']; ?> - <?php echo @$detail['i_salary_max']; ?> <?php echo $salary[@$detail['e_salary_period']]; ?></td>
+            <td><label for="salaryText"><?php _e('Salary', 'jobs_attributes'); ?></label></td>
+            <td><?php echo @$detail['s_salary_text']; ?></td>
         </tr>
         <?php } ?>
     </table>
@@ -70,7 +70,7 @@
     </div>
     <?php } ?>
 </div>
-<?php if(osc_get_preference('allow_cv_upload', 'jobs_plugin')=='1' && ((osc_get_preference('allow_cv_unreg', 'jobs_plugin')=='1' && !osc_is_web_user_logged_in()) || osc_is_web_user_logged_in())) { ?>
+<?php if(osc_get_preference('allow_cv_upload', 'plugin')=='1' && ((osc_get_preference('allow_cv_unreg', 'jobs_plugin')=='1' && !osc_is_web_user_logged_in()) || osc_is_web_user_logged_in())) { ?>
 <br/>
 <div id="cv_uploader">
     <noscript>

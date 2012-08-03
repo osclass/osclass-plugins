@@ -49,24 +49,4 @@
             </select>
         </div>
     </div>
-    <div class="row one_input">
-        <h6><?php _e('Salary range', 'jobs_attributes'); ?></h6>
-        <div style="height: 20px;">
-            <div style="width: 60%;float:left;" class="auto">
-                <input type="text" id="salaryRange" name="salaryRange" style="background-color: transparent;border:0; color:#f6931f; font-weight:bold;width: auto;" readonly/>
-            </div>
-            <div style="width: 40%;float:left;" class="right auto">
-                <select name="salaryPeriod" id="salaryPeriod">
-                    <option value="HOUR" <?php echo (Params::getParam('salaryPeriod')=='HOUR')?'selected':''; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
-                    <option value="WEEK" <?php echo (Params::getParam('salaryPeriod')=='WEEK')?'selected':''; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
-                    <option value="MONTH" <?php echo (Params::getParam('salaryPeriod')=='MONTH')?'selected':''; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
-                    <option value="YEAR" <?php echo (Params::getParam('salaryPeriod')=='YEAR')?'selected':''; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
-                </select>
-            </div>
-        </div>
-        <br/>
-        <div class="slider" >
-            <div id="salary-range"></div>
-        </div>
-    </div>
 </fieldset>

@@ -3,10 +3,10 @@
 Plugin Name: Jobs attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store jobs attributes such as salary, requirements, timetable, and so on.
-Version: 3.0.2
+Version: 3.1.0
 Author: OSClass
 Author URI: http://www.osclass.org/
-Short Name: jobs_plugin
+Short Name: jobs_attributes
 Plugin update URI: jobs-attributes
 */
 
@@ -17,7 +17,6 @@ function job_search_conditions($params = '') {
     // we need conditions and search tables (only if we're using our custom tables)
     if($params!='') {
         $has_conditions = false;
-        $has_salary = false;
         foreach($params as $key => $value) {
             // We may want to  have param-specific searches
             switch($key) {
@@ -37,19 +36,6 @@ function job_search_conditions($params = '') {
 
                     if($value!='UNDEF' && $value != '') {
                         Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_position_type = '%s'", DB_TABLE_PREFIX, $value));
-                        $has_conditions = true;
-                    }
-                    break;
-                case 'salaryRange':
-                    if($params['salaryPeriod']!='') {
-                        $salaryRange = explode(" - ", $value);
-                        $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
-                        $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
-
-                        $salaryHour = job_to_salary_hour( $params['salaryPeriod'], $salaryMin, $salaryMax) ;
-
-                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_min_hour >= %d", DB_TABLE_PREFIX, $salaryHour['min']));
-                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.i_salary_max_hour <= %d", DB_TABLE_PREFIX, $salaryHour['max']));
                         $has_conditions = true;
                     }
                     break;
@@ -79,9 +65,8 @@ function job_call_after_install() {
     osc_set_preference('allow_cv_upload', '0', 'jobs_plugin', 'BOOLEAN');
     osc_set_preference('allow_cv_unreg', '1', 'jobs_plugin', 'BOOLEAN');
     osc_set_preference('send_me_cv', '0', 'jobs_plugin', 'BOOLEAN');
-    osc_set_preference('salary_min', '0', 'jobs_plugin', 'INTEGER');
-    osc_set_preference('salary_max', '80000', 'jobs_plugin', 'INTEGER');
-    osc_set_preference('salary_step', '100', 'jobs_plugin', 'INTEGER');
+    
+    osc_set_preference('version', 310, 'jobs_plugin', 'INTEGER');
 }
 
 function job_call_after_uninstall() {
@@ -95,6 +80,8 @@ function job_call_after_uninstall() {
     osc_delete_preference('allow_cv_upload', 'jobs_plugin');
     osc_delete_preference('allow_cv_unreg', 'jobs_plugin');
     osc_delete_preference('send_me_cv', 'jobs_plugin');
+
+    osc_delete_preference('version', 'jobs_plugin');
 }
 
 function job_form($catId = null) {
@@ -121,50 +108,13 @@ function job_search_form($catId = null) {
     }
 }
 
-function job_to_salary_hour($salaryPeriod, $salaryMin, $salaryMax) {
-    switch ($salaryPeriod){
-        case('HOUR'):
-            $salary_hour_min = $salaryMin;
-            $salary_hour_max = $salaryMax;
-        break;
-        case('DAY'):
-            $salary_hour_min = $salaryMin/8;
-            $salary_hour_max = $salaryMax/8;
-        break;
-        case('WEEK'):
-            $salary_hour_min = $salaryMin/40;
-            $salary_hour_max = $salaryMax/40;
-        break;
-        case('MONTH'):
-            $salary_hour_min = $salaryMin/(40*4);
-            $salary_hour_max = $salaryMax/(40*4);
-        break;
-        case('YEAR'):
-            $salary_hour_min = $salaryMin/(40*4*12);
-            $salary_hour_max = $salaryMax/(40*4*12);
-        break;
-        default:
-            $salary_hour_min = $salaryMin;
-            $salary_hour_max = $salaryMax;
-        break;
-    }
-    return array('min' => $salary_hour_min, 'max' => $salary_hour_max);
-}
-
 function job_form_post($catId = null, $item_id = null)  {
     // We received the categoryID and the Item ID
-    $conn = getConnection();
     if($catId!="") {
         // We check if the category is the same as our plugin
         if(osc_is_this_category('jobs_plugin', $catId) && $item_id!=null) {
             // Insert the data in our plugin's table
-            $salaryRange = explode(" - ", Params::getParam('salaryRange'));
-            $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
-            $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
-
-            $salaryHour = job_to_salary_hour( Params::getParam('salaryPeriod'), $salaryMin, $salaryMax) ;
-
-            ModelJobs::newInstance()->insertJobsAttr($item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod'), $salaryHour['min'], $salaryHour['max'] );
+            ModelJobs::newInstance()->insertJobsAttr($item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), Params::getParam('salaryText') );
 
             // prepare locales
             $dataItem = array();
@@ -216,13 +166,7 @@ function job_item_edit_post($catId = null, $item_id = null) {
     if($catId!=null) {
         // We check if the category is the same as our plugin
         if(osc_is_this_category('jobs_plugin', $catId)) {
-            $salaryRange = explode(" - ", Params::getParam('salaryRange'));
-            $salaryMin = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min();
-            $salaryMax = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max();
-
-            $salaryHour = job_to_salary_hour( Params::getParam('salaryPeriod'), $salaryMin, $salaryMax) ;
-
-            ModelJobs::newInstance()->replaceJobsAttr( $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), $salaryMin, $salaryMax, Params::getParam('salaryPeriod'), $salaryHour['min'], $salaryHour['max'] );
+            ModelJobs::newInstance()->replaceJobsAttr( $item_id, Params::getParam('relation'), Params::getParam('companyName'), Params::getParam('positionType'), Params::getParam('salaryText'));
             // prepare locales
             $dataItem = array();
             $request = Params::getParamsAsArray();
@@ -261,34 +205,14 @@ function job_admin_configuration() {
     osc_plugin_configure_view(osc_plugin_path(__FILE__) );
 }
 
-function job_plugin_salary_min() {
-    return osc_get_preference('salary_min', 'jobs_plugin');
-}
-
-function job_plugin_salary_max() {
-    return osc_get_preference('salary_max', 'jobs_plugin');
-}
-
-function job_plugin_salary_step() {
-    return osc_get_preference('salary_step', 'jobs_plugin');
-}
 
 function job_pre_item_post()
 {
-    $salaryRange = explode(" - ", Params::getParam('salaryRange'));
-    $salaryMin   = ($salaryRange[0]!='')?$salaryRange[0]:job_plugin_salary_min() ;
-    $salaryMax   = (isset($salaryRange[1]) && $salaryRange[1]!='')?$salaryRange[1]:job_plugin_salary_max() ;
-    // extract digits from salary Min & Max
-    $salaryMin   = preg_match('/(\d*)/', $salaryMin, $matches);
-    $salaryMin   = $matches[0];
-    $salaryMax   = preg_match('/(\d*)/', $salaryMax, $matches);
-    $salaryMax   = $matches[0];
-    Session::newInstance()->_setForm('pj_salaryMin', $salaryMin );
-    Session::newInstance()->_setForm('pj_salaryMax', $salaryMax );
+
+    Session::newInstance()->_setForm('pj_salaryText', Params::getParam('salaryText') );
     Session::newInstance()->_setForm('pj_relation',  Params::getParam('relation') );
     Session::newInstance()->_setForm('pj_companyName',  Params::getParam('companyName') );
     Session::newInstance()->_setForm('pj_positionType',  Params::getParam('positionType') );
-    Session::newInstance()->_setForm('pj_salaryPeriod',  Params::getParam('salaryPeriod') );
     // prepare locales
     $dataItem = array();
     $request = Params::getParamsAsArray();
@@ -300,24 +224,35 @@ function job_pre_item_post()
     Session::newInstance()->_setForm('pj_data', $dataItem );
 
     // keep values on session
-    Session::newInstance()->_keepForm('pj_salaryMin');
-    Session::newInstance()->_keepForm('pj_salaryMax');
+    Session::newInstance()->_keepForm('pj_salaryText');
     Session::newInstance()->_keepForm('pj_relation');
     Session::newInstance()->_keepForm('pj_companyName');
     Session::newInstance()->_keepForm('pj_positionType');
-    Session::newInstance()->_keepForm('pj_salaryPeriod');
     Session::newInstance()->_keepForm('pj_data');
 }
 
 function job_save_inputs_into_session()
 {
-    Session::newInstance()->_keepForm('pj_salaryMin');
-    Session::newInstance()->_keepForm('pj_salaryMax');
+    Session::newInstance()->_keepForm('pj_salaryText');
     Session::newInstance()->_keepForm('pj_relation');
     Session::newInstance()->_keepForm('pj_companyName');
     Session::newInstance()->_keepForm('pj_positionType');
-    Session::newInstance()->_keepForm('pj_salaryPeriod');
     Session::newInstance()->_keepForm('pj_data');
+}
+
+
+function job_check_update()
+{
+
+    // UPDATE PROCESS
+    if(osc_get_preference('version','jobs_plugin')<310 && (osc_get_preference('allow_cv_unreg', 'jobs_plugin')==1 || osc_get_preference('allow_cv_unreg', 'jobs_plugin')==0)) {
+        osc_delete_preference('salary_min', 'jobs_plugin');
+        osc_delete_preference('salary_max', 'jobs_plugin');
+        osc_delete_preference('salary_step', 'jobs_plugin');
+        osc_set_preference('version', 310, 'jobs_plugin');
+        ModelJobs::newInstance()->import('jobs_attributes/alterTable.sql');
+    }
+        
 }
 
 // this is needed in order to be able to activate the plugin
@@ -326,6 +261,8 @@ osc_register_plugin(osc_plugin_path(__FILE__), 'job_call_after_install');
 osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'job_admin_configuration');
 // this is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'job_call_after_uninstall');
+// run when the plugin is enabled
+osc_add_hook(osc_plugin_path(__FILE__)."_enable", 'job_check_update');
 
 // when publishing an item we show an extra form with more attributes
 osc_add_hook('item_form', 'job_form');
@@ -363,4 +300,7 @@ function css_jobs() {
     echo '<link href="' . osc_plugin_url(__FILE__) . 'css/styles.css" rel="stylesheet" type="text/css">' . PHP_EOL;
 }
 osc_add_hook('header', 'css_jobs');
+
+
+
 ?>

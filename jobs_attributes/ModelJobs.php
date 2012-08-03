@@ -172,18 +172,14 @@
          * @param int $salaryMinHour
          * @param int $salaryMaxHour 
          */
-        public function insertJobsAttr($item_id, $relation, $company_name, $position_type, $salaryMin, $salaryMax, $salaryPeriod, $salaryMinHour, $salaryMaxHour)
+        public function insertJobsAttr($item_id, $relation, $company_name, $position_type, $salaryText)
         {
             $aSet = array(
                 'fk_i_item_id'      => $item_id,
                 'e_relation'        => $relation,
                 's_company_name'    => $company_name,
                 'e_position_type'   => $position_type,
-                'i_salary_min'      => $salaryMin,
-                'i_salary_max'      => $salaryMax,
-                'e_salary_period'   => $salaryPeriod,
-                'i_salary_min_hour' => $salaryMinHour,
-                'i_salary_max_hour' => $salaryMaxHour
+                's_salary_text'     => $salaryText
             );
             
             return $this->dao->insert($this->getTable_JobsAttr(), $aSet);
@@ -224,12 +220,11 @@
          * @param type $salaryHourmin
          * @param type $salaryHourMax 
          */
-        public function replaceJobsSalaryAttr($item_id, $salaryHourmin, $salaryHourMax)
+        public function replaceJobsSalaryAttr($item_id, $salaryText)
         {
             $aSet = array(
                 'fk_i_item_id'      => $item_id,
-                'i_salary_min_hour' => $salaryHourmin,
-                'i_salary_max_hour' => $salaryHourMax,
+                's_salary_text'     => $salaryText
             );
             return $this->dao->replace($this->getTable_JobsAttr(), $aSet);
         }
@@ -237,18 +232,14 @@
         /**
          * Replace Jobs attributes 
          */
-        public function replaceJobsAttr($item_id, $relation, $company_name, $position_type, $salaryMin, $salaryMax, $salaryPeriod, $salaryMinHour, $salaryMaxHour)
+        public function replaceJobsAttr($item_id, $relation, $company_name, $position_type, $salaryText)
         {
             $aSet = array(
                 'fk_i_item_id'      => $item_id,
                 'e_relation'        => $relation,
                 's_company_name'    => $company_name,
                 'e_position_type'   => $position_type,
-                'i_salary_min'      => $salaryMin,
-                'i_salary_max'      => $salaryMax,
-                'e_salary_period'   => $salaryPeriod,
-                'i_salary_min_hour' => $salaryMinHour,
-                'i_salary_max_hour' => $salaryMaxHour
+                's_salary_text'     => $salaryText
             );
             return $this->dao->replace( $this->getTable_JobsAttr(), $aSet);
         }

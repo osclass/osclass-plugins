@@ -3,11 +3,7 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_attr (
     e_relation ENUM('HIRE', 'LOOKING'),
     s_company_name VARCHAR(100) NOT NULL,
     e_position_type ENUM('UNDEF', 'PART', 'FULL'),
-    i_salary_min INT(6) UNSIGNED,
-    i_salary_max INT(6) UNSIGNED,
-    i_salary_min_hour INT(6) UNSIGNED,
-    i_salary_max_hour INT(6) UNSIGNED,
-    e_salary_period ENUM('HOUR', 'DAY', 'WEEK', 'MONTH', 'YEAR'),
+    s_salary_text TEXT NOT NULL DEFAULT '',
         PRIMARY KEY (fk_i_item_id),
         FOREIGN KEY (fk_i_item_id) REFERENCES /*TABLE_PREFIX*/t_item (pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';

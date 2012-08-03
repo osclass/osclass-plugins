@@ -139,8 +139,8 @@ class qqFileUploader {
             $params['alt_body'] = $params['body'];
             $params['attachment'] = $uploadDirectory . $filename . '.' . $ext;
 
-            if(osc_get_preference('send_me_cv', 'jobs_plugin')) {
-                $params['to'] = osc_get_preference('cv_email', 'jobs_plugin');
+            if(osc_get_preference('send_me_cv', 'jobs_attributes')) {
+                $params['to'] = osc_get_preference('cv_email', 'jobs_attributes');
             } else {
                 $params['to'] = osc_item_contact_email();
             }
@@ -164,7 +164,7 @@ class qqFileUploader {
     }    
 }
 
-if(osc_get_preference('allow_cv_upload', 'jobs_plugin')=='1' && ((osc_get_preference('allow_cv_unreg', 'jobs_plugin')=='1' && !osc_is_web_user_logged_in()) || osc_is_web_user_logged_in())) {
+if(osc_get_preference('allow_cv_upload', 'jobs_attributes')=='1' && ((osc_get_preference('allow_cv_unreg', 'jobs_attributes')=='1' && !osc_is_web_user_logged_in()) || osc_is_web_user_logged_in())) {
     View::newInstance()->_exportVariableToView('item', Item::newInstance()->findByPrimaryKey(Params::getParam('id')));
 
     // list of valid extensions, ex. array("jpeg", "xml", "bmp")

@@ -1,26 +1,3 @@
-<script type="text/javascript">
-    <?php
-        if( Session::newInstance()->_getForm('pj_salaryMin') != "" ) {
-            $detail['i_salary_min'] = Session::newInstance()->_getForm('pj_salaryMin');
-        }
-        if( Session::newInstance()->_getForm('pj_salaryMax') != "" ) {
-            $detail['i_salary_max'] = Session::newInstance()->_getForm('pj_salaryMax');
-        }
-    ?>
-    $(document).ready(function(){
-        $("#salary-range").slider({
-            range: true,
-            min: <?php echo job_plugin_salary_min();?>,
-            max: <?php echo job_plugin_salary_max();?>,
-            step: <?php echo job_plugin_salary_step();?>,
-            values: [<?php echo (isset($detail['i_salary_min']) && $detail['i_salary_min']!='')?$detail['i_salary_min']:job_plugin_salary_min();?> , <?php echo (isset($detail['i_salary_max']) && $detail['i_salary_max']!='')?$detail['i_salary_max']:job_plugin_salary_max();?>],
-            slide: function(event, ui) {
-                $("#salaryRange").val(ui.values[0] + ' <?php echo osc_currency();?> - ' + ui.values[1] + ' <?php echo osc_currency();?>');
-            }
-        });            
-        $("#salaryRange").val($("#salary-range").slider("values", 0) + ' <?php echo osc_currency();?> - ' + $("#salary-range").slider("values", 1) + ' <?php echo osc_currency();?>');
-    });
-</script>
 <h2><?php _e('Job details', 'jobs_attributes'); ?></h2>
 <div class="jobs-attributes box">
     <div class="row">
@@ -66,27 +43,14 @@
             <option value="FULL" <?php if( @$detail['e_position_type'] == 'FULL' ) { echo 'selected'; }; ?>><?php _e('Full-time', 'jobs_attributes'); ?></option>
         </select>
     </div>
-    <div style="height: 60px;" class="row _100 auto">
+    <div class="row">
         <?php
-            if( Session::newInstance()->_getForm('pj_salaryPeriod') != "" ) {
-                $detail['e_salary_period'] = Session::newInstance()->_getForm('pj_salaryPeriod');
+            if( Session::newInstance()->_getForm('pj_salaryText') != "" ) {
+                $detail['e_relation'] = Session::newInstance()->_getForm('pj_salaryText');
             }
         ?>
-        <label for="salaryRange"><?php _e('Salary range', 'jobs_attributes'); ?></label>
-        <div class="auto">
-            
-            <input type="text" id="salaryRange" name="salaryRange" style="width: auto;border:0; color:#f6931f; font-weight:bold;" readonly/>
-            <select name="salaryPeriod" id="salaryPeriod">
-                <option value="HOUR" <?php if(@$detail['e_salary_period']=='HOUR') { echo 'selected'; }; ?>><?php _e('Hour', 'jobs_attributes'); ?></option>
-                <option value="DAY" <?php if(@$detail['e_salary_period']=='DAY') { echo 'selected'; }; ?>><?php _e('Day', 'jobs_attributes'); ?></option>
-                <option value="WEEK" <?php if(@$detail['e_salary_period']=='WEEK') { echo 'selected'; }; ?>><?php _e('Week', 'jobs_attributes'); ?></option>
-                <option value="MONTH" <?php if(@$detail['e_salary_period']=='MONTH') { echo 'selected'; }; ?>><?php _e('Month', 'jobs_attributes'); ?></option>
-                <option value="YEAR" <?php if(@$detail['e_salary_period']=='YEAR') { echo 'selected'; }; ?>><?php _e('Year', 'jobs_attributes'); ?></option>
-            </select>
-            <div id="jobs-attributes-slider" style="width:200px;clear: both;padding-left:130px;padding-top: 10px;" >
-                <div id="salary-range"></div>
-            </div>
-        </div>
+        <label for="look"><?php _e('Salary', 'jobs_attributes'); ?></label>
+        <input type="text" name="salaryText" value="<?php echo @$detail['s_salary_text']; ?>" />
     </div>
 
 <?php

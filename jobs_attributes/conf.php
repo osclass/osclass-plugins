@@ -27,19 +27,9 @@ if(Params::getParam('plugin_action')=='done') {
     osc_set_preference('allow_cv_upload', (Params::getParam('allow_cv_upload')!=1)?0:1, 'jobs_plugin', 'BOOLEAN');
     osc_set_preference('allow_cv_unreg', (Params::getParam('allow_cv_unreg')!=1)?0:1, 'jobs_plugin', 'BOOLEAN');
     osc_set_preference('send_me_cv', (Params::getParam('send_me_cv')!=1)?0:1, 'jobs_plugin', 'BOOLEAN');
-    osc_set_preference('salary_min', (Params::getParam('salary_min')!='')?Params::getParam('salary_min'):0, 'jobs_plugin', 'INTEGER');
-    osc_set_preference('salary_max', (Params::getParam('salary_max')!='' && Params::getParam('salary_max')!=0)?Params::getParam('salary_max'):80000, 'jobs_plugin', 'INTEGER');
-    osc_set_preference('salary_step', (Params::getParam('salary_step')!='' && Params::getParam('salary_step')!=0)?Params::getParam('salary_step'):100, 'jobs_plugin', 'INTEGER');
     osc_reset_preferences();
-    osc_add_flash_ok_message( __('Settings updated', 'jobs_attributes'), 'admin');
+    osc_add_flash_ok_message( __('Settings updated', 'jobs_plugin'), 'admin');
     
-} else if(Params::getParam('plugin_action') == 'recalculate') {
-    $aItems = ModelJobs::newInstance()->getAllAttributes();
-    foreach($aItems as $item) {
-        $salaryHour = job_to_salary_hour($item['e_salary_period'], $item['i_salary_min'], $item['i_salary_max']);
-        ModelJobs::newInstance()->replaceJobSalaryAttr( $item['fk_i_item_id'], $salaryHour['min'], $salaryHour['max']);
-    }
-    osc_add_flash_ok_message( __('Recalculation finished', 'jobs_attributes'), 'admin');
 }
 
 ?>
@@ -69,34 +59,9 @@ if(Params::getParam('plugin_action')=='done') {
 
                     <label><?php _e('E-mail', 'jobs_attributes');?></label><input type="text" name="cv_email" id="cv_email" value="<?php echo osc_get_preference('cv_email', 'jobs_plugin'); ?>" />
                     <br/>
-                    <br/>
-                    <label><?php _e('Salary slider min value', 'jobs_attributes');?></label><input type="text" name="salary_min" id="salary_min" value="<?php echo osc_get_preference('salary_min', 'jobs_plugin'); ?>" />
-                    <br/>
-                    <label><?php _e('Salary slider max value', 'jobs_attributes');?></label><input type="text" name="salary_max" id="salary_max" value="<?php echo osc_get_preference('salary_max', 'jobs_plugin'); ?>" />
-                    <br/>
-                    <label><?php _e('Salary slider step value', 'jobs_attributes');?></label><input type="text" name="salary_step" id="salary_step" value="<?php echo osc_get_preference('salary_step', 'jobs_plugin'); ?>" />
-                    <br/>
 
                     <button type="submit"><?php _e('Update', 'jobs_attributes'); ?></button>
                     </form>
-            </fieldset>
-        </div>
-        <div style="float: left; width: 50%;">
-            <fieldset>
-                <legend><?php _e('Recalculate salary hour', 'jobs_attributes'); ?></legend>
-                <p>
-                    <label>
-                        <?php _e('If you have updated this plugin, you need to recalculate values of salary hour, to obtain correct results in searches', 'jobs_attributes'); ?>.
-                        <br/>
-                        <form name="jobs_form" id="jobs_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
-                            <input type="hidden" name="page" value="plugins" />
-                            <input type="hidden" name="action" value="renderplugin" />
-                            <input type="hidden" name="file" value="jobs_attributes/conf.php" />
-                            <input type="hidden" name="plugin_action" value="recalculate" />
-                            <button type="submit"><?php _e('Recalculate salary hour', 'jobs_attributes'); ?></button>
-                        </form>
-                    </label>
-                </p>
             </fieldset>
         </div>
         <div style="float: left; width: 50%;">
@@ -105,8 +70,6 @@ if(Params::getParam('plugin_action')=='done') {
                 <p>
                     <label>
                         <?php _e('You could allow users to send their resumes to a specific email address or to send them to the author of the ad. Also you could specify is unregistered users could or could not upload their resumes', 'jobs_attributes'); ?>.
-                        <br/>
-                        <?php _e('The salary range will appear as a slider, at the search page and at the publish page. You could modify the minimum and maximum values of that slider as well as the value of the "steps" or increments', 'jobs_attributes'); ?>.
                     </label>
                 </p>
             </fieldset>
