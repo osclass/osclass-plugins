@@ -1,0 +1,146 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Update"
+msgstr "Atjaunot"
+
+msgid "Configure plugin"
+msgstr "Nokonfigurēt plugin"
+
+msgid "Year"
+msgstr "Gads"
+
+msgid "Help"
+msgstr "Palīdzība"
+
+msgid "Part time"
+msgstr "Uz nepilnu darba laiku"
+
+msgid "Undefined"
+msgstr "Nav noteikts"
+
+msgid "Jobs Options"
+msgstr "Darba iestātījumi"
+
+msgid "Allow upload of resumes"
+msgstr "Atļaut ielādē CV"
+
+msgid "Allow unregistered users to upload their resumes"
+msgstr "Atļaut nereģistrētiem lietotājiem ielādēt CV"
+
+msgid "Send all emails to the following email (if not checked the resumes will be send to ad's author)"
+msgstr "Sūtīt visus epastus uz šo epastu (ja nebūs ierakstīts epasts, CV tiks nosūtīts sludinājuma autoram)"
+
+msgid "E-mail"
+msgstr "Epasts"
+
+msgid "Salary slider min value"
+msgstr "Algas minimālā vērtība"
+
+msgid "Salary slider max value"
+msgstr "Algas lielākā vērtība"
+
+msgid "Salary slider step value"
+msgstr "Alga ceļās par vienību"
+
+msgid "You could allow users to send their resumes to a specific email address or to send them to the author of the ad. Also you could specify is unregistered users could or could not upload their resumes"
+msgstr "Jūs varat atļaut lietotājiem sūtīt savu CV autoram, vai uz specifisko epastu. Kā arī atļaut vai aizliegt nereģistrētiem lietotājiem sūtīt savus CV"
+
+msgid "The salary range will appear as a slider, at the search page and at the publish page. You could modify the minimum and maximum values of that slider as well as the value of the \"steps\" or increments"
+msgstr "Algas kalkulātors tiks parādīs galvenajā lapā, ielieciet minimālo un maksimālo algu."
+
+msgid "Server error. Upload directory isn't writable"
+msgstr "Servera kļūa. Ielādes direktorija nav rakstāma."
+
+msgid "No files were uploaded"
+msgstr "Neviens fails netika ielādēts"
+
+msgid "File is empty"
+msgstr "Fails ir tukšs"
+
+msgid "File is too large"
+msgstr "Fails ir pārāk liels"
+
+msgid "File has an invalid extension"
+msgstr "Failam ir nepieļaujams formāts"
+
+msgid "Someone sent you his/her resume. ( %s )"
+msgstr "Kāds ir nosūtījis Jums savu CV. (%s )"
+
+msgid "Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here: %s"
+msgstr "Kāds ir Jums nosūtījis CV, to mēs pievienojām šim epastam. Jūsu sludinājumu Jūs atradīsiet šeit; %s"
+
+msgid "Could not save uploaded file. The upload was cancelled, or server error encountered"
+msgstr "Neizdevās ielādēt failus. Servera kļūda"
+
+msgid "Plugin Options"
+msgstr "Plugin iestātījumi"
+
+msgid "Hire someone"
+msgstr "Meklēju darbinieku"
+
+msgid "Looking for a job"
+msgstr "Meklēju darbu"
+
+msgid "Job attributes"
+msgstr "Darba atribūti"
+
+msgid "Relation"
+msgstr "Attiecības"
+
+msgid "Company name"
+msgstr "Kompānijas nosaukums"
+
+msgid "Position type"
+msgstr "Amata veids"
+
+msgid "Salary range"
+msgstr "Darba alga"
+
+msgid "Desired experience"
+msgstr "Nepieciešamās zināšanas"
+
+msgid "Studies"
+msgstr "Izglītība"
+
+msgid "Minimum requirements"
+msgstr "Minimālās zināšānas"
+
+msgid "Desired requirements"
+msgstr "Obligātās zināšanas"
+
+msgid "Contract"
+msgstr "Kontrakts"
+
+msgid "Company description"
+msgstr "Kompānijas apraksts"
+
+msgid "Please enable JavaScript to use cv uploader"
+msgstr "Lūdzu ieslēdziet JavaScript , lai izmantotu CV ielādi"
+
+msgid "Full-time"
+msgstr "Pilns darba laiks"
+
+msgid "Hour"
+msgstr "Stunda"
+
+msgid "Week"
+msgstr "Nedēļa"
+
+msgid "Month"
+msgstr "Mēnesis"
+

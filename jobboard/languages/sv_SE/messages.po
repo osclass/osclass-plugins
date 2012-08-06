@@ -1,0 +1,146 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Update"
+msgstr "Uppdatera"
+
+msgid "Configure plugin"
+msgstr "Konfigurera pluginen"
+
+msgid "Year"
+msgstr "År"
+
+msgid "Help"
+msgstr "Hjälp"
+
+msgid "Part time"
+msgstr "Deltid"
+
+msgid "Undefined"
+msgstr "Odefinierad"
+
+msgid "Jobs Options"
+msgstr "Jobbalternativ"
+
+msgid "Allow upload of resumes"
+msgstr "Tillåt uppladningar av CV:s"
+
+msgid "Allow unregistered users to upload their resumes"
+msgstr "Tillåt oregistrerade användare att ladda upp CV:s"
+
+msgid "Send all emails to the following email (if not checked the resumes will be send to ad's author)"
+msgstr "Skicka alla mail till följande mailadress (om du inte markerar detta alternativ så skickas mailen till annonsens skapare)"
+
+msgid "E-mail"
+msgstr "Email"
+
+msgid "Salary slider min value"
+msgstr "Lönereglage minimumvärde"
+
+msgid "Salary slider max value"
+msgstr "Lönereglage maxvärde"
+
+msgid "Salary slider step value"
+msgstr "Lönereglage stegvis värde"
+
+msgid "You could allow users to send their resumes to a specific email address or to send them to the author of the ad. Also you could specify is unregistered users could or could not upload their resumes"
+msgstr "Du kan tillåta dina användare att skicka sina CV:s till en särskild mailadress eller skicka dem till annonsens skapare. Du kan också specifiera huruvida oregistrerade användare skall kunna skicka sina CV:s"
+
+msgid "The salary range will appear as a slider, at the search page and at the publish page. You could modify the minimum and maximum values of that slider as well as the value of the \"steps\" or increments"
+msgstr "Löneomfånget visas i form av ett reglage, både på söksidan och på publiceringssidan. Du kan ändra minimum och maximum värderna med hjälp av reglaget och även värdet på \\\"stegen\\\" mellen öknings/minkningsgraden"
+
+msgid "Server error. Upload directory isn't writable"
+msgstr "Server fel. Uppladdningsmappen är inte skrivbar"
+
+msgid "No files were uploaded"
+msgstr "Inga filer laddades upp"
+
+msgid "File is empty"
+msgstr "Filen är tom"
+
+msgid "File is too large"
+msgstr "Filen är för stor"
+
+msgid "File has an invalid extension"
+msgstr "Ogiltig fil"
+
+msgid "Someone sent you his/her resume. ( %s )"
+msgstr "Någon har skickat sitt CV till dig. (%s)"
+
+msgid "Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here: %s"
+msgstr "Någon har skickat sitt CV till dig. Du kan se det i detta mail, och du hittar jobberbjudandet här: %s"
+
+msgid "Could not save uploaded file. The upload was cancelled, or server error encountered"
+msgstr "Kunde inte spara den uppladdade filen. Uppladdningen avbröts, eller så uppstod ett serverfel"
+
+msgid "Plugin Options"
+msgstr "Pluginalternativ"
+
+msgid "Hire someone"
+msgstr "Hyra arbetskraft"
+
+msgid "Looking for a job"
+msgstr "Letar efter ett jobb"
+
+msgid "Job attributes"
+msgstr "Jobbattribut"
+
+msgid "Relation"
+msgstr "Relation"
+
+msgid "Company name"
+msgstr "Företagets namn"
+
+msgid "Position type"
+msgstr "Position"
+
+msgid "Salary range"
+msgstr "Löneskala"
+
+msgid "Desired experience"
+msgstr "Önskad erfarenhet"
+
+msgid "Studies"
+msgstr "Studier"
+
+msgid "Minimum requirements"
+msgstr "Minimikrav"
+
+msgid "Desired requirements"
+msgstr "Önskade krav"
+
+msgid "Contract"
+msgstr "Kontrakt"
+
+msgid "Company description"
+msgstr "Företagsbeskrivning"
+
+msgid "Please enable JavaScript to use cv uploader"
+msgstr "Du måste aktivera JavaScript för att kunna ladda upp ditt CV"
+
+msgid "Full-time"
+msgstr "Heltid"
+
+msgid "Hour"
+msgstr "Timme"
+
+msgid "Week"
+msgstr "Vecka"
+
+msgid "Month"
+msgstr "Månad"
+

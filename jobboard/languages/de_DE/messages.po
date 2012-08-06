@@ -1,0 +1,146 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OSClass\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-24 18:52+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"Language-Team: OSClass <info@osclass.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"Plural-Forms: nplurals=2; plural=n !=1;\n"
+"X-Poedit-Basepath: .\n"
+
+msgid "Update"
+msgstr "Aktualisierung"
+
+msgid "Configure plugin"
+msgstr "Plugin konfigurieren"
+
+msgid "Year"
+msgstr "Jahr"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "Part time"
+msgstr "Teilzeit"
+
+msgid "Undefined"
+msgstr "Undefiniert"
+
+msgid "Jobs Options"
+msgstr "Stellenoptionen"
+
+msgid "Allow upload of resumes"
+msgstr "Das Hochladen von Lebensläufen erlauben"
+
+msgid "Allow unregistered users to upload their resumes"
+msgstr "Nicht registrierten Benutzern das Hochladen von Lebensläufen erlauben"
+
+msgid "Send all emails to the following email (if not checked the resumes will be send to ad's author)"
+msgstr "Alle eMails an folgende eMail-Adresse senden (falls nicht aktiviert, werden die Lebensläufe an den Verfasser der Anzeige gesendet)"
+
+msgid "E-mail"
+msgstr "eMail"
+
+msgid "Salary slider min value"
+msgstr "Kleinster Wert des \\\"Gehalt\\\"-Schiebereglers"
+
+msgid "Salary slider max value"
+msgstr "Größter Wert des \\\"Gehalt\\\"-Schiebereglers"
+
+msgid "Salary slider step value"
+msgstr "Schrittweite des \\\"Gehalt\\\"-Schiebereglers"
+
+msgid "You could allow users to send their resumes to a specific email address or to send them to the author of the ad. Also you could specify is unregistered users could or could not upload their resumes"
+msgstr "Sie können Benutzern erlauben, ihren Lebenslauf entweder an eine definierte eMail-Adresse zu senden oder an den Autor der Anzeige. Sie können außerdem festlegen, ob nicht registrierte Benutzer ihre Lebensläufe hochladen dürfen oder nicht"
+
+msgid "The salary range will appear as a slider, at the search page and at the publish page. You could modify the minimum and maximum values of that slider as well as the value of the \"steps\" or increments"
+msgstr "Die Gehaltsvorstellungen werden auf der Such- und der Veröffentlichungsseite mit einem Schieberegler angegeben. Sie können den kleinste und größten Wert des Schiebereglers angeben und die Schrittweite für die Werte dazwischen."
+
+msgid "Server error. Upload directory isn't writable"
+msgstr "Fehler: Das Zielverzeichnis auf dem Server ist schreibgeschützt"
+
+msgid "No files were uploaded"
+msgstr "Es wurden keine Dateien hochgeladen"
+
+msgid "File is empty"
+msgstr "Die Datei ist leer"
+
+msgid "File is too large"
+msgstr "Die Datei ist zu groß"
+
+msgid "File has an invalid extension"
+msgstr "Die Datei hat eine ungültige Dateiendung"
+
+msgid "Someone sent you his/her resume. ( %s )"
+msgstr "Jemand hat Ihnen einen Lebenslauf gesendet. ( %s )"
+
+msgid "Someone sent you his/her resume. You could find it attached on this email, you could find the job offer here: %s"
+msgstr "Jemand hat Ihnen einen Lebenslauf als Anhang dieser eMail gesendet. Das dazugehörende Stellenangebot finden Sie unter %s"
+
+msgid "Could not save uploaded file. The upload was cancelled, or server error encountered"
+msgstr "Fehler: Das Hochladen wurde abgebrochen oder ein Serverfehler ist aufgetreten"
+
+msgid "Plugin Options"
+msgstr "Plugin-Optionen"
+
+msgid "Hire someone"
+msgstr "Stellenangebote"
+
+msgid "Looking for a job"
+msgstr "Stellengesuche"
+
+msgid "Job attributes"
+msgstr "Eigenschaften der Stelle"
+
+msgid "Relation"
+msgstr "Beziehung"
+
+msgid "Company name"
+msgstr "Firma"
+
+msgid "Position type"
+msgstr "Position"
+
+msgid "Salary range"
+msgstr "Gehaltsbandbreite"
+
+msgid "Desired experience"
+msgstr "Gewünschte Erfahrung"
+
+msgid "Studies"
+msgstr "Studium"
+
+msgid "Minimum requirements"
+msgstr "Minimale Anforderungen"
+
+msgid "Desired requirements"
+msgstr "Gwünschte Anforderungen"
+
+msgid "Contract"
+msgstr "Vertrag"
+
+msgid "Company description"
+msgstr "Unternehmensbeschreibung"
+
+msgid "Please enable JavaScript to use cv uploader"
+msgstr "Bitte aktivieren Sie \\\"JavaScript\\\", um den \\\"CV-Uploader\\\" zu verwenden"
+
+msgid "Full-time"
+msgstr "Vollzeit"
+
+msgid "Hour"
+msgstr "Stunde"
+
+msgid "Week"
+msgstr "Woche"
+
+msgid "Month"
+msgstr "Monat"
+
