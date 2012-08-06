@@ -1,4 +1,3 @@
-ALTER TABLE /*TABLE_PREFIX*/t_item_job_attr ADD COLUMN s_salary TEXT NULL DEFAULT '' ;
 ALTER TABLE /*TABLE_PREFIX*/t_item_job_attr DROP i_salary_min ;
 ALTER TABLE /*TABLE_PREFIX*/t_item_job_attr DROP i_salary_max ;
 ALTER TABLE /*TABLE_PREFIX*/t_item_job_attr DROP i_salary_min_hour ;

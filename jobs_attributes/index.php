@@ -250,7 +250,9 @@ function job_check_update()
         osc_delete_preference('salary_max', 'jobs_plugin');
         osc_delete_preference('salary_step', 'jobs_plugin');
         osc_set_preference('version', 310, 'jobs_plugin');
-        ModelJobs::newInstance()->import('jobs_attributes/alterTable.sql');
+        
+        ModelJobs::newInstance()->upgradeTo310();
+        
     }
         
 }

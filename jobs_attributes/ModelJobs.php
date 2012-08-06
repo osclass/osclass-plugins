@@ -282,5 +282,46 @@
             $this->dao->delete($this->getTable_JobsAttr(), array('fk_i_item_id' => $item_id) );
             return $this->dao->delete($this->getTable_JobsAttrDescription(), array('fk_i_item_id' => $item_id) );
         }
+        
+        
+        /**
+         * Upgrades the database to be compatible with version 310 
+         */
+        public function upgradeTo310()
+        {
+            
+            $this->dao->query("ALTER TABLE ".$this->getTable_JobsAttr()." ADD COLUMN s_salary_text TEXT NULL DEFAULT '' ");
+            
+            $jobs = $this->getAllAttributes();
+            foreach($jobs as $job) {
+                $tmp = array();
+                if(isset($job['i_salary_min']) && $job['i_salary_min']!='' && $job['i_salary_min']!=0) {
+                    $tmp[] = $job['i_salary_min'];
+                }
+                if(isset($job['i_salary_max']) && $job['i_salary_max']!='' && $job['i_salary_max']!=0) {
+                    $tmp[] = $job['i_salary_max'];
+                }
+                
+                $salary = implode(" - ", $tmp);
+                if($job['e_salary_period']=='HOUR') {
+                    $salary .= " ".__("Hour", "jobs_attributes");
+                } else if($job['e_salary_period']=='DAY') {
+                    $salary .= " ".__("Day", "jobs_attributes");
+                } else if($job['e_salary_period']=='WEEK') {
+                    $salary .= " ".__("Week", "jobs_attributes");
+                } else if($job['e_salary_period']=='MONTH') {
+                    $salary .= " ".__("Month", "jobs_attributes");
+                } else {
+                    $salary .= " ".__("Year", "jobs_attributes");
+                } 
+                    
+                    
+                $this->dao->update($this->getTable_JobsAttr(), array('s_salary_text' => $salary), array('fk_i_item_id' => $job['fk_i_item_id']));
+            }
+
+            $this->import('jobs_attributes/alterTable.sql');
+            
+            
+        }
     }
 ?>
