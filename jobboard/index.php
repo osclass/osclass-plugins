@@ -281,8 +281,6 @@ function job_save_inputs_into_session()
 
 // this is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'job_call_after_install');
-// this is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
-osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'job_admin_configuration');
 // this is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'job_call_after_uninstall');
 
