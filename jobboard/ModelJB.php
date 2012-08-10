@@ -126,6 +126,9 @@
          */
         public function uninstall()
         {
+            $this->dao->query('DROP TABLE '. $this->getTable_JobsLog());
+            $this->dao->query('DROP TABLE '. $this->getTable_JobsFiles());
+            $this->dao->query('DROP TABLE '. $this->getTable_JobsApplicants());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttrDescription());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttr());
         }
@@ -198,7 +201,6 @@
         {
             $aSet = array(
                 'fk_i_item_id'      => $item_id,
-                'e_relation'        => $relation,
                 'e_position_type'   => $position_type,
                 's_salary_text'     => $salaryText
             );
@@ -255,7 +257,6 @@
         {
             $aSet = array(
                 'fk_i_item_id'      => $item_id,
-                'e_relation'        => $relation,
                 'e_position_type'   => $position_type,
                 's_salary_text'     => $salaryText
             );
@@ -278,6 +279,63 @@
             );
             return $this->dao->replace($this->getTable_JobsAttrDescription(), $aSet);
         }
+        
+        /**
+         * Insert files attached to an applicant
+         * 
+         * @param $applicantId
+         * @param $fileName
+         * @return boolean 
+         */
+        public function insertFile($applicantId, $fileName) {
+            return $this->dao->insert(
+                    $this->getTable_JobsFiles()
+                    ,array(
+                        'fk_i_applicant_id' => $applicantId
+                        ,'dt_date' => date("Y-m-d H:i:s")
+                        ,'s_name' => $fileName
+                    ));
+        }
+        
+        /**
+         * Insert an applicant
+         * 
+         * @param $itemId
+         * @param $name
+         * @param $email
+         * @param $coverLetter
+         * @return applicant's ID 
+         */
+        public function insertApplicant($itemId, $name, $email, $coverLetter) {
+            $date = date("Y-m-h H:i:s");
+            $app = $this->dao->insert(
+                    $this->getTable_JobsApplicants()
+                    ,array(
+                        'fk_i_item_id' => $itemId
+                        ,'s_name' => $name
+                        ,'s_email' => $email
+                        ,'s_cover_letter' => $coverLetter
+                        ,'dt_date' => $date
+                        ,'i_status' => 0
+                        ,'i_rating' => 0
+                    ));
+            if($app) {
+                $lastId = $this->dao->insertedId();
+                $this->dao->insert(
+                        $this->getTable_JobsLog()
+                        ,array(
+                            'fk_i_item_id' => $itemId
+                            ,'fk_i_applicant_id' => $lastId
+                            ,'dt_date' => $date
+                            ,'i_status' => 0
+                        ));
+                return $lastId;
+            } else {
+                false;
+            }
+        }
+        
+        
         
         /**
          * Delete entries at jobs attr description table given a locale code

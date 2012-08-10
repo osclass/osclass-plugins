@@ -6,6 +6,7 @@ Description: Job Board
 Version: 1.0
 Author: OSClass
 Author URI: http://www.osclass.org/
+Short Name: jobboard_plugin
 Plugin update URI: job-board
 */
 
@@ -52,9 +53,10 @@ function job_call_after_install() {
     // for example you might want to create a table or modify some values
 	
     // In this case we'll create a table to store the Example attributes
-    ModelJB::newInstance()->import('jobs_attributes/struct.sql');
+    ModelJB::newInstance()->import('jobboard/struct.sql');
 
-    osc_set_preference('allow_cv_upload', '0', 'jobboard_plugin', 'INTEGER');
+    osc_set_preference('upload_path', osc_content_path()."uploads/", 'jobboard_plugin', 'STRING');
+    osc_set_preference('allow_cv_upload', '1', 'jobboard_plugin', 'INTEGER');
     osc_set_preference('version', 100, 'jobboard_plugin', 'INTEGER');
 }
 
@@ -65,6 +67,7 @@ function job_call_after_uninstall() {
     // In this case we'll remove the table we created to store Example attributes
     ModelJB::newInstance()->uninstall();
     
+    osc_delete_preference('upload_path', 'jobboard_plugin');
     osc_delete_preference('allow_cv_upload', 'jobboard_plugin');
     osc_delete_preference('version', 'jobboard_plugin');
 }
@@ -180,10 +183,62 @@ function job_delete_item($item_id) {
 function jobs_admin_menu() {
     echo '<h3><a href="#">Jobs plugin</a></h3>
     <ul> 
-        <li><a href="'.osc_admin_configure_plugin_url("jobs_attributes/index.php").'">&raquo; ' . __('Configure plugin', 'jobs_attributes') . '</a></li>
-        <li><a href="'.osc_admin_render_plugin_url("jobs_attributes/conf.php").'?section=types">&raquo; ' . __('Plugin Options', 'jobs_attributes') . '</a></li>
+        <li><a href="'.osc_admin_configure_plugin_url(osc_plugin_folder(__FILE__)."index.php").'">&raquo; ' . __('Configure plugin', 'jobs_attributes') . '</a></li>
+        <li><a href="'.osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)."conf.php").'">&raquo; ' . __('Plugin Options', 'jobs_attributes') . '</a></li>
     </ul>';
 }
+
+
+function jobboard_style_admin_menu() { ?>
+<style>
+    .ico-jobboard{
+        background-image: url('<?php echo osc_base_url();?>oc-content/plugins/<?php echo osc_plugin_folder(__FILE__);?>img/icon.png') !important;
+    }
+    body.compact .ico-jobboard{
+        background-image: url('<?php echo osc_base_url();?>oc-content/plugins/<?php echo osc_plugin_folder(__FILE__);?>img/iconCompact.png') !important;
+    }
+</style>
+
+    <?php
+    
+    
+    osc_add_admin_menu_page( 
+        __('Jobboard'),                               // menu title
+        '#',                                         // menu url
+        'jobboard',                                   // menu id
+        'moderator'                                  // capability
+    );
+
+    osc_add_admin_submenu_page( 
+        'jobboard',                                   // menu id
+        __('Dashboard'),                         // submenu title   
+        osc_admin_render_plugin_url("jobboard/dashboard.php"),                    // submenu url
+        'jobboard_dash',                           // submenu id
+        'moderator'                                  // capability
+    );
+    
+    osc_add_admin_submenu_page( 
+        'jobboard',                                   // menu id
+        __('Plugin options'),                         // submenu title   
+        osc_admin_render_plugin_url("jobboard/conf.php").'?section=types',                    // submenu url
+        'jobboard_options',                           // submenu id
+        'moderator'                                  // capability
+    );
+
+    
+}
+
+
+/**
+* Redirect to function via JS
+*
+* @param string $url 
+*/
+function job_js_redirect_to($url) { ?>
+    <script type="text/javascript">
+        window.location = "<?php echo $url; ?>"
+    </script>
+<?php }
 
 function job_admin_configuration() {
     // Standard configuration page for plugin which extend item's attributes
@@ -269,6 +324,6 @@ function css_jobs() {
 }
 osc_add_hook('header', 'css_jobs');
 
-
+osc_add_hook('admin_header','jobboard_style_admin_menu');
 
 ?>

@@ -39,11 +39,11 @@ if(Params::getParam('plugin_action')=='done') {
                     <form name="jobs_form" id="jobs_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
                     <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
-                    <input type="hidden" name="file" value="jobs_attributes/conf.php" />
+                    <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__);?>conf.php" />
                     <input type="hidden" name="plugin_action" value="done" />
 
-                    <input style="height: 20px; padding-left: 4px;padding-top: 4px;" type="checkbox" <?php echo (osc_get_preference('allow_cv_unreg', 'jobboard_plugin') ? 'checked="true"' : ''); ?> name="allow_cv_unreg" id="allow_cv_unreg" value="1" />
-                    <label for="enabled_comments"><?php _e('Allow unregistered users to upload their resumes', 'jobs_attributes'); ?></label>
+                    <input style="height: 20px; padding-left: 4px;padding-top: 4px;" type="checkbox" <?php echo (osc_get_preference('allow_cv_upload', 'jobboard_plugin') ? 'checked="true"' : ''); ?> name="allow_cv_upload" id="allow_cv_upload" value="1" />
+                    <label for="enabled_comments"><?php _e('Allow upload resumes', 'jobs_attributes'); ?></label>
                     <br/>
 
                     <button type="submit"><?php _e('Update', 'jobs_attributes'); ?></button>

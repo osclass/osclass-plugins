@@ -1,26 +1,5 @@
 <h2><?php _e('Job details', 'jobs_attributes'); ?></h2>
 <div class="jobs-attributes box">
-    <div class="row">
-        <label for="relation"><?php _e('Relation', 'jobs_attributes'); ?></label>
-    </div>
-    <div class="row _20">
-        <?php
-            if( Session::newInstance()->_getForm('pj_relation') != "" ) {
-                $detail['e_relation'] = Session::newInstance()->_getForm('pj_relation');
-            }
-        ?>
-        <label for="hire"><?php _e('Hire someone', 'jobs_attributes'); ?></label>
-        <input type="radio" name="relation" value="HIRE" id="hire" <?php if( @$detail['e_relation'] == 'HIRE' ) { echo 'checked'; }; ?>/>
-    </div>
-    <div class="row _20">
-        <?php
-            if( Session::newInstance()->_getForm('pj_relation') != "" ) {
-                $detail['e_relation'] = Session::newInstance()->_getForm('pj_relation');
-            }
-        ?>
-        <label for="look"><?php _e('Looking for a job', 'jobs_attributes'); ?></label>
-        <input type="radio" name="relation" value="LOOK" id="look" <?php if( @$detail['e_relation'] == 'LOOK' ) { echo 'checked'; }; ?>/>
-    </div>
     <div class="row _200 auto">
         <?php
             if( Session::newInstance()->_getForm('pj_positionType') != "" ) {

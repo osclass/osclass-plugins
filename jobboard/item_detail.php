@@ -1,19 +1,10 @@
 <?php
-    $relations = array('HIRE' => __('Hire someone', 'jobs_attributes'), 'LOOK' => __('Looking for a job', 'jobs_attributes'));
     $positions = array('UNDEF' => __('Undefined', 'jobs_attributes'), 'PART' => __('Part time', 'jobs_attributes'), 'FULL' => __('Full-time', 'jobs_attributes'));
-    $salary    = array('HOUR' => __('Hour', 'jobs_attributes'), 'DAY' => __('Day', 'jobs_attributes'), 'WEEK' => __('Week', 'jobs_attributes'), 'MONTH' => __('Month', 'jobs_attributes'), 'YEAR' => __('Year', 'jobs_attributes'));
-    $index     = trim(@$detail['e_relation']);
     $locale    = osc_current_user_locale();
 ?>
 <h2><?php _e('Job details', 'jobs_attributes'); ?></h2>
 <div class="job-detail">
     <table>
-        <?php if(@$relations[$index] != "") { ?>
-        <tr>
-            <td><label for="relation"><?php _e('Relation', 'jobs_attributes'); ?></label></td>
-            <td><?php echo @$relations[$index]; ?></td>
-        </tr>
-        <?php } ?>
         <?php if(@$detail['e_position_type'] != "") { ?>
         <tr>
             <td><label for="positionType"><?php _e('Position type', 'jobs_attributes'); ?></label></td>
@@ -58,22 +49,74 @@
     </div>
     <?php } ?>
 </div>
-<?php if(osc_get_preference('allow_cv_upload', 'plugin')=='1' && ((osc_get_preference('allow_cv_unreg', 'jobboard_plugin')=='1' && !osc_is_web_user_logged_in()) || osc_is_web_user_logged_in())) { ?>
-<br/>
-<div id="cv_uploader">
-    <noscript>
-        <p><?php _e('Please enable JavaScript to use cv uploader', 'jobs_attributes'); ?>.</p>
-    </noscript>
+
+<div id="apply_job">
+    <form id="job_apply_form" action="<?php echo osc_base_url(true)."?page=custom&file=".osc_plugin_folder(__FILE__)."apply.php" ;?>" method="post" enctype="multipart/form-data" >
+        <input type="hidden" name="item_id" value="<?php echo osc_item_id(); ?>" />
+        <div id="job_error_list" ></div>
+        <div class="row">
+            <label for="job_name"><?php _e('Name', 'jobs_attributes'); ?></label>
+            <input type="text" id="job_name" name="job_name" value="<?php if(Session::newInstance()->_getForm('pj_job_name')!="") { echo Session::newInstance()->_getForm('pj_job_name'); }; ?>" />
+        </div>
+        <div class="row">
+            <label for="job_email"><?php _e('E-mail', 'jobs_attributes'); ?></label>
+            <input type="text" id="job_email" name="job_email" value="<?php if(Session::newInstance()->_getForm('pj_job_email')!="") { echo Session::newInstance()->_getForm('pj_job_email'); }; ?>" />
+        </div>
+        <div class="row">
+            <label for="job_cover_letter"><?php _e('Do you want to tell us something?', 'jobs_attributes'); ?></label>
+            <textarea type="text" id="job_cover_letter" name="job_cover_letter"><?php if(Session::newInstance()->_getForm('pj_job_cover_letter')!="") { echo Session::newInstance()->_getForm('pj_job_cover_letter'); }; ?></textarea>
+        </div>
+        <?php if(osc_get_preference('allow_cv_upload', 'jobboard_plugin')>0) { ?>
+            <div id="cv_uploader">
+                <noscript>
+                    <p><?php _e('Please enable JavaScript to use cv uploader', 'jobs_attributes'); ?>.</p>
+                </noscript>
+            </div>
+            <div class="row">
+                <label for="job_resume"><?php _e('Select your resume', 'jobs_attributes'); ?></label>
+                <input type="file" name="job_resume[]" />
+            </div>
+        <?php } ?>
+        <input type="submit" value="Apply" />
+    </form>
+
 </div>
-<script src="<?php echo osc_plugin_url(__FILE__); ?>js/fileuploader.js" type="text/javascript"></script>
-<script>        
-    function createUploader(){            
-        var uploader = new qq.FileUploader({
-            element: document.getElementById('cv_uploader'),
-            action: '<?php echo osc_ajax_plugin_url(osc_plugin_folder(__FILE__) . "cv_uploader.php?id=" . osc_item_id());?>',
-            debug: false
-        });           
-    }
-    window.onload = createUploader;     
-</script>
-<?php } ?>
+
+
+<script>
+    $(document).ready(function(){
+        
+        $("form[id=job_apply_form]").validate({
+            rules: {
+                job_email: {
+                    required: true,
+                    email: true
+                },
+                job_name: {
+                    required: true
+                },
+                job_cover_letter: {
+                    required: false,
+                    minlength: 5
+                }
+            },
+            messages: {
+                job_email: {
+                    required: "<?php _e("Email: this field is required", "jobs_attributes"); ?>.",
+                    email: "<?php _e("Invalid email address", "jobs_attributes"); ?>."
+                },
+                job_name: {
+                    required: "<?php _e("Name: this field is required", "jobs_attributes"); ?>."
+                },
+                job_cover_letter: {
+                    minlength: "<?php _e("Cover letter: enter at least 5 characters", "jobs_attributes"); ?>."
+                }
+            },
+            errorLabelContainer: "#job_error_list",
+            wrapper: "li",
+            invalidHandler: function(form, validator) {
+                $('html,body').animate({ scrollTop: $('form').offset().top }, { duration: 250, easing: 'swing'});
+            }
+        });        
+    }); 
+</Script>

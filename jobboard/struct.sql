@@ -1,6 +1,5 @@
 CREATE TABLE /*TABLE_PREFIX*/t_item_job_attr (
     fk_i_item_id INT UNSIGNED NOT NULL,
-    e_relation ENUM('HIRE', 'LOOKING'),
     e_position_type ENUM('UNDEF', 'PART', 'FULL'),
     s_salary_text TEXT NOT NULL DEFAULT '',
         PRIMARY KEY (fk_i_item_id),
@@ -28,10 +27,10 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_applicant (
     fk_i_item_id INT UNSIGNED NOT NULL,
     s_name VARCHAR(255) NOT NULL DEFAULT '',
     s_email VARCHAR(255) NOT NULL DEFAULT '',
-    s_cover_letter TEXT NOT NULL DEFAULT ''
+    s_cover_letter TEXT NOT NULL DEFAULT '',
     dt_date DATETIME NOT NULL,
-    i_status TINYINT DEFAULT 0,
-    i_rating TINYNIT DEFAULT 0,
+    i_status TINYINT NOT NULL DEFAULT 0,
+    i_rating TINYINT NOT NULL DEFAULT 0,
 
         PRIMARY KEY (pk_i_id),
         FOREIGN KEY (fk_i_item_id) REFERENCES /*TABLE_PREFIX*/t_item (pk_i_id)
@@ -45,20 +44,19 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_file (
     s_name VARCHAR(255) NOT NULL DEFAULT '',
 
         PRIMARY KEY (pk_i_id),
-        FOREIGN KEY (fk_i_applicant_id) REFERENCES /*TABLE_PREFIX*/t_item_job_applicants (pk_i_id)
+        FOREIGN KEY (fk_i_applicant_id) REFERENCES /*TABLE_PREFIX*/t_item_job_applicant (pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
 
 CREATE TABLE /*TABLE_PREFIX*/t_item_job_log (
     pk_i_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     fk_i_item_id INT UNSIGNED NOT NULL,
     fk_i_applicant_id INT UNSIGNED NOT NULL,
-    fk_i_admin_id INT UNSIGNED NOT NULL,
+    fk_i_admin_id INT UNSIGNED NULL,
     dt_date DATETIME NOT NULL,
-    i_status TINYINT DEFAULT 0,
-     TINYNIT DEFAULT 0,
+    i_status TINYINT NOT NULL DEFAULT 0,
 
         PRIMARY KEY (pk_i_id),
         FOREIGN KEY (fk_i_item_id) REFERENCES /*TABLE_PREFIX*/t_item (pk_i_id),
-        FOREIGN KEY (fk_i_applicant_id) REFERENCES /*TABLE_PREFIX*/t_item_job_applicants (pk_i_id)
+        FOREIGN KEY (fk_i_applicant_id) REFERENCES /*TABLE_PREFIX*/t_item_job_applicant (pk_i_id),
         FOREIGN KEY (fk_i_admin_id) REFERENCES /*TABLE_PREFIX*/t_admin (pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
