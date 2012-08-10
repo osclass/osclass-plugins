@@ -12,42 +12,6 @@ Plugin update URI: job-board
 
 require_once('ModelJB.php');
 
-// Adds some plugin-specific search conditions
-function job_search_conditions($params = '') {
-    // we need conditions and search tables (only if we're using our custom tables)
-    if($params!='') {
-        $has_conditions = false;
-        foreach($params as $key => $value) {
-            // We may want to  have param-specific searches
-            switch($key) {
-                case 'relation':
-                    if($value != "") {
-                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_relation = '%s'", DB_TABLE_PREFIX, $value));
-                        $has_conditions = true;
-                    }
-                    break;
-                case 'positionType':
-
-                    if($value!='UNDEF' && $value != '') {
-                        Search::newInstance()->addConditions(sprintf("%st_item_job_attr.e_position_type = '%s'", DB_TABLE_PREFIX, $value));
-                        $has_conditions = true;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // Only if we have some values at the params we add our table and link with the ID of the item.
-        if($has_conditions) {
-            Search::newInstance()->addConditions(sprintf("%st_item_job_attr.fk_i_item_id = %st_item.pk_i_id", DB_TABLE_PREFIX, DB_TABLE_PREFIX));
-            Search::newInstance()->addConditions(sprintf("%st_item_job_description_attr.fk_i_item_id = %st_item.pk_i_id", DB_TABLE_PREFIX, DB_TABLE_PREFIX));
-            Search::newInstance()->addTable(sprintf("%st_item_job_attr", DB_TABLE_PREFIX));
-            Search::newInstance()->addTable(sprintf("%st_item_job_description_attr", DB_TABLE_PREFIX));
-        }
-    }
-}
-
 function job_call_after_install() {
     // Insert here the code you want to execute after the plugin's install
     // for example you might want to create a table or modify some values
@@ -81,19 +45,6 @@ function job_form($catId = null) {
         }
     }
     Session::newInstance()->_clearVariables();
-}
-
-function job_search_form($catId = null) {
-    // We received the categoryID
-    if($catId!=null) {
-        // We check if the category is the same as our plugin
-        foreach($catId as $id) {
-            if(osc_is_this_category('jobboard_plugin', $id)) {
-                include_once 'search_form.php';
-                break;
-            }
-        }
-    }
 }
 
 function job_form_post($catId = null, $item_id = null)  {
@@ -276,11 +227,6 @@ osc_add_hook('item_form', 'job_form');
 // to add that new information to our custom table
 osc_add_hook('item_form_post', 'job_form_post');
 
-// when searching, display an extra form with our plugin's fields
-osc_add_hook('search_form', 'job_search_form');
-// when searching, add some conditions
-osc_add_hook('search_conditions', 'job_search_conditions');
-
 // show an item special attributes
 osc_add_hook('item_detail', 'job_item_detail');
 
@@ -304,5 +250,7 @@ function css_jobs() {
     echo '<link href="' . osc_plugin_url(__FILE__) . 'css/styles.css" rel="stylesheet" type="text/css">' . PHP_EOL;
 }
 osc_add_hook('header', 'css_jobs');
+
+
 
 /* File: jobboard/index.php */
