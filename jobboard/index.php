@@ -252,6 +252,15 @@ function default_settings_jobboard() {
     if( !osc_item_attachment() ) {
         osc_set_preference('item_attachment', true);
     }
+    if( osc_price_enabled_at_items() ) {
+        osc_set_preference('enableField#f_price@items', false);
+    }
+    if( osc_images_enabled_at_items() ) {
+        osc_set_preference('enableField#images@items', false);
+    }
+    if( osc_max_images_per_item() > 0 ) {
+        osc_set_preference('numImages@items', 0);
+    }
     //reset preferences
     osc_reset_preferences();
 }
