@@ -31,6 +31,23 @@ function job_call_after_uninstall() {
 
 /* FORM JOB BOARD */
 function jobboard_form($catID = null) {
+    $detail = array(
+        'e_position_type' => '',
+        's_salary_text'   => '',
+        'locale'          => array()
+    );
+    foreach(osc_get_locales() as $locale) {
+        $detail['locale'][$locale['pk_c_code']] = array(
+            's_desired_exp' => '',
+            's_studies'     => '',
+            'min_reqs'      => '',
+            'desired_reqs'  => '',
+            'contract'      => ''
+        );
+    }
+    // session variables
+    $detail = get_jobboard_session_variables($detail);
+
     require_once(JOBBOARD_PATH . 'item_edit.php');
     Session::newInstance()->_clearVariables();
 }
@@ -62,6 +79,10 @@ function jobboard_item_edit($catID = null, $itemID = null) {
     foreach ($descriptions as $desc) {
         $detail['locale'][$desc['fk_c_locale_code']] = $desc;
     }
+
+    // session variables
+    $detail = get_jobboard_session_variables($detail);
+
     require_once(JOBBOARD_PATH . 'item_edit.php');
     Session::newInstance()->_clearVariables();
 }
@@ -84,7 +105,38 @@ function jobboard_item_edit_post($catID = null, $itemID = null) {
     }
 }
 osc_add_hook('item_edit_post', 'jobboard_item_edit_post');
+
+function get_jobboard_session_variables($detail) {
+    if( Session::newInstance()->_getForm('pj_positionType') != '' ) {
+        $detail['e_position_type'] = Session::newInstance()->_getForm('pj_positionType');
+    }
+    if( Session::newInstance()->_getForm('pj_salaryText') != '' ) {
+        $detail['s_salary_text'] = Session::newInstance()->_getForm('pj_salaryText');
+    }
+    if( Session::newInstance()->_getForm('pj_data') != '' ) {
+        foreach(osc_get_locales() as $locale) {
+            $data = Session::newInstance()->_getForm('pj_data');
+            $detail['locale'][$locale['pk_c_code']]['s_desired_exp']          = $data[$locale['pk_c_code']]['desired_exp'];
+            $detail['locale'][$locale['pk_c_code']]['s_studies']              = $data[$locale['pk_c_code']]['studies'];
+            $detail['locale'][$locale['pk_c_code']]['s_minimum_requirements'] = $data[$locale['pk_c_code']]['min_reqs'];
+            $detail['locale'][$locale['pk_c_code']]['s_desired_requirements'] = $data[$locale['pk_c_code']]['desired_reqs'];
+            $detail['locale'][$locale['pk_c_code']]['s_contract']             = $data[$locale['pk_c_code']]['contract'];
+        }
+    }
+
+    return $detail;
+}
+
 /* /FORM JOB BOARD */
+
+function get_jobboard_position_types() {
+    $position_types = array(
+        'UNDEF' => __('Undefined', 'jobboard'),
+        'PART'  => __('Part time', 'jobboard'),
+        'FULL'  => __('Full time', 'jobboard')
+    );
+    return $position_types;
+}
 
 function job_item_detail() {
     $detail = ModelJB::newInstance()->getJobsAttrByItemId(osc_item_id());
@@ -151,9 +203,8 @@ function job_js_redirect_to($url) { ?>
 <?php }
 
 function job_pre_item_post() {
-    Session::newInstance()->_setForm('pj_salaryText', Params::getParam('salaryText') );
-    Session::newInstance()->_setForm('pj_relation',  Params::getParam('relation') );
     Session::newInstance()->_setForm('pj_positionType',  Params::getParam('positionType') );
+    Session::newInstance()->_setForm('pj_salaryText', Params::getParam('salaryText') );
     // prepare locales
     $dataItem = array();
     $request = Params::getParamsAsArray();
@@ -165,19 +216,18 @@ function job_pre_item_post() {
     Session::newInstance()->_setForm('pj_data', $dataItem );
 
     // keep values on session
-    Session::newInstance()->_keepForm('pj_salaryText');
-    Session::newInstance()->_keepForm('pj_relation');
     Session::newInstance()->_keepForm('pj_positionType');
+    Session::newInstance()->_keepForm('pj_salaryText');
     Session::newInstance()->_keepForm('pj_data');
 }
 
 function job_save_inputs_into_session() {
-    Session::newInstance()->_keepForm('pj_salaryText');
-    Session::newInstance()->_keepForm('pj_relation');
     Session::newInstance()->_keepForm('pj_positionType');
+    Session::newInstance()->_keepForm('pj_salaryText');
     Session::newInstance()->_keepForm('pj_data');
 }
-
+osc_add_hook('pre_item_post', 'job_pre_item_post') ;
+osc_add_hook('save_input_session', 'job_save_inputs_into_session' );
 
 // this is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'job_call_after_install');
@@ -191,12 +241,6 @@ osc_add_hook('item_detail', 'job_item_detail');
 osc_add_hook('delete_locale', 'job_delete_locale');
 // delete item
 osc_add_hook('delete_item', 'job_delete_item');
-
-// previous to insert item
-osc_add_hook('pre_item_post', 'job_pre_item_post') ;
-osc_add_hook('pre_item_edit', 'job_pre_item_post') ;
-// save input values into session
-osc_add_hook('save_input_session', 'job_save_inputs_into_session' );
 
 function css_jobs() {
     echo '<link href="' . osc_plugin_url(__FILE__) . 'css/styles.css" rel="stylesheet" type="text/css">' . PHP_EOL;
