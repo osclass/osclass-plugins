@@ -251,6 +251,14 @@ function css_jobs() {
 }
 osc_add_hook('header', 'css_jobs');
 
-
+function default_settings_jobboard() {
+    // always active osc_item_attachment
+    if( !osc_item_attachment() ) {
+        osc_set_preference('item_attachment', true);
+    }
+    //reset preferences
+    osc_reset_preferences();
+}
+osc_add_hook('init_admin', 'default_settings_jobboard');
 
 /* File: jobboard/index.php */
