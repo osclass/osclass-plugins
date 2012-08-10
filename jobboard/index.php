@@ -180,54 +180,40 @@ function job_delete_item($item_id) {
     ModelJB::newInstance()->deleteItem($item_id);
 }
 
-function jobs_admin_menu() {
-    echo '<h3><a href="#">Jobs plugin</a></h3>
-    <ul> 
-        <li><a href="'.osc_admin_configure_plugin_url(osc_plugin_folder(__FILE__)."index.php").'">&raquo; ' . __('Configure plugin', 'jobs_attributes') . '</a></li>
-        <li><a href="'.osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)."conf.php").'">&raquo; ' . __('Plugin Options', 'jobs_attributes') . '</a></li>
-    </ul>';
-}
-
-
-function jobboard_style_admin_menu() { ?>
-<style>
+function jobboard_admin_menu() { ?>
+<style type="text/css" media="screen">
     .ico-jobboard{
-        background-image: url('<?php echo osc_base_url();?>oc-content/plugins/<?php echo osc_plugin_folder(__FILE__);?>img/icon.png') !important;
+        background-image: url('<?php printf('%soc-content/plugins/%simg/icon.png', osc_base_url(), osc_plugin_folder(__FILE__)); ?>') !important;
     }
     body.compact .ico-jobboard{
-        background-image: url('<?php echo osc_base_url();?>oc-content/plugins/<?php echo osc_plugin_folder(__FILE__);?>img/iconCompact.png') !important;
+        background-image: url('<?php printf('%soc-content/plugins/%simg/iconCompact.png', osc_base_url(), osc_plugin_folder(__FILE__)); ?>') !important;
     }
 </style>
-
-    <?php
-    
-    
+<?php
     osc_add_admin_menu_page( 
-        __('Jobboard'),                               // menu title
-        '#',                                         // menu url
-        'jobboard',                                   // menu id
-        'moderator'                                  // capability
+        __('Jobboard', 'jobboard'),
+        '#',
+        'jobboard',
+        'moderator'
     );
 
     osc_add_admin_submenu_page( 
-        'jobboard',                                   // menu id
-        __('Dashboard'),                         // submenu title   
-        osc_admin_render_plugin_url("jobboard/dashboard.php"),                    // submenu url
-        'jobboard_dash',                           // submenu id
-        'moderator'                                  // capability
+        'jobboard',
+        __('Dashboard', 'jobboard'),
+        osc_admin_render_plugin_url("jobboard/dashboard.php"),
+        'jobboard_dash',
+        'moderator'
     );
     
     osc_add_admin_submenu_page( 
-        'jobboard',                                   // menu id
-        __('Plugin options'),                         // submenu title   
-        osc_admin_render_plugin_url("jobboard/conf.php").'?section=types',                    // submenu url
-        'jobboard_options',                           // submenu id
-        'moderator'                                  // capability
+        'jobboard',
+        __('Plugin options', 'jobboard'),
+        osc_admin_render_plugin_url('jobboard/conf.php').'?section=types',
+        'jobboard_options',
+        'moderator'
     );
-
-    
 }
-
+osc_add_hook('admin_header','jobboard_admin_menu');
 
 /**
 * Redirect to function via JS
@@ -308,9 +294,6 @@ osc_add_hook('delete_locale', 'job_delete_locale');
 // delete item
 osc_add_hook('delete_item', 'job_delete_item');
 
-// admin menu
-osc_add_hook('admin_menu', 'jobs_admin_menu');
-
 // previous to insert item
 osc_add_hook('pre_item_post', 'job_pre_item_post') ;
 osc_add_hook('pre_item_edit', 'job_pre_item_post') ;
@@ -322,6 +305,4 @@ function css_jobs() {
 }
 osc_add_hook('header', 'css_jobs');
 
-osc_add_hook('admin_header','jobboard_style_admin_menu');
-
-?>
+/* File: jobboard/index.php */
