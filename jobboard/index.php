@@ -183,8 +183,8 @@ function job_delete_item($item_id) {
 function jobs_admin_menu() {
     echo '<h3><a href="#">Jobs plugin</a></h3>
     <ul> 
-        <li><a href="'.osc_admin_configure_plugin_url(osc_plugin_folder(__FILE__)."index.php").'">&raquo; ' . __('Configure plugin', 'jobs_attributes') . '</a></li>
-        <li><a href="'.osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)."conf.php").'">&raquo; ' . __('Plugin Options', 'jobs_attributes') . '</a></li>
+        <li><a href="'.osc_admin_configure_plugin_url(osc_plugin_folder(__FILE__)."index.php").'">&raquo; ' . __('Configure plugin', 'jobboard') . '</a></li>
+        <li><a href="'.osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)."conf.php").'">&raquo; ' . __('Plugin Options', 'jobboard') . '</a></li>
     </ul>';
 }
 
@@ -219,14 +219,41 @@ function jobboard_style_admin_menu() { ?>
     
     osc_add_admin_submenu_page( 
         'jobboard',                                   // menu id
-        __('Plugin options'),                         // submenu title   
-        osc_admin_render_plugin_url("jobboard/conf.php").'?section=types',                    // submenu url
-        'jobboard_options',                           // submenu id
+        __('Applicants'),                         // submenu title   
+        osc_admin_render_plugin_url("jobboard/people.php"),                    // submenu url
+        'jobboard_people',                           // submenu id
         'moderator'                                  // capability
     );
 
     
 }
+
+
+function jobboard_rating($applicantId, $rating = 0) {
+    $str = '<span class="rating" id="rating_'.$applicantId.'" rating="'.$rating.'">';
+    for($k=1;$k<=5;$k++) {
+        $str .= '<a href="#" class="star" star="'.$k.'" id="rating_'.$applicantId.'_'.$k.'" ><img src="'.osc_base_url().'oc-content/plugins/'.osc_plugin_folder(__FILE__).'img/'.($k<=$rating?'fullstar.png':'emptystar.png').'"/></a>';
+    }
+    $str .= '</span>';
+    return $str;
+}
+
+
+function jobboard_status($status = 0) {
+    switch($status) {
+        case 1:
+            return __("Interview", "jobboard");
+            break;
+        case 2:
+            return __("Rejected", "jobboard");
+            break;
+        case 0:
+        default:
+            return __("Active", "jobboard");
+            break;
+    }
+}
+
 
 
 /**

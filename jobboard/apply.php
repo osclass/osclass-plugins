@@ -18,23 +18,23 @@
     $error = false;
     if($itemId=='') {
         $error = true;
-        $msg .= __("Something went wrong", "jobs_attributes")."<br/>";
+        $msg .= __("Something went wrong", "jobboard")."<br/>";
     }
     if($name=='') {
         $error = true;
-        $msg .= __("Name is required", "jobs_attributes")."<br/>";
+        $msg .= __("Name is required", "jobboard")."<br/>";
     }
     if($email=='') {
         $error = true;
-        $msg .= __("Email is required", "jobs_attributes")."<br/>";
+        $msg .= __("Email is required", "jobboard")."<br/>";
     } else if(!osc_validate_email($email)) {
         $error = true;
-        $msg .= __("Email is not valid", "jobs_attributes")."<br/>";
+        $msg .= __("Email is not valid", "jobboard")."<br/>";
     }
 
     if(!isset($job_files['name']) || !isset($job_files['name'][0]) || $job_files['name'][0]=='') {
         $error = true;
-        $msg .= __("Your resume is required", "jobs_attributes")."<br/>";
+        $msg .= __("Your resume is required", "jobboard")."<br/>";
     } else {
 
         require LIB_PATH . 'osclass/mimes.php';
@@ -64,7 +64,7 @@
 
                 if(!in_array($fileMime,$aMimesAllowed)) {
                     $error = true;
-                    $msg .= __("The file you tried to upload does not have a valid extension", "jobs_attributes")."<br/>";
+                    $msg .= __("The file you tried to upload does not have a valid extension", "jobboard")."<br/>";
                     break;
                 }
             }
@@ -99,7 +99,7 @@
             }
             
             if($error_files>0) {
-                osc_add_flash_error_message(__("There were some problem processing your application, please try again", "jobs_attributes"));
+                osc_add_flash_error_message(__("There were some problem processing your application, please try again", "jobboard"));
                 job_js_redirect_to(osc_get_http_referer());
             } else {
                 ?>
@@ -114,7 +114,7 @@
             }
             
         } else {
-            osc_add_flash_error_message(__("There were some problem processing your application, please try again", "jobs_attributes"));
+            osc_add_flash_error_message(__("There were some problem processing your application, please try again", "jobboard"));
             job_js_redirect_to(osc_get_http_referer());
         }
 

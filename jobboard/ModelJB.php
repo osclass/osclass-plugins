@@ -108,6 +108,15 @@
         }
         
         /**
+         * Return table name jobs notes
+         * @return string
+         */
+        public function getTable_JobsNotes()
+        {
+            return DB_TABLE_PREFIX.'t_item_job_note' ;
+        }
+        
+        /**
          * Import sql file
          * @param type $file 
          */
@@ -336,6 +345,108 @@
         }
         
         
+        /**
+         * Get applicants
+         * 
+         * @param $start
+         * @param $length
+         * @param $conditions
+         * 
+         * @return array
+         */
+        public function search($start = 0, $length = 10, $conditions = null) {
+            
+            $this->dao->select( sprintf("a.*, d.*, FIELD(fk_c_locale_code, '%s') as locale_order", $this->dao->connId->real_escape_string(osc_current_user_locale()) ) ) ;
+            $this->dao->from($this->getTable_JobsApplicants()." a");
+            $this->dao->join(DB_TABLE_PREFIX."t_item_description d", "d.fk_i_item_id = a.fk_i_item_id");
+            
+            $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+            
+            return $result->result();
+            
+        }
+        
+        /**
+         * Set applicants rating
+         * 
+         * @param $applicantId
+         * @param $rating 
+         */
+        public function setRating($applicantId, $rating) {
+            $this->dao->update(
+                    $this->getTable_JobsApplicants()
+                    ,array('i_rating' => $rating)
+                    ,array('pk_i_id' => $applicantId));
+        }
+        
+        /**
+         * Get applicant
+         * 
+         * @param $id
+         * 
+         * @return array
+         */
+        public function getApplicant($id) {
+            
+            $this->dao->select();
+            $this->dao->from($this->getTable_JobsApplicants());
+            $this->dao->where("pk_i_id", $id);
+            
+            $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+            
+            return $result->row();
+            
+        }
+        
+        /**
+         * Get applicant's CV
+         * 
+         * @param $id
+         * 
+         * @return array
+         */
+        public function getCVFromApplicant($id) {
+            
+            $this->dao->select();
+            $this->dao->from($this->getTable_JobsFiles());
+            $this->dao->where("fk_i_applicant_id", $id);
+            
+            $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+            
+            return $result->row();
+            
+        }
+        
+        /**
+         * Get applicant's CV
+         * 
+         * @param $id
+         * 
+         * @return array
+         */
+        public function getNotesFomApplicant($id) {
+            
+            $this->dao->select();
+            $this->dao->from($this->getTable_JobsNotes());
+            $this->dao->where("fk_i_applicant_id", $id);
+            
+            $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+            
+            return $result->result();
+            
+        }
         
         /**
          * Delete entries at jobs attr description table given a locale code
