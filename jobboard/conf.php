@@ -35,7 +35,7 @@ if(Params::getParam('plugin_action')=='done') {
     <div style="padding: 20px;">
         <div style="float: left; width: 50%;">
             <fieldset>
-                <legend><?php _e('Jobs Options', 'jobs_attributes'); ?></legend>
+                <legend><?php _e('Jobs Options', 'jobboard'); ?></legend>
                     <form name="jobs_form" id="jobs_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
                     <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
@@ -43,19 +43,19 @@ if(Params::getParam('plugin_action')=='done') {
                     <input type="hidden" name="plugin_action" value="done" />
 
                     <input style="height: 20px; padding-left: 4px;padding-top: 4px;" type="checkbox" <?php echo (osc_get_preference('allow_cv_upload', 'jobboard_plugin') ? 'checked="true"' : ''); ?> name="allow_cv_upload" id="allow_cv_upload" value="1" />
-                    <label for="enabled_comments"><?php _e('Allow upload resumes', 'jobs_attributes'); ?></label>
+                    <label for="enabled_comments"><?php _e('Allow upload resumes', 'jobboard'); ?></label>
                     <br/>
 
-                    <button type="submit"><?php _e('Update', 'jobs_attributes'); ?></button>
+                    <button type="submit"><?php _e('Update', 'jobboard'); ?></button>
                     </form>
             </fieldset>
         </div>
         <div style="float: left; width: 50%;">
             <fieldset>
-                <legend><?php _e('Help', 'jobs_attributes'); ?></legend>
+                <legend><?php _e('Help', 'jobboard'); ?></legend>
                 <p>
                     <label>
-                        <?php _e('Some text with help. Some text with help. Some text with help. Some text with help. Some text with help. Some text with help. Some text with help. Some text with help. Some text with help. ', 'jobs_attributes'); ?>.
+                        <?php _e('Some text with help. Some text with help. Some text with help. Some text with help. Some text with help. Some text with help. Some text with help. Some text with help. Some text with help. ', 'jobboard'); ?>.
                     </label>
                 </p>
             </fieldset>

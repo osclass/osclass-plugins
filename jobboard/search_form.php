@@ -1,12 +1,12 @@
 <fieldset>
-    <h3><?php _e("Job attributes", 'jobs_attributes'); ?></h3>
+    <h3><?php _e("Job attributes", 'jobboard'); ?></h3>
     <div class="row one_input">
-        <h6><?php _e('Position type', 'jobs_attributes'); ?></h6>
+        <h6><?php _e('Position type', 'jobboard'); ?></h6>
         <div class="auto">
             <select name="positionType" id="positionType">
-                <option value="UNDEF" <?php echo (Params::getParam('positionType')=='UNDEF')?'selected':''; ?>><?php _e('Undefined', 'jobs_attributes'); ?></option>
-                <option value="FULL" <?php echo (Params::getParam('positionType')=='FULL')?'selected':''; ?>><?php _e('Full-time', 'jobs_attributes'); ?></option>
-                <option value="PART" <?php echo (Params::getParam('positionType')=='PART')?'selected':''; ?>><?php _e('Part time', 'jobs_attributes'); ?></option>
+                <option value="UNDEF" <?php echo (Params::getParam('positionType')=='UNDEF')?'selected':''; ?>><?php _e('Undefined', 'jobboard'); ?></option>
+                <option value="FULL" <?php echo (Params::getParam('positionType')=='FULL')?'selected':''; ?>><?php _e('Full-time', 'jobboard'); ?></option>
+                <option value="PART" <?php echo (Params::getParam('positionType')=='PART')?'selected':''; ?>><?php _e('Part time', 'jobboard'); ?></option>
             </select>
         </div>
     </div>

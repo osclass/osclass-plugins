@@ -1,3 +1,8 @@
+<?php
+    if(!osc_is_admin_user_logged_in()) {
+        die;
+    }
+?>
 <div>
     <h1><?php _e('Applicants', 'jobboard'); ?></h1>
     
