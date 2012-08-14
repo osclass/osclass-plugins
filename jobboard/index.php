@@ -126,7 +126,6 @@ function get_jobboard_session_variables($detail) {
 
     return $detail;
 }
-
 /* /FORM JOB BOARD */
 
 function get_jobboard_position_types() {
@@ -148,6 +147,76 @@ function job_item_detail() {
     require_once(JOBBOARD_PATH . 'item_detail.php');
 }
 
+/* CONTACT */
+function jobboard_save_contact_listing($item) {
+    $itemID = osc_item_id();
+    $name   = Params::getParam('yourName');
+    $email  = Params::getParam('yourEmail');
+    $cover  = Params::getParam('message');
+    $aCV    = Params::getFiles('attachment');
+
+    // check fields
+    if( $name === '' ) {
+        osc_add_flash_error_message(__("Name is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . osc_item_url()); die;
+    }
+    if( $email === '' ) {
+        osc_add_flash_error_message(__("Email is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . osc_item_url()); die;
+    }
+    if( $cover === '' ) {
+        osc_add_flash_error_message(__("Cover is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . osc_item_url()); die;
+    }
+    if( $aCV['name'] === '' ) {
+        osc_add_flash_error_message(__("CV is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . osc_item_url()); die;
+    }
+
+    // insert to database
+    $mJB = ModelJB::newInstance();
+
+    $applicantID = $mJB->insertApplicant($itemID, $name, $email, $cover);
+    // return to listing url
+    if( !$applicantID ) {
+        osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
+        header('Location: ' . osc_item_url()); die;
+    }
+
+    if($aCV['error'] == UPLOAD_ERR_OK) {
+        $tmp_name = $aCV['tmp_name'];
+        $fileName = date('YmdHis') . '_' . $aCV['name'];
+        if( move_uploaded_file($tmp_name, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
+            $mJB->insertFile($applicantID, $fileName);
+        } else {
+            $error_attachment = true;
+        }
+    } else {
+        $error_attachment = true;
+    }
+
+    if( $error_attachment ) {
+        osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
+        header('Location: ' . osc_item_url()); die;
+    }
+
+    return true;
+}
+osc_add_hook('post_item_contact_post', 'jobboard_save_contact_listing');
+osc_remove_hook('hook_email_item_inquiry', 'fn_email_item_inquiry');
+
+function _save_jobboard_contact_listing() {
+    Session::newInstance()->_setForm('yourEmail',    Params::getParam('yourEmail'));
+    Session::newInstance()->_setForm('yourName',     Params::getParam('yourName'));
+    Session::newInstance()->_setForm('phoneNumber',  Params::getParam('phoneNumber'));
+    Session::newInstance()->_setForm('message_body', Params::getParam('message'));
+}
+/* /CONTACT */
+
 function job_delete_locale($locale) {
     ModelJB::newInstance()->deleteLocale($locale);
 }
@@ -166,14 +235,14 @@ function jobboard_admin_menu() { ?>
     }
 </style>
 <?php
-    osc_add_admin_menu_page( 
+    osc_add_admin_menu_page(
         __('Jobboard', 'jobboard'),
         '#',
         'jobboard',
         'moderator'
     );
 
-    osc_add_admin_submenu_page( 
+    osc_add_admin_submenu_page(
         'jobboard',
         __('Dashboard', 'jobboard'),
         osc_admin_render_plugin_url("jobboard/dashboard.php"),
@@ -181,15 +250,15 @@ function jobboard_admin_menu() { ?>
         'moderator'
     );
     
-    osc_add_admin_submenu_page( 
-        'jobboard',                                   // menu id
-        __('Applicants'),                         // submenu title   
-        osc_admin_render_plugin_url("jobboard/people.php"),                    // submenu url
-        'jobboard_people',                           // submenu id
-        'moderator'                                  // capability
+    osc_add_admin_submenu_page(
+        'jobboard',
+        __('Applicants'),
+        osc_admin_render_plugin_url("jobboard/people.php"),
+        'jobboard_people',
+        'moderator'
     );
     
-    osc_add_admin_submenu_page( 
+    osc_add_admin_submenu_page(
         'jobboard',
         __('Plugin options', 'jobboard'),
         osc_admin_render_plugin_url('jobboard/conf.php').'?section=types',
@@ -223,8 +292,6 @@ function jobboard_status($status = 0) {
             break;
     }
 }
-
-
 
 /**
 * Redirect to function via JS
