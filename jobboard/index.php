@@ -58,16 +58,25 @@ function jobboard_form_post($catID = null, $itemID = null)  {
 
     // prepare locales
     $dataItem = array();
-    $request = Params::getParamsAsArray();
-    foreach ($request as $k => $v) {
-        if (preg_match('|(.+?)#(.+)|', $k, $m)) {
-            $dataItem[$m[1]][$m[2]] = $v;
-        }
+    foreach(Params::getParam('min_reqs') as $k => $v) {
+        $dataItem[$k]['min_reqs'] = $v;
+    }
+    foreach(Params::getParam('desired_reqs') as $k => $v) {
+        $dataItem[$k]['desired_reqs'] = $v;
+    }
+    foreach(Params::getParam('desired_exp') as $k => $v) {
+        $dataItem[$k]['desired_exp'] = $v;
+    }
+    foreach(Params::getParam('studies') as $k => $v) {
+        $dataItem[$k]['studies'] = $v;
+    }
+    foreach(Params::getParam('contract') as $k => $v) {
+        $dataItem[$k]['contract'] = $v;
     }
 
     // insert locales
-    foreach ($dataItem as $k => $_data) {
-        ModelJB::newInstance()->insertJobsAttrDescription($itemID, $k, $_data['desired_exp'], $_data['studies'], $_data['min_reqs'], $_data['desired_reqs'], $_data['contract']);
+    foreach ($dataItem as $k => $data) {
+        ModelJB::newInstance()->insertJobsAttrDescription($itemID, $k, $data['desired_exp'], $data['studies'], $data['min_reqs'], $data['desired_reqs'], $data['contract']);
     }
 }
 osc_add_hook('item_form_post', 'jobboard_form_post');
@@ -90,18 +99,28 @@ osc_add_hook('item_edit', 'jobboard_item_edit');
 
 function jobboard_item_edit_post($catID = null, $itemID = null) {
     ModelJB::newInstance()->replaceJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'));
+
     // prepare locales
     $dataItem = array();
-    $request  = Params::getParamsAsArray();
-    foreach ($request as $k => $v) {
-        if (preg_match('|(.+?)#(.+)|', $k, $m)) {
-            $dataItem[$m[1]][$m[2]] = $v;
-        }
+    foreach(Params::getParam('min_reqs') as $k => $v) {
+        $dataItem[$k]['min_reqs'] = $v;
+    }
+    foreach(Params::getParam('desired_reqs') as $k => $v) {
+        $dataItem[$k]['desired_reqs'] = $v;
+    }
+    foreach(Params::getParam('desired_exp') as $k => $v) {
+        $dataItem[$k]['desired_exp'] = $v;
+    }
+    foreach(Params::getParam('studies') as $k => $v) {
+        $dataItem[$k]['studies'] = $v;
+    }
+    foreach(Params::getParam('contract') as $k => $v) {
+        $dataItem[$k]['contract'] = $v;
     }
 
     // insert locales
-    foreach ($dataItem as $k => $_data) {
-        ModelJB::newInstance()->replaceJobsAttrDescriptions($itemID, $k, $_data['desired_exp'], $_data['studies'], $_data['min_reqs'], $_data['desired_reqs'], $_data['contract']);
+    foreach ($dataItem as $k => $data) {
+        ModelJB::newInstance()->replaceJobsAttrDescriptions($itemID, $k, $data['desired_exp'], $data['studies'], $data['min_reqs'], $data['desired_reqs'], $data['contract']);
     }
 }
 osc_add_hook('item_edit_post', 'jobboard_item_edit_post');
