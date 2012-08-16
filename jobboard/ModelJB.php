@@ -99,15 +99,6 @@
         }
         
         /**
-         * Return table name jobs log
-         * @return string
-         */
-        public function getTable_JobsLog()
-        {
-            return DB_TABLE_PREFIX.'t_item_job_log' ;
-        }
-        
-        /**
          * Return table name jobs notes
          * @return string
          */
@@ -135,7 +126,6 @@
          */
         public function uninstall()
         {
-            $this->dao->query('DROP TABLE '. $this->getTable_JobsLog());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsFiles());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsApplicants());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttrDescription());
@@ -329,16 +319,7 @@
                         ,'i_rating' => 0
                     ));
             if($app) {
-                $lastId = $this->dao->insertedId();
-                $this->dao->insert(
-                        $this->getTable_JobsLog()
-                        ,array(
-                            'fk_i_item_id' => $itemId
-                            ,'fk_i_applicant_id' => $lastId
-                            ,'dt_date' => $date
-                            ,'i_status' => 0
-                        ));
-                return $lastId;
+                return $this->dao->insertedId();
             } else {
                 false;
             }
@@ -359,6 +340,24 @@
             $this->dao->select( sprintf("a.*, d.*, FIELD(fk_c_locale_code, '%s') as locale_order", $this->dao->connId->real_escape_string(osc_current_user_locale()) ) ) ;
             $this->dao->from($this->getTable_JobsApplicants()." a");
             $this->dao->join(DB_TABLE_PREFIX."t_item_description d", "d.fk_i_item_id = a.fk_i_item_id");
+            if($conditions!=null) {
+                foreach($conditions as $k => $v) {
+                    if($k=='item') {
+                        $this->dao->where('a.fk_i_item_id', $v);
+                    }
+                    if($k=='item_text') {
+                        $this->dao->where("d.s_title LIKE '%%".$v."%%'");
+                    }
+                    if($k=='email') {
+                        $this->dao->where("a.s_email LIKE '%%".$v."%%'");
+                    }
+                    if($k=='name') {
+                        $this->dao->where("a.s_name LIKE '%%".$v."%%'");
+                    }
+                }
+            }
+            $this->dao->groupBy('a.pk_i_id');
+            $this->dao->limit($start, $length);
             
             $result = $this->dao->get();
             if( !$result ) {
@@ -366,6 +365,49 @@
             }
             
             return $result->result();
+            
+        }
+
+        public function searchCount($conditions = null) {
+            
+            $this->dao->select( "a.pk_i_id" ) ;
+            $this->dao->from($this->getTable_JobsApplicants()." a");
+            $this->dao->join(DB_TABLE_PREFIX."t_item_description d", "d.fk_i_item_id = a.fk_i_item_id");
+            if($conditions!=null) {
+                foreach($conditions as $k => $v) {
+                    if($k=='item') {
+                        $this->dao->where('a.fk_i_item_id', $v);
+                    }
+                    if($k=='item_text') {
+                        $this->dao->where("d.s_title LIKE '%%".$v."%%'");
+                    }
+                    if($k=='email') {
+                        $this->dao->where("a.s_email LIKE '%%".$v."%%'");
+                    }
+                    if($k=='name') {
+                        $this->dao->where("a.s_name LIKE '%%".$v."%%'");
+                    }
+                }
+            }
+            $this->dao->groupBy('a.pk_i_id');
+            
+            $result = $this->dao->get();
+            if( !$result ) {
+                $searchTotal = 0;
+            } else {
+                $searchTotal = count($result->result());
+            }
+            
+            $this->dao->select( "COUNT(*) as total" ) ;
+            $this->dao->from($this->getTable_JobsApplicants()." a");
+            $result = $this->dao->get();
+            if( !$result ) {
+                $total = 0;
+            } else {
+                $total = $result->row();
+            }
+            
+            return array($searchTotal, $total['total']);
             
         }
         
@@ -433,7 +475,7 @@
          * 
          * @return array
          */
-        public function getNotesFomApplicant($id) {
+        public function getNotesFromApplicant($id) {
             
             $this->dao->select();
             $this->dao->from($this->getTable_JobsNotes());
@@ -469,6 +511,26 @@
             return $this->dao->delete($this->getTable_JobsAttrDescription(), array('fk_i_item_id' => $item_id) );
         }
         
+        public function deleteNote($id)
+        {
+            return $this->dao->delete($this->getTable_JobsNotes(), array('pk_i_id' => $id));
+        }
+        
+        
+        public function insertNote($id, $text)
+        {
+            return $this->dao->insert($this->getTable_JobsNotes(), array('dt_date' => date("Y-m-d H:i:s"), 's_text' => $text, 'fk_i_applicant_id' => $id));
+        }
+        
+        public function updateNote($id, $text)
+        {
+            return $this->dao->update($this->getTable_JobsNotes(), array('dt_date' => date("Y-m-d H:i:s"), 's_text' => $text), array('pk_i_id' => $id));
+        }
+        
+        public function changeStatus($applicantId, $status)
+        {
+            return $this->dao->update($this->getTable_JobsApplicants(), array('i_status' => $status), array('pk_i_id' => $applicantId));
+        }
         
     }
 ?>

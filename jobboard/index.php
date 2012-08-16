@@ -182,11 +182,11 @@ function jobboard_admin_menu() { ?>
     );
     
     osc_add_admin_submenu_page( 
-        'jobboard',                                   // menu id
-        __('Applicants'),                         // submenu title   
-        osc_admin_render_plugin_url("jobboard/people.php"),                    // submenu url
-        'jobboard_people',                           // submenu id
-        'moderator'                                  // capability
+        'jobboard',
+        __('Applicants'),
+        osc_admin_render_plugin_url("jobboard/people.php"),
+        'jobboard_people',
+        'moderator'
     );
     
     osc_add_admin_submenu_page( 
@@ -209,21 +209,18 @@ function jobboard_rating($applicantId, $rating = 0) {
 }
 
 
-function jobboard_status($status = 0) {
-    switch($status) {
-        case 1:
-            return __("Interview", "jobboard");
-            break;
-        case 2:
-            return __("Rejected", "jobboard");
-            break;
-        case 0:
-        default:
-            return __("Active", "jobboard");
-            break;
-    }
+function jobboard_status() {
+    $status_array = array();
+    $status_array[0] = __("Active", "jobboard");
+    $status_array[1] = __("Interview", "jobboard");
+    $status_array[2] = __("Rejected", "jobboard");
+    return $status_array;
 }
 
+function job_filter_options($options, $aRow) {
+    $options[] = '<a href="' . osc_admin_render_plugin_url("jobboard/people.php&jobId=") . $aRow['pk_i_id'] . '">' . __('View applicants for this job', 'jobboard') . '</a>';
+    return $options;
+}
 
 
 /**
@@ -300,5 +297,7 @@ function default_settings_jobboard() {
     osc_reset_preferences();
 }
 osc_add_hook('init_admin', 'default_settings_jobboard');
+
+osc_add_filter('actions_manage_items', 'job_filter_options');
 
 /* File: jobboard/index.php */

@@ -3,9 +3,32 @@
         die;
     }
 
-    $length = 10;
-    $start = (is_numeric(Params::getParam('iPage'))?Params::getParam("iPage"):0)*$length;
-    $people = ModelJB::newInstance()->search($start, $length);
+    $iDisplayLength = Params::getParam('iDisplayLength');
+    $iPage = Params::getParam('iPage');
+    $iPage = is_numeric($iPage)?($iPage):1;
+    $iDisplayLength = (is_numeric($iDisplayLength)?$iDisplayLength:10);
+    $start = ($iPage-1)*$iDisplayLength;
+    
+    $conditions = array();
+    if(Params::getParam('jobId')!='') {
+        $conditions['item'] = Params::getParam('jobId');
+    }
+    if(Params::getParam('sSearch')!='') {
+        if(Params::getParam('opt')=='oItem') {
+            $conditions['item_text'] = Params::getParam('sSearch');
+        } else if(Params::getParam('opt')=='oName') {
+            $conditions['name'] = Params::getParam('sSearch');
+        } else if(Params::getParam('opt')=='oEmail') {
+            $conditions['email'] = Params::getParam('sSearch');
+        }
+    }
+    
+    $people = ModelJB::newInstance()->search($start, $iDisplayLength, $conditions);
+    list($iTotalDisplayRecords, $iTotalRecords) = ModelJB::newInstance()->searchCount($conditions);
+    $status = jobboard_status();
+    
+    $opt = Params::getParam('opt');
+    
 
     
 ?>
@@ -25,13 +48,47 @@
                 );
             }
         });
+        
+        $("#filter_btn").click(function(){
+            showPage();
+            return false;
+        });
+        
     });
+    
+    function showPage() {
+        window.location = '<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&iDisplayLength='+$("#iDisplayLength option:selected").attr("value")+'&opt='+$("#filter-select option:selected").attr("value")+'&sSearch='+$("#sSearch").attr("value");
+        return false;
+    }
 </script>
 <div>
     <h1><?php _e('Resumes', 'jobboard'); ?></h1>
     
 </div>
 <div style="clear:both;"></div>
+    <div id="listing-toolbar">
+        <div class="float-right">
+            <form method="get" action="<?php echo osc_admin_base_url(true); ?>" >
+                <select id="iDisplayLength" name="iDisplayLength" class="select-box-extra select-box-medium float-left" onchange="javascript:showPage();" >
+                    <option value="10"><?php printf(__('%d Listings', 'jobboard'), 10); ?></option>
+                    <option value="25" <?php if( Params::getParam('iDisplayLength') == 25 ) echo 'selected'; ?> ><?php printf(__('%d Listings', 'jobboard'), 25); ?></option>
+                    <option value="50" <?php if( Params::getParam('iDisplayLength') == 50 ) echo 'selected'; ?> ><?php printf(__('%d Listings', 'jobboard'), 50); ?></option>
+                    <option value="100" <?php if( Params::getParam('iDisplayLength') == 100 ) echo 'selected'; ?> ><?php printf(__('%d Listings', 'jobboard'), 100); ?></option>
+                </select>
+            </form>
+            <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="inline">
+                <select id="filter-select" name="shortcut-filter" class="select-box-extra select-box-input">
+                    <option value="oEmail" <?php if($opt == 'oEmail'){ echo 'selected="selected"'; } ?>><?php _e('E-mail', 'jobboard') ; ?></option>
+                    <option value="oName" <?php if($opt == 'oName'){ echo 'selected="selected"'; } ?>><?php _e('Name', 'jobboard') ; ?></option>
+                    <option value="oItem" <?php if($opt == 'oItem'){ echo 'selected="selected"'; } ?>><?php _e('Job', 'jobboard') ; ?></option>
+                </select>
+                <input type="text" id="sSearch" name="sSearch" value="<?php echo osc_esc_html(Params::getParam('sSearch')); ?>" />
+
+                <input type="submit" id="filter_btn" class="btn submit-right" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>">
+            </form>
+        </div>
+    </div>
+
 <div id="upload-plugins">
     <table class="table" cellpadding="0" cellspacing="0">
         <thead>
@@ -50,7 +107,7 @@
             <tr>
                 <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a></td>
                 <td><?php echo @$p['s_title']; ?></td>
-                <td><?php echo jobboard_status(isset($p['i_status'])?$p['i_status']:0); ?></td>
+                <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
                 <td>
                     <?php for($k=1;$k<=5;$k++) {
                         echo '<input name="star'.$p['pk_i_id'].'" type="radio" class="auto-star required" value="'.$p['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$p['i_rating']?'checked="checked"':'').'/>';
@@ -70,12 +127,14 @@
         </tbody>
     </table>
     <?php
-        /*function showingResults(){
-            $aData = __get('aPlugins');
-            echo '<ul class="showing-results"><li><span>'.osc_pagination_showing((Params::getParam('iPage')-1)*$aData['iDisplayLength']+1, ((Params::getParam('iPage')-1)*$aData['iDisplayLength'])+count($aData['aaData']), $aData['iTotalDisplayRecords']).'</span></li></ul>' ;
-        }
-        osc_add_hook('before_show_pagination_admin','showingResults');
-        osc_show_pagination_admin($aData);*/
+        $aData = array(
+            'iTotalDisplayRecords' => $iTotalDisplayRecords
+            ,'iTotalRecords' => $iTotalRecords
+            ,'iDisplayLength' => $iDisplayLength
+            ,'iPage' => $iPage
+        );
+        echo osc_pagination_showing((($iPage-1)*$iDisplayLength)+1, (($iPage-1)*$iDisplayLength)+count($people), $iTotalDisplayRecords, $iTotalRecords);
+        osc_show_pagination_admin($aData);
     ?>
     </div>
 <div style="clear:both;"></div>
