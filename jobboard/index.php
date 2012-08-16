@@ -58,16 +58,25 @@ function jobboard_form_post($catID = null, $itemID = null)  {
 
     // prepare locales
     $dataItem = array();
-    $request = Params::getParamsAsArray();
-    foreach ($request as $k => $v) {
-        if (preg_match('|(.+?)#(.+)|', $k, $m)) {
-            $dataItem[$m[1]][$m[2]] = $v;
-        }
+    foreach(Params::getParam('min_reqs') as $k => $v) {
+        $dataItem[$k]['min_reqs'] = $v;
+    }
+    foreach(Params::getParam('desired_reqs') as $k => $v) {
+        $dataItem[$k]['desired_reqs'] = $v;
+    }
+    foreach(Params::getParam('desired_exp') as $k => $v) {
+        $dataItem[$k]['desired_exp'] = $v;
+    }
+    foreach(Params::getParam('studies') as $k => $v) {
+        $dataItem[$k]['studies'] = $v;
+    }
+    foreach(Params::getParam('contract') as $k => $v) {
+        $dataItem[$k]['contract'] = $v;
     }
 
     // insert locales
-    foreach ($dataItem as $k => $_data) {
-        ModelJB::newInstance()->insertJobsAttrDescription($itemID, $k, $_data['desired_exp'], $_data['studies'], $_data['min_reqs'], $_data['desired_reqs'], $_data['contract']);
+    foreach ($dataItem as $k => $data) {
+        ModelJB::newInstance()->insertJobsAttrDescription($itemID, $k, $data['desired_exp'], $data['studies'], $data['min_reqs'], $data['desired_reqs'], $data['contract']);
     }
 }
 osc_add_hook('item_form_post', 'jobboard_form_post');
@@ -90,18 +99,28 @@ osc_add_hook('item_edit', 'jobboard_item_edit');
 
 function jobboard_item_edit_post($catID = null, $itemID = null) {
     ModelJB::newInstance()->replaceJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'));
+
     // prepare locales
     $dataItem = array();
-    $request  = Params::getParamsAsArray();
-    foreach ($request as $k => $v) {
-        if (preg_match('|(.+?)#(.+)|', $k, $m)) {
-            $dataItem[$m[1]][$m[2]] = $v;
-        }
+    foreach(Params::getParam('min_reqs') as $k => $v) {
+        $dataItem[$k]['min_reqs'] = $v;
+    }
+    foreach(Params::getParam('desired_reqs') as $k => $v) {
+        $dataItem[$k]['desired_reqs'] = $v;
+    }
+    foreach(Params::getParam('desired_exp') as $k => $v) {
+        $dataItem[$k]['desired_exp'] = $v;
+    }
+    foreach(Params::getParam('studies') as $k => $v) {
+        $dataItem[$k]['studies'] = $v;
+    }
+    foreach(Params::getParam('contract') as $k => $v) {
+        $dataItem[$k]['contract'] = $v;
     }
 
     // insert locales
-    foreach ($dataItem as $k => $_data) {
-        ModelJB::newInstance()->replaceJobsAttrDescriptions($itemID, $k, $_data['desired_exp'], $_data['studies'], $_data['min_reqs'], $_data['desired_reqs'], $_data['contract']);
+    foreach ($dataItem as $k => $data) {
+        ModelJB::newInstance()->replaceJobsAttrDescriptions($itemID, $k, $data['desired_exp'], $data['studies'], $data['min_reqs'], $data['desired_reqs'], $data['contract']);
     }
 }
 osc_add_hook('item_edit_post', 'jobboard_item_edit_post');
@@ -126,7 +145,6 @@ function get_jobboard_session_variables($detail) {
 
     return $detail;
 }
-
 /* /FORM JOB BOARD */
 
 function get_jobboard_position_types() {
@@ -148,6 +166,76 @@ function job_item_detail() {
     require_once(JOBBOARD_PATH . 'item_detail.php');
 }
 
+/* CONTACT */
+function jobboard_save_contact_listing($item) {
+    $itemID = osc_item_id();
+    $name   = Params::getParam('yourName');
+    $email  = Params::getParam('yourEmail');
+    $cover  = Params::getParam('message');
+    $aCV    = Params::getFiles('attachment');
+
+    // check fields
+    if( $name === '' ) {
+        osc_add_flash_error_message(__("Name is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . osc_item_url()); die;
+    }
+    if( $email === '' ) {
+        osc_add_flash_error_message(__("Email is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . osc_item_url()); die;
+    }
+    if( $cover === '' ) {
+        osc_add_flash_error_message(__("Cover is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . osc_item_url()); die;
+    }
+    if( $aCV['name'] === '' ) {
+        osc_add_flash_error_message(__("CV is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . osc_item_url()); die;
+    }
+
+    // insert to database
+    $mJB = ModelJB::newInstance();
+
+    $applicantID = $mJB->insertApplicant($itemID, $name, $email, $cover);
+    // return to listing url
+    if( !$applicantID ) {
+        osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
+        header('Location: ' . osc_item_url()); die;
+    }
+
+    if($aCV['error'] == UPLOAD_ERR_OK) {
+        $tmp_name = $aCV['tmp_name'];
+        $fileName = date('YmdHis') . '_' . $aCV['name'];
+        if( move_uploaded_file($tmp_name, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
+            $mJB->insertFile($applicantID, $fileName);
+        } else {
+            $error_attachment = true;
+        }
+    } else {
+        $error_attachment = true;
+    }
+
+    if( $error_attachment ) {
+        osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
+        header('Location: ' . osc_item_url()); die;
+    }
+
+    return true;
+}
+osc_add_hook('post_item_contact_post', 'jobboard_save_contact_listing');
+osc_remove_hook('hook_email_item_inquiry', 'fn_email_item_inquiry');
+
+function _save_jobboard_contact_listing() {
+    Session::newInstance()->_setForm('yourEmail',    Params::getParam('yourEmail'));
+    Session::newInstance()->_setForm('yourName',     Params::getParam('yourName'));
+    Session::newInstance()->_setForm('phoneNumber',  Params::getParam('phoneNumber'));
+    Session::newInstance()->_setForm('message_body', Params::getParam('message'));
+}
+/* /CONTACT */
+
 function job_delete_locale($locale) {
     ModelJB::newInstance()->deleteLocale($locale);
 }
@@ -166,14 +254,14 @@ function jobboard_admin_menu() { ?>
     }
 </style>
 <?php
-    osc_add_admin_menu_page( 
+    osc_add_admin_menu_page(
         __('Jobboard', 'jobboard'),
         '#',
         'jobboard',
         'moderator'
     );
 
-    osc_add_admin_submenu_page( 
+    osc_add_admin_submenu_page(
         'jobboard',
         __('Dashboard', 'jobboard'),
         osc_admin_render_plugin_url("jobboard/dashboard.php"),
@@ -189,7 +277,7 @@ function jobboard_admin_menu() { ?>
         'moderator'
     );
     
-    osc_add_admin_submenu_page( 
+    osc_add_admin_submenu_page(
         'jobboard',
         __('Plugin options', 'jobboard'),
         osc_admin_render_plugin_url('jobboard/conf.php').'?section=types',
@@ -300,4 +388,4 @@ osc_add_hook('init_admin', 'default_settings_jobboard');
 
 osc_add_filter('actions_manage_items', 'job_filter_options');
 
-/* File: jobboard/index.php */
+?>
