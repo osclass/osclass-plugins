@@ -13,6 +13,9 @@
     if(Params::getParam('jobId')!='') {
         $conditions['item'] = Params::getParam('jobId');
     }
+    if(Params::getParam('iStatus')!='') {
+        $conditions['status'] = Params::getParam('iStatus');
+    }
     if(Params::getParam('sSearch')!='') {
         if(Params::getParam('opt')=='oItem') {
             $conditions['item_text'] = Params::getParam('sSearch');

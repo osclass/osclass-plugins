@@ -354,6 +354,9 @@
                     if($k=='name') {
                         $this->dao->where("a.s_name LIKE '%%".$v."%%'");
                     }
+                    if($k=='status') {
+                        $this->dao->where("a.i_status", $v);
+                    }
                 }
             }
             $this->dao->groupBy('a.pk_i_id');
@@ -386,6 +389,9 @@
                     }
                     if($k=='name') {
                         $this->dao->where("a.s_name LIKE '%%".$v."%%'");
+                    }
+                    if($k=='status') {
+                        $this->dao->where("a.i_status", $v);
                     }
                 }
             }
