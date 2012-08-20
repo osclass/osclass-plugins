@@ -25,15 +25,17 @@
             $conditions['email'] = Params::getParam('sSearch');
         }
     }
-    
+
     $people = ModelJB::newInstance()->search($start, $iDisplayLength, $conditions);
     list($iTotalDisplayRecords, $iTotalRecords) = ModelJB::newInstance()->searchCount($conditions);
     $status = jobboard_status();
-    
-    $opt = Params::getParam('opt');
-    
 
-    
+    $opt = Params::getParam('opt');
+
+    $mSearch = new Search();
+    $mSearch->limit(0, 100);
+    $aItems = $mSearch->doSearch();
+    View::newInstance()->_exportVariableToView('items', $aItems) ;
 ?>
 <script src="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.rating.js" type="text/javascript" language="javascript"></script>
 <script src="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.MetaData.js" type="text/javascript" language="javascript"></script>
@@ -51,93 +53,106 @@
                 );
             }
         });
-        
+
         $("#filter_btn").click(function(){
             showPage();
             return false;
         });
-        
     });
-    
+
     function showPage() {
         window.location = '<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&iDisplayLength='+$("#iDisplayLength option:selected").attr("value")+'&opt='+$("#filter-select option:selected").attr("value")+'&sSearch='+$("#sSearch").attr("value");
         return false;
     }
 </script>
-<div>
-    <h1><?php _e('Resumes', 'jobboard'); ?></h1>
-    
-</div>
-<div style="clear:both;"></div>
+<h2 class="render-title"><?php _e('Resumes', 'jobboard'); ?></h2>
+<div class="relative">
     <div id="listing-toolbar">
         <div class="float-right">
-            <form method="get" action="<?php echo osc_admin_base_url(true); ?>" >
+            <?php /*<form method="get" action="<?php echo osc_admin_base_url(true); ?>" class="inline select-items-per-page">
                 <select id="iDisplayLength" name="iDisplayLength" class="select-box-extra select-box-medium float-left" onchange="javascript:showPage();" >
                     <option value="10"><?php printf(__('%d Listings', 'jobboard'), 10); ?></option>
                     <option value="25" <?php if( Params::getParam('iDisplayLength') == 25 ) echo 'selected'; ?> ><?php printf(__('%d Listings', 'jobboard'), 25); ?></option>
                     <option value="50" <?php if( Params::getParam('iDisplayLength') == 50 ) echo 'selected'; ?> ><?php printf(__('%d Listings', 'jobboard'), 50); ?></option>
                     <option value="100" <?php if( Params::getParam('iDisplayLength') == 100 ) echo 'selected'; ?> ><?php printf(__('%d Listings', 'jobboard'), 100); ?></option>
                 </select>
-            </form>
+            </form>*/ ?>
             <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="inline">
                 <select id="filter-select" name="shortcut-filter" class="select-box-extra select-box-input">
                     <option value="oEmail" <?php if($opt == 'oEmail'){ echo 'selected="selected"'; } ?>><?php _e('E-mail', 'jobboard') ; ?></option>
                     <option value="oName" <?php if($opt == 'oName'){ echo 'selected="selected"'; } ?>><?php _e('Name', 'jobboard') ; ?></option>
-                    <option value="oItem" <?php if($opt == 'oItem'){ echo 'selected="selected"'; } ?>><?php _e('Job', 'jobboard') ; ?></option>
+                    <?php /*<option value="oItem" <?php if($opt == 'oItem'){ echo 'selected="selected"'; } ?>><?php _e('Job', 'jobboard') ; ?></option>*/ ?>
                 </select>
-                <input type="text" id="sSearch" name="sSearch" value="<?php echo osc_esc_html(Params::getParam('sSearch')); ?>" />
-
+                <input type="text" id="sSearch" name="sSearch" value="<?php echo osc_esc_html(Params::getParam('sSearch')); ?>" class="input-text input-actions input-has-select" />
                 <input type="submit" id="filter_btn" class="btn submit-right" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>">
             </form>
         </div>
     </div>
-
-<div id="upload-plugins">
-    <table class="table" cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th><?php _e('Applicant', 'jobboard') ; ?></th>
-                <th><?php _e('Job', 'jobboard') ; ?></th>
-                <th><?php _e('Status', 'jobboard') ; ?></th>
-                <th><?php _e('Rating', 'jobboard') ; ?></th>
-                <th><?php _e('Received', 'jobboard') ; ?></th>
-                <th><?php _e('Actions', 'jobboard') ; ?></th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php if(count($people)>0) { ?>
-        <?php foreach($people as $p) { ?>
-            <tr>
-                <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a></td>
-                <td><?php echo @$p['s_title']; ?></td>
-                <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
-                <td>
-                    <?php for($k=1;$k<=5;$k++) {
-                        echo '<input name="star'.$p['pk_i_id'].'" type="radio" class="auto-star required" value="'.$p['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$p['i_rating']?'checked="checked"':'').'/>';
-                    } ?>
-                </td>
-                <td><?php echo @$p['dt_date']; ?></td>
-                <td><?php _e("Delete", "jobboard"); ?></td>
-            </tr>
-        <?php }; ?>
-        <?php  } else { ?>
-        <tr>
-            <td colspan="6" class="text-center">
-            <p><?php _e('No data available in table', 'jobboard') ; ?></p>
-            </td>
-        </tr>
-        <?php }; ?>
-        </tbody>
-    </table>
+    <form id="datatablesForm" action="<?php echo osc_admin_base_url(true); ?>" method="get">
+        <input type="hidden" name="page" value="plugins">
+        <input type="hidden" name="action" value="renderplugin">
+        <input type="hidden" name="file" value="jobboard/people.php">
+        <div id="bulk-actions">
+            <label>
+                <select name="jobId" class="select-box-extra">
+                    <option value=""><?php _e('All jobs', 'jobboard'); ?></option>
+                    <?php while( osc_has_items() ) { ?>
+                    <option value="<?php echo osc_item_id(); ?>" <?php if( Params::getParam('jobId') == osc_item_id() ) echo "selected" ?>><?php echo osc_item_title(); ?></option>
+                    <?php } ?>
+                </select> <input type="submit" class="btn" value="<?php echo osc_esc_html(__('View')); ?>" />
+            </label>
+        </div>
+        <div class="table-contains-actions">
+            <table class="table" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th><?php _e('Applicant', 'jobboard') ; ?></th>
+                        <th><?php _e('Job', 'jobboard') ; ?></th>
+                        <th><?php _e('Status', 'jobboard') ; ?></th>
+                        <th><?php _e('Rating', 'jobboard') ; ?></th>
+                        <th><?php _e('Received', 'jobboard') ; ?></th>
+                        <th><?php _e('Actions', 'jobboard') ; ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php if(count($people) > 0) { ?>
+                <?php foreach($people as $p) { ?>
+                    <tr>
+                        <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a></td>
+                        <td><?php echo @$p['s_title']; ?></td>
+                        <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
+                        <td>
+                            <?php for($k=1;$k<=5;$k++) {
+                                echo '<input name="star'.$p['pk_i_id'].'" type="radio" class="auto-star required" value="'.$p['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$p['i_rating']?'checked="checked"':'').'/>';
+                            } ?>
+                        </td>
+                        <td><?php echo @$p['dt_date']; ?></td>
+                        <td><?php _e("Delete", "jobboard"); ?></td>
+                    </tr>
+                <?php } ?>
+                <?php } else { ?>
+                <tr>
+                    <td colspan="6" class="text-center">
+                        <p><?php _e('No data available in table', 'jobboard') ; ?></p>
+                    </td>
+                </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+<div class="has-pagination">
     <?php
         $aData = array(
-            'iTotalDisplayRecords' => $iTotalDisplayRecords
-            ,'iTotalRecords' => $iTotalRecords
-            ,'iDisplayLength' => $iDisplayLength
-            ,'iPage' => $iPage
+            'iTotalDisplayRecords' => $iTotalDisplayRecords,
+            'iTotalRecords'        => $iTotalRecords,
+            'iDisplayLength'       => $iDisplayLength,
+            'iPage'                => $iPage
         );
-        echo osc_pagination_showing((($iPage-1)*$iDisplayLength)+1, (($iPage-1)*$iDisplayLength)+count($people), $iTotalDisplayRecords, $iTotalRecords);
-        osc_show_pagination_admin($aData);
     ?>
-    </div>
-<div style="clear:both;"></div>
+    <ul class="showing-results">
+        <li><span><?php echo osc_pagination_showing((($iPage-1)*$iDisplayLength)+1, (($iPage-1)*$iDisplayLength)+count($people), $iTotalDisplayRecords, $iTotalRecords); ?></span></li>
+    </ul>
+    <?php osc_show_pagination_admin($aData); ?>
+</div>
