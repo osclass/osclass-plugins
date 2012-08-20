@@ -274,14 +274,6 @@ function jobboard_admin_menu() { ?>
         'jobboard_people',
         'moderator'
     );
-    
-    osc_add_admin_submenu_page(
-        'jobboard',
-        __('Plugin options', 'jobboard'),
-        osc_admin_render_plugin_url('jobboard/conf.php').'?section=types',
-        'jobboard_options',
-        'moderator'
-    );
 }
 osc_add_hook('admin_header','jobboard_admin_menu');
 
