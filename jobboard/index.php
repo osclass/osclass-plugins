@@ -16,8 +16,7 @@ require_once(JOBBOARD_PATH . 'ModelJB.php');
 function job_call_after_install() {
     ModelJB::newInstance()->import('jobboard/struct.sql');
 
-    osc_set_preference('upload_path', osc_content_path()."uploads/", 'jobboard_plugin', 'STRING');
-    osc_set_preference('allow_cv_upload', '1', 'jobboard_plugin', 'INTEGER');
+    osc_set_preference('upload_path', osc_content_path() . "uploads/", 'jobboard_plugin', 'STRING');
     osc_set_preference('version', 100, 'jobboard_plugin', 'INTEGER');
 }
 
@@ -25,7 +24,6 @@ function job_call_after_uninstall() {
     ModelJB::newInstance()->uninstall();
 
     osc_delete_preference('upload_path', 'jobboard_plugin');
-    osc_delete_preference('allow_cv_upload', 'jobboard_plugin');
     osc_delete_preference('version', 'jobboard_plugin');
 }
 
