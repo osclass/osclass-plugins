@@ -1,0 +1,1 @@
+{"title":"{WEB_TITLE} - Registration successful!","description":"<p>Hi {USER_NAME},</p><p>You've successfully registered for {WEB_LINK}.</p><p>Your information login</p><p><ul><li><b>Email</b>: {USER_EMAIL}</li><li><b>Password</b>: {USER_PASSWORD}</li></ul></p><p>Thank you!</p><p>Regards,</p><p>{WEB_LINK}</p>"}
