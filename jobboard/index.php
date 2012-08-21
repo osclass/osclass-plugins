@@ -218,7 +218,7 @@ function jobboard_save_contact_listing($item) {
     }
 
     if( $error_attachment ) {
-        //ModelJB::newInstance()->deleteApplicant($applicantID);
+        ModelJB::newInstance()->deleteApplicant($applicantID);
         osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
         header('Location: ' . osc_item_url()); die;
     }
