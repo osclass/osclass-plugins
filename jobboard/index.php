@@ -188,7 +188,7 @@ function jobboard_save_contact_listing($item) {
         _save_jobboard_contact_listing();
         header('Location: ' . osc_item_url()); die;
     }
-    if( $aCV['name'] === '' ) {
+    if( isset($aCV['name']) && $aCV['name'] === '' ) {
         osc_add_flash_error_message(__("CV is required", 'jobboard'));
         _save_jobboard_contact_listing();
         header('Location: ' . osc_item_url()); die;
@@ -204,7 +204,7 @@ function jobboard_save_contact_listing($item) {
         header('Location: ' . osc_item_url()); die;
     }
 
-    if($aCV['error'] == UPLOAD_ERR_OK) {
+    if(isset($aCV['name']) && $aCV['error'] == UPLOAD_ERR_OK) {
         $tmp_name = $aCV['tmp_name'];
         $fileName = date('YmdHis') . '_' . $aCV['name'];
         if( move_uploaded_file($tmp_name, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {

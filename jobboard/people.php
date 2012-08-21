@@ -3,6 +3,11 @@
         die;
     }
 
+    if(Params::getParam("paction")=="delete" && is_numeric(Params::getParam("people"))) {
+        ModelJB::newInstance()->deleteApplicant(Params::getParam("people"));
+    }
+    
+    
     $iDisplayLength = Params::getParam('iDisplayLength');
     $iPage = Params::getParam('iPage');
     $iPage = is_numeric($iPage)?($iPage):1;
@@ -127,7 +132,7 @@
                             } ?>
                         </td>
                         <td><?php echo @$p['dt_date']; ?></td>
-                        <td><?php _e("Delete", "jobboard"); ?></td>
+                        <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php");?>&paction=delete&people=<?php echo $p['pk_i_id']; ?>" ><?php _e("Delete", "jobboard"); ?></a></td>
                     </tr>
                 <?php } ?>
                 <?php } else { ?>

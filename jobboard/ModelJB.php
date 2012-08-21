@@ -126,6 +126,7 @@
          */
         public function uninstall()
         {
+            $this->dao->query('DROP TABLE '. $this->getTable_JobsNotes());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsFiles());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsApplicants());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttrDescription());
@@ -514,8 +515,29 @@
         public function deleteItem($item_id)
         {
             $this->dao->delete($this->getTable_JobsAttr(), array('fk_i_item_id' => $item_id) );
-            return $this->dao->delete($this->getTable_JobsAttrDescription(), array('fk_i_item_id' => $item_id) );
+            $this->dao->delete($this->getTable_JobsAttrDescription(), array('fk_i_item_id' => $item_id) );
+            
+            $this->dao->select('pk_i_id');
+            $this->dao->from($this->getTable_JobsApplicants());
+            
+            $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+            $ids = $result->result();
+
+            foreach($ids as $id) {            
+                $this->deleteApplicant($id);
+            }
+            
         }
+        
+        public function deleteApplicant($id) {
+            $this->dao->delete($this->getTable_JobsNotes(), array('fk_i_applicant_id' => $id));
+            $this->dao->delete($this->getTable_JobsFiles(), array('fk_i_applicant_id' => $id));
+            return $this->dao->delete($this->getTable_JobsApplicants(), array('pk_i_id' => $id));
+        }
+        
         
         public function deleteNote($id)
         {
