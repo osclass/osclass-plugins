@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<listings>
+    <listing>
+        <title lang="en_EN"><![CDATA[Title in English]]></title>
+        <content lang="en_EN"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id nulla dolor. Ut aliquet, mauris id molestie porttitor, dui lorem pretium sem, quis vestibulum orci purus ultrices lacus. Nulla accumsan tortor porta nibh consequat rhoncus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi elementum venenatis ante eu porta. Curabitur ultricies nunc vel elit rutrum scelerisque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse rutrum lectus quis sem malesuada nec placerat sapien malesuada.]]></content>
+
+        <categoryid>1</categoryid>
+        <contactemail>your.fake@email.com</contactemail>
+        <contactname>Mr. False Name</contactname>
+
+
+        <price>123.45</price>
+        <currency>USD</currency>
+
+
+        <address>fake street</address>
+        <city_area>your city area</city_area>
+        <city>cityville</city>
+        <postcode>12345</postcode>
+        <region>fake region</region>
+        <country>Spain</country>
+
+        <latitude>34.077475</latitude>
+        <longitude>-118.429289</longitude>
+        <datetime>2012-08-08 12:34:56</datetime>
+    </listing>
+</listings>
