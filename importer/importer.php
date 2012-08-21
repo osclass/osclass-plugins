@@ -31,7 +31,6 @@ if(Params::getParam('plugin_action')=='done') {
 
 }
 
-
 ?>
 <?php osc_show_flash_message('admin') ; ?>
 <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">

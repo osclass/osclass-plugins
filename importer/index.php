@@ -10,30 +10,11 @@ Short Name: ad_importer
 Plugin update URI: ad-importer
 */
 
-function adimporter_admin_menu() { ?>
-<style type="text/css" media="screen">
-    .ico-adimporter{
-        background-image: url('<?php printf('%soc-content/plugins/%simg/icon.png', osc_base_url(), osc_plugin_folder(__FILE__)); ?>') !important;
-    }
-    body.compact .ico-adimporter{
-        background-image: url('<?php printf('%soc-content/plugins/%simg/iconCompact.png', osc_base_url(), osc_plugin_folder(__FILE__)); ?>') !important;
-    }
-</style>
-<?php
-    osc_add_admin_menu_page(
-        __('Ad importer', 'adimporter'),
-        '#',
-        'adimporter',
-        'moderator'
-    );
-
-    osc_add_admin_submenu_page(
-        'adimporter',
-        __('Importer', 'adimporter'),
-        osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)."importer.php"),
-        'adimporter_tool',
-        'moderator'
-    );
+function adimporter_admin_menu() {
+    echo '<h3><a href="#">Ad importer</a></h3>
+    <ul> 
+        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'importer.php') . '">&raquo; ' . __('Importer', 'adimporter') . '</a></li>
+    </ul>';
     
 }
 
@@ -62,9 +43,11 @@ function adimporter_readxml($file) {
 
         $title_list = $listing->getElementsByTagName("title");
         $content_list = $listing->getElementsByTagName("content");
+        $image_list = $listing->getElementsByTagName("image");
         
         $title = array();
         $content = array();
+        $photos = '';
         
         $l = $title_list->length;
         for($k = 0; $k<$l;$k++) {
@@ -96,6 +79,20 @@ function adimporter_readxml($file) {
             $content[$lang] = $content_list->item($k)->nodeValue;
         }
         
+
+        foreach($image_list as $image) {
+            $tmp_name = "adimporterimage_".time();
+            $image_ok = osc_downloadFile($image->nodeValue, $tmp_name);
+            if($image_ok) {
+                $photos['error'][] = 0;
+                $photos['size'][] = 100;
+                $photos['type'][] = 'image/jpeg';
+                $photos['tmp_name'][] = osc_content_path()."downloads/".$tmp_name;
+            }
+        }
+
+        $_FILES['photos'] = $photos;
+        
         Params::setParam("title", $title);
         Params::setParam("description", $content);
         
@@ -113,6 +110,13 @@ function adimporter_readxml($file) {
     }
     
     
+    
+    $delete_images = glob(osc_content_path()."downloads/adimporterimage_*");
+    foreach($delete_images as $img) {
+        @unlink($img);
+    }
+    
+    
 }
 
 
@@ -123,6 +127,6 @@ osc_register_plugin(osc_plugin_path(__FILE__), '');
 osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
 
 
-osc_add_hook('admin_header','adimporter_admin_menu');
+osc_add_hook('admin_menu','adimporter_admin_menu');
 
 ?>
