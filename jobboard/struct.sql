@@ -27,6 +27,7 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_applicant (
     fk_i_item_id INT UNSIGNED NOT NULL,
     s_name VARCHAR(255) NOT NULL DEFAULT '',
     s_email VARCHAR(255) NOT NULL DEFAULT '',
+    s_phone VARCHAR(255) NOT NULL DEFAULT '',
     s_cover_letter TEXT NOT NULL DEFAULT '',
     dt_date DATETIME NOT NULL,
     i_status TINYINT NOT NULL DEFAULT 0,

@@ -170,6 +170,7 @@ function jobboard_save_contact_listing($item) {
     $name   = Params::getParam('yourName');
     $email  = Params::getParam('yourEmail');
     $cover  = Params::getParam('message');
+    $phone  = Params::getParam('phoneNumber');
     $aCV    = Params::getFiles('attachment');
 
     // check fields
@@ -197,7 +198,7 @@ function jobboard_save_contact_listing($item) {
     // insert to database
     $mJB = ModelJB::newInstance();
 
-    $applicantID = $mJB->insertApplicant($itemID, $name, $email, $cover);
+    $applicantID = $mJB->insertApplicant($itemID, $name, $email, $cover, $phone);
     // return to listing url
     if( !$applicantID ) {
         osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
@@ -217,6 +218,7 @@ function jobboard_save_contact_listing($item) {
     }
 
     if( $error_attachment ) {
+        //ModelJB::newInstance()->deleteApplicant($applicantID);
         osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
         header('Location: ' . osc_item_url()); die;
     }

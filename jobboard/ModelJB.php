@@ -306,7 +306,7 @@
          * @param $coverLetter
          * @return applicant's ID 
          */
-        public function insertApplicant($itemId, $name, $email, $coverLetter) {
+        public function insertApplicant($itemId, $name, $email, $coverLetter = '', $phone = '') {
             $date = date("Y-m-h H:i:s");
             $app = $this->dao->insert(
                     $this->getTable_JobsApplicants()
@@ -314,6 +314,7 @@
                         'fk_i_item_id' => $itemId
                         ,'s_name' => $name
                         ,'s_email' => $email
+                        ,'s_phone' => $phone
                         ,'s_cover_letter' => $coverLetter
                         ,'dt_date' => $date
                         ,'i_status' => 0

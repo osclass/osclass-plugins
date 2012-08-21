@@ -112,6 +112,7 @@
                 <thead>
                     <tr>
                         <th><?php _e('Applicant', 'jobboard') ; ?></th>
+                        <th><?php _e('Email', 'jobboard') ; ?></th>
                         <th><?php _e('Job', 'jobboard') ; ?></th>
                         <th><?php _e('Status', 'jobboard') ; ?></th>
                         <th><?php _e('Rating', 'jobboard') ; ?></th>
@@ -124,6 +125,7 @@
                 <?php foreach($people as $p) { ?>
                     <tr>
                         <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a></td>
+                        <td><?php echo @$p['s_email']; ?></td>
                         <td><?php echo @$p['s_title']; ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
                         <td>
