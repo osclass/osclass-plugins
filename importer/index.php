@@ -101,6 +101,13 @@ function adimporter_readxml($file) {
         if($success!=2) { //2 is the success code for active ads & 1 for inactive
             $errormsg .= sprintf(__("%s (Item %d)", "adimporter"), $success, $klisting)."<br/>";
         }
+
+        $delete_images = glob(osc_content_path()."downloads/adimporterimage_*");
+        foreach($delete_images as $img) {
+            @unlink($img);
+        }
+    
+        
     }
 
     if($errormsg!='') {
@@ -109,12 +116,6 @@ function adimporter_readxml($file) {
         osc_add_flash_ok_message(__('All ads were imported correctly', 'adimporter'), 'admin');
     }
     
-    
-    
-    $delete_images = glob(osc_content_path()."downloads/adimporterimage_*");
-    foreach($delete_images as $img) {
-        @unlink($img);
-    }
     
     
 }
