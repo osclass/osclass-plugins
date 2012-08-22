@@ -294,6 +294,7 @@ function jobboard_status() {
     $status_array[0] = __("Active", "jobboard");
     $status_array[1] = __("Interview", "jobboard");
     $status_array[2] = __("Rejected", "jobboard");
+    $status_array[3] = __("Hired", "jobboard");
     return $status_array;
 }
 

@@ -3,12 +3,8 @@
         die;
     }
 
-    if(Params::getParam("paction")=="delete" && is_numeric(Params::getParam("people"))) {
-        ModelJB::newInstance()->deleteApplicant(Params::getParam("people"));
-    }
     
-    
-    $iDisplayLength = Params::getParam('iDisplayLength');
+    $iDisplayLength = 10;//Params::getParam('iDisplayLength');
     $iPage = Params::getParam('iPage');
     $iPage = is_numeric($iPage)?($iPage):1;
     $iDisplayLength = (is_numeric($iDisplayLength)?$iDisplayLength:10);
@@ -31,11 +27,22 @@
         }
     }
 
-    $people = ModelJB::newInstance()->search($start, $iDisplayLength, $conditions);
-    list($iTotalDisplayRecords, $iTotalRecords) = ModelJB::newInstance()->searchCount($conditions);
+    $order_col = Params::getParam('sOrderCol')!=''?Params::getParam('sOrderCol'):'a.dt_date';
+    $order_dir = Params::getParam('sOrderDir')!=''?Params::getParam('sOrderDir'):'DESC';
+    
+    $people = ModelJB::newInstance()->search($start, $iDisplayLength, $conditions, $order_col, $order_dir);
+    list($iTotalDisplayRecords, $iTotalRecords) = ModelJB::newInstance()->searchCount($conditions, $order_col, $order_dir);
     $status = jobboard_status();
 
     $opt = Params::getParam('opt');
+    
+    
+    $urlOrder = osc_admin_base_url(true).'?'.$_SERVER['QUERY_STRING'];
+    $urlOrder = preg_replace('/&iPage=(\d+)?/', '', $urlOrder) ;
+    $urlOrder = preg_replace('/&sOrderCol=([^&]*)/', '', $urlOrder) ;
+    $urlOrder = preg_replace('/&sOrderDir=([^&]*)/', '', $urlOrder) ;
+
+    
 
     $mSearch = new Search();
     $mSearch->limit(0, 100);
@@ -63,12 +70,25 @@
             showPage();
             return false;
         });
+        
+        $("#dialog-people-delete").dialog({
+                    autoOpen: false,
+                    modal: true
+                });        
+        
     });
 
     function showPage() {
         window.location = '<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&iDisplayLength='+$("#iDisplayLength option:selected").attr("value")+'&opt='+$("#filter-select option:selected").attr("value")+'&sSearch='+$("#sSearch").attr("value");
         return false;
     }
+    
+    
+    function delete_applicant(id) {
+        $("#delete_id").attr("value", id);
+        $("#dialog-people-delete").dialog('open');
+    }
+    
 </script>
 <h2 class="render-title"><?php _e('Resumes', 'jobboard'); ?></h2>
 <div class="relative">
@@ -111,12 +131,46 @@
             <table class="table" cellpadding="0" cellspacing="0">
                 <thead>
                     <tr>
-                        <th><?php _e('Applicant', 'jobboard') ; ?></th>
-                        <th><?php _e('Email', 'jobboard') ; ?></th>
-                        <th><?php _e('Job', 'jobboard') ; ?></th>
-                        <th><?php _e('Status', 'jobboard') ; ?></th>
-                        <th><?php _e('Rating', 'jobboard') ; ?></th>
-                        <th><?php _e('Received', 'jobboard') ; ?></th>
+                        <th <?php if($order_col=='a.s_name') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                            <a href="<?php echo $urlOrder."&sOrderCol=a.s_name&sOrderDir=".($order_col=='a.s_name'?($order_dir=='ASC'?'DESC':'ASC'):'ASC');?>" >
+                                <?php _e('Applicant', 'jobboard') ; ?>
+                            </a>
+                        </th>
+                        <th <?php if($order_col=='a.s_email') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                            <a href="<?php echo $urlOrder."&sOrderCol=a.s_email&sOrderDir=".($order_col=='a.s_email'?($order_dir=='ASC'?'DESC':'ASC'):'ASC');?>" >
+                                <?php _e('Email', 'jobboard') ; ?>
+                            </a>
+                        </th>
+                        <th <?php if($order_col=='d.s_title') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                            <a href="<?php echo $urlOrder."&sOrderCol=d.s_title&sOrderDir=".($order_col=='d.s_title'?($order_dir=='ASC'?'DESC':'ASC'):'ASC');?>" >
+                                <?php _e('Job', 'jobboard') ; ?>
+                            </a>
+                        </th>
+                        <th <?php if($order_col=='a.b_read') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                            <a href="<?php echo $urlOrder."&sOrderCol=a.b_read&sOrderDir=".($order_col=='a.b_read'?($order_dir=='ASC'?'DESC':'ASC'):'ASC');?>" >
+                                <?php _e('Read', 'jobboard') ; ?>
+                            </a>
+                        </th>
+                        <th <?php if($order_col=='a.b_has_notes') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                            <a href="<?php echo $urlOrder."&sOrderCol=a.b_has_notes&sOrderDir=".($order_col=='a.b_has_notes'?($order_dir=='DESC'?'ASC':'DESC'):'DESC');?>" >
+                                <?php _e('Notes', 'jobboard') ; ?>
+                            </a>
+                        </th>
+                        <th <?php if($order_col=='a.i_status') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                            <a href="<?php echo $urlOrder."&sOrderCol=a.i_status&sOrderDir=".($order_col=='a.i_status'?($order_dir=='DESC'?'ASC':'DESC'):'DESC');?>" >
+                                <?php _e('Status', 'jobboard') ; ?>
+                            </a>
+                        </th>
+                        <th <?php if($order_col=='a.i_rating') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                            <a href="<?php echo $urlOrder."&sOrderCol=a.i_rating&sOrderDir=".($order_col=='a.i_rating'?($order_dir=='DESC'?'ASC':'DESC'):'DESC');?>" >
+                                <?php _e('Rating', 'jobboard') ; ?>
+                            </a>
+                        </th>
+                        <th <?php if($order_col=='a.dt_Date') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                            <a href="<?php echo $urlOrder."&sOrderCol=a.dt_date&sOrderDir=".($order_col=='a.dt_date'?($order_dir=='DESC'?'ASC':'DESC'):'DESC');?>" >
+                                <?php _e('Received', 'jobboard') ; ?>
+                            </a>
+                        </th>
                         <th><?php _e('Actions', 'jobboard') ; ?></th>
                     </tr>
                 </thead>
@@ -127,6 +181,8 @@
                         <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a></td>
                         <td><?php echo @$p['s_email']; ?></td>
                         <td><?php echo @$p['s_title']; ?></td>
+                        <td><?php echo $p['b_read']==1?__("Read", "jobboard"):__("Unread", "jobboard"); ?></td>
+                        <td><?php echo $p['b_has_notes']==1?__("Has notes", "jobboard"):__("No notes yet", "jobboard"); ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
                         <td>
                             <?php for($k=1;$k<=5;$k++) {
@@ -134,7 +190,7 @@
                             } ?>
                         </td>
                         <td><?php echo @$p['dt_date']; ?></td>
-                        <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php");?>&paction=delete&people=<?php echo $p['pk_i_id']; ?>" ><?php _e("Delete", "jobboard"); ?></a></td>
+                        <td><a href="javascript:delete_applicant(<?php echo $p['pk_i_id']; ?>);" ><?php _e("Delete", "jobboard"); ?></a></td>
                     </tr>
                 <?php } ?>
                 <?php } else { ?>
@@ -163,3 +219,22 @@
     </ul>
     <?php osc_show_pagination_admin($aData); ?>
 </div>
+
+<form id="dialog-people-delete" method="post" action="<?php echo osc_admin_base_url(true); ?>" class="has-form-actions hide" title="<?php echo osc_esc_html(__('Delete applicant', 'jobboard')); ?>">
+    <input type="hidden" name="page" value="plugins" />
+    <input type="hidden" name="action" value="renderplugin" />
+    <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>actions.php" />
+    <input type="hidden" name="paction" value="delete_applicant" />
+    <input type="hidden" id="delete_id" name="id" value="" />
+    <div class="form-horizontal">
+        <div class="form-row">
+            <?php _e('Are you sure you want to delete this applicant?'); ?>
+        </div>
+        <div class="form-actions">
+            <div class="wrapper">
+            <a class="btn" href="javascript:void(0);" onclick="$('#dialog-people-delete').dialog('close', 'jobboard');"><?php _e('Cancel', 'jobboard'); ?></a>
+            <input id="people-delete-submit" type="submit" value="<?php echo osc_esc_html( __('Delete', 'jobboard') ); ?>" class="btn btn-red" />
+            </div>
+        </div>
+    </div>
+</form>

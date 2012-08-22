@@ -31,6 +31,8 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_applicant (
     s_cover_letter TEXT NOT NULL DEFAULT '',
     dt_date DATETIME NOT NULL,
     i_status TINYINT NOT NULL DEFAULT 0,
+    b_read TINYINT(1) NOT NULL DEFAULT 0,
+    b_has_notes TINYINT(1) NOT NULL DEFAULT 0,
     i_rating TINYINT NOT NULL DEFAULT 0,
 
         PRIMARY KEY (pk_i_id),

@@ -337,7 +337,7 @@
          * 
          * @return array
          */
-        public function search($start = 0, $length = 10, $conditions = null) {
+        public function search($start = 0, $length = 10, $conditions = null, $order_col = 'a.dt_date', $order_dir = 'DESC') {
             
             $this->dao->select( sprintf("a.*, d.*, FIELD(fk_c_locale_code, '%s') as locale_order", $this->dao->connId->real_escape_string(osc_current_user_locale()) ) ) ;
             $this->dao->from($this->getTable_JobsApplicants()." a");
@@ -362,6 +362,7 @@
                 }
             }
             $this->dao->groupBy('a.pk_i_id');
+            $this->dao->orderBy($order_col, $order_dir);
             $this->dao->limit($start, $length);
             
             $result = $this->dao->get();
@@ -373,7 +374,7 @@
             
         }
 
-        public function searchCount($conditions = null) {
+        public function searchCount($conditions = null, $order_col = 'a.dt_date', $order_dir = 'DESC') {
             
             $this->dao->select( "a.pk_i_id" ) ;
             $this->dao->from($this->getTable_JobsApplicants()." a");
@@ -398,6 +399,7 @@
                 }
             }
             $this->dao->groupBy('a.pk_i_id');
+            $this->dao->orderBy($order_col, $order_dir);
             
             $result = $this->dao->get();
             if( !$result ) {
@@ -542,13 +544,20 @@
         
         public function deleteNote($id)
         {
-            return $this->dao->delete($this->getTable_JobsNotes(), array('pk_i_id' => $id));
+            $success = $this->dao->delete($this->getTable_JobsNotes(), array('pk_i_id' => $id));
+            $notes = $this->getNotesFromApplicant($id);
+            if(count($notes)==0) {
+                $this->dao->update($this->getTable_JobsApplicants(), array('b_has_notes' => 0), array('pk_i_id' => $id));
+            }
+            return $success;
         }
         
         
         public function insertNote($id, $text)
         {
-            return $this->dao->insert($this->getTable_JobsNotes(), array('dt_date' => date("Y-m-d H:i:s"), 's_text' => $text, 'fk_i_applicant_id' => $id));
+            $success = $this->dao->insert($this->getTable_JobsNotes(), array('dt_date' => date("Y-m-d H:i:s"), 's_text' => $text, 'fk_i_applicant_id' => $id));
+            $this->dao->update($this->getTable_JobsApplicants(), array('b_has_notes' => 1), array('pk_i_id' => $id));
+            return $success;
         }
         
         public function updateNote($id, $text)
@@ -559,6 +568,11 @@
         public function changeStatus($applicantId, $status)
         {
             return $this->dao->update($this->getTable_JobsApplicants(), array('i_status' => $status), array('pk_i_id' => $applicantId));
+        }
+        
+        public function changeRead($applicantId)
+        {
+            return $this->dao->update($this->getTable_JobsApplicants(), array('b_read' => 1), array('pk_i_id' => $applicantId));
         }
         
     }

@@ -13,6 +13,10 @@
     $job = Item::newInstance()->findByPrimaryKey($people['fk_i_item_id']);
     
     
+    if($people['b_read']==0) {
+        ModelJB::newInstance()->changeRead($applicantId);
+    }
+    
 
 
 ?>
