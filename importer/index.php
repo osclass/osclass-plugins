@@ -52,6 +52,7 @@ function adimporter_readxml($file) {
             $catId = 0;
             if($cats->length>0) {
                 foreach($cats as $cat) {
+                    $lang = osc_language();
                     if($cat->hasAttributes()) {
                         $attrs = $cat->attributes;
                         foreach($attrs as $a) {
@@ -95,7 +96,7 @@ function adimporter_readxml($file) {
         
         $l = $title_list->length;
         for($k = 0; $k<$l;$k++) {
-            $lang = osc_locale();
+            $lang = osc_language();
             if($title_list->item($k)->hasAttributes()) {
                 $attrs = $title_list->item($k)->attributes;
                 foreach($attrs as $a) {
@@ -110,7 +111,7 @@ function adimporter_readxml($file) {
         
         $l = $content_list->length;
         for($k = 0; $k<$l;$k++) {
-            $lang = osc_locale();
+            $lang = osc_language();
             if($content_list->item($k)->hasAttributes()) {
                 $attrs = $content_list->item($k)->attributes;
                 foreach($attrs as $a) {
