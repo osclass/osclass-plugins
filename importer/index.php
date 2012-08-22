@@ -11,10 +11,14 @@ Plugin update URI: ad-importer
 */
 
 function adimporter_admin_menu() {
-    echo '<h3><a href="#">Ad importer</a></h3>
-    <ul> 
-        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'importer.php') . '">&raquo; ' . __('Importer', 'adimporter') . '</a></li>
-    </ul>';
+
+    osc_add_admin_submenu_page(
+        'plugins',
+        __('Ad Importer', 'adimporter'),
+        osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)."importer.php"),
+        'importer',
+        'moderator'
+    );
     
 }
 
@@ -22,7 +26,7 @@ function adimporter_admin_menu() {
 function adimporter_readxml($file) {
     
     $xml = new DOMDocument();
-    $xml->load($file);//osc_plugins_path().osc_plugin_folder(__FILE__).$file);
+    $xml->load($file);
 
     $listings = $xml->getElementsByTagName('listing');
     $mItems = new ItemActions(true);
@@ -30,7 +34,8 @@ function adimporter_readxml($file) {
     
     $errormsg = '';
     foreach($listings as $klisting => $listing) {
-        Params::setParam("catId", @$listing->getElementsByTagName("categoryid")->item(0)->nodeValue);
+        $catId = @$listing->getElementsByTagName("catehgoryid")->item(0)->nodeValue;
+
         Params::setParam("country", @$listing->getElementsByTagName("country")->item(0)->nodeValue);
         Params::setParam("region", @$listing->getElementsByTagName("region")->item(0)->nodeValue);
         Params::setParam("city", @$listing->getElementsByTagName("city")->item(0)->nodeValue);
@@ -40,6 +45,45 @@ function adimporter_readxml($file) {
         Params::setParam("currency", @$listing->getElementsByTagName("currency")->item(0)->nodeValue);
         Params::setParam("contactName", @$listing->getElementsByTagName("contactname")->item(0)->nodeValue);
         Params::setParam("contactEmail", @$listing->getElementsByTagName("contactemail")->item(0)->nodeValue);
+
+        if($catId==null) {
+            $cats = $listing->getElementsByTagName("category");
+            $cat_insert = true;
+            $catId = 0;
+            if($cats->length>0) {
+                foreach($cats as $cat) {
+                    if($cat->hasAttributes()) {
+                        $attrs = $cat->attributes;
+                        foreach($attrs as $a) {
+                            if($a->name=='lang') {
+                                $lang = $a->value;
+                                break;
+                            }
+                        }
+                        $categoryDescription[$lang] = array('s_name' => $cat->nodeValue);
+                        if($catId==0) {
+                            $exists = Category::newInstance()->listWhere("b.fk_c_locale_code = '".$lang."' AND b.s_name = '".$cat->nodeValue."'");
+                            if(isset($exists[0]) && isset($exists[0]['pk_i_id'])) {
+                                $cat_insert = false;
+                                $catId = $exists[0]['pk_i_id'];
+                                break;
+                            }
+                        }
+                    }
+                }
+                $category = array();
+                $category['fk_i_parent_id'] = NULL;
+                $category['i_expiration_days'] = 0;
+                $category['i_position'] = 0;
+                $category['b_enabled'] = 1;
+                if($cat_insert) {
+                    $catId = Category::newInstance()->insert($category, $categoryDescription);
+                }
+
+            }
+        }
+        Params::setParam("catId", $catId);
+        
 
         $title_list = $listing->getElementsByTagName("title");
         $content_list = $listing->getElementsByTagName("content");
@@ -79,7 +123,7 @@ function adimporter_readxml($file) {
             $content[$lang] = $content_list->item($k)->nodeValue;
         }
         
-
+        /*
         foreach($image_list as $image) {
             $tmp_name = "adimporterimage_".time();
             $image_ok = osc_downloadFile($image->nodeValue, $tmp_name);
@@ -92,7 +136,7 @@ function adimporter_readxml($file) {
         }
 
         $_FILES['photos'] = $photos;
-        
+        */
         Params::setParam("title", $title);
         Params::setParam("description", $content);
         
@@ -128,6 +172,6 @@ osc_register_plugin(osc_plugin_path(__FILE__), '');
 osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
 
 
-osc_add_hook('admin_menu','adimporter_admin_menu');
+osc_add_hook('admin_header','adimporter_admin_menu');
 
 ?>
