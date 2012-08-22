@@ -173,4 +173,3 @@ Plugin update URI: youtube
     osc_add_hook( 'delete_item', 'youtube_delete_item' ) ;
 
     /* file end: ./youtube/index.php */
-?>
