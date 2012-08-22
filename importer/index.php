@@ -124,7 +124,7 @@ function adimporter_readxml($file) {
             $content[$lang] = $content_list->item($k)->nodeValue;
         }
         
-        /*
+        
         foreach($image_list as $image) {
             $tmp_name = "adimporterimage_".time();
             $image_ok = osc_downloadFile($image->nodeValue, $tmp_name);
@@ -137,7 +137,7 @@ function adimporter_readxml($file) {
         }
 
         $_FILES['photos'] = $photos;
-        */
+        
         Params::setParam("title", $title);
         Params::setParam("description", $content);
         
