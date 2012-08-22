@@ -17,6 +17,9 @@
     if(Params::getParam('iStatus')!='') {
         $conditions['status'] = Params::getParam('iStatus');
     }
+    if(Params::getParam('viewUnread')=='1') {
+        $conditions['unread'] = 1;
+    }
     if(Params::getParam('sSearch')!='') {
         if(Params::getParam('opt')=='oItem') {
             $conditions['item_text'] = Params::getParam('sSearch');
@@ -79,7 +82,11 @@
     });
 
     function showPage() {
-        window.location = '<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&iDisplayLength='+$("#iDisplayLength option:selected").attr("value")+'&opt='+$("#filter-select option:selected").attr("value")+'&sSearch='+$("#sSearch").attr("value");
+        var checked = 0;
+        if($("#viewUnread").attr("checked")=='checked') {
+            checked = 1;
+        }
+        window.location = '<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&opt='+$("#filter-select option:selected").attr("value")+'&sSearch='+$("#sSearch").attr("value")+"&viewUnread="+checked;
         return false;
     }
     
@@ -94,15 +101,10 @@
 <div class="relative">
     <div id="listing-toolbar">
         <div class="float-right">
-            <?php /*<form method="get" action="<?php echo osc_admin_base_url(true); ?>" class="inline select-items-per-page">
-                <select id="iDisplayLength" name="iDisplayLength" class="select-box-extra select-box-medium float-left" onchange="javascript:showPage();" >
-                    <option value="10"><?php printf(__('%d Listings', 'jobboard'), 10); ?></option>
-                    <option value="25" <?php if( Params::getParam('iDisplayLength') == 25 ) echo 'selected'; ?> ><?php printf(__('%d Listings', 'jobboard'), 25); ?></option>
-                    <option value="50" <?php if( Params::getParam('iDisplayLength') == 50 ) echo 'selected'; ?> ><?php printf(__('%d Listings', 'jobboard'), 50); ?></option>
-                    <option value="100" <?php if( Params::getParam('iDisplayLength') == 100 ) echo 'selected'; ?> ><?php printf(__('%d Listings', 'jobboard'), 100); ?></option>
-                </select>
-            </form>*/ ?>
             <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="inline">
+                <span style="float: left;margin-right: 2em;margin-top: 0.5em;">
+                    <input type="checkbox" id="viewUnread" name="viewUnread" value="1" <?php if(Params::getParam('viewUnread')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("View unread", "jobboard"); ?>
+                </span>
                 <select id="filter-select" name="shortcut-filter" class="select-box-extra select-box-input">
                     <option value="oEmail" <?php if($opt == 'oEmail'){ echo 'selected="selected"'; } ?>><?php _e('E-mail', 'jobboard') ; ?></option>
                     <option value="oName" <?php if($opt == 'oName'){ echo 'selected="selected"'; } ?>><?php _e('Name', 'jobboard') ; ?></option>
@@ -146,11 +148,6 @@
                                 <?php _e('Job', 'jobboard') ; ?>
                             </a>
                         </th>
-                        <th <?php if($order_col=='a.b_read') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
-                            <a href="<?php echo $urlOrder."&sOrderCol=a.b_read&sOrderDir=".($order_col=='a.b_read'?($order_dir=='ASC'?'DESC':'ASC'):'ASC');?>" >
-                                <?php _e('Read', 'jobboard') ; ?>
-                            </a>
-                        </th>
                         <th <?php if($order_col=='a.b_has_notes') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
                             <a href="<?php echo $urlOrder."&sOrderCol=a.b_has_notes&sOrderDir=".($order_col=='a.b_has_notes'?($order_dir=='DESC'?'ASC':'DESC'):'DESC');?>" >
                                 <?php _e('Notes', 'jobboard') ; ?>
@@ -177,11 +174,10 @@
                 <tbody>
                 <?php if(count($people) > 0) { ?>
                 <?php foreach($people as $p) { ?>
-                    <tr>
+                    <tr style="background-color: <?php echo ($p['b_read']==1)?'#EDFFDF':'#FFF0DF'; ?>;" >
                         <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a></td>
                         <td><?php echo @$p['s_email']; ?></td>
                         <td><?php echo @$p['s_title']; ?></td>
-                        <td><?php echo $p['b_read']==1?__("Read", "jobboard"):__("Unread", "jobboard"); ?></td>
                         <td><?php echo $p['b_has_notes']==1?__("Has notes", "jobboard"):__("No notes yet", "jobboard"); ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
                         <td>

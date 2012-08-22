@@ -359,6 +359,9 @@
                     if($k=='status') {
                         $this->dao->where("a.i_status", $v);
                     }
+                    if($k=='unread') {
+                        $this->dao->where("a.b_read", 0);
+                    }
                 }
             }
             $this->dao->groupBy('a.pk_i_id');
@@ -395,6 +398,9 @@
                     }
                     if($k=='status') {
                         $this->dao->where("a.i_status", $v);
+                    }
+                    if($k=='unread') {
+                        $this->dao->where("a.b_read", 0);
                     }
                 }
             }
