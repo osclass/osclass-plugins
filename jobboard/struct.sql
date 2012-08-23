@@ -44,7 +44,9 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_file (
     pk_i_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     fk_i_applicant_id INT UNSIGNED NOT NULL,
     dt_date DATETIME NOT NULL,
+    dt_secret_date DATETIME NOT NULL,
     s_name VARCHAR(255) NOT NULL DEFAULT '',
+    s_secret VARCHAR(12) NOT NULL DEFAULT '',
 
         PRIMARY KEY (pk_i_id),
         FOREIGN KEY (fk_i_applicant_id) REFERENCES /*TABLE_PREFIX*/t_item_job_applicant (pk_i_id)

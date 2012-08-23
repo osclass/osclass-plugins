@@ -7,6 +7,9 @@
 
     $mjb = ModelJB::newInstance();
     $people = $mjb->getApplicant($applicantId);
+    
+    $file = $mjb->getCVFromApplicant($applicantId);
+    ModelJB::newInstance()->changeSecret($file['pk_i_id']);
     $file = $mjb->getCVFromApplicant($applicantId);
     $notes = $mjb->getNotesFromApplicant($applicantId);
     
@@ -124,91 +127,9 @@
             _e("This applicant has not sumitted any resume", "jobboard");
         } else if(strtolower(substr($file['s_name'], -4))==".pdf") { ?>
         
-        <div>
-            <button id="prev" onclick="goPrevious()"><?php _e("Previous", "jobboard"); ?></button>
-            <button id="next" onclick="goNext()"><?php _e("Next", "jobboard"); ?></button>
-            &nbsp; &nbsp;
-            <span><?php _e("Page", "jobboard"); ?>: <span id="page_num"></span> / <span id="page_count"></span></span>
-            <a href="<?php echo osc_plugin_url(__FILE__);?>download.php?id=<?php echo $applicantId; ?>" id="download_pdf" ><?php _e("Download", "jobboard"); ?></a>
-        </div>
-
-        <canvas id="the-canvas" style="border:1px solid black"></canvas>        
-
-        <script type="text/javascript" src="<?php echo osc_plugin_url(__FILE__);?>js/pdf/pdf.js"></script>
-        <script type="text/javascript">
-            //
-            // NOTE:
-            // Modifying the URL below to another server will likely *NOT* work. Because of browser
-            // security restrictions, we have to use a file server with special headers
-            // (CORS) - most servers don't support cross-origin browser requests.
-            //
-            var url = '<?php echo osc_plugin_url(__FILE__);?>download.php?id=<?php echo $applicantId; ?>';
-
-            //
-            // Disable workers to avoid yet another cross-origin issue (workers need the URL of
-            // the script to be loaded, and dynamically loading a cross-origin script does
-            // not work)
-            //
-            PDFJS.disableWorker = true;
-
-            var pdfDoc = null,
-                pageNum = 1,
-                scale = 1.0,
-                canvas = document.getElementById('the-canvas'),
-                ctx = canvas.getContext('2d');
-
-            //
-            // Get page info from document, resize canvas accordingly, and render page
-            //
-            function renderPage(num) {
-            // Using promise to fetch the page
-            pdfDoc.getPage(num).then(function(page) {
-                var viewport = page.getViewport(scale);
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                // Render PDF page into canvas context
-                var renderContext = {
-                canvasContext: ctx,
-                viewport: viewport
-                };
-                page.render(renderContext);
-            });
-
-
-            // Update page counters
-            document.getElementById('page_num').textContent = pageNum;
-            document.getElementById('page_count').textContent = pdfDoc.numPages;
-            }
-
-            //
-            // Go to previous page
-            //
-            function goPrevious() {
-            if (pageNum <= 1)
-                return;
-            pageNum--;
-            renderPage(pageNum);
-            }
-
-            //
-            // Go to next page
-            //
-            function goNext() {
-            if (pageNum >= pdfDoc.numPages)
-                return;
-            pageNum++;
-            renderPage(pageNum);
-            }
-
-            //
-            // Asynchronously download PDF as an ArrayBuffer
-            //
-            PDFJS.getDocument(url).then(function getPdfHelloWorld(_pdfDoc) {
-            pdfDoc = _pdfDoc;
-            renderPage(pageNum);
-            });
-        </script>
+        
+        <iframe src="http://docs.google.com/viewer?embedded=true&url=<?php echo str_replace("localhost", "95.62.72.123", osc_plugin_url(__FILE__));?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>"></iframe>
+ 
 
         <?php } else {
             _e("This applicant's resume could not be displayed but could be downloaded", "jobboard");

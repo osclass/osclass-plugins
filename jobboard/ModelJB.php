@@ -288,12 +288,15 @@
          * @return boolean 
          */
         public function insertFile($applicantId, $fileName) {
+            $secret = osc_genRandomPassword(12);
             return $this->dao->insert(
                     $this->getTable_JobsFiles()
                     ,array(
                         'fk_i_applicant_id' => $applicantId
                         ,'dt_date' => date("Y-m-d H:i:s")
+                        ,'dt_secret_date' => date("Y-m-d H:i:s")
                         ,'s_name' => $fileName
+                        ,'s_secret' => $secret
                     ));
         }
         
@@ -579,6 +582,11 @@
         public function changeRead($applicantId)
         {
             return $this->dao->update($this->getTable_JobsApplicants(), array('b_read' => 1), array('pk_i_id' => $applicantId));
+        }
+        
+        public function changeSecret($fileId)
+        {
+            return $this->dao->update($this->getTable_JobsFiles(), array('s_secret' => osc_genRandomPassword(12), 'dt_secret_date' => date("Y-m-d H:i:s")), array('pk_i_id' => $fileId));
         }
         
     }

@@ -2,13 +2,16 @@
 
     require_once('../../../oc-load.php');
 
-    if(osc_is_admin_user_logged_in()) {
+    $tmp = explode("|", Params::getParam('data'));
+    $id = $tmp[0];
+    $secret = isset($tmp[1])?$tmp[1]:"osclass.org";
 
-        $id = Params::getParam('id');
+    
+    if($id!='') {
+        $pdf = ModelJB::newInstance()->getCVFromApplicant($id);
+        
+        if(osc_is_admin_user_logged_in() || ($secret==$pdf['s_secret'] && (strtotime($pdf['dt_secret_date']+10*60)>=time()))) {
 
-        if($id!='') {
-
-            $pdf = ModelJB::newInstance()->getCVFromApplicant($id);
             $applicant = ModelJB::newInstance()->getApplicant($id);
 
 
