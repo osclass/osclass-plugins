@@ -36,11 +36,11 @@ function jobboard_form($catID = null) {
     );
     foreach(osc_get_locales() as $locale) {
         $detail['locale'][$locale['pk_c_code']] = array(
-            's_desired_exp' => '',
-            's_studies'     => '',
-            'min_reqs'      => '',
-            'desired_reqs'  => '',
-            'contract'      => ''
+            's_desired_exp'                 => '',
+            's_studies'                     => '',
+            's_minimum_requirements'        => '',
+            's_desired_requirements'        => '',
+            's_contract'                    => ''
         );
     }
     // session variables
