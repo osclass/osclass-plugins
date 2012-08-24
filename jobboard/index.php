@@ -256,30 +256,31 @@ function jobboard_admin_menu() { ?>
     }
 </style>
 <?php
-    osc_add_admin_menu_page(
-        __('Jobboard', 'jobboard'),
-        '#',
-        'jobboard',
-        'moderator'
-    );
-
-    osc_add_admin_submenu_page(
-        'jobboard',
-        __('Dashboard', 'jobboard'),
-        osc_admin_render_plugin_url("jobboard/dashboard.php"),
-        'jobboard_dash',
-        'moderator'
-    );
-    
-    osc_add_admin_submenu_page( 
-        'jobboard',
-        __('Applicants'),
-        osc_admin_render_plugin_url("jobboard/people.php"),
-        'jobboard_people',
-        'moderator'
-    );
 }
 osc_add_hook('admin_header','jobboard_admin_menu');
+
+osc_add_admin_menu_page(
+    __('Jobboard', 'jobboard'),
+    '#',
+    'jobboard',
+    'moderator'
+);
+
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Dashboard', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/dashboard.php"),
+    'jobboard_dash',
+    'moderator'
+);
+
+osc_add_admin_submenu_page( 
+    'jobboard',
+    __('Applicants'),
+    osc_admin_render_plugin_url("jobboard/people.php"),
+    'jobboard_people',
+    'moderator'
+);
 
 function jobboard_rating($applicantId, $rating = 0) {
     $str = '<span class="rating" id="rating_'.$applicantId.'" rating="'.$rating.'">';
