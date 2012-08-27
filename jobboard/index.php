@@ -166,6 +166,8 @@ function job_item_detail() {
 
 /* CONTACT */
 function jobboard_save_contact_listing($item) {
+    $error_attachment = false;
+    
     $itemID = osc_item_id();
     $name   = Params::getParam('yourName');
     $email  = Params::getParam('yourEmail');
