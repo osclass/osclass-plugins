@@ -133,11 +133,11 @@ function get_jobboard_session_variables($detail) {
     if( Session::newInstance()->_getForm('pj_data') != '' ) {
         foreach(osc_get_locales() as $locale) {
             $data = Session::newInstance()->_getForm('pj_data');
-            $detail['locale'][$locale['pk_c_code']]['s_desired_exp']          = $data[$locale['pk_c_code']]['desired_exp'];
-            $detail['locale'][$locale['pk_c_code']]['s_studies']              = $data[$locale['pk_c_code']]['studies'];
-            $detail['locale'][$locale['pk_c_code']]['s_minimum_requirements'] = $data[$locale['pk_c_code']]['min_reqs'];
-            $detail['locale'][$locale['pk_c_code']]['s_desired_requirements'] = $data[$locale['pk_c_code']]['desired_reqs'];
-            $detail['locale'][$locale['pk_c_code']]['s_contract']             = $data[$locale['pk_c_code']]['contract'];
+            $detail['locale'][$locale['pk_c_code']]['s_desired_exp']          = @$data[$locale['pk_c_code']]['desired_exp'];
+            $detail['locale'][$locale['pk_c_code']]['s_studies']              = @$data[$locale['pk_c_code']]['studies'];
+            $detail['locale'][$locale['pk_c_code']]['s_minimum_requirements'] = @$data[$locale['pk_c_code']]['min_reqs'];
+            $detail['locale'][$locale['pk_c_code']]['s_desired_requirements'] = @$data[$locale['pk_c_code']]['desired_reqs'];
+            $detail['locale'][$locale['pk_c_code']]['s_contract']             = @$data[$locale['pk_c_code']]['contract'];
         }
     }
 
@@ -324,8 +324,10 @@ function job_pre_item_post() {
     $dataItem = array();
     $request = Params::getParamsAsArray();
     foreach ($request as $k => $v) {
-        if (preg_match('|(.+?)#(.+)|', $k, $m)) {
-            $dataItem[$m[1]][$m[2]] = $v;
+        if(is_array($v)) {
+            foreach($v as $locale => $value) {
+                $dataItem[$locale][$k] = $value;
+            }
         }
     }
     Session::newInstance()->_setForm('pj_data', $dataItem );
