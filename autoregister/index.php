@@ -21,9 +21,11 @@ Plugin update URI: autoregister
         $s_internal_name    = 'autoregister_new_user_info';
         $aFields            = array('s_internal_name' => $s_internal_name, 'b_indelible' => '1');
         $aFieldsDescription = array();
-        $aFieldsDescription['en_US']['s_title'] = $aContent['title'];
-        $aFieldsDescription['en_US']['s_text']  = $aContent['description'];
-        
+
+        foreach($aContent as $key => $value) {
+            $aFieldsDescription[$key]['s_title'] = $value['title'];
+            $aFieldsDescription[$key]['s_text']  = $value['description'];
+        }
         // add page as email template
         $page = Page::newInstance()->findByInternalName($s_internal_name);
         if(!isset($page['pk_i_id'])) {
@@ -42,7 +44,7 @@ Plugin update URI: autoregister
         Page::newInstance()->deleteByInternalName($s_internal_name);
     }
     
-    function autoregister_create_new_user($catId, $itemId) 
+    function autoregister_create_new_user($catId, $itemId)
     {
         // check if exist user id 
         $item = Item::newInstance()->findByPrimaryKey($itemId);
