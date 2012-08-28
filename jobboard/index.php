@@ -300,9 +300,23 @@ function jobboard_status() {
     return $status_array;
 }
 
-function job_filter_options($options, $aRow) {
-    $options[] = '<a href="' . osc_admin_render_plugin_url("jobboard/people.php&jobId=") . $aRow['pk_i_id'] . '">' . __('View applicants for this job', 'jobboard') . '</a>';
-    return $options;
+//Title, Location, Created, Modified, Number of Candidates, Views
+function job_items_table_header($table) {
+    $table->addColumn("mod_date", __("Modified", "jobboard"));
+    $table->addColumn("applicants", __("# of applicants", "jobboard"));
+    $table->addColumn("views", __("Views", "jobboard"));
+    $table->removeColumn("user");
+    $table->removeColumn("category");
+}
+
+function job_items_row($row, $aRow) {
+    
+    list($applicants, $total) = ModelJB::newInstance()->searchCount(array('item' => $aRow['pk_i_id']));
+    
+    $row['mod_date'] = @$aRow['dt_mod_date'];
+    $row['applicants'] = '<a href="' . osc_admin_render_plugin_url("jobboard/people.php&jobId=") . $aRow['pk_i_id'] . '">' . sprintf(__('%d applicants', 'jobboard'), $applicants) . '</a>';
+    $row['views'] = @$aRow['i_num_views'];
+    return $row;
 }
 
 
@@ -380,9 +394,17 @@ function default_settings_jobboard() {
     }
     //reset preferences
     osc_reset_preferences();
+    
+    
+    if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
+        Session::newInstance()->_setForm('contactName', osc_page_title());
+        Session::newInstance()->_setForm('contactEmail', osc_contact_email());
+    }
+    
 }
 osc_add_hook('init_admin', 'default_settings_jobboard');
 
-osc_add_filter('actions_manage_items', 'job_filter_options');
+osc_add_hook('admin_items_table','job_items_table_header');
+osc_add_filter("items_processing_row", "job_items_row");
 
 ?>
