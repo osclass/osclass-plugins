@@ -22,11 +22,44 @@
         <region>fake region</region>
         <country>Spain</country>
 
-        <latitude>34.077475</latitude>
-        <longitude>-118.429289</longitude>
+        <latitude>45.123687</latitude>
+        <longitude>-123.113692</longitude>
         
         
         <image>http://conejo.me/cats/153.jpg</image>
+        <image>http://conejo.me/cats/598.jpg</image>
+        <image>http://conejo.me/cats/1908.jpg</image>
+        
+        
+        <datetime>2012-08-08 12:34:56</datetime>
+    </listing>
+    <listing>
+        <title lang="en_US"><![CDATA[Title in English 2]]></title>
+        <content lang="en_US"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id nulla dolor. Ut aliquet, mauris id molestie porttitor, dui lorem pretium sem, quis vestibulum orci purus ultrices lacus. Nulla accumsan tortor porta nibh consequat rhoncus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi elementum venenatis ante eu porta. Curabitur ultricies nunc vel elit rutrum scelerisque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse rutrum lectus quis sem malesuada nec placerat sapien malesuada.]]></content>
+
+        <category lang="en_US">My Own Category</category>
+        <categoryid>1</categoryid>
+        
+        <contactemail>your.false@email.com</contactemail>
+        <contactname>Mrs. True Name</contactname>
+
+
+        <price>98.76</price>
+        <currency>USD</currency>
+
+
+        <address>bunny street</address>
+        <city_area>some city area</city_area>
+        <city>townville</city>
+        <postcode>6789</postcode>
+        <region>fake region</region>
+        <country>Spain</country>
+
+        <latitude>44.244179</latitude>
+        <longitude>7.769791</longitude>
+        
+        
+        <image>http://conejo.me/cats/13.jpg</image>
         <image>http://conejo.me/cats/598.jpg</image>
         <image>http://conejo.me/cats/1908.jpg</image>
         
