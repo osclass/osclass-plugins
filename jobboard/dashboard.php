@@ -97,12 +97,40 @@ overflow-y: auto;
                 <div class="widget-box-content">
                     <table class="table" cellpadding="0" cellspacing="0" id="applicants_list">
                         <tbody>
-                                                        <?php $mSearch = new Search(true);
-                        $mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 1');?>
-                        <td><a href="<?php echo osc_admin_base_url(true); ?>?page=items&b_enabled=1"><?php _e('Open', 'jobboard'); ?></a> <span>(<?php echo $mSearch->count(); ?>)</span></td>
-                        <?php $mSearch2 = new Search(true);
-                        $mSearch2->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 0');?>
-                        <td><a href="<?php echo osc_admin_base_url(true); ?>?page=items&b_enabled=0"><?php _e('On hold', 'jobboard'); ?></a> <span>(<?php echo $mSearch2->count(); ?>)</span></td>
+                            <tr>
+                            <?php $mSearch = new Search(true);
+                            $mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 1');?>
+                            <td><a href="<?php echo osc_admin_base_url(true); ?>?page=items&b_enabled=1"><?php _e('Open', 'jobboard'); ?></a> <span>(<?php echo $mSearch->count(); ?>)</span></td>
+                            <?php $mSearch2 = new Search(true);
+                            $mSearch2->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 0');?>
+                            <td><a href="<?php echo osc_admin_base_url(true); ?>?page=items&b_enabled=0"><?php _e('On hold', 'jobboard'); ?></a> <span>(<?php echo $mSearch2->count(); ?>)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-row grid-first-row grid-50">
+        <div class="row-wrapper">
+            <div class="widget-box">
+                <div class="widget-box-title"><h3><?php _e('Most viewed jobs', 'jobboard'); ?></h3></div>
+                <div class="widget-box-content">
+                    <table class="table" cellpadding="0" cellspacing="0" id="applicants_list">
+                        <tbody>
+                            <?php $mSearch3 = new Search(true);
+                            $mSearch3->addTable(DB_TABLE_PREFIX."t_item_stats");
+                            $mSearch3->addField("SUM(".DB_TABLE_PREFIX."t_item_stats.i_num_views) as i_num_views");
+                            $mSearch3->addConditions(DB_TABLE_PREFIX."t_item_stats.fk_i_item_id = ".DB_TABLE_PREFIX."t_item.pk_i_id");
+                            $mSearch3->order('i_num_views');
+                            $mSearch3->addGroupBy("fk_i_item_id");
+                            $jobs = $mSearch3->doSearch();?>
+                            <?php foreach($jobs as $job) { ?>
+                            <tr>
+                                <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php&jobId=") . $job['pk_i_id']; ?>" ><?php echo $job['s_title']; ?></a></td>
+                                <td><?php echo $job['i_num_views']; ?></td>
+                            </tr>
+                            <?php }; ?>
                         </tbody>
                     </table>
                 </div>
