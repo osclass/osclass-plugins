@@ -163,7 +163,7 @@
                                 <?php _e('Rating', 'jobboard') ; ?>
                             </a>
                         </th>
-                        <th <?php if($order_col=='a.dt_Date') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                        <th <?php if($order_col=='a.dt_date') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
                             <a href="<?php echo $urlOrder."&sOrderCol=a.dt_date&sOrderDir=".($order_col=='a.dt_date'?($order_dir=='DESC'?'ASC':'DESC'):'DESC');?>" >
                                 <?php _e('Received', 'jobboard') ; ?>
                             </a>

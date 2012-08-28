@@ -342,75 +342,79 @@
          */
         public function search($start = 0, $length = 10, $conditions = null, $order_col = 'a.dt_date', $order_dir = 'DESC') {
             
-            $this->dao->select( sprintf("a.*, d.*, FIELD(fk_c_locale_code, '%s') as locale_order", $this->dao->connId->real_escape_string(osc_current_user_locale()) ) ) ;
-            $this->dao->from($this->getTable_JobsApplicants()." a");
-            $this->dao->join(DB_TABLE_PREFIX."t_item_description d", "d.fk_i_item_id = a.fk_i_item_id");
+            $cond = array();
             if($conditions!=null) {
                 foreach($conditions as $k => $v) {
                     if($k=='item') {
-                        $this->dao->where('a.fk_i_item_id', $v);
+                        $cond[] = 'a.fk_i_item_id = '.$v;
                     }
                     if($k=='item_text') {
-                        $this->dao->where("d.s_title LIKE '%%".$v."%%'");
+                        $cond[] = "d.s_title LIKE '%%".$v."%%'";
                     }
                     if($k=='email') {
-                        $this->dao->where("a.s_email LIKE '%%".$v."%%'");
+                        $cond[] = "a.s_email LIKE '%%".$v."%%'";
                     }
                     if($k=='name') {
-                        $this->dao->where("a.s_name LIKE '%%".$v."%%'");
+                        $cond[] = "a.s_name LIKE '%%".$v."%%'";
                     }
                     if($k=='status') {
-                        $this->dao->where("a.i_status", $v);
+                        $cond[] = "a.i_status = ".$v;
                     }
                     if($k=='unread') {
-                        $this->dao->where("a.b_read", 0);
+                        $cond[] = "a.b_read = 0";
                     }
                 }
             }
-            $this->dao->groupBy('a.pk_i_id');
-            $this->dao->orderBy($order_col, $order_dir);
-            $this->dao->limit($start, $length);
+            $cond_str = '';
+            if(!empty($cond)) {
+                $cond_str = $this->dao->connId->real_escape_string(" AND ".implode(" AND ", $cond)." ");
+            }
             
-            $result = $this->dao->get();
+            
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order FROM (%st_item_job_applicant a) JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id WHERE d.s_title != '' %s ORDER BY locale_order DESC, a.dt_date DESC", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str);
+            $result = $this->dao->query(sprintf("SELECT * FROM (%s) as dummy GROUP BY dummy.pk_i_id LIMIT %d, %d", $sql, $start, $length));
+            
             if( !$result ) {
                 return array() ;
             }
             
             return $result->result();
-            
         }
 
         public function searchCount($conditions = null, $order_col = 'a.dt_date', $order_dir = 'DESC') {
             
-            $this->dao->select( "a.pk_i_id" ) ;
-            $this->dao->from($this->getTable_JobsApplicants()." a");
-            $this->dao->join(DB_TABLE_PREFIX."t_item_description d", "d.fk_i_item_id = a.fk_i_item_id");
+            $cond = array();
             if($conditions!=null) {
                 foreach($conditions as $k => $v) {
                     if($k=='item') {
-                        $this->dao->where('a.fk_i_item_id', $v);
+                        $cond[] = 'a.fk_i_item_id = '.$v;
                     }
                     if($k=='item_text') {
-                        $this->dao->where("d.s_title LIKE '%%".$v."%%'");
+                        $cond[] = "d.s_title LIKE '%%".$v."%%'";
                     }
                     if($k=='email') {
-                        $this->dao->where("a.s_email LIKE '%%".$v."%%'");
+                        $cond[] = "a.s_email LIKE '%%".$v."%%'";
                     }
                     if($k=='name') {
-                        $this->dao->where("a.s_name LIKE '%%".$v."%%'");
+                        $cond[] = "a.s_name LIKE '%%".$v."%%'";
                     }
                     if($k=='status') {
-                        $this->dao->where("a.i_status", $v);
+                        $cond[] = "a.i_status = ".$v;
                     }
                     if($k=='unread') {
-                        $this->dao->where("a.b_read", 0);
+                        $cond[] = "a.b_read = 0";
                     }
                 }
             }
-            $this->dao->groupBy('a.pk_i_id');
-            $this->dao->orderBy($order_col, $order_dir);
+            $cond_str = '';
+            if(!empty($cond)) {
+                $cond_str = $this->dao->connId->real_escape_string(" AND ".implode(" AND ", $cond)." ");
+            }
             
-            $result = $this->dao->get();
+            
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order FROM (%st_item_job_applicant a) JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id WHERE d.s_title != '' %s ORDER BY locale_order DESC, a.dt_date DESC", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str);
+            $result = $this->dao->query(sprintf("SELECT * FROM (%s) as dummy GROUP BY dummy.pk_i_id ", $sql));
+                        
             if( !$result ) {
                 $searchTotal = 0;
             } else {
