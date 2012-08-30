@@ -1,0 +1,139 @@
+.widget-box-content {
+height: 230px;
+overflow:hidden;
+}
+.widget-box-title{
+    height: 21px
+}
+.widget-box-title .tabs{
+    float:right;
+    margin:0px 0px 0 0;
+    padding:0;
+}
+.widget-box-title .tabs li{
+    float:left;
+
+    border: 1px solid #DDD;
+    border-bottom:0px;
+    background: #E6E6E6;
+    font-weight: normal;
+    color: #212121;
+    margin:0 2px 0 0px;
+    border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+}
+.widget-box-title .tabs li.active{
+    border-color:#DDD;
+    background: #fff;
+    color: #212121;
+}
+.widget-box-title .tabs li a{
+    float: left;
+    padding:6px 10px;
+    text-decoration: none;
+    font-size:13px;
+    color:#555;
+}
+.widget-box-title h3.has-tabs{
+    float:left;
+}
+.widget-box-content p.view-all{
+    margin-bottom:0;
+}
+
+#activity-stat{
+    /*width:100%;*/
+    width: 380px;
+    margin:0 auto;
+    margin:0;
+}
+#activity-stat .separate-cl{
+    width:10px;
+}
+#activity-stat .card{
+    border-radius:4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+
+    background-color: #f2f2f2;
+    height:170px;
+    /*width: 120px;*/
+    width:100%;
+    position: relative;
+}
+#activity-stat .card .container{
+    border-radius:4px 4px 0 0;
+    -moz-border-radius:4px 4px 0 0;
+    -webkit-border-radius:4px 4px 0 0;
+
+    background: #00BED6;
+    color:#fff;
+    text-align:center;
+    height:100px;
+    width:100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+#activity-stat .card .container span{
+    color:#fff;
+    text-align:center;
+    width:100%;
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+}
+#activity-stat .card b{
+    width:100%;
+    display: block;
+    text-align: center;
+    position: absolute;
+    bottom:12px;
+    font-size:40px;
+    font-weight: normal;
+    color:#474749;
+}
+#activity-stat .icon-car{
+    width:55px;
+    height:49px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-left:-27px;
+    margin-top:-30px;
+    background-image: url(../img/cards.png);
+}
+#activity-stat .card-applicants .icon-car{
+    background-position: -55px 0;
+}
+#activity-stat .card-views .icon-car{
+    background-position: -110px 0;
+}
+#activity-stat .card-applicants{
+        margin:0 auto;
+}
+#activity-stat .card-applicants div.container{
+    background: #95B929;
+}
+#activity-stat .card-views div.container{
+    background: #EC6F69;
+}
+#activity-stat .card-views{
+        float:right;
+}
+#activity-stat .most-viwed{
+    border-radius:4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+
+    background-color: #f2f2f2;
+    height:35px;
+    /*width: 120px;*/
+    padding:10px;
+    position: relative;
+    margin-top:10px;
+}
+#activity-stat .most-viwed span{
+    display: block;
+}

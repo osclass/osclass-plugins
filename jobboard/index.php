@@ -378,6 +378,12 @@ function css_jobs() {
     echo '<link href="' . osc_plugin_url(__FILE__) . 'css/styles.css" rel="stylesheet" type="text/css">' . PHP_EOL;
 }
 osc_add_hook('header', 'css_jobs');
+function css_jobs_dashboard() {
+    if(Params::getParam('file') == 'jobboard/dashboard.php'){
+        echo '<link href="' . osc_plugin_url(__FILE__) . 'css/dashboard.css" rel="stylesheet" type="text/css">' . PHP_EOL;
+    }
+}
+osc_add_hook('admin_header', 'css_jobs_dashboard');
 
 function default_settings_jobboard() {
     // always active osc_item_attachment
