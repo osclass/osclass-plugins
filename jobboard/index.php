@@ -257,7 +257,17 @@ function jobboard_admin_menu() { ?>
 </style>
 <?php
 }
+
 osc_add_hook('admin_header','jobboard_admin_menu');
+
+//Custom title
+osc_add_filter('custom_plugin_title','jobboard_people_title');
+function jobboard_people_title($string){
+    if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/people_detail.php'){
+        $string = __('Applicant');
+    }
+    return $string;
+}
 
 osc_add_admin_menu_page(
     __('Jobboard', 'jobboard'),

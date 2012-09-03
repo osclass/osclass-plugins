@@ -110,8 +110,8 @@
                     <option value="oName" <?php if($opt == 'oName'){ echo 'selected="selected"'; } ?>><?php _e('Name', 'jobboard') ; ?></option>
                     <?php /*<option value="oItem" <?php if($opt == 'oItem'){ echo 'selected="selected"'; } ?>><?php _e('Job', 'jobboard') ; ?></option>*/ ?>
                 </select>
-                <input type="text" id="sSearch" name="sSearch" value="<?php echo osc_esc_html(Params::getParam('sSearch')); ?>" class="input-text input-actions input-has-select" />
-                <input type="submit" id="filter_btn" class="btn submit-right" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>">
+                <input type="text" id="sSearch" name="sSearch" value="<?php echo osc_esc_html(Params::getParam('sSearch')); ?>" class="input-text input-actions input-has-select float-left" />
+                <input type="submit" id="filter_btn" class="btn submit-right float-left" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>"><div class="clear"></div>
             </form>
         </div>
     </div>

@@ -25,7 +25,8 @@
 ?>
 <script src="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.rating.js" type="text/javascript" language="javascript"></script>
 <script src="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.MetaData.js" type="text/javascript" language="javascript"></script>
-<link href="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.rating.css" type="text/css" rel="stylesheet">
+<link href="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.rating.css" type="text/css" rel="stylesheet" />
+<link href="<?php echo osc_plugin_url(__FILE__); ?>css/style.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
     $(document).ready(function() {
         
@@ -79,103 +80,85 @@
     }
     
 </script>
-<div>
-    <h1><?php echo @$people['s_name']; ?></h1>
-    
-</div>
-
-<div id="dashboard_div">
-    <h2><?php _e("Dashboard", "jobboard"); ?></h2>
-    <h3><?php _e("Job applied for", "jobboard"); ?></h3>
-    <div id="dashboard_job">
-        <table class="table" cellpadding="0" cellspacing="0">
-            <thead>
-                <tr>
-                    <th><?php _e("Job title", "jobboard"); ?></th>
-                    <th><?php _e("Rating for job", "jobboard"); ?></th>
-                    <th><?php _e("Workflow status", "jobboard"); ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><?php echo $job['s_title']; ?></td>
-                    <td>
-                        <?php for($k=1;$k<=5;$k++) {
-                            echo '<input name="star'.$people['pk_i_id'].'" type="radio" class="auto-star required" value="'.$people['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$people['i_rating']?'checked="checked"':'').'/>';
-                        } ?>
-                    </td>
-                    <td>
-                        <select id="applicant_status" name="applicant_status">
-                            <?php
-                            $st_array = jobboard_status();
-                            foreach($st_array as $k => $v) {
-                                echo '<option value="'.$k.'" '.($k==$people['i_status']?'selected="selected"':'').'>'.$v.'</option>';
-                            }
-                            ?>
-                        </select>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<div id="applicant-detail">
+    <div class="applicant-header">
+        <h2 class="render-title"><?php echo @$people['s_name']; ?></h2>
     </div>
-    <div style="clear:both;"></div>
-
-    <h3><?php _e("Resume", "jobboard"); ?></h3>
-    
-    <div id="dashboard_notes">
-        <?php if(empty($file)) {
-            _e("This applicant has not sumitted any resume", "jobboard");
-        } else if(strtolower(substr($file['s_name'], -4))==".pdf") { ?>
-        
-        
-        <iframe src="http://docs.google.com/viewer?embedded=true&url=<?php echo str_replace("localhost", "95.62.72.123", osc_plugin_url(__FILE__));?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>"></iframe>
- 
-
-        <?php } else {
-            _e("This applicant's resume could not be displayed but could be downloaded", "jobboard");
-        ?>
-        <a href="<?php echo osc_plugin_url(__FILE__);?>download.php?id=<?php echo $applicantId; ?>" id="download_pdf" ><?php _e("Download", "jobboard"); ?></a>
-        <?php }; ?>
-    </div>
-    
-    <div style="clear:both;"></div>
-
-    <h3><?php _e("Notes", "jobboard"); ?> <span class="note_plus"><a id="add_note" href="javascript:add_note();"><?php _e("Add note", "jobboard"); ?></a></span></h3>
-
-    <div id="dashboard_notes">
-        <div id="notes_buttons">
+    <div id="left-side">        
+        <div id="dashboard_notes">
+            <?php if(empty($file)) {
+                _e("This applicant has not sumitted any resume", "jobboard");
+            } else if(strtolower(substr($file['s_name'], -4))==".pdf") { ?>
             
-        </div>
-        <div id="nots_table_div">
-            <?php if(count($notes)>0) { ?>
-                <table class="table" cellpadding="0" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>&nbsp;</th>
-                            <th>&nbsp;</th>
-                            <th><?php _e("Note", "jobboard"); ?></th>
-                            <th><?php _e("Date", "jobboard"); ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($notes as $note) { ?>
-                        <tr>
-                            <td><a class="delete_note" href="javascript:delete_note(<?php echo $note['pk_i_id']; ?>);" ><?php _e("DELETE _change_", "jobboard"); ?></a></td>
-                            <td><a class="edit_note" href="javascript:edit_note(<?php echo $note['pk_i_id']; ?>, '<?php echo osc_esc_js($note['s_text']); ?>');" ><?php _e("EDIT _change_", "jobboard"); ?></a></td>
-                            <td><?php echo $note['s_text']; ?></td>
-                            <td><?php echo $note['dt_date']; ?></td>
-                        </tr>
-                        <?php }; ?>
-                    </tbody>
-                </table>
-            <?php } else { ?>
-                <?php _e("No notes have been added to this applicant", "jobboard"); ?>
+            <div id="applicant-resume">
+            <iframe src="http://docs.google.com/viewer?embedded=true&url=<?php echo str_replace("localhost", "95.62.72.123", osc_plugin_url(__FILE__));?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>"></iframe>
+            </div>
+
+            <?php } else {
+                _e("This applicant's resume could not be displayed but could be downloaded", "jobboard");
+            ?>
+            <a href="<?php echo osc_plugin_url(__FILE__);?>download.php?id=<?php echo $applicantId; ?>" id="download_pdf" ><?php _e("Download", "jobboard"); ?></a>
             <?php }; ?>
         </div>
+        
     </div>
-    
-    <div style="clear:both;"></div>
+    <div id="right-side">
+        <div class="well ui-rounded-corners">
+            <div class="status-icon">
+            </div>
+            <div class="rater big-star">
+                <?php for($k=1;$k<=5;$k++) {
+                    echo '<input name="star'.$people['pk_i_id'].'" type="radio" class="auto-star required" value="'.$people['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$people['i_rating']?'checked="checked"':'').'/>';
+                } ?>
+            </div>
+            <select id="applicant_status" name="applicant_status" class="select-box-medium">
+                <?php
+                $st_array = jobboard_status();
+                foreach($st_array as $k => $v) {
+                    echo '<option value="'.$k.'" '.($k==$people['i_status']?'selected="selected"':'').'>'.$v.'</option>';
+                }
+                ?>
+            </select>
+            <div class="applied-for">
+                <?php _e("Applied for:", "jobboard"); ?><br />
+                <a href="<?php echo osc_item_admin_edit_url($job['fk_i_item_id']); ?>"><?php echo $job['s_title']; ?></a>
+            </div>
+        </div>
+        
 
+        
+
+        <h3 class="sidebar-title"><?php _e("Notes", "jobboard"); ?> <span class="note_plus"><a id="add_note" href="javascript:add_note();"><?php _e("Add note", "jobboard"); ?></a></span></h3>
+
+        <div id="dashboard_notes">
+            <div id="nots_table_div">
+                <?php if(count($notes)>0) { ?>
+                    <?php foreach($notes as $note) { ?>
+                        <div class="note well ui-rounded-corners">
+                            <div class="note-actions">
+                                <a class="delete_note" href="javascript:delete_note(<?php echo $note['pk_i_id']; ?>);" ><?php _e("DELETE", "jobboard"); ?></a>
+                                <a class="edit_note" href="javascript:edit_note(<?php echo $note['pk_i_id']; ?>, '<?php echo osc_esc_js($note['s_text']); ?>');" ><?php _e("EDIT", "jobboard"); ?></a>
+                            </div>
+                            <div class="note-date">
+                                <b><?php echo date('d', strtotime($note['dt_date'])); ?></b>
+                                <span><?php echo date('M', strtotime($note['dt_date'])); ?><br>
+                                <?php echo date('Y', strtotime($note['dt_date'])); ?></span>
+                            </div>
+                            <div class="clear"></div>
+                            <p><?php echo $note['s_text']; ?></p>
+                        </div>
+                    <?php }; ?>
+                <?php } else { ?>
+                    <?php _e("No notes have been added to this applicant", "jobboard"); ?>
+                <?php }; ?>
+            </div>
+        </div>
+        
+        <div style="clear:both;"></div>
+
+    </div>
+    <div style="clear:both;"></div>
+    
 </div>
 
 
@@ -211,7 +194,7 @@
             <?php _e('Note', 'jobboard'); ?>
         </div>
         <div class="form-row">
-            <textarea id="note_edit_text" name="note_text"></textarea>
+            <textarea id="note_edit_text" name="note_text" style="margin: 2px 0px; width: 255px; height: 90px; "></textarea>
         </div>
         <div class="form-actions">
             <div class="wrapper">

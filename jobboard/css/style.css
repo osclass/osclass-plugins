@@ -1,0 +1,105 @@
+#applicant-detail{
+    width: 830px;
+}
+#applicant-detail #left-side {
+    width: 530px;
+    margin-right: 60px;
+    float: left;
+}
+#applicant-detail #right-side {
+    width: 240px;
+    float: left;
+}
+#applicant-detail #right-side .well{
+    margin-top:35px;
+}
+#applicant-detail #applicant-resume{
+    width:528px;
+    height: 600px;
+    border:solid 1px #ddd;
+    margin-top:35px;
+}
+#applicant-detail #applicant-resume iframe{
+    width:100%;
+    height: 100%;
+    border:none;
+}
+#applicant-detail .applicant-header{
+    border-bottom:solid 2px #DDD;
+}
+#applicant-detail .applicant-header h2{
+    margin-bottom:5px;
+}
+#applicant-detail .rater{
+    margin:5px 0;
+    height: 20px
+}
+#applicant-detail .applied-for{
+    display: block;
+    padding-top:10px;
+    color:#616161;
+}
+#applicant-detail .status-icon{
+    width:60px;
+    height:61px;
+    float:left;
+    background-image: url(../img/status.png);
+}
+#applicant-detail .note{
+    padding:0;
+    background-image: url(../img/note.png);
+    background-repeat: repeat-y;
+}
+#applicant-detail .note-date{
+    float:right;
+    font-size:15px;
+    line-height: 14px;
+    font-weight:bold;
+    text-transform: lowercase;
+    color:#bababe;
+    padding:15px 15px 0 0;
+}
+#applicant-detail .note-date b{
+    float:left;
+    margin-right:4px;
+    line-height: 30px;
+    font-size:32px;
+}
+#applicant-detail .note-date span{
+    float:left;
+}
+#applicant-detail .note-actions{
+    float:left;
+    font-size:10px;
+    padding-top:4px;
+    padding:15px 0px 0 25px;
+}
+#applicant-detail .note-actions a.delete_note{
+    color:#ec6f69;
+    display: block;
+}
+#applicant-detail .note-actions a.edit_note{
+    color:#95b929;
+    display: block;
+}
+#applicant-detail p{
+    background-image: url(../img/line.gif);
+    padding: 0px 15px 00px 25px;
+    margin-top: 15px;
+    line-height: 17px;
+    clear: both;
+    background-position-y: -1px;
+    font-size: 12px;
+    color:#616161;
+}
+#applicant-detail .sidebar-title{
+    font-size:21px;
+    font-weight: normal;
+    color:#616161;
+    margin-bottom:-25px;
+}
+#applicant-detail .sidebar-title a{
+    float:right;
+    font-size:13px;
+    line-height: 27px;
+}
