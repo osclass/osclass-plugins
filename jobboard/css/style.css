@@ -43,6 +43,7 @@
     width:60px;
     height:61px;
     float:left;
+    margin-right:10px;
     background-image: url(../img/status.png);
 }
 #applicant-detail .note{

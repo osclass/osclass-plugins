@@ -28,6 +28,11 @@
 <link href="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.rating.css" type="text/css" rel="stylesheet" />
 <link href="<?php echo osc_plugin_url(__FILE__); ?>css/style.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
+    function setIcon(){
+        $('.status-icon').css({
+                backgroundPosition: $("#applicant_status").val()*60
+        });
+    }
     $(document).ready(function() {
         
         $("#dialog-note-delete").dialog({
@@ -46,8 +51,9 @@
                 {"applicantId" : <?php echo $applicantId; ?>, "status" : $("#applicant_status option:selected").attr("value")},
                 function(data){}
             );
+            setIcon();
         });
-                
+        setIcon();
         $('.auto-star').rating({
             callback: function(value, link, input){
                 var data = value.split("_");
