@@ -87,56 +87,62 @@ Plugin update URI: autoregister
             require_once LIB_PATH . 'osclass/UserActions.php' ;
             $userActions = new UserActions(false) ;
             $success     = $userActions->add() ;
-            // update user of item
-            $user = User::newInstance()->findByEmail($email);
-            Item::newInstance()->update(array('fk_i_user_id' => $user['pk_i_id'] ), array('pk_i_id' => $itemId ) );
-            $item = Item::newInstance()->findByPrimaryKey($itemId);
-            
-            // not activated
-            if( $item['b_active'] != 1 ) {
-                osc_run_hook('hook_email_item_validation', $item);
+            if($success) {
+                Log::newInstance()->insertLog('plugin_autoregister', 'autoRegister', '', $email.' '.$_SERVER['REMOTE_ADDR'], 'autoregister', osc_logged_admin_id()) ;
+                // update user of item
+                $user = User::newInstance()->findByEmail($email);
+                Item::newInstance()->update(array('fk_i_user_id' => $user['pk_i_id'] ), array('pk_i_id' => $itemId ) );
+                $item = Item::newInstance()->findByPrimaryKey($itemId);
+
+                // not activated
+                if( $item['b_active'] != 1 ) {
+                    osc_run_hook('hook_email_item_validation', $item);
+                }
+
+                /* code sendMail */
+                $aPage = Page::newInstance()->findByInternalName('autoregister_new_user_info');
+                $locale = osc_current_user_locale() ;
+
+                $content = array();
+                if(isset($aPage['locale'][$locale]['s_title'])) {
+                    $content = $aPage['locale'][$locale];
+                } else {
+                    $content = current($aPage['locale']);
+                }
+
+                if (!is_null($content)) {
+
+                    Log::newInstance()->insertLog('plugin_autoregister', 'sendEmail', '', $email.' '.$_SERVER['REMOTE_ADDR'], 'autoregister', osc_logged_admin_id()) ;
+
+                    $words   = array();
+                    $words[] = array(
+                        '{WEB_LINK}',
+                        '{USER_NAME}',
+                        '{USER_EMAIL}',
+                        '{USER_PASSWORD}'
+                    );
+                    $words[] = array(
+                        '<a href="' . osc_base_url() . '">' . osc_page_title() . '</a>',
+                        $user['s_name'],
+                        $user['s_email'],
+                        $aux_password
+                    );
+                    $title = osc_mailBeauty( $content['s_title'], $words);
+                    $body = osc_mailBeauty( $content['s_text'], $words);
+
+                    $emailParams = array(
+                        'subject'  => $title,
+                        'from'     => osc_contact_email(),
+                        'to'       => $user['s_email'],
+                        'to_name'  => $user['s_name'],
+                        'body'     => $body,
+                        'alt_body' => $body
+                    );
+
+                    osc_sendMail($emailParams);
+                }
+                /* END code sendMail */
             }
-            
-            /* code sendMail */
-            $aPage = Page::newInstance()->findByInternalName('autoregister_new_user_info');
-            $locale = osc_current_user_locale() ;
-
-            $content = array();
-            if(isset($aPage['locale'][$locale]['s_title'])) {
-                $content = $aPage['locale'][$locale];
-            } else {
-                $content = current($aPage['locale']);
-            }
-
-            if (!is_null($content)) {
-                $words   = array();
-                $words[] = array(
-                    '{WEB_LINK}',
-                    '{USER_NAME}',
-                    '{USER_EMAIL}',
-                    '{USER_PASSWORD}'
-                );
-                $words[] = array(
-                    '<a href="' . osc_base_url() . '">' . osc_page_title() . '</a>',
-                    $user['s_name'],
-                    $user['s_email'],
-                    $aux_password
-                );
-                $title = osc_mailBeauty( $content['s_title'], $words);
-                $body = osc_mailBeauty( $content['s_text'], $words);
-
-                $emailParams = array(
-                    'subject'  => $title,
-                    'from'     => osc_contact_email(),
-                    'to'       => $user['s_email'],
-                    'to_name'  => $user['s_name'],
-                    'body'     => $body,
-                    'alt_body' => $body
-                );
-
-                osc_sendMail($emailParams);
-            }
-            /* END code sendMail */
             
             // set params again
             Params::setParam('s_name', $input['s_name']);
