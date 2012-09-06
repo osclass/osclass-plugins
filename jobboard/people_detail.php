@@ -155,7 +155,9 @@
                         </div>
                     <?php }; ?>
                 <?php } else { ?>
+                    <div class="well ui-rounded-corners">
                     <?php _e("No notes have been added to this applicant", "jobboard"); ?>
+                    </div>
                 <?php }; ?>
             </div>
         </div>
