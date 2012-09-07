@@ -12,6 +12,7 @@ Plugin update URI: job-board
 
 define('JOBBOARD_PATH', dirname(__FILE__) . '/') ;
 require_once(JOBBOARD_PATH . 'ModelJB.php');
+require_once(JOBBOARD_PATH . 'helpers.php');
 
 function job_call_after_install() {
     ModelJB::newInstance()->import('jobboard/struct.sql');
