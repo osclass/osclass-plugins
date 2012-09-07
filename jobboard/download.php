@@ -1,6 +1,7 @@
 <?php
 
-    require_once('../../../oc-load.php');
+    define('ABS_PATH', dirname(dirname(dirname(dirname($_SERVER['SCRIPT_FILENAME'])))) . '/');
+    require_once(ABS_PATH . 'oc-load.php');
 
     $tmp = explode("|", Params::getParam('data'));
     $id = $tmp[0];
@@ -10,7 +11,7 @@
     if($id!='') {
         $pdf = ModelJB::newInstance()->getCVFromApplicant($id);
         
-        if(osc_is_admin_user_logged_in() || ($secret==$pdf['s_secret'] && (strtotime($pdf['dt_secret_date']+10*60)>=time()))) {
+        if(osc_is_admin_user_logged_in() || ($secret==$pdf['s_secret'] && ((strtotime($pdf['dt_secret_date'])+10*60)>=time()))) {
 
             $applicant = ModelJB::newInstance()->getApplicant($id);
 
@@ -20,7 +21,7 @@
 
             header('Content-Description: '.$filename);
             header('Content-Type: application/pdf');
-            header('Content-Disposition: inline; filename='.$filename);
+            header('Content-Disposition: attachment; filename='.$filename);
             header('Content-Transfer-Encoding: binary');
             header('Expires: 0');
             header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

@@ -256,9 +256,35 @@ function jobboard_admin_menu() { ?>
     }
 </style>
 <?php
+    if(Params::getParam('page')=='items' && Params::getParam('action')=='') { ?>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#bulk_actions option").each(function(){
+                    switch(this.value) {
+                        case 'activate_all':
+                        case 'deactivate_all':
+                        case 'premium_all':
+                        case 'depremium_all':
+                        case 'spam_all':
+                        case 'despam_all':
+                            $(this).remove();
+                            break;
+                    }
+                });
+            });
+        </script>
+    <?php }
 }
-
 osc_add_hook('admin_header','jobboard_admin_menu');
+
+function jobboard_more_options($options) {
+    unset($options[0]);
+    unset($options[2]);
+    unset($options[3]);
+    return $options;
+}
+osc_add_filter('more_actions_manage_items', 'jobboard_more_options');
+
 
 //Custom title
 osc_add_filter('custom_plugin_title','jobboard_people_title');
