@@ -30,6 +30,18 @@
 #applicant-detail .applicant-header h2{
     margin-bottom:5px;
 }
+#applicant-detail .applicant-cover-letter p{
+    font-size: 12px;
+    color: #616161;
+    line-height: 17px;
+    clear: both;
+}
+#applicant-detail #right-side .download-resume{
+    margin-top: 35px;
+}
+#applicant-detail #right-side .applicant-box{
+    margin-top: 15px;
+}
 #applicant-detail .rater{
     margin:5px 0;
     height: 20px
@@ -83,7 +95,7 @@
     color:#95b929;
     display: block;
 }
-#applicant-detail p{
+#applicant-detail .note p{
     background-image: url(../img/line.gif);
     padding: 0px 15px 00px 25px;
     margin-top: 15px;

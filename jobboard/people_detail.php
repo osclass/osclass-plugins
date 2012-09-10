@@ -19,9 +19,6 @@
     if($people['b_read']==0) {
         ModelJB::newInstance()->changeRead($applicantId);
     }
-    
-
-
 ?>
 <script src="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.rating.js" type="text/javascript" language="javascript"></script>
 <script src="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.MetaData.js" type="text/javascript" language="javascript"></script>
@@ -30,21 +27,21 @@
 <script type="text/javascript">
     function setIcon(){
         $('.status-icon').css({
-                backgroundPosition: $("#applicant_status").val()*60
+                backgroundPosition: $("#applicant_status").val() * 60
         });
     }
+
     $(document).ready(function() {
-        
         $("#dialog-note-delete").dialog({
-                    autoOpen: false,
-                    modal: true
-                });
-                
+            autoOpen: false,
+            modal: true
+        });
+
         $("#dialog-note-edit").dialog({
-                    autoOpen: false,
-                    modal: true
-                });
-                
+            autoOpen: false,
+            modal: true
+        });
+
         $("#applicant_status").change(function(){
             $.getJSON(
                 "<?php echo osc_admin_base_url(true); ?>?page=ajax&action=custom&ajaxfile=<?php echo osc_plugin_folder(__FILE__);?>ajax.php&paction=applicant_status",
@@ -65,51 +62,51 @@
             }
         });
     });
-    
+
     function delete_note(note_id) {
         $("#note_id").attr("value", note_id);
         $("#dialog-note-delete").dialog('open');
     }
-    
+
     function edit_note(note_id, note_text) {
         $("#note_edit_id").attr("value", note_id);
         $("#note_edit_text").attr("value", note_text);
         $("#note_action").attr("value", "edit_note");
         $("#dialog-note-edit").dialog('open');
     }
-    
+
     function add_note() {
         $("#note_edit_id").attr("value", "");
         $("#note_edit_text").attr("value", "");
         $("#note_action").attr("value", "add_note");
         $("#dialog-note-edit").dialog('open');
     }
-    
 </script>
 <div id="applicant-detail">
     <div class="applicant-header">
         <h2 class="render-title"><?php echo @$people['s_name']; ?></h2>
     </div>
-    <div id="left-side">        
+    <div class="applicant-cover-letter">
+        <p><?php echo nl2br($people['s_cover_letter']); ?></p>
+    </div>
+    <div id="left-side">
         <div id="dashboard_notes">
             <?php if(empty($file)) {
                 _e("This applicant has not sumitted any resume", "jobboard");
-            } else if(strtolower(substr($file['s_name'], -4))==".pdf") { ?>
-            
+            } else { ?>
             <div id="applicant-resume">
             <iframe src="http://docs.google.com/viewer?embedded=true&url=<?php echo str_replace("localhost", "95.62.72.123", osc_plugin_url(__FILE__));?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>"></iframe>
             </div>
-
-            <?php } else {
-                _e("This applicant's resume could not be displayed but could be downloaded", "jobboard");
-            ?>
-            <a href="<?php echo osc_plugin_url(__FILE__);?>download.php?id=<?php echo $applicantId; ?>" id="download_pdf" ><?php _e("Download", "jobboard"); ?></a>
-            <?php }; ?>
+            <?php } ?>
         </div>
         
     </div>
     <div id="right-side">
-        <div class="well ui-rounded-corners">
+        <div class="download-resume">
+            <a href="<?php echo osc_plugin_url(__FILE__); ?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>" class="btn"><?php _e('Download resume', 'jobboard'); ?></a>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="well ui-rounded-corners applicant-box">
             <div class="status-icon">
             </div>
             <div class="rater big-star">
@@ -130,12 +127,7 @@
                 <a href="<?php echo osc_item_admin_edit_url($job['fk_i_item_id']); ?>"><?php echo $job['s_title']; ?></a>
             </div>
         </div>
-        
-
-        
-
         <h3 class="sidebar-title"><?php _e("Notes", "jobboard"); ?> <span class="note_plus"><a id="add_note" href="javascript:add_note();"><?php _e("Add note", "jobboard"); ?></a></span></h3>
-
         <div id="dashboard_notes">
             <div id="nots_table_div">
                 <?php if(count($notes)>0) { ?>
@@ -161,15 +153,10 @@
                 <?php }; ?>
             </div>
         </div>
-        
         <div style="clear:both;"></div>
-
     </div>
     <div style="clear:both;"></div>
-    
 </div>
-
-
 <form id="dialog-note-delete" method="post" action="<?php echo osc_admin_base_url(true); ?>" class="has-form-actions hide" title="<?php echo osc_esc_html(__('Delete note', 'jobboard')); ?>">
     <input type="hidden" name="page" value="plugins" />
     <input type="hidden" name="action" value="renderplugin" />
@@ -189,7 +176,6 @@
         </div>
     </div>
 </form>
-
 <form id="dialog-note-edit" method="post" action="<?php echo osc_admin_base_url(true); ?>" class="has-form-actions hide" title="<?php echo osc_esc_html(__('Note', 'jobboard')); ?>">
     <input type="hidden" name="page" value="plugins" />
     <input type="hidden" name="action" value="renderplugin" />
