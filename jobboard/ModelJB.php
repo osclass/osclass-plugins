@@ -310,7 +310,7 @@
          * @return applicant's ID 
          */
         public function insertApplicant($itemId, $name, $email, $coverLetter = '', $phone = '') {
-            $date = date("Y-m-h H:i:s");
+            $date = date("Y-m-d H:i:s");
             $app = $this->dao->insert(
                     $this->getTable_JobsApplicants()
                     ,array(
