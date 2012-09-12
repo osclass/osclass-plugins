@@ -24,7 +24,7 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_description_attr (
 
 CREATE TABLE /*TABLE_PREFIX*/t_item_job_applicant (
     pk_i_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    fk_i_item_id INT UNSIGNED NOT NULL,
+    fk_i_item_id INT UNSIGNED NULL,
     s_name VARCHAR(255) NOT NULL DEFAULT '',
     s_email VARCHAR(255) NOT NULL DEFAULT '',
     s_phone VARCHAR(255) NOT NULL DEFAULT '',
@@ -35,8 +35,7 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_applicant (
     b_has_notes TINYINT(1) NOT NULL DEFAULT 0,
     i_rating TINYINT NOT NULL DEFAULT 0,
 
-        PRIMARY KEY (pk_i_id),
-        FOREIGN KEY (fk_i_item_id) REFERENCES /*TABLE_PREFIX*/t_item (pk_i_id)
+        PRIMARY KEY (pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
 
 

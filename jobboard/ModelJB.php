@@ -377,7 +377,7 @@
             }
             
             
-            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order FROM (%st_item_job_applicant a) JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id WHERE d.s_title != '' %s ORDER BY locale_order DESC, %s %s", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str, $order_col, $order_dir);
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order FROM (%st_item_job_applicant a) LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id WHERE (d.s_title != '' OR d.s_title IS NULL) %s ORDER BY locale_order DESC, %s %s", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str, $order_col, $order_dir);
             $result = $this->dao->query(sprintf("SELECT * FROM (%s) as dummy GROUP BY dummy.pk_i_id ORDER BY %s %s LIMIT %d, %d", $sql, $order_col2, $order_dir, $start, $length));
             
             if( !$result ) {
@@ -418,7 +418,7 @@
             }
             
             
-            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order FROM (%st_item_job_applicant a) JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id WHERE d.s_title != '' %s ORDER BY locale_order DESC, a.dt_date DESC", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str);
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order FROM (%st_item_job_applicant a) LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id WHERE (d.s_title != '' OR d.s_title IS NULL) %s ORDER BY locale_order DESC, a.dt_date DESC", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str);
             $result = $this->dao->query(sprintf("SELECT * FROM (%s) as dummy GROUP BY dummy.pk_i_id ", $sql));
                         
             if( !$result ) {

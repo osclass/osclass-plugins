@@ -166,10 +166,21 @@ function job_item_detail() {
 }
 
 /* CONTACT */
-function jobboard_save_contact_listing($item) {
+function jobboard_save_contact_listing() {
+    jobboard_common_contact(osc_item_id(), osc_item_url());
+}
+osc_add_hook('post_item_contact_post', 'jobboard_save_contact_listing');
+osc_remove_hook('hook_email_item_inquiry', 'fn_email_item_inquiry');
+
+function jobboard_save_contact($params) {
+    jobboard_common_contact(null, osc_contact_url(), @$params['attachment']);
+}
+osc_add_hook('pre_contact_post', 'jobboard_save_contact');
+
+
+function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     $error_attachment = false;
     
-    $itemID = osc_item_id();
     $name   = Params::getParam('yourName');
     $email  = Params::getParam('yourEmail');
     $cover  = Params::getParam('message');
@@ -180,22 +191,22 @@ function jobboard_save_contact_listing($item) {
     if( $name === '' ) {
         osc_add_flash_error_message(__("Name is required", 'jobboard'));
         _save_jobboard_contact_listing();
-        header('Location: ' . osc_item_url()); die;
+        header('Location: ' . $url); die;
     }
     if( $email === '' ) {
         osc_add_flash_error_message(__("Email is required", 'jobboard'));
         _save_jobboard_contact_listing();
-        header('Location: ' . osc_item_url()); die;
+        header('Location: ' . $url); die;
     }
     if( $cover === '' ) {
         osc_add_flash_error_message(__("Cover is required", 'jobboard'));
         _save_jobboard_contact_listing();
-        header('Location: ' . osc_item_url()); die;
+        header('Location: ' . $url); die;
     }
     if( isset($aCV['name']) && $aCV['name'] === '' ) {
         osc_add_flash_error_message(__("CV is required", 'jobboard'));
         _save_jobboard_contact_listing();
-        header('Location: ' . osc_item_url()); die;
+        header('Location: ' . $url); die;
     }
 
     // insert to database
@@ -205,31 +216,39 @@ function jobboard_save_contact_listing($item) {
     // return to listing url
     if( !$applicantID ) {
         osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
-        header('Location: ' . osc_item_url()); die;
+        header('Location: ' . $url); die;
     }
 
-    if(isset($aCV['name']) && $aCV['error'] == UPLOAD_ERR_OK) {
-        $tmp_name = $aCV['tmp_name'];
-        $fileName = date('YmdHis') . '_' . $aCV['name'];
-        if( move_uploaded_file($tmp_name, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
-            $mJB->insertFile($applicantID, $fileName);
+    if($uploadCV=='') {
+        if(isset($aCV['name']) && $aCV['error'] == UPLOAD_ERR_OK) {
+            $tmp_name = $aCV['tmp_name'];
+            $fileName = date('YmdHis') . '_' . $aCV['name'];
+            if( move_uploaded_file($tmp_name, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
+                $mJB->insertFile($applicantID, $fileName);
+            } else {
+                $error_attachment = true;
+            }
         } else {
             $error_attachment = true;
         }
     } else {
-        $error_attachment = true;
+        $fileName = date('YmdHis') . '_' . $aCV['name'];
+        if( copy($uploadCV, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
+            @unlink($uploadCV);
+            $mJB->insertFile($applicantID, $fileName);
+        } else {
+            $error_attachment = true;
+        }
     }
 
     if( $error_attachment ) {
         ModelJB::newInstance()->deleteApplicant($applicantID);
         osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
-        header('Location: ' . osc_item_url()); die;
+        header('Location: ' . $url); die;
     }
 
     return true;
 }
-osc_add_hook('post_item_contact_post', 'jobboard_save_contact_listing');
-osc_remove_hook('hook_email_item_inquiry', 'fn_email_item_inquiry');
 
 function _save_jobboard_contact_listing() {
     Session::newInstance()->_setForm('yourEmail',    Params::getParam('yourEmail'));
