@@ -297,10 +297,54 @@ function jobboard_admin_menu() { ?>
 }
 osc_add_hook('admin_header','jobboard_admin_menu');
 
-function jobboard_more_options($options) {
+
+function jobboard_duplicate_job() {
+    if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
+        $id = Params::getParam('duplicatefrom') ;
+        if($id!='') {
+            $item = Item::newInstance()->findByPrimaryKey($id);
+
+            View::newInstance()->_exportVariableToView("item", $item);
+            View::newInstance()->_exportVariableToView("new_item", TRUE);
+            View::newInstance()->_exportVariableToView("actions", array());
+
+
+            $detail       = ModelJB::newInstance()->getJobsAttrByItemId($id);
+            $descriptions = ModelJB::newInstance()->getJobsAttrDescriptionsByItemId($id);
+
+            Session::newInstance()->_setForm('pj_positionType',  @$detail['e_position_type'] );
+            Session::newInstance()->_setForm('pj_salaryText', @$detail['s_salary_text'] );
+
+            $dataItem = array();
+            foreach ($descriptions as $v) {
+                $dataItem[$v['fk_c_locale_code']] = array();
+                $dataItem[$v['fk_c_locale_code']]['contract'] = $v['s_contract'];
+                $dataItem[$v['fk_c_locale_code']]['studies'] = $v['s_studies'];
+                $dataItem[$v['fk_c_locale_code']]['desired_exp'] = $v['s_desired_exp'];
+                $dataItem[$v['fk_c_locale_code']]['min_reqs'] = $v['s_minimum_requirements'];
+                $dataItem[$v['fk_c_locale_code']]['desired_reqs'] = $v['s_desired_requirements'];
+            }    
+            Session::newInstance()->_setForm('pj_data', $dataItem );
+
+            Session::newInstance()->_keepForm('pj_positionType');
+            Session::newInstance()->_keepForm('pj_salaryText');
+            Session::newInstance()->_keepForm('pj_data');    
+
+            osc_current_admin_theme_path('items/frm.php') ;
+            Session::newInstance()->_clearVariables();
+            osc_run_hook('after_admin_html');
+            exit;
+        }
+    };
+}
+osc_add_hook('before_admin_html', 'jobboard_duplicate_job');
+
+
+function jobboard_more_options($options, $aRow) {
     unset($options[0]);
     unset($options[2]);
     unset($options[3]);
+    $options[] = '<a href="' . osc_admin_base_url(true) . '?page=items&amp;action=post&amp;duplicatefrom=' . $aRow['pk_i_id'] . '">' . __('Duplicate', 'jobboard') . '</a>' ;
     return $options;
 }
 osc_add_filter('more_actions_manage_items', 'jobboard_more_options');
