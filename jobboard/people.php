@@ -177,7 +177,7 @@
                     <tr style="background-color: <?php echo ($p['b_read']==1)?'#EDFFDF':'#FFF0DF'; ?>;" >
                         <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a></td>
                         <td><?php echo @$p['s_email']; ?></td>
-                        <td><?php echo @$p['s_title']; ?></td>
+                        <td><?php echo $p['fk_i_item_id']==''?__('Spontaneous job', 'jobboard'):@$p['s_title']; ?></td>
                         <td><?php echo $p['b_has_notes']==1?__("Has notes", "jobboard"):__("No notes yet", "jobboard"); ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
                         <td>
