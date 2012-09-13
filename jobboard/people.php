@@ -181,9 +181,11 @@
                         <td><?php echo $p['b_has_notes']==1?__("Has notes", "jobboard"):__("No notes yet", "jobboard"); ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
                         <td>
-                            <?php for($k=1;$k<=5;$k++) {
-                                echo '<input name="star'.$p['pk_i_id'].'" type="radio" class="auto-star required" value="'.$p['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$p['i_rating']?'checked="checked"':'').'/>';
-                            } ?>
+                            <div class="rater big-star">
+                                <?php for($k=1;$k<=5;$k++) {
+                                    echo '<input name="star'.$p['pk_i_id'].'" type="radio" class="auto-star required" value="'.$p['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$p['i_rating']?'checked="checked"':'').'/>';
+                                } ?>
+                            </div>
                         </td>
                         <td><?php echo @$p['dt_date']; ?></td>
                         <td><a href="javascript:delete_applicant(<?php echo $p['pk_i_id']; ?>);" ><?php _e("Delete", "jobboard"); ?></a></td>
