@@ -493,6 +493,26 @@ function css_jobs_dashboard() {
 }
 osc_add_hook('admin_header', 'css_jobs_dashboard');
 
+function applicant_admin_menu_current($class) {
+    if( urldecode(Params::getParam('file')) === 'jobboard/people_detail.php' ) {
+        return 'current';
+    }
+
+    return $class;
+}
+osc_add_filter('current_admin_menu_corporateboard', 'applicant_admin_menu_current');
+
+function admin_javascript_jobboard() {
+    switch(Params::getParam('file')) {
+        case('jobboard/people.php'):
+        break;
+        default:
+            # code...
+        break;
+    }
+}
+osc_add_hook('init_admin', 'admin_javascript_jobboard');
+
 function default_settings_jobboard() {
     // always active osc_item_attachment
     if( !osc_item_attachment() ) {
@@ -522,4 +542,4 @@ osc_add_hook('init_admin', 'default_settings_jobboard');
 osc_add_hook('admin_items_table','job_items_table_header');
 osc_add_filter("items_processing_row", "job_items_row");
 
-?>
+/* file end */
