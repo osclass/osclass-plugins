@@ -168,12 +168,16 @@ function job_item_detail() {
 /* CONTACT */
 function jobboard_save_contact_listing() {
     jobboard_common_contact(osc_item_id(), osc_item_url());
+    osc_add_flash_ok_message(__('Thanks for sending us your CV', 'jobboard'));
+    header('Location: ' . osc_item_url()); die;
 }
 osc_add_hook('post_item_contact_post', 'jobboard_save_contact_listing');
 osc_remove_hook('hook_email_item_inquiry', 'fn_email_item_inquiry');
 
 function jobboard_save_contact($params) {
     jobboard_common_contact(null, osc_contact_url(), @$params['attachment']);
+    osc_add_flash_ok_message(__('Thanks for sending us your CV', 'jobboard'));
+    header('Location: ' . osc_contact_url()); die;
 }
 osc_add_hook('pre_contact_post', 'jobboard_save_contact');
 
@@ -297,7 +301,6 @@ function jobboard_admin_menu() { ?>
 }
 osc_add_hook('admin_header','jobboard_admin_menu');
 
-
 function jobboard_duplicate_job() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
         $id = Params::getParam('duplicatefrom') ;
@@ -307,7 +310,6 @@ function jobboard_duplicate_job() {
             View::newInstance()->_exportVariableToView("item", $item);
             View::newInstance()->_exportVariableToView("new_item", TRUE);
             View::newInstance()->_exportVariableToView("actions", array());
-
 
             $detail       = ModelJB::newInstance()->getJobsAttrByItemId($id);
             $descriptions = ModelJB::newInstance()->getJobsAttrDescriptionsByItemId($id);
@@ -323,7 +325,7 @@ function jobboard_duplicate_job() {
                 $dataItem[$v['fk_c_locale_code']]['desired_exp'] = $v['s_desired_exp'];
                 $dataItem[$v['fk_c_locale_code']]['min_reqs'] = $v['s_minimum_requirements'];
                 $dataItem[$v['fk_c_locale_code']]['desired_reqs'] = $v['s_desired_requirements'];
-            }    
+            }
             Session::newInstance()->_setForm('pj_data', $dataItem );
 
             Session::newInstance()->_keepForm('pj_positionType');
