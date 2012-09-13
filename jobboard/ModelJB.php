@@ -346,19 +346,19 @@
             if($conditions!=null) {
                 foreach($conditions as $k => $v) {
                     if($k=='item') {
-                        $cond[] = 'a.fk_i_item_id = '.$v;
+                        $cond[] = 'a.fk_i_item_id = '.$this->dao->connId->real_escape_string($v);
                     }
                     if($k=='item_text') {
-                        $cond[] = "d.s_title LIKE '%%".$v."%%'";
+                        $cond[] = "d.s_title LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
                     }
                     if($k=='email') {
-                        $cond[] = "a.s_email LIKE '%%".$v."%%'";
+                        $cond[] = "a.s_email LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
                     }
                     if($k=='name') {
-                        $cond[] = "a.s_name LIKE '%%".$v."%%'";
+                        $cond[] = "a.s_name LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
                     }
                     if($k=='status') {
-                        $cond[] = "a.i_status = ".$v;
+                        $cond[] = "a.i_status = ".$this->dao->connId->real_escape_string($v);
                     }
                     if($k=='unread') {
                         $cond[] = "a.b_read = 0";
@@ -367,7 +367,7 @@
             }
             $cond_str = '';
             if(!empty($cond)) {
-                $cond_str = $this->dao->connId->real_escape_string(" AND ".implode(" AND ", $cond)." ");
+                $cond_str = " AND ".implode(" AND ", $cond)." ";
             }
             
             $tmp = explode(".", $order_col);
@@ -393,19 +393,19 @@
             if($conditions!=null) {
                 foreach($conditions as $k => $v) {
                     if($k=='item') {
-                        $cond[] = 'a.fk_i_item_id = '.$v;
+                        $cond[] = 'a.fk_i_item_id = '.$this->dao->connId->real_escape_string($v);
                     }
                     if($k=='item_text') {
-                        $cond[] = "d.s_title LIKE '%%".$v."%%'";
+                        $cond[] = "d.s_title LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
                     }
                     if($k=='email') {
-                        $cond[] = "a.s_email LIKE '%%".$v."%%'";
+                        $cond[] = "a.s_email LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
                     }
                     if($k=='name') {
-                        $cond[] = "a.s_name LIKE '%%".$v."%%'";
+                        $cond[] = "a.s_name LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
                     }
                     if($k=='status') {
-                        $cond[] = "a.i_status = ".$v;
+                        $cond[] = "a.i_status = ".$this->dao->connId->real_escape_string($v);
                     }
                     if($k=='unread') {
                         $cond[] = "a.b_read = 0";
@@ -414,7 +414,7 @@
             }
             $cond_str = '';
             if(!empty($cond)) {
-                $cond_str = $this->dao->connId->real_escape_string(" AND ".implode(" AND ", $cond)." ");
+                $cond_str = " AND ".implode(" AND ", $cond)." ";
             }
             
             
