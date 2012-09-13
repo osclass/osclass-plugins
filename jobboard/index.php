@@ -343,14 +343,20 @@ osc_add_hook('before_admin_html', 'jobboard_duplicate_job');
 
 
 function jobboard_more_options($options, $aRow) {
-    unset($options[0]);
-    unset($options[2]);
-    unset($options[3]);
-    $options[] = '<a href="' . osc_admin_base_url(true) . '?page=items&amp;action=post&amp;duplicatefrom=' . $aRow['pk_i_id'] . '">' . __('Duplicate', 'jobboard') . '</a>' ;
-    return $options;
+    return array();
 }
 osc_add_filter('more_actions_manage_items', 'jobboard_more_options');
 
+function jobboard_manage_actions($options, $aRow) {
+    if($aRow['b_enabled']) {
+        $options[] = '<a href="' . osc_admin_base_url(true) . '?page=items&amp;action=status&amp;id=' . $aRow['pk_i_id'] . '&amp;value=DISABLE">' . __('Block') .'</a>' ;
+    } else {
+        $options[] = '<a href="' . osc_admin_base_url(true) . '?page=items&amp;action=status&amp;id=' . $aRow['pk_i_id'] . '&amp;value=ENABLE">' . __('Unblock') .'</a>' ;
+    }
+    $options[] = '<a href="' . osc_admin_base_url(true) . '?page=items&amp;action=post&amp;duplicatefrom=' . $aRow['pk_i_id'] . '">' . __('Duplicate', 'jobboard') . '</a>' ;
+    return $options;
+}
+osc_add_filter('actions_manage_items', 'jobboard_manage_actions');
 
 //Custom title
 osc_add_filter('custom_plugin_title','jobboard_people_title');
