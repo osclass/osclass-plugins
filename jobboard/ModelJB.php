@@ -563,11 +563,18 @@
         
         public function deleteNote($id)
         {
+            $this->dao->select();
+            $this->dao->from($this->getTable_JobsNotes());
+            $this->dao->where("pk_i_id", $id);
+            $result = $this->dao->get();
             $success = $this->dao->delete($this->getTable_JobsNotes(), array('pk_i_id' => $id));
-            $notes = $this->getNotesFromApplicant($id);
-            if(count($notes)==0) {
-                $this->dao->update($this->getTable_JobsApplicants(), array('b_has_notes' => 0), array('pk_i_id' => $id));
-            }
+            if( $result ) {
+                $row = $result->row();
+                $notes = $this->getNotesFromApplicant($row['fk_i_applicant_id']);
+                if(count($notes)==0) {
+                    $this->dao->update($this->getTable_JobsApplicants(), array('b_has_notes' => 0), array('pk_i_id' => $row['fk_i_applicant_id']));
+                }
+            }            
             return $success;
         }
         
