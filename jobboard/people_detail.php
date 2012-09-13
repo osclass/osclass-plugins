@@ -14,8 +14,7 @@
     $notes = $mjb->getNotesFromApplicant($applicantId);
     
     $job = Item::newInstance()->findByPrimaryKey($people['fk_i_item_id']);
-    
-    
+
     if($people['b_read']==0) {
         ModelJB::newInstance()->changeRead($applicantId);
     }
@@ -166,7 +165,7 @@
     <input type="hidden" id="note_id" name="id" value="" />
     <div class="form-horizontal">
         <div class="form-row">
-            <?php _e('Are you sure you want to delete this note?'); ?>
+            <?php _e('Are you sure you want to delete this note?', 'jobboard'); ?>
         </div>
         <div class="form-actions">
             <div class="wrapper">
