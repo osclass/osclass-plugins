@@ -146,6 +146,16 @@ function get_jobboard_session_variables($detail) {
 }
 /* /FORM JOB BOARD */
 
+function ajax_rating_request() {
+    ModelJB::newInstance()->setRating(Params::getParam("applicantId"), Params::getParam("rating"));
+}
+osc_add_hook('ajax_admin_jobboard_rating', 'ajax_rating_request');
+
+function ajax_applicant_status() {
+    ModelJB::newInstance()->changeStatus(Params::getParam("applicantId"), Params::getParam("status"));
+}
+osc_add_hook('ajax_admin_applicant_status', 'ajax_applicant_status');
+
 function get_jobboard_position_types() {
     $position_types = array(
         'UNDEF' => __('Undefined', 'jobboard'),
@@ -180,7 +190,6 @@ function jobboard_save_contact($params) {
     header('Location: ' . osc_contact_url()); die;
 }
 osc_add_hook('pre_contact_post', 'jobboard_save_contact');
-
 
 function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     $error_attachment = false;
