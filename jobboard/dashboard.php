@@ -70,7 +70,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="5"><div class="most-viwed"><span><?php _e('Most viewed'); ?></span><a href="<?php echo osc_item_admin_edit_url($jobs[0]['fk_i_item_id']); ?>"><?php echo osc_highlight($jobs[0]['s_title'],30); ?></a></div></td>
+                                <td colspan="5"><div class="most-viwed"><span><?php _e('Most viewed', 'jobboard'); ?></span><a href="<?php echo osc_item_admin_edit_url($jobs[0]['fk_i_item_id']); ?>"><?php echo osc_highlight($jobs[0]['s_title'],30); ?></a></div></td>
                             </tr>
                         </tbody>
                     </table>
@@ -84,7 +84,7 @@
                 <div class="widget-box-title"><h3 class="has-tabs"><?php _e('Last applicants', 'jobboard'); ?></h3>
                     <ul class="tabs">
                         <?php foreach($status as $k => $v) { 
-                            echo '<li><a href="#status-'.$k.'">'.__($v).'</a></li>';
+                            echo '<li><a href="#status-'.$k.'">'.$v.'</a></li>';
                         }
                         ?>
                     </ul>

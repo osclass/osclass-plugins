@@ -349,9 +349,9 @@ osc_add_filter('more_actions_manage_items', 'jobboard_more_options');
 
 function jobboard_manage_actions($options, $aRow) {
     if($aRow['b_enabled']) {
-        $options[] = '<a href="' . osc_admin_base_url(true) . '?page=items&amp;action=status&amp;id=' . $aRow['pk_i_id'] . '&amp;value=DISABLE">' . __('Block') .'</a>' ;
+        $options[] = '<a href="' . osc_admin_base_url(true) . '?page=items&amp;action=status&amp;id=' . $aRow['pk_i_id'] . '&amp;value=DISABLE">' . __('Block', 'jobboard') .'</a>' ;
     } else {
-        $options[] = '<a href="' . osc_admin_base_url(true) . '?page=items&amp;action=status&amp;id=' . $aRow['pk_i_id'] . '&amp;value=ENABLE">' . __('Unblock') .'</a>' ;
+        $options[] = '<a href="' . osc_admin_base_url(true) . '?page=items&amp;action=status&amp;id=' . $aRow['pk_i_id'] . '&amp;value=ENABLE">' . __('Unblock', 'jobboard') .'</a>' ;
     }
     $options[] = '<a href="' . osc_admin_base_url(true) . '?page=items&amp;action=post&amp;duplicatefrom=' . $aRow['pk_i_id'] . '">' . __('Duplicate', 'jobboard') . '</a>' ;
     return $options;
@@ -362,7 +362,7 @@ osc_add_filter('actions_manage_items', 'jobboard_manage_actions');
 osc_add_filter('custom_plugin_title','jobboard_people_title');
 function jobboard_people_title($string){
     if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/people_detail.php'){
-        $string = __('Applicant');
+        $string = __('Applicant', 'jobboard');
     }
     return $string;
 }
@@ -384,7 +384,7 @@ osc_add_admin_submenu_page(
 
 osc_add_admin_submenu_page( 
     'jobboard',
-    __('Applicants'),
+    __('Applicants', 'jobboard'),
     osc_admin_render_plugin_url("jobboard/people.php"),
     'jobboard_people',
     'moderator'
