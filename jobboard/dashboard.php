@@ -25,6 +25,7 @@
                                             <span><?php _e('Vacancies','jobboard'); ?></span>
                                             <?php
                                             $mSearch = new Search(true);
+                                            $mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 1');
                                             ?>
                                         </div>
                                         <b><?php echo $mSearch->count(); ?></b>
@@ -135,8 +136,6 @@
                                     ?>
                                 </tbody>
                             </table>
-                            <?php $mSearch = new Search(true);
-                            $mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 1');?>
                             <p><a href="<?php echo osc_admin_base_url(true); ?>?page=items&b_enabled=1"><?php _e('View Open', 'jobboard'); ?></a> <span>(<?php echo $mSearch->count(); ?>)</span></p>
                         </div>
                         <div id="jobs-on-hold">
@@ -159,8 +158,6 @@
                                     ?>
                                 </tbody>
                             </table>
-                            <?php $mSearch = new Search(true);
-                            $mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 0');?>
                             <p><a href="<?php echo osc_admin_base_url(true); ?>?page=items&b_enabled=0"><?php _e('View on hold', 'jobboard'); ?></a> <span>(<?php echo $mSearch->count(); ?>)</span></p>
                         </div>
                 </div>
