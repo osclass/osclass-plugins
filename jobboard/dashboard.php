@@ -19,48 +19,54 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <div class="card card-vacancies">
-                                        <div class="container">
-                                            <div class="icon-car"></div>
-                                            <span><?php _e('Vacancies','jobboard'); ?></span>
-                                            <?php
-                                            $mSearch = new Search(true);
-                                            $mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 1');
-                                            ?>
+                                    <a href="<?php echo osc_admin_base_url(true); ?>?page=items" style="text-decoration:none;">
+                                        <div class="card card-vacancies">
+                                            <div class="container">
+                                                <div class="icon-car"></div>
+                                                <span><?php _e('Vacancies','jobboard'); ?></span>
+                                                <?php
+                                                $mSearch = new Search(true);
+                                                $mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 1');
+                                                ?>
+                                            </div>
+                                            <b><?php echo $mSearch->count(); ?></b>
                                         </div>
-                                        <b><?php echo $mSearch->count(); ?></b>
-                                    </div>
+                                    </a>
                                 </td>
                                 <td class="separate-cl">&nbsp;</td>
                                 <td>
-                                    <div class="card card-applicants">
-                                        <div class="container">
-                                            <div class="icon-car"></div>
-                                            <span><?php _e('Applicants','jobboard'); ?></span>
-                                            <?php
-                                            list($iTotalDisplayRecords, $iTotalRecords) = ModelJB::newInstance()->searchCount();
-                                            ?>
+                                    <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" style="text-decoration:none;">
+                                        <div class="card card-applicants">
+                                            <div class="container">
+                                                <div class="icon-car"></div>
+                                                <span><?php _e('Applicants','jobboard'); ?></span>
+                                                <?php
+                                                list($iTotalDisplayRecords, $iTotalRecords) = ModelJB::newInstance()->searchCount();
+                                                ?>
+                                            </div>
+                                            <b><?php echo $iTotalRecords; ?></b>
                                         </div>
-                                        <b><?php echo $iTotalRecords; ?></b>
-                                    </div>
+                                    </a>
                                 </td>
                                 <td class="separate-cl">&nbsp;</td>
                                 <td>
-                                    <div class="card card-views">
-                                        <div class="container">
-                                            <div class="icon-car"></div>
-                                            <span><?php _e('Most viewed','jobboard'); ?></span>
-                                            <?php $mSearch3 = new Search(true);
-                                            $mSearch3->addTable(DB_TABLE_PREFIX."t_item_stats");
-                                            $mSearch3->addField("SUM(".DB_TABLE_PREFIX."t_item_stats.i_num_views) as i_num_views");
-                                            $mSearch3->addConditions(DB_TABLE_PREFIX."t_item_stats.fk_i_item_id = ".DB_TABLE_PREFIX."t_item.pk_i_id");
-                                            $mSearch3->order('i_num_views');
-                                            $mSearch3->set_rpp(1);
-                                            $mSearch3->addGroupBy("fk_i_item_id");
-                                            $jobs = $mSearch3->doSearch();?>
+                                    <a href="<?php echo osc_admin_base_url(true); ?>?page=items" style="text-decoration:none;">
+                                        <div class="card card-views">
+                                            <div class="container">
+                                                <div class="icon-car"></div>
+                                                <span><?php _e('Most viewed','jobboard'); ?></span>
+                                                <?php $mSearch3 = new Search(true);
+                                                $mSearch3->addTable(DB_TABLE_PREFIX."t_item_stats");
+                                                $mSearch3->addField("SUM(".DB_TABLE_PREFIX."t_item_stats.i_num_views) as i_num_views");
+                                                $mSearch3->addConditions(DB_TABLE_PREFIX."t_item_stats.fk_i_item_id = ".DB_TABLE_PREFIX."t_item.pk_i_id");
+                                                $mSearch3->order('i_num_views');
+                                                $mSearch3->set_rpp(1);
+                                                $mSearch3->addGroupBy("fk_i_item_id");
+                                                $jobs = $mSearch3->doSearch();?>
+                                            </div>
+                                            <b><?php echo $jobs[0]['i_num_views']; ?></b>
                                         </div>
-                                        <b><?php echo $jobs[0]['i_num_views']; ?></b>
-                                    </div>
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
