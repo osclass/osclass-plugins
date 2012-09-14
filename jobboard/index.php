@@ -146,16 +146,6 @@ function get_jobboard_session_variables($detail) {
 }
 /* /FORM JOB BOARD */
 
-function ajax_rating_request() {
-    ModelJB::newInstance()->setRating(Params::getParam("applicantId"), Params::getParam("rating"));
-}
-osc_add_hook('ajax_admin_jobboard_rating', 'ajax_rating_request');
-
-function ajax_applicant_status() {
-    ModelJB::newInstance()->changeStatus(Params::getParam("applicantId"), Params::getParam("status"));
-}
-osc_add_hook('ajax_admin_applicant_status', 'ajax_applicant_status');
-
 function get_jobboard_position_types() {
     $position_types = array(
         'UNDEF' => __('Undefined', 'jobboard'),
@@ -190,6 +180,7 @@ function jobboard_save_contact($params) {
     header('Location: ' . osc_contact_url()); die;
 }
 osc_add_hook('pre_contact_post', 'jobboard_save_contact');
+
 
 function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     $error_attachment = false;
@@ -547,6 +538,43 @@ function default_settings_jobboard() {
     
 }
 osc_add_hook('init_admin', 'default_settings_jobboard');
+
+
+function jobboard_titles($title) {
+    $page = Params::getParam('page');
+    $action = Params::getParam('action');
+    switch($page) {
+        case 'items':
+            if($action=='') {
+                $title = preg_replace('|^(.*)&raquo;|', __('Manage vacancies','jobboard').' &raquo;', $title);
+            } else if($action=='post') {
+                $title = preg_replace('|^(.*)&raquo;|', __('Add vacancy','jobboard').' &raquo;', $title);
+            } else if($action=='item_edit') {
+                $title = preg_replace('|^(.*)&raquo;|', __('Edit vacancy','jobboard').' &raquo;', $title);
+            }
+            break;
+        case 'plugins':
+            $file = Params::getParam('file');
+            if($file=='jobboard/dashboard.php') {
+                $title = preg_replace('|^(.*)&raquo;|', __('Dashboard','jobboard').' &raquo;', $title);
+            } else if($file=='jobboard/people.php') {
+                $title = preg_replace('|^(.*)&raquo;|', __('Applicants','jobboard').' &raquo;', $title);
+            } else if($file=='jobboard/people_detail.php') {
+                $peopleId = Params::getParam('people');
+                $people = ModelJB::newInstance()->getApplicant($peopleId);
+                $title = preg_replace('|^(.*)&raquo;|', sprintf(__('%s &raquo; Applicants', 'jobboard'), $people['s_name']).' &raquo;', $title);
+            }
+            break;
+        default:
+            break;
+    }
+    return $title;
+}
+osc_add_filter('admin_title', 'jobboard_titles', 9);
+
+
+
+
 
 osc_add_hook('admin_items_table','job_items_table_header');
 osc_add_filter("items_processing_row", "job_items_row");
