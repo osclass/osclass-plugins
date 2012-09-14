@@ -363,6 +363,9 @@
                     if($k=='unread') {
                         $cond[] = "a.b_read = 0";
                     }
+                    if($k=='spontaneous') {
+                        $cond[] = "d.s_title IS NULL";
+                    }
                 }
             }
             $cond_str = '';
@@ -409,6 +412,9 @@
                     }
                     if($k=='unread') {
                         $cond[] = "a.b_read = 0";
+                    }
+                    if($k=='spontaneous') {
+                        $cond[] = "d.s_title IS NULL";
                     }
                 }
             }

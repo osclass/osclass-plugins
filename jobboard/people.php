@@ -19,6 +19,9 @@
     if(Params::getParam('viewUnread')=='1') {
         $conditions['unread'] = 1;
     }
+    if(Params::getParam('onlySpontaneous')=='1') {
+        $conditions['spontaneous'] = 1;
+    }
     if(Params::getParam('sSearch')!='') {
         if(Params::getParam('opt')=='oItem') {
             $conditions['item_text'] = Params::getParam('sSearch');
@@ -81,7 +84,11 @@
         if($("#viewUnread").attr("checked")=='checked') {
             checked = 1;
         }
-        window.location = '<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&opt='+$("#filter-select option:selected").attr("value")+'&sSearch='+$("#sSearch").attr("value")+"&viewUnread="+checked;
+        var checkedSpontaneous = 0;
+        if($("#onlySpontaneous").attr("checked")=='checked') {
+            checkedSpontaneous = 1;
+        }
+        window.location = '<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&opt='+$("#filter-select option:selected").attr("value")+'&sSearch='+$("#sSearch").attr("value")+"&viewUnread="+checked+"&onlySpontaneous="+checkedSpontaneous;
         return false;
     }
 
@@ -95,6 +102,9 @@
     <div id="listing-toolbar">
         <div class="float-right">
             <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="inline">
+                <span style="float: left;margin-right: 2em;margin-top: 0.5em;">
+                    <input type="checkbox" id="onlySpontaneous" name="onlySpontaneous" value="1" <?php if(Params::getParam('onlySpontaneous')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("Only spontaneous", "jobboard"); ?>
+                </span>
                 <span style="float: left;margin-right: 2em;margin-top: 0.5em;">
                     <input type="checkbox" id="viewUnread" name="viewUnread" value="1" <?php if(Params::getParam('viewUnread')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("View unread", "jobboard"); ?>
                 </span>
