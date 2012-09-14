@@ -43,7 +43,7 @@
 
         $("#applicant_status").change(function(){
             $.getJSON(
-                "<?php echo osc_admin_base_url(true); ?>?page=ajax&action=custom&ajaxfile=<?php echo osc_plugin_folder(__FILE__);?>ajax.php&paction=applicant_status",
+                "<?php echo osc_admin_ajax_hook_url('applicant_status'); ?>",
                 {"applicantId" : <?php echo $applicantId; ?>, "status" : $("#applicant_status option:selected").attr("value")},
                 function(data){}
             );
@@ -54,7 +54,7 @@
             callback: function(value, link, input){
                 var data = value.split("_");
                 $.getJSON(
-                    "<?php echo osc_admin_base_url(true); ?>?page=ajax&action=custom&ajaxfile=<?php echo osc_plugin_folder(__FILE__);?>ajax.php&paction=rating",
+                    "<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>",
                     {"applicantId" : data[0], "rating" : data[1]},
                     function(data){}
                 );

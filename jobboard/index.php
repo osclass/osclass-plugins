@@ -29,6 +29,17 @@ function job_call_after_uninstall() {
 }
 
 /* FORM JOB BOARD */
+function ajax_rating_request() {
+    ModelJB::newInstance()->setRating(Params::getParam("applicantId"), Params::getParam("rating"));
+}
+osc_add_hook('ajax_admin_jobboard_rating', 'ajax_rating_request');
+
+function ajax_applicant_status() {
+    ModelJB::newInstance()->changeStatus(Params::getParam("applicantId"), Params::getParam("status"));
+}
+osc_add_hook('ajax_admin_applicant_status', 'ajax_applicant_status');
+
+
 function jobboard_form($catID = null) {
     $detail = array(
         'e_position_type' => '',
