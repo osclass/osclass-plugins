@@ -165,6 +165,10 @@ function job_item_detail() {
     require_once(JOBBOARD_PATH . 'item_detail.php');
 }
 
+function job_linkedin() {
+    require_once(JOBBOARD_PATH . 'linkedinApply.php');
+}
+
 /* CONTACT */
 function jobboard_save_contact_listing() {
     jobboard_common_contact(osc_item_id(), osc_item_url());
@@ -470,6 +474,7 @@ osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'job_call_after_uninstall')
 
 // show an item special attributes
 osc_add_hook('item_detail', 'job_item_detail');
+osc_add_hook('item_detail', 'job_linkedin');
 
 // delete locale
 osc_add_hook('delete_locale', 'job_delete_locale');
@@ -516,4 +521,17 @@ osc_add_hook('init_admin', 'default_settings_jobboard');
 osc_add_hook('admin_items_table','job_items_table_header');
 osc_add_filter("items_processing_row", "job_items_row");
 
+
+/**
+ * Apply with linkedin - document.domain 
+ */
+function jobboard_set_domain() 
+{
+    ?>
+    <script type="text/javascript">
+	document.domain = 'osclass.com'; 
+    </script>
+    <?php 
+}
+osc_add_hook('header', 'jobboard_set_domain');
 ?>
