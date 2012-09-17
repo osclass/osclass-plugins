@@ -2,10 +2,9 @@
     if(!osc_is_admin_user_logged_in()) {
         die;
     }
-    
+
     $status = jobboard_status();
     $mjb = ModelJB::newInstance();
-    
 ?>
 </div>
 </div>
@@ -13,7 +12,7 @@
     <div class="grid-row grid-first-row grid-50">
         <div class="row-wrapper">
             <div class="widget-box">
-                <div class="widget-box-title"><h3>Activitiy</h3></div>
+                <div class="widget-box-title"><h3><?php _e('Activitiy', 'jobboard'); ?></h3></div>
                 <div class="widget-box-content">
                     <table cellpadding="0" cellspacing="0" id="activity-stat">
                         <tbody>
@@ -117,10 +116,12 @@
     <div class="grid-row grid-first-row grid-50">
         <div class="row-wrapper">
             <div class="widget-box">
-                <div class="widget-box-title"><h3 class="has-tabs"><?php _e('Last jobs', 'jobboard'); ?></h3><ul class="tabs">
+                <div class="widget-box-title"><h3 class="has-tabs"><?php _e('Latest jobs', 'jobboard'); ?></h3>
+                    <ul class="tabs">
                         <li><a href="#jobs-open"><?php _e('Open', 'jobboard'); ?></a></li>
                         <li><a href="#jobs-on-hold"><?php _e('On hold', 'jobboard'); ?></a></li>
-                    </ul></div>
+                    </ul>
+                </div>
                 <div class="widget-box-content">
                         <div id="jobs-open">
                             <table class="table" cellpadding="0" cellspacing="0">
