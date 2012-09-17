@@ -82,7 +82,8 @@
     }
 </script>
 <div id="applicant-detail">
-    <div class="applicant-header">
+    <span><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" ><?php _e('Applicants', 'jobboard'); ?></a> &raquo; <?php echo @$people['s_name']; ?></span>
+    <div class="applicant-header" style="margin-top: 10px;">
         <h2 class="render-title"><?php echo @$people['s_name']; ?></h2>
     </div>
     <div class="applicant-cover-letter">
@@ -94,7 +95,7 @@
                 _e("This applicant has not sumitted any resume", "jobboard");
             } else { ?>
             <div id="applicant-resume">
-            <iframe src="http://docs.google.com/viewer?embedded=true&url=<?php echo str_replace("localhost", "95.62.72.123", osc_plugin_url(__FILE__));?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>"></iframe>
+            <iframe src="http://docs.google.com/viewer?embedded=true&url=<?php echo osc_plugin_url(__FILE__); ?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>"></iframe>
             </div>
             <?php } ?>
         </div>
