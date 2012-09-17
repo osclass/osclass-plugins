@@ -574,17 +574,6 @@ function remove_help_core() {
 }
 osc_add_hook('admin_header', 'remove_help_core');
 
-function css_jobs() {
-    echo '<link href="' . osc_plugin_url(__FILE__) . 'css/styles.css" rel="stylesheet" type="text/css">' . PHP_EOL;
-}
-osc_add_hook('header', 'css_jobs');
-function css_jobs_dashboard() {
-    if(Params::getParam('file') == 'jobboard/dashboard.php'){
-        echo '<link href="' . osc_plugin_url(__FILE__) . 'css/dashboard.css" rel="stylesheet" type="text/css">' . PHP_EOL;
-    }
-}
-osc_add_hook('admin_header', 'css_jobs_dashboard');
-
 function applicant_admin_menu_current($class) {
     if( urldecode(Params::getParam('file')) === 'jobboard/people_detail.php' ) {
         return 'current';
@@ -594,16 +583,26 @@ function applicant_admin_menu_current($class) {
 }
 osc_add_filter('current_admin_menu_corporateboard', 'applicant_admin_menu_current');
 
-function admin_javascript_jobboard() {
-    switch(Params::getParam('file')) {
-        case('jobboard/people.php'):
+// register js scripts
+osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.js', 'jquery');
+osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jquery.MetaData.js', 'jquery');
+
+function admin_assets_jobboard() {
+    osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/styles.css');
+    switch(urldecode(Params::getParam('file'))) {
+        case('jobboard/dashboard.php'):
+            osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'css/dashboard.css');
         break;
-        default:
-            # code...
+        case('jobboard/people_detail.php'):
+            osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/people_detail.css');
+        case('jobboard/people.php'):
+            osc_enqueue_script('jquery-rating');
+            osc_enqueue_script('jquery-metadata');
+            osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
         break;
     }
 }
-osc_add_hook('init_admin', 'admin_javascript_jobboard');
+osc_add_hook('init_admin', 'admin_assets_jobboard');
 
 function default_settings_jobboard() {
     // always active osc_item_attachment
@@ -621,16 +620,13 @@ function default_settings_jobboard() {
     }
     //reset preferences
     osc_reset_preferences();
-    
-    
+
     if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
         Session::newInstance()->_setForm('contactName', osc_page_title());
         Session::newInstance()->_setForm('contactEmail', osc_contact_email());
     }
-    
 }
 osc_add_hook('init_admin', 'default_settings_jobboard');
-
 
 function jobboard_titles($title) {
     $page = Params::getParam('page');
@@ -663,10 +659,6 @@ function jobboard_titles($title) {
     return $title;
 }
 osc_add_filter('admin_title', 'jobboard_titles', 9);
-
-
-
-
 
 osc_add_hook('admin_items_table','job_items_table_header');
 osc_add_filter("items_processing_row", "job_items_row");
