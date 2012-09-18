@@ -19,9 +19,6 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_description_attr (
         FOREIGN KEY (fk_i_item_id) REFERENCES /*TABLE_PREFIX*/t_item (pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
 
-
-
-
 CREATE TABLE /*TABLE_PREFIX*/t_item_job_applicant (
     pk_i_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     fk_i_item_id INT UNSIGNED NULL,
@@ -37,7 +34,6 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_applicant (
 
         PRIMARY KEY (pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
-
 
 CREATE TABLE /*TABLE_PREFIX*/t_item_job_file (
     pk_i_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
