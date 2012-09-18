@@ -373,7 +373,7 @@ osc_add_filter('actions_manage_items', 'jobboard_manage_actions');
 osc_add_filter('custom_plugin_title','jobboard_people_title');
 function jobboard_people_title($string){
     if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/people_detail.php'){
-        $string = __('Applicant', 'jobboard');
+        $string = __('Applicant', 'jobboard') . '<a href="#" class="btn ico ico-32 ico-help float-right"></a>';
     }
     return $string;
 }
@@ -493,16 +493,86 @@ osc_add_hook('delete_locale', 'job_delete_locale');
 // delete item
 osc_add_hook('delete_item', 'job_delete_item');
 
-function css_jobs() {
-    echo '<link href="' . osc_plugin_url(__FILE__) . 'css/styles.css" rel="stylesheet" type="text/css">' . PHP_EOL;
+
+/* Help sections */
+function help_list_vacancies() {
+    echo '<p>' . __("Manage all the vacancies published on your website. You can edit, delete, block or duplicate the vacancies already published or filter them by: e-mail, category, region, city etc.", 'jobboard') . '</p>';
 }
-osc_add_hook('header', 'css_jobs');
-function css_jobs_dashboard() {
-    if(Params::getParam('file') == 'jobboard/dashboard.php'){
-        echo '<link href="' . osc_plugin_url(__FILE__) . 'css/dashboard.css" rel="stylesheet" type="text/css">' . PHP_EOL;
+function help_add_vacancy() {
+    echo '<p>' . __("Add new vacancy to your job board: enter a title, select a category, country, region and provide a short description.", 'jobboard') . '</p>';
+}
+function help_list_applicants() {
+    echo '<p>' . __("Here you can manage all the applicants that are interested in your vacancies. You can filter them to see only those who have applied for one job offer, view the list by ratings or search applicants by name or email. By clicking on a name of the applicant you can view more information about her/his profile.", 'jobboard') . '</p>';
+}
+function help_detail_applicant() {
+    echo '<p>' . __("Here you can view a profile of the applicant, view or download his/her CV, add notes, rate profile and change applicant’s status (active, interviewed, hired or rejected).", 'jobboard') . '</p>';
+}
+function help_jobboard_pages() {
+    echo '<p>' . __('Here you can create, edit, view or delete static pages on which information can be stored, such as "Corporate" or "Legal" pages.', 'jobboard') . '</p>';
+}
+function help_add_jobboard_page() {
+    echo '<p>' . __("Modify the emails your site's users receive when they join your site, when someone shows interest in their ad, to recover their password... <strong>Be careful</strong>: don't modify any of the words that appear within brackets.") . '</p>';
+}
+function help_appearance_jobboard() {
+    echo '<p>' . __("Personalise your job board, upload your logo, change a background colour, customize fonts, etc.", 'jobboard') . '</p>';
+}
+function help_settings_jobboard() {
+    echo '<p>' . __("Manage your settings, modify e-mails, titles, admin users, passwords or allow spontaneous applications etc. You can also add a tracking code for Google Analytics here.", 'jobboard') . '</p>';
+}
+
+function help_jobboard_init() {
+    $page   = Params::getParam('page');
+    $action = Params::getParam('action');
+    switch($page) {
+        case('items'):
+            switch($action) {
+                case('item_edit'):
+                case('post'):
+                    osc_add_hook('help_box', 'help_add_vacancy', 9);
+                break;
+                case(''):
+                    osc_add_hook('help_box', 'help_list_vacancies', 9);
+                break;
+            }
+        break;
+        case('pages'):
+            switch($action) {
+                case('add'):
+                case('edit'):
+                    osc_add_hook('help_box', 'help_add_jobboard_page', 9);
+                break;
+                case(''):
+                    osc_add_hook('help_box', 'help_jobboard_pages', 9);
+                break;
+            }
+        break;
+        case('plugins'):
+            switch(urldecode(Params::getParam('file'))) {
+                case('jobboard/people.php'):
+                    osc_add_hook('help_box', 'help_list_applicants', 9);
+                break;
+                case('jobboard/people_detail.php'):
+                    osc_add_hook('help_box', 'help_detail_applicant', 9);
+                break;
+            }
+        break;
+        case('appearance'):
+            switch(urldecode(Params::getParam('file'))) {
+                case('oc-content/themes/corporateboard/admin/settings.php'):
+                    osc_add_hook('help_box', 'help_settings_jobboard', 9);
+                break;
+                case('oc-content/themes/corporateboard/admin/colors.php'):
+                    osc_add_hook('help_box', 'help_appearance_jobboard', 9);
+                break;
+            }
+        break;
     }
 }
-osc_add_hook('admin_header', 'css_jobs_dashboard');
+osc_add_hook('init_admin', 'help_jobboard_init');
+function remove_help_core() {
+    osc_remove_hook('help_box','addHelp');
+}
+osc_add_hook('admin_header', 'remove_help_core');
 
 function applicant_admin_menu_current($class) {
     if( urldecode(Params::getParam('file')) === 'jobboard/people_detail.php' ) {
@@ -513,16 +583,26 @@ function applicant_admin_menu_current($class) {
 }
 osc_add_filter('current_admin_menu_corporateboard', 'applicant_admin_menu_current');
 
-function admin_javascript_jobboard() {
-    switch(Params::getParam('file')) {
-        case('jobboard/people.php'):
+// register js scripts
+osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.js', 'jquery');
+osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jquery.MetaData.js', 'jquery');
+
+function admin_assets_jobboard() {
+    osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/styles.css');
+    switch(urldecode(Params::getParam('file'))) {
+        case('jobboard/dashboard.php'):
+            osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'css/dashboard.css');
         break;
-        default:
-            # code...
+        case('jobboard/people_detail.php'):
+            osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/people_detail.css');
+        case('jobboard/people.php'):
+            osc_enqueue_script('jquery-rating');
+            osc_enqueue_script('jquery-metadata');
+            osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
         break;
     }
 }
-osc_add_hook('init_admin', 'admin_javascript_jobboard');
+osc_add_hook('init_admin', 'admin_assets_jobboard');
 
 function default_settings_jobboard() {
     // always active osc_item_attachment
@@ -540,16 +620,13 @@ function default_settings_jobboard() {
     }
     //reset preferences
     osc_reset_preferences();
-    
-    
+
     if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
         Session::newInstance()->_setForm('contactName', osc_page_title());
         Session::newInstance()->_setForm('contactEmail', osc_contact_email());
     }
-    
 }
 osc_add_hook('init_admin', 'default_settings_jobboard');
-
 
 function jobboard_titles($title) {
     $page = Params::getParam('page');
@@ -582,10 +659,6 @@ function jobboard_titles($title) {
     return $title;
 }
 osc_add_filter('admin_title', 'jobboard_titles', 9);
-
-
-
-
 
 osc_add_hook('admin_items_table','job_items_table_header');
 osc_add_filter("items_processing_row", "job_items_row");

@@ -19,10 +19,6 @@
         ModelJB::newInstance()->changeRead($applicantId);
     }
 ?>
-<script src="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.rating.js" type="text/javascript" language="javascript"></script>
-<script src="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.MetaData.js" type="text/javascript" language="javascript"></script>
-<link href="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.rating.css" type="text/css" rel="stylesheet" />
-<link href="<?php echo osc_plugin_url(__FILE__); ?>css/style.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript">
     function setIcon(){
         $('.status-icon').css({
