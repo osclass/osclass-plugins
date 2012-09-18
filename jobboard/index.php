@@ -194,7 +194,7 @@ osc_add_hook('pre_contact_post', 'jobboard_save_contact');
 
 function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     $error_attachment = false;
-    
+
     $name   = Params::getParam('yourName');
     $email  = Params::getParam('yourEmail');
     $cover  = Params::getParam('message');
@@ -221,6 +221,35 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         osc_add_flash_error_message(__("CV is required", 'jobboard'));
         _save_jobboard_contact_listing();
         header('Location: ' . $url); die;
+    }
+
+    require osc_lib_path() . 'osclass/mimes.php';
+    // get allowedExt
+    $aMimesAllowed = array();
+    $aExt = array('pdf', 'rtf', 'doc', 'docx', 'odt');
+    foreach($aExt as $ext){
+        if(isset($mimes[$ext])) {
+            $mime = $mimes[$ext];
+            if( is_array($mime) ){
+                foreach($mime as $aux){
+                    if( !in_array($aux, $aMimesAllowed) ) {
+                        array_push($aMimesAllowed, $aux);
+                    }
+                }
+            } else {
+                if( !in_array($mime, $aMimesAllowed) ) {
+                    array_push($aMimesAllowed, $mime);
+                }
+            }
+        }
+    }
+
+    if( $aCV['error'] == UPLOAD_ERR_OK ) {
+        if( !in_array($aCV['type'], $aMimesAllowed) ) {
+            osc_add_flash_error_message(__("The file you tried to upload does not have a valid extension", 'jobboard'));
+            _save_jobboard_contact_listing();
+            header('Location: ' . $url); die;
+        }
     }
 
     // insert to database
