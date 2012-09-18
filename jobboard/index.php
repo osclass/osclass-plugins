@@ -192,7 +192,6 @@ function jobboard_save_contact($params) {
 }
 osc_add_hook('pre_contact_post', 'jobboard_save_contact');
 
-
 function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     $error_attachment = false;
     
@@ -352,7 +351,6 @@ function jobboard_duplicate_job() {
 }
 osc_add_hook('before_admin_html', 'jobboard_duplicate_job');
 
-
 function jobboard_more_options($options, $aRow) {
     return array();
 }
@@ -410,7 +408,6 @@ function jobboard_rating($applicantId, $rating = 0) {
     return $str;
 }
 
-
 function jobboard_status() {
     $status_array = array();
     $status_array[0] = __("Active", "jobboard");
@@ -438,7 +435,6 @@ function job_items_row($row, $aRow) {
     $row['views'] = @$aRow['i_num_views'];
     return $row;
 }
-
 
 /**
 * Redirect to function via JS
@@ -582,8 +578,9 @@ function applicant_admin_menu_current($class) {
     return $class;
 }
 osc_add_filter('current_admin_menu_corporateboard', 'applicant_admin_menu_current');
+/* /Help sections */
 
-// register js scripts
+// register js and css scripts
 osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.js', 'jquery');
 osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jquery.MetaData.js', 'jquery');
 
@@ -659,6 +656,46 @@ function jobboard_titles($title) {
     return $title;
 }
 osc_add_filter('admin_title', 'jobboard_titles', 9);
+
+/* H1 titles */
+function jobboard_customPageHeader_vacancies() { ?>
+    <h1><?php _e('Vacancies'); ?>
+        <a href="#" class="btn ico ico-32 ico-help float-right"></a>
+        <a href="<?php echo osc_admin_base_url(true) . '?page=items&action=post' ; ?>" class="btn btn-green ico ico-32 ico-add-white float-right"><?php _e('Add vacancy', 'corporateboardmenu'); ?></a>
+    </h1>
+<?php
+}
+function jobboard_customPageHeader_vacancies_post() { ?>
+    <h1><?php _e('Vacancies', 'corporateboardmenu'); ?>
+        <a href="#" class="btn ico ico-32 ico-help float-right"></a>
+    </h1>
+<?php
+}
+function corporateboard_remove_title_header(){
+    osc_remove_hook('admin_page_header','customPageHeader');
+
+}
+if(Params::getParam('page') == 'items'){
+    osc_add_hook('admin_header','corporateboard_remove_title_header');
+    if(Params::getParam('action') == ''){
+        osc_add_hook('admin_page_header','jobboard_customPageHeader_vacancies');
+    } else {
+        osc_add_hook('admin_page_header','jobboard_customPageHeader_vacancies_post');
+    }
+}
+
+// Custom title
+osc_add_filter('custom_plugin_title','jobboard_dashboard_title');
+function jobboard_dashboard_title($string){
+    if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/dashboard.php'){
+        $string = __('Dashboard', 'corporateboardmenu');
+    }
+    if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/people.php'){
+        $string = __('Applicants', 'corporateboardmenu') . '<a href="#" class="btn ico ico-32 ico-help float-right"></a>';
+    }
+    return $string;
+}
+/* /H1 titles */
 
 osc_add_hook('admin_items_table','job_items_table_header');
 osc_add_filter("items_processing_row", "job_items_row");
