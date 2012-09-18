@@ -713,6 +713,15 @@ if(Params::getParam('page') == 'items'){
     }
 }
 
+function jobboard_replace_listing($string) {
+    return preg_replace(array('|Listing|', '|listing|'), array(__('Vacancy', 'jobboard'), __('vacancy', 'jobboard')), $string);
+}
+osc_add_filter('gettext', 'jobboard_replace_listing');
+function jobboard_replace_listing_plural($string) {
+    return preg_replace(array('|Listings|', '|listings|'), array(__('Vacancies', 'jobboard'), __('vacancies', 'jobboard')), $string);
+}
+osc_add_filter('gettext', 'jobboard_replace_listing_plural', 1);
+
 // Custom title
 osc_add_filter('custom_plugin_title','jobboard_dashboard_title');
 function jobboard_dashboard_title($string){
