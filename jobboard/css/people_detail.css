@@ -14,10 +14,10 @@
     margin-top:35px;
 }
 #applicant-detail #applicant-resume{
-    width:528px;
+    width:100%;
     height: 600px;
     border:solid 1px #ddd;
-    margin-top:35px;
+    margin-top:20px;
 }
 #applicant-detail #applicant-resume iframe{
     width:100%;
@@ -26,6 +26,8 @@
 }
 #applicant-detail .applicant-header{
     border-bottom:solid 2px #DDD;
+    margin-bottom: 15px;
+    margin-top: 10px;
 }
 #applicant-detail .applicant-header h2{
     margin-bottom:5px;
@@ -35,9 +37,9 @@
     color: #616161;
     line-height: 17px;
     clear: both;
-}
-#applicant-detail #right-side .download-resume{
-    margin-top: 35px;
+    background: url('../img/comments_quotes.gif') no-repeat;
+    padding-left: 40px;
+    padding-top: 10px;
 }
 #applicant-detail #right-side .applicant-box{
     margin-top: 15px;
@@ -62,6 +64,7 @@
     padding:0;
     background-image: url(../img/note.png);
     background-repeat: repeat-y;
+    margin-top: 10px;
 }
 #applicant-detail .note-date{
     float:right;
@@ -110,9 +113,9 @@
     font-weight: normal;
     color:#616161;
     margin-bottom:-25px;
+    margin-top: 15px;
 }
 #applicant-detail .sidebar-title a{
     float:right;
-    font-size:13px;
-    line-height: 27px;
+    height: 14px;
 }

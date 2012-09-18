@@ -10,7 +10,7 @@
     if( $id === '' ) {
         require_once(osc_lib_path() . 'osclass/helpers/hErrors.php');
         $title   = 'Osclass &raquo; Error';
-        $message = "This resume doesn't exist";
+        $message = __("This resume doesn't exist", 'jobboard');
         osc_die($title, $message);
     }
 
@@ -19,7 +19,7 @@
     if( count($pdf) === 0 ) {
         require_once(osc_lib_path() . 'osclass/helpers/hErrors.php');
         $title   = 'Osclass &raquo; Error';
-        $message = "This resume doesn't exist";
+        $message = __("This resume doesn't exist", 'jobboard');
         osc_die($title, $message);
     }
 

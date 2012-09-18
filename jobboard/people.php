@@ -3,8 +3,7 @@
         die;
     }
 
-    
-    $iDisplayLength = 10;//Params::getParam('iDisplayLength');
+    $iDisplayLength = 10;
     $iPage = Params::getParam('iPage');
     $iPage = is_numeric($iPage)?($iPage):1;
     $iDisplayLength = (is_numeric($iDisplayLength)?$iDisplayLength:10);
@@ -19,6 +18,9 @@
     }
     if(Params::getParam('viewUnread')=='1') {
         $conditions['unread'] = 1;
+    }
+    if(Params::getParam('onlySpontaneous')=='1') {
+        $conditions['spontaneous'] = 1;
     }
     if(Params::getParam('sSearch')!='') {
         if(Params::getParam('opt')=='oItem') {
@@ -38,30 +40,24 @@
     $status = jobboard_status();
 
     $opt = Params::getParam('opt');
-    
-    
+
     $urlOrder = osc_admin_base_url(true).'?'.$_SERVER['QUERY_STRING'];
     $urlOrder = preg_replace('/&iPage=(\d+)?/', '', $urlOrder) ;
     $urlOrder = preg_replace('/&sOrderCol=([^&]*)/', '', $urlOrder) ;
     $urlOrder = preg_replace('/&sOrderDir=([^&]*)/', '', $urlOrder) ;
-
-    
 
     $mSearch = new Search();
     $mSearch->limit(0, 100);
     $aItems = $mSearch->doSearch();
     View::newInstance()->_exportVariableToView('items', $aItems) ;
 ?>
-<script src="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.rating.js" type="text/javascript" language="javascript"></script>
-<script src="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.MetaData.js" type="text/javascript" language="javascript"></script>
-<link href="<?php echo osc_plugin_url(__FILE__); ?>js/rating/jquery.rating.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
     $(document).ready(function() {
         $('.auto-star').rating({
             callback: function(value, link, input){
                 var data = value.split("_");
                 $.getJSON(
-                    "<?php echo osc_admin_base_url(true); ?>?page=ajax&action=custom&ajaxfile=<?php echo osc_plugin_folder(__FILE__);?>ajax.php&paction=rating",
+                    "<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>",
                     {"applicantId" : data[0], "rating" : data[1]},
                     function(data){
                     }
@@ -75,10 +71,9 @@
         });
         
         $("#dialog-people-delete").dialog({
-                    autoOpen: false,
-                    modal: true
-                });        
-        
+            autoOpen: false,
+            modal: true
+        });
     });
 
     function showPage() {
@@ -86,22 +81,27 @@
         if($("#viewUnread").attr("checked")=='checked') {
             checked = 1;
         }
-        window.location = '<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&opt='+$("#filter-select option:selected").attr("value")+'&sSearch='+$("#sSearch").attr("value")+"&viewUnread="+checked;
+        var checkedSpontaneous = 0;
+        if($("#onlySpontaneous").attr("checked")=='checked') {
+            checkedSpontaneous = 1;
+        }
+        window.location = '<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&opt='+$("#filter-select option:selected").attr("value")+'&sSearch='+$("#sSearch").attr("value")+"&viewUnread="+checked+"&onlySpontaneous="+checkedSpontaneous;
         return false;
     }
-    
-    
+
     function delete_applicant(id) {
         $("#delete_id").attr("value", id);
         $("#dialog-people-delete").dialog('open');
     }
-    
 </script>
 <h2 class="render-title"><?php _e('Resumes', 'jobboard'); ?></h2>
 <div class="relative">
     <div id="listing-toolbar">
         <div class="float-right">
             <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="inline">
+                <span style="float: left;margin-right: 2em;margin-top: 0.5em;">
+                    <input type="checkbox" id="onlySpontaneous" name="onlySpontaneous" value="1" <?php if(Params::getParam('onlySpontaneous')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("Only spontaneous", "jobboard"); ?>
+                </span>
                 <span style="float: left;margin-right: 2em;margin-top: 0.5em;">
                     <input type="checkbox" id="viewUnread" name="viewUnread" value="1" <?php if(Params::getParam('viewUnread')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("View unread", "jobboard"); ?>
                 </span>
@@ -126,7 +126,7 @@
                     <?php while( osc_has_items() ) { ?>
                     <option value="<?php echo osc_item_id(); ?>" <?php if( Params::getParam('jobId') == osc_item_id() ) echo "selected" ?>><?php echo osc_item_title(); ?></option>
                     <?php } ?>
-                </select> <input type="submit" class="btn" value="<?php echo osc_esc_html(__('View')); ?>" />
+                </select> <input type="submit" class="btn" value="<?php echo osc_esc_html(__('View', 'jobboard')); ?>" />
             </label>
         </div>
         <div class="table-contains-actions">
@@ -226,7 +226,7 @@
     <input type="hidden" id="delete_id" name="id" value="" />
     <div class="form-horizontal">
         <div class="form-row">
-            <?php _e('Are you sure you want to delete this applicant?'); ?>
+            <?php _e('Are you sure you want to delete this applicant?', 'jobboard'); ?>
         </div>
         <div class="form-actions">
             <div class="wrapper">

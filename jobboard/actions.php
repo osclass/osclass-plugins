@@ -32,5 +32,3 @@
             job_js_redirect_to(osc_admin_render_plugin_url("jobboard/dashboard.php"));
             break;
     }
-    
-?>
