@@ -659,14 +659,14 @@ osc_add_filter('admin_title', 'jobboard_titles', 9);
 
 /* H1 titles */
 function jobboard_customPageHeader_vacancies() { ?>
-    <h1><?php _e('Vacancies'); ?>
+    <h1><?php _e('Vacancies', 'jobboard'); ?>
         <a href="#" class="btn ico ico-32 ico-help float-right"></a>
-        <a href="<?php echo osc_admin_base_url(true) . '?page=items&action=post' ; ?>" class="btn btn-green ico ico-32 ico-add-white float-right"><?php _e('Add vacancy', 'corporateboardmenu'); ?></a>
+        <a href="<?php echo osc_admin_base_url(true) . '?page=items&action=post' ; ?>" class="btn btn-green ico ico-32 ico-add-white float-right"><?php _e('Add vacancy', 'jobboard'); ?></a>
     </h1>
 <?php
 }
 function jobboard_customPageHeader_vacancies_post() { ?>
-    <h1><?php _e('Vacancies', 'corporateboardmenu'); ?>
+    <h1><?php _e('Vacancies', 'jobboard'); ?>
         <a href="#" class="btn ico ico-32 ico-help float-right"></a>
     </h1>
 <?php
@@ -688,10 +688,10 @@ if(Params::getParam('page') == 'items'){
 osc_add_filter('custom_plugin_title','jobboard_dashboard_title');
 function jobboard_dashboard_title($string){
     if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/dashboard.php'){
-        $string = __('Dashboard', 'corporateboardmenu');
+        $string = __('Dashboard', 'jobboard');
     }
     if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/people.php'){
-        $string = __('Applicants', 'corporateboardmenu') . '<a href="#" class="btn ico ico-32 ico-help float-right"></a>';
+        $string = __('Applicants', 'jobboard') . '<a href="#" class="btn ico ico-32 ico-help float-right"></a>';
     }
     return $string;
 }
