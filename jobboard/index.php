@@ -369,7 +369,7 @@ function jobboard_duplicate_job() {
 
             Session::newInstance()->_keepForm('pj_positionType');
             Session::newInstance()->_keepForm('pj_salaryText');
-            Session::newInstance()->_keepForm('pj_data');    
+            Session::newInstance()->_keepForm('pj_data');
 
             osc_current_admin_theme_path('items/frm.php') ;
             Session::newInstance()->_clearVariables();
@@ -420,7 +420,7 @@ osc_add_admin_submenu_page(
     'moderator'
 );
 
-osc_add_admin_submenu_page( 
+osc_add_admin_submenu_page(
     'jobboard',
     __('Applicants', 'jobboard'),
     osc_admin_render_plugin_url("jobboard/people.php"),
@@ -456,9 +456,9 @@ function job_items_table_header($table) {
 }
 
 function job_items_row($row, $aRow) {
-    
+
     list($applicants, $total) = ModelJB::newInstance()->searchCount(array('item' => $aRow['pk_i_id']));
-    
+
     $row['mod_date'] = @$aRow['dt_mod_date'];
     $row['applicants'] = '<a href="' . osc_admin_render_plugin_url("jobboard/people.php&jobId=") . $aRow['pk_i_id'] . '">' . sprintf(__('%d applicants', 'jobboard'), $applicants) . '</a>';
     $row['views'] = @$aRow['i_num_views'];
@@ -468,7 +468,7 @@ function job_items_row($row, $aRow) {
 /**
 * Redirect to function via JS
 *
-* @param string $url 
+* @param string $url
 */
 function job_js_redirect_to($url) { ?>
     <script type="text/javascript">

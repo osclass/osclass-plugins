@@ -21,7 +21,7 @@
 
     /**
      * Model database for Jobs tables
-     * 
+     *
      * @package OSClass
      * @subpackage Model
      * @since 3.0
@@ -31,7 +31,7 @@
         /**
          * It references to self object: ModelJB.
          * It is used as a singleton
-         * 
+         *
          * @access private
          * @since 3.0
          * @var ModelJB
@@ -41,7 +41,7 @@
         /**
          * It creates a new ModelJB object class ir if it has been created
          * before, it return the previous object
-         * 
+         *
          * @access public
          * @since 3.0
          * @return ModelJB
@@ -109,7 +109,7 @@
 
         /**
          * Import sql file
-         * @param type $file 
+         * @param type $file
          */
         public function import($file)
         {
@@ -239,7 +239,7 @@
          *
          * @param type $item_id
          * @param type $salaryHourmin
-         * @param type $salaryHourMax 
+         * @param type $salaryHourMax
          */
         public function replaceJobsSalaryAttr($item_id, $salaryText)
         {
@@ -251,7 +251,7 @@
         }
 
         /**
-         * Replace Jobs attributes 
+         * Replace Jobs attributes
          */
         public function replaceJobsAttr($item_id, $relation, $position_type, $salaryText)
         {
@@ -282,10 +282,10 @@
 
         /**
          * Insert files attached to an applicant
-         * 
+         *
          * @param $applicantId
          * @param $fileName
-         * @return boolean 
+         * @return boolean
          */
         public function insertFile($applicantId, $fileName)
         {
@@ -303,12 +303,12 @@
 
         /**
          * Insert an applicant
-         * 
+         *
          * @param $itemId
          * @param $name
          * @param $email
          * @param $coverLetter
-         * @return applicant's ID 
+         * @return applicant's ID
          */
         public function insertApplicant($itemId, $name, $email, $coverLetter = '', $phone = '')
         {
@@ -334,11 +334,11 @@
 
         /**
          * Get applicants
-         * 
+         *
          * @param $start
          * @param $length
          * @param $conditions
-         * 
+         *
          * @return array
          */
         public function search($start = 0, $length = 10, $conditions = null, $order_col = 'a.dt_date', $order_dir = 'DESC')
@@ -445,9 +445,9 @@
         }
         /**
          * Set applicants rating
-         * 
+         *
          * @param $applicantId
-         * @param $rating 
+         * @param $rating
          */
         public function setRating($applicantId, $rating)
         {
@@ -459,9 +459,9 @@
 
         /**
          * Get applicant
-         * 
+         *
          * @param $id
-         * 
+         *
          * @return array
          */
         public function getApplicant($id)
@@ -479,9 +479,9 @@
         }
         /**
          * Get applicant's CV
-         * 
+         *
          * @param $id
-         * 
+         *
          * @return array
          */
         public function getCVFromApplicant($id)
@@ -500,9 +500,9 @@
 
         /**
          * Get applicant's CV
-         * 
+         *
          * @param $id
-         * 
+         *
          * @return array
          */
         public function getNotesFromApplicant($id)
@@ -521,7 +521,7 @@
         /**
          * Delete entries at jobs attr description table given a locale code
          *
-         * @param type $locale 
+         * @param type $locale
          */
         public function deleteLocale($locale)
         {
@@ -531,7 +531,7 @@
         /**
          * Delete entries at jobs tables given a item id
          *
-         * @param type $locale 
+         * @param type $locale
          */
         public function deleteItem($item_id)
         {
@@ -550,7 +550,7 @@
             foreach($ids as $id) {
                 $this->deleteApplicant($id);
             }
-            
+
         }
 
         public function deleteApplicant($id) {

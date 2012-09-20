@@ -3,7 +3,7 @@
     if(!osc_is_admin_user_logged_in()) {
         die;
     }
-    
+
     switch(Params::getParam('paction')) {
         case 'delete_applicant':
             ModelJB::newInstance()->deleteApplicant(Params::getParam("id"));
