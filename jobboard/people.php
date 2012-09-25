@@ -168,14 +168,18 @@
                                 <?php _e('Received', 'jobboard') ; ?>
                             </a>
                         </th>
-                        <th><?php _e('Actions', 'jobboard') ; ?></th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php if(count($people) > 0) { ?>
                 <?php foreach($people as $p) { ?>
                     <tr style="background-color: <?php echo ($p['b_read']==1)?'#EDFFDF':'#FFF0DF'; ?>;" >
-                        <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a></td>
+                        <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a><div class="actions">
+                                <ul>
+                                    <li><a href="javascript:delete_applicant(<?php echo $p['pk_i_id']; ?>);" ><?php _e("Delete", "jobboard"); ?></a></li>
+                                </ul>
+                            </div>
+                        </td>
                         <td><?php echo @$p['s_email']; ?></td>
                         <td><?php echo $p['fk_i_item_id']==''?__('Spontaneous job', 'jobboard'):@$p['s_title']; ?></td>
                         <td><?php echo $p['b_has_notes']==1?__("Has notes", "jobboard"):__("No notes yet", "jobboard"); ?></td>
@@ -188,7 +192,6 @@
                             </div>
                         </td>
                         <td><?php echo @$p['dt_date']; ?></td>
-                        <td><a href="javascript:delete_applicant(<?php echo $p['pk_i_id']; ?>);" ><?php _e("Delete", "jobboard"); ?></a></td>
                     </tr>
                 <?php } ?>
                 <?php } else { ?>
@@ -200,6 +203,7 @@
                 <?php } ?>
                 </tbody>
             </table>
+            <div id="table-row-actions"></div>
         </div>
     </form>
 </div>
