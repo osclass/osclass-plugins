@@ -1,0 +1,439 @@
+# Copyright (C) 2012 Job Board
+# This file is distributed under the same license as the Job Board package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Job Board 1.0\n"
+"Report-Msgid-Bugs-To: http://osclass.org/\n"
+"POT-Creation-Date: 2012-09-20 10:21:15+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2012-09-20 12:21++0200\n"
+"Last-Translator: Translations <translations@osclass.org>\n"
+"Language-Team: Translations <translations@osclass.org>\n"
+
+#: dashboard.php:15
+msgid "Activitiy"
+msgstr ""
+
+#: dashboard.php:25 index.php:691 index.php:698 index.php:721
+msgid "Vacancies"
+msgstr ""
+
+#: dashboard.php:41 index.php:425 index.php:675 index.php:732
+#: people_detail.php:81
+msgid "Applicants"
+msgstr ""
+
+#: dashboard.php:56 dashboard.php:72
+msgid "Most viewed"
+msgstr ""
+
+#: dashboard.php:83
+msgid "Recent applicants"
+msgstr ""
+
+#: dashboard.php:95 index.php:403 people.php:138
+msgid "Applicant"
+msgstr ""
+
+#: dashboard.php:95 dashboard.php:182 people.php:148
+msgid "Job"
+msgstr ""
+
+#: dashboard.php:95 people.php:168
+msgid "Received"
+msgstr ""
+
+#: dashboard.php:108
+msgid "View all"
+msgstr ""
+
+#: dashboard.php:119
+msgid "Latest jobs"
+msgstr ""
+
+#: dashboard.php:121
+msgid "Open"
+msgstr ""
+
+#: dashboard.php:122
+msgid "On hold"
+msgstr ""
+
+#: dashboard.php:146
+msgid "View Open"
+msgstr ""
+
+#: dashboard.php:168
+msgid "View on hold"
+msgstr ""
+
+#: dashboard.php:177
+msgid "Most viewed jobs"
+msgstr ""
+
+#: dashboard.php:183 index.php:453
+msgid "Views"
+msgstr ""
+
+#: download.php:13 download.php:22
+msgid "This resume doesn't exist"
+msgstr ""
+
+#: index.php:162 item_detail.php:2
+msgid "Undefined"
+msgstr ""
+
+#: index.php:163 item_detail.php:2
+msgid "Part time"
+msgstr ""
+
+#: index.php:164
+msgid "Full time"
+msgstr ""
+
+#: index.php:182 index.php:190
+msgid "Thanks for sending us your CV"
+msgstr ""
+
+#: index.php:206
+msgid "Name is required"
+msgstr ""
+
+#: index.php:211
+msgid "Email is required"
+msgstr ""
+
+#: index.php:216
+msgid "Cover is required"
+msgstr ""
+
+#: index.php:221
+msgid "CV is required"
+msgstr ""
+
+#: index.php:249
+msgid "The file you tried to upload does not have a valid extension"
+msgstr ""
+
+#: index.php:261 index.php:289
+msgid "There were some problem processing your application, please try again"
+msgstr ""
+
+#: index.php:390
+msgid "Block"
+msgstr ""
+
+#: index.php:392
+msgid "Unblock"
+msgstr ""
+
+#: index.php:394
+msgid "Duplicate"
+msgstr ""
+
+#: index.php:409
+msgid "Jobboard"
+msgstr ""
+
+#: index.php:417 index.php:673 index.php:729
+msgid "Dashboard"
+msgstr ""
+
+#: index.php:442
+msgid "Active"
+msgstr ""
+
+#: index.php:443
+msgid "Interview"
+msgstr ""
+
+#: index.php:444
+msgid "Rejected"
+msgstr ""
+
+#: index.php:445
+msgid "Hired"
+msgstr ""
+
+#: index.php:451
+msgid "Modified"
+msgstr ""
+
+#: index.php:452
+msgid "# of applicants"
+msgstr ""
+
+#: index.php:463
+msgid "%d applicants"
+msgstr ""
+
+#: index.php:524
+msgid ""
+"Manage all the vacancies published on your website. You can edit, delete, "
+"block or duplicate the vacancies already published or filter them by: e-"
+"mail, category, region, city etc."
+msgstr ""
+
+#: index.php:527
+msgid ""
+"Add new vacancy to your job board: enter a title, select a category, "
+"country, region and provide a short description."
+msgstr ""
+
+#: index.php:530
+msgid ""
+"Here you can manage all the applicants that are interested in your "
+"vacancies. You can filter them to see only those who have applied for one "
+"job offer, view the list by ratings or search applicants by name or email. "
+"By clicking on a name of the applicant you can view more information about "
+"her/his profile."
+msgstr ""
+
+#: index.php:533
+msgid ""
+"Here you can view a profile of the applicant, view or download his/her CV, "
+"add notes, rate profile and change applicant’s status (active, interviewed, "
+"hired or rejected)."
+msgstr ""
+
+#: index.php:536
+msgid ""
+"Here you can create, edit, view or delete static pages on which information "
+"can be stored, such as \"Corporate\" or \"Legal\" pages."
+msgstr ""
+
+#: index.php:539
+msgid ""
+"Modify the emails your site's users receive when they join your site, when "
+"someone shows interest in their ad, to recover their password... <strong>Be "
+"careful</strong>: don't modify any of the words that appear within brackets."
+msgstr ""
+
+#: index.php:542
+msgid ""
+"Personalise your job board, upload your logo, change a background colour, "
+"customize fonts, etc."
+msgstr ""
+
+#: index.php:545
+msgid ""
+"Manage your settings, modify e-mails, titles, admin users, passwords or "
+"allow spontaneous applications etc. You can also add a tracking code for "
+"Google Analytics here."
+msgstr ""
+
+#: index.php:663
+msgid "Manage vacancies"
+msgstr ""
+
+#: index.php:665 index.php:693
+msgid "Add vacancy"
+msgstr ""
+
+#: index.php:667
+msgid "Edit vacancy"
+msgstr ""
+
+#: index.php:679
+msgid "%s &raquo; Applicants"
+msgstr ""
+
+#: index.php:717
+msgid "Vacancy"
+msgstr ""
+
+#: index.php:717
+msgid "vacancy"
+msgstr ""
+
+#: index.php:721
+msgid "vacancies"
+msgstr ""
+
+#: item_detail.php:2
+msgid "Full-time"
+msgstr ""
+
+#: item_detail.php:5 item_edit.php:2
+msgid "Job details"
+msgstr ""
+
+#: item_detail.php:10 item_edit.php:5
+msgid "Position type"
+msgstr ""
+
+#: item_detail.php:16 item_edit.php:14
+msgid "Salary"
+msgstr ""
+
+#: item_detail.php:23 item_edit.php:27
+msgid "Desired experience"
+msgstr ""
+
+#: item_detail.php:29 item_edit.php:23
+msgid "Studies"
+msgstr ""
+
+#: item_detail.php:35 item_edit.php:31
+msgid "Minimum requirements"
+msgstr ""
+
+#: item_detail.php:41 item_edit.php:35
+msgid "Desired requirements"
+msgstr ""
+
+#: item_detail.php:47 item_edit.php:19
+msgid "Contract"
+msgstr ""
+
+#: people.php:97
+msgid "Resumes"
+msgstr ""
+
+#: people.php:103
+msgid "Only spontaneous"
+msgstr ""
+
+#: people.php:106
+msgid "View unread"
+msgstr ""
+
+#: people.php:109
+msgid "E-mail"
+msgstr ""
+
+#: people.php:110
+msgid "Name"
+msgstr ""
+
+#: people.php:114
+msgid "Find"
+msgstr ""
+
+#: people.php:125
+msgid "All jobs"
+msgstr ""
+
+#: people.php:129
+msgid "View"
+msgstr ""
+
+#: people.php:143
+msgid "Email"
+msgstr ""
+
+#: people.php:153 people_detail.php:124
+msgid "Notes"
+msgstr ""
+
+#: people.php:158
+msgid "Status"
+msgstr ""
+
+#: people.php:163
+msgid "Rating"
+msgstr ""
+
+#: people.php:171
+msgid "Actions"
+msgstr ""
+
+#: people.php:180
+msgid "Spontaneous job"
+msgstr ""
+
+#: people.php:181
+msgid "Has notes"
+msgstr ""
+
+#: people.php:181
+msgid "No notes yet"
+msgstr ""
+
+#: people.php:191 people.php:234 people_detail.php:167
+msgid "Delete"
+msgstr ""
+
+#: people.php:197
+msgid "No data available in table"
+msgstr ""
+
+#: people.php:221
+msgid "Delete applicant"
+msgstr ""
+
+#: people.php:229
+msgid "Are you sure you want to delete this applicant?"
+msgstr ""
+
+#: people.php:233 people_detail.php:166 people_detail.php:188
+msgid "Cancel"
+msgstr ""
+
+#: people_detail.php:83
+msgid "Download resume"
+msgstr ""
+
+#: people_detail.php:87
+msgid "Cover letter"
+msgstr ""
+
+#: people_detail.php:108
+msgid "Applied for:"
+msgstr ""
+
+#: people_detail.php:118
+msgid "This applicant has not sumitted any resume"
+msgstr ""
+
+#: people_detail.php:124
+msgid "Add note"
+msgstr ""
+
+#: people_detail.php:133
+msgid "DELETE"
+msgstr ""
+
+#: people_detail.php:134
+msgid "EDIT"
+msgstr ""
+
+#: people_detail.php:147
+msgid "No notes have been added to this applicant"
+msgstr ""
+
+#: people_detail.php:153
+msgid "Delete note"
+msgstr ""
+
+#: people_detail.php:162
+msgid "Are you sure you want to delete this note?"
+msgstr ""
+
+#: people_detail.php:172 people_detail.php:181
+msgid "Note"
+msgstr ""
+
+#: people_detail.php:189
+msgid "Ok"
+msgstr ""
+
+#. #-#-#-#-#  messages.po (Job Board 1.0)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#. #-#-#-#-#  messages.po (Job Board 1.0)  #-#-#-#-#
+#. Description of the plugin/theme
+msgid "Job Board"
+msgstr ""
+
+#. #-#-#-#-#  messages.po (Job Board 1.0)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  messages.po (Job Board 1.0)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://www.osclass.org/"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "OSClass"
+msgstr ""

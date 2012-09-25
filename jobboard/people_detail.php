@@ -37,6 +37,22 @@
             modal: true
         });
 
+        $("#dialog-applicant-status").dialog({
+            autoOpen: false,
+            modal: true
+        });
+        $("#applicant-status-submit").click(function() {
+            $.getJSON(
+                "<?php echo osc_admin_ajax_hook_url('applicant_status_notifitacion'); ?>",
+                {"applicantId" : <?php echo $applicantId; ?>, "status" : $("#applicant_status option:selected").attr("value")},
+                function(data){}
+            );
+            $('#dialog-applicant-status').dialog('close');
+        });
+        $("#applicant-status-cancel").click(function() {
+            $('#dialog-applicant-status').dialog('close');
+        });
+
         $("#applicant_status").change(function(){
             $.getJSON(
                 "<?php echo osc_admin_ajax_hook_url('applicant_status'); ?>",
@@ -44,6 +60,7 @@
                 function(data){}
             );
             setIcon();
+            $("#dialog-applicant-status").dialog('open');
         });
         setIcon();
         $('.auto-star').rating({
@@ -92,7 +109,7 @@
                 <div class="status-icon">
                 </div>
                 <div class="rater big-star">
-                    <?php for($k=1;$k<=5;$k++) {
+                    <?php for($k=1; $k<=5; $k++) {
                         echo '<input name="star'.$people['pk_i_id'].'" type="radio" class="auto-star required" value="'.$people['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$people['i_rating']?'checked="checked"':'').'/>';
                     } ?>
                 </div>
@@ -144,7 +161,7 @@
                 <?php }; ?>
             <?php } else { ?>
                 <div class="note well ui-rounded-corners">
-                <?php _e("No notes have been added to this applicant", "jobboard"); ?>
+                    <p><?php _e("No notes have been added to this applicant", "jobboard"); ?></p>
                 </div>
             <?php } ?>
         </div>
@@ -191,3 +208,15 @@
         </div>
     </div>
 </form>
+<div id="dialog-applicant-status" title="<?php echo osc_esc_html(__('Applicant status')); ?>" class="has-form-actions hide">
+    <div class="form-horizontal">
+        <div class="form-row"><?php _e('Do you want to send an email to the applicant notifying the status of the application?', 'jobboard'); ?></div>
+        <div class="form-actions">
+            <div class="wrapper">
+                <a id="applicant-status-cancel" class="btn" href="javascript:void(0);"><?php _e('Cancel', 'jobboard'); ?></a>
+                <a id="applicant-status-submit" href="javascript:void(0);" class="btn btn-red" ><?php echo osc_esc_html( __('Send', 'jobboard') ); ?></a>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>

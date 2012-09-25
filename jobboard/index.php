@@ -28,7 +28,6 @@ function job_call_after_uninstall() {
     osc_delete_preference('version', 'jobboard_plugin');
 }
 
-/* FORM JOB BOARD */
 function ajax_rating_request() {
     ModelJB::newInstance()->setRating(Params::getParam("applicantId"), Params::getParam("rating"));
 }
@@ -39,7 +38,16 @@ function ajax_applicant_status() {
 }
 osc_add_hook('ajax_admin_applicant_status', 'ajax_applicant_status');
 
+function ajax_applicant_status_notification() {
+    $applicantID = Params::getParam('applicantId');
+    $status      = Params::getParam('status');
 
+    require_once(JOBBOARD_PATH . 'email.php');
+    send_email_notification_applicant($status, $applicantID);
+}
+osc_add_hook('ajax_admin_applicant_status_notifitacion', 'ajax_applicant_status_notification');
+
+/* FORM JOB BOARD */
 function jobboard_form($catID = null) {
     $detail = array(
         'e_position_type' => '',
@@ -183,16 +191,20 @@ function job_linkedin() {
 /* CONTACT */
 function jobboard_save_contact_listing() {
     jobboard_common_contact(osc_item_id(), osc_item_url());
-    osc_add_flash_ok_message(__('Thanks for sending us your CV', 'jobboard'));
-    header('Location: ' . osc_item_url()); die;
+    require_once(JOBBOARD_PATH . 'email.php');
+    send_email_to_applicant('listing');
+    send_notifaction_applicant_to_admin('listing');
 }
-osc_add_hook('post_item_contact_post', 'jobboard_save_contact_listing');
+osc_add_hook('post_item_contact_post', 'jobboard_save_contact_listing', 1);
 osc_remove_hook('hook_email_item_inquiry', 'fn_email_item_inquiry');
 
 function jobboard_save_contact($params) {
     jobboard_common_contact(null, osc_contact_url(), @$params['attachment']);
+    require_once(JOBBOARD_PATH . 'email.php');
+    send_email_to_applicant('spontaneous');
+    send_notifaction_applicant_to_admin('spontaneous');
     osc_add_flash_ok_message(__('Thanks for sending us your CV', 'jobboard'));
-    header('Location: ' . osc_contact_url()); die;
+    header('Location: ' . osc_contact_url()); exit;
 }
 osc_add_hook('pre_contact_post', 'jobboard_save_contact');
 
@@ -260,6 +272,7 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     $mJB = ModelJB::newInstance();
 
     $applicantID = $mJB->insertApplicant($itemID, $name, $email, $cover, $phone);
+    View::newInstance()->_exportVariableToView('applicantID', $applicantID);
     // return to listing url
     if( !$applicantID ) {
         osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
