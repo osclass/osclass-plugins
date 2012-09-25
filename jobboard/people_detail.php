@@ -161,7 +161,7 @@
                 <?php }; ?>
             <?php } else { ?>
                 <div class="note well ui-rounded-corners">
-                <?php _e("No notes have been added to this applicant", "jobboard"); ?>
+                    <p><?php _e("No notes have been added to this applicant", "jobboard"); ?></p>
                 </div>
             <?php } ?>
         </div>
