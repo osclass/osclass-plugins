@@ -3,6 +3,15 @@
         window.INFrame = $('#apply_with_linkedin_frame');
     });
 </script>
+<style>
+    #apply-with-linkedin-wrapper {
+        display: inline;
+        float: left;
+        width: 245px;
+        margin-top: 15px;
+        padding-top: 8px;
+    }
+</style>
 <div id="apply-with-linkedin-wrapper" class="field-wrapper">
         
     <iframe id="apply_with_linkedin_frame" name="apply_with_linkedin_frame"
