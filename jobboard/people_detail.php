@@ -122,8 +122,12 @@
                     ?>
                 </select>
                 <div class="applied-for">
-                    <?php _e("Applied for:", "jobboard"); ?><br />
+                    <?php _e("Applied for", "jobboard"); ?><br />
+                    <?php if( !is_null($job['fk_i_item_id']) ) { ?>
                     <a href="<?php echo osc_item_admin_edit_url($job['fk_i_item_id']); ?>"><?php echo $job['s_title']; ?></a>
+                    <?php } else { ?>
+                    <a href="<?php echo osc_contact_url(); ?>"><?php _e('Spontaneous job', 'jobboard'); ?></a>
+                    <?php } ?>
                 </div>
             </div>
             <div style="clear:both;"></div>
