@@ -1,3 +1,15 @@
+<?php 
+    // jobboard - .com only
+    // get subdomain - linkedin related - osclass.com/apply/
+    $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
+    $parsedUrl = parse_url($url);
+    $host = explode('.', $parsedUrl['host']);
+    $a2 = array_pop($host);
+    $a1 = array_pop($host);
+    $subdomain = $a1.".".$a2;
+    error_log('subdomain ->> '. $subdomain);
+    if($subdomain == 'osclass.com') {
+?>
 <script>
     $(document).ready(function() {
         window.INFrame = $('#apply_with_linkedin_frame');
@@ -37,3 +49,14 @@
         </span>
     </span>
 </div>
+
+<?php } else { 
+// TODO  https://developer.linkedin.com/plugins/apply
+
+//<script src="//platform.linkedin.com/in.js" type="text/javascript">
+//  api_key: 
+//</script>
+//<script type="IN/Apply" data-companyid="" data-jobtitle="" data-email=""></script>
+}
+
+?>

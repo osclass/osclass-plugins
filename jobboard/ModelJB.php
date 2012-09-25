@@ -316,14 +316,15 @@
             $app = $this->dao->insert(
                     $this->getTable_JobsApplicants()
                     ,array(
-                        'fk_i_item_id' => $itemId
-                        ,'s_name' => $name
-                        ,'s_email' => $email
-                        ,'s_phone' => $phone
-                        ,'s_cover_letter' => $coverLetter
-                        ,'dt_date' => $date
-                        ,'i_status' => 0
-                        ,'i_rating' => 0
+                        'fk_i_item_id'      => $itemId
+                        ,'s_name'           => $name
+                        ,'s_email'          => $email
+                        ,'s_phone'          => $phone
+                        ,'s_cover_letter'   => $coverLetter
+                        ,'dt_date'          => $date
+                        ,'i_status'         => 0
+                        ,'i_rating'         => 0
+                        ,'s_ip'             => get_ip()
                     ));
             if($app) {
                 return $this->dao->insertedId();
