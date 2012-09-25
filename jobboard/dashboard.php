@@ -80,16 +80,16 @@
     <div class="grid-row grid-first-row grid-50">
         <div class="row-wrapper">
             <div class="widget-box">
-                <div class="widget-box-title"><h3 class="has-tabs"><?php _e('Last applicants', 'jobboard'); ?></h3>
+                <div class="widget-box-title"><h3 class="has-tabs"><?php _e('Recent applicants', 'jobboard'); ?></h3>
                     <ul class="tabs">
-                        <?php foreach($status as $k => $v) { 
+                        <?php foreach($status as $k => $v) {
                             echo '<li><a href="#status-'.$k.'">'.$v.'</a></li>';
                         }
                         ?>
                     </ul>
                 </div>
                 <div class="widget-box-content">
-                    <?php foreach($status as $k => $v) { 
+                    <?php foreach($status as $k => $v) {
                         echo '<div id="status-'.$k.'">';
                         echo '<table class="table" cellpadding="0" cellspacing="0"><tbody>';
                         echo '<thead><th>'.__('Applicant','jobboard').'</th><th>'.__('Job','jobboard').'</th><th>'.__('Received','jobboard').'</th></thead>';
@@ -215,7 +215,7 @@
                 });
                 return dests.join(',');
             }
-            
+
             $(this).click(function(){
                 $(this).parent().children().removeClass('active').filter($(this).addClass('active'));
                 $(dest($(this))).hide().filter($(this).children().attr('href')).show();

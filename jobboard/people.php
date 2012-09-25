@@ -8,7 +8,7 @@
     $iPage = is_numeric($iPage)?($iPage):1;
     $iDisplayLength = (is_numeric($iDisplayLength)?$iDisplayLength:10);
     $start = ($iPage-1)*$iDisplayLength;
-    
+
     $conditions = array();
     if(Params::getParam('jobId')!='') {
         $conditions['item'] = Params::getParam('jobId');
@@ -34,7 +34,7 @@
 
     $order_col = Params::getParam('sOrderCol')!=''?Params::getParam('sOrderCol'):'a.dt_date';
     $order_dir = Params::getParam('sOrderDir')!=''?Params::getParam('sOrderDir'):'DESC';
-    
+
     $people = ModelJB::newInstance()->search($start, $iDisplayLength, $conditions, $order_col, $order_dir);
     list($iTotalDisplayRecords, $iTotalRecords) = ModelJB::newInstance()->searchCount($conditions, $order_col, $order_dir);
     $status = jobboard_status();
@@ -69,7 +69,7 @@
             showPage();
             return false;
         });
-        
+
         $("#dialog-people-delete").dialog({
             autoOpen: false,
             modal: true

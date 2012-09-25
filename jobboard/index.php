@@ -198,7 +198,7 @@ osc_add_hook('pre_contact_post', 'jobboard_save_contact');
 
 function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     $error_attachment = false;
-    
+
     $name   = Params::getParam('yourName');
     $email  = Params::getParam('yourEmail');
     $cover  = Params::getParam('message');
@@ -225,6 +225,35 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         osc_add_flash_error_message(__("CV is required", 'jobboard'));
         _save_jobboard_contact_listing();
         header('Location: ' . $url); die;
+    }
+
+    require osc_lib_path() . 'osclass/mimes.php';
+    // get allowedExt
+    $aMimesAllowed = array();
+    $aExt = array('pdf', 'rtf', 'doc', 'docx', 'odt');
+    foreach($aExt as $ext){
+        if(isset($mimes[$ext])) {
+            $mime = $mimes[$ext];
+            if( is_array($mime) ){
+                foreach($mime as $aux){
+                    if( !in_array($aux, $aMimesAllowed) ) {
+                        array_push($aMimesAllowed, $aux);
+                    }
+                }
+            } else {
+                if( !in_array($mime, $aMimesAllowed) ) {
+                    array_push($aMimesAllowed, $mime);
+                }
+            }
+        }
+    }
+
+    if( $aCV['error'] == UPLOAD_ERR_OK ) {
+        if( !in_array($aCV['type'], $aMimesAllowed) ) {
+            osc_add_flash_error_message(__("The file you tried to upload does not have a valid extension", 'jobboard'));
+            _save_jobboard_contact_listing();
+            header('Location: ' . $url); die;
+        }
     }
 
     // insert to database
@@ -344,7 +373,7 @@ function jobboard_duplicate_job() {
 
             Session::newInstance()->_keepForm('pj_positionType');
             Session::newInstance()->_keepForm('pj_salaryText');
-            Session::newInstance()->_keepForm('pj_data');    
+            Session::newInstance()->_keepForm('pj_data');
 
             osc_current_admin_theme_path('items/frm.php') ;
             Session::newInstance()->_clearVariables();
@@ -395,7 +424,7 @@ osc_add_admin_submenu_page(
     'moderator'
 );
 
-osc_add_admin_submenu_page( 
+osc_add_admin_submenu_page(
     'jobboard',
     __('Applicants', 'jobboard'),
     osc_admin_render_plugin_url("jobboard/people.php"),
@@ -431,9 +460,9 @@ function job_items_table_header($table) {
 }
 
 function job_items_row($row, $aRow) {
-    
+
     list($applicants, $total) = ModelJB::newInstance()->searchCount(array('item' => $aRow['pk_i_id']));
-    
+
     $row['mod_date'] = @$aRow['dt_mod_date'];
     $row['applicants'] = '<a href="' . osc_admin_render_plugin_url("jobboard/people.php&jobId=") . $aRow['pk_i_id'] . '">' . sprintf(__('%d applicants', 'jobboard'), $applicants) . '</a>';
     $row['views'] = @$aRow['i_num_views'];
@@ -443,7 +472,7 @@ function job_items_row($row, $aRow) {
 /**
 * Redirect to function via JS
 *
-* @param string $url 
+* @param string $url
 */
 function job_js_redirect_to($url) { ?>
     <script type="text/javascript">
@@ -688,6 +717,15 @@ if(Params::getParam('page') == 'items'){
         osc_add_hook('admin_page_header','jobboard_customPageHeader_vacancies_post');
     }
 }
+
+function jobboard_replace_listing($string) {
+    return preg_replace(array('|Listing|', '|listing|'), array(__('Vacancy', 'jobboard'), __('vacancy', 'jobboard')), $string);
+}
+osc_add_filter('gettext', 'jobboard_replace_listing');
+function jobboard_replace_listing_plural($string) {
+    return preg_replace(array('|Listings|', '|listings|'), array(__('Vacancies', 'jobboard'), __('vacancies', 'jobboard')), $string);
+}
+osc_add_filter('gettext', 'jobboard_replace_listing_plural', 1);
 
 // Custom title
 osc_add_filter('custom_plugin_title','jobboard_dashboard_title');
