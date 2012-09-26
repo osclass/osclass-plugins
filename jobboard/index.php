@@ -195,6 +195,7 @@ function jobboard_save_contact_listing() {
     send_email_to_applicant('listing');
     send_notifaction_applicant_to_admin('listing');
 }
+
 osc_add_hook('post_item_contact_post', 'jobboard_save_contact_listing', 1);
 osc_remove_hook('hook_email_item_inquiry', 'fn_email_item_inquiry');
 
@@ -767,5 +768,15 @@ function jobboard_set_domain()
     </script>
     <?php 
 }
-osc_add_hook('header', 'jobboard_set_domain');
+// get subdomain - linkedin related - osclass.com/apply/
+$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
+$parsedUrl = parse_url($url);
+$host = explode('.', $parsedUrl['host']);
+$a2 = array_pop($host);
+$a1 = array_pop($host);
+$subdomain = $a1.".".$a2;
+
+if( $subdomain == 'osclass.com') {
+    osc_add_hook('header', 'jobboard_set_domain');
+}
 ?>
