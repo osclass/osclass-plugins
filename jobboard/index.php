@@ -184,6 +184,10 @@ function job_item_detail() {
     require_once(JOBBOARD_PATH . 'item_detail.php');
 }
 
+function job_linkedin() {
+    require_once(JOBBOARD_PATH . 'linkedinApply.php');
+}
+
 /* CONTACT */
 function jobboard_save_contact_listing() {
     jobboard_common_contact(osc_item_id(), osc_item_url());
@@ -191,6 +195,7 @@ function jobboard_save_contact_listing() {
     send_email_to_applicant('listing');
     send_notifaction_applicant_to_admin('listing');
 }
+
 osc_add_hook('post_item_contact_post', 'jobboard_save_contact_listing', 1);
 osc_remove_hook('hook_email_item_inquiry', 'fn_email_item_inquiry');
 
@@ -525,6 +530,7 @@ osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'job_call_after_uninstall')
 
 // show an item special attributes
 osc_add_hook('item_detail', 'job_item_detail');
+osc_add_hook('item_detail', 'job_linkedin');
 
 // delete locale
 osc_add_hook('delete_locale', 'job_delete_locale');
@@ -751,4 +757,26 @@ function jobboard_dashboard_title($string){
 osc_add_hook('admin_items_table','job_items_table_header');
 osc_add_filter("items_processing_row", "job_items_row");
 
-/* file end */
+/**
+ * Apply with linkedin - document.domain 
+ */
+function jobboard_set_domain() 
+{
+    ?>
+    <script type="text/javascript">
+	document.domain = 'osclass.com'; 
+    </script>
+    <?php 
+}
+// get subdomain - linkedin related - osclass.com/apply/
+$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
+$parsedUrl = parse_url($url);
+$host = explode('.', $parsedUrl['host']);
+$a2 = array_pop($host);
+$a1 = array_pop($host);
+$subdomain = $a1.".".$a2;
+
+if( $subdomain == 'osclass.com') {
+    osc_add_hook('header', 'jobboard_set_domain');
+}
+?>
