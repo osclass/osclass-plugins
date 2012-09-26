@@ -3,7 +3,7 @@
 Plugin Name: Job Board
 Plugin URI: http://www.osclass.org/
 Description: Job Board
-Version: 1.0
+Version: 1.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobboard_plugin
@@ -18,8 +18,24 @@ function job_call_after_install() {
     ModelJB::newInstance()->import('jobboard/struct.sql');
 
     osc_set_preference('upload_path', osc_content_path() . "uploads/", 'jobboard_plugin', 'STRING');
-    osc_set_preference('version', 100, 'jobboard_plugin', 'INTEGER');
+    osc_set_preference('version', 110, 'jobboard_plugin', 'INTEGER');
 }
+
+function jobboard_update_version() {
+    $version = osc_get_preference('version', 'jobboard_plugin');
+
+    if( $version < 110 ) {
+        osc_set_preference('version', 110, 'jobboard_plugin', 'INTEGER');
+        $conn      = DBConnectionClass::newInstance();
+        $data      = $conn->getOsclassDb();
+        $dbCommand = new DBCommandClass($data);
+
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD s_source VARCHAR(15) NOT NULL DEFAULT \'\' AFTER i_rating', ModelJB::newInstance()->getTable_JobsApplicants()));
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD s_ip VARCHAR(15) NOT NULL DEFAULT \'\' AFTER s_source', ModelJB::newInstance()->getTable_JobsApplicants()));
+        osc_reset_preferences();
+    }
+}
+osc_add_hook('init', 'jobboard_update_version');
 
 function job_call_after_uninstall() {
     ModelJB::newInstance()->uninstall();
@@ -758,18 +774,18 @@ osc_add_hook('admin_items_table','job_items_table_header');
 osc_add_filter("items_processing_row", "job_items_row");
 
 /**
- * Apply with linkedin - document.domain 
+ * Apply with linkedin - document.domain
  */
-function jobboard_set_domain() 
+function jobboard_set_domain()
 {
     ?>
     <script type="text/javascript">
-	document.domain = 'osclass.com'; 
+	   document.domain = 'osclass.com';
     </script>
-    <?php 
+    <?php
 }
 // get subdomain - linkedin related - osclass.com/apply/
-$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
+$url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $parsedUrl = parse_url($url);
 $host = explode('.', $parsedUrl['host']);
 $a2 = array_pop($host);
