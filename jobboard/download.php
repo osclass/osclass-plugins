@@ -32,7 +32,7 @@
         $path      = osc_get_preference('upload_path', 'jobboard_plugin') . $pdf['s_name'];
 
         // get content-type
-        $filename_extension = preg_replace('|.*?\.([0-9a-z]+)$|i', '$01', $applicant['s_name']);
+        $filename_extension = preg_replace('|.*?\.([0-9a-z]+)$|i', '$01', $pdf['s_name']);
         $file_mime = $mimes[$filename_extension];
         if( is_array($file_mime) ) {
             $file_mime = $file_mime[0];
