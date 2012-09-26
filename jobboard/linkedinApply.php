@@ -19,7 +19,9 @@
     #apply-with-linkedin-wrapper {
         display: inline;
         <?php if( osc_get_osclass_location() != 'contact' ) { ?>
-        float: left;
+        float: right;
+        position: relative;
+        left: -200px;
         <?php } ?>
         width: 245px;
         margin-top: 15px;
