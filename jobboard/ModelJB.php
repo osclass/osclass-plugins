@@ -444,6 +444,7 @@
 
             return array($searchTotal, $total['total']);
         }
+        
         /**
          * Set applicants rating
          *
@@ -458,6 +459,28 @@
                     ,array('pk_i_id' => $applicantId));
         }
 
+        /**
+         * return a number of times an email has applied for a job offer
+         * 
+         * @param type $item
+         * @param type $email 
+         */
+        public function countApply($item, $email)
+        {
+            $this->dao->select('count(*) as total');
+            $this->dao->from($this->getTable_JobsApplicants());
+            $this->dao->where("fk_i_item_id", $item);
+            $this->dao->where("s_email", $email);
+
+            $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+
+            $data = $result->row();
+            return $data['total'];
+        }
+        
         /**
          * Get applicant
          *
