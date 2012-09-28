@@ -255,6 +255,15 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         _save_jobboard_contact_listing();
         header('Location: ' . $url); die;
     }
+    
+    // check: apply only once for each job offer
+    $numberApplys = ModelJB::newInstance()->countApply($itemID, $email);
+    
+    if( $numberApplys > 0 ) {
+        osc_add_flash_error_message(__("You can only apply once a job offer", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . $url); die;
+    }
 
     require osc_lib_path() . 'osclass/mimes.php';
     // get allowedExt
