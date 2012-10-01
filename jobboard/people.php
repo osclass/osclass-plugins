@@ -58,9 +58,11 @@
                 var data = value.split("_");
                 $.getJSON(
                     "<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>",
-                    {"applicantId" : data[0], "rating" : data[1]},
-                    function(data){
-                    }
+                    {
+                        "applicantId" : data[0],
+                        "rating" : data[1]
+                    },
+                    function(data){}
                 );
             }
         });
@@ -145,7 +147,7 @@
                         </th>
                         <th <?php if($order_col=='d.s_title') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
                             <a href="<?php echo $urlOrder."&sOrderCol=d.s_title&sOrderDir=".($order_col=='d.s_title'?($order_dir=='ASC'?'DESC':'ASC'):'ASC');?>" >
-                                <?php _e('Job', 'jobboard') ; ?>
+                                <?php _e('Job title', 'jobboard') ; ?>
                             </a>
                         </th>
                         <th <?php if($order_col=='a.b_has_notes') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
@@ -181,7 +183,7 @@
                             </div>
                         </td>
                         <td><?php echo @$p['s_email']; ?></td>
-                        <td><?php echo $p['fk_i_item_id']==''?__('Spontaneous job', 'jobboard'):@$p['s_title']; ?></td>
+                        <td><?php echo $p['fk_i_item_id']==''?__('Spontaneous application', 'jobboard'):@$p['s_title']; ?></td>
                         <td><?php echo $p['b_has_notes']==1?__("Has notes", "jobboard"):__("No notes yet", "jobboard"); ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
                         <td>
@@ -221,7 +223,6 @@
     </ul>
     <?php osc_show_pagination_admin($aData); ?>
 </div>
-
 <form id="dialog-people-delete" method="post" action="<?php echo osc_admin_base_url(true); ?>" class="has-form-actions hide" title="<?php echo osc_esc_html(__('Delete applicant', 'jobboard')); ?>">
     <input type="hidden" name="page" value="plugins" />
     <input type="hidden" name="action" value="renderplugin" />

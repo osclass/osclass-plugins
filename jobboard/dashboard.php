@@ -92,7 +92,7 @@
                     <?php foreach($status as $k => $v) {
                         echo '<div id="status-'.$k.'">';
                         echo '<table class="table" cellpadding="0" cellspacing="0"><tbody>';
-                        echo '<thead><th>'.__('Applicant','jobboard').'</th><th>'.__('Job','jobboard').'</th><th>'.__('Received','jobboard').'</th></thead>';
+                        echo '<thead><th>'.__('Applicant','jobboard').'</th><th>'.__('Job title','jobboard').'</th><th>'.__('Received','jobboard').'</th></thead>';
                         $people = ModelJB::newInstance()->search(0, 6, array('status'=>$k), 'a.dt_date', 'DESC');
                             if(count($people)){
                                 foreach($people as $applicant){
