@@ -32,6 +32,10 @@ function jobboard_update_version() {
 
         $dbCommand->query(sprintf('ALTER TABLE %s ADD s_source VARCHAR(15) NOT NULL DEFAULT \'\' AFTER i_rating', ModelJB::newInstance()->getTable_JobsApplicants()));
         $dbCommand->query(sprintf('ALTER TABLE %s ADD s_ip VARCHAR(15) NOT NULL DEFAULT \'\' AFTER s_source', ModelJB::newInstance()->getTable_JobsApplicants()));
+        // new version ?? subir version ?
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN s_sex VARCHAR(15) NOT NULL DEFAULT \'prefernotsay\'  AFTER s_ip', ModelJB::newInstance()->getTable_JobsApplicants()));
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN dt_birthday DATE NOT NULL  AFTER s_sex', ModelJB::newInstance()->getTable_JobsApplicants()));
+
         osc_reset_preferences();
     }
 }
@@ -205,6 +209,13 @@ function job_linkedin() {
 }
 
 /* CONTACT */
+
+function jobboard_add_extra_fields() {
+    // add age field [m/d/y]
+    // add sex field [Male/Femele/Undef]
+    require_once(JOBBOARD_PATH . 'extra_contact_form.php');
+}
+osc_add_hook('contact_form', 'jobboard_add_extra_fields');
 function jobboard_save_contact_listing() {
     jobboard_common_contact(osc_item_id(), osc_item_url());
     require_once(JOBBOARD_PATH . 'email.php');
@@ -230,10 +241,14 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
 
     $name   = Params::getParam('yourName');
     $email  = Params::getParam('yourEmail');
+    
+    $birth  = Params::getParam('birthday');
+    $sex    = Params::getParam('sex');
+    
     $cover  = Params::getParam('message');
     $phone  = Params::getParam('phoneNumber');
     $aCV    = Params::getFiles('attachment');
-
+    // GET EXTRA PARMAS
     // check fields
     if( $name === '' ) {
         osc_add_flash_error_message(__("Name is required", 'jobboard'));
@@ -242,6 +257,16 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     }
     if( $email === '' ) {
         osc_add_flash_error_message(__("Email is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . $url); die;
+    }
+    if( $birth === '' ) {
+        osc_add_flash_error_message(__("Birthday is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . $url); die;
+    }
+    if( $sex === '' ) {
+        osc_add_flash_error_message(__("Sex is required", 'jobboard'));
         _save_jobboard_contact_listing();
         header('Location: ' . $url); die;
     }
@@ -297,7 +322,7 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     // insert to database
     $mJB = ModelJB::newInstance();
 
-    $applicantID = $mJB->insertApplicant($itemID, $name, $email, $cover, $phone);
+    $applicantID = $mJB->insertApplicant($itemID, $name, $email, $cover, $phone, $birth, $sex);
     View::newInstance()->_exportVariableToView('applicantID', $applicantID);
     // return to listing url
     if( !$applicantID ) {
@@ -341,6 +366,9 @@ function _save_jobboard_contact_listing() {
     Session::newInstance()->_setForm('yourName',     Params::getParam('yourName'));
     Session::newInstance()->_setForm('phoneNumber',  Params::getParam('phoneNumber'));
     Session::newInstance()->_setForm('message_body', Params::getParam('message'));
+    // v 1.2
+    Session::newInstance()->_setForm('birthday',     Params::getParam('birthday'));
+    Session::newInstance()->_setForm('sex',          Params::getParam('sex'));
 }
 /* /CONTACT */
 
