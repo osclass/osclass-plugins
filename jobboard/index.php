@@ -40,6 +40,16 @@ function jobboard_update_version() {
     }
 }
 osc_add_hook('init', 'jobboard_update_version');
+function jobboard_sex_to_string($sex) {
+    // array sex 
+    $aSex = array(
+        'male'         => __('Male', 'jobboard'),
+        'female'       => __('Female', 'jobboard'),
+        'prefernotsay' => __('Prefer not say', 'jobboard')
+    );
+    return $aSex[$sex];
+}
+osc_add_hook('admin_header', 'jobboard_extra');
 
 function job_call_after_uninstall() {
     ModelJB::newInstance()->uninstall();
@@ -264,7 +274,18 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         osc_add_flash_error_message(__("Birthday is required", 'jobboard'));
         _save_jobboard_contact_listing();
         header('Location: ' . $url); die;
+    } else {
+        // check date format & convert date to mysql date format
+        // we recive mm/dd/yyyy id valid ?
+        $aDate = explode('/', $birth);
+        $birth = date("Y-m-d", mktime(0,0,0,$aDate[0],$aDate[1],$aDate[2]) );
+        if($birth === false) {
+            osc_add_flash_error_message(__("Invalid birthday date", 'jobboard'));
+            _save_jobboard_contact_listing();
+            header('Location: ' . $url); die;
+        }
     }
+        
     if( $sex === '' ) {
         osc_add_flash_error_message(__("Sex is required", 'jobboard'));
         _save_jobboard_contact_listing();
@@ -832,4 +853,6 @@ $subdomain = $a1.".".$a2;
 if( $subdomain == 'osclass.com') {
     osc_add_hook('header', 'jobboard_set_domain');
 }
+
+
 ?>

@@ -44,6 +44,27 @@
 #applicant-detail #right-side .applicant-box{
     margin-top: 15px;
 }
+
+#applicant-detail .applicant-information #left-side{
+    width: 300px;
+}
+#applicant-detail .applicant-information p{
+    font-size: 12px;
+    color: #616161;
+    clear: both;
+}
+#applicant-detail .applicant-information #right-side {
+    margin-top: 41px;
+}
+.half {
+    width: 30%;
+    float:left;
+}
+.half label {
+    color: #616161;
+    font-size: 14px;
+    padding-right: 5px;
+}
 #applicant-detail .rater{
     margin:5px 0;
     height: 20px

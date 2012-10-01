@@ -18,6 +18,7 @@
     if($people['b_read']==0) {
         ModelJB::newInstance()->changeRead($applicantId);
     }
+    
 ?>
 <script type="text/javascript">
     function setIcon(){
@@ -99,6 +100,20 @@
     <div class="applicant-header">
         <h2 class="render-title"><?php echo @$people['s_name']; ?> <a href="<?php echo osc_plugin_url(__FILE__); ?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>" class="btn btn-mini" style="float:right;height:14px;"><?php _e('Download resume', 'jobboard'); ?></a></h2>
     </div>
+    <div class="applicant-information">
+        <h3 class="render-title" style="margin-bottom: 0px;"><?php _e('Personal information', 'jobboard'); ?></h3>
+        <div class="half">
+            <p><label><?php _e('Phone', 'jobboard'); ?> </label><?php echo @$people['s_phone']; ?></p>
+            <p><label><?php _e('Email', 'jobboard'); ?> </label><?php echo @$people['s_email']; ?></p>
+        </div>
+        <div class="half">
+            <p><label><?php _e('Apply date', 'jobboard'); ?> </label><?php echo @$people['dt_date']; ?></p>
+            <p><label><?php _e('Birthday', 'jobboard'); ?> </label><?php echo @$people['dt_birthday']; ?></p>
+        </div>
+        <div class="half">
+            <p><label><?php _e('Sex', 'jobboard'); ?> </label><?php echo jobboard_sex_to_string( @$people['s_sex'] ); ?></p>
+        </div>
+    </div>
     <div class="applicant-cover-letter">
         <div id="left-side">
             <h3 class="render-title"><?php _e('Cover letter', 'jobboard'); ?></h3>
@@ -137,8 +152,8 @@
     <div id="applicant-resume">
         <?php if(empty($file)) {
             _e("This applicant has not sumitted any resume", "jobboard");
-        } else { ?>
-        <iframe src="http://docs.google.com/viewer?embedded=true&url=<?php echo str_replace("localhost", "95.62.72.123", osc_plugin_url(__FILE__));?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>"></iframe>
+        } else { ?> 
+        <iframe src="http://docs.google.com/viewer?embedded=true&url=<?php echo osc_plugin_url(__FILE__);?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>"></iframe>
         <?php } ?>
     </div>
     <h3 class="sidebar-title render-title">
