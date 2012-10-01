@@ -21,7 +21,7 @@
 
     /**
      * Model database for payments classes
-     * 
+     *
      * @package OSClass
      * @subpackage Model
      * @since 3.0
@@ -31,7 +31,7 @@
         /**
          * It references to self object: ModelPayment.
          * It is used as a singleton
-         * 
+         *
          * @access private
          * @since 3.0
          * @var ModelPayment
@@ -41,7 +41,7 @@
         /**
          * It creates a new ModelPayment object class ir if it has been created
          * before, it return the previous object
-         * 
+         *
          * @access public
          * @since 3.0
          * @return ModelPayment
@@ -61,35 +61,35 @@
         {
             parent::__construct();
         }
-        
+
         public function getTable_log()
         {
             return DB_TABLE_PREFIX.'t_payments_log';
         }
-        
+
         public function getTable_wallet()
         {
             return DB_TABLE_PREFIX.'t_payments_wallet';
         }
-        
+
         public function getTable_premium()
         {
             return DB_TABLE_PREFIX.'t_payments_premium';
         }
-        
+
         public function getTable_publish()
         {
             return DB_TABLE_PREFIX.'t_payments_publish';
         }
-        
+
         public function getTable_prices()
         {
             return DB_TABLE_PREFIX.'t_payments_prices';
         }
-        
+
         /**
          * Import sql file
-         * @param type $file 
+         * @param type $file
          */
         public function import($file)
         {
@@ -100,7 +100,7 @@
                 throw new Exception( "Error importSQL::ModelPayment<br>".$file ) ;
             }
         }
-                
+
         public function install() {
 
             $this->import('payment/struct.sql');
@@ -122,14 +122,14 @@
             osc_set_preference('paypal_standard', '1', 'payment', 'BOOLEAN');
             osc_set_preference('paypal_sandbox', '1', 'payment', 'BOOLEAN');
             osc_set_preference('paypal_enabled', '1', 'payment', 'BOOLEAN');
-            
+
 
             osc_set_preference('amazon_access_key', '', 'payment', 'STRING');
             osc_set_preference('amazon_secret', '', 'payment', 'STRING');
             osc_set_preference('amazon_standard', '1', 'payment', 'BOOLEAN');
             osc_set_preference('amazon_sandbox', '1', 'payment', 'BOOLEAN');
             osc_set_preference('amazon_enabled', '1', 'payment', 'BOOLEAN');
-            
+
             osc_set_preference('elitpay_enabled', '1', 'payment', 'BOOLEAN');
 
 
@@ -151,7 +151,7 @@
                 $description
                 );
 
-        
+
 
 
         }
@@ -190,7 +190,7 @@
 
             $page = Page::newInstance()->findByInternalName('email_payment');
             Page::newInstance()->deleteByPrimaryKey($page['pk_i_id']);
-            
+
             osc_delete_preference('default_premium_cost', 'payment');
             osc_delete_preference('allow_premium', 'payment');
             osc_delete_preference('default_publish_cost', 'payment');
@@ -208,18 +208,18 @@
             osc_delete_preference('paypal_standard', 'payment');
             osc_delete_preference('paypal_sandbox', 'payment');
             osc_delete_preference('paypal_enabled', 'payment');
-            
+
             osc_delete_preference('amazon_access_key', 'payment');
             osc_delete_preference('amazon_secret', 'payment');
             osc_delete_preference('amazon_standard', 'payment');
             osc_delete_preference('amazon_sandbox', 'payment');
             osc_delete_preference('amazon_enabled', 'payment');
-            
+
             osc_delete_preference('elitpay_enabled', 'payment');
 
 
         }
-        
+
         public function getPayment($paymentId) {
             $this->dao->select('*') ;
             $this->dao->from($this->getTable_log());
@@ -286,8 +286,8 @@
             $this->dao->select('*') ;
             $this->dao->from($this->getTable_wallet());
             $this->dao->where('fk_i_user_id', $userId);
+            $result = $this->dao->get();
             if($result) {
-                $result = $this->dao->get();
                 return $result->row();
             }
             return false;
@@ -297,7 +297,10 @@
             $this->dao->select('*') ;
             $this->dao->from($this->getTable_prices());
             $result = $this->dao->get();
-            return $result->result();
+            if($result) {
+                return $result->result();
+            }
+            return array();
         }
 
         public function publishFeeIsPaid($itemId) {
@@ -320,7 +323,7 @@
             $this->dao->select('*') ;
             $this->dao->from($this->getTable_premium());
             $this->dao->where('fk_i_item_id', $itemId);
-            $this->dao->where(sprintf("TIMESTAMPDIFF(DAY,dt_date,'%s') < %d", date('Y-m-d H:i:s'), osc_get_preference("premium_days", "paypal")));
+            $this->dao->where(sprintf("TIMESTAMPDIFF(DAY,dt_date,'%s') < %d", date('Y-m-d H:i:s'), osc_get_preference("premium_days", "payment")));
             $result = $this->dao->get();
             $row = $result->row();
             if(isset($row['dt_date'])) {
@@ -333,7 +336,7 @@
         public function purgeExpired() {
             $this->dao->select("fk_i_item_id");
             $this->dao->from($this->getTable_premium());
-            $this->dao->where(sprintf("TIMESTAMPDIFF(DAY,dt_date,'%s') >= %d", date('Y-m-d H:i:s'), osc_get_preference("premium_days", "paypal")));
+            $this->dao->where(sprintf("TIMESTAMPDIFF(DAY,dt_date,'%s') >= %d", date('Y-m-d H:i:s'), osc_get_preference("premium_days", "payment")));
             $result = $this->dao->get();
             if($result) {
                 $items = $result->result();
@@ -348,7 +351,7 @@
 
         /**
          * Create a record on the DB for the paypal transaction
-         * 
+         *
          * @param string $concept
          * @param string $code
          * @param float $amount

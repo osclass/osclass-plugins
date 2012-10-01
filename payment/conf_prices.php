@@ -21,6 +21,7 @@
 ?>
 <?php
 
+    require_once 'ModelPayment.php';
     $mp = ModelPayment::newInstance();
 
     if(Params::getParam('plugin_action') == 'done') {

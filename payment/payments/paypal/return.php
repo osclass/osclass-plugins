@@ -4,7 +4,7 @@
      *
      * This page will handle the GetECDetails, and DoECPayment API Calls
      */
-    
+
     //set include
     define('ABS_PATH', dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))) . '/');
     require_once ABS_PATH . 'oc-load.php';
@@ -12,9 +12,8 @@
     $status = PAYMENT_FAILED;
     if(osc_get_preference('paypal_standard', 'payment')==1) {
         $data = ModelPayment::getCustom(Params::getParam('custom'));
-        
-        $product_type = explode('x', Params::getParam('item_number'));
 
+        $product_type = explode('x', Params::getParam('item_number'));
         $status = Paypal::processStandardPayment();
         if($status==PAYMENT_COMPLETED || $status==PAYMENT_ALREADY_PAID) {
             osc_add_flash_ok_message(__('Payment processed correctly', 'payment'));
@@ -24,29 +23,49 @@
                 View::newInstance()->_exportVariableToView('category', $category);
                 payment_js_redirect_to(osc_search_category_url());
             } else if($product_type[0]==201) {
-                payment_js_redirect_to(payment_url() . 'user_menu.php');
+                if(osc_is_web_user_logged_in()) {
+                    payment_js_redirect_to(payment_url() . 'user_menu.php');
+                } else {
+                    View::newInstance()->_exportVariableToView('item', Item::newInstance()->findByPrimaryKey($product_type[2]));
+                    payment_js_redirect_to(osc_item_url());
+                }
             } else {
-                payment_js_redirect_to(payment_url() . 'user_menu_pack.php');
+                if(osc_is_web_user_logged_in()) {
+                    payment_js_redirect_to(payment_url() . 'user_menu_pack.php');
+                } else {
+                    // THIS SHOULD NOT HAPPEN
+                    payment_js_redirect_to(osc_base_path());
+                }
             }
         } else {
             osc_add_flash_info_message(__('We are processing your payment, if we did not finish in a few seconds, please contact us', 'payment'));
             if($product_type[0]==301) {
-                payment_js_redirect_to(payment_url() . 'user_menu_pack.php');
+                if(osc_is_web_user_logged_in()) {
+                    payment_js_redirect_to(payment_url() . 'user_menu_pack.php');
+                } else {
+                    // THIS SHOULD NOT HAPPEN
+                    payment_js_redirect_to(osc_base_path());
+                }
             } else {
-                payment_js_redirect_to(payment_url() . 'user_menu.php');
+                if(osc_is_web_user_logged_in()) {
+                    payment_js_redirect_to(payment_url() . 'user_menu.php');
+                } else {
+                    View::newInstance()->_exportVariableToView('item', Item::newInstance()->findByPrimaryKey($product_type[2]));
+                    payment_js_redirect_to(osc_item_url());
+                }
             }
         }
     } else {
-    
+
         $data = ModelPayment::getCustom(Params::getParam('extra'));
-        
+
         //set GET var's to local vars:
         $token   = $_GET['token'];
         $payerid = $_GET['PayerID'];
         //set API Creds, Version, and endpoint:
         //**************************************************//
         // This is where you would set your API Credentials //
-        // Please note this is not considered "SECURE" this // 
+        // Please note this is not considered "SECURE" this //
         // is an example only. It is NOT Recommended to use //
         // this method in production........................//
         //**************************************************//
@@ -103,7 +122,7 @@
             } else if ($product_type[0] == '201') {
 
                 $html = '<p>' . __('Payment processed correctly', 'payment') . ' <a href=\\"' . payment_js_redirect_to(payment_url() . 'user_menu.php') . '\\">' . __("Click here to continue", 'payment') . '</a></p>';
-                
+
                 $url = payment_js_redirect_to(payment_url() . 'user_menu.php');
             } else {
                 $html = '<p>' . __('Payment processed correctly', 'payment') . ' <a href=\\"' . payment_js_redirect_to(payment_url() . 'user_menu_pack.php') . '\\">' . __("Click here to continue", 'payment') . '</a></p>';
