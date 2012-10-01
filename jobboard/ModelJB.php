@@ -310,7 +310,7 @@
          * @param $coverLetter
          * @return applicant's ID
          */
-        public function insertApplicant($itemId, $name, $email, $coverLetter = '', $phone = '')
+        public function insertApplicant($itemId, $name, $email, $coverLetter, $phone, $birth, $sex )
         {
             $date = date("Y-m-d H:i:s");
             $app = $this->dao->insert(
@@ -325,6 +325,9 @@
                         ,'i_status'         => 0
                         ,'i_rating'         => 0
                         ,'s_ip'             => get_ip()
+                        ,'dt_birthday'      => $birth
+                        ,'s_sex'            => $sex
+                        
                     ));
             if($app) {
                 return $this->dao->insertedId();
