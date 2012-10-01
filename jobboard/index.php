@@ -548,11 +548,14 @@ function job_items_table_header($table) {
 }
 
 function job_items_row($row, $aRow) {
-
     list($applicants, $total) = ModelJB::newInstance()->searchCount(array('item' => $aRow['pk_i_id']));
 
     $row['mod_date'] = @$aRow['dt_mod_date'];
     $row['applicants'] = '<a href="' . osc_admin_render_plugin_url("jobboard/people.php&jobId=") . $aRow['pk_i_id'] . '">' . sprintf(__('%d applicants', 'jobboard'), $applicants) . '</a>';
+    $views = 0;
+    if( $aRow['i_num_views']; > 0 ) {
+        $views = $aRow['i_num_views'];
+    }
     $row['views'] = @$aRow['i_num_views'];
     return $row;
 }
@@ -722,6 +725,23 @@ function admin_assets_jobboard() {
     }
 }
 osc_add_hook('init_admin', 'admin_assets_jobboard');
+
+function jobboard_post_actions() {
+    switch(urldecode(Params::getParam('file'))) {
+        case('jobboard/people.php'):
+            switch(Params::getParam('jb_action')) {
+                case('unread'):
+                    ModelJB::newInstance()->changeUnread(Params::getParam('applicantID'));
+                    header('Location: ' . osc_admin_render_plugin_url("jobboard/people.php")); exit;
+                break;
+            }
+            osc_enqueue_script('jquery-rating');
+            osc_enqueue_script('jquery-metadata');
+            osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
+        break;
+    }
+}
+osc_add_hook('init_admin', 'jobboard_post_actions');
 
 function default_settings_jobboard() {
     // always active osc_item_attachment

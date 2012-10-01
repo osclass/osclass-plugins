@@ -625,6 +625,11 @@
             return $this->dao->update($this->getTable_JobsApplicants(), array('b_read' => 1), array('pk_i_id' => $applicantId));
         }
 
+        public function changeUnread($applicantID)
+        {
+            return $this->dao->update($this->getTable_JobsApplicants(), array('b_read' => 0), array('pk_i_id' => $applicantID));
+        }
+
         public function changeSecret($fileId)
         {
             return $this->dao->update($this->getTable_JobsFiles(), array('s_secret' => osc_genRandomPassword(12), 'dt_secret_date' => date("Y-m-d H:i:s")), array('pk_i_id' => $fileId));
