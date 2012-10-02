@@ -33,6 +33,8 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_applicant (
     i_rating TINYINT NOT NULL DEFAULT 0,
     s_source VARCHAR(15) NOT NULL DEFAULT '',
     s_ip VARCHAR(15) NOT NULL DEFAULT '',
+    s_sex VARCHAR(15) NOT NULL DEFAULT 'prefernotsay',
+    dt_birthday DATE NOT NULL,
         PRIMARY KEY (pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
 
