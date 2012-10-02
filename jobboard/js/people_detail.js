@@ -114,13 +114,17 @@ $(document).ready(function() {
         $("#dialog-applicant-status").dialog('open');
     });
     setIcon();
+
     $('.auto-star').rating({
         callback: function(value, link, input){
-            var data = value.split("_");
-            $.getJSON(osc.jobboard.ajax_applicant_status,
+            if( typeof value === 'undefined' ) {
+                value = 0;
+            }
+            console.log('callback: ' + value);
+            $.getJSON(osc.jobboard.ajax_rating,
                 {
-                    "applicantId" : data[0],
-                    "rating" : data[1]
+                    "applicantId" : $("#applicant_status").attr('data-applicant-id'),
+                    "rating" : value
                 },
                 function(data){}
             );

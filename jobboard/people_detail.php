@@ -49,7 +49,7 @@
                 </div>
                 <div class="rater big-star">
                     <?php for($k=1; $k<=5; $k++) {
-                        echo '<input name="star'.$people['pk_i_id'].'" type="radio" class="auto-star required" value="'.$people['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$people['i_rating']?'checked="checked"':'').'/>';
+                        echo '<input name="star' . $people['pk_i_id'] . '" type="radio" class="auto-star" value="' . $k . '" title="' . $k . '" ' . ($k == $people['i_rating'] ? 'checked="checked"' : '') . '/>';
                     } ?>
                 </div>
                 <select id="applicant_status" name="applicant_status" class="select-box-medium" data-applicant-id="<?php echo $applicantId; ?>">
