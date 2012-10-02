@@ -14,3 +14,12 @@
     cursor: pointer;
     margin-left: 4px;
 }
+.resumes td.applicant .linkedin {
+    background-image: url(../img/linkedin.png);
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    line-height: 36px;
+    cursor: pointer;
+    margin-left: 4px;
+}
