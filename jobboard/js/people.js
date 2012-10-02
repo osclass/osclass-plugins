@@ -1,22 +1,7 @@
 $(document).ready(function(){
-    $('.auto-star').rating({
-        callback: function(value, link, input){
-            var data = value.split("_");
-            $.getJSON(
-                osc.jobboard.ajax_url_rating,
-                {
-                    "applicantId" : data[0],
-                    "rating" : data[1]
-                },
-                function(data){}
-            );
-        }
-    });
+    $('.list-star').rating({showCancel: false, readOnly: true});
 
-    $("#filter_btn").click(function(){
-        showPage();
-        return false;
-    });
+    $('.filter-star').rating({showCancel: true, cancelValue: null});
 
     $("#dialog-people-delete").dialog({
         autoOpen: false,
