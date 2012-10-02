@@ -3,7 +3,7 @@
 Plugin Name: Job Board
 Plugin URI: http://www.osclass.org/
 Description: Job Board
-Version: 1.1
+Version: 1.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobboard_plugin
@@ -18,7 +18,7 @@ function job_call_after_install() {
     ModelJB::newInstance()->import('jobboard/struct.sql');
 
     osc_set_preference('upload_path', osc_content_path() . "uploads/", 'jobboard_plugin', 'STRING');
-    osc_set_preference('version', 110, 'jobboard_plugin', 'INTEGER');
+    osc_set_preference('version', 120, 'jobboard_plugin', 'INTEGER');
 }
 
 function jobboard_update_version() {
@@ -32,16 +32,25 @@ function jobboard_update_version() {
 
         $dbCommand->query(sprintf('ALTER TABLE %s ADD s_source VARCHAR(15) NOT NULL DEFAULT \'\' AFTER i_rating', ModelJB::newInstance()->getTable_JobsApplicants()));
         $dbCommand->query(sprintf('ALTER TABLE %s ADD s_ip VARCHAR(15) NOT NULL DEFAULT \'\' AFTER s_source', ModelJB::newInstance()->getTable_JobsApplicants()));
-        // new version ?? subir version ?
+
+        osc_reset_preferences();
+    }
+
+    if( $version < 120 ) {
+        osc_set_preference('version', 120, 'jobboard_plugin', 'INTEGER');
+        $conn      = DBConnectionClass::newInstance();
+        $data      = $conn->getOsclassDb();
+        $dbCommand = new DBCommandClass($data);
+
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN s_sex VARCHAR(15) NOT NULL DEFAULT \'prefernotsay\'  AFTER s_ip', ModelJB::newInstance()->getTable_JobsApplicants()));
-        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN dt_birthday DATE NOT NULL  AFTER s_sex', ModelJB::newInstance()->getTable_JobsApplicants()));
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN dt_birthday DATE NOT NULL AFTER s_sex', ModelJB::newInstance()->getTable_JobsApplicants()));
 
         osc_reset_preferences();
     }
 }
 osc_add_hook('init', 'jobboard_update_version');
 function jobboard_sex_to_string($sex) {
-    // array sex 
+    // array sex
     $aSex = array(
         'male'         => __('Male', 'jobboard'),
         'female'       => __('Female', 'jobboard'),
@@ -251,10 +260,10 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
 
     $name   = Params::getParam('yourName');
     $email  = Params::getParam('yourEmail');
-    
+
     $birth  = Params::getParam('birthday');
     $sex    = Params::getParam('sex');
-    
+
     $cover  = Params::getParam('message');
     $phone  = Params::getParam('phoneNumber');
     $aCV    = Params::getFiles('attachment');
@@ -285,7 +294,7 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
             header('Location: ' . $url); die;
         }
     }
-        
+
     if( $sex === '' ) {
         osc_add_flash_error_message(__("Sex is required", 'jobboard'));
         _save_jobboard_contact_listing();
@@ -301,10 +310,10 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         _save_jobboard_contact_listing();
         header('Location: ' . $url); die;
     }
-    
+
     // check: apply only once for each job offer
     $numberApplys = ModelJB::newInstance()->countApply($itemID, $email);
-    
+
     if( $numberApplys > 0 ) {
         osc_add_flash_error_message(__("You can only apply once a job offer", 'jobboard'));
         _save_jobboard_contact_listing();
