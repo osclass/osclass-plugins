@@ -114,10 +114,12 @@
 #applicant-detail .note-actions a.delete_note{
     color:#ec6f69;
     display: block;
+    text-transform: uppercase;
 }
 #applicant-detail .note-actions a.edit_note{
     color:#95b929;
     display: block;
+    text-transform: uppercase;
 }
 #applicant-detail .note p{
     background-image: url(../img/line.gif);

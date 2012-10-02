@@ -74,6 +74,7 @@ function job_call_after_uninstall() {
     osc_delete_preference('version', 'jobboard_plugin');
 }
 
+/* AJAX */
 function ajax_rating_request() {
     ModelJB::newInstance()->setRating(Params::getParam("applicantId"), Params::getParam("rating"));
 }
@@ -92,6 +93,32 @@ function ajax_applicant_status_notification() {
     send_email_notification_applicant($status, $applicantID);
 }
 osc_add_hook('ajax_admin_applicant_status_notifitacion', 'ajax_applicant_status_notification');
+
+function ajax_note_add() {
+    $noteID = ModelJB::newInstance()->insertNote(Params::getParam('applicantID'), Params::getParam('noteText'));
+    $aNote = ModelJB::newInstance()->getNoteByID($noteID);
+    $aNote['day']   = date('d', strtotime($aNote['dt_date']));
+    $aNote['month'] = date('M', strtotime($aNote['dt_date']));
+    $aNote['year']  = date('Y', strtotime($aNote['dt_date']));
+    echo json_encode($aNote);
+}
+osc_add_hook('ajax_admin_note_add', 'ajax_note_add');
+
+function ajax_note_edit() {
+    ModelJB::newInstance()->updateNote(Params::getParam('noteID'), Params::getParam('noteText'));
+    $aNote = ModelJB::newInstance()->getNoteByID(Params::getParam('noteID'));
+    $aNote['day']   = date('d', strtotime($aNote['dt_date']));
+    $aNote['month'] = date('M', strtotime($aNote['dt_date']));
+    $aNote['year']  = date('Y', strtotime($aNote['dt_date']));
+    echo json_encode($aNote);
+}
+osc_add_hook('ajax_admin_note_edit', 'ajax_note_edit');
+
+function ajax_note_delete() {
+    ModelJB::newInstance()->deleteNote(Params::getParam('noteID'));
+}
+osc_add_hook('ajax_admin_note_delete', 'ajax_note_delete');
+/* /AJAX */
 
 /* FORM JOB BOARD */
 function jobboard_form($catID = null) {
@@ -726,6 +753,7 @@ osc_add_filter('current_admin_menu_corporateboard', 'applicant_admin_menu_curren
 osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.js', 'jquery');
 osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jquery.MetaData.js', 'jquery');
 osc_register_script('jobboard-people', osc_plugin_url(__FILE__) . 'js/people.js', 'jquery');
+osc_register_script('jobboard-people-detail', osc_plugin_url(__FILE__) . 'js/people_detail.js', 'jquery');
 
 function admin_assets_jobboard() {
     osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/styles.css');
@@ -734,7 +762,12 @@ function admin_assets_jobboard() {
             osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'css/dashboard.css');
         break;
         case('jobboard/people_detail.php'):
+            osc_enqueue_script('jquery-rating');
+            osc_enqueue_script('jquery-metadata');
+            osc_enqueue_script('jobboard-people-detail');
+            osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
             osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/people_detail.css');
+        break;
         case('jobboard/people.php'):
             osc_enqueue_script('jquery-rating');
             osc_enqueue_script('jquery-metadata');
@@ -762,10 +795,20 @@ function jobboard_post_actions() {
 }
 osc_add_hook('init_admin', 'jobboard_post_actions');
 
-function jobboard_init_js() { ?>
+function jobboard_init_js() {
+    $langs = array();
+    $langs['delete_string'] = __('Delete', 'jobboard');
+    $langs['edit_string']   = __('Edit', 'jobboard');
+?>
 <script type="text/javascript">
     osc.jobboard = {};
-    osc.jobboard.ajax_url_rating = '<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>';
+    osc.jobboard.langs = <?php echo json_encode($langs); ?>;
+    osc.jobboard.ajax_rating = '<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>';
+    osc.jobboard.ajax_applicant_status_notification = '<?php echo osc_admin_ajax_hook_url('applicant_status_notifitacion'); ?>';
+    osc.jobboard.ajax_applicant_status = '<?php echo osc_admin_ajax_hook_url('applicant_status'); ?>';
+    osc.jobboard.ajax_note_add = '<?php echo osc_admin_ajax_hook_url('note_add'); ?>';
+    osc.jobboard.ajax_note_edit = '<?php echo osc_admin_ajax_hook_url('note_edit'); ?>';
+    osc.jobboard.ajax_note_delete = '<?php echo osc_admin_ajax_hook_url('note_delete'); ?>';
 </script>
 <?php }
 osc_add_hook('admin_header', 'jobboard_init_js');

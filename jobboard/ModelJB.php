@@ -561,7 +561,7 @@
         }
 
         /**
-         * Get applicant's CV
+         * Get notes from applicant
          *
          * @param $id
          *
@@ -579,6 +579,27 @@
             }
 
             return $result->result();
+        }
+
+        /**
+         * Get note by ID
+         *
+         * @param $id
+         *
+         * @return array
+         */
+        public function getNoteByID($noteID)
+        {
+            $this->dao->select();
+            $this->dao->from($this->getTable_JobsNotes());
+            $this->dao->where('pk_i_id', $noteID);
+            $this->dao->limit(1);
+            $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+
+            return $result->row();
         }
 
         /**
@@ -642,8 +663,14 @@
         public function insertNote($id, $text)
         {
             $success = $this->dao->insert($this->getTable_JobsNotes(), array('dt_date' => date("Y-m-d H:i:s"), 's_text' => $text, 'fk_i_applicant_id' => $id));
+
+            if( !$success ) {
+                return false;
+            }
+
+            $noteID = $this->dao->insertedId();
             $this->dao->update($this->getTable_JobsApplicants(), array('b_has_notes' => 1), array('pk_i_id' => $id));
-            return $success;
+            return $noteID;
         }
 
         public function updateNote($id, $text)

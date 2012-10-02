@@ -18,83 +18,7 @@
     if($people['b_read']==0) {
         ModelJB::newInstance()->changeRead($applicantId);
     }
-    
 ?>
-<script type="text/javascript">
-    function setIcon(){
-        $('.status-icon').css({
-                backgroundPosition: $("#applicant_status").val() * 60
-        });
-    }
-
-    $(document).ready(function() {
-        $("#dialog-note-delete").dialog({
-            autoOpen: false,
-            modal: true
-        });
-
-        $("#dialog-note-edit").dialog({
-            autoOpen: false,
-            modal: true
-        });
-
-        $("#dialog-applicant-status").dialog({
-            autoOpen: false,
-            modal: true
-        });
-        $("#applicant-status-submit").click(function() {
-            $.getJSON(
-                "<?php echo osc_admin_ajax_hook_url('applicant_status_notifitacion'); ?>",
-                {"applicantId" : <?php echo $applicantId; ?>, "status" : $("#applicant_status option:selected").attr("value")},
-                function(data){}
-            );
-            $('#dialog-applicant-status').dialog('close');
-        });
-        $("#applicant-status-cancel").click(function() {
-            $('#dialog-applicant-status').dialog('close');
-        });
-
-        $("#applicant_status").change(function(){
-            $.getJSON(
-                "<?php echo osc_admin_ajax_hook_url('applicant_status'); ?>",
-                {"applicantId" : <?php echo $applicantId; ?>, "status" : $("#applicant_status option:selected").attr("value")},
-                function(data){}
-            );
-            setIcon();
-            $("#dialog-applicant-status").dialog('open');
-        });
-        setIcon();
-        $('.auto-star').rating({
-            callback: function(value, link, input){
-                var data = value.split("_");
-                $.getJSON(
-                    "<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>",
-                    {"applicantId" : data[0], "rating" : data[1]},
-                    function(data){}
-                );
-            }
-        });
-    });
-
-    function delete_note(note_id) {
-        $("#note_id").attr("value", note_id);
-        $("#dialog-note-delete").dialog('open');
-    }
-
-    function edit_note(note_id, note_text) {
-        $("#note_edit_id").attr("value", note_id);
-        $("#note_edit_text").attr("value", note_text);
-        $("#note_action").attr("value", "edit_note");
-        $("#dialog-note-edit").dialog('open');
-    }
-
-    function add_note() {
-        $("#note_edit_id").attr("value", "");
-        $("#note_edit_text").attr("value", "");
-        $("#note_action").attr("value", "add_note");
-        $("#dialog-note-edit").dialog('open');
-    }
-</script>
 <div id="applicant-detail">
     <span><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" ><?php _e('Applicants', 'jobboard'); ?></a> &raquo; <?php echo @$people['s_name']; ?></span>
     <div class="applicant-header">
@@ -128,7 +52,7 @@
                         echo '<input name="star'.$people['pk_i_id'].'" type="radio" class="auto-star required" value="'.$people['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$people['i_rating']?'checked="checked"':'').'/>';
                     } ?>
                 </div>
-                <select id="applicant_status" name="applicant_status" class="select-box-medium">
+                <select id="applicant_status" name="applicant_status" class="select-box-medium" data-applicant-id="<?php echo $applicantId; ?>">
                     <?php
                     $st_array = jobboard_status();
                     foreach($st_array as $k => $v) {
@@ -152,12 +76,12 @@
     <div id="applicant-resume">
         <?php if(empty($file)) {
             _e("This applicant has not sumitted any resume", "jobboard");
-        } else { ?> 
+        } else { ?>
         <iframe src="http://docs.google.com/viewer?embedded=true&url=<?php echo osc_plugin_url(__FILE__);?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>"></iframe>
         <?php } ?>
     </div>
     <h3 class="sidebar-title render-title">
-        <?php _e("Notes", "jobboard"); ?> <span class="note_plus"><a id="add_note" class="btn btn-mini" href="javascript:add_note();"><?php _e("Add note", "jobboard"); ?></a></span>
+        <?php _e("Notes", "jobboard"); ?> <span class="note_plus"><a class="add_note btn btn-mini" href="javascript:void(0);"><?php _e("Add note", "jobboard"); ?></a></span>
     </h3>
     <div style="clear:both;"></div>
     <div id="dashboard_notes">
@@ -166,8 +90,8 @@
                 <?php foreach($notes as $note) { ?>
                     <div class="note well ui-rounded-corners">
                         <div class="note-actions">
-                            <a class="delete_note" href="javascript:delete_note(<?php echo $note['pk_i_id']; ?>);" ><?php _e("DELETE", "jobboard"); ?></a>
-                            <a class="edit_note" href="javascript:edit_note(<?php echo $note['pk_i_id']; ?>, '<?php echo osc_esc_js($note['s_text']); ?>');" ><?php _e("EDIT", "jobboard"); ?></a>
+                            <a class="delete_note" href="javascript:void(0);" data-note-id="<?php echo $note['pk_i_id']; ?>"><?php _e("Delete", "jobboard"); ?></a>
+                            <a class="edit_note" href="javascript:void(0);" data-note-id="<?php echo $note['pk_i_id']; ?>" data-note-text="<?php echo osc_esc_html($note['s_text']); ?>" ><?php _e("Edit", "jobboard"); ?></a>
                         </div>
                         <div class="note-date">
                             <b><?php echo date('d', strtotime($note['dt_date'])); ?></b>
@@ -175,7 +99,7 @@
                             <?php echo date('Y', strtotime($note['dt_date'])); ?></span>
                         </div>
                         <div class="clear"></div>
-                        <p><?php echo $note['s_text']; ?></p>
+                        <p class="note_text"><?php echo nl2br($note['s_text']); ?></p>
                     </div>
                 <?php }; ?>
             <?php } else { ?>
@@ -186,32 +110,21 @@
         </div>
     </div>
 </div>
-<form id="dialog-note-delete" method="post" action="<?php echo osc_admin_base_url(true); ?>" class="has-form-actions hide" title="<?php echo osc_esc_html(__('Delete note', 'jobboard')); ?>">
-    <input type="hidden" name="page" value="plugins" />
-    <input type="hidden" name="action" value="renderplugin" />
-    <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>actions.php" />
-    <input type="hidden" name="applicantId" value="<?php echo $applicantId; ?>" />
-    <input type="hidden" name="paction" value="delete_note" />
-    <input type="hidden" id="note_id" name="id" value="" />
+<div id="dialog-note-delete" title="<?php echo osc_esc_html(__('Delete note', 'jobboard')); ?>" class="has-form-actions hide" data-note-id="">
     <div class="form-horizontal">
         <div class="form-row">
             <?php _e('Are you sure you want to delete this note?', 'jobboard'); ?>
         </div>
         <div class="form-actions">
             <div class="wrapper">
-            <a class="btn" href="javascript:void(0);" onclick="$('#dialog-note-delete').dialog('close', 'jobboard');"><?php _e('Cancel', 'jobboard'); ?></a>
-            <input id="note-delete-submit" type="submit" value="<?php echo osc_esc_html( __('Delete', 'jobboard') ); ?>" class="btn btn-red" />
+                <a class="btn" href="javascript:void(0);" onclick="$('#dialog-note-delete').dialog('close');"><?php _e('Cancel', 'jobboard'); ?></a>
+                <a id="note-delete-submit" class="btn btn-red" href="javascript:void(0);" ><?php echo osc_esc_html( __('Delete', 'jobboard') ); ?></a>
+                <div class="clear"></div>
             </div>
         </div>
     </div>
-</form>
-<form id="dialog-note-edit" method="post" action="<?php echo osc_admin_base_url(true); ?>" class="has-form-actions hide" title="<?php echo osc_esc_html(__('Note', 'jobboard')); ?>">
-    <input type="hidden" name="page" value="plugins" />
-    <input type="hidden" name="action" value="renderplugin" />
-    <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>actions.php" />
-    <input type="hidden" name="applicantId" value="<?php echo $applicantId; ?>" />
-    <input type="hidden" id="note_edit_id" name="id" value="" />
-    <input type="hidden" id="note_action" name="paction" value="add_note" />
+</div>
+<div id="dialog-note-form" title="<?php echo osc_esc_html(__('Note', 'jobboard')); ?>" class="has-form-actions hide" data-note-id="" data-note-action="" data-applicant-id="<?php echo $applicantId; ?>">
     <div class="form-horizontal">
         <div class="form-row">
             <?php _e('Note', 'jobboard'); ?>
@@ -221,12 +134,13 @@
         </div>
         <div class="form-actions">
             <div class="wrapper">
-            <a class="btn" href="javascript:void(0);" onclick="$('#dialog-note-edit').dialog('close', 'jobboard');"><?php _e('Cancel', 'jobboard'); ?></a>
-            <input id="note-edit-submit" type="submit" value="<?php echo osc_esc_html( __('Ok', 'jobboard') ); ?>" class="btn btn-red" />
+                <a class="btn" href="javascript:void(0);" onclick="$('#dialog-note-form').dialog('close');"><?php _e('Cancel', 'jobboard'); ?></a>
+                <a id="note-form-submit" href="javascript:void(0);" class="btn btn-red" ><?php echo osc_esc_html( __('Save', 'jobboard') ); ?></a>
+                <div class="clear"></div>
             </div>
         </div>
     </div>
-</form>
+</div>
 <div id="dialog-applicant-status" title="<?php echo osc_esc_html(__('Applicant status')); ?>" class="has-form-actions hide">
     <div class="form-horizontal">
         <div class="form-row"><?php _e('Do you want to send an email to the applicant notifying the status of the application?', 'jobboard'); ?></div>
