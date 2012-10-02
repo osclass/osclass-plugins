@@ -73,46 +73,30 @@
     View::newInstance()->_exportVariableToView('items', $aItems) ;
 ?>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.auto-star').rating({
-            callback: function(value, link, input){
-                var data = value.split("_");
-                $.getJSON(
-                    "<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>",
-                    {"applicantId" : data[0], "rating" : data[1]},
-                    function(data){
-                    }
-                );
-            }
-        });
-
-        $("#dialog-people-delete").dialog({
-            autoOpen: false,
-            modal: true
-        });
-        
-        $('.filter-star').rating({showCancel: true, cancelValue: null});
-        
-    });
-
-    function delete_applicant(id) {
-        $("#delete_id").attr("value", id);
-        $("#dialog-people-delete").dialog('open');
-    }
-</script>
 <style>
     .select-box {
         padding-right: 5px;
     }
+    .search-filter {
+        width: auto;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #DDD;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+    .grid-row {
+        margin-bottom: 15px;
+    }
 </style>
 <h2 class="render-title"><?php _e('Resumes', 'jobboard'); ?></h2>
-<div>
-    <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="inline">
+<div class="search-filter">
+    <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="">
         <input type="hidden" name="page" value="plugins">
         <input type="hidden" name="action" value="renderplugin">
         <input type="hidden" name="file" value="jobboard/people.php">
-        <div class="form-horizontal">
+        <div class="form-horizontal search-form" style="padding-top: 15px;">
             <div class="grid-system">
                 <div class="grid-row grid-50">
                     <div class="row-wrapper">
@@ -172,6 +156,14 @@
                     <div class="row-wrapper">
                         <div class="form-row">
                             <div class="form-label">
+                                
+                            </div>
+                            <div class="form-controls">
+                                <label><input type="checkbox" id="viewUnread" name="viewUnread" value="1" <?php if(Params::getParam('viewUnread')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("View unread", "jobboard"); ?></label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-label">
                                 <?php _e('Jobs', 'jobboard'); ?>
                             </div>
                             <div class="form-controls">
@@ -209,28 +201,24 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-label">
-                                
-                            </div>
-                            <div class="form-controls">
-                                
+                            <div style="padding-left: 110px;">
+                                <input type="submit" id="" class="btn float-left" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>">
+                                <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" class="btn"><?php _e('Reset', 'jobboard');?></a>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="grid-row">
+                    <div class="row-wrapper">
                         <div class="form-row">
-                            <div class="form-label">
-                                
-                            </div>
-                            <div class="form-controls">
-                                <input type="checkbox" id="viewUnread" name="viewUnread" value="1" <?php if(Params::getParam('viewUnread')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("View unread", "jobboard"); ?>
-                            </div>
+                            
+                        </div>
+                        <div class="form-row">
                         </div>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
-        </div>
-        <div style="padding-top:10px;">
-            <input type="submit" id="" class="btn submit-right float-left" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>"><div class="clear"></div>
         </div>
     </form>
 </div>
@@ -302,7 +290,7 @@
                         <td>
                             <div class="rater big-star">
                                 <?php for($k=1;$k<=5;$k++) {
-                                    echo '<input name="star'.$p['pk_i_id'].'" type="radio" class="auto-star required" value="'.$p['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$p['i_rating']?'checked="checked"':'').'/>';
+                                    echo '<input name="star'.$p['pk_i_id'].'" type="radio" class="list-star" value="'.$p['pk_i_id'].'_'.$k.'" title="'.$k.'" '.($k==$p['i_rating']?'checked="checked"':'').'/>';
                                 } ?>
                             </div>
                         </td>
