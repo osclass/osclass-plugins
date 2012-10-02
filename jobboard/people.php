@@ -51,53 +51,8 @@
     $aItems = $mSearch->doSearch();
     View::newInstance()->_exportVariableToView('items', $aItems) ;
 ?>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.auto-star').rating({
-            callback: function(value, link, input){
-                var data = value.split("_");
-                $.getJSON(
-                    "<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>",
-                    {
-                        "applicantId" : data[0],
-                        "rating" : data[1]
-                    },
-                    function(data){}
-                );
-            }
-        });
-
-        $("#filter_btn").click(function(){
-            showPage();
-            return false;
-        });
-
-        $("#dialog-people-delete").dialog({
-            autoOpen: false,
-            modal: true
-        });
-    });
-
-    function showPage() {
-        var checked = 0;
-        if($("#viewUnread").attr("checked")=='checked') {
-            checked = 1;
-        }
-        var checkedSpontaneous = 0;
-        if($("#onlySpontaneous").attr("checked")=='checked') {
-            checkedSpontaneous = 1;
-        }
-        window.location = '<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&opt='+$("#filter-select option:selected").attr("value")+'&sSearch='+$("#sSearch").attr("value")+"&viewUnread="+checked+"&onlySpontaneous="+checkedSpontaneous;
-        return false;
-    }
-
-    function delete_applicant(id) {
-        $("#delete_id").attr("value", id);
-        $("#dialog-people-delete").dialog('open');
-    }
-</script>
 <h2 class="render-title"><?php _e('Resumes', 'jobboard'); ?></h2>
-<div class="relative">
+<div class="relative resumes">
     <div id="listing-toolbar">
         <div class="float-right">
             <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="inline">
@@ -150,11 +105,6 @@
                                 <?php _e('Job title', 'jobboard') ; ?>
                             </a>
                         </th>
-                        <th <?php if($order_col=='a.b_has_notes') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
-                            <a href="<?php echo $urlOrder."&sOrderCol=a.b_has_notes&sOrderDir=".($order_col=='a.b_has_notes'?($order_dir=='DESC'?'ASC':'DESC'):'DESC');?>" >
-                                <?php _e('Notes', 'jobboard') ; ?>
-                            </a>
-                        </th>
                         <th <?php if($order_col=='a.i_status') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
                             <a href="<?php echo $urlOrder."&sOrderCol=a.i_status&sOrderDir=".($order_col=='a.i_status'?($order_dir=='DESC'?'ASC':'DESC'):'DESC');?>" >
                                 <?php _e('Status', 'jobboard') ; ?>
@@ -175,8 +125,19 @@
                 <tbody>
                 <?php if(count($people) > 0) { ?>
                 <?php foreach($people as $p) { ?>
+                    <?php
+                        $notes = ModelJB::newInstance()->getNotesFromApplicant($p['pk_i_id']);
+                        $note_tooltip = '';
+                        for($i = 0; $i < count($notes); $i++) {
+                            $note_tooltip .= sprintf('<strong>%1$s</strong> - %2$s', date('d/m/Y H:i', strtotime($notes[$i]['dt_date'])), $notes[$i]['s_text']);
+                            if( $i < (count($notes) - 1) ) {
+                                $note_tooltip .= '<br/>';
+                            }
+                        }
+                    ?>
                     <tr style="background-color: <?php echo ($p['b_read']==1)?'#EDFFDF':'#FFF0DF'; ?>;" >
-                        <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a><div class="actions">
+                        <td class="applicant"><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a><?php if($p['b_has_notes'] == 1 ) { ?><span class="note" data-tooltip="<?php echo $note_tooltip; ?>"></span><?php } ?>
+                            <div class="actions">
                                 <ul>
                                     <li><a href="javascript:delete_applicant(<?php echo $p['pk_i_id']; ?>);" ><?php _e("Delete", "jobboard"); ?></a></li>
                                 </ul>
@@ -184,7 +145,6 @@
                         </td>
                         <td><?php echo @$p['s_email']; ?></td>
                         <td><?php echo $p['fk_i_item_id']==''?__('Spontaneous application', 'jobboard'):@$p['s_title']; ?></td>
-                        <td><?php echo $p['b_has_notes']==1?__("Has notes", "jobboard"):__("No notes yet", "jobboard"); ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
                         <td>
                             <div class="rater big-star">

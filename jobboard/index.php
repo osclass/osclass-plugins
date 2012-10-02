@@ -562,7 +562,7 @@ function job_items_row($row, $aRow) {
     $row['mod_date'] = @$aRow['dt_mod_date'];
     $row['applicants'] = '<a href="' . osc_admin_render_plugin_url("jobboard/people.php&jobId=") . $aRow['pk_i_id'] . '">' . sprintf(__('%d applicants', 'jobboard'), $applicants) . '</a>';
     $views = 0;
-    if( $aRow['i_num_views']; > 0 ) {
+    if( $aRow['i_num_views'] > 0 ) {
         $views = $aRow['i_num_views'];
     }
     $row['views'] = @$aRow['i_num_views'];
@@ -717,6 +717,7 @@ osc_add_filter('current_admin_menu_corporateboard', 'applicant_admin_menu_curren
 // register js and css scripts
 osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.js', 'jquery');
 osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jquery.MetaData.js', 'jquery');
+osc_register_script('jobboard-people', osc_plugin_url(__FILE__) . 'js/people.js', 'jquery');
 
 function admin_assets_jobboard() {
     osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/styles.css');
@@ -729,6 +730,7 @@ function admin_assets_jobboard() {
         case('jobboard/people.php'):
             osc_enqueue_script('jquery-rating');
             osc_enqueue_script('jquery-metadata');
+            osc_enqueue_script('jobboard-people');
             osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
         break;
     }
@@ -751,6 +753,14 @@ function jobboard_post_actions() {
     }
 }
 osc_add_hook('init_admin', 'jobboard_post_actions');
+
+function jobboard_init_js() { ?>
+<script type="text/javascript">
+    osc.jobboard = {};
+    osc.jobboard.ajax_url_rating = '<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>';
+</script>
+<?php }
+osc_add_hook('admin_header', 'jobboard_init_js');
 
 function default_settings_jobboard() {
     // always active osc_item_attachment

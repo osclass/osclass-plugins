@@ -2,3 +2,15 @@
 .job-detail table label { font-weight: bold; }
 .job-detail > div { margin-top: 5px; }
 .job-detail > div > label { font-weight: bold; }
+.resumes td.applicant a {
+    float: left;
+}
+.resumes td.applicant .note {
+    background-image: url(../img/note.gif);
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    line-height: 36px;
+    cursor: pointer;
+    margin-left: 4px;
+}

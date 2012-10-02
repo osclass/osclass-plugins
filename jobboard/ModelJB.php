@@ -327,7 +327,7 @@
                         ,'s_ip'             => get_ip()
                         ,'dt_birthday'      => $birth
                         ,'s_sex'            => $sex
-                        
+
                     ));
             if($app) {
                 return $this->dao->insertedId();
@@ -447,7 +447,7 @@
 
             return array($searchTotal, $total['total']);
         }
-        
+
         /**
          * Set applicants rating
          *
@@ -464,9 +464,9 @@
 
         /**
          * return a number of times an email has applied for a job offer
-         * 
+         *
          * @param type $item
-         * @param type $email 
+         * @param type $email
          */
         public function countApply($item, $email)
         {
@@ -483,7 +483,7 @@
             $data = $result->row();
             return $data['total'];
         }
-        
+
         /**
          * Get applicant
          *
@@ -537,6 +537,7 @@
             $this->dao->select();
             $this->dao->from($this->getTable_JobsNotes());
             $this->dao->where("fk_i_applicant_id", $id);
+            $this->dao->orderBy("pk_i_id", 'desc');
             $result = $this->dao->get();
             if( !$result ) {
                 return array() ;
