@@ -49,13 +49,20 @@ function jobboard_update_version() {
     }
 }
 osc_add_hook('init', 'jobboard_update_version');
-function jobboard_sex_to_string($sex) {
-    // array sex
+
+function _jobboard_get_sex_array() {
+    // array sex 
     $aSex = array(
         'male'         => __('Male', 'jobboard'),
         'female'       => __('Female', 'jobboard'),
         'prefernotsay' => __('Prefer not say', 'jobboard')
     );
+    return $aSex;
+}
+
+function jobboard_sex_to_string($sex) {
+    // array sex 
+    $aSex = _jobboard_get_sex_array();
     return $aSex[$sex];
 }
 osc_add_hook('admin_header', 'jobboard_extra');
