@@ -241,6 +241,7 @@ function jobboard_add_extra_fields() {
     // add sex field [Male/Femele/Undef]
     require_once(JOBBOARD_PATH . 'extra_contact_form.php');
 }
+osc_add_hook('item_contact_form', 'jobboard_add_extra_fields');
 osc_add_hook('contact_form', 'jobboard_add_extra_fields');
 function jobboard_save_contact_listing() {
     jobboard_common_contact(osc_item_id(), osc_item_url());
