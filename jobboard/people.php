@@ -23,7 +23,7 @@
     }
     if(Params::getParam('statusId')>=0) {
         $conditions['status'] = Params::getParam('statusId');
-    }    
+    }
     if(Params::getParam('viewUnread')=='1') {
         $conditions['unread'] = 1;
     }
@@ -42,19 +42,19 @@
     if(Params::getParam('catId')!='') {
         $conditions['category'] = Params::getParam('catId');
     }
-    // age 
+    // age
     if(Params::getParam('minAge')!='') {
         $conditions['minAge'] = Params::getParam('minAge');
     }
     if(Params::getParam('maxAge')!='') {
         $conditions['maxAge'] = Params::getParam('maxAge');
     }
-    // 
+    //
     if(Params::getParam('rating')!='') {
         error_log(Params::getParam('rating'));
         $conditions['rating'] = Params::getParam('rating');
     }
-    
+
     $order_col = Params::getParam('sOrderCol')!=''?Params::getParam('sOrderCol'):'a.dt_date';
     $order_dir = Params::getParam('sOrderDir')!=''?Params::getParam('sOrderDir'):'DESC';
 
@@ -90,138 +90,146 @@
         margin-bottom: 15px;
     }
 </style>
-<h2 class="render-title"><?php _e('Resumes', 'jobboard'); ?></h2>
-<div class="search-filter">
-    <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="">
-        <input type="hidden" name="page" value="plugins">
-        <input type="hidden" name="action" value="renderplugin">
-        <input type="hidden" name="file" value="jobboard/people.php">
-        <div class="form-horizontal search-form" style="padding-top: 15px;">
-            <div class="grid-system">
-                <div class="grid-row grid-50">
-                    <div class="row-wrapper">
-                        <div class="form-row">
-                            <div class="form-label">
-                                <?php _e('E-mail', 'jobboard') ; ?>
+
+<script type="text/javascript">
+    var jobboard=new Object();
+    jobboard.text_hide_filter = "<?php _e('Hide search', 'jobboard'); ?>";
+    jobboard.text_show_filter = "<?php _e('Show search', 'jobboard'); ?>";
+
+</script>
+
+<h2 class="render-title"><?php _e('Resumes', 'jobboard'); ?>  <a id="show-filters" class="btn btn-mini"><?php _e('Show filters', 'jobboard'); ?></a></h2>
+<div class="relative resumes">
+    <div class="search-filter hide">
+        <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="">
+            <input type="hidden" name="page" value="plugins">
+            <input type="hidden" name="action" value="renderplugin">
+            <input type="hidden" name="file" value="jobboard/people.php">
+            <div class="form-horizontal search-form" style="padding-top: 15px;">
+                <div class="grid-system">
+                    <div class="grid-row grid-50">
+                        <div class="row-wrapper">
+                            <div class="form-row">
+                                <div class="form-label">
+                                    <?php _e('E-mail', 'jobboard') ; ?>
+                                </div>
+                                <div class="form-controls">
+                                    <input type="text" id="sEmail" name="sEmail" value="<?php echo osc_esc_html(Params::getParam('sEmail')); ?>" class="input-text" />
+                                </div>
                             </div>
-                            <div class="form-controls">
-                                <input type="text" id="sEmail" name="sEmail" value="<?php echo osc_esc_html(Params::getParam('sEmail')); ?>" class="input-text" />
+                            <div class="form-row">
+                                <div class="form-label">
+                                    <?php _e('Name', 'jobboard'); ?>
+                                </div>
+                                <div class="form-controls">
+                                    <input type="text" id="sName" name="sName" value="<?php echo osc_esc_html(Params::getParam('sName')); ?>" class="input-text" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-label">
-                                <?php _e('Name', 'jobboard'); ?>
+                            <div class="form-row">
+                                <div class="form-label">
+                                    <?php _e('Age', 'jobboard'); ?>
+                                </div>
+                                <div class="form-controls">
+                                    <input placeholder="0" class="input-medium" type="text" name="minAge" value="<?php echo osc_esc_html(Params::getParam('minAge')); ?>" id="minAge"/> - <input placeholder="99" class="input-medium" type="text" name="maxAge" value="<?php echo osc_esc_html(Params::getParam('maxAge')); ?>" id="maxAge"/></label>
+                                </div>
                             </div>
-                            <div class="form-controls">
-                                <input type="text" id="sName" name="sName" value="<?php echo osc_esc_html(Params::getParam('sName')); ?>" class="input-text" />
+                            <div class="form-row">
+                                <div class="form-label">
+                                    <?php _e('Sex', 'jobboard'); ?>
+                                </div>
+                                <div class="form-controls">
+                                    <select name="sSex" class="">  <!-- sex selector            -->
+                                        <option value="" <?php if( Params::getParam('sSex') == '' ) echo "selected" ?>><?php _e('Any sex', 'jobboard'); ?></option>
+                                    <?php $aSex = _jobboard_get_sex_array();
+                                    foreach($aSex as $key => $value) {?>
+                                        <option value="<?php echo $key; ?>" <?php if( Params::getParam('sSex') == $key ) echo "selected" ?>><?php echo $value; ?></option>
+                                    <?php } ?>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-label">
-                                <?php _e('Age', 'jobboard'); ?>
-                            </div>
-                            <div class="form-controls">
-                                <input placeholder="0" class="input-medium" type="text" name="minAge" value="<?php echo osc_esc_html(Params::getParam('minAge')); ?>" id="minAge"/> - <input placeholder="99" class="input-medium" type="text" name="maxAge" value="<?php echo osc_esc_html(Params::getParam('maxAge')); ?>" id="maxAge"/></label>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-label">
-                                <?php _e('Sex', 'jobboard'); ?>
-                            </div>
-                            <div class="form-controls">
-                                <select name="sSex" class="">  <!-- sex selector            -->
-                                    <option value="" <?php if( Params::getParam('sSex') == '' ) echo "selected" ?>><?php _e('Any sex', 'jobboard'); ?></option>
-                                <?php $aSex = _jobboard_get_sex_array();
-                                foreach($aSex as $key => $value) {?>
-                                    <option value="<?php echo $key; ?>" <?php if( Params::getParam('sSex') == $key ) echo "selected" ?>><?php echo $value; ?></option>
-                                <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-label">
-                                <?php _e('Rating', 'jobboard'); ?>
-                            </div>
-                            <div class="form-controls">
-                                <div id="rating-filter" class="rater big-star">
-                                    <?php for($k=1; $k<=5; $k++) {
-                                        echo '<input name="rating" type="radio" class="filter-star" value="'.$k.'" title="'.$k.'" '.($k==Params::getParam('rating')?'checked="checked"':'').'/>';
-                                    } ?>
+                            <div class="form-row">
+                                <div class="form-label">
+                                    <?php _e('Rating', 'jobboard'); ?>
+                                </div>
+                                <div class="form-controls">
+                                    <div id="rating-filter" class="rater big-star">
+                                        <?php for($k=1; $k<=5; $k++) {
+                                            echo '<input name="rating" type="radio" class="filter-star" value="'.$k.'" title="'.$k.'" '.($k==Params::getParam('rating')?'checked="checked"':'').'/>';
+                                        } ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="grid-row grid-50">
-                    <div class="row-wrapper">
-                        <div class="form-row">
-                            <div class="form-label">
-                                
+                    <div class="grid-row grid-50">
+                        <div class="row-wrapper">
+                            <div class="form-row">
+                                <div class="form-label">
+
+                                </div>
+                                <div class="form-controls">
+                                    <label><input type="checkbox" id="viewUnread" name="viewUnread" value="1" <?php if(Params::getParam('viewUnread')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("View unread", "jobboard"); ?></label>
+                                </div>
                             </div>
-                            <div class="form-controls">
-                                <label><input type="checkbox" id="viewUnread" name="viewUnread" value="1" <?php if(Params::getParam('viewUnread')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("View unread", "jobboard"); ?></label>
+                            <div class="form-row">
+                                <div class="form-label">
+                                    <?php _e('Jobs', 'jobboard'); ?>
+                                </div>
+                                <div class="form-controls">
+                                    <select name="jobId" class="">  <!-- job selector            -->
+                                        <option value=""><?php _e('All jobs', 'jobboard'); ?></option>
+                                        <option value="-1" <?php if( Params::getParam('jobId') == '-1' ) echo "selected"; ?>>- <?php _e("Only spontaneous", "jobboard"); ?> -</option>
+
+                                        <?php while( osc_has_items() ) { ?>
+                                        <option value="<?php echo osc_item_id(); ?>" <?php if( Params::getParam('jobId') == osc_item_id() ) echo "selected"; ?>><?php echo osc_item_title(); ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                             </div>
+                            <div class="form-row">
+                                <div class="form-label">
+                                    <?php _e('Status', 'jobboard'); ?>
+                                </div>
+                                <div class="form-controls">
+                                    <?php $statusId = Params::getParam('statusId'); ?>
+                                    <select name="statusId" class="">  <!-- status selector         -->
+                                        <option value="-1" <?php if( $statusId != '' && $statusId == (int)$key ) echo "selected"; ?>><?php _e('All status', 'jobboard'); ?></option>
+                                        <?php $aStatus = jobboard_status();
+                                        foreach( $aStatus as $key => $value ) { ?>
+                                        <option value="<?php echo $key; ?>" <?php if( $statusId != '' && $statusId == (int)$key ) echo "selected"; ?>><?php echo $value; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label">
+                                    <?php _e('Category', 'jobboard'); ?>
+                                </div>
+                                <div class="form-controls">
+                                    <?php ManageItemsForm::category_select(null, null, null, true) ; ?>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="form-row">
-                            <div class="form-label">
-                                <?php _e('Jobs', 'jobboard'); ?>
+                    </div>
+                    <div class="grid-row">
+                        <div class="row-wrapper">
+                            <div class="form-row">
+
                             </div>
-                            <div class="form-controls">
-                                <select name="jobId" class="">  <!-- job selector            -->
-                                    <option value=""><?php _e('All jobs', 'jobboard'); ?></option>
-                                    <option value="-1" <?php if( Params::getParam('jobId') == '-1' ) echo "selected"; ?>>- <?php _e("Only spontaneous", "jobboard"); ?> -</option>
-                                    
-                                    <?php while( osc_has_items() ) { ?>
-                                    <option value="<?php echo osc_item_id(); ?>" <?php if( Params::getParam('jobId') == osc_item_id() ) echo "selected"; ?>><?php echo osc_item_title(); ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-label">
-                                <?php _e('Status', 'jobboard'); ?>
-                            </div>
-                            <div class="form-controls">
-                                <?php $statusId = Params::getParam('statusId'); ?>
-                                <select name="statusId" class="">  <!-- status selector         -->
-                                    <option value="-1" <?php if( $statusId != '' && $statusId == (int)$key ) echo "selected"; ?>><?php _e('All status', 'jobboard'); ?></option>
-                                    <?php $aStatus = jobboard_status();
-                                    foreach( $aStatus as $key => $value ) { ?>
-                                    <option value="<?php echo $key; ?>" <?php if( $statusId != '' && $statusId == (int)$key ) echo "selected"; ?>><?php echo $value; ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-label">
-                                <?php _e('Category', 'jobboard'); ?>
-                            </div>
-                            <div class="form-controls">
-                                <?php ManageItemsForm::category_select(null, null, null, true) ; ?> 
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div style="padding-left: 110px;">
-                                <input type="submit" id="" class="btn float-left" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>">
-                                <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" class="btn"><?php _e('Reset', 'jobboard');?></a>
+                            <div class="form-row">
                             </div>
                         </div>
                     </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="grid-row">
-                    <div class="row-wrapper">
-                        <div class="form-row">
-                            
-                        </div>
-                        <div class="form-row">
-                        </div>
-                    </div>
+                <div class="form-row" style="display: inline-block;padding-left: 165px;">
+                    <input type="submit" id="" class="btn float-left" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>">
+                    <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" class="btn"><?php _e('Reset', 'jobboard');?></a>
                 </div>
-                <div class="clear"></div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 
     <form id="datatablesForm" action="<?php echo osc_admin_base_url(true); ?>" method="get">
         <input type="hidden" name="page" value="plugins">
@@ -277,8 +285,12 @@
                             }
                         }
                     ?>
+
                     <tr <?php if($p['b_read']==0){ echo 'style="background-color:#FFF0DF;"';}?>>
-                        <td><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a><div class="actions">
+                        <td class="applicant"><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a>
+                        <?php if($p['b_has_notes'] == 1 ) { ?><span class="note" data-tooltip="<?php echo $note_tooltip; ?>"></span><?php } ?>
+                        <?php if($p['s_source'] == 'linkedinapply' ) { ?><span class="linkedin"></span><?php } ?>
+                            <div class="actions">
                                 <ul>
                                     <li><a href="javascript:delete_applicant(<?php echo $p['pk_i_id']; ?>);" ><?php _e("Delete", "jobboard"); ?></a></li>
                                 </ul>
