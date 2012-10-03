@@ -397,7 +397,7 @@
                     if($k=='rating') {
                         $cond[] = "a.i_rating >= ". $this->dao->connId->real_escape_string($v) ;
                     }
-                    
+
                 }
             }
             $cond_str = '';
@@ -411,17 +411,17 @@
                 $order_col2 = "dummy." . $tmp[1];
             }
 
-            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order 
-                FROM (%st_item_job_applicant a) 
-                LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id 
-                LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id 
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
+                FROM (%st_item_job_applicant a)
+                LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id
+                LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id
                 WHERE (d.s_title != '' OR d.s_title IS NULL) %s ORDER BY locale_order DESC, %s %s", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str, $order_col, $order_dir);
             $result = $this->dao->query(sprintf("SELECT * FROM (%s) as dummy GROUP BY dummy.pk_i_id ORDER BY %s %s LIMIT %d, %d", $sql, $order_col2, $order_dir, $start, $length));
 
             if( !$result ) {
                 return array() ;
             }
-                
+
             return $result->result();
         }
 
@@ -451,6 +451,33 @@
                     if($k=='spontaneous') {
                         $cond[] = "d.s_title IS NULL";
                     }
+                    if($k=='category') {
+                        $sql_category = "select pk_i_id from ".DB_TABLE_PREFIX."t_category WHERE pk_i_id = ".$this->dao->connId->real_escape_string($v)." OR fk_i_parent_id = ".$this->dao->connId->real_escape_string($v);
+                        $result = $this->dao->query($sql_category);
+                        if( !$result ) {
+                            return array();
+                        }
+                        $aux    = $result->result();
+                        $array  = array();
+                        foreach($aux as $catId) { $array[] = $catId['pk_i_id']; }
+                        $cond[] = "i.fk_i_category_id IN (".  implode(',', $array).")";
+                    }
+                    if($k=='sex') {
+                        $cond[] = "a.s_sex = '".$this->dao->connId->real_escape_string($v)."'";
+                    }
+                    // age
+                    if($k=='minAge') {
+                        $minDate = date("Y-m-d", strtotime("-$v year"));
+                        $cond[] = "a.dt_birthday <= '".$this->dao->connId->real_escape_string($minDate)."'";
+                    }
+                    if($k=='maxAge') {
+                        $maxDate = date("Y-m-d", strtotime("-$v year"));
+                        $cond[] = "a.dt_birthday >= '".$this->dao->connId->real_escape_string($maxDate)."'";
+                    }
+                    if($k=='rating') {
+                        $cond[] = "a.i_rating >= ". $this->dao->connId->real_escape_string($v) ;
+                    }
+
                 }
             }
             $cond_str = '';
@@ -458,7 +485,11 @@
                 $cond_str = " AND ".implode(" AND ", $cond)." ";
             }
 
-            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order FROM (%st_item_job_applicant a) LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id WHERE (d.s_title != '' OR d.s_title IS NULL) %s ORDER BY locale_order DESC, a.dt_date DESC", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str);
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
+                FROM (%st_item_job_applicant a)
+                LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id
+                LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id
+                WHERE (d.s_title != '' OR d.s_title IS NULL) %s ORDER BY locale_order DESC, a.dt_date DESC", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str);
             $result = $this->dao->query(sprintf("SELECT * FROM (%s) as dummy GROUP BY dummy.pk_i_id ", $sql));
 
             if( !$result ) {
