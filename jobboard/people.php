@@ -217,13 +217,13 @@
                 </div>
                 <div class="form-row" style="display: inline-block;padding-left: 165px;">
                     <input type="submit" id="" class="btn float-left" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>">
-                    <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" class="btn"><?php _e('Reset', 'jobboard');?></a>
+                    <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>?statusId=-1" class="btn"><?php _e('Reset', 'jobboard');?></a>
                 </div>
             </div>
         </form>
     </div>
 
-    <form id="datatablesForm" action="<?php echo osc_admin_base_url(true); ?>" method="get">
+    <form id="datatablesForm" action="<?php echo osc_admin_base_url(true); ?>" method="get">   
         <input type="hidden" name="page" value="plugins">
         <input type="hidden" name="action" value="renderplugin">
         <input type="hidden" name="file" value="jobboard/people.php">
@@ -298,7 +298,7 @@
                                 </ul>
                             </div>
                         </td>
-                        <td><?php error_log('--> '.@$p['dt_birthday']); echo _jobboard_get_age(@$p['dt_birthday']); ?></td>
+                        <td><?php $age = _jobboard_get_age(@$p['dt_birthday']); echo $age;?> <?php if(@$age!='-'){echo __('years', 'jobboard').' ('.date('m/d/Y',strtotime(@$p['dt_birthday'])).')'; } ?></td>
                         <td><?php echo @$p['s_sex']; ?></td>
                         <td><?php echo @$p['s_email']; ?></td>
                         <td><?php echo $p['fk_i_item_id']==''?__('Spontaneous application', 'jobboard'):@$p['s_title']; ?></td>
