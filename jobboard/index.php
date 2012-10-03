@@ -43,15 +43,30 @@ function jobboard_update_version() {
         $dbCommand = new DBCommandClass($data);
 
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN s_sex VARCHAR(15) NOT NULL DEFAULT \'prefernotsay\'  AFTER s_ip', ModelJB::newInstance()->getTable_JobsApplicants()));
-        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN dt_birthday DATE NOT NULL AFTER s_sex', ModelJB::newInstance()->getTable_JobsApplicants()));
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN dt_birthday DATE NOT NULL DEFAULT \'0000-00-00\' AFTER s_sex', ModelJB::newInstance()->getTable_JobsApplicants()));
 
         osc_reset_preferences();
     }
 }
 osc_add_hook('init', 'jobboard_update_version');
 
+function _jobboard_get_age($birthday){
+
+    if($birthday!='' && $birthday!='0000-00-00') {
+        list($year,$month,$day) = explode("-",$birthday);
+        $year_diff  = date("Y") - $year;
+        $month_diff = date("m") - $month;
+        $day_diff   = date("d") - $day;
+        if ($day_diff < 0 || $month_diff < 0)
+          $year_diff--;
+        return $year_diff;
+    } else {
+        return '-';
+    }
+}
+
 function _jobboard_get_sex_array() {
-    // array sex 
+    // array sex
     $aSex = array(
         'male'         => __('Male', 'jobboard'),
         'female'       => __('Female', 'jobboard'),
@@ -61,7 +76,7 @@ function _jobboard_get_sex_array() {
 }
 
 function jobboard_sex_to_string($sex) {
-    // array sex 
+    // array sex
     $aSex = _jobboard_get_sex_array();
     return $aSex[$sex];
 }
