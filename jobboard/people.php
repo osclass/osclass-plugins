@@ -307,7 +307,7 @@
                                 } ?>
                             </div>
                         </td>
-                        <td><?php echo @$p['dt_date']; ?></td>
+                        <td><?php echo _jobboard_time_elapsed_string( strtotime(@$p['dt_date']) ); ?></td>
                     </tr>
                 <?php } ?>
                 <?php } else { ?>

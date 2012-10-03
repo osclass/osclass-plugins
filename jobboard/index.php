@@ -50,6 +50,29 @@ function jobboard_update_version() {
 }
 osc_add_hook('init', 'jobboard_update_version');
 
+function _jobboard_time_elapsed_string($ptime) {
+    $etime = time() - $ptime;
+
+    if ($etime < 1) {
+        return '0 '.__('seconds', 'jobboard');
+    }
+
+    $a = array( 12 * 30 * 24 * 60 * 60  =>  __('year', 'jobboard'),
+                30 * 24 * 60 * 60       =>  __('month', 'jobboard'),
+                24 * 60 * 60            =>  __('day', 'jobboard'),
+                60 * 60                 =>  __('hour', 'jobboard'),
+                60                      =>  __('minute', 'jobboard'),
+                1                       =>  __('second', 'jobboard')
+                );
+
+    foreach ($a as $secs => $str) {
+        $d = $etime / $secs;
+        if ($d >= 1) {
+            $r = round($d);
+            return $r . ' ' . $str . ($r > 1 ? 's' : '');
+        }
+    }
+}
 function _jobboard_get_age($birthday){
 
     if($birthday!='' && $birthday!='0000-00-00') {
