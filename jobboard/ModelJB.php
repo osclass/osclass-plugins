@@ -347,6 +347,11 @@
          */
         public function search($start = 0, $length = 10, $conditions = null, $order_col = 'a.dt_date', $order_dir = 'DESC')
         {
+            // hack order by age.
+            if($order_col=='a.dt_birthday') {
+                if($order_dir=='DESC') { $order_dir='ASC'; }
+                else { $order_dir='DESC'; }
+            }
             $cond = array();
             if($conditions!=null) {
                 foreach($conditions as $k => $v) {
