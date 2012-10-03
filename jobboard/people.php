@@ -27,9 +27,6 @@
     if(Params::getParam('viewUnread')=='1') {
         $conditions['unread'] = 1;
     }
-    if(Params::getParam('onlySpontaneous')=='1') {
-        $conditions['spontaneous'] = 1;
-    }
     if(Params::getParam('sEmail')!='') {
         $conditions['email'] = Params::getParam('sEmail');
     }
@@ -217,13 +214,13 @@
                 </div>
                 <div class="form-row" style="display: inline-block;padding-left: 165px;">
                     <input type="submit" id="" class="btn float-left" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>">
-                    <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>?statusId=-1" class="btn"><?php _e('Reset', 'jobboard');?></a>
+                    <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&statusId=-1" class="btn"><?php _e('Reset', 'jobboard');?></a>
                 </div>
             </div>
         </form>
     </div>
 
-    <form id="datatablesForm" action="<?php echo osc_admin_base_url(true); ?>" method="get">   
+    <form id="datatablesForm" action="<?php echo osc_admin_base_url(true); ?>" method="get">
         <input type="hidden" name="page" value="plugins">
         <input type="hidden" name="action" value="renderplugin">
         <input type="hidden" name="file" value="jobboard/people.php">
