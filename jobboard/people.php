@@ -90,14 +90,6 @@
         margin-bottom: 15px;
     }
 </style>
-
-<script type="text/javascript">
-    var jobboard=new Object();
-    jobboard.text_hide_filter = "<?php _e('Hide search', 'jobboard'); ?>";
-    jobboard.text_show_filter = "<?php _e('Show search', 'jobboard'); ?>";
-
-</script>
-
 <h2 class="render-title"><?php _e('Resumes', 'jobboard'); ?>  <a id="show-filters" class="btn btn-mini"><?php _e('Show filters', 'jobboard'); ?></a></h2>
 <div class="relative resumes">
     <div class="search-filter hide">
@@ -245,6 +237,16 @@
                                 <?php _e('Applicant', 'jobboard') ; ?>
                             </a>
                         </th>
+                        <th <?php if($order_col=='a.dt_birthday') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                            <a href="<?php echo $urlOrder."&sOrderCol=a.dt_birthday&sOrderDir=".($order_col=='a.dt_birthday'?($order_dir=='ASC'?'DESC':'ASC'):'ASC');?>" >
+                                <?php _e('Age', 'jobboard') ; ?>
+                            </a>
+                        </th>
+                        <th <?php if($order_col=='a.s_sex') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
+                            <a href="<?php echo $urlOrder."&sOrderCol=a.s_sex&sOrderDir=".($order_col=='a.s_sex'?($order_dir=='ASC'?'DESC':'ASC'):'ASC');?>" >
+                                <?php _e('Sex', 'jobboard') ; ?>
+                            </a>
+                        </th>
                         <th <?php if($order_col=='a.s_email') { echo 'class="sorting_'.strtolower($order_dir).'"';}; ?>>
                             <a href="<?php echo $urlOrder."&sOrderCol=a.s_email&sOrderDir=".($order_col=='a.s_email'?($order_dir=='ASC'?'DESC':'ASC'):'ASC');?>" >
                                 <?php _e('Email', 'jobboard') ; ?>
@@ -296,6 +298,8 @@
                                 </ul>
                             </div>
                         </td>
+                        <td><?php error_log('--> '.@$p['dt_birthday']); echo _jobboard_get_age(@$p['dt_birthday']); ?></td>
+                        <td><?php echo @$p['s_sex']; ?></td>
                         <td><?php echo @$p['s_email']; ?></td>
                         <td><?php echo $p['fk_i_item_id']==''?__('Spontaneous application', 'jobboard'):@$p['s_title']; ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>

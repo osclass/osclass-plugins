@@ -15,9 +15,9 @@ $(document).ready(function() {
     $('#show-filters').click( function(){
         $('.search-filter').toggle();
         if( $('.search-filter:visible').size() > 0 ) {
-            $('#show-filters').text( jobboard.text_hide_filter );
+            $('#show-filters').text( osc.jobboard.langs.text_hide_filter );
         } else {
-            $('#show-filters').text( jobboard.text_show_filter );
+            $('#show-filters').text( osc.jobboard.langs.text_show_filter );
         }
     });
     // tooltips notes

@@ -814,6 +814,8 @@ function jobboard_init_js() {
     $langs = array();
     $langs['delete_string'] = __('Delete', 'jobboard');
     $langs['edit_string']   = __('Edit', 'jobboard');
+    $langs['text_hide_filter'] = __('Hide search', 'jobboard');
+    $langs['text_show_filter'] = __('Show search', 'jobboard');
 ?>
 <script type="text/javascript">
     osc.jobboard = {};
