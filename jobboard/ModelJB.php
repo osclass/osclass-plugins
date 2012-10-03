@@ -388,11 +388,11 @@
                     // age
                     if($k=='minAge') {
                         $minDate = date("Y-m-d", strtotime("-$v year"));
-                        $cond[] = "a.dt_birthday <= '".$this->dao->connId->real_escape_string($minDate)."'";
+                        $cond[] = "a.dt_birthday >= '".$this->dao->connId->real_escape_string($minDate)."'";
                     }
                     if($k=='maxAge') {
                         $maxDate = date("Y-m-d", strtotime("-$v year"));
-                        $cond[] = "a.dt_birthday >= '".$this->dao->connId->real_escape_string($maxDate)."'";
+                        $cond[] = "a.dt_birthday <= '".$this->dao->connId->real_escape_string($maxDate)."'";
                     }
                     if($k=='rating') {
                         $cond[] = "a.i_rating >= ". $this->dao->connId->real_escape_string($v) ;
@@ -411,7 +411,7 @@
                 $order_col2 = "dummy." . $tmp[1];
             }
 
-            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
                 FROM (%st_item_job_applicant a)
                 LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id
                 LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id
@@ -468,11 +468,11 @@
                     // age
                     if($k=='minAge') {
                         $minDate = date("Y-m-d", strtotime("-$v year"));
-                        $cond[] = "a.dt_birthday <= '".$this->dao->connId->real_escape_string($minDate)."'";
+                        $cond[] = "a.dt_birthday >= '".$this->dao->connId->real_escape_string($minDate)."'";
                     }
                     if($k=='maxAge') {
                         $maxDate = date("Y-m-d", strtotime("-$v year"));
-                        $cond[] = "a.dt_birthday >= '".$this->dao->connId->real_escape_string($maxDate)."'";
+                        $cond[] = "a.dt_birthday <= '".$this->dao->connId->real_escape_string($maxDate)."'";
                     }
                     if($k=='rating') {
                         $cond[] = "a.i_rating >= ". $this->dao->connId->real_escape_string($v) ;
@@ -485,7 +485,7 @@
                 $cond_str = " AND ".implode(" AND ", $cond)." ";
             }
 
-            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
                 FROM (%st_item_job_applicant a)
                 LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id
                 LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id
