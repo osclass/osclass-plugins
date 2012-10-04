@@ -1,3 +1,23 @@
+#corporateboard .ico, #jobboard .ico {
+    background-image: url('../img/split.png') !important;
+    background-position:0px -48px;
+}
+#corporateboard .ico:hover,
+.current #corporateboard .ico,
+#jobboard .ico:hover,
+.current #jobboard .ico {
+    background-position:0px -0px;
+}
+body.compact #corporateboard .ico,
+body.compact #jobboard .ico{
+    background-position:-48px -48px;
+}
+body.compact #corporateboard .ico:hover,
+body.compact .current #corporateboard .ico,
+body.compact #jobboard .ico:hover,
+body.compact .current #jobboard .ico{
+    background-position:-48px 0px;
+}
 .job-detail table { width: 100%; }
 .job-detail table label { font-weight: bold; }
 .job-detail > div { margin-top: 5px; }

@@ -483,16 +483,7 @@ function job_delete_item($item_id) {
     ModelJB::newInstance()->deleteItem($item_id);
 }
 
-function jobboard_admin_menu() { ?>
-<style type="text/css" media="screen">
-    .ico-jobboard{
-        background-image: url('<?php printf('%soc-content/plugins/%simg/icon.png', osc_base_url(), osc_plugin_folder(__FILE__)); ?>') !important;
-    }
-    body.compact .ico-jobboard{
-        background-image: url('<?php printf('%soc-content/plugins/%simg/iconCompact.png', osc_base_url(), osc_plugin_folder(__FILE__)); ?>') !important;
-    }
-</style>
-<?php
+function jobboard_admin_menu() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='') { ?>
         <script type="text/javascript">
             $(document).ready(function(){
