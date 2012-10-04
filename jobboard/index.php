@@ -830,6 +830,7 @@ function jobboard_init_js() {
     $langs['edit_string']   = __('Edit', 'jobboard');
     $langs['text_hide_filter'] = __('Hide search', 'jobboard');
     $langs['text_show_filter'] = __('Show search', 'jobboard');
+    $langs['empty_note_text']  = __('No notes have been added to this applicant', 'jobboard');
 ?>
 <script type="text/javascript">
     osc.jobboard = {};

@@ -40,7 +40,10 @@ $(document).ready(function() {
                 'noteID': $("#dialog-note-delete").attr('data-note-id')
             },
             function(data) {
-                $('.delete_note[data-note-id="' + $("#dialog-note-delete").attr('data-note-id') + '"]').parents('.note').fadeOut('500');
+                $('.delete_note[data-note-id="' + $("#dialog-note-delete").attr('data-note-id') + '"]').parents('.note').remove();
+                var note_container = $('<div>').attr('class', 'note empty-note well ui-rounded-corners').append($('<p>').html(osc.jobboard.langs.empty_note_text));
+                $('#nots_table_div').append(note_container);
+                $(note_container).effect("highlight", {}, 500);
                 $("#dialog-note-delete").dialog('close');
             }
         );
@@ -71,6 +74,7 @@ $(document).ready(function() {
 
                     $(note_container).append($(note_actions).append(delete_note).append(edit_note)).append(date_note).append(clear_div).append(note_text);
                     $('#nots_table_div').prepend(note_container);
+                    $('.empty-note').remove();
                     $(note_container).effect("highlight", {}, 500);
                 } else {
                     var note = $('.delete_note[data-note-id="' + $("#dialog-note-form").attr('data-note-id') + '"]').parents('.note');

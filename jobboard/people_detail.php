@@ -103,7 +103,7 @@
                     </div>
                 <?php }; ?>
             <?php } else { ?>
-                <div class="note well ui-rounded-corners">
+                <div class="note empty-note well ui-rounded-corners">
                     <p><?php _e("No notes have been added to this applicant", "jobboard"); ?></p>
                 </div>
             <?php } ?>
