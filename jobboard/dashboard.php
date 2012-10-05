@@ -53,23 +53,24 @@
                                         <div class="card card-views">
                                             <div class="container">
                                                 <div class="icon-car"></div>
-                                                <span><?php _e('Most viewed','jobboard'); ?></span>
-                                                <?php $mSearch3 = new Search(true);
-                                                $mSearch3->addTable(DB_TABLE_PREFIX."t_item_stats");
-                                                $mSearch3->addField("SUM(".DB_TABLE_PREFIX."t_item_stats.i_num_views) as i_num_views");
-                                                $mSearch3->addConditions(DB_TABLE_PREFIX."t_item_stats.fk_i_item_id = ".DB_TABLE_PREFIX."t_item.pk_i_id");
-                                                $mSearch3->order('i_num_views');
-                                                $mSearch3->set_rpp(1);
-                                                $mSearch3->addGroupBy("fk_i_item_id");
-                                                $jobs = $mSearch3->doSearch();?>
+                                                <span><?php _e('Total views','jobboard'); ?></span>
+                                                <?php $allViews = ItemStats::newInstance()->getAllViews(); ?>
                                             </div>
-                                            <b><?php echo $jobs[0]['i_num_views']; ?></b>
+                                            <b><?php echo $allViews; ?></b>
                                         </div>
                                     </a>
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="5"><div class="most-viwed"><span><?php _e('Most viewed', 'jobboard'); ?></span><a href="<?php echo osc_item_admin_edit_url($jobs[0]['fk_i_item_id']); ?>"><?php echo osc_highlight($jobs[0]['s_title'],30); ?></a></div></td>
+                                <?php   $mSearch4 = new Search(true);
+                                        $mSearch4->addTable(DB_TABLE_PREFIX."t_item_stats");
+                                        $mSearch4->addField("SUM(".DB_TABLE_PREFIX."t_item_stats.i_num_views) as i_num_views");
+                                        $mSearch4->addConditions(DB_TABLE_PREFIX."t_item_stats.fk_i_item_id = ".DB_TABLE_PREFIX."t_item.pk_i_id");
+                                        $mSearch4->order('i_num_views');
+                                        $mSearch4->set_rpp(1);
+                                        $mSearch4->addGroupBy("fk_i_item_id");
+                                        $mostViewedJob = $mSearch4->doSearch();?>
+                                <td colspan="5"><div class="most-viwed"><span><?php _e('Most viewed', 'jobboard'); ?> - <b><?php echo $mostViewedJob[0]['i_num_views']." ".__('views', 'jobboard'); ?></b></span><a href="<?php echo osc_item_admin_edit_url($mostViewedJob[0]['fk_i_item_id']); ?>"><?php echo osc_highlight($mostViewedJob[0]['s_title'],30); ?></a></div></td>
                             </tr>
                         </tbody>
                     </table>
@@ -95,7 +96,7 @@
                             $mSearch3->order('i_num_views');
                             $mSearch3->set_rpp(7);
                             $mSearch3->addGroupBy("fk_i_item_id");
-                            $jobs = $mSearch3->doSearch();?>
+                            $jobs = $mSearch3->doSearch(); ?>
                             <?php foreach($jobs as $job) { ?>
                             <tr>
                                 <td><a href="<?php echo osc_item_admin_edit_url($job['pk_i_id']); ?>" ><?php echo osc_highlight($job['s_title'],30); ?></a></td>
