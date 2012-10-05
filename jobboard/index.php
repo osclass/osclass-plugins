@@ -783,6 +783,7 @@ osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquer
 osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jquery.MetaData.js', 'jquery');
 osc_register_script('jobboard-people', osc_plugin_url(__FILE__) . 'js/people.js', 'jquery');
 osc_register_script('jobboard-people-detail', osc_plugin_url(__FILE__) . 'js/people_detail.js', 'jquery');
+osc_register_script('jobboard-item-contact', osc_plugin_url(__FILE__) . 'js/item_contact.js', array('jquery', 'jquery-validate'));
 
 function admin_assets_jobboard() {
     osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/styles.css');
@@ -810,6 +811,13 @@ function admin_assets_jobboard() {
 }
 osc_add_hook('init_admin', 'admin_assets_jobboard');
 
+function front_item_contact_validation() {
+    if( osc_is_ad_page() ) { ?>
+<script src="<?php echo osc_plugin_url(__FILE__) . 'js/item_contact.js'; ?>" type="text/javascript"></script>
+<?php }
+}
+osc_add_hook('footer', 'front_item_contact_validation');
+
 function jobboard_post_actions() {
     switch(urldecode(Params::getParam('file'))) {
         case('jobboard/people.php'):
@@ -829,24 +837,28 @@ osc_add_hook('init_admin', 'jobboard_post_actions');
 
 function jobboard_init_js() {
     $langs = array();
-    $langs['delete_string'] = __('Delete', 'jobboard');
-    $langs['edit_string']   = __('Edit', 'jobboard');
-    $langs['text_hide_filter'] = __('Hide search', 'jobboard');
-    $langs['text_show_filter'] = __('Show search', 'jobboard');
-    $langs['empty_note_text']  = __('No notes have been added to this applicant', 'jobboard');
+    $langs['delete_string']     = __('Delete', 'jobboard');
+    $langs['edit_string']       = __('Edit', 'jobboard');
+    $langs['text_hide_filter']  = __('Hide search', 'jobboard');
+    $langs['text_show_filter']  = __('Show search', 'jobboard');
+    $langs['empty_note_text']   = __('No notes have been added to this applicant', 'jobboard');
+    $langs['sex_required']      = __('Sex: this field is required', 'jobboard');
+    $langs['birthday_required'] = __('Birthday: this field is required', 'jobboard');
+    $langs['invalid_birthday_date'] = __('Invalid birthday date', 'jobboard');
 ?>
 <script type="text/javascript">
-    osc.jobboard = {};
-    osc.jobboard.langs = <?php echo json_encode($langs); ?>;
-    osc.jobboard.ajax_rating = '<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>';
-    osc.jobboard.ajax_applicant_status_notification = '<?php echo osc_admin_ajax_hook_url('applicant_status_notifitacion'); ?>';
-    osc.jobboard.ajax_applicant_status = '<?php echo osc_admin_ajax_hook_url('applicant_status'); ?>';
-    osc.jobboard.ajax_note_add = '<?php echo osc_admin_ajax_hook_url('note_add'); ?>';
-    osc.jobboard.ajax_note_edit = '<?php echo osc_admin_ajax_hook_url('note_edit'); ?>';
-    osc.jobboard.ajax_note_delete = '<?php echo osc_admin_ajax_hook_url('note_delete'); ?>';
+    jobboard = {};
+    jobboard.langs = <?php echo json_encode($langs); ?>;
+    jobboard.ajax_rating = '<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>';
+    jobboard.ajax_applicant_status_notification = '<?php echo osc_admin_ajax_hook_url('applicant_status_notifitacion'); ?>';
+    jobboard.ajax_applicant_status = '<?php echo osc_admin_ajax_hook_url('applicant_status'); ?>';
+    jobboard.ajax_note_add = '<?php echo osc_admin_ajax_hook_url('note_add'); ?>';
+    jobboard.ajax_note_edit = '<?php echo osc_admin_ajax_hook_url('note_edit'); ?>';
+    jobboard.ajax_note_delete = '<?php echo osc_admin_ajax_hook_url('note_delete'); ?>';
 </script>
 <?php }
-osc_add_hook('admin_header', 'jobboard_init_js');
+osc_add_hook('admin_header', 'jobboard_init_js', 1);
+osc_add_hook('header', 'jobboard_init_js', 1);
 
 function default_settings_jobboard() {
     // always active osc_item_attachment
