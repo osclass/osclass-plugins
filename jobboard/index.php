@@ -789,6 +789,9 @@ function admin_assets_jobboard() {
     switch(urldecode(Params::getParam('file'))) {
         case('jobboard/dashboard.php'):
             osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'css/dashboard.css');
+            osc_enqueue_script('jquery-rating');
+            osc_enqueue_script('jobboard-people');
+
         break;
         case('jobboard/people_detail.php'):
             osc_enqueue_script('jquery-rating');

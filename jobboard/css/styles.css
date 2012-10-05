@@ -25,7 +25,7 @@ body.compact .current #jobboard .ico{
 .resumes td.applicant a {
     float: left;
 }
-.resumes td.applicant .note {
+.table td .note {
     background-image: url(../img/note.gif);
     width: 16px;
     height: 16px;

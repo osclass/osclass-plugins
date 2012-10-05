@@ -80,100 +80,6 @@
     <div class="grid-row grid-first-row grid-50">
         <div class="row-wrapper">
             <div class="widget-box">
-                <div class="widget-box-title"><h3 class="has-tabs"><?php _e('Recent applicants', 'jobboard'); ?></h3>
-                    <ul class="tabs">
-                        <?php foreach($status as $k => $v) {
-                            echo '<li><a href="#status-'.$k.'">'.$v.'</a></li>';
-                        }
-                        ?>
-                    </ul>
-                </div>
-                <div class="widget-box-content">
-                    <?php foreach($status as $k => $v) {
-                        echo '<div id="status-'.$k.'">';
-                        echo '<table class="table" cellpadding="0" cellspacing="0"><tbody>';
-                        echo '<thead><th>'.__('Applicant','jobboard').'</th><th>'.__('Job title','jobboard').'</th><th>'.__('Received','jobboard').'</th></thead>';
-                        $people = ModelJB::newInstance()->search(0, 6, array('status'=>$k), 'a.dt_date', 'DESC');
-                            if(count($people)){
-                                foreach($people as $applicant){
-                                    $item = Item::newInstance()->findByPrimaryKey($applicant['fk_i_item_id']);
-                                    echo '<tr>';
-                                    echo '<td><a href="'.osc_admin_render_plugin_url("jobboard/people_detail.php").'&people='.$applicant['pk_i_id'].'">'.$applicant['s_name'].'</a></td>';
-                                    echo '<td>'.osc_highlight($item['s_title'],30).'</td>';
-                                    echo '<td>'.@$applicant['dt_date'].'</td>';
-                                    echo '</tr>';
-                                }
-                            }
-                        echo '</tbody></table>';
-                        echo '<p class="view-all"><a href="'.osc_admin_render_plugin_url("jobboard/people.php").'&iStatus='.$k.'">'.__('View all','jobboard').' '.$v.'</a></p>';
-                        echo '</div>';
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="grid-row grid-first-row grid-50">
-        <div class="row-wrapper">
-            <div class="widget-box">
-                <div class="widget-box-title"><h3 class="has-tabs"><?php _e('Latest jobs', 'jobboard'); ?></h3>
-                    <ul class="tabs">
-                        <li><a href="#jobs-open"><?php _e('Open', 'jobboard'); ?></a></li>
-                        <li><a href="#jobs-on-hold"><?php _e('On hold', 'jobboard'); ?></a></li>
-                    </ul>
-                </div>
-                <div class="widget-box-content">
-                        <div id="jobs-open">
-                            <table class="table" cellpadding="0" cellspacing="0">
-                                <tbody>
-                                    <?php
-                                    $mSearch = new Search(true);
-                                    $mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 1');
-                                    $mSearch->set_rpp(7);
-                                    $jobs = $mSearch->doSearch();?>
-                                    <?php
-                                    $i = 0;
-                                    foreach($jobs as $job) { ?>
-                                    <tr <?php if($i == 0){ echo 'class="table-first-row"'; }?>>
-                                        <td><a href="<?php echo osc_item_admin_edit_url($job['pk_i_id']); ?>" ><?php echo osc_highlight($job['s_title'],30); ?></a></td>
-                                    </tr>
-                                    <?php
-                                    $i++;
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                            <p><a href="<?php echo osc_admin_base_url(true); ?>?page=items&b_enabled=1"><?php _e('View Open', 'jobboard'); ?></a> <span>(<?php echo $mSearch->count(); ?>)</span></p>
-                        </div>
-                        <div id="jobs-on-hold">
-                            <table class="table" cellpadding="0" cellspacing="0">
-                                <tbody>
-                                    <?php
-                                    $mSearch = new Search(true);
-                                    $mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = 0');
-                                    $mSearch->set_rpp(7);
-                                    $jobs = $mSearch->doSearch();?>
-                                    <?php
-                                    $i = 0;
-                                    foreach($jobs as $job) { ?>
-                                    <tr <?php if($i == 0){ echo 'class="table-first-row"'; }?>>
-                                        <td><a href="<?php echo osc_item_admin_edit_url($job['pk_i_id']); ?>" ><?php echo osc_highlight($job['s_title'],30); ?></a></td>
-                                    </tr>
-                                    <?php
-                                    $i++;
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                            <p><a href="<?php echo osc_admin_base_url(true); ?>?page=items&b_enabled=0"><?php _e('View on hold', 'jobboard'); ?></a> <span>(<?php echo $mSearch->count(); ?>)</span></p>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="grid-row grid-first-row grid-50">
-        <div class="row-wrapper">
-            <div class="widget-box">
                 <div class="widget-box-title"><h3><?php _e('Most viewed jobs', 'jobboard'); ?></h3></div>
                 <div class="widget-box-content">
                     <table class="table" cellpadding="0" cellspacing="0" id="applicants_list">
@@ -198,6 +104,51 @@
                             <?php }; ?>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-row grid-first-row grid-100">
+        <div class="row-wrapper">
+            <div class="widget-box">
+                <div class="widget-box-title"><h3 class="has-tabs"><?php _e('Recent applicants', 'jobboard'); ?></h3>
+                    <ul class="tabs">
+                        <?php foreach($status as $k => $v) {
+                            echo '<li><a href="#status-'.$k.'">'.$v.'</a></li>';
+                        }
+                        ?>
+                    </ul>
+                </div>
+                <div class="widget-box-content">
+                    <?php foreach($status as $k => $v) {
+                        echo '<div id="status-'.$k.'">';
+                        echo '<table class="table" cellpadding="0" cellspacing="0"><tbody>';
+                        echo '<thead><th>'.__('Applicant','jobboard').'</th><th>'.__('Job title','jobboard').'</th><th>'.__('Received','jobboard').'</th></thead>';
+                        $people = ModelJB::newInstance()->search(0, 6, array('status'=>$k), 'a.dt_date', 'DESC');
+                            if(count($people)){
+                                foreach($people as $applicant){
+                                    $item = Item::newInstance()->findByPrimaryKey($applicant['fk_i_item_id']);
+                                    //Notes
+                                    $notes = ModelJB::newInstance()->getNotesFromApplicant($applicant['pk_i_id']);
+                                    $note_tooltip = '';
+                                    for($i = 0; $i < count($notes); $i++) {
+                                        $note_tooltip .= sprintf('<strong>%1$s</strong> - %2$s', date('d/m/Y H:i', strtotime($notes[$i]['dt_date'])), $notes[$i]['s_text']);
+                                        if( $i < (count($notes) - 1) ) {
+                                            $note_tooltip .= '<br/>';
+                                        }
+                                    }
+                                    echo '<tr>';
+                                    echo '<td><a href="'.osc_admin_render_plugin_url("jobboard/people_detail.php").'&people='.$applicant['pk_i_id'].'">'.$applicant['s_name']; if($applicant['b_has_notes'] == 1 ) { echo '<span class="note" data-tooltip="'.$note_tooltip.'"></span>'; } echo '</a></td>';
+                                    echo '<td>'.osc_highlight($item['s_title'],30).'</td>';
+                                    echo '<td>'._jobboard_time_elapsed_string( strtotime(@$applicant['dt_date']) ) .'</td>';
+                                    echo '</tr>';
+                                }
+                            }
+                        echo '</tbody></table>';
+                        echo '<p class="view-all"><a href="'.osc_admin_render_plugin_url("jobboard/people.php").'&iStatus='.$k.'">'.__('View all','jobboard').' '.$v.'</a></p>';
+                        echo '</div>';
+                    }
+                    ?>
                 </div>
             </div>
         </div>
