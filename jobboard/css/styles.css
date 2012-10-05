@@ -43,3 +43,8 @@ body.compact .current #jobboard .ico{
     cursor: pointer;
     margin-left: 4px;
 }
+.filters-submit {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}

@@ -212,9 +212,8 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                <div class="form-row" style="display: inline-block;padding-left: 165px;">
-                    <input type="submit" id="" class="btn float-left" value="<?php echo osc_esc_html( __('Find', 'jobboard') ) ; ?>">
-                    <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&statusId=-1" class="btn"><?php _e('Reset', 'jobboard');?></a>
+                <div class="form-row filters-submit">
+                    <input type="submit" class="btn" value="<?php echo osc_esc_html( __('Search', 'jobboard') ) ; ?>">
                 </div>
             </div>
         </form>
