@@ -8,6 +8,7 @@
 ?>
 </div>
 </div>
+<?php osc_run_hook('jobboard_header_dashboard');?>
 <div style="width:900px">
     <div class="grid-row grid-first-row grid-50">
         <div class="row-wrapper">
