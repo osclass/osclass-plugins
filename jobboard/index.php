@@ -784,6 +784,7 @@ osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jqu
 osc_register_script('jobboard-people', osc_plugin_url(__FILE__) . 'js/people.js', 'jquery');
 osc_register_script('jobboard-people-detail', osc_plugin_url(__FILE__) . 'js/people_detail.js', 'jquery');
 osc_register_script('jobboard-item-contact', osc_plugin_url(__FILE__) . 'js/item_contact.js', array('jquery', 'jquery-validate'));
+osc_register_script('jobboard-dashboard', osc_plugin_url(__FILE__) . 'js/dashboard.js', array('jquery'));
 
 function admin_assets_jobboard() {
     osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/styles.css');
@@ -792,7 +793,7 @@ function admin_assets_jobboard() {
             osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'css/dashboard.css');
             osc_enqueue_script('jquery-rating');
             osc_enqueue_script('jobboard-people');
-
+            osc_enqueue_script('jobboard-dashboard');
         break;
         case('jobboard/people_detail.php'):
             osc_enqueue_script('jquery-rating');
@@ -855,6 +856,7 @@ function jobboard_init_js() {
     jobboard.ajax_note_add = '<?php echo osc_admin_ajax_hook_url('note_add'); ?>';
     jobboard.ajax_note_edit = '<?php echo osc_admin_ajax_hook_url('note_edit'); ?>';
     jobboard.ajax_note_delete = '<?php echo osc_admin_ajax_hook_url('note_delete'); ?>';
+    jobboard.ajax_dismiss_tip = '<?php echo osc_admin_ajax_hook_url('dismiss_tip'); ?>';
 </script>
 <?php }
 osc_add_hook('admin_header', 'jobboard_init_js', 1);
@@ -991,5 +993,161 @@ if( $subdomain == 'osclass.com') {
     osc_add_hook('header', 'jobboard_set_domain');
 }
 
+// -------------------------------------------------------------------------
+//                      NOTICE  &  TIPS
+// -------------------------------------------------------------------------
+/*
+ * Show notice at oc-admin
+ */
+function jobboard_notices(){
+    $arrayNotice = osc_apply_filter( 'showNotice', array() );
+    $numNotice   = count($arrayNotice);
+    if($numNotice > 0 ){
+        $randIndex = array_rand($arrayNotice);
+        echo '<div class="flashmessage flashmessage-inline" style="min-height:22px;">'.
+                $arrayNotice[$randIndex].'<a class="btn ico btn-mini ico-close">x</a></div>';
+    }
+}
+osc_add_hook('jobboard_header_dashboard', 'jobboard_notices',10);
 
+/*
+ * Show notice tips at oc-admin, this notice can be dismissed!
+ */
+function jobboard_notices_tips() {
+    $arrayNotice = osc_apply_filter( 'showNoticeTips', array() );
+    // remove dismiss tips
+    $aDismiss = json_decode( osc_get_preference('notice_tips_dismissed', 'jobboard'), true);
+    // remove dismissed tips
+    if(!is_null($aDismiss) || is_array($aDismiss)) {
+        foreach($aDismiss as $key => $v) {
+            unset( $arrayNotice[$key] );
+        }
+    }
+
+    $numNotice   = count($arrayNotice);
+    if($numNotice > 0) {
+        $randIndex = array_rand($arrayNotice);
+        echo '<div class="flashmessage flashmessage-inline" style="min-height:22px;">'.
+                $arrayNotice[$randIndex].sprintf(__('. <a id="dismiss-tip" data-notice-id="%s" href="#">Dismiss</a> to not show again.','jobboard'),
+                $randIndex ).'<a class="btn ico btn-mini ico-close">x</a></div>';
+    }
+}
+osc_add_hook('jobboard_header_dashboard', 'jobboard_notices_tips',10) ;
+
+/*
+ * Filter - Empty jobs ok
+ */
+function notice_empty_jobs($arrayNotice) {
+    // empty jobs! add new job please
+    $notice_empty_jobs = osc_get_preference('notice_empty_jobs', 'jobboard');
+    if($notice_empty_jobs=='') {
+        osc_set_preference('notice_empty_jobs', '1','jobboard');
+        osc_reset_preferences();
+        $notice_empty_jobs = osc_get_preference('notice_empty_jobs', 'jobboard');
+    }
+
+    if($notice_empty_jobs=='1'){
+        $jobs = ModelJB::newInstance()->search(0,1);
+        if(count($jobs)>0) {
+            osc_set_preference('notice_empty_jobs', '0', 'jobboard');
+        }
+        // ADD MESSAGE @TODO
+        $arrayNotice['notice_empty_jobs'] = __('1 empty jobboard', 'jobboard');
+    }
+    return $arrayNotice;
+}
+osc_add_filter('showNoticeTips', 'notice_empty_jobs');
+
+/*
+ * Filter - Edit corporate page ok
+ */
+function notice_edit_corporate_page( $arrayNotice ) {
+    // update your corporativa page -> if t_page.dt_mod_date is null
+    $notice_update_corporatepage = osc_get_preference('notice_edit_corporatepage', 'jobboard');
+    if($notice_update_corporatepage=='') {
+        osc_set_preference('notice_edit_corporatepage', '1', 'jobboard');
+        osc_reset_preferences();
+        $notice_update_corporatepage = osc_get_preference('notice_empty_jobs', 'jobboard');
+    }
+    if($notice_update_corporatepage=='1') {
+        $corporatePage = Page::newInstance()->findByInternalName('corporate');
+        if(is_null($corporatePage['dt_mod_date']) ) {
+            // ADD MESSAGE @TODO
+            $arrayNotice['notice_edit_corporate_page'] = __('2 edit your corporate page', 'jobboard');
+        }
+    }
+    return $arrayNotice;
+}
+osc_add_filter('showNoticeTips', 'notice_edit_corporate_page');
+
+/*
+ * Filter - Tracking empty ok
+ */
+function notice_ga_tracking($arrayNotice) {
+    if(osc_get_preference('googleanalytics_trackingid','jobboard')=='') {
+        $arrayNotice['notice_ga_tracking'] = osc_apply_filter( 'corporate_notice_empty_analytics_tag', __('3 google analytics tag empty', 'jobboard'));
+    }
+    return $arrayNotice;
+}
+osc_add_filter('showNoticeTips', 'notice_ga_tracking');
+
+/*
+ * Filter - Theme colors edited ok
+ */
+function notice_edit_colors_theme($arrayNotice) {
+    // can change theme colors! +link
+    if(function_exists('corporateboard_array_theme_options')) {
+        $array = corporateboard_array_theme_options();
+        $pageColorEdited = false;
+        $aDefaults  = $array['defaults'];
+        $aKeys      = $array['keys'];
+        foreach($aKeys as $key => $value) {
+            if($aDefaults[$key] != osc_get_preference($value, 'jobboard') ) {
+                $pageColorEdited = true;
+                break;
+            }
+        }
+        if(!$pageColorEdited) {
+            $arrayNotice['notice_edit_colors_theme'] = __('4 Edit your theme colors url', 'jobboard');
+        }
+    }
+    return $arrayNotice;
+}
+osc_add_filter('showNoticeTips', 'notice_edit_colors_theme');
+
+/*
+ * Filter - Unread applicants ok
+ * show allways
+ */
+function notice_unread_applicants( $arrayNotice ) {
+    // unread messages notice
+    $numUnread = count( ModelJB::newInstance()->search(0,1000, array('unread' => true) ) );
+    if($numUnread>0) {
+        $arrayNotice['notice_unread_applicants'] = __(sprintf('There are <b>%s</b> unread applicants', $numUnread), 'jobboard');
+    }
+    return $arrayNotice;
+}
+osc_add_filter('showNotice', 'notice_unread_applicants');
+
+/*
+ * AJAX - add notice_tip_id to array of dismissed notice
+ */
+function ajax_dismiss_tip() {
+    $notice_id = Params::getParam('noticeID');
+    $array = json_decode( osc_get_preference('notice_tips_dismissed', 'jobboard'), true);
+
+    if(!is_array($array)) {
+        $array = array();
+    }
+
+    $array_[$notice_id] = 1;
+    $merge = array_merge($array, $array_);
+
+    if( osc_set_preference('notice_tips_dismissed', json_encode($merge),'jobboard') ) {
+        echo '1';
+    } else {
+        echo '0';
+    }
+}
+osc_add_hook('ajax_admin_dismiss_tip', 'ajax_dismiss_tip');
 ?>
