@@ -140,7 +140,11 @@
                                     }
                                     echo '<tr>';
                                     echo '<td><a href="'.osc_admin_render_plugin_url("jobboard/people_detail.php").'&people='.$applicant['pk_i_id'].'">'.$applicant['s_name']; if($applicant['b_has_notes'] == 1 ) { echo '<span class="note" data-tooltip="'.$note_tooltip.'"></span>'; } echo '</a></td>';
-                                    echo '<td>'.osc_highlight(@$item['s_title'],30).'</td>';
+                                    if( !is_null(@$applicant['fk_i_item_id']) ) {
+                                        echo '<td>'.osc_highlight(@$item['s_title'],30).'</td>';
+                                    } else {
+                                        echo '<td>'.__('Spontaneous application', 'jobboard').'</td>';
+                                    }
                                     echo '<td>'._jobboard_time_elapsed_string( strtotime(@$applicant['dt_date']) ) .'</td>';
                                     echo '</tr>';
                                 }
