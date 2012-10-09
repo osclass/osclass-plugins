@@ -1060,7 +1060,13 @@ function jobboard_set_domain()
 {
     ?>
     <script type="text/javascript">
-	   document.domain = 'osclass.com';
+        document.domain = 'osclass.com';
+
+        function get_linkedin_profile(profile) {
+
+//            console.log(profile);
+
+        }
     </script>
     <?php
 }
