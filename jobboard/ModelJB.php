@@ -554,7 +554,7 @@
          */
         public function setRating($applicantId, $rating)
         {
-            $this->dao->update(
+           return  $this->dao->update(
                     $this->getTable_JobsApplicants()
                     ,array('i_rating' => $rating)
                     ,array('pk_i_id' => $applicantId));
@@ -699,7 +699,7 @@
             $ids = $result->result();
 
             foreach($ids as $id) {
-                $this->deleteApplicant($id);
+                $this->deleteApplicant($id['pk_i_id']);
             }
 
         }
