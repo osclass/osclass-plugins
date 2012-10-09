@@ -200,17 +200,13 @@
         </form>
     </div>
     <div class="applicant-shortcuts">
-        <ul class="shortcuts float-left">
             <?php $shortcuts = _applicants_shortcuts(); ?>
             <?php $i = 0; foreach($shortcuts as $k => $v) { $class = array(); ?>
-            <?php if($v['active']) $class[] = 'active'; ?>
+            <?php if($v['active']) $class[] = 'btn-blue'; ?>
             <?php if($i == 0) $class[] = 'first'; ?>
             <?php if(($i == (count($shortcuts) - 1)) && $i !== 0) $class[] = 'last'; ?>
-            <li class="<?php echo implode(' ', $class); ?>">
-                <a href="<?php echo $v['url'] ?>"><?php echo $v['text']; ?></a>
-            </li>
+                <a class="btn <?php echo implode(' ', $class); ?>" href="<?php echo $v['url'] ?>"><?php echo $v['text']; ?></a>
             <?php $i++; } ?>
-        </ul>
         <form method="get" action="<?php echo osc_admin_base_url(true); ?>" class="inline">
             <?php foreach( Params::getParamsAsArray('get') as $key => $value ) { ?>
             <?php if( $key != 'iDisplayLength' ) { ?>
