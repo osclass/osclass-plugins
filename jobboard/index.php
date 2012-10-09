@@ -1214,4 +1214,62 @@ function ajax_dismiss_tip() {
 }
 osc_add_hook('ajax_admin_dismiss_tip', 'ajax_dismiss_tip');
 
+/*
+ * Recent Activity logger
+ */
+/*
+ * Add login log ** add new admin_login_hook
+ */
+function jobboard_log_login() {
+    $data = osc_logged_admin_name().' '.__('signed in.', 'jobboard');
+    Log::newInstance()->insertLog('jobboard', 'login', '', $data, osc_logged_admin_username(), osc_logged_admin_id() );
+}
+
+/*
+ * New job / Edit job
+ */
+function jobboard_log_newJob($catId, $jobId) {
+//    ModelJB::newInstance()->
+//    $job_title = '';
+//    $data = osc_logged_admin_name().' '.__('create new job,', 'jobboard').' '.$job_title;
+//    Log::newInstance()->insertLog('jobboard', 'newjob', '', $data, osc_logged_admin_username(), osc_logged_admin_id() );
+}
+osc_add_hook('item_form_post', 'jobboard_log_newJob');
+//
+function jobboard_log_editJob($job) {
+    $job_title = '';
+    $data = osc_logged_admin_name().' '.__('made changes to the job,', 'jobboard').' '.$job_title;
+    Log::newInstance()->insertLog('jobboard', 'editjob', '', $data, osc_logged_admin_username(), osc_logged_admin_id() );
+}
+
+/*
+ * New Applicant
+ */
+function jobboard_log_newApplicant($applicant, $job) {
+    $job_title = '';
+    $applicantName = '';
+    $data = $applicantName.' '.__('has applied to the offer', 'jobboard').' '.$job_title;
+    Log::newInstance()->insertLog('jobboard', 'newapplicant', '', $data, osc_logged_admin_username(), osc_logged_admin_id() );
+}
+
+/*
+ * Rating applicant
+ */
+function jobboard_log_rateApplicant($applicant, $job) {
+    $job_title = '';
+    $applicantName = '';
+    $data = osc_logged_admin_name().' '.__('has rated an applicant, ', 'jobboard').' '.$applicantName.' ('.$job_title.')';
+    Log::newInstance()->insertLog('jobboard', 'rateapplicant', '', $data, osc_logged_admin_username(), osc_logged_admin_id() );
+}
+
+/*
+ * Notes
+ */
+function jobboard_log_newNote($applicant, $job) {
+    $job_title = '';
+    $applicantName = '';
+    $data = osc_logged_admin_name().' '.__('has rated an applicant, ', 'jobboard').' '.$applicantName.' ('.$job_title.')';
+    Log::newInstance()->insertLog('jobboard', 'rateapplicant', '', $data, osc_logged_admin_username(), osc_logged_admin_id() );
+}
+
 ?>
