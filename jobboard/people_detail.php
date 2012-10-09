@@ -24,24 +24,28 @@
     <div class="applicant-header">
         <h2 class="render-title"><?php echo @$people['s_name']; ?> <a href="<?php echo osc_plugin_url(__FILE__); ?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>" class="btn btn-mini" style="float:right;height:14px;"><?php _e('Download resume', 'jobboard'); ?></a><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&amp;jb_action=unread&amp;applicantID=<?php echo $applicantId; ?>" class="btn btn-mini" style="float:right;height:14px;"><?php _e('Mark as unread', 'jobboard'); ?></a></h2>
     </div>
-    <div class="applicant-information">
-        <h3 class="render-title" style="margin-bottom: 0px;"><?php _e('Personal information', 'jobboard'); ?></h3>
-        <div class="half">
-            <p><label><?php _e('Phone', 'jobboard'); ?> </label><?php echo @$people['s_phone']; ?></p>
-            <p><label><?php _e('Email', 'jobboard'); ?> </label><?php echo @$people['s_email']; ?></p>
-        </div>
-        <div class="half">
-            <p><label><?php _e('Apply date', 'jobboard'); ?> </label><?php echo @$people['dt_date']; ?></p>
-            <p><label><?php _e('Birthday', 'jobboard'); ?> </label><?php echo @$people['dt_birthday']; ?></p>
-        </div>
-        <div class="half">
-            <p><label><?php _e('Sex', 'jobboard'); ?> </label><?php echo jobboard_sex_to_string( @$people['s_sex'] ); ?></p>
-        </div>
-    </div>
-    <div class="applicant-cover-letter">
+    <div>
         <div id="left-side">
-            <h3 class="render-title"><?php _e('Cover letter', 'jobboard'); ?></h3>
-            <p><?php echo nl2br($people['s_cover_letter']); ?></p>
+            <div class="applicant-information well">
+                <h3 class="render-title" style="margin-bottom: 0px;"><?php _e('Personal information', 'jobboard'); ?></h3>
+                <div class="half">
+                    <p><label><?php _e('Phone', 'jobboard'); ?> </label><br/><?php echo @$people['s_phone']; ?></p>
+                    <p><label><?php _e('Email', 'jobboard'); ?> </label><br/><?php echo @$people['s_email']; ?></p>
+                </div>
+                <div class="half">
+                    <p><label><?php _e('Apply date', 'jobboard'); ?> </label><br/><?php echo @$people['dt_date']; ?></p>
+                    <p><label><?php _e('Birthday', 'jobboard'); ?> </label><br/><?php echo @$people['dt_birthday']; ?></p>
+                </div>
+                <div class="half">
+                    <p><label><?php _e('Sex', 'jobboard'); ?> </label><br/><?php echo jobboard_sex_to_string( @$people['s_sex'] ); ?></p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="applicant-cover-letter">
+                <h3 class="render-title"><?php _e('Cover letter', 'jobboard'); ?></h3>
+                <p><?php echo nl2br($people['s_cover_letter']); ?></p>
+            </div>
         </div>
         <div id="right-side">
             <div class="well ui-rounded-corners applicant-box">

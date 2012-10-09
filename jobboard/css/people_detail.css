@@ -32,6 +32,9 @@
 #applicant-detail .applicant-header h2{
     margin-bottom:5px;
 }
+#applicant-detail .applicant-cover-letter{
+    padding-top:20px;
+}
 #applicant-detail .applicant-cover-letter p{
     font-size: 12px;
     color: #616161;
@@ -44,7 +47,13 @@
 #applicant-detail #right-side .applicant-box{
     margin-top: 15px;
 }
-
+#applicant-detail .applicant-information{
+    margin-top:15px;
+    height: 105px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+}
 #applicant-detail .applicant-information #left-side{
     width: 300px;
 }
