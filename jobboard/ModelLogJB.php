@@ -38,9 +38,24 @@
             }
             return self::$instance ;
         }
-        
+
         public function confirmDelete($oSection, $oAction, $oId, $dSection) {
             return $this->dao->update($this->getTableName(), array('s_section' => $dSection), array('s_section' => $oSection, 's_action' => $oAction, 'fk_i_id' => $oId) );
+        }
+
+        public function getActivity($limit = 10) {
+            $this->dao->select();
+            $this->dao->from($this->getTableName());
+            $this->dao->where('s_section', 'jobboard');
+            $this->dao->orderBy('dt_date', 'DESC');
+            $this->dao->limit(0, $limit);
+            $result = $this->dao->get();
+
+            if($result===false) {
+                return array();
+            }
+
+            return $result->result();
         }
     }
 ?>
