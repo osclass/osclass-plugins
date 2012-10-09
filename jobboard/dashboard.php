@@ -82,28 +82,16 @@
     <div class="grid-row grid-first-row grid-50">
         <div class="row-wrapper">
             <div class="widget-box">
-                <div class="widget-box-title"><h3><?php _e('Most viewed jobs', 'jobboard'); ?></h3></div>
+                <div class="widget-box-title"><h3><?php _e('Recent activity', 'jobboard'); ?></h3></div>
                 <div class="widget-box-content">
                     <table class="table" cellpadding="0" cellspacing="0" id="applicants_list">
                         <tbody>
-                            <thead>
-                                <th><?php _e('Job','jobboard'); ?></th>
-                                <th><?php _e('Views','jobboard'); ?></th>
-                            </thead>
-                            <?php $mSearch3 = new Search(true);
-                            $mSearch3->addTable(DB_TABLE_PREFIX."t_item_stats");
-                            $mSearch3->addField("SUM(".DB_TABLE_PREFIX."t_item_stats.i_num_views) as i_num_views");
-                            $mSearch3->addConditions(DB_TABLE_PREFIX."t_item_stats.fk_i_item_id = ".DB_TABLE_PREFIX."t_item.pk_i_id");
-                            $mSearch3->order('i_num_views');
-                            $mSearch3->set_rpp(7);
-                            $mSearch3->addGroupBy("fk_i_item_id");
-                            $jobs = $mSearch3->doSearch(); ?>
-                            <?php foreach($jobs as $job) { ?>
+                            <?php $aActivity = ModelLogJB::newInstance()->getActivity(25);
+                            foreach($aActivity as $log) { ?>
                             <tr>
-                                <td><a href="<?php echo osc_item_admin_edit_url($job['pk_i_id']); ?>" ><?php echo osc_highlight($job['s_title'],30); ?></a></td>
-                                <td><?php echo $job['i_num_views']; ?></td>
+                                <td><?php echo $log['s_data'];?><br/><span class='ago'><?php echo _jobboard_time_elapsed_string(strtotime($log['dt_date'])).' '.__('ago', 'jobboard'); ?></span></td>
                             </tr>
-                            <?php }; ?>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
