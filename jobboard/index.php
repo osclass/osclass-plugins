@@ -300,7 +300,6 @@ function job_linkedin() {
 }
 
 /* CONTACT */
-
 function jobboard_add_extra_fields() {
     // add age field [m/d/y]
     // add sex field [Male/Femele/Undef]
@@ -633,6 +632,56 @@ function job_items_row($row, $aRow) {
     return $row;
 }
 
+function _applicants_shortcuts() {
+    $shortcuts = array();
+    $shortcuts['unread'] = array();
+    $totalApplicantsShortcut = ModelJB::newInstance()->countApplicantsUnread();
+    $shortcuts['unread']['total'] = $totalApplicantsShortcut;
+    $shortcuts['unread']['url'] = osc_admin_render_plugin_url('jobboard/people.php') . '&viewUnread=1';
+    $shortcuts['unread']['active'] = false;
+    if( Params::getParam('viewUnread') ) {
+        $shortcuts['unread']['active'] = true;
+    }
+    $shortcuts['unread']['text'] = sprintf(__('Unread (%1$s)'), $totalApplicantsShortcut);
+    $shortcuts['active'] = array();
+    $totalApplicantsShortcut = ModelJB::newInstance()->countApplicantsByStatus('0');
+    $shortcuts['active']['total'] = $totalApplicantsShortcut;
+    $shortcuts['active']['url'] = osc_admin_render_plugin_url('jobboard/people.php') . '&statusId=0';
+    $shortcuts['active']['active'] = false;
+    if( Params::getParam('statusId') == '0' && !Params::getParam('viewUnread') ) {
+        $shortcuts['active']['active'] = true;
+    }
+    $shortcuts['active']['text'] = sprintf(__('Active (%1$s)'), $totalApplicantsShortcut);
+    $shortcuts['interview'] = array();
+    $totalApplicantsShortcut = ModelJB::newInstance()->countApplicantsByStatus('1');
+    $shortcuts['interview']['total'] = $totalApplicantsShortcut;
+    $shortcuts['interview']['url'] = osc_admin_render_plugin_url('jobboard/people.php') . '&statusId=1';
+    $shortcuts['interview']['active'] = false;
+    if( Params::getParam('statusId') == '1' ) {
+        $shortcuts['interview']['active'] = true;
+    }
+    $shortcuts['interview']['text'] = sprintf(__('Interview (%1$s)'), $totalApplicantsShortcut);
+    $shortcuts['rejected'] = array();
+    $totalApplicantsShortcut = ModelJB::newInstance()->countApplicantsByStatus('2');
+    $shortcuts['rejected']['total'] = $totalApplicantsShortcut;
+    $shortcuts['rejected']['url'] = osc_admin_render_plugin_url('jobboard/people.php') . '&statusId=2';
+    $shortcuts['rejected']['active'] = false;
+    if( Params::getParam('statusId') == '2' ) {
+        $shortcuts['rejected']['active'] = true;
+    }
+    $shortcuts['rejected']['text'] = sprintf(__('Rejected (%1$s)'), $totalApplicantsShortcut);
+    $shortcuts['hired'] = array();
+    $totalApplicantsShortcut = ModelJB::newInstance()->countApplicantsByStatus('3');
+    $shortcuts['hired']['total'] = $totalApplicantsShortcut;
+    $shortcuts['hired']['url'] = osc_admin_render_plugin_url('jobboard/people.php') . '&statusId=3';
+    $shortcuts['hired']['active'] = false;
+    if( Params::getParam('statusId') == '3' ) {
+        $shortcuts['hired']['active'] = true;
+    }
+    $shortcuts['hired']['text'] = sprintf(__('Hired (%1$s)'), $totalApplicantsShortcut);
+    return $shortcuts;
+}
+
 /**
 * Redirect to function via JS
 *
@@ -828,6 +877,20 @@ function jobboard_post_actions() {
                     header('Location: ' . osc_admin_render_plugin_url("jobboard/people.php")); exit;
                 break;
             }
+
+            // set default iDisplayLength
+            if( Params::getParam('iDisplayLength') != '' ) {
+                Cookie::newInstance()->push('applicants_iDisplayLength', Params::getParam('iDisplayLength'));
+                Cookie::newInstance()->set();
+            } else {
+                // set a default value if it's set in the cookie
+                if( Cookie::newInstance()->get_value('applicants_iDisplayLength') != '' ) {
+                    Params::setParam('iDisplayLength', Cookie::newInstance()->get_value('applicants_iDisplayLength'));
+                } else {
+                    Params::setParam('iDisplayLength', 10);
+                }
+            }
+
             osc_enqueue_script('jquery-rating');
             osc_enqueue_script('jquery-metadata');
             osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
@@ -1150,4 +1213,5 @@ function ajax_dismiss_tip() {
     }
 }
 osc_add_hook('ajax_admin_dismiss_tip', 'ajax_dismiss_tip');
+
 ?>

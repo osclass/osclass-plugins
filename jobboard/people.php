@@ -3,7 +3,7 @@
         die;
     }
 
-    $iDisplayLength = 10;
+    $iDisplayLength = Params::getParam('iDisplayLength');
     $iPage = Params::getParam('iPage');
     $iPage = is_numeric($iPage)?($iPage):1;
     $iDisplayLength = (is_numeric($iDisplayLength)?$iDisplayLength:10);
@@ -69,24 +69,6 @@
     $aItems = $mSearch->doSearch();
     View::newInstance()->_exportVariableToView('items', $aItems) ;
 ?>
-
-<style>
-    .select-box {
-        padding-right: 5px;
-    }
-    .search-filter {
-        width: auto;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        border-radius: 4px;
-        border: 1px solid #DDD;
-        font-size: 12px;
-        margin-bottom: 15px;
-    }
-    .grid-row {
-        margin-bottom: 15px;
-    }
-</style>
 <h2 class="render-title"><?php _e('Resumes', 'jobboard'); ?>  <a id="show-filters" class="btn btn-mini"><?php _e('Show filters', 'jobboard'); ?></a></h2>
 <div class="relative resumes">
     <div class="search-filter hide">
@@ -198,7 +180,6 @@
                                     <?php ManageItemsForm::category_select(null, null, null, true) ; ?>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="grid-row">
@@ -218,12 +199,36 @@
             </div>
         </form>
     </div>
-
+    <div class="applicant-shortcuts">
+        <ul class="shortcuts float-left">
+            <?php $shortcuts = _applicants_shortcuts(); ?>
+            <?php $i = 0; foreach($shortcuts as $k => $v) { $class = array(); ?>
+            <?php if($v['active']) $class[] = 'active'; ?>
+            <?php if($i == 0) $class[] = 'first'; ?>
+            <?php if(($i == (count($shortcuts) - 1)) && $i !== 0) $class[] = 'last'; ?>
+            <li class="<?php echo implode(' ', $class); ?>">
+                <a href="<?php echo $v['url'] ?>"><?php echo $v['text']; ?></a>
+            </li>
+            <?php $i++; } ?>
+        </ul>
+        <form method="get" action="<?php echo osc_admin_base_url(true); ?>" class="inline">
+            <?php foreach( Params::getParamsAsArray('get') as $key => $value ) { ?>
+            <?php if( $key != 'iDisplayLength' ) { ?>
+            <input type="hidden" name="<?php echo $key; ?>" value="<?php echo osc_esc_html($value); ?>" />
+            <?php } } ?>
+            <select name="iDisplayLength" class="select-box-extra float-right" onchange="this.form.submit();" >
+                <option value="10"><?php printf(__('%d Applicants'), 10); ?></option>
+                <option value="25" <?php if( Params::getParam('iDisplayLength') == 25 ) echo 'selected'; ?> ><?php printf(__('%d Applicants'), 25); ?></option>
+                <option value="50" <?php if( Params::getParam('iDisplayLength') == 50 ) echo 'selected'; ?> ><?php printf(__('%d Applicants'), 50); ?></option>
+                <option value="100" <?php if( Params::getParam('iDisplayLength') == 100 ) echo 'selected'; ?> ><?php printf(__('%d Applicants'), 100); ?></option>
+            </select>
+        </form>
+        <div class="clear"></div>
+    </div>
     <form id="datatablesForm" action="<?php echo osc_admin_base_url(true); ?>" method="get">
         <input type="hidden" name="page" value="plugins">
         <input type="hidden" name="action" value="renderplugin">
         <input type="hidden" name="file" value="jobboard/people.php">
-
         <div class="table-contains-actions">
             <table class="table" cellpadding="0" cellspacing="0">
                 <thead>
@@ -283,7 +288,6 @@
                             }
                         }
                     ?>
-
                     <tr <?php if($p['b_read']==0){ echo 'style="background-color:#FFF0DF;"';}?>>
                         <td class="applicant"><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a>
                         <?php if($p['b_has_notes'] == 1 ) { ?><span class="note" data-tooltip="<?php echo $note_tooltip; ?>"></span><?php } ?>

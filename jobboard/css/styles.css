@@ -18,6 +18,53 @@ body.compact #jobboard .ico:hover,
 body.compact .current #jobboard .ico{
     background-position:-48px 0px;
 }
+/* people.php */
+.search-filter {
+    width: auto;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #DDD;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+.search-filter .select-box {
+    padding-right: 5px;
+}
+.search-filter .grid-row {
+    margin-bottom: 15px;
+}
+.applicant-shortcuts {
+    margin-bottom: 15px;
+}
+ul.shortcuts{
+    padding-left: 0;
+    margin: 14px 0 0;
+}
+ul.shortcuts li.first{
+    margin-left: 0;
+}
+ul.shortcuts li{
+    display: inline;
+    margin-left: 5px;
+}
+ul.shortcuts li a{
+    font-size:12px;
+    color: #474749;
+    padding: 6px 8px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+ul.shortcuts li.active a, ul.shortcuts li.active a:hover{
+    background-color:#31BEC9;
+    color:white;
+}
+ul.shortcuts li a:hover{
+    background-color:#F3F3F3;
+    text-decoration: none;
+}
+/* /people.php */
 .job-detail table { width: 100%; }
 .job-detail table label { font-weight: bold; }
 .job-detail > div { margin-top: 5px; }

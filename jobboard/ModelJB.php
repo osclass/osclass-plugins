@@ -515,6 +515,37 @@
             return array($searchTotal, $total['total']);
         }
 
+        public function countApplicantsUnread()
+        {
+            $this->dao->select('COUNT(*) AS total');
+            $this->dao->from($this->getTable_JobsApplicants());
+            $this->dao->where('b_read', '0');
+            $result = $this->dao->get();
+            if( !$result ) {
+                return  0;
+            }
+
+            $total = $result->row();
+            return $total['total'];
+        }
+
+        public function countApplicantsByStatus($status)
+        {
+            if( !in_array($status, array('0', '1', '2', '3')) ) {
+                return 0;
+            }
+            $this->dao->select('COUNT(*) AS total');
+            $this->dao->from($this->getTable_JobsApplicants());
+            $this->dao->where('i_status', $status);
+            $result = $this->dao->get();
+            if( !$result ) {
+                return  0;
+            }
+
+            $total = $result->row();
+            return $total['total'];
+        }
+
         /**
          * Set applicants rating
          *
