@@ -42,7 +42,15 @@ clear:both;
 .widget-box-content p.view-all{
     margin-bottom:0;
 }
-
+.widget-box-content .ago{
+    font-size:11px;
+    color:#999;
+}
+.flashmessage-dashboard-jobboard .flashmessage-inline{
+    padding:10px;
+    display: block;
+    border-top:solid 1px #FBEED5;
+}
 #activity-stat{
     /*width:100%;*/
     width: 380px;

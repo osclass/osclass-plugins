@@ -8,8 +8,12 @@
 ?>
 </div>
 </div>
-<?php osc_run_hook('jobboard_header_dashboard');?>
 <div style="width:900px">
+    <div class="grid-row grid-first-row grid-100">
+        <div class="row-wrapper flashmessage-dashboard-jobboard">
+                <?php osc_run_hook('jobboard_header_dashboard');?>
+        </div>
+    </div>
     <div class="grid-row grid-first-row grid-50">
         <div class="row-wrapper">
             <div class="widget-box">
@@ -87,11 +91,14 @@
                     <table class="table" cellpadding="0" cellspacing="0" id="applicants_list">
                         <tbody>
                             <?php $aActivity = ModelLogJB::newInstance()->getActivity(25);
-                            foreach($aActivity as $log) { ?>
-                            <tr>
+                            $i = 0;
+                            foreach($aActivity as $log){ ?>
+                            <tr <?php if($i == 0){ echo 'class="table-first-row"'; } ?>>
                                 <td><?php echo $log['s_data'];?><br/><span class='ago'><?php echo _jobboard_time_elapsed_string(strtotime($log['dt_date'])).' '.__('ago', 'jobboard'); ?></span></td>
                             </tr>
-                            <?php } ?>
+                            <?php
+                            $i++;
+                            } ?>
                         </tbody>
                     </table>
                 </div>
