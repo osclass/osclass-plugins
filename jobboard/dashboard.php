@@ -87,7 +87,7 @@
         <div class="row-wrapper">
             <div class="widget-box">
                 <div class="widget-box-title"><h3><?php _e('Recent activity', 'jobboard'); ?></h3></div>
-                <div class="widget-box-content">
+                <div class="widget-box-content applicants_list_wdg">
                     <table class="table" cellpadding="0" cellspacing="0" id="applicants_list">
                         <tbody>
                             <?php $aActivity = ModelLogJB::newInstance()->getActivity(25);

@@ -1,7 +1,7 @@
 .widget-box-content {
-height: 230px;
-overflow:hidden;
-clear:both;
+    height: 230px;
+    overflow:hidden;
+    clear:both;
 }
 .widget-box-title{
     height: 21px
@@ -145,4 +145,7 @@ clear:both;
 }
 #activity-stat .most-viwed span{
     display: block;
+}
+.applicants_list_wdg {
+    overflow: auto;;
 }
