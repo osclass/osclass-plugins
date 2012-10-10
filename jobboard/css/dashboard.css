@@ -47,6 +47,7 @@
     color:#999;
 }
 .flashmessage-dashboard-jobboard .flashmessage-inline{
+    margin: 10px 0;
     padding:10px;
     display: block;
     border-top:solid 1px #FBEED5;

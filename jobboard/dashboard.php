@@ -9,11 +9,7 @@
 </div>
 </div>
 <div style="width:900px">
-    <div class="grid-row grid-first-row grid-100">
-        <div class="row-wrapper flashmessage-dashboard-jobboard">
-                <?php osc_run_hook('jobboard_header_dashboard');?>
-        </div>
-    </div>
+    <?php osc_run_hook('jobboard_header_dashboard');?>
     <div class="grid-row grid-first-row grid-50">
         <div class="row-wrapper">
             <div class="widget-box">
