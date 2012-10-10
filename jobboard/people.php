@@ -295,7 +295,7 @@
                             </div>
                         </td>
                         <td><?php $age = _jobboard_get_age(@$p['dt_birthday']); echo $age;?> <?php if(@$age!='-'){echo __('years', 'jobboard').' ('.date('m/d/Y',strtotime(@$p['dt_birthday'])).')'; } ?></td>
-                        <td><?php echo @$p['s_sex']; ?></td>
+                        <td><?php echo jobboard_sex_to_string( @$p['s_sex'] ); ?></td>
                         <td><?php echo @$p['s_email']; ?></td>
                         <td><?php echo $p['fk_i_item_id']==''?__('Spontaneous application', 'jobboard'):@$p['s_title']; ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
