@@ -960,6 +960,7 @@ function admin_assets_jobboard() {
             osc_enqueue_script('jquery-rating');
             osc_enqueue_script('jquery-metadata');
             osc_enqueue_script('jobboard-people-detail');
+            osc_enqueue_script('tiny_mce');
             osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
             osc_enqueue_style('jobboard-people-detail', osc_plugin_url(__FILE__) . 'css/people_detail.css');
         break;

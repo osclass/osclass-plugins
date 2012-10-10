@@ -27,18 +27,15 @@
     <div>
         <div id="left-side">
             <div class="applicant-information well">
-                <h3 class="render-title" style="margin-bottom: 0px;"><?php _e('Personal information', 'jobboard'); ?></h3>
                 <div class="half">
                     <p><label><?php _e('Phone', 'jobboard'); ?> </label><br/><?php echo @$people['s_phone']; ?></p>
-                    <p><label><?php _e('Email', 'jobboard'); ?> </label><br/><?php echo @$people['s_email']; ?></p>
+                    <p><label><?php _e('Sex', 'jobboard'); ?> </label><br/><?php echo jobboard_sex_to_string( @$people['s_sex'] ); ?></p>
                 </div>
                 <div class="half">
                     <p><label><?php _e('Apply date', 'jobboard'); ?> </label><br/><?php echo @$people['dt_date']; ?></p>
                     <p><label><?php _e('Birthday', 'jobboard'); ?> </label><br/><?php echo @$people['dt_birthday']; ?></p>
                 </div>
-                <div class="half">
-                    <p><label><?php _e('Sex', 'jobboard'); ?> </label><br/><?php echo jobboard_sex_to_string( @$people['s_sex'] ); ?></p>
-                </div>
+                <p><label><?php _e('Email', 'jobboard'); ?> </label><br/><?php echo @$people['s_email']; ?></p>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
