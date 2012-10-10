@@ -882,9 +882,9 @@ function admin_assets_jobboard() {
 osc_add_hook('init_admin', 'admin_assets_jobboard');
 
 function front_item_contact_validation() {
-    if( osc_is_ad_page() ) { ?>
-<script src="<?php echo osc_plugin_url(__FILE__) . 'js/item_contact.js'; ?>" type="text/javascript"></script>
-<?php }
+    if( osc_is_ad_page() || Rewrite::newInstance()->get_location() == 'contact') {
+        osc_enqueue_script('jobboard-item-contact');
+    }
 }
 osc_add_hook('footer', 'front_item_contact_validation');
 
@@ -1063,9 +1063,7 @@ function jobboard_set_domain()
         document.domain = 'osclass.com';
 
         function get_linkedin_profile(profile) {
-
-//            console.log(profile);
-
+            console.log(profile);
         }
     </script>
     <?php
