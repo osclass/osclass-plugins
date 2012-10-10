@@ -944,7 +944,7 @@ osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquer
 osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jquery.MetaData.js', 'jquery');
 osc_register_script('jobboard-people', osc_plugin_url(__FILE__) . 'js/people.js', 'jquery');
 osc_register_script('jobboard-people-detail', osc_plugin_url(__FILE__) . 'js/people_detail.js', 'jquery');
-osc_register_script('jobboard-item-contact', osc_plugin_url(__FILE__) . 'js/item_contact.js', array('jquery', 'jquery-validate'));
+// osc_register_script('jobboard-item-contact', osc_plugin_url(__FILE__) . 'js/item_contact.js', array('jquery', 'jquery-validate')); // REMOVEME
 osc_register_script('jobboard-dashboard', osc_plugin_url(__FILE__) . 'js/dashboard.js', array('jquery'));
 
 function admin_assets_jobboard() {
@@ -995,54 +995,6 @@ function admin_tinymceurl(){ ?>
     </script>
     <?php
 }
-function front_item_contact_validation() {
-    if( osc_is_ad_page() || Rewrite::newInstance()->get_location() == 'contact') {?>
-    <script type="text/javascript" src="<?php echo osc_plugin_url(__FILE__) . 'js/item_contact.js'; ?>"></script>
-    <?php
-    }
-}
-osc_add_hook('header', 'front_item_contact_validation');
-function front_item_add_extra_validation() {
-    ?>
-    <script>
-        $(document).ready(function() {
-
-        if( $('#contact-dialog form select#sex').length > 0 ) {
-            $('#contact-dialog form select#sex').rules('add', {
-                required: true,
-                messages: {
-                    required: jobboard.langs.sex_required
-                }
-            });
-        }
-
-        $('select#sex').rules('add', {
-            required: true,
-            messages: {
-                required: jobboard.langs.sex_required
-            }
-        });
-
-        if( $('#contact-dialog form input#birthday').length > 0 ) {
-            $($('#contact-dialog form input#birthday')).rules("add", {
-                required: true,
-                messages: {
-                    required: jobboard.langs.birthday_required
-                }
-            });
-        }
-
-        $('input#birthday').rules("add", {
-            required: true,
-            messages: {
-                required: jobboard.langs.birthday_required
-            }
-        });
-        });
-        </script>
-    <?php
-}
-osc_add_hook('footer', 'front_item_add_extra_validation');
 
 function jobboard_post_actions() {
     switch(urldecode(Params::getParam('file'))) {
@@ -1220,22 +1172,11 @@ function jobboard_set_domain()
         document.domain = 'osclass.com';
 
         function get_linkedin_profile(profile) {
-            $('#btn-apply-job').click();
-            var p = profile.person;
-            $('input#yourName').val(p.firstName+' '+p.lastName);
-            $('input#yourEmail').val(p.emailAddress);
-
-            if(p.phoneNumbers && p.phoneNumbers.values && p.phoneNumbers.values[0]) {
-		$('input#phoneNumber').val(p.phoneNumbers.values[0].phoneNumber);
-            }
-            // console.log(profile);
-            // show dialog and fill form
-
+            console.log(profile);
         }
     </script>
     <?php
 }
-
 // get subdomain - linkedin related - osclass.com/apply/
 $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $parsedUrl = parse_url($url);
