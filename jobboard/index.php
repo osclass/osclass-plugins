@@ -131,12 +131,104 @@ function ajax_applicant_status() {
 }
 osc_add_hook('ajax_admin_applicant_status', 'ajax_applicant_status');
 
-function ajax_applicant_status_notification() {
-    $applicantID = Params::getParam('applicantId');
+function ajax_applicant_status_message() {
+    $applicantID = Params::getParam('applicantID');
     $status      = Params::getParam('status');
 
-    require_once(JOBBOARD_PATH . 'email.php');
-    send_email_notification_applicant($status, $applicantID);
+    $aStatus    = jobboard_status();
+    $aApplicant = ModelJB::newInstance()->getApplicant($applicantID);
+
+    if( count($aApplicant) === 0 ) {
+        $json = array('error' => true);
+        echo json_encode($json);
+        return false;
+    }
+
+    $email_txt = array(
+        'company_url'      => osc_base_url(),
+        'company_link'     => sprintf('<a href="%1$s">%2$s</a>', osc_base_url(), osc_page_title()),
+        'company_name'     => osc_page_title(),
+        'admin_login_url'  => osc_admin_base_url(),
+        'applicant_name'   => $aApplicant['s_name'],
+        'applicant_status' => $aStatus[$aApplicant['i_status']]
+    );
+
+    if( !is_null($aApplicant['fk_i_item_id']) ) {
+        $aItem = Item::newInstance()->findByPrimaryKey($aApplicant['fk_i_item_id']);
+        View::newInstance()->_exportVariableToView('item', $aItem);
+
+        $email_txt['job_offer_title'] = osc_item_title();
+        $email_txt['job_offer_link']  = sprintf('<a href="%1$s">%2$s</a>', osc_item_url(), osc_item_title());
+        $email_txt['job_offer_url']   = osc_item_url();
+    } else {
+        $email_txt['job_offer_title'] = __('spontaneous', 'jobboard');
+        $email_txt['job_offer_link']  = sprintf('<a href="%1$s">%2$s</a>', osc_contact_url(), __('spontaneous', 'jobboard'));
+        $email_txt['job_offer_url']   = osc_contact_url();
+    }
+
+    $email_msg = array();
+    $email_msg['en_US'] = "Hi {$email_txt['applicant_name']},
+
+The {$email_txt['company_name']} company would like to inform you that your application for {$email_txt['job_offer_link']} has changed to: {$email_txt['applicant_status']}.
+
+This is just an automatic message, to check the status of your application go to {$email_txt['company_link']}.
+
+Thanks and good luck!,
+{$email_txt['company_link']}";
+    $email_msg['es_ES'] = "Hola {$email_txt['applicant_name']},
+
+La empresa {$email_txt['company_name']} te comunica que tu candidatura para el empleo {$email_txt['job_offer_link']} ha pasado al estado: {$email_txt['applicant_status']}.
+
+Este es un mensaje automático, para conocer más sobre el estado de tu candidatura deberás dirigirte a {$email_txt['company_link']}.
+
+Gracias,
+{$email_txt['company_link']}";
+    $email_body = $email_msg['en_US'];
+    if( array_key_exists(osc_current_user_locale(), $email_msg) ) {
+        $email_body = $email_msg[osc_current_user_locale()];
+    }
+
+    $json = array('message' => $email_body, 'status' => $status, 'error' => false);
+    echo json_encode($json);
+    return true;
+}
+osc_add_hook('ajax_admin_applicant_status_message', 'ajax_applicant_status_message');
+
+function ajax_applicant_status_notification() {
+    $applicantID = Params::getParam('applicantID');
+    $message     = Params::getParam('message', false, false);
+
+    if( $message === '' ) {
+        echo 'false';
+        return false;
+    }
+
+    // check if the applicant exist
+    $aApplicant = ModelJB::newInstance()->getApplicant($applicantID);
+    if( count($aApplicant) === 0 ) {
+        echo 'false';
+        return false;
+    }
+
+    // prepare email subject
+    $email_title = array();
+    $email_title['en_US'] = sprintf('Application status change at %1$s', osc_page_title());
+    $email_title['es_ES'] = sprintf('Cambio de estado de la solicitud de empleo en %1$s', osc_page_title());
+    $email_subject = $email_title['en_US'];
+    if( array_key_exists(osc_current_user_locale(), $email_title) ) {
+        $email_subject = $email_title[osc_current_user_locale()];
+    }
+    // prepare email params
+    $params = array(
+        'to'       => $aApplicant['s_email'],
+        'to_name'  => $aApplicant['s_name'],
+        'subject'  => $email_subject,
+        'body'     => nl2br($message)
+    );
+    // send email
+    osc_sendMail($params);
+    echo 'true';
+    return true;
 }
 osc_add_hook('ajax_admin_applicant_status_notifitacion', 'ajax_applicant_status_notification');
 
@@ -935,6 +1027,7 @@ function jobboard_init_js() {
     jobboard.langs = <?php echo json_encode($langs); ?>;
     jobboard.ajax_rating = '<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>';
     jobboard.ajax_applicant_status_notification = '<?php echo osc_admin_ajax_hook_url('applicant_status_notifitacion'); ?>';
+    jobboard.ajax_applicant_status_message = '<?php echo osc_admin_ajax_hook_url('applicant_status_message'); ?>';
     jobboard.ajax_applicant_status = '<?php echo osc_admin_ajax_hook_url('applicant_status'); ?>';
     jobboard.ajax_note_add = '<?php echo osc_admin_ajax_hook_url('note_add'); ?>';
     jobboard.ajax_note_edit = '<?php echo osc_admin_ajax_hook_url('note_edit'); ?>';
@@ -1091,8 +1184,10 @@ function jobboard_notices(){
     $numNotice   = count($arrayNotice);
     if($numNotice > 0 ){
         $randIndex = array_rand($arrayNotice);
-        echo '<div class="flashmessage flashmessage-inline" style="min-height:22px;">'.
-                $arrayNotice[$randIndex].'<a class="btn ico btn-mini ico-close">x</a></div>';
+        echo '<div class="grid-first-row grid-100">
+        <div class="row-wrapper flashmessage-dashboard-jobboard"><div class="flashmessage flashmessage-inline">'.
+                $arrayNotice[$randIndex].'<a class="btn ico btn-mini ico-close">x</a></div></div>
+    </div>';
     }
 }
 osc_add_hook('jobboard_header_dashboard', 'jobboard_notices',10);
@@ -1114,9 +1209,11 @@ function jobboard_notices_tips() {
     $numNotice   = count($arrayNotice);
     if($numNotice > 0) {
         $randIndex = array_rand($arrayNotice);
-        echo '<div class="flashmessage flashmessage-inline" style="min-height:22px;">'.
+        echo '<div class="grid-first-row grid-100">
+        <div class="row-wrapper flashmessage-dashboard-jobboard"><div class="flashmessage flashmessage-inline">'.
                 $arrayNotice[$randIndex].sprintf(__('. <a id="dismiss-tip" data-notice-id="%s" href="#">Dismiss</a> to not show again.','jobboard'),
-                $randIndex ).'<a class="btn ico btn-mini ico-close">x</a></div>';
+                $randIndex ).'<a class="btn ico btn-mini ico-close">x</a></div></div>
+    </div>';
     }
 }
 osc_add_hook('jobboard_header_dashboard', 'jobboard_notices_tips',10) ;
@@ -1210,7 +1307,7 @@ function notice_unread_applicants( $arrayNotice ) {
     // unread messages notice
     $numUnread = count( ModelJB::newInstance()->search(0,1000, array('unread' => true) ) );
     if($numUnread>0) {
-        $arrayNotice['notice_unread_applicants'] = __(sprintf('There are <b>%s</b> unread applicants', $numUnread), 'jobboard');
+        $arrayNotice['notice_unread_applicants'] = __(sprintf('There are <b>%s</b> <a href="%s">unread applicants</a>', $numUnread, osc_admin_render_plugin_url('jobboard/people.php') . '&viewUnread=1'), 'jobboard');
     }
     return $arrayNotice;
 }

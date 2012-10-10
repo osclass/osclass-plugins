@@ -145,12 +145,13 @@
         </div>
     </div>
 </div>
-<div id="dialog-applicant-status" title="<?php echo osc_esc_html(__('Applicant status')); ?>" class="has-form-actions hide">
+<div id="dialog-applicant-status" title="<?php echo osc_esc_html(__('Applicant status')); ?>" class="has-form-actions hide" style="height: 350px; width: 725px;">
     <div class="form-horizontal">
         <div class="form-row"><?php _e('Do you want to send an email to the applicant notifying the status of the application?', 'jobboard'); ?></div>
+        <div class="form-row"><textarea id="applicant-status-notification-message" style="width: 700px; height: 150px;"></textarea></div>
         <div class="form-actions">
             <div class="wrapper">
-                <a id="applicant-status-cancel" class="btn" href="javascript:void(0);"><?php _e('Cancel', 'jobboard'); ?></a>
+                <a id="applicant-status-cancel" class="btn" href="javascript:void(0);"><?php _e("Don't send", 'jobboard'); ?></a>
                 <a id="applicant-status-submit" href="javascript:void(0);" class="btn btn-red" ><?php echo osc_esc_html( __('Send', 'jobboard') ); ?></a>
                 <div class="clear"></div>
             </div>

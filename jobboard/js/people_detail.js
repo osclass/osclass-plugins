@@ -95,8 +95,8 @@ $(document).ready(function() {
     $("#applicant-status-submit").click(function() {
         $.getJSON(jobboard.ajax_applicant_status_notification,
             {
-                "applicantId" : $('#applicant_status').attr('data-applicant-id'),
-                "status" : $("#applicant_status option:selected").attr("value")
+                "applicantID" : $('#applicant_status').attr('data-applicant-id'),
+                "message" : $("#applicant-status-notification-message").val()
             },
             function(data){}
         );
@@ -114,8 +114,20 @@ $(document).ready(function() {
             },
             function(data){}
         );
+        $.getJSON(jobboard.ajax_applicant_status_message,
+            {
+                "applicantID" : $(this).attr('data-applicant-id'),
+                "status" : $("#applicant_status option:selected").attr("value")
+            },
+            function(data){
+                if( data.error) {
+                    return false;
+                }
+                $("#applicant-status-notification-message").val(data.message)
+                $("#dialog-applicant-status").dialog({width:740}).dialog('open');
+            }
+        );
         setIcon();
-        $("#dialog-applicant-status").dialog('open');
     });
     setIcon();
 
