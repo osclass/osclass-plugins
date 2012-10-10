@@ -67,13 +67,16 @@
 #applicant-detail .applicant-information #right-side {
     margin-top: 41px;
 }
+#applicant-detail .applicant-information label {
+    color: #616161;
+    font-size: 14px;
+    font-weight: bold;
+}
 .half {
     width: 50%;
     float:left;
 }
 .half label {
-    color: #616161;
-    font-size: 14px;
     padding-right: 5px;
 }
 #applicant-detail .rater{
