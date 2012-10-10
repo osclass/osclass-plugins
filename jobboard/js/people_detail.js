@@ -4,7 +4,10 @@ function setIcon(){
     });
 }
 
+
 $(document).ready(function() {
+
+    
     // notes
     $("#dialog-note-delete").dialog({
         autoOpen: false,
@@ -124,6 +127,7 @@ $(document).ready(function() {
                     return false;
                 }
                 $("#applicant-status-notification-message").val(data.message)
+                tinyMCE.activeEditor.setContent(data.message);
                 $("#dialog-applicant-status").dialog({width:740}).dialog('open');
             }
         );
