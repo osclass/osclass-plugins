@@ -213,10 +213,10 @@
             <input type="hidden" name="<?php echo $key; ?>" value="<?php echo osc_esc_html($value); ?>" />
             <?php } } ?>
             <select name="iDisplayLength" class="select-box-extra float-right" onchange="this.form.submit();" >
-                <option value="10"><?php printf(__('%d Applicants'), 10); ?></option>
-                <option value="25" <?php if( Params::getParam('iDisplayLength') == 25 ) echo 'selected'; ?> ><?php printf(__('%d Applicants'), 25); ?></option>
-                <option value="50" <?php if( Params::getParam('iDisplayLength') == 50 ) echo 'selected'; ?> ><?php printf(__('%d Applicants'), 50); ?></option>
-                <option value="100" <?php if( Params::getParam('iDisplayLength') == 100 ) echo 'selected'; ?> ><?php printf(__('%d Applicants'), 100); ?></option>
+                <option value="10"><?php printf(__('Show %d Applicants'), 10); ?></option>
+                <option value="25" <?php if( Params::getParam('iDisplayLength') == 25 ) echo 'selected'; ?> ><?php printf(__('Show %d Applicants'), 25); ?></option>
+                <option value="50" <?php if( Params::getParam('iDisplayLength') == 50 ) echo 'selected'; ?> ><?php printf(__('Show %d Applicants'), 50); ?></option>
+                <option value="100" <?php if( Params::getParam('iDisplayLength') == 100 ) echo 'selected'; ?> ><?php printf(__('Show %d Applicants'), 100); ?></option>
             </select>
         </form>
         <div class="clear"></div>
