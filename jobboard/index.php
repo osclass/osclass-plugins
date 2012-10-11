@@ -440,6 +440,8 @@ osc_add_hook('pre_contact_post', 'jobboard_save_contact');
 function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     $error_attachment = false;
 
+    $source = Params::getParam('from');
+
     $name   = Params::getParam('yourName');
     $email  = Params::getParam('yourEmail');
 
@@ -502,32 +504,35 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         header('Location: ' . $url); die;
     }
 
-    require osc_lib_path() . 'osclass/mimes.php';
-    // get allowedExt
-    $aMimesAllowed = array();
-    $aExt = array('pdf', 'rtf', 'doc', 'docx', 'odt');
-    foreach($aExt as $ext){
-        if(isset($mimes[$ext])) {
-            $mime = $mimes[$ext];
-            if( is_array($mime) ){
-                foreach($mime as $aux){
-                    if( !in_array($aux, $aMimesAllowed) ) {
-                        array_push($aMimesAllowed, $aux);
+    if($source!='linkedin') {
+        require osc_lib_path() . 'osclass/mimes.php';
+
+        // get allowedExt
+        $aMimesAllowed = array();
+        $aExt = array('pdf', 'rtf', 'doc', 'docx', 'odt');
+        foreach($aExt as $ext){
+            if(isset($mimes[$ext])) {
+                $mime = $mimes[$ext];
+                if( is_array($mime) ){
+                    foreach($mime as $aux){
+                        if( !in_array($aux, $aMimesAllowed) ) {
+                            array_push($aMimesAllowed, $aux);
+                        }
                     }
-                }
-            } else {
-                if( !in_array($mime, $aMimesAllowed) ) {
-                    array_push($aMimesAllowed, $mime);
+                } else {
+                    if( !in_array($mime, $aMimesAllowed) ) {
+                        array_push($aMimesAllowed, $mime);
+                    }
                 }
             }
         }
-    }
 
-    if( $aCV['error'] == UPLOAD_ERR_OK ) {
-        if( !in_array($aCV['type'], $aMimesAllowed) ) {
-            osc_add_flash_error_message(__("The file you tried to upload does not have a valid extension", 'jobboard'));
-            _save_jobboard_contact_listing();
-            header('Location: ' . $url); die;
+        if( $aCV['error'] == UPLOAD_ERR_OK ) {
+            if( !in_array($aCV['type'], $aMimesAllowed) ) {
+                osc_add_flash_error_message(__("The file you tried to upload does not have a valid extension", 'jobboard'));
+                _save_jobboard_contact_listing();
+                header('Location: ' . $url); die;
+            }
         }
     }
 
@@ -542,32 +547,46 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         header('Location: ' . $url); die;
     }
 
-    if($uploadCV=='') {
-        if(isset($aCV['name']) && $aCV['error'] == UPLOAD_ERR_OK) {
-            $tmp_name = $aCV['tmp_name'];
-            $fileName = date('YmdHis') . '_' . $aCV['name'];
-            if( move_uploaded_file($tmp_name, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
-                $mJB->insertFile($applicantID, $fileName);
+    if($source!='linkedin') {
+        if($uploadCV=='') {
+            if(isset($aCV['name']) && $aCV['error'] == UPLOAD_ERR_OK) {
+                $tmp_name = $aCV['tmp_name'];
+                $fileName = date('YmdHis') . '_' . $aCV['name'];
+                if( move_uploaded_file($tmp_name, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
+                    $mJB->insertFile($applicantID, $fileName);
+                } else {
+                    $error_attachment = true;
+                }
             } else {
                 $error_attachment = true;
             }
         } else {
-            $error_attachment = true;
+            $fileName = date('YmdHis') . '_' . $aCV['name'];
+            if( copy($uploadCV, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
+                @unlink($uploadCV);
+                $mJB->insertFile($applicantID, $fileName);
+            } else {
+                $error_attachment = true;
+            }
+        }
+
+        if( $error_attachment ) {
+            ModelJB::newInstance()->deleteApplicant($applicantID);
+            osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
+            header('Location: ' . $url); die;
         }
     } else {
-        $fileName = date('YmdHis') . '_' . $aCV['name'];
-        if( copy($uploadCV, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
-            @unlink($uploadCV);
-            $mJB->insertFile($applicantID, $fileName);
-        } else {
-            $error_attachment = true;
-        }
-    }
+        // from linkedin + download cv.pdf
+        // downoad file
+        $url_pdf  = Params::getParam('pdfUrl');
+        $fileName    = date('YmdHisu') . '.pdf' ;
+        $dest   = osc_get_preference('upload_path', 'jobboard_plugin').$fileName;
 
-    if( $error_attachment ) {
-        ModelJB::newInstance()->deleteApplicant($applicantID);
-        osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
-        header('Location: ' . $url); die;
+        $res = file_put_contents($dest, file_get_contents($url_pdf));
+         // add job file
+        if($res !== false) {
+            $mJB->insertFile($applicantID, $fileName);
+        }
     }
 
     jobboard_log_newApplicant($applicantID, $itemID );
@@ -946,6 +965,7 @@ osc_register_script('jobboard-people', osc_plugin_url(__FILE__) . 'js/people.js'
 osc_register_script('jobboard-people-detail', osc_plugin_url(__FILE__) . 'js/people_detail.js', 'jquery');
 // osc_register_script('jobboard-item-contact', osc_plugin_url(__FILE__) . 'js/item_contact.js', array('jquery', 'jquery-validate')); // REMOVEME
 osc_register_script('jobboard-dashboard', osc_plugin_url(__FILE__) . 'js/dashboard.js', array('jquery'));
+osc_register_script('jobboard-apply-linkedin', osc_plugin_url(__FILE__) . 'js/bridgeApplyLinkedin.js', array('jquery'));
 
 function admin_assets_jobboard() {
     osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/styles.css');
@@ -1164,19 +1184,13 @@ osc_add_filter("items_processing_row", "job_items_row");
 
 /**
  * Apply with linkedin - document.domain
+ *
+ * ONLY UNDER SUBDOMAIN.osclass.com
  */
-function jobboard_set_domain()
-{
-    ?>
-    <script type="text/javascript">
-        document.domain = 'osclass.com';
-
-        function get_linkedin_profile(profile) {
-            console.log(profile);
-        }
-    </script>
-    <?php
+function jobboard_set_domain_linkedin(){
+    osc_enqueue_script('jobboard-apply-linkedin');
 }
+
 // get subdomain - linkedin related - osclass.com/apply/
 $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $parsedUrl = parse_url($url);
@@ -1186,7 +1200,7 @@ $a1 = array_pop($host);
 $subdomain = $a1.".".$a2;
 
 if( $subdomain == 'osclass.com') {
-    osc_add_hook('header', 'jobboard_set_domain');
+    osc_add_hook('init', 'jobboard_set_domain_linkedin');
 }
 
 // -------------------------------------------------------------------------
