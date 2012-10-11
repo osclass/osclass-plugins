@@ -22,7 +22,7 @@
 <div id="applicant-detail">
     <span><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" ><?php _e('Applicants', 'jobboard'); ?></a> &raquo; <?php echo @$people['s_name']; ?></span>
     <div class="applicant-header">
-        <h2 class="render-title"><?php echo @$people['s_name']; ?> <a href="<?php echo osc_plugin_url(__FILE__); ?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>" class="btn btn-mini" style="float:right;height:14px;"><?php _e('Download resume', 'jobboard'); ?></a><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&amp;jb_action=unread&amp;applicantID=<?php echo $applicantId; ?>" class="btn btn-mini" style="float:right;height:14px;"><?php _e('Mark as unread', 'jobboard'); ?></a></h2>
+        <h2 class="render-title"><?php echo @$people['s_name']; ?> <a href="<?php echo osc_plugin_url(__FILE__); ?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>" class="btn btn-mini btn-blue" style="float:right;height:14px;"><?php _e('Download resume', 'jobboard'); ?></a><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>&amp;jb_action=unread&amp;applicantID=<?php echo $applicantId; ?>" class="btn btn-mini" style="float:right;height:14px;"><?php _e('Mark as unread', 'jobboard'); ?></a></h2>
     </div>
     <div>
         <div id="left-side">
