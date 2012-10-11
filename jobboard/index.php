@@ -1057,6 +1057,8 @@ function jobboard_init_js() {
     $langs['sex_required']      = __('Sex: this field is required', 'jobboard');
     $langs['birthday_required'] = __('Birthday: this field is required', 'jobboard');
     $langs['invalid_birthday_date'] = __('Invalid birthday date', 'jobboard');
+    $langs['complete_form_please'] = __('Complete this form', 'jobboard');
+
 ?>
 <script type="text/javascript">
     jobboard = {};
