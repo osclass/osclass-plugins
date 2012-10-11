@@ -34,7 +34,7 @@ function utf8_decode (str_data) {
 function get_linkedin_profile(profile) {
     var p = profile.person;
     var yourName = p.firstName+' '+p.lastName;
-    var yourName = utf8_decode(yourName);
+    yourName = utf8_decode(yourName);
 
     // remove input:file + add input:hidden from=linkedin
     $('form').append('<input type="hidden" name="from" value="linkedin"/>');
@@ -42,6 +42,7 @@ function get_linkedin_profile(profile) {
     $('input[name="attachment"]').remove();
     $('label[for="subject"]').remove();
     // show dialog
+    $("#contact-dialog h2").text(jobboard.langs.complete_form_please);
     $('#contact-dialog').dialog("open");
     // remove input:file + add input:hidden from=linkedin DIALOG
     $('#contact-dialog form').append('<input type="hidden" name="from" value="linkedin"/>');
