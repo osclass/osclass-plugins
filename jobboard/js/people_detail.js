@@ -4,10 +4,7 @@ function setIcon(){
     });
 }
 
-
 $(document).ready(function() {
-
-    
     // notes
     $("#dialog-note-delete").dialog({
         autoOpen: false,
@@ -99,7 +96,7 @@ $(document).ready(function() {
         $.getJSON(jobboard.ajax_applicant_status_notification,
             {
                 "applicantID" : $('#applicant_status').attr('data-applicant-id'),
-                "message" : $("#applicant-status-notification-message").val()
+                "message" : tinyMCE.activeEditor.getContent()
             },
             function(data){}
         );

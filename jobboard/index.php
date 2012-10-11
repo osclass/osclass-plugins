@@ -188,7 +188,7 @@ Gracias,
         $email_body = $email_msg[osc_current_user_locale()];
     }
 
-    $json = array('message' => $email_body, 'status' => $status, 'error' => false);
+    $json = array('message' => nl2br($email_body), 'status' => $status, 'error' => false);
     echo json_encode($json);
     return true;
 }
@@ -223,7 +223,7 @@ function ajax_applicant_status_notification() {
         'to'       => $aApplicant['s_email'],
         'to_name'  => $aApplicant['s_name'],
         'subject'  => $email_subject,
-        'body'     => nl2br($message)
+        'body'     => $message
     );
     // send email
     osc_sendMail($params);
@@ -957,7 +957,7 @@ function admin_assets_jobboard() {
             osc_enqueue_script('jobboard-dashboard');
         break;
         case('jobboard/people_detail.php'):
-            osc_add_hook('admin_header', 'admin_tinymceurl', 1);
+            osc_add_hook('admin_header', 'admin_tinymceurl', 10);
             osc_enqueue_script('jquery-rating');
             osc_enqueue_script('jquery-metadata');
             osc_enqueue_script('jobboard-people-detail');
@@ -993,7 +993,7 @@ function admin_tinymceurl(){ ?>
                 theme_advanced_disable : "styleselect,anchor,image"
             });
     </script>
-    <?php 
+    <?php
 }
 function front_item_contact_validation() {
     if( osc_is_ad_page() || Rewrite::newInstance()->get_location() == 'contact') {?>
