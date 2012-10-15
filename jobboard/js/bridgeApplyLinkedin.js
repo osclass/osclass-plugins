@@ -32,30 +32,47 @@ function utf8_decode (str_data) {
 
 
 function get_linkedin_profile(profile) {
-    var p = profile.person;
+    var p        = profile.person;
+    var cover    = profile.coverLetter;
     var yourName = p.firstName+' '+p.lastName;
     yourName = utf8_decode(yourName);
-
     // remove input:file + add input:hidden from=linkedin
     $('form').append('<input type="hidden" name="from" value="linkedin"/>');
     $('form').append('<input type="hidden" name="pdfUrl" value="'+profile.pdfUrl+'"/>');
     $('input[name="attachment"]').remove();
+    $('label[for="attachment"]').remove();
     $('label[for="subject"]').remove();
-    // show dialog
-    $("#contact-dialog h2").text(jobboard.langs.complete_form_please);
-    $('#contact-dialog').dialog("open");
-    // remove input:file + add input:hidden from=linkedin DIALOG
-    $('#contact-dialog form').append('<input type="hidden" name="from" value="linkedin"/>');
-    $('#contact-dialog form').append('<input type="hidden" name="pdfUrl" value="'+profile.pdfUrl+'"/>');
-    $('#contact-dialog input[name="attachment"]').remove();
-    $('#contact-dialog label[for="subject"]').remove();
+    // if contact page / spontaneous job page
+    if($("form[name=contact]").length > 0) {
+        // show dialog
+        $("h1").text(jobboard.langs.complete_form_please);
+        // remove input:file + add input:hidden from=linkedin DIALOG
+        $('form').append('<input type="hidden" name="from" value="linkedin"/>');
+        $('form').append('<input type="hidden" name="pdfUrl" value="'+profile.pdfUrl+'"/>');
 
-    // fill form with profile info
-    var cover = profile.coverLetter;
-    $('#contact-dialog textarea#message').val(cover);
-    $('#contact-dialog input#yourName').val(yourName);
-    $('#contact-dialog input#yourEmail').val(p.emailAddress);
-    if(p.phoneNumbers && p.phoneNumbers.values && p.phoneNumbers.values[0]) {
-        $('#contact-dialog input#phoneNumber').val(p.phoneNumbers.values[0].phoneNumber);
+        // fill form with profile info
+        $('textarea#message').val(cover);
+        $('input#yourName').val(yourName);
+        $('input#yourEmail').val(p.emailAddress);
+        if(p.phoneNumbers && p.phoneNumbers.values && p.phoneNumbers.values[0]) {
+            $('input#phoneNumber').val(p.phoneNumbers.values[0].phoneNumber);
+        }
+    } else {
+        // show dialog
+        $("#contact-dialog h2").text(jobboard.langs.complete_form_please);
+        $('#contact-dialog').dialog("open");
+        // remove input:file + add input:hidden from=linkedin DIALOG
+        $('#contact-dialog form').append('<input type="hidden" name="from" value="linkedin"/>');
+        $('#contact-dialog form').append('<input type="hidden" name="pdfUrl" value="'+profile.pdfUrl+'"/>');
+        $('#contact-dialog input[name="attachment"]').remove();
+        $('#contact-dialog label[for="subject"]').remove();
+
+        // fill form with profile info
+        $('#contact-dialog textarea#message').val(cover);
+        $('#contact-dialog input#yourName').val(yourName);
+        $('#contact-dialog input#yourEmail').val(p.emailAddress);
+        if(p.phoneNumbers && p.phoneNumbers.values && p.phoneNumbers.values[0]) {
+            $('#contact-dialog input#phoneNumber').val(p.phoneNumbers.values[0].phoneNumber);
+        }
     }
 }
