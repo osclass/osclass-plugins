@@ -153,25 +153,3 @@
 </div>
     <div class="grid-row grid-first-row grid-100">
         <div class="row-wrapper">
-<script type="text/javascript">
-    $(function() {
-        $('.widget-box-title .tabs li').each(function(){
-            var dest = function(el){
-                var dests = new Array();
-                el.parent().find('a').each(function(){
-                    dests.push($(this).attr('href'));
-                });
-                return dests.join(',');
-            }
-
-            $(this).click(function(){
-                $(this).parent().children().removeClass('active').filter($(this).addClass('active'));
-                $(dest($(this))).hide().filter($(this).children().attr('href')).show();
-                return false;
-            });
-        }).filter(':first').click();
-        $('.widget-box-title .tabs').each(function(){
-            $(this).find('li:first').click();
-        })
-    });
-</script>
