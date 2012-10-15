@@ -23,7 +23,7 @@ $(document).ready(function(){
                 'noticeID': $("#dismiss-tip").attr('data-notice-id')
             },
             function(data) {
-                if(data=='1') {
+                if( !data.error ) {
                      $("#dismiss-tip").parent().remove();
                 }
             }
