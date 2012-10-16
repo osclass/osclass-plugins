@@ -1,5 +1,4 @@
 <?php
-
     class JobboardNotices
     {
         public function __construct()
@@ -82,9 +81,8 @@
             }
 
             $randIndex = array_rand($arrayNotice);
-            echo '<div class="grid-first-row grid-100"><div class="row-wrapper flashmessage-dashboard-jobboard"><div class="flashmessage flashmessage-inline">' .
-                    $arrayNotice[$randIndex]. sprintf(__('<a id="dismiss-tip" data-notice-id="%1$s" href="#">Dismiss</a> to not show again.', 'jobboard'), $randIndex ) .
-                    '<a class="btn ico btn-mini ico-close">x</a></div></div></div>';
+            echo '<div class="grid-first-row grid-100"><div class="row-wrapper flashmessage-dashboard-jobboard">'. sprintf(__('<div class="dismiss-tip"><a id="dismiss-tip" data-notice-id="%1$s" href="#">Dismiss</a> to not show again.</div>', 'jobboard'), $randIndex ) .'<div class="flashmessage flashmessage-inline">' .
+                    $arrayNotice[$randIndex].'<a class="btn ico btn-mini ico-close">x</a></div></div></div>';
         }
 
         // Jobboard tips
