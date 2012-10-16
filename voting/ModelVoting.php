@@ -21,7 +21,7 @@
 
     /**
      * Model database for Voting tables
-     * 
+     *
      * @package OSClass
      * @subpackage Model
      * @since 3.0
@@ -31,7 +31,7 @@
         /**
          * It references to self object: ModelVoting.
          * It is used as a singleton
-         * 
+         *
          * @access private
          * @since 3.0
          * @var ModelVoting
@@ -41,7 +41,7 @@
         /**
          * It creates a new ModelVoting object class ir if it has been created
          * before, it return the previous object
-         * 
+         *
          * @access public
          * @since 3.0
          * @return ModelVoting
@@ -61,7 +61,7 @@
         {
             parent::__construct();
         }
-        
+
         /**
          * Return table name voting item
          * @return string
@@ -70,7 +70,7 @@
         {
             return DB_TABLE_PREFIX.'t_voting_item';
         }
-        
+
         /**
          * Return table name voting user
          * @return string
@@ -79,10 +79,10 @@
         {
             return DB_TABLE_PREFIX.'t_voting_user';
         }
-        
+
         /**
          * Import sql file
-         * @param type $file 
+         * @param type $file
          */
         public function import($file)
         {
@@ -93,7 +93,7 @@
                 throw new Exception( "Error importSQL::ModelVoting<br>".$file ) ;
             }
         }
-                
+
         /**
          * Remove data and tables related to the plugin.
          */
@@ -103,9 +103,9 @@
             $this->dao->query("DROP TABLE ".DB_TABLE_PREFIX."t_voting_item");
             $this->dao->query("DROP TABLE ".DB_TABLE_PREFIX."t_voting_user");
         }
-        
+
         // item related --------------------------------------------------------
-        
+
         /**
          * Insert Item rating
          *
@@ -113,26 +113,26 @@
          * @param type $userId
          * @param type $iVote
          * @param type $hash
-         * @return type 
-         */        
+         * @return type
+         */
         function insertItemVote($itemId, $userId, $iVote, $hash)
         {
             $aSet = array(
                 'fk_i_item_id'  => (int)$itemId,
-                'i_vote'        => (int)$iVote, 
-                's_hash'        => is_null($hash) ? "" : "$hash" 
+                'i_vote'        => (int)$iVote,
+                's_hash'        => is_null($hash) ? "" : "$hash"
             );
             if($userId != 'NULL' && is_numeric($userId) ) {
                 $aSet['fk_i_user_id']  = $userId;
             }
-            
+
             return $this->dao->insert($this->getTable_Item(), $aSet);
         }
         /**
          * Return an average of ratings given an item id
          *
          * @param type $id
-         * @return type 
+         * @return type
          */
         function getItemAvgRating($id)
         {
@@ -151,12 +151,12 @@
                 return array('vote' => 0);
             }
         }
-        
+
         /**
          * Return the number of votes given an item id
          *
          * @param type $id
-         * @return type 
+         * @return type
          */
         function getItemNumberOfVotes($id)
         {
@@ -175,13 +175,13 @@
                 return array('total' => 0);
             }
         }
-        
+
         /**
          * Return rating given an item id and hash
-         * 
+         *
          * @param type $itemId
          * @param type $hash
-         * @return type 
+         * @return type
          */
         function getItemIsRated($itemId, $hash, $userId = null)
         {
@@ -194,9 +194,9 @@
                 } else {
                     $this->dao->where('fk_i_user_id', (int)$userId);
                 }
-                
+
                 $this->dao->where('s_hash'      , (string)$hash );
-error_log($this->dao->_getSelect());
+
                 $result = $this->dao->get();
                 if( !$result ) {
                     return array() ;
@@ -207,14 +207,14 @@ error_log($this->dao->_getSelect());
                 return array();
             }
         }
-        
+
         /**
          * Return an array of items ordered by avg_votes
          *
          * @param type $category_id
          * @param type $order
          * @param type $num
-         * @return type 
+         * @return type
          */
         function getItemRatings($category_id = null, $order = 'desc', $num = 5)
         {
@@ -238,49 +238,54 @@ error_log($this->dao->_getSelect());
             $sql .= 'AND ('.DB_TABLE_PREFIX.'t_item.b_premium = 1 || '.DB_TABLE_PREFIX.'t_category.i_expiration_days = 0 ||DATEDIFF(\''.date('Y-m-d H:i:s').'\','.DB_TABLE_PREFIX.'t_item.dt_pub_date) < '.DB_TABLE_PREFIX.'t_category.i_expiration_days) ';
             $sql .= 'AND '.DB_TABLE_PREFIX.'t_category.b_enabled = 1 ';
             $sql .= 'GROUP BY item_id ORDER BY avg_vote '.$order.', num_votes '.$order.' LIMIT 0, '.$num;
-        
-            return $this->dao->query($sql);
+
+            $result = $this->dao->query($sql);
+            if( !$result ) {
+                return array() ;
+            }
+
+            return $result->result();
         }
-        
+
         /**
          * Delete table entries related to an item id
          *
          * @param type $itemId
-         * @return type 
+         * @return type
          */
         function deleteItem($itemId)
         {
             if(is_numeric($itemId)) {
                 return $this->dao->delete($this->getTable_Item(), 'fk_i_item_id = '.$itemId);
-            } 
+            }
             return false;
         }
-        
+
         // user related --------------------------------------------------------
-        
+
         /**
          * Insert a user rating
          *
          * @param type $votedUserId
          * @param type $userId
          * @param type $iVote
-         * @return type 
+         * @return type
          */
         function insertUserVote($votedUserId, $userId, $iVote)
         {
             $aSet = array(
                 'i_user_voted'  => (int)$votedUserId,
-                'i_user_voter'  => (int)$userId, 
+                'i_user_voter'  => (int)$userId,
                 'i_vote'        => (int)$iVote
             );
             return $this->dao->insert($this->getTable_User(), $aSet);
         }
-        
+
          /**
          * Return an average of ratings given an user id
          *
          * @param type $id
-         * @return type 
+         * @return type
          */
         function getUserAvgRating($id)
         {
@@ -299,12 +304,12 @@ error_log($this->dao->_getSelect());
                 return array('vote' => 0);
             }
         }
-        
+
         /**
          * Return the number of votes given an item id
          *
          * @param type $id
-         * @return type 
+         * @return type
          */
         function getUserNumberOfVotes($id)
         {
@@ -323,13 +328,13 @@ error_log($this->dao->_getSelect());
                 return array('total' => 0);
             }
         }
-        
+
         /**
          * Return user rating given : userid for voting and voted
-         * 
+         *
          * @param type $userVotedId
          * @param type $userId
-         * @return type 
+         * @return type
          */
         function getUserIsRated($userVotedId, $userId)
         {
@@ -349,13 +354,13 @@ error_log($this->dao->_getSelect());
                 return array();
             }
         }
-        
+
         /**
          * Return an array of user's ordered by avg_vote.
-         * 
+         *
          * @param type $order
          * @param type $num
-         * @return type 
+         * @return type
          */
         function getUserRatings($order = 'desc', $num = 5)
         {
@@ -367,14 +372,19 @@ error_log($this->dao->_getSelect());
             $sql .= 'AND '.DB_TABLE_PREFIX.'t_user.b_enabled = 1 ';
             $sql .= 'GROUP BY user_id ORDER BY avg_vote '.$order.', num_votes '.$order.' LIMIT 0, '.$num;
 
-            return $this->dao->query($sql);
+            $result = $this->dao->query($sql);
+            if( !$result ) {
+                return array() ;
+            }
+
+            return $result->result();
         }
-        
+
         /**
          * Delete table entries related to this user id
          *
          * @param type $userId
-         * @return type 
+         * @return type
          */
         function deleteUser($userId)
         {
@@ -382,7 +392,7 @@ error_log($this->dao->_getSelect());
                 $aux  = $this->dao->delete($this->getTable_User(), 'i_user_voted = '.$userId);
                 $aux2 = $this->dao->delete($this->getTable_User(), 'i_user_voter = '.$userId);
                 return ($aux && $aux2);
-            } 
+            }
             return false;
         }
     }

@@ -13,9 +13,9 @@ Plugin update URI: voting
     require_once 'ModelVoting.php' ;
 
     /**
-     * Set plugin preferences 
+     * Set plugin preferences
      */
-    function voting_install() 
+    function voting_install()
     {
         ModelVoting::newInstance()->import('voting/struct.sql');
         // vote items
@@ -27,9 +27,9 @@ Plugin update URI: voting
     }
 
     /**
-     * Delete plugin preferences 
+     * Delete plugin preferences
      */
-    function voting_uninstall() 
+    function voting_uninstall()
     {
         ModelVoting::newInstance()->uninstall();
         // vote items
@@ -39,29 +39,29 @@ Plugin update URI: voting
         osc_delete_preference('user', 'voting');
         osc_delete_preference('user_voting', 'voting');
     }
-    
+
     /**
      * Admin panel menu
      */
-    function voting_admin_menu() 
+    function voting_admin_menu()
     {
         echo '<h3><a href="#">' . __('Voting options', 'voting') . '</a></h3>
-        <ul> 
+        <ul>
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'voting') . '</a></li>
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'voting') . '</a></li>
         </ul>';
     }
-    
-    function voting_admin_configuration() 
+
+    function voting_admin_configuration()
     {
         // Standard configuration page for plugin which extend item's attributes
         osc_plugin_configure_view(osc_plugin_path(__FILE__));
     }
-    
+
     /**************************************************************************
      *                          VOTE ITEMS
      *************************************************************************/
-    
+
     /**
      * Show form to vote an item. (itemDetail)
      */
@@ -71,8 +71,8 @@ Plugin update URI: voting
             $aux_vote  = ModelVoting::newInstance()->getItemAvgRating( osc_item_id() );
             $aux_count = ModelVoting::newInstance()->getItemNumberOfVotes( osc_item_id() );
             $vote['vote']  = $aux_vote['vote'];
-            $vote['total'] = $aux_count['total']; 
-            
+            $vote['total'] = $aux_count['total'];
+
             $hash   = '';
             if( osc_logged_user_id() == 0 ) {
                 $hash   = $_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR'];
@@ -80,21 +80,21 @@ Plugin update URI: voting
             } else {
                 $hash = null;
             }
-            
+
             $vote['can_vote'] = true;
             if(osc_get_preference('user', 'voting') == 1) {
                 if(!osc_is_web_user_logged_in()) {
                     $vote['can_vote'] = false;
                 }
             }
-            
+
             if(!can_vote(osc_item_id(), osc_logged_user_id(), $hash) ){
                 $vote['can_vote'] = false;
             }
             require 'item_detail.php';
          }
     }
-    
+
     /**
      * Check if user can vote an item
      *
@@ -110,17 +110,17 @@ Plugin update URI: voting
         } else {
             $result = Modelvoting::newInstance()->getItemIsRated($itemId, $hash, $userId);
         }
-        
-        if( count($result) > 0 ) 
+
+        if( count($result) > 0 )
             return false;
-        else 
+        else
             return true;
     }
-    
+
     /**
      * Return layout optimized for sidebar at main web page, with the best items voted with a limit
      *
-     * @param int $num number of items 
+     * @param int $num number of items
      */
     function echo_best_rated($num = 5)
     {
@@ -131,16 +131,17 @@ Plugin update URI: voting
             );
             $results = get_votes($filter);
             if(count($results) > 0 ) {
+                error_log( print_r($results, true) );
                 $locale  = osc_current_user_locale();
                 require 'set_results.php';
             }
         }
     }
-    
+
     /**
      * Return an array of item votes with given filters
      * <code>
-     * array(   
+     * array(
      *          'category_id' => (integer_category_id),
      *          'order'       => ('desc','asc'),
      *          'num_items'   => (integer)
@@ -166,22 +167,22 @@ Plugin update URI: voting
         if(isset($array_filters['num_items'])){
             $num = (int)$array_filters['num_items'];
         }
-        
+
        return ModelVoting::newInstance()->getItemRatings($category_id, $order, $num);
     }
-    
+
     /**
      * hook delete_item
-     * @param type $itemID 
+     * @param type $itemID
      */
     function voting_item_delete($itemId) {
         return ModelVoting::newInstance()->deleteItem($itemId);
     }
-    
+
     /**************************************************************************
-     *                          VOTE USERS 
+     *                          VOTE USERS
      *************************************************************************/
-    
+
     /**
      * Show form to vote a seller if item belongs to a registered user. (itemDetail)
      */
@@ -192,29 +193,29 @@ Plugin update URI: voting
         } else if($userId == null && !is_numeric($userId) ) {
             exit;
         }
-        
+
         if( osc_get_preference('user_voting', 'voting') == 1 && is_numeric($userId) && isset($userId) && $userId > 0) {
             // obtener el avg de las votaciones
             $aux_vote  = ModelVoting::newInstance()->getUserAvgRating($userId);
             $aux_count = ModelVoting::newInstance()->getUserNumberOfVotes($userId);
             $vote['vote']   = $aux_vote['vote'];
-            $vote['total']  = $aux_count['total']; 
+            $vote['total']  = $aux_count['total'];
             $vote['userId'] = $userId;
 
-            $vote['can_vote'] = false;            
+            $vote['can_vote'] = false;
             if(osc_is_web_user_logged_in() && can_vote_user($userId, osc_logged_user_id()) ) {
                 $vote['can_vote'] = true;
             }
             require 'item_detail_user.php';
         }
     }
-    
+
     /**
      * Check if user can vote
      *
      * @param type $userVotedId
      * @param type $userId
-     * @return type 
+     * @return type
      */
     function can_vote_user($userVotedId, $userId)
     {
@@ -224,17 +225,17 @@ Plugin update URI: voting
             if( count($result) > 0 ) {
                 return false;
             } else {
-                return true;   
+                return true;
             }
         } else {
             return false;
         }
     }
-    
+
     /**
      * Return layout optimized for sidebar at main web page, with the best user voted with a limit
      *
-     * @param int $num number of users 
+     * @param int $num number of users
      */
     function echo_users_best_rated($num = 5)
     {
@@ -250,17 +251,17 @@ Plugin update URI: voting
             }
         }
     }
-    
+
     /**
      * Return an array of votes with given filters
      * <code>
-     * array(   
+     * array(
      *          'order'       => ('desc','asc'),
      *          'num_items'   => (integer)
      *      );
      * </code>
      * @param type $array_filters
-     * @return type 
+     * @return type
      */
     function get_user_votes($array_filters)
     {
@@ -275,25 +276,25 @@ Plugin update URI: voting
         if(isset($array_filters['num_items'])){
             $num = (int)$array_filters['num_items'];
         }
-        
+
        return ModelVoting::newInstance()->getUserRatings($order, $num);
     }
-    
+
     /**
      * hook delete
-     * @param type $userID 
+     * @param type $userID
      */
-    function voting_user_delete($userId) 
+    function voting_user_delete($userId)
     {
         ModelVoting::newInstance()->deleteUser($userId);
     }
-    
+
     /**
      * Print star img src
-     * 
+     *
      * @param type $star
      * @param type $avg_vote
-     * @return type 
+     * @return type
      */
     function voting_star($star, $avg_vote)
     {
@@ -321,17 +322,17 @@ Plugin update URI: voting
             }
         }
     }
-    
+
     /**
      * ADD HOOKS
      */
     osc_register_plugin(osc_plugin_path(__FILE__), 'voting_install');
     osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'voting_admin_configuration');
     osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'voting_uninstall');
-    
+
     osc_add_hook('item_detail', 'voting_item_detail');
     osc_add_hook('item_detail', 'voting_item_detail_user');
-    
+
     osc_add_hook('delete_item', 'voting_item_delete');
     osc_add_hook('delete_user', 'voting_user_delete');
 
@@ -345,7 +346,7 @@ Plugin update URI: voting
     } else {
         osc_add_hook('admin_menu', 'voting_admin_menu');
     }
-    
+
     function votingmenu() { ?>
 <style>
     .ico-voting_plugin {
@@ -356,10 +357,10 @@ Plugin update URI: voting
     .current .ico-voting_plugin{
         background-position:0px -0px;
     }
-    
-    
-    
-    
+
+
+
+
     body.compact .ico-voting_plugin{
             background-position:-48px -48px;
     }
@@ -371,6 +372,6 @@ Plugin update URI: voting
     <?php
     }
     osc_add_hook('admin_header','votingmenu');
-    
-    
+
+
 ?>
