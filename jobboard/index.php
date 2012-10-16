@@ -495,6 +495,10 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         _save_jobboard_contact_listing();
         header('Location: ' . $url); die;
     }
+    $s_source = '';
+    if($source == 'linkedin') {
+        $s_source = 'linkedinapply';
+    }
 
     // check: apply only once for each job offer
     $numberApplys = ModelJB::newInstance()->countApply($itemID, $email);
@@ -540,7 +544,7 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     // insert to database
     $mJB = ModelJB::newInstance();
 
-    $applicantID = $mJB->insertApplicant($itemID, $name, $email, $cover, $phone, $birth, $sex);
+    $applicantID = $mJB->insertApplicant($itemID, $name, $email, $cover, $phone, $birth, $sex, $s_source);
     View::newInstance()->_exportVariableToView('applicantID', $applicantID);
     // return to listing url
     if( !$applicantID ) {
