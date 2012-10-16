@@ -118,12 +118,14 @@
                 return $notice;
             }
 
-            $joboffers = ModelJB::newInstance()->search(0, 1);
-            if( count($joboffers) === 0 ) {
+            $mSearch   = new Search();
+            $jobOffers = $mSearch->count();
+            $numJobOffers = count($jobOffers);
+            if( $numJobOffers === 0 ) {
                 return $notice;
             }
 
-            $notice['publish_job_offers'] = sprintf(__('You have published XX job offers. Add new one <a href="%1$s">here</a>.', 'jobboard'), osc_admin_base_url(true) . '?page=items&action=post');
+            $notice['publish_job_offers'] = sprintf(__('You have published %1$s job offers. Add new one <a href="%2$s">here</a>.', 'jobboard'), $numJobOffers, osc_admin_base_url(true) . '?page=items&action=post');
             return $notice;
         }
 
