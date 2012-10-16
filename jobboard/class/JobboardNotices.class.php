@@ -19,7 +19,7 @@
             osc_add_filter('showNotice', array(&$this, 'unread_applicants'));
             osc_add_filter('showNoticeTips', array(&$this, 'empty_jobs'));
             osc_add_filter('showNoticeTips', array(&$this, 'edit_corporate_page'));
-            osc_add_filter('showNoticeTips', array(&$this, 'edit_colors_theme'));
+            osc_add_filter('showNoticeTips', array(&$this, 'edit_legal_page'));
         }
 
         /*
@@ -85,10 +85,6 @@
                     $arrayNotice[$randIndex].'<a class="btn ico btn-mini ico-close">x</a></div></div></div>';
         }
 
-        // Jobboard tips
-        /*
-         * Filter - Empty jobs ok
-         */
         function empty_jobs($notice)
         {
             // empty jobs! add new job please
@@ -99,73 +95,61 @@
                 $notice_empty_jobs = osc_get_preference('notice_empty_jobs', 'jobboard');
             }
 
-            if($notice_empty_jobs == '1'){
-                $jobs = ModelJB::newInstance()->search(0,1);
+            if($notice_empty_jobs == '1') {
+                $jobs = ModelJB::newInstance()->search(0, 1);
                 if(count($jobs)>0) {
                     osc_set_preference('notice_empty_jobs', '0', 'jobboard');
                 }
                 // ADD MESSAGE @TODO
-                $notice['notice_empty_jobs'] = __('1 empty jobboard', 'jobboard');
+                $notice['notice_empty_jobs'] = sprintf(__('You haven’t published any job offer yet. <a href="%1$s">Start now here</a>.', 'jobboard'), osc_admin_base_url(true) . '?page=items&action=post');
             }
             return $notice;
         }
 
-        /*
-         * Filter - Edit corporate page ok
-         */
         function edit_corporate_page($notice)
         {
             // update your corporativa page -> if t_page.dt_mod_date is null
-            $notice_update_corporatepage = osc_get_preference('notice_edit_corporatepage', 'jobboard');
-            if($notice_update_corporatepage=='') {
-                osc_set_preference('notice_edit_corporatepage', '1', 'jobboard');
+            $notice_corporate_page = osc_get_preference('notice_edit_corporate', 'jobboard');
+            if( $notice_corporate_page == '' ) {
+                osc_set_preference('notice_edit_corporate', '1', 'jobboard');
                 osc_reset_preferences();
-                $notice_update_corporatepage = osc_get_preference('notice_empty_jobs', 'jobboard');
+                $notice_corporate_page = osc_get_preference('notice_edit_corporate', 'jobboard');
             }
-            if($notice_update_corporatepage=='1') {
-                $corporatePage = Page::newInstance()->findByInternalName('corporate');
-                if(is_null($corporatePage['dt_mod_date']) ) {
-                    // ADD MESSAGE @TODO
-                    $notice['notice_edit_corporate_page'] = __('2 edit your corporate page', 'jobboard');
+            if( $notice_corporate_page == '1' ) {
+                $page = Page::newInstance()->findByInternalName('corporate');
+                if( is_null($page['dt_mod_date']) ) {
+                    $notice['notice_edit_corporate'] = sprintf(__('You haven’t edited the corporate website yet. <a href="%1$s">Do it now</a>!', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=edit&id=' . $page['pk_i_id']);
                 }
             }
             return $notice;
         }
 
-        /*
-         * Filter - Theme colors edited ok
-         */
-        function edit_colors_theme($notice)
+        function edit_legal_page($notice)
         {
-            // can change theme colors! +link
-            if(function_exists('corporateboard_array_theme_options')) {
-                $array = corporateboard_array_theme_options();
-                $pageColorEdited = false;
-                $aDefaults  = $array['defaults'];
-                $aKeys      = $array['keys'];
-                foreach($aKeys as $key => $value) {
-                    if($aDefaults[$key] != osc_get_preference($value, 'jobboard') ) {
-                        $pageColorEdited = true;
-                        break;
-                    }
-                }
-                if(!$pageColorEdited) {
-                    $notice['notice_edit_colors_theme'] = __('4 Edit your theme colors url', 'jobboard');
+            $notice_legal_page = osc_get_preference('notice_edit_legal', 'jobboard');
+            if( $notice_legal_page == '' ) {
+                osc_set_preference('notice_edit_legal', '1', 'jobboard');
+                osc_reset_preferences();
+                $notice_legal_page = osc_get_preference('notice_edit_legal', 'jobboard');
+            }
+            if( $notice_legal_page == '1' ) {
+                $page = Page::newInstance()->findByInternalName('legal');
+                if( is_null($page['dt_mod_date']) ) {
+                    $notice['notice_edit_legal'] = sprintf(__('<a href="%1$s">Edit</a> your legal site - it is still empty!', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=edit&id=' . $page['pk_i_id']);
                 }
             }
             return $notice;
         }
 
-        /*
-         * Filter - Unread applicants ok
-         * show allways
+        /**
+         * Show if there are unread applicants
          */
         function unread_applicants($notice)
         {
             // unread messages notice
             $numUnread = count( ModelJB::newInstance()->search(0,1000, array('unread' => true) ) );
             if($numUnread>0) {
-                $notice['notice_unread_applicants'] = __(sprintf('There are <b>%s</b> <a href="%s">unread applicants</a>', $numUnread, osc_admin_render_plugin_url('jobboard/people.php') . '&viewUnread=1'), 'jobboard');
+                $notice['notice_unread_applicants'] = sprintf(__('There are <strong>%1$s</strong> new applicants. <a href="%2$s">See them all</a>', 'jobboard'), $numUnread, osc_admin_render_plugin_url('jobboard/people.php') . '&viewUnread=1');
             }
             return $notice;
         }

@@ -1,3 +1,9 @@
+.jobboard-dashboard {
+    width:900px;
+}
+.jobboard-dashboard .flashmessage-inline {
+    line-height: 22px;
+}
 .widget-box-content {
     height: 230px;
     overflow:hidden;
