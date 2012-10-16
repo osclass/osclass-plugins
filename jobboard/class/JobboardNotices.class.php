@@ -151,7 +151,7 @@
 
         function add_static_pages_company_value($notice)
         {
-            $notice['add_static_pages_company_value'] = sprintf(__('YTransmit the values of your company by <a href="%1$s">creating additional pages</a> in few seconds.', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=add');
+            $notice['add_static_pages_company_value'] = sprintf(__('Transmit the values of your company by <a href="%1$s">creating additional pages</a> in few seconds.', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=add');
             return $notice;
         }
 
