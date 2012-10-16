@@ -1,4 +1,5 @@
 <?php
+
     class JobboardNotices
     {
         public function __construct()
@@ -18,6 +19,11 @@
             // tip filters
             osc_add_filter('showNotice', array(&$this, 'unread_applicants'));
             osc_add_filter('showNoticeTips', array(&$this, 'empty_jobs'));
+            osc_add_filter('showNoticeTips', array(&$this, 'publish_job_offers'));
+            osc_add_filter('showNoticeTips', array(&$this, 'usage_applicants_filters'));
+            osc_add_filter('showNoticeTips', array(&$this, 'zero_applicant_notes'));
+            osc_add_filter('showNoticeTips', array(&$this, 'add_static_pages'));
+            osc_add_filter('showNoticeTips', array(&$this, 'add_static_pages_company_value'));
             osc_add_filter('showNoticeTips', array(&$this, 'edit_corporate_page'));
             osc_add_filter('showNoticeTips', array(&$this, 'edit_legal_page'));
         }
@@ -103,6 +109,49 @@
                 // ADD MESSAGE @TODO
                 $notice['notice_empty_jobs'] = sprintf(__('You haven’t published any job offer yet. <a href="%1$s">Start now here</a>.', 'jobboard'), osc_admin_base_url(true) . '?page=items&action=post');
             }
+            return $notice;
+        }
+
+        function publish_job_offers($notice)
+        {
+            if( osc_get_preference('notice_empty_jobs', 'jobboard') == '1' ) {
+                return $notice;
+            }
+
+            $joboffers = ModelJB::newInstance()->search(0, 1);
+            if( count($joboffers) === 0 ) {
+                return $notice;
+            }
+
+            $notice['publish_job_offers'] = sprintf(__('You have published XX job offers. Add new one <a href="%1$s">here</a>.', 'jobboard'), osc_admin_base_url(true) . '?page=items&action=post');
+            return $notice;
+        }
+
+        function usage_applicants_filters($notice)
+        {
+            $notice['usage_applicants_filters'] = __('Use filters to manage better all the candidates.', 'jobboard');
+            return $notice;
+        }
+
+        function zero_applicant_notes($notice)
+        {
+            if( ModelJB::newInstance()->countTotalNotes() !== 0 ) {
+                return $notice;
+            }
+
+            $notice['zero_applicant_notes'] = __('You haven’t taken any note yet - remember you can take notes and rate candidates.', 'jobboard');
+            return $notice;
+        }
+
+        function add_static_pages($notice)
+        {
+            $notice['add_static_pages'] = sprintf(__('You can add new pages to your job board providing more information about your company. <a href="%1$s">Try it here</a>.', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=add');
+            return $notice;
+        }
+
+        function add_static_pages_company_value($notice)
+        {
+            $notice['add_static_pages_company_value'] = sprintf(__('YTransmit the values of your company by <a href="%1$s">creating additional pages</a> in few seconds.', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=add');
             return $notice;
         }
 

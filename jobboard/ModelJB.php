@@ -669,6 +669,19 @@
             return $result->row();
         }
 
+        public function countTotalNotes()
+        {
+            $this->dao->select('COUNT(*) AS total');
+            $this->dao->from($this->getTable_JobsNotes());
+            $result = $this->dao->get();
+            if( !$result ) {
+                return  0;
+            }
+
+            $total = $result->row();
+            return $total['total'];
+        }
+
         /**
          * Delete entries at jobs attr description table given a locale code
          *
