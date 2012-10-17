@@ -24,9 +24,12 @@ $(document).ready(function(){
             },
             function(data) {
                 if( !data.error ) {
-                     $("#dismiss-tip").parent().remove();
+                     $(".dismiss-tip").parent().remove();
                 }
             }
         );
+    });
+    $('.jobboard-dashboard .ico-close').bind('click', function(){
+        $('.flashmessage-dismiss').remove();
     });
 });
