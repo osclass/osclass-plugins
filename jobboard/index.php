@@ -11,10 +11,11 @@ Plugin update URI: job-board
 */
 
 define('JOBBOARD_PATH', dirname(__FILE__) . '/') ;
-require_once(JOBBOARD_PATH . 'ModelJB.php');
-require_once(JOBBOARD_PATH . 'ModelLogJB.php');
+require_once(JOBBOARD_PATH . 'model/ModelJB.php');
+require_once(JOBBOARD_PATH . 'model/ModelLogJB.php');
 require_once(JOBBOARD_PATH . 'helpers.php');
 require_once(JOBBOARD_PATH . 'class/JobboardNotices.class.php');
+require_once(JOBBOARD_PATH . 'class/Stream.class.php');
 
 function job_call_after_install() {
     ModelJB::newInstance()->import('jobboard/struct.sql');
@@ -116,18 +117,20 @@ function job_call_after_uninstall() {
 
 /* AJAX */
 function ajax_rating_request() {
-    $result = ModelJB::newInstance()->setRating(Params::getParam("applicantId"), Params::getParam("rating"));
-    if($result!==false && $result>0) {
+    $result = ModelJB::newInstance()->setRating(Params::getParam('applicantId'), Params::getParam('rating'));
+    if( ($result !== false) && ($result > 0) ) {
         // log rate an applicant
-        jobboard_log_rateApplicant(Params::getParam("applicantId"), Params::getParam("rating"));
+        $st = new Stream();
+        $st->log_rate_applicant(Params::getParam('applicantId'), Params::getParam('rating'));
     }
 }
 osc_add_hook('ajax_admin_jobboard_rating', 'ajax_rating_request');
 
 function ajax_applicant_status() {
     $result = ModelJB::newInstance()->changeStatus(Params::getParam("applicantId"), Params::getParam("status"));
-    if($result!==false && $result>0) {
-        jobboard_log_changeStatusApplicant(Params::getParam("applicantId"), Params::getParam("status"));
+    if( ($result !== false) && ($result > 0 ) ) {
+        $st = new Stream();
+        $st->log_change_status_application(Params::getParam('applicantId'), Params::getParam('status'));
     }
 }
 osc_add_hook('ajax_admin_applicant_status', 'ajax_applicant_status');
@@ -235,8 +238,9 @@ osc_add_hook('ajax_admin_applicant_status_notifitacion', 'ajax_applicant_status_
 
 function ajax_note_add() {
     $noteID = ModelJB::newInstance()->insertNote(Params::getParam('applicantID'), Params::getParam('noteText'));
-    if($noteID!==false && $noteID>0) {
-        jobboard_log_newNote(Params::getParam('applicantID'));
+    if( ($noteID !== false) && ($noteID > 0 ) ) {
+        $st = new Stream();
+        $st->log_new_note(Params::getParam('applicantID'));
     }
     $aNote = ModelJB::newInstance()->getNoteByID($noteID);
     $aNote['day']   = date('d', strtotime($aNote['dt_date']));
@@ -248,8 +252,9 @@ osc_add_hook('ajax_admin_note_add', 'ajax_note_add');
 
 function ajax_note_edit() {
     $result = ModelJB::newInstance()->updateNote(Params::getParam('noteID'), Params::getParam('noteText'));
-    if($result!==false && $result>0) {
-        jobboard_log_editNote(Params::getParam('applicantID'), Params::getParam('noteID'));
+    if( ($result !== false) && ($result > 0 ) ) {
+        $st = new Stream();
+        $st->log_edit_note(Params::getParam('applicantID'), Params::getParam('noteID'));
     }
     $aNote = ModelJB::newInstance()->getNoteByID(Params::getParam('noteID'));
     $aNote['day']   = date('d', strtotime($aNote['dt_date']));
@@ -262,8 +267,9 @@ osc_add_hook('ajax_admin_note_edit', 'ajax_note_edit');
 function ajax_note_delete() {
     $note   = ModelJB::newInstance()->getNoteByID(Params::getParam('noteID'));
     $result = ModelJB::newInstance()->deleteNote(Params::getParam('noteID'));
-    if($result!==false && $result>0) {
-        jobboard_log_removeNote($note['fk_i_applicant_id'], Params::getParam('noteID'));
+    if( ($result !== false) && ($result > 0 ) ) {
+        $st = new Stream();
+        $st->log_remove_note(Params::getParam('applicantID'), Params::getParam('noteID'));
     }
 }
 osc_add_hook('ajax_admin_note_delete', 'ajax_note_delete');
@@ -594,7 +600,8 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         }
     }
 
-    jobboard_log_newApplicant($applicantID, $itemID );
+    $st = new Stream();
+    $st->log_new_applicant($applicantID, $itemID);
 
     return true;
 }
@@ -1210,139 +1217,4 @@ if( $subdomain == 'osclass.com') {
     osc_add_hook('init', 'jobboard_set_domain_linkedin');
 }
 
-/*
- * Recent Activity - logger
- */
-/*
- * Add login log ** add new admin_login_hook
- */
-function jobboard_log_login() {
-    $data = osc_logged_admin_name().' '.__('signed in.', 'jobboard');
-    Log::newInstance()->insertLog('jobboard', 'login', '', $data, osc_logged_admin_username(), osc_logged_admin_id() );
-}
-osc_add_hook('login_admin', 'jobboard_log_login');
-
-/*
- * New job / Edit job
- */
-function jobboard_log_newJob($catId, $jobId) {
-    $job = Item::newInstance()->findByPrimaryKey($jobId);
-    $job_title = $job['s_title'];
-    $data = osc_logged_admin_name().' '.__('create new job', 'jobboard').' "'.$job_title.'"';
-    Log::newInstance()->insertLog('jobboard', 'newjob', $jobId, $data, osc_logged_admin_username(), osc_logged_admin_id() );
-}
-osc_add_hook('item_form_post', 'jobboard_log_newJob');
-
-function jobboard_log_editJob($catId, $jobId) {
-    $job = Item::newInstance()->findByPrimaryKey($jobId);
-    $job_title = $job['s_title'];
-    $data = osc_logged_admin_name().' '.__('made changes to the job', 'jobboard').' "'.$job_title.'"';
-    Log::newInstance()->insertLog('jobboard', 'editjob', $jobId, $data, osc_logged_admin_username(), osc_logged_admin_id() );
-}
-osc_add_hook('item_edit_post', 'jobboard_log_editJob');
-
-function jobboard_log_deleteJob( $jobId) {
-    $job = Item::newInstance()->findByPrimaryKey($jobId);
-
-    $job_title = $job['s_title'];
-    $data = osc_logged_admin_name().' '.__('has deleted the job', 'jobboard').' "'.$job_title.'"';
-    Log::newInstance()->insertLog('jobboard_pending', 'deletejob', $jobId, $data, osc_logged_admin_username(), osc_logged_admin_id() );
-}
-osc_add_hook('before_delete_item', 'jobboard_log_deleteJob');
-
-function jobboard_log_confirmDeleteJob( $jobId) {
-    ModelLogJB::newInstance()->confirmDelete('jobboard_pending', 'deletejob', $jobId, 'jobboard');
-}
-osc_add_hook('after_delete_item', 'jobboard_log_confirmDeleteJob');
-
-/*
- * New Applicant - called from jobboard_common_contact
- */
-function jobboard_log_newApplicant($applicantId, $jobId) {
-    $job = Item::newInstance()->findByPrimaryKey($jobId);
-    $job_title = $job['s_title'];
-
-    $applicant = ModelJB::newInstance()->getApplicant($applicantId);
-    $applicantName = $applicant['s_name'];
-    $data = '"'.$applicantName.'" '.__('has applied to the offer', 'jobboard').' "'.$job_title.'"';
-    Log::newInstance()->insertLog('jobboard', 'newapplicant', $applicantId, $data, osc_logged_admin_username(), osc_logged_admin_id() );
-}
-
-/*
- * Rating applicant
- */
-function jobboard_log_rateApplicant($applicantId, $rate) {
-    $applicant = ModelJB::newInstance()->getApplicant($applicantId);
-    $applicantName = $applicant['s_name'];
-
-    $job_title = __('Spontaneous application', 'jobboard');
-    if(!is_null($applicant['fk_i_item_id']) && is_numeric($applicant['fk_i_item_id']) ) {
-        $job = Item::newInstance()->findByPrimaryKey($applicant['fk_i_item_id']);
-        $job_title = $job['s_title'];
-    }
-    $data = osc_logged_admin_name().' '.sprintf(__('has rated to <b>%s</b> an applicant, ', 'jobboard'), $rate).' '.$applicantName.' ('.$job_title.')';
-    Log::newInstance()->insertLog('jobboard', 'rateapplicant', $applicantId, $data, osc_logged_admin_username(), osc_logged_admin_id() );
-}
-
-/*
- * Notes Add/Edit/Delete
- */
-function jobboard_log_newNote($applicantId) {
-    $applicant = ModelJB::newInstance()->getApplicant($applicantId);
-    $applicantName = $applicant['s_name'];
-
-    $job_title = __('Spontaneous application', 'jobboard');
-    if(!is_null($applicant['fk_i_item_id']) && is_numeric($applicant['fk_i_item_id']) ) {
-        $job = Item::newInstance()->findByPrimaryKey($jobId);
-        $job_title = $job['s_title'];
-    }
-
-    $data = osc_logged_admin_name().' '.__('has inserted a new note to applicant ', 'jobboard').' "'.$applicantName.'" ('.$job_title.')';
-    Log::newInstance()->insertLog('jobboard', 'newnote', $applicantId, $data, osc_logged_admin_username(), osc_logged_admin_id() );
-}
-
-function jobboard_log_editNote($applicantId, $noteId) {
-    $applicant = ModelJB::newInstance()->getApplicant($applicantId);
-    $applicantName = $applicant['s_name'];
-
-    $job_title = __('Spontaneous application', 'jobboard');
-    if(!is_null($applicant['fk_i_item_id']) && is_numeric($applicant['fk_i_item_id']) ) {
-        $job = Item::newInstance()->findByPrimaryKey($jobId);
-        $job_title = $job['s_title'];
-    }
-
-    $data = osc_logged_admin_name().' '.sprintf(__('has edited a note (%s) of applicant', 'jobboard'), $noteId).' "'.$applicantName.'" ('.$job_title.')';
-    Log::newInstance()->insertLog('jobboard', 'editnote', $applicantId, $data, osc_logged_admin_username(), osc_logged_admin_id() );
-}
-
-function jobboard_log_removeNote($applicantId, $noteId) {
-    $applicant = ModelJB::newInstance()->getApplicant($applicantId);
-    $applicantName = $applicant['s_name'];
-
-    $job_title = __('Spontaneous application', 'jobboard');
-    if(!is_null($applicant['fk_i_item_id']) && is_numeric($applicant['fk_i_item_id']) ) {
-        $job = Item::newInstance()->findByPrimaryKey($jobId);
-        $job_title = $job['s_title'];
-    }
-
-    $data = osc_logged_admin_name().' '.sprintf(__('has delete a note (%s) of applicant', 'jobboard'), $noteId).' "'.$applicantName.'" ('.$job_title.')';
-    Log::newInstance()->insertLog('jobboard', 'deletenote', $applicantId, $data, osc_logged_admin_username(), osc_logged_admin_id() );
-}
-
-/*
- * Change applicant status
- */
-function jobboard_log_changeStatusApplicant($applicantId, $status) {
-    $applicant = ModelJB::newInstance()->getApplicant($applicantId);
-    $applicantName = $applicant['s_name'];
-
-    $job_title = __('Spontaneous application', 'jobboard');
-    if(!is_null($applicant['fk_i_item_id']) && is_numeric($applicant['fk_i_item_id']) ) {
-        $job = Item::newInstance()->findByPrimaryKey($applicant['fk_i_item_id']);
-        $job_title = $job['s_title'];
-    }
-    $aStatus = jobboard_status();
-    $data = osc_logged_admin_name().' '.sprintf(__('has changed "%s" applicant status to %s ', 'jobboard'), $applicantName, $aStatus[$status]).' ('.$job_title.')';
-    Log::newInstance()->insertLog('jobboard', 'changestatus', $applicantId, $data, osc_logged_admin_username(), osc_logged_admin_id() );
-}
-?>
+// End of file: ./jobboard/index.php
