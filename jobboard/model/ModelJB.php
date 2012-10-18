@@ -112,6 +112,7 @@
             $this->dao->query('DROP TABLE '. $this->getTable_JobsApplicants());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttrDescription());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttr());
+            $this->dao->query('DROP TABLE '. ModelKQ::newInstance()->getTable_KillerForm());
         }
 
         /**
@@ -525,6 +526,20 @@
 
             $total = $result->row();
             return $total['total'];
+        }
+
+        /**
+         * Set for a given job id the killer form with id killerFormId
+         *
+         * @param type $applicantId
+         * @param type $killerFormId
+         */
+        public function setKillerForm($jobId, $killerFormId)
+        {
+            return $this->dao->update(
+                    $this->getTable_JobsAttr()
+                    ,array('fk_i_killer_form_id' => $killerFormId)
+                    ,array('fk_i_item_id'        => $jobId));
         }
 
         /**
