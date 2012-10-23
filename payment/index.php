@@ -134,9 +134,6 @@ Short Name: payments
                 }
             }
         }
-        $category = Category::newInstance()->findByPrimaryKey($item['fk_i_category_id']);
-        View::newInstance()->_exportVariableToView('category', $category);
-        payment_redirect_to(osc_search_category_url());
     }
 
     /**
@@ -264,7 +261,7 @@ Short Name: payments
 
     osc_add_hook('admin_menu', 'payment_admin_menu');
     osc_add_hook('header', 'payment_load_js');
-    osc_add_hook('posted_item', 'payment_publish');
+    osc_add_hook('posted_item', 'payment_publish', 3);
     osc_add_hook('user_menu', 'payment_user_menu');
     osc_add_hook('cron_hourly', 'payment_cron');
     osc_add_hook('item_premium_off', 'payment_premium_off');
