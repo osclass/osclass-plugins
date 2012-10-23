@@ -1,6 +1,5 @@
 <?php
     /*
-     *
      * functions.php
      */
 

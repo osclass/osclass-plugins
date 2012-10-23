@@ -109,28 +109,35 @@ Short Name: payments
      * @param integer $item
      */
     function payment_publish($item) {
-        // Need to pay to publish ?
-        if(osc_get_preference('pay_per_post', 'payment')==1) {
-            $category_fee = ModelPayment::newInstance()->getPublishPrice($item['fk_i_category_id']);
-            payment_send_email($item, $category_fee);
-            if($category_fee>0) {
-                // Catch and re-set FlashMessages
-                osc_resend_flash_messages();
-                $mItems = new ItemActions(false);
-                $mItems->disable($item['pk_i_id']);
-                ModelPayment::newInstance()->createItem($item['pk_i_id'],0);
-                payment_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'payperpublish.php&itemId=' . $item['pk_i_id']));
+        if(osc_get_preference('paypal_enabled', 'payment')==1 &&
+                ((osc_get_preference('paypal_standard', 'payment')==1 && osc_get_preference('paypal_email', 'payment')!='') ||
+                (payment_decrypt(osc_get_preference('paypal_api_username', 'payment'))!='' &&
+                payment_decrypt(osc_get_preference('paypal_api_password', 'payment'))!='' &&
+                payment_decrypt(osc_get_preference('paypal_api_signature', 'payment'))!='' &&
+                osc_get_preference('paypal_standard', 'payment')==0))) {
+            // Need to pay to publish ?
+            if(osc_get_preference('pay_per_post', 'payment')==1) {
+                $category_fee = ModelPayment::newInstance()->getPublishPrice($item['fk_i_category_id']);
+                payment_send_email($item, $category_fee);
+                if($category_fee>0) {
+                    // Catch and re-set FlashMessages
+                    osc_resend_flash_messages();
+                    $mItems = new ItemActions(false);
+                    $mItems->disable($item['pk_i_id']);
+                    ModelPayment::newInstance()->createItem($item['pk_i_id'],0);
+                    payment_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'payperpublish.php&itemId=' . $item['pk_i_id']));
+                } else {
+                    // PRICE IS ZERO
+                    ModelPayment::newInstance()->createItem($item['pk_i_id'], 1);
+                }
             } else {
-                // PRICE IS ZERO
-                ModelPayment::newInstance()->createItem($item['pk_i_id'], 1);
-            }
-        } else {
-            // NO NEED TO PAY PUBLISH FEE
-            payment_send_email($item, 0);
-            if(osc_get_preference('allow_premium', 'payment')==1) {
-                $premium_fee = ModelPayment::newInstance()->getPremiumPrice($item['fk_i_category_id']);
-                if($premium_fee>0) {
-                    payment_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'makepremium.php&itemId=' . $item['pk_i_id']));
+                // NO NEED TO PAY PUBLISH FEE
+                payment_send_email($item, 0);
+                if(osc_get_preference('allow_premium', 'payment')==1) {
+                    $premium_fee = ModelPayment::newInstance()->getPremiumPrice($item['fk_i_category_id']);
+                    if($premium_fee>0) {
+                        payment_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'makepremium.php&itemId=' . $item['pk_i_id']));
+                    }
                 }
             }
         }

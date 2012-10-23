@@ -149,8 +149,6 @@
             $CANCELURL = osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__) . 'cancel.php?extra=' . $extra;
             $NOTIFYURL = osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__) . 'notify_url.php?extra=' . $extra;
 
-            $NOTIFYURL = 'http://95.62.72.123/~conejo/osclass/OSClass/oc-content/plugins/' . osc_plugin_folder(__FILE__) . 'notify_url.php?extra=' . $extra;
-
             ?>
 
 
