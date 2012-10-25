@@ -85,15 +85,15 @@ Gracias y suerte!
         }
 
         $email_msg = array();
-        $email_msg['en_US'] = "Estimado {$email_txt['company_name']},
+        $email_msg['en_US'] = "Dear {$email_txt['company_name']},
 
-Un nuevo candidato se ha apuntado a tu oferta de empleo: {$email_txt['job_offer_link']}.
+A new candidate has just applied for a job offer: {$email_txt['job_offer_link']}.
 
-Para consultar y gestionar su currículo haz click aquí: {$email_txt['applicant_link']}.
+To view and manage his/her CV, please click here: {$email_txt['applicant_link']}.
 
-Recuerda que puedes acceder a tu job board desde la dirección: {$email_txt['admin_login_url']}
+Remember that you can access your job board anytime at: {$email_txt['admin_login_url']}
 
-Gracias,
+Thank you and regards,
 Osclass.com";
         $email_msg['es_ES'] = "Estimado {$email_txt['company_name']},
 
@@ -111,7 +111,7 @@ Osclass.com";
         }
 
         $email_title = array();
-        $email_title['en_US'] = 'Se ha apuntado un nuevo candidato a una oferta de empleo';
+        $email_title['en_US'] = 'A new candidate has applied to a job offer';
         $email_title['es_ES'] = 'Se ha apuntado un nuevo candidato a una oferta de empleo';
         $email_subject = $email_title['en_US'];
         if( array_key_exists(osc_current_user_locale(), $email_title) ) {
