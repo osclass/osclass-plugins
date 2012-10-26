@@ -113,10 +113,12 @@
 
     $words   = array() ;
     $words[] = array(
-        '{RESUME_LIST}'
+        '{CONTACT_NAME}'
+        ,'{RESUME_LIST}'
     );
     $words[] = array(
-        $list
+        osc_logged_admin_name()
+        ,$list
     );
     $title = osc_mailBeauty($_title, $words);
     $body  = osc_mailBeauty($_body , $words);
