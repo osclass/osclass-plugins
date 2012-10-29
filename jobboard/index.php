@@ -13,7 +13,7 @@ Plugin update URI: job-board
 define('JOBBOARD_PATH', dirname(__FILE__) . '/') ;
 require_once(JOBBOARD_PATH . 'model/ModelJB.php');
 require_once(JOBBOARD_PATH . 'model/ModelLogJB.php');
-require_once(JOBBOARD_PATH . 'model/ModelKQ.php');            // killer questions¡
+// require_once(JOBBOARD_PATH . 'model/ModelKQ.php');            // killer questions¡
 require_once(JOBBOARD_PATH . 'helpers.php');
 require_once(JOBBOARD_PATH . 'class/JobboardNotices.class.php');
 require_once(JOBBOARD_PATH . 'class/Stream.class.php');
@@ -22,7 +22,7 @@ function job_call_after_install() {
     ModelJB::newInstance()->import('jobboard/struct.sql');
 
     osc_set_preference('upload_path', osc_content_path() . "uploads/", 'jobboard_plugin', 'STRING');
-    osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
+    osc_set_preference('version', 120, 'jobboard_plugin', 'INTEGER');
 }
 
 function jobboard_update_version() {
@@ -53,7 +53,7 @@ function jobboard_update_version() {
     }
 
     // add alters for killer questions
-    if( $version < 130) {
+    /*if( $version < 130) {
         ModelJB::newInstance()->import('jobboard/struct.sql');
 
         osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
@@ -65,7 +65,7 @@ function jobboard_update_version() {
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_result_id INT UNSIGNED DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
 
         osc_reset_preferences();
-    }
+    }*/
 }
 osc_add_hook('init', 'jobboard_update_version');
 
@@ -125,7 +125,7 @@ function jobboard_sex_to_string($sex) {
 osc_add_hook('admin_header', 'jobboard_extra');
 
 function job_call_after_uninstall() {
-    ModelKQ::newInstance()->uninstall();
+    // ModelKQ::newInstance()->uninstall();
     ModelJB::newInstance()->uninstall();
 
     osc_delete_preference('upload_path', 'jobboard_plugin');
@@ -753,13 +753,13 @@ osc_add_admin_submenu_page(
 );
 
 // killer questions menu
-osc_add_admin_submenu_page(
+/* osc_add_admin_submenu_page(
     'jobboard',
     __('Killer Questions', 'jobboard'),
     osc_admin_render_plugin_url("jobboard/manage_killer.php"),
     'jobboard_killer',
     'moderator'
-);
+);*/
 
 function jobboard_rating($applicantId, $rating = 0) {
     $str = '<span class="rating" id="rating_'.$applicantId.'" rating="'.$rating.'">';
