@@ -185,14 +185,17 @@
          * @param int $salaryText
          * @param int $numPositions
          */
-        public function insertJobsAttr($item_id, $position_type, $salaryText, $numPositions)
+        public function insertJobsAttr($item_id, $relation, $position_type, $salaryText, $numPositions, $killer_questions_form)
         {
             $aSet = array(
-                'fk_i_item_id'      => $item_id,
-                'e_position_type'   => $position_type,
-                's_salary_text'     => $salaryText,
-                'i_num_positions'   => $numPositions
+                'fk_i_item_id'          => $item_id,
+                'e_position_type'       => $position_type,
+                's_salary_text'         => $salaryText,
+                'i_num_positions'       => $numPositions
             );
+            if($killer_questions_form!='') {
+                $aSet['fk_i_killer_form_id'] = $killer_questions_form;
+            }
 
             return $this->dao->insert($this->getTable_JobsAttr(), $aSet);
         }
@@ -241,14 +244,17 @@
         /**
          * Replace Jobs attributes
          */
-        public function replaceJobsAttr($item_id, $position_type, $salaryText, $numPositions)
+        public function replaceJobsAttr($item_id, $relation, $position_type, $salaryText, $numPositions, $killer_questions_form)
         {
             $aSet = array(
-                'fk_i_item_id'      => $item_id,
-                'e_position_type'   => $position_type,
-                's_salary_text'     => $salaryText,
-                'i_num_positions'   => $numPositions
+                'fk_i_item_id'          => $item_id,
+                'e_position_type'       => $position_type,
+                's_salary_text'         => $salaryText,
+                    'i_num_positions'   => $numPositions
             );
+            if($killer_questions_form!='') {
+                $aSet['fk_i_killer_form_id'] = $killer_questions_form;
+            }
             return $this->dao->replace( $this->getTable_JobsAttr(), $aSet);
         }
 
@@ -800,6 +806,11 @@
         public function changeSecret($fileId)
         {
             return $this->dao->update($this->getTable_JobsFiles(), array('s_secret' => osc_genRandomPassword(12), 'dt_secret_date' => date("Y-m-d H:i:s")), array('pk_i_id' => $fileId));
+        }
+
+        public function changeScore($applicantId, $score)
+        {
+            return $this->dao->update($this->getTable_JobsApplicants(), array('d_score' => $score), array('pk_i_id' => $applicantId));
         }
     }
 

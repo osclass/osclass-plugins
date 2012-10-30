@@ -1,11 +1,4 @@
 <?php
-// model - Killer Questions -
-//
-// You can add killer questions to a job offer, allowing add punctuation to the answers.
-//  Two kind of questions, open questions and closed questions.
-//  Closed questions can reject applicants who answer incorrect questions
-//
-
     /*
      *      OSCLass – software for creating and publishing online classified
      *                           advertising platforms
@@ -28,6 +21,10 @@
 
     /**
      * Model database for Killer Questions Forms
+     *
+     * You can add killer questions to a job offer, allowing add punctuation to the answers.
+     * Two kind of questions, open questions and closed questions.
+     * Closed questions can reject applicants who answer incorrect questions
      *
      * @package OSClass
      * @subpackage Model
@@ -145,10 +142,17 @@
          *
          * @param type $text
          * @param type $type
+         * @return type false if error happend, return id if insert correctly
          */
         public function insertQuestion($text, $type = 'OPENED')
         {
-
+            $result = $this->dao->insert($this->getTable_Question(),
+                        array(  'e_type'    => $type,
+                                's_text'    => $text));
+            if($result!==false) {
+                return $this->dao->insertedId();
+            }
+            return false;
         }
 
         /**
@@ -160,19 +164,33 @@
          */
         public function insertAnswer($questionId, $text, $punctuation)
         {
-
+            $reject = 0;
+            if($punctuation=='reject') {
+                $reject = 1;
+            }
+            return $this->dao->insert($this->getTable_Answer(),
+                    array(  'fk_i_question_id' => $questionId,
+                            's_text'           => $text,
+                            's_punctuation'    => $punctuation,
+                            'b_reject'         => $reject
+                            ));
         }
-
-
 
         /**
          * Add new kill form given a title
          *
          * @param type $title
+         * @return bool
          */
-        public function insertKillerForm($title, $aQuestions)
+        public function insertKillerForm($title)
         {
-            // note add dt_pub_date
+            $result = $this->dao->insert( $this->getTable_KillerForm(),
+                    array('s_title'     => $title,
+                          'dt_pub_date' => date('Y-m-d H:i:s') ));
+            if($result!==false) {
+                return $this->dao->insertedId();
+            }
+            return false;
         }
 
         /**
@@ -181,9 +199,188 @@
          * @param type $applicantId
          * @param type $aQuestions ??
          */
-        public function insertKillerFormResult($applicantId, $aQuestions)
-        {
 
+        public function insertAnswerClosed($applicantId, $killerFormId, $questionId, $answer ) {
+            return $this->insertAnswerResult(false, $applicantId, $killerFormId, $questionId, $answer);
+        }
+
+        public function insertAnswerOpened($applicantId, $killerFormId, $questionId, $answer ) {
+            return $this->insertAnswerResult(true , $applicantId, $killerFormId, $questionId, $answer);
+        }
+
+        private function insertAnswerResult($opened, $applicantId, $killerFormId, $questionId, $answer )
+        {
+            // get answer puntuation and add to array
+            $array = array( 'fk_i_applicant_id'     => $applicantId,
+                            'fk_i_killer_form_id'   => $killerFormId,
+                            'fk_i_question_id'      => $questionId );
+            if($opened) {
+                $array['s_answer_opened'] = $answer;
+            } else {
+                $array['fk_i_answer_id']  = $answer;
+                $this->dao->select('s_punctuation');
+                $this->dao->from($this->getTable_Answer());
+                $this->dao->where('pk_i_id', $answer);
+                $result = $this->dao->get();
+                if($result===false){
+                    return false;
+                }
+                $aAnswer = $result->row();
+                error_log(print_r($aAnswer, true));
+                $array['s_punctuation']  = $aAnswer['s_punctuation'];
+            }
+
+            return $this->dao->insert($this->getTable_KillerFormResults(), $array );
+        }
+
+        /**
+         * Add questions to killer form
+         *
+         * @param type $id
+         * @param type $questionId
+         * @param type $order
+         * @return type
+         */
+        public function addQuestionsToKillerForm($id, $questionId, $order)
+        {
+            return $this->dao->insert($this->getTable_KillerFormQuestions(),
+                        array('fk_i_killer_form_id' => $id,
+                              'fk_i_question_id'    => $questionId,
+                              'i_order'             => $order));
+        }
+
+        // updates
+        /**
+         * Update killer form title
+         *
+         * @param type $id
+         * @param type $title
+         */
+        public function updateKillerForm($id, $title)
+        {
+            return $this->dao->update( $this->getTable_KillerForm(),
+                    array('s_title'     => $title,
+                          'dt_mod_date' => date('Y-m-d H:i:s')),
+                    array('pk_i_id'     => $id)) ;
+        }
+
+
+        // getters
+        /**
+         * Update answer information given an answerId
+         *
+         * @param type $answerId
+         * @param type $text
+         * @param type $punctuation
+         * @return type
+         */
+        public function updateAnswer($answerId, $text, $punctuation)
+        {
+            $reject = 0;
+            if($punctuation=='reject') {
+                $reject = 1;
+            }
+
+            return $this->dao->update($this->getTable_Answer(),
+                    array(  's_text'           => $text,
+                            's_punctuation'    => $punctuation,
+                            'b_reject'         => $reject),
+                    array(  'pk_i_id'          => $answerId));
+        }
+
+        /**
+         * Update answer information given an answerId
+         *
+         * @param type $answerId
+         * @param type $text
+         * @param type $punctuation
+         * @return type
+         */
+
+        public function updatePunctuationQuestionResult($killerformId, $applicantId, $questionId, $punctuation)
+        {
+            $reject = 0;
+            if($punctuation=='reject') {
+                $reject = 1;
+            }
+
+            return $this->dao->update($this->getTable_KillerFormResults(),
+                    array(  's_punctuation'    => $punctuation),
+                    array(  'fk_i_killer_form_id'   => $killerformId,
+                            'fk_i_applicant_id'     => $applicantId,
+                            'fk_i_question_id'      => $questionId));
+        }
+
+        /**
+         * Update question information given a question id
+         *
+         * @param type $questionId
+         * @param type $text
+         * @param type $type
+         * @return type
+         */
+        public function updateQuestion($questionId, $text, $type)
+        {
+            // extra check type ?
+            // only OPENED/CLOSED
+            return $this->dao->update($this->getTable_Question(),
+                        array(  'e_type'    => $type,
+                                's_text'    => $text),
+                        array('pk_i_id'     => $questionId ));
+        }
+
+        /**
+         * Remove answer given an answer id
+         *
+         * @param type $answerId
+         * @return type
+         */
+        public function removeAnswer($answerId)
+        {
+            return $this->dao->delete($this->getTable_Answer(),
+                        array('pk_i_id'     => $answerId ));
+        }
+
+        /**
+         * Remove question given a question id, if questions have answers,
+         * will be remove too.
+         *
+         * @param type $questionId
+         * @return type
+         */
+        public function removeQuestionsToKillerForm($killerFormId, $questionId)
+        {
+            $this->removeAnswersByQuestionId($questionId);
+            $this->removeQuestionInForms($killerFormId, $questionId);
+
+            return $this->dao->delete($this->getTable_Question(),
+                        array('pk_i_id' => $questionId));
+        }
+
+        /**
+         * Remove all answers given a question id
+         *
+         * @param type $questionId
+         * @return type
+         */
+        public function removeAnswersByQuestionId($questionId)
+        {
+            return $this->dao->delete($this->getTable_Answer(),
+                    array('fk_i_question_id'    => $questionId));
+        }
+
+        /**
+         * Remove question from table fk_i_killer_form_id
+         *
+         * @param type $killerFormId
+         * @param type $questionId
+         * @return type
+         */
+        public function removeQuestionInForms($killerFormId, $questionId)
+        {
+            return $this->dao->delete($this->getTable_KillerFormQuestions(),
+                        array(  'fk_i_killer_form_id' => $killerFormId,
+                                'fk_i_question_id'    => $questionId));
         }
 
         /**
@@ -195,7 +392,29 @@
          */
         public function getAnswers($questionId)
         {
+            $this->dao->select();
+            $this->dao->from($this->getTable_Answer());
+            $this->dao->where('fk_i_question_id',  $questionId);
+            $result = $this->dao->get();
+            if($result!==false) {
+                return $result->result();
+            }
+            return array();
+        }
 
+        public function getAnswer($answerId)
+        {
+            if(!is_numeric($answerId)) {
+                return array();
+            }
+            $this->dao->select();
+            $this->dao->from($this->getTable_Answer());
+            $this->dao->where('pk_i_id',  $answerId);
+            $result = $this->dao->get();
+            if($result!==false) {
+                return $result->row();
+            }
+            return array();
         }
 
         /**
@@ -214,7 +433,49 @@
          */
         public function getQuestion($questionId)
         {
+            $this->dao->select();
+            $this->dao->from($this->getTable_Question());
+            $this->dao->where('pk_i_id',  $questionId);
+            $result = $this->dao->get();
 
+            if($result!==false) {
+                $result = $result->row();
+                if($result['e_type']=='CLOSED') {
+                    // find answers
+                    $aAnswers = $this->getAnswers($questionId);
+                    $result['a_answers'] = $aAnswers;
+                } else {
+                    $result['a_answers'] = false;
+                }
+                return $result;
+            }
+            return array();
+        }
+
+        /**
+         * Get all questions belonging to killer form id
+         *
+         * @todo -> ORDER
+         * @param type $killerFormId
+         */
+        public function getKillerQuestion($killerFormId)
+        {
+            $this->dao->select();
+            $this->dao->from($this->getTable_KillerFormQuestions());
+            $this->dao->where('fk_i_killer_form_id', $killerFormId);
+            $result = $this->dao->get();
+
+            $aux_count = 1;
+            if($result!==false) {
+                $result = $result->result();
+                foreach($result as $_aux) {
+                    $q = $this->getQuestion($_aux['fk_i_question_id']);
+                    $result['questions'][$aux_count] = $q;
+                    $aux_count++;
+                }
+                return $result;
+            }
+            return  array();
         }
 
         /**
@@ -222,705 +483,128 @@
          */
         public function getAllKillerForm()
         {
-
+            $this->dao->select();
+            $this->dao->from($this->getTable_KillerForm());
+            $result = $this->dao->get();
+            if($result!==false) {
+                $result = $result->result();
+                return $result;
+            }
+            return array();
         }
 
-        /**
-         * Get killer form given a job id, returns all questions
-         * Array(
-         *  0 => array(
-         *      'question'  => 'question text'
-         *      'answers'   => array(
-         *              0   => 'answer one'
-         *              1   => 'answer two'
-         *              2   => 'answer three'
-         *              3   => 'answer four'
-         *              )
-         *      )
-         *  1 => array(
-         *      'question'  => 'question text'
-         *      'answers'   => NULL   // opened answer
-         *      )
-         * )
-         *
-         * @param type $jobId
-         */
-        public function getKillerForm($jobId)
+        public function search($start = 0, $length = 10, $conditions = null, $order_col = 'kf.dt_pub_date', $order_dir = 'DESC')
         {
+            $cond = array();
+            if($conditions!=null) {
+                foreach($conditions as $k => $v) {
+                    if($k=='title') {
+                        $cond[] = "title = '".$this->dao->connId->real_escape_string($v)."'";
+                    }
+                }
+            }
+            $cond_str = '';
+            if(!empty($cond)) {
+                $cond_str = " AND ".implode(" AND ", $cond)." ";
+            }
+            // subselect n_questions
+            $sub_select_nquestions = "(select count(*) from ".DB_TABLE_PREFIX."t_killer_form_questions as kfq where kf.pk_i_id = kfq.fk_i_killer_form_id) as n_questions";
+            $sub_select_is_used = "(select count(*) from ".DB_TABLE_PREFIX."t_item_job_attr as jia where kf.pk_i_id = jia.fk_i_killer_form_id) as n_used";
 
+            $this->dao->select("kf.*, $sub_select_nquestions, $sub_select_is_used");
+            $this->dao->from($this->getTable_KillerForm().' as kf');
+            if($cond_str!='') {
+                $this->dao->where($cond_str);
+            }
+            $this->dao->orderBy($order_col, $order_dir) ;
+            $this->dao->limit($start, $length);
+            $result = $this->dao->get();
+
+            if( $result===false ) {
+                return array() ;
+            }
+
+            return $result->result();
+        }
+
+
+        public function getKillerForm($formId)
+        {
+            $this->dao->select();
+            $this->dao->from($this->getTable_KillerForm());
+            $this->dao->where('pk_i_id', $formId);
+            $result = $this->dao->get();
+            if($result===false) {
+                return array();
+            }
+
+            $result = $result->row();
+            return $result;
         }
 
         /**
-         * Get killer questions and applicant answers, including a temporal
-         * punctuation.
+         * Return all answered questions by an applicant
          *
-         * Array(
-         *  0 => array(
-         *      'question'  => 'question text'
-         *      'answers'   => array(
-         *              0   => 'answer one'
-         *              1   => 'answer two'
-         *              2   => 'answer three'
-         *              3   => 'answer four'
-         *              )
-         *      'answered' => (int)ID_ANSWER_USER_ANSWER
-         *      )
-         *  1 => array(
-         *      'question'  => 'question text'
-         *      'answers'   => NULL   // opened answer
-         *      )
-         * )
          * @param type $applicantId
+         * @return type
          */
-        public function getKillerAnswers($applicantId)
+        public function getResultsByApplicant($applicantId)
         {
+            $this->dao->select();
+            $this->dao->from($this->getTable_KillerFormResults());
+            $this->dao->where('fk_i_applicant_id', $applicantId);
+            $result = $this->dao->get();
+            if($result===false) {
+                return array();
+            }
 
+            $result = $result->result();
+            $array = array();
+            foreach($result as $aux) {
+                $array[$aux['fk_i_question_id']] = $aux;
+            }
+            return $array;
         }
-//
-//        /**
-//         * Get all entries from jobs attributes table
-//         *
-//         * @return array
-//         */
-//        public function getAllAttributes()
-//        {
-//            $this->dao->select();
-//            $this->dao->from($this->getTable_JobsAttr());
-//
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return array() ;
-//            }
-//            return $result->result();
-//        }
-//
-//        /**
-//         * Get Jobs attributes given a item id
-//         *
-//         * @param int $item_id
-//         * @return array
-//         */
-//        public function getJobsAttrByItemId($item_id)
-//        {
-//            $this->dao->select();
-//            $this->dao->from($this->getTable_JobsAttr());
-//            $this->dao->where('fk_i_item_id', $item_id);
-//
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return array() ;
-//            }
-//            return $result->row();
-//        }
-//
-//        /**
-//         * Get Jobs attributes descriptions given a item id
-//         *
-//         * @param int $item_id
-//         * @return array
-//         */
-//        public function getJobsAttrDescriptionsByItemId($item_id)
-//        {
-//            $this->dao->select();
-//            $this->dao->from($this->getTable_JobsAttrDescription());
-//            $this->dao->where('fk_i_item_id', $item_id);
-//
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return array() ;
-//            }
-//
-//            return $result->result();
-//        }
-//
-//        /**
-//         * Insert Jobs attributes
-//         *
-//         * @param int $item_id
-//         * @param string $relation
-//         * @param string $position_type
-//         * @param int $salaryText
-//         */
-//        public function insertJobsAttr($item_id, $relation, $position_type, $salaryText)
-//        {
-//            $aSet = array(
-//                'fk_i_item_id'      => $item_id,
-//                'e_position_type'   => $position_type,
-//                's_salary_text'     => $salaryText
-//            );
-//
-//            return $this->dao->insert($this->getTable_JobsAttr(), $aSet);
-//        }
-//
-//        /**
-//         * Insert Jobs attributes descriptions
-//         *
-//         * @param int $item_id
-//         * @param string $locale
-//         * @param string $desiredExp
-//         * @param string $studies
-//         * @param string $minRequirements
-//         * @param string $desiredRequirements
-//         * @param string $contract
-//         */
-//        public function insertJobsAttrDescription($item_id, $locale, $desiredExp, $studies, $minRequirements, $desiredRequirements, $contract)
-//        {
-//            $aSet = array(
-//                'fk_i_item_id'              => $item_id,
-//                'fk_c_locale_code'          => $locale,
-//                's_desired_exp'             => $desiredExp,
-//                's_studies'                 => $studies,
-//                's_minimum_requirements'    => $minRequirements,
-//                's_desired_requirements'    => $desiredRequirements,
-//                's_contract'                => $contract
-//            );
-//
-//            return $this->dao->insert($this->getTable_JobsAttrDescription(), $aSet);
-//        }
-//
-//        /**
-//         * Replace salary_min_hour, salary_max_hour given a item id
-//         *
-//         * @param type $item_id
-//         * @param type $salaryHourmin
-//         * @param type $salaryHourMax
-//         */
-//        public function replaceJobsSalaryAttr($item_id, $salaryText)
-//        {
-//            $aSet = array(
-//                'fk_i_item_id'      => $item_id,
-//                's_salary_text'     => $salaryText
-//            );
-//            return $this->dao->replace($this->getTable_JobsAttr(), $aSet);
-//        }
-//
-//        /**
-//         * Replace Jobs attributes
-//         */
-//        public function replaceJobsAttr($item_id, $relation, $position_type, $salaryText)
-//        {
-//            $aSet = array(
-//                'fk_i_item_id'      => $item_id,
-//                'e_position_type'   => $position_type,
-//                's_salary_text'     => $salaryText
-//            );
-//            return $this->dao->replace( $this->getTable_JobsAttr(), $aSet);
-//        }
-//
-//        /**
-//         * Replace Jobs attributes descriptions
-//         */
-//        public function replaceJobsAttrDescriptions($item_id, $locale, $desiredExp, $studies, $minRequirements, $desiredRequirements, $contract)
-//        {
-//            $aSet = array(
-//                'fk_i_item_id'              => $item_id,
-//                'fk_c_locale_code'          => $locale,
-//                's_desired_exp'             => $desiredExp,
-//                's_studies'                 => $studies,
-//                's_minimum_requirements'    => $minRequirements,
-//                's_desired_requirements'    => $desiredRequirements,
-//                's_contract'                => $contract
-//            );
-//            return $this->dao->replace($this->getTable_JobsAttrDescription(), $aSet);
-//        }
-//
-//        /**
-//         * Insert files attached to an applicant
-//         *
-//         * @param $applicantId
-//         * @param $fileName
-//         * @return boolean
-//         */
-//        public function insertFile($applicantId, $fileName)
-//        {
-//            $secret = osc_genRandomPassword(12);
-//            return $this->dao->insert(
-//                    $this->getTable_JobsFiles()
-//                    ,array(
-//                        'fk_i_applicant_id' => $applicantId
-//                        ,'dt_date' => date("Y-m-d H:i:s")
-//                        ,'dt_secret_date' => date("Y-m-d H:i:s")
-//                        ,'s_name' => $fileName
-//                        ,'s_secret' => $secret
-//                    ));
-//        }
-//
-//        /**
-//         * Insert an applicant
-//         *
-//         * @param $itemId
-//         * @param $name
-//         * @param $email
-//         * @param $coverLetter
-//         * @return applicant's ID
-//         */
-//        public function insertApplicant($itemId, $name, $email, $coverLetter, $phone, $birth, $sex, $source = '')
-//        {
-//            $date = date("Y-m-d H:i:s");
-//            $app = $this->dao->insert(
-//                    $this->getTable_JobsApplicants()
-//                    ,array(
-//                        'fk_i_item_id'      => $itemId
-//                        ,'s_name'           => $name
-//                        ,'s_email'          => $email
-//                        ,'s_phone'          => $phone
-//                        ,'s_cover_letter'   => $coverLetter
-//                        ,'dt_date'          => $date
-//                        ,'i_status'         => 0
-//                        ,'i_rating'         => 0
-//                        ,'s_ip'             => get_ip()
-//                        ,'dt_birthday'      => $birth
-//                        ,'s_sex'            => $sex
-//                        ,'s_source'         => $source
-//                    ));
-//            if($app) {
-//                return $this->dao->insertedId();
-//            } else {
-//                false;
-//            }
-//        }
-//
-//        /**
-//         * Get applicants
-//         *
-//         * @param $start
-//         * @param $length
-//         * @param $conditions
-//         *
-//         * @return array
-//         */
-//        public function search($start = 0, $length = 10, $conditions = null, $order_col = 'a.dt_date', $order_dir = 'DESC')
-//        {
-//            // hack order by age.
-//            if($order_col=='a.dt_birthday') {
-//                if($order_dir=='DESC') { $order_dir='ASC'; }
-//                else { $order_dir='DESC'; }
-//            }
-//            $cond = array();
-//            if($conditions!=null) {
-//                foreach($conditions as $k => $v) {
-//                    if($k=='item') {
-//                        $cond[] = 'a.fk_i_item_id = '.$this->dao->connId->real_escape_string($v);
-//                    }
-//                    if($k=='item_text') {
-//                        $cond[] = "d.s_title LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
-//                    }
-//                    if($k=='email') {
-//                        $cond[] = "a.s_email LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
-//                    }
-//                    if($k=='name') {
-//                        $cond[] = "a.s_name LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
-//                    }
-//                    if($k=='status') {
-//                        $cond[] = "a.i_status = ".$this->dao->connId->real_escape_string($v);
-//                    }
-//                    if($k=='unread') {
-//                        $cond[] = "a.b_read = 0";
-//                    }
-//                    if($k=='spontaneous') {
-//                        $cond[] = "d.s_title IS NULL";
-//                    }
-//                    if($k=='category') {
-//                        $sql_category = "select pk_i_id from ".DB_TABLE_PREFIX."t_category WHERE pk_i_id = ".$this->dao->connId->real_escape_string($v)." OR fk_i_parent_id = ".$this->dao->connId->real_escape_string($v);
-//                        $result = $this->dao->query($sql_category);
-//                        if( !$result ) {
-//                            return array();
-//                        }
-//                        $aux    = $result->result();
-//                        $array  = array();
-//                        foreach($aux as $catId) { $array[] = $catId['pk_i_id']; }
-//                        $cond[] = "i.fk_i_category_id IN (".  implode(',', $array).")";
-//                    }
-//                    if($k=='sex') {
-//                        $cond[] = "a.s_sex = '".$this->dao->connId->real_escape_string($v)."'";
-//                    }
-//                    // age
-//                    if($k=='minAge') {
-//                        $minDate = date("Y-m-d", strtotime("-$v year"));
-//                        $cond[] = "a.dt_birthday >= '".$this->dao->connId->real_escape_string($minDate)."'";
-//                    }
-//                    if($k=='maxAge') {
-//                        $maxDate = date("Y-m-d", strtotime("-$v year"));
-//                        $cond[] = "a.dt_birthday <= '".$this->dao->connId->real_escape_string($maxDate)."'";
-//                    }
-//                    if($k=='rating') {
-//                        $cond[] = "a.i_rating >= ". $this->dao->connId->real_escape_string($v) ;
-//                    }
-//
-//                }
-//            }
-//            $cond_str = '';
-//            if(!empty($cond)) {
-//                $cond_str = " AND ".implode(" AND ", $cond)." ";
-//            }
-//
-//            $tmp = explode(".", $order_col);
-//            $order_col2 = $order_col;
-//            if(count($tmp)>1) {
-//                $order_col2 = "dummy." . $tmp[1];
-//            }
-//
-//            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
-//                FROM (%st_item_job_applicant a)
-//                LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id
-//                LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id
-//                WHERE (d.s_title != '' OR d.s_title IS NULL) %s ORDER BY locale_order DESC, %s %s", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str, $order_col, $order_dir);
-//            $result = $this->dao->query(sprintf("SELECT * FROM (%s) as dummy GROUP BY dummy.pk_i_id ORDER BY %s %s LIMIT %d, %d", $sql, $order_col2, $order_dir, $start, $length));
-//
-//            if( !$result ) {
-//                return array() ;
-//            }
-//
-//            return $result->result();
-//        }
-//
-//        public function searchCount($conditions = null, $order_col = 'a.dt_date', $order_dir = 'DESC')
-//        {
-//            $cond = array();
-//            if($conditions!=null) {
-//                foreach($conditions as $k => $v) {
-//                    if($k=='item') {
-//                        $cond[] = 'a.fk_i_item_id = '.$this->dao->connId->real_escape_string($v);
-//                    }
-//                    if($k=='item_text') {
-//                        $cond[] = "d.s_title LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
-//                    }
-//                    if($k=='email') {
-//                        $cond[] = "a.s_email LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
-//                    }
-//                    if($k=='name') {
-//                        $cond[] = "a.s_name LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
-//                    }
-//                    if($k=='status') {
-//                        $cond[] = "a.i_status = ".$this->dao->connId->real_escape_string($v);
-//                    }
-//                    if($k=='unread') {
-//                        $cond[] = "a.b_read = 0";
-//                    }
-//                    if($k=='spontaneous') {
-//                        $cond[] = "d.s_title IS NULL";
-//                    }
-//                    if($k=='category') {
-//                        $sql_category = "select pk_i_id from ".DB_TABLE_PREFIX."t_category WHERE pk_i_id = ".$this->dao->connId->real_escape_string($v)." OR fk_i_parent_id = ".$this->dao->connId->real_escape_string($v);
-//                        $result = $this->dao->query($sql_category);
-//                        if( !$result ) {
-//                            return array();
-//                        }
-//                        $aux    = $result->result();
-//                        $array  = array();
-//                        foreach($aux as $catId) { $array[] = $catId['pk_i_id']; }
-//                        $cond[] = "i.fk_i_category_id IN (".  implode(',', $array).")";
-//                    }
-//                    if($k=='sex') {
-//                        $cond[] = "a.s_sex = '".$this->dao->connId->real_escape_string($v)."'";
-//                    }
-//                    // age
-//                    if($k=='minAge') {
-//                        $minDate = date("Y-m-d", strtotime("-$v year"));
-//                        $cond[] = "a.dt_birthday >= '".$this->dao->connId->real_escape_string($minDate)."'";
-//                    }
-//                    if($k=='maxAge') {
-//                        $maxDate = date("Y-m-d", strtotime("-$v year"));
-//                        $cond[] = "a.dt_birthday <= '".$this->dao->connId->real_escape_string($maxDate)."'";
-//                    }
-//                    if($k=='rating') {
-//                        $cond[] = "a.i_rating >= ". $this->dao->connId->real_escape_string($v) ;
-//                    }
-//
-//                }
-//            }
-//            $cond_str = '';
-//            if(!empty($cond)) {
-//                $cond_str = " AND ".implode(" AND ", $cond)." ";
-//            }
-//
-//            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
-//                FROM (%st_item_job_applicant a)
-//                LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id
-//                LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id
-//                WHERE (d.s_title != '' OR d.s_title IS NULL) %s ORDER BY locale_order DESC, a.dt_date DESC", $this->dao->connId->real_escape_string(osc_current_admin_locale()), DB_TABLE_PREFIX, DB_TABLE_PREFIX, DB_TABLE_PREFIX, $cond_str);
-//            $result = $this->dao->query(sprintf("SELECT * FROM (%s) as dummy GROUP BY dummy.pk_i_id ", $sql));
-//
-//            if( !$result ) {
-//                $searchTotal = 0;
-//            } else {
-//                $searchTotal = count($result->result());
-//            }
-//
-//            $this->dao->select( "COUNT(*) as total" ) ;
-//            $this->dao->from($this->getTable_JobsApplicants()." a");
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                $total = 0;
-//            } else {
-//                $total = $result->row();
-//            }
-//
-//            return array($searchTotal, $total['total']);
-//        }
-//
-//        public function countApplicantsUnread()
-//        {
-//            $this->dao->select('COUNT(*) AS total');
-//            $this->dao->from($this->getTable_JobsApplicants());
-//            $this->dao->where('b_read', '0');
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return  0;
-//            }
-//
-//            $total = $result->row();
-//            return $total['total'];
-//        }
-//
-//        public function countApplicantsByStatus($status)
-//        {
-//            if( !in_array($status, array('0', '1', '2', '3')) ) {
-//                return 0;
-//            }
-//            $this->dao->select('COUNT(*) AS total');
-//            $this->dao->from($this->getTable_JobsApplicants());
-//            $this->dao->where('i_status', $status);
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return  0;
-//            }
-//
-//            $total = $result->row();
-//            return $total['total'];
-//        }
-//
-//        /**
-//         * Set applicants rating
-//         *
-//         * @param $applicantId
-//         * @param $rating
-//         */
-//        public function setRating($applicantId, $rating)
-//        {
-//           return  $this->dao->update(
-//                    $this->getTable_JobsApplicants()
-//                    ,array('i_rating' => $rating)
-//                    ,array('pk_i_id' => $applicantId));
-//        }
-//
-//        /**
-//         * return a number of times an email has applied for a job offer
-//         *
-//         * @param type $item
-//         * @param type $email
-//         */
-//        public function countApply($item, $email)
-//        {
-//            $this->dao->select('count(*) as total');
-//            $this->dao->from($this->getTable_JobsApplicants());
-//            if($item=='') {
-//                $this->dao->where("fk_i_item_id IS NULL");
-//            } else {
-//                $this->dao->where("fk_i_item_id", $item);
-//            }
-//            $this->dao->where("s_email", $email);
-//
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return array() ;
-//            }
-//
-//            $data = $result->row();
-//            return $data['total'];
-//        }
-//
-//        /**
-//         * Get applicant
-//         *
-//         * @param $id
-//         *
-//         * @return array
-//         */
-//        public function getApplicant($id)
-//        {
-//            $this->dao->select();
-//            $this->dao->from($this->getTable_JobsApplicants());
-//            $this->dao->where("pk_i_id", $id);
-//
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return array() ;
-//            }
-//
-//            return $result->row();
-//        }
-//        /**
-//         * Get applicant's CV
-//         *
-//         * @param $id
-//         *
-//         * @return array
-//         */
-//        public function getCVFromApplicant($id)
-//        {
-//            $this->dao->select();
-//            $this->dao->from($this->getTable_JobsFiles());
-//            $this->dao->where("fk_i_applicant_id", $id);
-//
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return array() ;
-//            }
-//
-//            return $result->row();
-//        }
-//
-//        /**
-//         * Get notes from applicant
-//         *
-//         * @param $id
-//         *
-//         * @return array
-//         */
-//        public function getNotesFromApplicant($id)
-//        {
-//            $this->dao->select();
-//            $this->dao->from($this->getTable_JobsNotes());
-//            $this->dao->where("fk_i_applicant_id", $id);
-//            $this->dao->orderBy("pk_i_id", 'desc');
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return array() ;
-//            }
-//
-//            return $result->result();
-//        }
-//
-//        /**
-//         * Get note by ID
-//         *
-//         * @param $id
-//         *
-//         * @return array
-//         */
-//        public function getNoteByID($noteID)
-//        {
-//            $this->dao->select();
-//            $this->dao->from($this->getTable_JobsNotes());
-//            $this->dao->where('pk_i_id', $noteID);
-//            $this->dao->limit(1);
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return array() ;
-//            }
-//
-//            return $result->row();
-//        }
-//
-//        public function countTotalNotes()
-//        {
-//            $this->dao->select('COUNT(*) AS total');
-//            $this->dao->from($this->getTable_JobsNotes());
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return  0;
-//            }
-//
-//            $total = $result->row();
-//            return $total['total'];
-//        }
-//
-//        /**
-//         * Delete entries at jobs attr description table given a locale code
-//         *
-//         * @param type $locale
-//         */
-//        public function deleteLocale($locale)
-//        {
-//            return $this->dao->delete($this->getTable_JobsAttrDescription(), array('fk_c_locale_code' => $locale) );
-//        }
-//
-//        /**
-//         * Delete entries at jobs tables given a item id
-//         *
-//         * @param type $locale
-//         */
-//        public function deleteItem($item_id)
-//        {
-//            $this->dao->delete($this->getTable_JobsAttr(), array('fk_i_item_id' => $item_id) );
-//            $this->dao->delete($this->getTable_JobsAttrDescription(), array('fk_i_item_id' => $item_id) );
-//
-//            $this->dao->select('pk_i_id');
-//            $this->dao->from($this->getTable_JobsApplicants());
-//
-//            $result = $this->dao->get();
-//            if( !$result ) {
-//                return array() ;
-//            }
-//            $ids = $result->result();
-//
-//            foreach($ids as $id) {
-//                $this->deleteApplicant($id['pk_i_id']);
-//            }
-//
-//        }
-//
-//        public function deleteApplicant($id) {
-//            $this->dao->delete($this->getTable_JobsNotes(), array('fk_i_applicant_id' => $id));
-//            $this->dao->delete($this->getTable_JobsFiles(), array('fk_i_applicant_id' => $id));
-//            return $this->dao->delete($this->getTable_JobsApplicants(), array('pk_i_id' => $id));
-//        }
-//
-//        public function deleteNote($id)
-//        {
-//            $this->dao->select();
-//            $this->dao->from($this->getTable_JobsNotes());
-//            $this->dao->where("pk_i_id", $id);
-//            $result = $this->dao->get();
-//            $success = $this->dao->delete($this->getTable_JobsNotes(), array('pk_i_id' => $id));
-//            if( $result ) {
-//                $row = $result->row();
-//                $notes = $this->getNotesFromApplicant($row['fk_i_applicant_id']);
-//                if(count($notes)==0) {
-//                    $this->dao->update($this->getTable_JobsApplicants(), array('b_has_notes' => 0), array('pk_i_id' => $row['fk_i_applicant_id']));
-//                }
-//            }
-//            return $success;
-//        }
-//
-//        public function insertNote($id, $text)
-//        {
-//            $success = $this->dao->insert($this->getTable_JobsNotes(), array('dt_date' => date("Y-m-d H:i:s"), 's_text' => $text, 'fk_i_applicant_id' => $id));
-//
-//            if( !$success ) {
-//                return false;
-//            }
-//
-//            $noteID = $this->dao->insertedId();
-//            $this->dao->update($this->getTable_JobsApplicants(), array('b_has_notes' => 1), array('pk_i_id' => $id));
-//            return $noteID;
-//        }
-//
-//        public function updateNote($id, $text)
-//        {
-//            return $this->dao->update($this->getTable_JobsNotes(), array('dt_date' => date("Y-m-d H:i:s"), 's_text' => $text), array('pk_i_id' => $id));
-//        }
-//
-//        public function changeStatus($applicantId, $status)
-//        {
-//            return $this->dao->update($this->getTable_JobsApplicants(), array('i_status' => $status), array('pk_i_id' => $applicantId));
-//        }
-//
-//        public function changeRead($applicantId)
-//        {
-//            return $this->dao->update($this->getTable_JobsApplicants(), array('b_read' => 1), array('pk_i_id' => $applicantId));
-//        }
-//
-//        public function changeUnread($applicantID)
-//        {
-//            return $this->dao->update($this->getTable_JobsApplicants(), array('b_read' => 0), array('pk_i_id' => $applicantID));
-//        }
-//
-//        public function changeSecret($fileId)
-//        {
-//            return $this->dao->update($this->getTable_JobsFiles(), array('s_secret' => osc_genRandomPassword(12), 'dt_secret_date' => date("Y-m-d H:i:s")), array('pk_i_id' => $fileId));
-//        }
+
+        /**
+         * Return score or rejected if any answer discards the applicant
+         */
+        public function calculatePunctuationOfApplicant($applicantId)
+        {
+            $this->dao->select();
+            $this->dao->from($this->getTable_KillerFormResults());
+            $this->dao->join($this->getTable_Answer(), $this->getTable_Answer().'.pk_i_id = '.$this->getTable_KillerFormResults().'.fk_i_answer_id', 'LEFT');
+            $this->dao->where('fk_i_applicant_id', $applicantId);
+            $result = $this->dao->get();
+
+            if($result===false) {
+                return array();
+            }
+            $result = $result->result();
+
+            // calculate score.
+            $rejected       = false;
+            $maxPunctuation = 10;
+            $scoreAcumulate = 0;
+            $numQuestions   = count($result);
+            foreach($result as $aux) {
+                // s_punctuation
+                $aux_punctuation = $aux['s_punctuation'];
+                if($aux_punctuation=='reject') {
+                    ModelJB::newInstance()->changeStatus($applicantId, 2);
+                    $rejected = true;
+                } else if( is_numeric($aux_punctuation) ){
+                    $scoreAcumulate += $aux_punctuation;
+                }
+            }
+
+            $score = ($maxPunctuation * $scoreAcumulate) / ($numQuestions*$maxPunctuation);
+
+            // save punctuation on t_item_job_applicant + update status if $rejected == true
+            ModelJB::newInstance()->changeScore($applicantId, $score);
+
+            return $score;
+        }
     }
     // end file
 ?>

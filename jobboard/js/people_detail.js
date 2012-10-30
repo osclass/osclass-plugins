@@ -147,4 +147,22 @@ $(document).ready(function() {
             );
         }
     });
+
+    $('select.answer_punctuation').change(function(){
+        var killerFormId = $(this).attr('data-killerform-id');
+        var applicantId  = $(this).attr('data-applicant-id');
+        var questionId   = $(this).attr('data-question-id');
+        var punctuation  = $(this).find('option:selected').attr('value');
+        $.getJSON(jobboard.ajax_answer_punctuation,
+            {
+                "killerFormId" : killerFormId,
+                "applicantId" : applicantId,
+                "questionId"  : questionId,
+                "punctuation" : punctuation
+            },
+            function(data){}
+        );
+
+    });
+
 });
