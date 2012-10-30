@@ -113,6 +113,12 @@
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttrDescription());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttr());
             $this->dao->query('DROP TABLE '. ModelKQ::newInstance()->getTable_KillerForm());
+
+            $page = Page::newInstance()->findByInternalName('email_resumes_jobboard');
+            if(isset($page['pk_i_id'])) {
+                $res = Page::newInstance()->deleteByPrimaryKey($page['pk_i_id']);
+            }
+
         }
 
         /**
@@ -602,6 +608,25 @@
 
             return $result->row();
         }
+
+        /**
+         * Get all the applicants
+         *
+         * @return array
+         */
+        public function getAllApplicants() {
+
+            $this->dao->select();
+            $this->dao->from($this->getTable_JobsApplicants());
+
+            $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+
+            return $result->result();
+        }
+
         /**
          * Get applicant's CV
          *

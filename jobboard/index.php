@@ -3,7 +3,7 @@
 Plugin Name: Job Board
 Plugin URI: http://www.osclass.org/
 Description: Job Board
-Version: 1.2
+Version: 1.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobboard_plugin
@@ -66,6 +66,20 @@ function jobboard_update_version() {
 
         osc_reset_preferences();
     }
+
+
+    if( $version < 140) {
+        osc_set_preference('version', 140, 'jobboard_plugin', 'INTEGER');
+        $description = array();
+        $description[osc_language()]['s_title'] = __('{WEB_TITLE} - Download all the resumes of your applicants', 'jobboard');
+        $description[osc_language()]['s_text'] = __('<p>Hi {CONTACT_NAME}!</p><p>We just finished packaging all the resumes of your applicants on {WEB_TITLE}.</p><p>Click on the links below to download the packages:</p><p>{RESUME_LIST}</p><p>Thanks</p>', 'jobboard');
+        Page::newInstance()->insert(
+            array('s_internal_name' => 'email_resumes_jobboard', 'b_indelible' => '1', 's_meta' => ''),
+            $description
+            );
+
+    }
+
 }
 osc_add_hook('init', 'jobboard_update_version');
 
@@ -642,7 +656,7 @@ function job_delete_item($item_id) {
     ModelJB::newInstance()->deleteItem($item_id);
 }
 
-function jobboard_admin_menu() {
+function jobboard_admin_admin_item_select() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='') { ?>
         <script type="text/javascript">
             $(document).ready(function(){
@@ -662,7 +676,7 @@ function jobboard_admin_menu() {
         </script>
     <?php }
 }
-osc_add_hook('admin_header','jobboard_admin_menu');
+osc_add_hook('admin_header','jobboard_admin_item_select');
 
 function jobboard_duplicate_job() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
@@ -728,38 +742,6 @@ function jobboard_people_title($string){
     }
     return $string;
 }
-
-osc_add_admin_menu_page(
-    __('Jobboard', 'jobboard'),
-    '#',
-    'jobboard',
-    'moderator'
-);
-
-osc_add_admin_submenu_page(
-    'jobboard',
-    __('Dashboard', 'jobboard'),
-    osc_admin_render_plugin_url("jobboard/dashboard.php"),
-    'jobboard_dash',
-    'moderator'
-);
-
-osc_add_admin_submenu_page(
-    'jobboard',
-    __('Applicants', 'jobboard'),
-    osc_admin_render_plugin_url("jobboard/people.php"),
-    'jobboard_people',
-    'moderator'
-);
-
-// killer questions menu
-osc_add_admin_submenu_page(
-    'jobboard',
-    __('Killer Questions', 'jobboard'),
-    osc_admin_render_plugin_url("jobboard/manage_killer.php"),
-    'jobboard_killer',
-    'moderator'
-);
 
 function jobboard_rating($applicantId, $rating = 0) {
     $str = '<span class="rating" id="rating_'.$applicantId.'" rating="'.$rating.'">';
@@ -1134,6 +1116,14 @@ function default_settings_jobboard() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
         Session::newInstance()->_setForm('contactName', osc_page_title());
         Session::newInstance()->_setForm('contactEmail', osc_contact_email());
+
+        Session::newInstance()->_setForm('country', osc_get_preference('country', 'jobboard'));
+        Session::newInstance()->_setForm('countryId', osc_get_preference('countryId', 'jobboard'));
+        Session::newInstance()->_setForm('region', osc_get_preference('region', 'jobboard'));
+        Session::newInstance()->_setForm('regionId', osc_get_preference('regionId', 'jobboard'));
+        Session::newInstance()->_setForm('city', osc_get_preference('city', 'jobboard'));
+        Session::newInstance()->_setForm('cityId', osc_get_preference('cityId', 'jobboard'));
+
     }
 }
 osc_add_hook('init_admin', 'default_settings_jobboard');
@@ -1161,6 +1151,8 @@ function jobboard_titles($title) {
                 $peopleId = Params::getParam('people');
                 $people = ModelJB::newInstance()->getApplicant($peopleId);
                 $title = preg_replace('|^(.*)&raquo;|', sprintf(__('%s &raquo; Applicants', 'jobboard'), $people['s_name']).' &raquo;', $title);
+            } else if($file=='jobboard/resume_download.php') {
+                $title = preg_replace('|^(.*)&raquo;|', __('Download resumes','jobboard').' &raquo;', $title);
             }
             break;
         default:
@@ -1212,6 +1204,9 @@ function jobboard_dashboard_title($string){
     if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/dashboard.php'){
         $string = __('Dashboard', 'jobboard');
     }
+    if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/resume_download.php'){
+        $string = __('Download resumes', 'jobboard');
+    }
     if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/people.php'){
         $string = __('Applicants', 'jobboard') . '<a href="#" class="btn ico ico-32 ico-help float-right"></a>';
     }
@@ -1242,4 +1237,50 @@ $subdomain = $a1.".".$a2;
 if( $subdomain == 'osclass.com') {
     osc_add_hook('init', 'jobboard_set_domain_linkedin');
 }
+
+
+
+osc_add_admin_menu_page(
+    __('Jobboard', 'jobboard'),
+    '#',
+    'jobboard',
+    'moderator'
+);
+
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Dashboard', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/dashboard.php"),
+    'jobboard_dash',
+    'moderator'
+);
+
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Applicants', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/people.php"),
+    'jobboard_people',
+    'moderator'
+);
+
+// killer questions menu
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Killer Questions', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/manage_killer.php"),
+    'jobboard_killer',
+    'moderator'
+);
+
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Default locations', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/admin/settings.php"),
+    'jobboard_resumedownload',
+    'moderator'
+);
+
+
+
+
 ?>
