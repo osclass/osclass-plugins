@@ -50,7 +50,7 @@
 
         function log_confirm_delete_job($jobID)
         {
-            ModelLogJB::newInstance()->confirmDelete('jobboard_pending', 'deletejob', $jobId, 'jobboard');
+            ModelLogJB::newInstance()->confirmDelete('jobboard_pending', 'deletejob', $jobID, 'jobboard');
         }
 
         function log_new_applicant($applicantID, $jobID)
