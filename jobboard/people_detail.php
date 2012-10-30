@@ -5,19 +5,41 @@
 
     $applicantId = Params::getParam("people");
 
-    $mjb = ModelJB::newInstance();
+    $mjb    = ModelJB::newInstance();
     $people = $mjb->getApplicant($applicantId);
 
-    $file = $mjb->getCVFromApplicant($applicantId);
+    $file   = $mjb->getCVFromApplicant($applicantId);
     ModelJB::newInstance()->changeSecret($file['pk_i_id']);
-    $file = $mjb->getCVFromApplicant($applicantId);
-    $notes = $mjb->getNotesFromApplicant($applicantId);
+    $file   = $mjb->getCVFromApplicant($applicantId);
+    $notes  = $mjb->getNotesFromApplicant($applicantId);
 
     $job = Item::newInstance()->findByPrimaryKey($people['fk_i_item_id']);
 
     if($people['b_read']==0) {
         ModelJB::newInstance()->changeRead($applicantId);
     }
+
+    // get killer questions ...
+    $jobInfo        = $mjb->getJobsAttrByItemId($people['fk_i_item_id']);
+    $killer_form_id = $jobInfo['fk_i_killer_form_id'];
+    $aQuestions     = array();
+    $acomulateScore = 0;
+    $aKillerForm    = ModelKQ::newInstance()->getKillerForm($killer_form_id);
+    if(is_array($aKillerForm) && !empty($aKillerForm)) {
+        // get killer form information ...
+        $aQuestions = ModelKQ::newInstance()->getKillerQuestion($killer_form_id);
+        $aAnswers   = ModelKQ::newInstance()->getResultsByApplicant($applicantId);
+
+        foreach($aAnswers as $key => $_aux) {
+            if(is_numeric( @$_aux['s_punctuation'] )){
+                $acomulateScore += @$_aux['s_punctuation'];
+            }
+        }
+    }
+
+    $maxPunctuation = count($aAnswers)*10;
+    $score          = $people['d_score'];
+
 ?>
 <div id="applicant-detail">
     <span><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" ><?php _e('Applicants', 'jobboard'); ?></a> &raquo; <?php echo @$people['s_name']; ?></span>
@@ -110,7 +132,76 @@
             <?php } ?>
         </div>
     </div>
+
+    <h3 class="sidebar-title render-title" style="display:inline-block;">
+        <?php _e("Killer questions", "jobboard"); ?> <?php echo $acomulateScore.'/'.$maxPunctuation;?>
+    </h3>
+    <div style="clear:both;"></div>
+    <div id="killer_questions_applicant" style="margin-top:15px;">
+        <div id="kq_table_div">
+            <?php if(count($aQuestions)>0) { ?>
+            <div id="killerquestions">
+                <?php foreach($aQuestions['questions'] as $key => $q) { ?>
+                <div id="question_<?php echo $q['pk_i_id'];?>" data-id="<?php echo $q['pk_i_id'];?>" class="well" style="margin-bottom: 15px;">
+                    <label style="float:right;">
+                        <?php if(@$aAnswers[$q['pk_i_id']]['s_punctuation']!=''){ ?>
+                        <i class="circle circle-red" style="position: relative;top: 6px;padding-right: 4px;padding-left: 4px;"><?php echo @$aAnswers[$q['pk_i_id']]['s_punctuation'];?></i>
+                        <?php } ?>
+                        <?php _e('Question', 'jobboard'); ?> <?php echo $key;?>
+                    </label>
+                    <p><?php echo $q['s_text'];?></p>
+                    <?php if($q['a_answers']!==false){ ?>
+                    <p>
+                        <ol style="padding-left:0px;">
+                            <?php foreach($q['a_answers'] as $key_ => $a){ ?>
+                            <li>
+                                <?php $b_answer = @$aAnswers[$q['pk_i_id']]['fk_i_answer_id'] == $a['pk_i_id'];
+                                if($b_answer) { ?>
+                                <i class="circle circle-green" style="width: 25px;position: relative;top: 6px;">&#10142;</i>
+                                <?php } else { ?>
+                                <i style="width: 29px;display: inline-block;"></i>
+                                <?php } ?>
+                                <span class="input-large"><?php echo osc_esc_html($a['s_text']);?></span>
+                                <span style="display:inline-block;">
+                                    <i class="circle circle-<?php if($b_answer) { echo "red";} else {echo "gray";}?>" style="position: relative;top: 6px;padding-right: 4px;padding-left: 4px;"> <?php echo $a['s_punctuation'];?> </i>
+                                </span>
+                            </li>
+                            <?php } ?>
+                        </ol>
+                    </p>
+                    <?php } else { // opened answer
+                        // get punctuation of open question ! -> $default
+                        $default = $aAnswers[$q['pk_i_id']]['s_punctuation'];
+                        ?>
+                    <p>
+                        <i class="circle circle-green" style="width: 25px;position: relative;top: 6px;">&#10142;</i>
+                        <textarea class="required" name="question[<?php echo $q['pk_i_id']; ?>][open]"><?php echo osc_esc_html(@$aAnswers[$q['pk_i_id']]['s_answer_opened']); ?></textarea>
+                        <select class="answer_punctuation" data-question-id="<?php echo $q['pk_i_id'];?>"
+                                data-killerform-id="<?php echo @$aAnswers[$q['pk_i_id']]['fk_i_killer_form_id']; ?>"
+                                data-applicant-id="<?php echo @$aAnswers[$q['pk_i_id']]['fk_i_applicant_id']; ?>">
+                            <option value="" <?php if($default==''){ echo 'selected'; } ?>><?php _e('Punctuation', 'jobboard'); ?></option>
+                            <option value="10" <?php if($default=='10'){ echo 'selected'; } ?>>10</option>
+                            <option value="9" <?php if($default=='9'){ echo 'selected'; } ?>>9</option>
+                            <option value="8" <?php if($default=='8'){ echo 'selected'; } ?>>8</option>
+                            <option value="7" <?php if($default=='7'){ echo 'selected'; } ?>>7</option>
+                            <option value="6" <?php if($default=='6'){ echo 'selected'; } ?>>6</option>
+                            <option value="5" <?php if($default=='5'){ echo 'selected'; } ?>>5</option>
+                            <option value="4" <?php if($default=='4'){ echo 'selected'; } ?>>4</option>
+                            <option value="3" <?php if($default=='3'){ echo 'selected'; } ?>>3</option>
+                            <option value="2" <?php if($default=='2'){ echo 'selected'; } ?>>2</option>
+                            <option value="1" <?php if($default=='1'){ echo 'selected'; } ?>>1</option>
+                            <option value="reject" <?php if($default=='reject'){ echo 'selected'; } ?>><?php _e('Reject', 'jobboard'); ?></option>
+                        </select>
+                    </p>
+                    <?php }  ?>
+                </div>
+                <?php } ?>
+            </div>
+            <?php } ?>
+        </div>
+    </div>
 </div>
+
 <div id="dialog-note-delete" title="<?php echo osc_esc_html(__('Delete note', 'jobboard')); ?>" class="has-form-actions hide" data-note-id="">
     <div class="form-horizontal">
         <div class="form-row">

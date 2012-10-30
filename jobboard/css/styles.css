@@ -34,7 +34,7 @@ body.compact .current #jobboard .ico{
 .search-filter .grid-row {
     margin-bottom: 15px;
 }
-.applicant-shortcuts {
+.killer-shortcuts, .applicant-shortcuts {
     margin-bottom: 15px;
 }
 ul.shortcuts{
@@ -69,7 +69,7 @@ ul.shortcuts li a:hover{
 .job-detail table label { font-weight: bold; }
 .job-detail > div { margin-top: 5px; }
 .job-detail > div > label { font-weight: bold; }
-.resumes td.applicant a {
+.killer td.killer a ,.resumes td.applicant a {
     float: left;
 }
 .table td .note {
@@ -94,4 +94,48 @@ ul.shortcuts li a:hover{
     text-align: center;
     display: inline-block;
     width: 100%;
+}
+
+#killerquestions ol {
+/*    list-style: decimal;  */
+}
+
+#killerquestions .question,
+#killerquestions .new_question {
+    padding: 15px;
+    padding-bottom: 5px;
+}
+
+#killerquestions ol li a.delete_answer,
+#killerquestions div a.delete_question_ico,
+#killerquestions div a.delete_question {
+    position: relative;
+    top: 5px;
+    background-image: url(../img/remove.png);
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}
+
+#killerquestions .new_question label,
+#killerquestions .question label{
+    display: block;
+    padding-bottom: 10px;
+}
+
+#killerquestionsForm input.submit {
+    margin-top:15px;
+}
+#killerquestionsForm .addAnswers,
+#killerquestionsForm .removeAnswers {
+    float:none;
+    padding-top: 5px;
+    padding-bottom: 7px;
+}
+span.input-large {
+    display: inline-block;
+    width: 550px;
+    background-color: white;
+    padding: 3px;
+    border: 1px solid black;
 }

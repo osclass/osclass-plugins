@@ -12,6 +12,7 @@ Plugin update URI: job-board
 
 define('JOBBOARD_PATH', dirname(__FILE__) . '/') ;
 require_once(JOBBOARD_PATH . 'model/ModelJB.php');
+require_once(JOBBOARD_PATH . 'model/ModelKQ.php');
 require_once(JOBBOARD_PATH . 'model/ModelLogJB.php');
 // require_once(JOBBOARD_PATH . 'model/ModelKQ.php');            // killer questions¡
 require_once(JOBBOARD_PATH . 'helpers.php');
@@ -57,12 +58,15 @@ function jobboard_update_version() {
         ModelJB::newInstance()->import('jobboard/struct.sql');
 
         osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
+        osc_set_preference('max_killer_questions', 10, 'jobboard_plugin', 'INTEGER');
+        osc_set_preference('max_answers', 5, 'jobboard_plugin', 'INTEGER');
         $conn      = DBConnectionClass::newInstance();
         $data      = $conn->getOsclassDb();
         $dbCommand = new DBCommandClass($data);
 
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_id INT UNSIGNED DEFAULT NULL AFTER s_salary_text', ModelJB::newInstance()->getTable_JobsAttr()));
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_result_id INT UNSIGNED DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN d_score DECIMAL(4,2) NULL DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
 
         osc_reset_preferences();
     }*/
@@ -142,6 +146,17 @@ function ajax_rating_request() {
     }
 }
 osc_add_hook('ajax_admin_jobboard_rating', 'ajax_rating_request');
+
+function ajax_answer_punctuation() {
+    // update punctuation of << open question >>
+    $result = ModelKQ::newInstance()->updatePunctuationQuestionResult(Params::getParam('killerFormId'), Params::getParam('applicantId'), Params::getParam('questionId'), Params::getParam('punctuation'));
+    if( ($result !== false) && ($result > 0) ) {
+        echo '1';
+    } else {
+        echo '0';
+    }
+}
+osc_add_hook('ajax_admin_jobboard_answer_puntuation', 'ajax_answer_punctuation');
 
 function ajax_applicant_status() {
     $result = ModelJB::newInstance()->changeStatus(Params::getParam("applicantId"), Params::getParam("status"));
@@ -290,6 +305,16 @@ function ajax_note_delete() {
     }
 }
 osc_add_hook('ajax_admin_note_delete', 'ajax_note_delete');
+
+function ajax_question_delete() {
+    $result = ModelKQ::newInstance()->removeQuestionsToKillerForm(Params::getParam('killerFormId'), Params::getParam('questionId'));
+    if( ($result !== false) && ($result > 0) ) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+osc_add_hook('ajax_admin_question_delete', 'ajax_question_delete');
 /* /AJAX */
 
 /* FORM JOB BOARD */
@@ -312,12 +337,25 @@ function jobboard_form($catID = null) {
     $detail = get_jobboard_session_variables($detail);
 
     require_once(JOBBOARD_PATH . 'item_edit.php');
+    require_once(JOBBOARD_PATH . 'item_edit_killer_questions.php');
     Session::newInstance()->_clearVariables();
 }
 osc_add_hook('item_form', 'jobboard_form');
 
 function jobboard_form_post($catID = null, $itemID = null)  {
-    ModelJB::newInstance()->insertJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText') );
+    // add killer questions form
+    $killerFormId = '';
+    $aDataKiller = getParamsKillerForm_insert();
+    // if have questions ... create killer form
+    if(count($aDataKiller)>0) {
+        error_log('tring to add new killer form and questions ... ');
+        $title = "killer_questions_job_".$itemID;
+        $killerFormId = ModelKQ::newInstance()->insertKillerForm($title);
+        _insertKillerQuestions($killerFormId, $aDataKiller);
+        // update JobsAttr with killer form id
+
+    }
+    ModelJB::newInstance()->insertJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), $killerFormId );
 
     // prepare locales
     $dataItem = array();
@@ -356,12 +394,13 @@ function jobboard_item_edit($catID = null, $itemID = null) {
     $detail = get_jobboard_session_variables($detail);
 
     require_once(JOBBOARD_PATH . 'item_edit.php');
+    require_once(JOBBOARD_PATH . 'item_edit_killer_questions.php');
     Session::newInstance()->_clearVariables();
 }
 osc_add_hook('item_edit', 'jobboard_item_edit');
 
 function jobboard_item_edit_post($catID = null, $itemID = null) {
-    ModelJB::newInstance()->replaceJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'));
+    ModelJB::newInstance()->replaceJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('killer_questions_form') );
 
     // prepare locales
     $dataItem = array();
@@ -429,6 +468,15 @@ function job_item_detail() {
     require_once(JOBBOARD_PATH . 'item_detail.php');
 }
 
+function job_add_killer_question_form( $jobId ) {
+    $job = ModelJB::newInstance()->getJobsAttrByItemId($jobId);
+    if(@$job['fk_i_killer_form_id']!='') {
+        $aQuestions = ModelKQ::newInstance()->getKillerQuestion($job['fk_i_killer_form_id']);
+        require_once(JOBBOARD_PATH . 'item_detail_killer_questions.php');
+    }
+}
+osc_add_hook('item_contact_form', 'job_add_killer_question_form', 6);
+
 function job_linkedin() {
     require_once(JOBBOARD_PATH . 'linkedinApply.php');
 }
@@ -475,52 +523,89 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     $cover  = Params::getParam('message');
     $phone  = Params::getParam('phoneNumber');
     $aCV    = Params::getFiles('attachment');
+
+    // get killer form id
+    $killerFormId = Params::getParam('killerFormId');
+
     // GET EXTRA PARMAS
     // check fields
-    if( $name === '' ) {
-        osc_add_flash_error_message(__("Name is required", 'jobboard'));
-        _save_jobboard_contact_listing();
-        header('Location: ' . $url); die;
-    }
-    if( $email === '' ) {
-        osc_add_flash_error_message(__("Email is required", 'jobboard'));
-        _save_jobboard_contact_listing();
-        header('Location: ' . $url); die;
-    }
-    if( $birth === '' ) {
-        osc_add_flash_error_message(__("Birthday is required", 'jobboard'));
-        _save_jobboard_contact_listing();
-        header('Location: ' . $url); die;
-    } else {
-        // check date format & convert date to mysql date format
-        // we recive mm/dd/yyyy id valid ?
-        $aDate = explode('/', $birth);
-        $birth = date("Y-m-d", mktime(0,0,0,$aDate[0],$aDate[1],$aDate[2]) );
-        if($birth === false) {
-            osc_add_flash_error_message(__("Invalid birthday date", 'jobboard'));
+//    if( $name === '' ) {
+//        osc_add_flash_error_message(__("Name is required", 'jobboard'));
+//        _save_jobboard_contact_listing();
+//        header('Location: ' . $url); die;
+//    }
+//    if( $email === '' ) {
+//        osc_add_flash_error_message(__("Email is required", 'jobboard'));
+//        _save_jobboard_contact_listing();
+//        header('Location: ' . $url); die;
+//    }
+//    if( $birth === '' ) {
+//        osc_add_flash_error_message(__("Birthday is required", 'jobboard'));
+//        _save_jobboard_contact_listing();
+//        header('Location: ' . $url); die;
+//    } else {
+//        // check date format & convert date to mysql date format
+//        // we recive mm/dd/yyyy id valid ?
+//        $aDate = explode('/', $birth);
+//        $birth = date("Y-m-d", mktime(0,0,0,$aDate[0],$aDate[1],$aDate[2]) );
+//        if($birth === false) {
+//            osc_add_flash_error_message(__("Invalid birthday date", 'jobboard'));
+//            _save_jobboard_contact_listing();
+//            header('Location: ' . $url); die;
+//        }
+//    }
+//
+//    if( $sex === '' ) {
+//        osc_add_flash_error_message(__("Sex is required", 'jobboard'));
+//        _save_jobboard_contact_listing();
+//        header('Location: ' . $url); die;
+//    }
+//    if( $cover === '' ) {
+//        osc_add_flash_error_message(__("Cover is required", 'jobboard'));
+//        _save_jobboard_contact_listing();
+//        header('Location: ' . $url); die;
+//    }
+//    if( isset($aCV['name']) && $aCV['name'] === '' ) {
+//        osc_add_flash_error_message(__("CV is required", 'jobboard'));
+//        _save_jobboard_contact_listing();
+//        header('Location: ' . $url); die;
+//    }
+//    $s_source = '';
+//    if($source == 'linkedin') {
+//        $s_source = 'linkedinapply';
+//    }
+
+    // check fields  --  get killer question results
+    $aQuestionResults = array();
+    $error_required_questions = false;
+    if($killerFormId!='') {
+        // if there are killer questions all are required!
+        $aQuestionResults   = Params::getParam('question');
+        $aQuestionsId       = Params::getParam('questionsId');
+        // check if all questions have answer
+        $auxQuestionsId = array();
+        foreach($aQuestionsId as $key => $value) {
+            if(!key_exists($value, $aQuestionResults) ) {
+                $error_required_questions = true;
+            } else {
+                // check open questions ...
+                $auxValue = $aQuestionResults[$value];
+                if(is_array($auxValue)) {
+                    $a_open_answer = trim($auxValue['open']);
+                    if($a_open_answer=='') {
+                        $error_required_questions = true;
+                    }
+                } else if(is_null($auxValue) || empty($auxValue)) {
+                    $error_required_questions = true;
+                }
+            }
+        }
+        if($error_required_questions) {
+            // errors
+            osc_add_flash_error_message(__("All questions are required", 'jobboard'));
             _save_jobboard_contact_listing();
             header('Location: ' . $url); die;
         }
-    }
-
-    if( $sex === '' ) {
-        osc_add_flash_error_message(__("Sex is required", 'jobboard'));
-        _save_jobboard_contact_listing();
-        header('Location: ' . $url); die;
-    }
-    if( $cover === '' ) {
-        osc_add_flash_error_message(__("Cover is required", 'jobboard'));
-        _save_jobboard_contact_listing();
-        header('Location: ' . $url); die;
-    }
-    if( isset($aCV['name']) && $aCV['name'] === '' ) {
-        osc_add_flash_error_message(__("CV is required", 'jobboard'));
-        _save_jobboard_contact_listing();
-        header('Location: ' . $url); die;
-    }
-    $s_source = '';
-    if($source == 'linkedin') {
-        $s_source = 'linkedinapply';
     }
 
     // check: apply only once for each job offer
@@ -532,6 +617,7 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         header('Location: ' . $url); die;
     }
 
+    $s_source = '';
     if($source!='linkedin') {
         require osc_lib_path() . 'osclass/mimes.php';
 
@@ -600,6 +686,7 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
 
         if( $error_attachment ) {
             ModelJB::newInstance()->deleteApplicant($applicantID);
+            _save_jobboard_contact_listing();
             osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
             header('Location: ' . $url); die;
         }
@@ -617,6 +704,26 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         }
     }
 
+    // save killer question form results and save a temporal punctuation
+    if($killerFormId!='') {
+        // do stuff
+        foreach($aQuestionResults as $questionId => $q_answer) {
+            if( is_array($q_answer) && isset($q_answer['open']) ) {
+                ModelKQ::newInstance()->insertAnswerOpened($applicantID, $killerFormId, $questionId, $q_answer['open']);
+            } else {
+                ModelKQ::newInstance()->insertAnswerClosed($applicantID, $killerFormId, $questionId, $q_answer);
+            }
+        }
+        // evaluate killer questions form ...
+        $score = ModelKQ::newInstance()->calculatePunctuationOfApplicant($applicantID);
+        error_log(' Score => '. $score);
+        /*
+         * If answer punctuation is reject, update applicant status automatically
+         * Sum all answer punctuation and save it
+         */
+    }
+
+    // end
     $st = new Stream();
     $st->log_new_applicant($applicantID, $itemID);
 
@@ -631,6 +738,26 @@ function _save_jobboard_contact_listing() {
     // v 1.2
     Session::newInstance()->_setForm('birthday',     Params::getParam('birthday'));
     Session::newInstance()->_setForm('sex',          Params::getParam('sex'));
+
+    // v 1.3 - save killer questions
+    // get killer form id
+    $killerFormId = Params::getParam('killerFormId');
+
+    $aQuestionResults = array();
+    $error_required_questions = false;
+    if($killerFormId!='') {
+        // if there are killer questions all are required!
+        $aQuestionResults   = Params::getParam('question');
+
+        foreach($aQuestionResults as $questionId => $q_answer) {
+            if( is_array($q_answer) && isset($q_answer['open']) ) {
+                Session::newInstance()->_setForm('question['.$questionId.']', $q_answer['open']);
+            } else {
+                Session::newInstance()->_setForm('question['.$questionId.']', $q_answer );
+            }
+        }
+    }
+
 }
 /* /CONTACT */
 
@@ -1000,8 +1127,8 @@ osc_add_filter('current_admin_menu_corporateboard', 'applicant_admin_menu_curren
 osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.js', 'jquery');
 osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jquery.MetaData.js', 'jquery');
 osc_register_script('jobboard-people', osc_plugin_url(__FILE__) . 'js/people.js', 'jquery');
+osc_register_script('jobboard-killer-form', osc_plugin_url(__FILE__) . 'js/killerForm.js', 'jquery');
 osc_register_script('jobboard-people-detail', osc_plugin_url(__FILE__) . 'js/people_detail.js', 'jquery');
-// osc_register_script('jobboard-item-contact', osc_plugin_url(__FILE__) . 'js/item_contact.js', array('jquery', 'jquery-validate')); // REMOVEME
 osc_register_script('jobboard-dashboard', osc_plugin_url(__FILE__) . 'js/dashboard.js', array('jquery'));
 osc_register_script('jobboard-apply-linkedin', osc_plugin_url(__FILE__) . 'js/bridgeApplyLinkedin.js', array('jquery'));
 
@@ -1029,6 +1156,13 @@ function admin_assets_jobboard() {
             osc_enqueue_script('jobboard-people');
             osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
         break;
+        case('jobboard/killer_form_frm.php'):
+            osc_enqueue_script('jquery-validate');
+            osc_enqueue_script('jobboard-killer-form');
+        break;
+    }
+    if(Params::getParam('page')=='items') {
+        osc_enqueue_script('jobboard-killer-form');
     }
 }
 osc_add_hook('init_admin', 'admin_assets_jobboard');
@@ -1095,12 +1229,21 @@ function jobboard_init_js() {
     $langs['sex_required']      = __('Sex: this field is required', 'jobboard');
     $langs['birthday_required'] = __('Birthday: this field is required', 'jobboard');
     $langs['invalid_birthday_date'] = __('Invalid birthday date', 'jobboard');
-    $langs['complete_form_please'] = __('Complete this form', 'jobboard');
+    $langs['complete_form_please']  = __('Complete this form', 'jobboard');
+    // killer questions related
+    $langs['question']          = __('Question', 'jobboard');
+    $langs['answer']            = __('Answer', 'jobboard');
+    $langs['punctuation']       = __('Punctuation', 'jobboard');
+    $langs['reject']            = __('Reject', 'jobboard');
+    $langs['insertAnswersLink'] = __('Add answers', 'jobboard');
+    $langs['removeAnswersLink'] = __('Remove answers', 'jobboard');
+    $langs['title_msg_required'] = __('Form title cannot be empty', 'jobboard');
 
 ?>
 <script type="text/javascript">
     jobboard = {};
     jobboard.langs = <?php echo json_encode($langs); ?>;
+    jobboard.max_killer_questions = '<?php echo osc_get_preference('max_killer_questions', 'jobboard_plugin'); ?>';
     jobboard.ajax_rating = '<?php echo osc_admin_ajax_hook_url('jobboard_rating'); ?>';
     jobboard.ajax_applicant_status_notification = '<?php echo osc_admin_ajax_hook_url('applicant_status_notifitacion'); ?>';
     jobboard.ajax_applicant_status_message = '<?php echo osc_admin_ajax_hook_url('applicant_status_message'); ?>';
@@ -1109,10 +1252,19 @@ function jobboard_init_js() {
     jobboard.ajax_note_edit = '<?php echo osc_admin_ajax_hook_url('note_edit'); ?>';
     jobboard.ajax_note_delete = '<?php echo osc_admin_ajax_hook_url('note_delete'); ?>';
     jobboard.ajax_dismiss_tip = '<?php echo osc_admin_ajax_hook_url('dismiss_tip'); ?>';
+    jobboard.ajax_question_delete = '<?php echo osc_admin_ajax_hook_url('question_delete'); ?>';
+    jobboard.ajax_answer_punctuation = '<?php echo osc_admin_ajax_hook_url('jobboard_answer_puntuation'); ?>';
 </script>
 <?php }
 osc_add_hook('admin_header', 'jobboard_init_js', 1);
 osc_add_hook('header', 'jobboard_init_js', 1);
+
+function job_killer_style()
+{
+    osc_enqueue_style('killer-questions', osc_plugin_url(__FILE__) . 'css/killer_questions.css');
+}
+osc_add_hook('header', 'job_killer_style');
+
 
 function default_settings_jobboard() {
     // always active osc_item_attachment
@@ -1186,7 +1338,6 @@ function jobboard_customPageHeader_vacancies_post() { ?>
 }
 function corporateboard_remove_title_header(){
     osc_remove_hook('admin_page_header','customPageHeader');
-
 }
 if(Params::getParam('page') == 'items'){
     osc_add_hook('admin_header','corporateboard_remove_title_header');
@@ -1219,7 +1370,7 @@ function jobboard_dashboard_title($string){
 }
 /* /H1 titles */
 
-osc_add_hook('admin_items_table','job_items_table_header');
+osc_add_hook('admin_items_table', 'job_items_table_header');
 osc_add_filter("items_processing_row", "job_items_row");
 
 /**
@@ -1241,5 +1392,138 @@ $subdomain = $a1.".".$a2;
 
 if( $subdomain == 'osclass.com') {
     osc_add_hook('init', 'jobboard_set_domain_linkedin');
+}
+
+
+/**
+ * Used by exting questions-answers
+ *
+ * @param type $questionId
+ * @param type $answerId
+ * @param type $default
+ */
+
+function _punctuationSelect_insert( $questionId, $answerId, $default = '') {
+    _punctuationSelect(true , $questionId, $answerId, $default);
+}
+function _punctuationSelect_update( $questionId, $answerId, $default = '') {
+    _punctuationSelect(false, $questionId, $answerId, $default);
+}
+function _punctuationSelect($new, $questionId, $answerId, $default = '') {
+    $aux = 'answer_punct';
+    if($new) {
+        $aux = 'new_answer_punct';
+    }
+    ?>
+    <select name="question[<?php echo $questionId;?>][<?php echo $aux;?>][<?php echo $answerId;?>]">
+        <option value="" <?php if($default==''){ echo 'selected'; } ?>><?php _e('Punctuation', 'jobboard'); ?></option>
+        <option value="10" <?php if($default=='10'){ echo 'selected'; } ?>>10</option>
+        <option value="9" <?php if($default=='9'){ echo 'selected'; } ?>>9</option>
+        <option value="8" <?php if($default=='8'){ echo 'selected'; } ?>>8</option>
+        <option value="7" <?php if($default=='7'){ echo 'selected'; } ?>>7</option>
+        <option value="6" <?php if($default=='6'){ echo 'selected'; } ?>>6</option>
+        <option value="5" <?php if($default=='5'){ echo 'selected'; } ?>>5</option>
+        <option value="4" <?php if($default=='4'){ echo 'selected'; } ?>>4</option>
+        <option value="3" <?php if($default=='3'){ echo 'selected'; } ?>>3</option>
+        <option value="2" <?php if($default=='2'){ echo 'selected'; } ?>>2</option>
+        <option value="1" <?php if($default=='1'){ echo 'selected'; } ?>>1</option>
+        <option value="reject" <?php if($default=='reject'){ echo 'selected'; } ?>><?php _e('Reject', 'jobboard'); ?></option>
+    </select>
+    <?php
+}
+
+//  --- killer questions
+// functions
+function getParamsKillerForm_insert() {
+    return getParamsKillerForm(true);
+}
+function getParamsKillerForm_update() {
+    return getParamsKillerForm(false);
+}
+function getParamsKillerForm($new = false) {
+
+    $aQuestions = array();
+    $max_answer = osc_get_preference('max_answers', 'jobboard_plugin');
+    $questions = array();
+    if($new) {
+        error_log('new_question');
+        $questions  = Params::getParam('new_question');
+    } else {
+        error_log('question');
+        $questions  = Params::getParam('question');
+    }
+
+    if(is_array($questions) && !empty($questions) ) {
+        foreach($questions as $key => $q) {
+            $s_question = $q['question'];
+            if($s_question!='') {
+                // update / insert (when question is not created) ---------/
+                $old_answer         = @$q['answer'];
+                $old_answer_punct   = @$q['answer_punct'];
+                $aOldAnswer         = array();
+                $aRemoveAnswer      = array();
+                if(is_array($old_answer) && !empty($old_answer)) {
+                    foreach($old_answer as $_key => $_a) {
+                        if($_a!='') { // add answer only if is not empty
+                            $aOldAnswer[$_key]['id']     = $_key;  // answer_id
+                            $aOldAnswer[$_key]['text']   = $_a;
+                            $aOldAnswer[$_key]['punct']  = $old_answer_punct[$_key];
+                        } else {
+                            $aRemoveAnswer[$_key]['id'] = $_key;
+                        }
+                    }
+                }
+                // insert --------------------------------------------------/
+                $new_answer         = @$q['new_answer'];
+                $new_answer_punct   = @$q['new_answer_punct'];
+                $aNewAnswer         = array();
+                if(is_array($new_answer) && !empty($new_answer)) {
+                    foreach($new_answer as $_key => $_a) {
+                        if($_a!='') { // add answer only if is not empty
+                            $aNewAnswer[$_key]['text']  = $_a;
+                            $aNewAnswer[$_key]['punct'] = $new_answer_punct[$_key];
+                        }
+                    }
+                }
+                // ---------------------------------------------------------/
+                $aQuestions[$key]['question']   = $s_question;
+                $aQuestions[$key]['answer']     = $aOldAnswer;
+                $aQuestions[$key]['new_answer'] = $aNewAnswer;
+                $aQuestions[$key]['remove']     = $aRemoveAnswer;
+            } // question empty
+        }
+    }
+    return $aQuestions;
+}
+
+function _insertKillerQuestions($killerFormId, $aQuestions) {
+    $error = false;
+    foreach($aQuestions as $key => $q) {
+        $id = -1;
+        if($q['answer']===array()) { // opened question
+            $id = ModelKQ::newInstance()->insertQuestion($q['question'], 'OPENED');
+        } else {                    // closed question
+            $id = ModelKQ::newInstance()->insertQuestion($q['question'], 'CLOSED');
+            if( $id!==false && is_numeric($id) ) {
+                // insert answers
+                $aAnswers = $q['answer'];
+                foreach($aAnswers as $key_ => $a) {
+                    $answer_id = ModelKQ::newInstance()->insertAnswer($id, $a['text'], $a['punct']);
+                }
+            } else {
+                // error occurs
+                $error = true;
+            }
+        }
+        ModelKQ::newInstance()->addQuestionsToKillerForm($killerFormId, $id, $key);
+    }
+
+    if(!$error) {
+        osc_add_flash_ok_message(__('Killer question form added correctly', 'jobboard'), 'admin');
+        return true;
+    } else {
+        osc_add_flash_message(__('Error adding Killer question form', 'jobboard'), 'admin');
+        return false;
+    }
 }
 ?>
