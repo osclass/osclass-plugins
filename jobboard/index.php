@@ -656,7 +656,7 @@ function job_delete_item($item_id) {
     ModelJB::newInstance()->deleteItem($item_id);
 }
 
-function jobboard_admin_menu() {
+function jobboard_admin_admin_item_select() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='') { ?>
         <script type="text/javascript">
             $(document).ready(function(){
@@ -676,7 +676,7 @@ function jobboard_admin_menu() {
         </script>
     <?php }
 }
-osc_add_hook('admin_header','jobboard_admin_menu');
+osc_add_hook('admin_header','jobboard_admin_item_select');
 
 function jobboard_duplicate_job() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
@@ -742,46 +742,6 @@ function jobboard_people_title($string){
     }
     return $string;
 }
-
-osc_add_admin_menu_page(
-    __('Jobboard', 'jobboard'),
-    '#',
-    'jobboard',
-    'moderator'
-);
-
-osc_add_admin_submenu_page(
-    'jobboard',
-    __('Dashboard', 'jobboard'),
-    osc_admin_render_plugin_url("jobboard/dashboard.php"),
-    'jobboard_dash',
-    'moderator'
-);
-
-osc_add_admin_submenu_page(
-    'jobboard',
-    __('Applicants', 'jobboard'),
-    osc_admin_render_plugin_url("jobboard/people.php"),
-    'jobboard_people',
-    'moderator'
-);
-
-// killer questions menu
-osc_add_admin_submenu_page(
-    'jobboard',
-    __('Killer Questions', 'jobboard'),
-    osc_admin_render_plugin_url("jobboard/manage_killer.php"),
-    'jobboard_killer',
-    'moderator'
-);
-
-osc_add_admin_submenu_page(
-    'jobboard',
-    __('Download resumes', 'jobboard'),
-    osc_admin_render_plugin_url("jobboard/resume_download.php"),
-    'jobboard_resumedownload',
-    'moderator'
-);
 
 function jobboard_rating($applicantId, $rating = 0) {
     $str = '<span class="rating" id="rating_'.$applicantId.'" rating="'.$rating.'">';
@@ -1269,5 +1229,50 @@ $subdomain = $a1.".".$a2;
 if( $subdomain == 'osclass.com') {
     osc_add_hook('init', 'jobboard_set_domain_linkedin');
 }
+
+
+
+osc_add_admin_menu_page(
+    __('Jobboard', 'jobboard'),
+    '#',
+    'jobboard',
+    'moderator'
+);
+
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Dashboard', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/dashboard.php"),
+    'jobboard_dash',
+    'moderator'
+);
+
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Applicants', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/people.php"),
+    'jobboard_people',
+    'moderator'
+);
+
+// killer questions menu
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Killer Questions', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/manage_killer.php"),
+    'jobboard_killer',
+    'moderator'
+);
+
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Download resumes', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/resume_download.php"),
+    'jobboard_resumedownload',
+    'moderator'
+);
+
+
+
 
 ?>
