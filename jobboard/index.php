@@ -1116,6 +1116,14 @@ function default_settings_jobboard() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
         Session::newInstance()->_setForm('contactName', osc_page_title());
         Session::newInstance()->_setForm('contactEmail', osc_contact_email());
+
+        Session::newInstance()->_setForm('country', osc_get_preference('country', 'jobboard'));
+        Session::newInstance()->_setForm('countryId', osc_get_preference('countryId', 'jobboard'));
+        Session::newInstance()->_setForm('region', osc_get_preference('region', 'jobboard'));
+        Session::newInstance()->_setForm('regionId', osc_get_preference('regionId', 'jobboard'));
+        Session::newInstance()->_setForm('city', osc_get_preference('city', 'jobboard'));
+        Session::newInstance()->_setForm('cityId', osc_get_preference('cityId', 'jobboard'));
+
     }
 }
 osc_add_hook('init_admin', 'default_settings_jobboard');
@@ -1266,8 +1274,8 @@ osc_add_admin_submenu_page(
 
 osc_add_admin_submenu_page(
     'jobboard',
-    __('Download resumes', 'jobboard'),
-    osc_admin_render_plugin_url("jobboard/resume_download.php"),
+    __('Default locations', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/admin/settings.php"),
     'jobboard_resumedownload',
     'moderator'
 );
