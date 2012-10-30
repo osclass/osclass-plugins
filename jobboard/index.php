@@ -352,8 +352,6 @@ function jobboard_form_post($catID = null, $itemID = null)  {
         $title = "killer_questions_job_".$itemID;
         $killerFormId = ModelKQ::newInstance()->insertKillerForm($title);
         _insertKillerQuestions($killerFormId, $aDataKiller);
-        // update JobsAttr with killer form id
-
     }
     ModelJB::newInstance()->insertJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), $killerFormId );
 
@@ -379,6 +377,9 @@ function jobboard_form_post($catID = null, $itemID = null)  {
     foreach ($dataItem as $k => $data) {
         ModelJB::newInstance()->insertJobsAttrDescription($itemID, $k, $data['desired_exp'], $data['studies'], $data['min_reqs'], $data['desired_reqs'], $data['contract']);
     }
+
+    // save itemId into session, this way can share on manage listings
+    Session::newInstance()->_set('jobboard_share_job', $itemID);
 }
 osc_add_hook('item_form_post', 'jobboard_form_post');
 
@@ -1108,6 +1109,7 @@ function help_jobboard_init() {
     }
 }
 osc_add_hook('init_admin', 'help_jobboard_init');
+
 function remove_help_core() {
     osc_remove_hook('help_box','addHelp');
 }
@@ -1215,6 +1217,11 @@ function jobboard_post_actions() {
             osc_enqueue_script('jquery-metadata');
             osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
         break;
+    }
+
+    // get from session jobboard_share_job
+    if(Session::newInstance()->_get('jobboard_share_job')!='' && is_numeric(Session::newInstance()->_get('jobboard_share_job'))) {
+        osc_add_hook('admin_footer', 'jobboard_show_share_job');
     }
 }
 osc_add_hook('init_admin', 'jobboard_post_actions');
@@ -1525,5 +1532,17 @@ function _insertKillerQuestions($killerFormId, $aQuestions) {
         osc_add_flash_message(__('Error adding Killer question form', 'jobboard'), 'admin');
         return false;
     }
+}
+
+function jobboard_show_share_job() {
+    $jobId = Session::newInstance()->_get('jobboard_share_job');
+    Session::newInstance()->_drop('jobboard_share_job');
+    ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        alert("Show Job share dialog, share job with id <?php echo $jobId;?>");
+    });
+</script>
+    <?php
 }
 ?>
