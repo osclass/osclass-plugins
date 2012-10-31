@@ -17,6 +17,9 @@
             <td><?php echo @$detail['s_salary_text']; ?></td>
         </tr>
         <?php } ?>
+        <tr>
+            <td><?php echo sprintf(_n('%s open position', '%s open positions', @$detail['i_num_positions']==''?1:$detail['i_num_positions'], 'jobboard'), @$detail['i_num_positions']==''?1:$detail['i_num_positions']); ?></td>
+        </tr>
     </table>
     <?php if(isset($detail['locale'][$locale]['s_desired_exp']) && $detail['locale'][$locale]['s_desired_exp']!='') { ?>
     <div>
