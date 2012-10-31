@@ -359,6 +359,9 @@ function jobboard_form_post($catID = null, $itemID = null)  {
     foreach ($dataItem as $k => $data) {
         ModelJB::newInstance()->insertJobsAttrDescription($itemID, $k, $data['desired_exp'], $data['studies'], $data['min_reqs'], $data['desired_reqs'], $data['contract']);
     }
+
+    jobboard_clear_session_variables();
+
 }
 osc_add_hook('item_form_post', 'jobboard_form_post');
 
@@ -403,6 +406,9 @@ function jobboard_item_edit_post($catID = null, $itemID = null) {
     foreach ($dataItem as $k => $data) {
         ModelJB::newInstance()->replaceJobsAttrDescriptions($itemID, $k, $data['desired_exp'], $data['studies'], $data['min_reqs'], $data['desired_reqs'], $data['contract']);
     }
+
+    jobboard_clear_session_variables();
+
 }
 osc_add_hook('item_edit_post', 'jobboard_item_edit_post');
 
@@ -884,6 +890,14 @@ function job_save_inputs_into_session() {
 }
 osc_add_hook('pre_item_post', 'job_pre_item_post') ;
 osc_add_hook('save_input_session', 'job_save_inputs_into_session' );
+
+
+function jobboard_clear_session_variables() {
+    Session::newInstance()->_dropKeepForm('pj_positionType');
+    Session::newInstance()->_dropKeepForm('pj_salaryText');
+    Session::newInstance()->_dropKeepForm('pj_numPositions');
+    Session::newInstance()->_dropKeepForm('pj_data');
+}
 
 // this is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'job_call_after_install');
