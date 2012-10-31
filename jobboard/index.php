@@ -21,6 +21,8 @@ require_once(JOBBOARD_PATH . 'class/Stream.class.php');
 function job_call_after_install() {
     ModelJB::newInstance()->import('jobboard/struct.sql');
 
+    osc_set_preference('max_killer_questions', 10, 'jobboard_plugin', 'INTEGER');
+    osc_set_preference('max_answers', 5, 'jobboard_plugin', 'INTEGER');
     osc_set_preference('upload_path', osc_content_path() . "uploads/", 'jobboard_plugin', 'STRING');
     osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
 }
