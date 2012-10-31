@@ -499,13 +499,13 @@
             if($conditions!=null) {
                 foreach($conditions as $k => $v) {
                     if($k=='title') {
-                        $cond[] = "title = '".$this->dao->connId->real_escape_string($v)."'";
+                        $cond[] = "s_title LIKE '%%".$this->dao->connId->real_escape_string($v)."%%'";
                     }
                 }
             }
             $cond_str = '';
             if(!empty($cond)) {
-                $cond_str = " AND ".implode(" AND ", $cond)." ";
+                $cond_str = implode(" AND ", $cond)." ";
             }
             // subselect n_questions
             $sub_select_nquestions = "(select count(*) from ".DB_TABLE_PREFIX."t_killer_form_questions as kfq where kf.pk_i_id = kfq.fk_i_killer_form_id) as n_questions";
@@ -527,6 +527,47 @@
             return $result->result();
         }
 
+        public function searchCount($conditions = null, $order_col = 'kf.dt_pub_date', $order_dir = 'DESC')
+        {
+            $cond = array();
+            if($conditions!=null) {
+                foreach($conditions as $k => $v) {
+                    if($k=='title') {
+                        $cond[] = "s_title = '".$this->dao->connId->real_escape_string($v)."'";
+                    }
+                }
+            }
+            $cond_str = '';
+            if(!empty($cond)) {
+                $cond_str = implode(" AND ", $cond)." ";
+            }
+            // subselect n_questions
+            $sub_select_nquestions = "(select count(*) from ".DB_TABLE_PREFIX."t_killer_form_questions as kfq where kf.pk_i_id = kfq.fk_i_killer_form_id) as n_questions";
+            $sub_select_is_used = "(select count(*) from ".DB_TABLE_PREFIX."t_item_job_attr as jia where kf.pk_i_id = jia.fk_i_killer_form_id) as n_used";
+
+            $this->dao->select("kf.*, $sub_select_nquestions, $sub_select_is_used");
+            $this->dao->from($this->getTable_KillerForm().' as kf');
+            if($cond_str!='') {
+                $this->dao->where($cond_str);
+            }
+            $result = $this->dao->get();
+            if( !$result ) {
+                $searchTotal = 0;
+            } else {
+                $searchTotal = count($result->result());
+            }
+
+            $this->dao->select( "COUNT(*) as total" ) ;
+            $this->dao->from($this->getTable_KillerForm());
+            $result = $this->dao->get();
+            if( !$result ) {
+                $total = 0;
+            } else {
+                $total = $result->row();
+            }
+
+            return array($searchTotal, $total['total']);
+        }
 
         public function getKillerForm($formId)
         {
