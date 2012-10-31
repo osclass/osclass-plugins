@@ -14,7 +14,6 @@ define('JOBBOARD_PATH', dirname(__FILE__) . '/') ;
 require_once(JOBBOARD_PATH . 'model/ModelJB.php');
 require_once(JOBBOARD_PATH . 'model/ModelKQ.php');
 require_once(JOBBOARD_PATH . 'model/ModelLogJB.php');
-// require_once(JOBBOARD_PATH . 'model/ModelKQ.php');            // killer questions¡
 require_once(JOBBOARD_PATH . 'helpers.php');
 require_once(JOBBOARD_PATH . 'class/JobboardNotices.class.php');
 require_once(JOBBOARD_PATH . 'class/Stream.class.php');
@@ -23,7 +22,7 @@ function job_call_after_install() {
     ModelJB::newInstance()->import('jobboard/struct.sql');
 
     osc_set_preference('upload_path', osc_content_path() . "uploads/", 'jobboard_plugin', 'STRING');
-    osc_set_preference('version', 120, 'jobboard_plugin', 'INTEGER');
+    osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
 }
 
 function jobboard_update_version() {
@@ -54,7 +53,7 @@ function jobboard_update_version() {
     }
 
     // add alters for killer questions
-    /*if( $version < 130) {
+    if( $version < 130) {
         ModelJB::newInstance()->import('jobboard/struct.sql');
 
         osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
@@ -71,7 +70,6 @@ function jobboard_update_version() {
         osc_reset_preferences();
     }
 
-
     if( $version < 141) {
         osc_set_preference('version', 141, 'jobboard_plugin', 'INTEGER');
         $description = array();
@@ -87,7 +85,7 @@ function jobboard_update_version() {
 
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN i_num_positions INT UNSIGNED NOT NULL DEFAULT 1', ModelJB::newInstance()->getTable_JobsAttr()));
     }
-	*/
+	
 }
 osc_add_hook('init', 'jobboard_update_version');
 
@@ -147,7 +145,7 @@ function jobboard_sex_to_string($sex) {
 osc_add_hook('admin_header', 'jobboard_extra');
 
 function job_call_after_uninstall() {
-    // ModelKQ::newInstance()->uninstall();
+    ModelKQ::newInstance()->uninstall();
     ModelJB::newInstance()->uninstall();
 
     osc_delete_preference('upload_path', 'jobboard_plugin');
