@@ -1302,7 +1302,7 @@ osc_add_admin_submenu_page(
     'jobboard',
     __('Default locations', 'jobboard'),
     osc_admin_render_plugin_url("jobboard/admin/settings.php"),
-    'jobboard_resumedownload',
+    'jobboard_locations',
     'moderator'
 );
 
