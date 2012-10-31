@@ -93,6 +93,7 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_applicant (
     s_ip VARCHAR(15) NOT NULL DEFAULT '',
     s_sex VARCHAR(15) NOT NULL DEFAULT 'prefernotsay',
     dt_birthday DATE NOT NULL DEFAULT '0000-00-00',
+    d_score DECIMAL(4,2) NULL DEFAULT NULL,
 
         PRIMARY KEY (pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
