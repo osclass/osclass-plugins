@@ -148,6 +148,7 @@ $(document).ready(function() {
         }
     });
 
+    // ajax set open answer punctuation, and refresh final score
     $('select.answer_punctuation').change(function(){
         var killerFormId = $(this).attr('data-killerform-id');
         var applicantId  = $(this).attr('data-applicant-id');
@@ -160,9 +161,31 @@ $(document).ready(function() {
                 "questionId"  : questionId,
                 "punctuation" : punctuation
             },
-            function(data){}
+            function(data){
+                if(data=='reject') {
+                    $('select#applicant_status>option[value=2]').attr('selected', true);
+                    $('select#applicant_status').triggerHandler('change');
+                    $('#question_'+questionId+' label>i.circle').html(jobboard.langs.reject).show();
+                } else if(data!='') {
+                    // update score
+                    $('#question_'+questionId+' label>i.circle').html(data).show();
+                } else {
+                    // todo - no punctuation selected
+                    $('#question_'+questionId+' label>i.circle').html('').hide();;
+                }
+                // update killer form score
+                var temp_score = 0;
+                $('#killer_questions_applicant label>i.circle').each(function(){
+                    var punctuation_aux = $(this).html();
+                    if(punctuation_aux!='reject' && punctuation_aux!=''){
+                        console.log(punctuation_aux);
+                        if( !isNaN(parseInt(punctuation_aux)) ) {
+                            temp_score = temp_score+parseInt(punctuation_aux);
+                        }
+                    }
+                    $('span#sum_punctuations').html(temp_score);
+                });
+            }
         );
-
     });
-
 });

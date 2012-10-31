@@ -134,7 +134,7 @@
     </div>
 
     <h3 class="sidebar-title render-title" style="display:inline-block;">
-        <?php _e("Killer questions", "jobboard"); ?> <?php echo $acomulateScore.'/'.$maxPunctuation;?>
+        <?php _e("Killer questions", "jobboard"); ?> <span id="sum_punctuations"><?php echo $acomulateScore; ?></span>/<?php echo $maxPunctuation;?>
     </h3>
     <div style="clear:both;"></div>
     <div id="killer_questions_applicant" style="margin-top:15px;">
@@ -144,9 +144,8 @@
                 <?php foreach($aQuestions['questions'] as $key => $q) { ?>
                 <div id="question_<?php echo $q['pk_i_id'];?>" data-id="<?php echo $q['pk_i_id'];?>" class="well" style="margin-bottom: 15px;">
                     <label style="float:right;">
-                        <?php if(@$aAnswers[$q['pk_i_id']]['s_punctuation']!=''){ ?>
-                        <i class="circle circle-red" style="position: relative;top: 6px;padding-right: 4px;padding-left: 4px;"><?php echo @$aAnswers[$q['pk_i_id']]['s_punctuation'];?></i>
-                        <?php } ?>
+                        <?php $hide_circle = false; if(@$aAnswers[$q['pk_i_id']]['s_punctuation']=='') { $hide_circle = true; } ?>
+                        <i class="circle circle-red" style="<?php if($hide_circle){echo "display:none;";} ?>position: relative;top: 6px;padding-right: 4px;padding-left: 4px;"><?php echo @$aAnswers[$q['pk_i_id']]['s_punctuation'];?></i>
                         <?php _e('Question', 'jobboard'); ?> <?php echo $key;?>
                     </label>
                     <p><?php echo $q['s_text'];?></p>
