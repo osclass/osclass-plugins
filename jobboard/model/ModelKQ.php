@@ -289,7 +289,7 @@
         }
 
         /**
-         * Update answer information given an answerId
+         * Update answer information given an answerId, if punctuation is 'reject' change applicant status
          *
          * @param type $answerId
          * @param type $text
@@ -299,9 +299,8 @@
 
         public function updatePunctuationQuestionResult($killerformId, $applicantId, $questionId, $punctuation)
         {
-            $reject = 0;
             if($punctuation=='reject') {
-                $reject = 1;
+                ModelJB::newInstance()->changeStatus($applicantId, 2);
             }
 
             return $this->dao->update($this->getTable_KillerFormResults(),
@@ -624,7 +623,6 @@
             $result = $result->result();
 
             // calculate score.
-            $rejected       = false;
             $maxPunctuation = 10;
             $scoreAcumulate = 0;
             $numQuestions   = count($result);
@@ -633,7 +631,6 @@
                 $aux_punctuation = $aux['s_punctuation'];
                 if($aux_punctuation=='reject') {
                     ModelJB::newInstance()->changeStatus($applicantId, 2);
-                    $rejected = true;
                 } else if( is_numeric($aux_punctuation) ){
                     $scoreAcumulate += $aux_punctuation;
                 }
