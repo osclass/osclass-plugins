@@ -881,13 +881,13 @@ osc_add_admin_submenu_page(
 );
 
 // killer questions menu
-/* osc_add_admin_submenu_page(
+osc_add_admin_submenu_page(
     'jobboard',
     __('Killer Questions', 'jobboard'),
     osc_admin_render_plugin_url("jobboard/manage_killer.php"),
     'jobboard_killer',
     'moderator'
-);*/
+);
 
 function jobboard_rating($applicantId, $rating = 0) {
     $str = '<span class="rating" id="rating_'.$applicantId.'" rating="'.$rating.'">';
@@ -1130,6 +1130,7 @@ osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquer
 osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jquery.MetaData.js', 'jquery');
 osc_register_script('jobboard-people', osc_plugin_url(__FILE__) . 'js/people.js', 'jquery');
 osc_register_script('jobboard-killer-form', osc_plugin_url(__FILE__) . 'js/killerForm.js', 'jquery');
+osc_register_script('jobboard-manage-killer-form', osc_plugin_url(__FILE__) . 'js/manageKillerForm.js', 'jquery');
 osc_register_script('jobboard-people-detail', osc_plugin_url(__FILE__) . 'js/people_detail.js', 'jquery');
 osc_register_script('jobboard-dashboard', osc_plugin_url(__FILE__) . 'js/dashboard.js', array('jquery'));
 osc_register_script('jobboard-apply-linkedin', osc_plugin_url(__FILE__) . 'js/bridgeApplyLinkedin.js', array('jquery'));
@@ -1161,6 +1162,8 @@ function admin_assets_jobboard() {
         case('jobboard/killer_form_frm.php'):
             osc_enqueue_script('jquery-validate');
             osc_enqueue_script('jobboard-killer-form');
+        case('jobboard/manage_killer.php'):
+            osc_enqueue_script('jobboard-manage-killer-form');
         break;
     }
     if(Params::getParam('page')=='items') {
