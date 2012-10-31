@@ -44,8 +44,8 @@ CREATE TABLE /*TABLE_PREFIX*/t_killer_form_results (
   fk_i_applicant_id INT UNSIGNED NULL,
   fk_i_killer_form_id INT UNSIGNED NULL,
   fk_i_question_id INT UNSIGNED NULL,
-  fk_i_answer_id INT UNSIGNED NOT DEFAULT NULL,
-  s_answer_opened TINYTEXT NULL DEFAULT NULL,
+  fk_i_answer_id INT UNSIGNED NULL,
+  s_answer_opened TINYTEXT DEFAULT NULL,
   s_punctuation VARCHAR(45) NULL DEFAULT NULL,
 
     PRIMARY KEY (fk_i_applicant_id, fk_i_killer_form_id, fk_i_question_id),
