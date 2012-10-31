@@ -181,16 +181,17 @@
          * Insert Jobs attributes
          *
          * @param int $item_id
-         * @param string $relation
          * @param string $position_type
          * @param int $salaryText
+         * @param int $numPositions
          */
-        public function insertJobsAttr($item_id, $relation, $position_type, $salaryText)
+        public function insertJobsAttr($item_id, $position_type, $salaryText, $numPositions)
         {
             $aSet = array(
                 'fk_i_item_id'      => $item_id,
                 'e_position_type'   => $position_type,
-                's_salary_text'     => $salaryText
+                's_salary_text'     => $salaryText,
+                'i_num_positions'   => $numPositions
             );
 
             return $this->dao->insert($this->getTable_JobsAttr(), $aSet);
@@ -223,11 +224,10 @@
         }
 
         /**
-         * Replace salary_min_hour, salary_max_hour given a item id
+         * Replace s_salary_text given a item id
          *
          * @param type $item_id
-         * @param type $salaryHourmin
-         * @param type $salaryHourMax
+         * @param type $salaryText
          */
         public function replaceJobsSalaryAttr($item_id, $salaryText)
         {
@@ -241,12 +241,13 @@
         /**
          * Replace Jobs attributes
          */
-        public function replaceJobsAttr($item_id, $relation, $position_type, $salaryText)
+        public function replaceJobsAttr($item_id, $position_type, $salaryText, $numPositions)
         {
             $aSet = array(
                 'fk_i_item_id'      => $item_id,
                 'e_position_type'   => $position_type,
-                's_salary_text'     => $salaryText
+                's_salary_text'     => $salaryText,
+                'i_num_positions'   => $numPositions
             );
             return $this->dao->replace( $this->getTable_JobsAttr(), $aSet);
         }

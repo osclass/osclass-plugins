@@ -58,6 +58,7 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_attr (
     e_position_type ENUM('UNDEF', 'PART', 'FULL'),
     s_salary_text TEXT NOT NULL DEFAULT '',
     fk_i_killer_form_id INT UNSIGNED NULL,
+    i_num_positions INT UNSIGNED NOT NULL DEFAULT 1,
         PRIMARY KEY (fk_i_item_id),
         FOREIGN KEY (fk_i_killer_form_id) REFERENCES /*TABLE_PREFIX*/t_killer_form (pk_i_id)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';

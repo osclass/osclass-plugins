@@ -11,6 +11,14 @@
             </div>
         </div>
         <div class="form-row">
+            <label><?php _e('Num. of positions', 'jobboard'); ?></label>
+            <select name="numPositions" class="select-box">
+                <?php for($k=1;$k<=10;$k++) { ?>
+                <option value="<?php echo $k; ?>" <?php if(@$detail['i_num_positions'] == $k) { echo 'selected'; } ?>><?php echo $k; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="form-row">
             <label><?php _e('Salary', 'jobboard'); ?></label>
             <input type="text" class="input-large" name="salaryText" value="<?php echo $detail['s_salary_text']; ?>" />
         </div>
