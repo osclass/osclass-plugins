@@ -475,7 +475,7 @@
                         $cond[] = "a.dt_birthday <= '".$this->dao->connId->real_escape_string($maxDate)."'";
                     }
                     if($k=='rating') {
-                        $cond[] = "a.i_rating >= ". $this->dao->connId->real_escape_string($v) ;
+                        $cond[] = "a.i_rating >= ". $this->dao->connId->real_escape_string($v);
                     }
 
                 }
