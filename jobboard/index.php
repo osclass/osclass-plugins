@@ -166,15 +166,15 @@ function ajax_rating_request() {
 osc_add_hook('ajax_admin_jobboard_rating', 'ajax_rating_request');
 
 function ajax_answer_punctuation() {
-    // update punctuation of << open question >>
+    // update punctuation of << open questions >>
     $result = ModelKQ::newInstance()->updatePunctuationQuestionResult(Params::getParam('killerFormId'), Params::getParam('applicantId'), Params::getParam('questionId'), Params::getParam('punctuation'));
-    if( ($result !== false) && ($result > 0) ) {
-        echo '1';
+    if($result !== false) {
+        echo json_encode(Params::getParam('punctuation'));
     } else {
         echo '0';
     }
 }
-osc_add_hook('ajax_admin_jobboard_answer_puntuation', 'ajax_answer_punctuation');
+osc_add_hook('ajax_admin_jobboard_answer_punctuation', 'ajax_answer_punctuation');
 
 function ajax_applicant_status() {
     $result = ModelJB::newInstance()->changeStatus(Params::getParam("applicantId"), Params::getParam("status"));
@@ -557,51 +557,51 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
 
     // GET EXTRA PARMAS
     // check fields
-//    if( $name === '' ) {
-//        osc_add_flash_error_message(__("Name is required", 'jobboard'));
-//        _save_jobboard_contact_listing();
-//        header('Location: ' . $url); die;
-//    }
-//    if( $email === '' ) {
-//        osc_add_flash_error_message(__("Email is required", 'jobboard'));
-//        _save_jobboard_contact_listing();
-//        header('Location: ' . $url); die;
-//    }
-//    if( $birth === '' ) {
-//        osc_add_flash_error_message(__("Birthday is required", 'jobboard'));
-//        _save_jobboard_contact_listing();
-//        header('Location: ' . $url); die;
-//    } else {
-//        // check date format & convert date to mysql date format
-//        // we recive mm/dd/yyyy id valid ?
-//        $aDate = explode('/', $birth);
-//        $birth = date("Y-m-d", mktime(0,0,0,$aDate[0],$aDate[1],$aDate[2]) );
-//        if($birth === false) {
-//            osc_add_flash_error_message(__("Invalid birthday date", 'jobboard'));
-//            _save_jobboard_contact_listing();
-//            header('Location: ' . $url); die;
-//        }
-//    }
-//
-//    if( $sex === '' ) {
-//        osc_add_flash_error_message(__("Sex is required", 'jobboard'));
-//        _save_jobboard_contact_listing();
-//        header('Location: ' . $url); die;
-//    }
-//    if( $cover === '' ) {
-//        osc_add_flash_error_message(__("Cover is required", 'jobboard'));
-//        _save_jobboard_contact_listing();
-//        header('Location: ' . $url); die;
-//    }
-//    if( isset($aCV['name']) && $aCV['name'] === '' ) {
-//        osc_add_flash_error_message(__("CV is required", 'jobboard'));
-//        _save_jobboard_contact_listing();
-//        header('Location: ' . $url); die;
-//    }
-//    $s_source = '';
-//    if($source == 'linkedin') {
-//        $s_source = 'linkedinapply';
-//    }
+    if( $name === '' ) {
+        osc_add_flash_error_message(__("Name is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . $url); die;
+    }
+    if( $email === '' ) {
+        osc_add_flash_error_message(__("Email is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . $url); die;
+    }
+    if( $birth === '' ) {
+        osc_add_flash_error_message(__("Birthday is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . $url); die;
+    } else {
+        // check date format & convert date to mysql date format
+        // we recive mm/dd/yyyy id valid ?
+        $aDate = explode('/', $birth);
+        $birth = date("Y-m-d", mktime(0,0,0,$aDate[0],$aDate[1],$aDate[2]) );
+        if($birth === false) {
+            osc_add_flash_error_message(__("Invalid birthday date", 'jobboard'));
+            _save_jobboard_contact_listing();
+            header('Location: ' . $url); die;
+        }
+    }
+
+    if( $sex === '' ) {
+        osc_add_flash_error_message(__("Sex is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . $url); die;
+    }
+    if( $cover === '' ) {
+        osc_add_flash_error_message(__("Cover is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . $url); die;
+    }
+    if( isset($aCV['name']) && $aCV['name'] === '' ) {
+        osc_add_flash_error_message(__("CV is required", 'jobboard'));
+        _save_jobboard_contact_listing();
+        header('Location: ' . $url); die;
+    }
+    $s_source = '';
+    if($source == 'linkedin') {
+        $s_source = 'linkedinapply';
+    }
 
     // check fields  --  get killer question results
     $aQuestionResults = array();
@@ -1303,7 +1303,7 @@ function jobboard_init_js() {
     jobboard.ajax_note_delete = '<?php echo osc_admin_ajax_hook_url('note_delete'); ?>';
     jobboard.ajax_dismiss_tip = '<?php echo osc_admin_ajax_hook_url('dismiss_tip'); ?>';
     jobboard.ajax_question_delete = '<?php echo osc_admin_ajax_hook_url('question_delete'); ?>';
-    jobboard.ajax_answer_punctuation = '<?php echo osc_admin_ajax_hook_url('jobboard_answer_puntuation'); ?>';
+    jobboard.ajax_answer_punctuation = '<?php echo osc_admin_ajax_hook_url('jobboard_answer_punctuation'); ?>';
 </script>
 <?php }
 osc_add_hook('admin_header', 'jobboard_init_js', 1);
