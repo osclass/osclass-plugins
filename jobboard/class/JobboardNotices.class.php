@@ -26,6 +26,7 @@
             osc_add_filter('showNoticeTips', array(&$this, 'add_static_pages_company_value'));
             osc_add_filter('showNoticeTips', array(&$this, 'edit_corporate_page'));
             osc_add_filter('showNoticeTips', array(&$this, 'edit_legal_page'));
+            osc_add_filter('showNoticeTips', array(&$this, 'default_locations_tip'));
         }
 
         /*
@@ -188,6 +189,16 @@
                 if( is_null($page['dt_mod_date']) ) {
                     $notice['notice_edit_legal'] = sprintf(__('<a href="%1$s">Edit</a> your legal site - it is still empty!', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=edit&id=' . $page['pk_i_id']);
                 }
+            }
+            return $notice;
+        }
+
+        function default_locations_tip($notice)
+        {
+            if(osc_get_preference('country', 'jobboard')=='' &&
+                    osc_get_preference('region', 'jobboard')=='' &&
+                    osc_get_preference('city', 'jobboard')=='') {
+                $notice['notice_default_location'] = sprintf(__('<a href="%1$s">Edit</a> your default locations so you don\'nt not to enter each time - they are still empty!', 'jobboard'), osc_admin_render_plugin_url("jobboard/admin/settings.php"));
             }
             return $notice;
         }
