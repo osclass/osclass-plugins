@@ -741,6 +741,8 @@
 
         public function deleteApplicant($id) {
             $this->dao->delete($this->getTable_JobsNotes(), array('fk_i_applicant_id' => $id));
+            $cv = $this->getCVFromApplicant($id);
+            @unlink(osc_get_preference('upload_path', 'jobboard_plugin') . $cv['s_name']);
             $this->dao->delete($this->getTable_JobsFiles(), array('fk_i_applicant_id' => $id));
             return $this->dao->delete($this->getTable_JobsApplicants(), array('pk_i_id' => $id));
         }
