@@ -102,8 +102,8 @@ ul.shortcuts li a:hover{
 
 #killerquestions .question,
 #killerquestions .new_question {
-    padding: 15px;
-    padding-bottom: 5px;
+    /*padding: 15px;
+    padding-bottom: 5px;*/
 }
 
 #killerquestions ol li a.delete_answer,
@@ -115,6 +115,9 @@ ul.shortcuts li a:hover{
     display: inline-block;
     width: 16px;
     height: 16px;
+    float:left;
+    clear: both;
+    margin-right:7px;
 }
 
 #killerquestions .new_question label,
@@ -138,4 +141,45 @@ span.input-large {
     background-color: white;
     padding: 3px;
     border: 1px solid black;
+}
+.new_question{
+    background-color:#f9f9f9;
+    border-radius:5px 5px 0 0;
+    -webkit-border-radius:5px 5px 0 0;
+    -moz-border-radius:5px 5px 0 0;
+    padding:10px 15px;
+    margin-bottom:10px;
+}
+.new_question input{
+    width:91%;
+}
+.new_question .containerAnswers input{
+    width:74%;
+    margin-right:1%;
+}
+.new_question .containerAnswers select{
+    width:16%;
+}
+#killerquestions div.containerAnswers a.delete_answer {
+    background-image: url(../img/clean.png);
+}
+.new_question .containerAnswers{
+    background-color: #FDFDFD;
+    padding: 10px;
+    margin: 10px -13px -7px -13px
+}
+.new_question .add-remove-btn{
+    float:right;
+}
+.new_question label{
+    float:left;
+    width:60%;
+}
+.new_question ol,
+.new_question ul{
+    padding:0;
+    margin:0;
+}
+.new_question li {
+    margin-bottom: 4px;
 }

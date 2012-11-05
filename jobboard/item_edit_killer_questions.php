@@ -3,8 +3,7 @@ $new_killer_form    = true;
 $killerQuestions    = array();
 ?>
 
-
-<h2 class="render-title"><?php _e('Add Questions' ,'jobboard'); ?> <a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a></h2>
+<h2 class="render-title separate-top"><?php _e('Killer Questions' ,'jobboard'); ?> <a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a></h2>
 
 <div id="killerquestions">
     <?php if(!$new_killer_form) { foreach($killerQuestions['questions'] as $key => $q) { ?>
