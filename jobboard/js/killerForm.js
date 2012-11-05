@@ -11,12 +11,27 @@ function addQuestion() {
         var removeQuestion  = $('<a class="delete_question_ico" onclick="removeQuestion($(this));return false;"></a> ');
         var label           = $('<label>'+jobboard.langs.question+' '+questionNumber+' </label> ');
         var input           = $('<input class="input-large question_input" type="text" name="new_question['+questionNumber+'][question]"/>');
+
+
+        var insertAnswersLink = $('<a class="addAnswers add-remove-btn btn btn-mini"> '+jobboard.langs.insertAnswersLink+'</a>');
+        var removeAnswersLink = $('<a class="removeAnswers add-remove-btn btn btn-mini">'+jobboard.langs.removeAnswersLink+'</a>');
+        insertAnswersLink.click(function(){
+            insertAnswersLink.hide();
+            removeAnswersLink.show();
+            addAnswers($(this));
+            return false;
+        });
+        removeAnswersLink.click(function(){
+            insertAnswersLink.show();
+            removeAnswersLink.hide();
+            removeAnswers($(this));
+            return false;
+        }).hide();
+
         question.append(label);
+        question.append(insertAnswersLink).append(removeAnswersLink);
         question.append(removeQuestion);
         question.append(input);
-
-        var insertAnswersLink = $('<a class="addAnswers btn btn-mini" onclick="addAnswers($(this));return false;"> '+jobboard.langs.insertAnswersLink+'</a>');
-        $(question).append(insertAnswersLink);
         $('#killerquestions').append( question );
     }
 }
@@ -43,6 +58,15 @@ function removeQuestion(element) {
  * addAnswers, add base html structure for add answers to a given question,
  * this functions make a closed question type.
  */
+function createSelectAnswer(){
+    var select = $('<select name="_to_change_">');
+    select.append( $('<option>').attr('value', '').html(jobboard.langs.punctuation) );
+    for(var i=10;i>=1;i--) {
+        select.append( $('<option>').attr('value', i).html(i) );
+    }
+    select.append( $('<option>').attr('value', 'reject').html(jobboard.langs.reject) );
+    return select;
+}
 function addAnswers(element) {
     var questionId = $(element).parent().attr('data-id');
     var name     = 'new_question';
@@ -60,18 +84,13 @@ function addAnswers(element) {
         // if there are no questions
         var list_answers = $(this).find('ol').length;
         if(list_answers==0) {
-            var select = $('<select name="_to_change_">');
-            select.append( $('<option>').attr('value', '').html(jobboard.langs.punctuation) );
-            for(var i=10;i>=1;i--) {
-                select.append( $('<option>').attr('value', i).html(i) );
-            }
-            select.append( $('<option>').attr('value', 'reject').html(jobboard.langs.reject) );
+            var select = createSelectAnswer();
 
-            var containerAnswers  = $('<p>');
+            var containerAnswers  = $('<p class="containerAnswers">');
             containerAnswers.html(jobboard.langs.answer);
             var answers      = $('<ol>');
             for(i=0;i<5;i++) {
-                var _select = $(select).clone(); // ¿¿bien alguna manera mejor??  FERNANDO??
+                var _select = createSelectAnswer();
                 var _i = i+1;
                 var listAnswer = $('<li>');
                 var _deleteAnswer = $('<a class="delete_answer" onclick="clearAnswer($(this)); return false;"></a>');
@@ -86,10 +105,6 @@ function addAnswers(element) {
             }
             $(containerAnswers).append(answers);
             $(question).append(containerAnswers);
-            // remove 'add answers' link and add 'remove answers'
-            $('#'+name+'_'+questionId+' a.addAnswers').remove();
-            var removeAnswersLink = $('<a class="removeAnswers btn btn-mini" onclick="removeAnswers($(this));return false;">'+jobboard.langs.removeAnswersLink+'</a>');
-            $('#'+name+'_'+questionId+' input.question_input').after(removeAnswersLink);
 
         } else {
             // show flash message
@@ -123,10 +138,6 @@ function removeAnswers(element) {
 
     $('#'+name+'_'+questionId+' p').remove();
     $('#'+name+'_'+questionId+' ol').remove();
-    // remove 'remove answers' link and add 'add answers'
-    $('#'+name+'_'+questionId+' a.removeAnswers').remove();
-    var addAnswersLink = $('<a class="addAnswers btn btn-mini" onclick="addAnswers($(this));return false;">'+jobboard.langs.insertAnswersLink+'</a>');
-    $('#'+name+'_'+questionId+' input.question_input').after(addAnswersLink);
 }
 
 /**
