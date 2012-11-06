@@ -142,7 +142,27 @@ span.input-large {
     padding: 3px;
     border: 1px solid black;
 }
-.new_question{
+
+#jobboard-loading-image {
+    background:url(../img/loading.gif) no-repeat center center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+#jobboard-loading-container {
+    background-color: white;
+    opacity: 0.8;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}.new_question{
     background-color:#f9f9f9;
     border-radius:5px 5px 0 0;
     -webkit-border-radius:5px 5px 0 0;
