@@ -150,6 +150,8 @@ $(document).ready(function() {
 
     // ajax set open answer punctuation, and refresh final score
     $('select.answer_punctuation').change(function(){
+        $('#jobboard-loading-container').show();
+
         var killerFormId = $(this).attr('data-killerform-id');
         var applicantId  = $(this).attr('data-applicant-id');
         var questionId   = $(this).attr('data-question-id');
@@ -171,7 +173,7 @@ $(document).ready(function() {
                     $('#question_'+questionId+' label>i.circle').html(data).show();
                 } else {
                     // todo - no punctuation selected
-                    $('#question_'+questionId+' label>i.circle').html('').hide();;
+                    $('#question_'+questionId+' label>i.circle').html('').hide();
                 }
                 // update killer form score
                 var temp_score = 0;
@@ -185,7 +187,9 @@ $(document).ready(function() {
                     }
                     $('span#sum_punctuations').html(temp_score);
                 });
+                $('#jobboard-loading-container').hide();
             }
         );
     });
+
 });
