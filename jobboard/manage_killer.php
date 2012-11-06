@@ -93,7 +93,11 @@
                             <div class="actions">
                                 <ul>
                                     <li><a href="<?php echo osc_admin_render_plugin_url("jobboard/killer_form_frm.php").'&id='.$k['pk_i_id']; ?>"><?php _e("Edit", "jobboard"); ?></a></li>
-                                    <li><a class="delete_killerform"><?php _e("Delete", "jobboard"); ?></a></li>
+                                    <?php if(@$k['n_used']>0 && is_numeric($k['n_used'])) { ?>
+                                    <li><a class="delete_killerforminuse" href="javascript:void(0);"><?php _e("Delete", "jobboard"); ?></a></li>
+                                    <?php } else {?>
+                                    <li><a href="javascript:delete_killerform(<?php echo @$k['pk_i_id']; ?>);"><?php _e("Delete", "jobboard"); ?></a></li>
+                                    <?php } ?>
                                 </ul>
                             </div>
                         </td>
@@ -129,14 +133,34 @@
     </ul>
     <?php osc_show_pagination_admin($aData); ?>
 </div>
-<form id="dialog-killerform-delete" method="post" action="<?php echo osc_admin_base_url(true); ?>" class="has-form-actions hide" title="<?php echo osc_esc_html(__('Delete killer question form', 'jobboard')); ?>">
+
+<form id="dialog-killerforminuse-delete" method="post" action="<?php echo osc_admin_base_url(true); ?>" class="has-form-actions hide" title="<?php echo osc_esc_html(__('Delete killer question form', 'jobboard')); ?>">
     <div class="form-horizontal">
         <div class="form-row">
             <?php _e('Only can delete killer questions form if isn\'t used by any job' , 'jobboard'); ?>
         </div>
         <div class="form-actions">
             <div class="wrapper">
-            <a class="btn" href="javascript:void(0);" onclick="$('#dialog-killerform-delete').dialog('close', 'jobboard');"><?php _e('Ok', 'jobboard'); ?></a>
+                <button type="button" class="btn" onclick="$('#dialog-killerforminuse-delete').dialog('close', 'jobboard');"><?php _e('Cancel', 'jobboard'); ?></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form id="dialog-killerform-delete" method="post" action="<?php echo osc_admin_base_url(true); ?>" class="has-form-actions hide" title="<?php echo osc_esc_html(__('Delete killer question form', 'jobboard')); ?>">
+    <input type="hidden" name="page" value="plugins" />
+    <input type="hidden" name="action" value="renderplugin" />
+    <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>actions.php" />
+    <input type="hidden" name="paction" value="delete_killer_form"/>
+    <input type="hidden" id="delete_id" name="id" value="" />
+    <div class="form-horizontal">
+        <div class="form-row">
+            <?php _e('You are going to delete killer questions form. Are you sure?' , 'jobboard'); ?>
+        </div>
+        <div class="form-actions">
+            <div class="wrapper">
+                <input type="submit" class="btn btn-red" value="<?php _e('Remove', 'jobboard'); ?>"/>
+                <button type="button" class="btn" onclick="$('#dialog-killerform-delete').dialog('close', 'jobboard');"><?php _e('Cancel', 'jobboard'); ?></button>
             </div>
         </div>
     </div>
