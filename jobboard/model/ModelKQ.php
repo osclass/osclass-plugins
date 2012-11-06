@@ -328,6 +328,8 @@
                         array('pk_i_id'     => $questionId ));
         }
 
+        // ------------------------------------------------------------
+
         /**
          * Remove answer given an answer id
          *
@@ -347,10 +349,17 @@
          * @param type $questionId
          * @return type
          */
-        public function removeQuestionsToKillerForm($killerFormId, $questionId)
+        public function removeKillerQuestion($killerFormId, $questionId)
         {
             $this->removeAnswersByQuestionId($questionId);
-            $this->removeQuestionInForms($killerFormId, $questionId);
+
+            $result = $this->dao->delete($this->getTable_KillerFormQuestions(),
+                        array('fk_i_killer_form_id' => $killerFormId,
+                              'fk_i_question_id'    => $questionId));
+
+            if($result===false) {
+                return false;
+            }
 
             return $this->dao->delete($this->getTable_Question(),
                         array('pk_i_id' => $questionId));
@@ -375,11 +384,51 @@
          * @param type $questionId
          * @return type
          */
-        public function removeQuestionInForms($killerFormId, $questionId)
+        public function removeKillerForm($killerFormId)
         {
-            return $this->dao->delete($this->getTable_KillerFormQuestions(),
-                        array(  'fk_i_killer_form_id' => $killerFormId,
-                                'fk_i_question_id'    => $questionId));
+            $has_errors = false;
+            // if have killer_form_results cannot be removed
+            $countResults = $this->countResultsForm($killerFormId);
+
+            if($countResults==0) {
+                // remove questions and answers if there are ...
+                $killerQuestions = $this->getKillerQuestions($killerFormId);
+                // optimize delete statement
+                foreach($killerQuestions['questions'] as $q) {
+                   $result = $this->removeKillerQuestion($killerFormId, $q['pk_i_id']);
+                   if($result===false) {
+                       // some error occurs
+                       $has_errors = true;
+                   }
+                }
+                if($has_errors) {
+                    return false;
+                }
+                return $this->dao->delete($this->getTable_KillerForm(),
+                            array(  'pk_i_id' => $killerFormId));
+            } else {
+                // cannot remove killer questions form, because there are result belogin to this form
+                // [prevent inconsistent information]
+                return -1;
+            }
+        }
+
+        // ------------------------------------------------------------
+
+        public function countResultsForm($killerFormId, $applicantId = null)
+        {
+            $this->dao->select('count(1) as total');
+            $this->dao->from($this->getTable_KillerFormResults());
+            $this->dao->where('fk_i_killer_form_id', $killerFormId);
+            if(isset($applicantId) && is_numeric($applicantId)) {
+                $this->dao->where('fk_i_applicant_id', $applicantId);
+            }
+            $result = $this->dao->get();
+            if($result===false) {
+                return false;
+            }
+            $aux = $result->row();
+            return  $aux['total'];
         }
 
         /**
@@ -457,7 +506,7 @@
          * @todo -> ORDER
          * @param type $killerFormId
          */
-        public function getKillerQuestion($killerFormId)
+        public function getKillerQuestions($killerFormId)
         {
             $this->dao->select();
             $this->dao->from($this->getTable_KillerFormQuestions());
@@ -613,15 +662,18 @@
         {
             $this->dao->select();
             $this->dao->from($this->getTable_KillerFormResults());
-            $this->dao->join($this->getTable_Answer(), $this->getTable_Answer().'.pk_i_id = '.$this->getTable_KillerFormResults().'.fk_i_answer_id', 'LEFT');
+            $this->dao->from($this->getTable_Answer());
+
+//            $this->dao->join($this->getTable_Answer(), $this->getTable_Answer().'.pk_i_id = '.$this->getTable_KillerFormResults().'.fk_i_answer_id', 'INNER');
             $this->dao->where('fk_i_applicant_id', $applicantId);
+            $this->dao->where('fk_i_applicant_id = '.$this->getTable_Answer().'.pk_i_id');
             $result = $this->dao->get();
 
             if($result===false) {
                 return array();
             }
             $result = $result->result();
-
+            print_r($result);
             // calculate score.
             $maxPunctuation = 10;
             $scoreAcumulate = 0;
@@ -632,6 +684,7 @@
                 if($aux_punctuation=='reject') {
                     ModelJB::newInstance()->changeStatus($applicantId, 2);
                 } else if( is_numeric($aux_punctuation) ){
+                    error_log($aux_punctuation."  <- ".$aux['fk_i_answer_id']);
                     $scoreAcumulate += $aux_punctuation;
                 }
             }
