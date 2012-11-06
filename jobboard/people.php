@@ -109,7 +109,7 @@
                                     <?php _e('Sex', 'jobboard'); ?>
                                 </div>
                                 <div class="form-controls">
-                                    <select name="sSex" class="">  <!-- sex selector            -->
+                                    <select name="sSex" class="">  <!--        sex selector            -->
                                         <option value="" <?php if( Params::getParam('sSex') == '' ) echo "selected" ?>><?php _e('Any sex', 'jobboard'); ?></option>
                                     <?php $aSex = _jobboard_get_sex_array();
                                     foreach($aSex as $key => $value) {?>
@@ -283,9 +283,20 @@
                                 $note_tooltip .= '<br/>';
                             }
                         }
+                        // has killer questions ?
+                        $jobInfo = ModelJB::newInstance()->getJobsAttrByItemId( $p['pk_i_id'] );
+                        $has_killerForm = false;
+                        $score = 0;
+                        if( @$jobInfo['fk_i_killer_form_id'] != '' && is_numeric(@$jobInfo['fk_i_killer_form_id']) ) {
+                            $has_killerForm = true;
+                            $score = $p['d_score'];
+                        }
                     ?>
                     <tr <?php if($p['b_read']==0){ echo 'style="background-color:#FFF0DF;"';}?>>
                         <td class="applicant"><a href="<?php echo osc_admin_render_plugin_url("jobboard/people_detail.php");?>&people=<?php echo $p['pk_i_id']; ?>" title="<?php echo @$p['s_name']; ?>" ><?php echo @$p['s_name']; ?></a>
+                        <?php if($has_killerForm) { ?>
+                        <span style="background-color: gray;min-width: 10px;"> <?php echo $score;?> </span>
+                        <?php } ?>
                         <?php if($p['b_has_notes'] == 1 ) { ?><span class="note" data-tooltip="<?php echo $note_tooltip; ?>"></span><?php } ?>
                         <?php if($p['s_source'] == 'linkedinapply' ) { ?><span class="linkedin"></span><?php } ?>
                             <div class="actions">
