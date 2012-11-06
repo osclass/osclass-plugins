@@ -152,6 +152,7 @@ function ajax_answer_punctuation() {
     // update punctuation of << open questions >>
     $result = ModelKQ::newInstance()->updatePunctuationQuestionResult(Params::getParam('killerFormId'), Params::getParam('applicantId'), Params::getParam('questionId'), Params::getParam('punctuation'));
     if($result !== false) {
+        ModelKQ::newInstance()->calculatePunctuationOfApplicant(Params::getParam('applicantId'));
         echo json_encode(Params::getParam('punctuation'));
     } else {
         echo '0';
@@ -308,7 +309,7 @@ function ajax_note_delete() {
 osc_add_hook('ajax_admin_note_delete', 'ajax_note_delete');
 
 function ajax_question_delete() {
-    $result = ModelKQ::newInstance()->removeQuestionsToKillerForm(Params::getParam('killerFormId'), Params::getParam('questionId'));
+    $result = ModelKQ::newInstance()->removeKillerQuestion(Params::getParam('killerFormId'), Params::getParam('questionId'));
     if( ($result !== false) && ($result > 0) ) {
         echo 1;
     } else {
@@ -473,7 +474,7 @@ function job_item_detail() {
 function job_add_killer_question_form( $jobId ) {
     $job = ModelJB::newInstance()->getJobsAttrByItemId($jobId);
     if(@$job['fk_i_killer_form_id']!='') {
-        $aQuestions = ModelKQ::newInstance()->getKillerQuestion($job['fk_i_killer_form_id']);
+        $aQuestions = ModelKQ::newInstance()->getKillerQuestions($job['fk_i_killer_form_id']);
         require_once(JOBBOARD_PATH . 'item_detail_killer_questions.php');
     }
 }
@@ -1457,10 +1458,8 @@ function getParamsKillerForm($new = false) {
     $max_answer = osc_get_preference('max_answers', 'jobboard_plugin');
     $questions = array();
     if($new) {
-        error_log('new_question');
         $questions  = Params::getParam('new_question');
     } else {
-        error_log('question');
         $questions  = Params::getParam('question');
     }
 
