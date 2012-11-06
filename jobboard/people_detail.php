@@ -24,10 +24,11 @@
     $killer_form_id = $jobInfo['fk_i_killer_form_id'];
     $aQuestions     = array();
     $acomulateScore = 0;
+    $maxPunctuation = 0;
     $aKillerForm    = ModelKQ::newInstance()->getKillerForm($killer_form_id);
     if(is_array($aKillerForm) && !empty($aKillerForm)) {
         // get killer form information ...
-        $aQuestions = ModelKQ::newInstance()->getKillerQuestion($killer_form_id);
+        $aQuestions = ModelKQ::newInstance()->getKillerQuestions($killer_form_id);
         $aAnswers   = ModelKQ::newInstance()->getResultsByApplicant($applicantId);
 
         foreach($aAnswers as $key => $_aux) {
@@ -35,11 +36,9 @@
                 $acomulateScore += @$_aux['s_punctuation'];
             }
         }
+        $maxPunctuation = count($aAnswers)*10;
     }
-
-    $maxPunctuation = count($aAnswers)*10;
     $score          = $people['d_score'];
-
 ?>
 <div id="applicant-detail">
     <span><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" ><?php _e('Applicants', 'jobboard'); ?></a> &raquo; <?php echo @$people['s_name']; ?></span>
@@ -132,14 +131,13 @@
             <?php } ?>
         </div>
     </div>
-
+    <?php if(count($aQuestions)>0) { ?>
     <h3 class="sidebar-title render-title" style="display:inline-block;">
         <?php _e("Killer questions", "jobboard"); ?> <span id="sum_punctuations"><?php echo $acomulateScore; ?></span>/<?php echo $maxPunctuation;?>
     </h3>
     <div style="clear:both;"></div>
     <div id="killer_questions_applicant" style="margin-top:15px;">
         <div id="kq_table_div">
-            <?php if(count($aQuestions)>0) { ?>
             <div id="killerquestions">
                 <?php foreach($aQuestions['questions'] as $key => $q) { ?>
                 <div id="question_<?php echo $q['pk_i_id'];?>" data-id="<?php echo $q['pk_i_id'];?>" class="well" style="margin-bottom: 15px;">
@@ -196,9 +194,12 @@
                 </div>
                 <?php } ?>
             </div>
-            <?php } ?>
         </div>
     </div>
+    <div id="jobboard-loading-container" style="display:none;">
+        <div id="jobboard-loading-image" ></div>
+    </div>
+    <?php } ?>
 </div>
 
 <div id="dialog-note-delete" title="<?php echo osc_esc_html(__('Delete note', 'jobboard')); ?>" class="has-form-actions hide" data-note-id="">
