@@ -411,7 +411,7 @@
                 $order_col2 = "dummy." . $tmp[1];
             }
 
-            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, a.d_score, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
                 FROM (%st_item_job_applicant a)
                 LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id
                 LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id
@@ -485,7 +485,7 @@
                 $cond_str = " AND ".implode(" AND ", $cond)." ";
             }
 
-            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, a.d_score, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
                 FROM (%st_item_job_applicant a)
                 LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id
                 LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id
@@ -697,6 +697,20 @@
             return $result->row();
         }
 
+        public function getKillerFormScore($applicantId)
+        {
+            $this->dao->select('d_score');
+            $this->dao->from($this->getTable_JobsApplicants());
+            $this->dao->where($applicantId);
+            $result = $this->dao->get();
+            if( !$result ) {
+                return  0;
+            }
+
+            $total = $result->row();
+            return $total['d_score'];
+        }
+
         public function countTotalNotes()
         {
             $this->dao->select('COUNT(*) AS total');
@@ -810,6 +824,7 @@
 
         public function changeScore($applicantId, $score)
         {
+            error_log($applicantId."   ".$score);
             return $this->dao->update($this->getTable_JobsApplicants(), array('d_score' => $score), array('pk_i_id' => $applicantId));
         }
     }
