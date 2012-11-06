@@ -75,7 +75,7 @@ if($killer_form_id!='') {
     $aKillerForm = ModelKQ::newInstance()->getKillerForm($killer_form_id);
     if(is_array($aKillerForm) && !empty($aKillerForm)) {
         // get killer form information ...
-        $killerQuestions = ModelKQ::newInstance()->getKillerQuestion($killer_form_id);
+        $killerQuestions = ModelKQ::newInstance()->getKillerQuestions($killer_form_id);
         $new_killer_form = false;
         $button = __('Update from', 'jobboard');
         $h2     = __('Update Questions' ,'jobboard');
@@ -104,7 +104,11 @@ if($killer_form_id!='') {
     <h2 class="render-title"><?php echo $h2; ?> <a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a></h2>
 
     <div id="killerquestions">
-        <?php if(!$new_killer_form) { foreach($killerQuestions['questions'] as $key => $q) { ?>
+        <?php if(!$new_killer_form) {
+            $aux_questions = @$killerQuestions['questions'];
+            if(isset($aux_questions) && is_array($aux_questions)) {
+                foreach(@$killerQuestions['questions'] as $key => $q) {
+        ?>
         <div id="question_<?php echo $q['pk_i_id'];?>" data-id="<?php echo $q['pk_i_id'];?>" class="question">
             <label><?php _e('Question', 'jobboard'); ?> <?php echo $key;?></label>
             <a class="delete_question" data-question-id="<?php echo $q['pk_i_id'];?>"></a>
@@ -137,7 +141,7 @@ if($killer_form_id!='') {
             </p>
             <?php }  ?>
         </div>
-        <?php } } ?>
+        <?php } } } ?>
     </div>
     <input type="submit" class="btn submit-right submit" value="<?php echo osc_esc_html( $button ); ?>">
 </form>
