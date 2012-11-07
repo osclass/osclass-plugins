@@ -3,9 +3,9 @@ if(!osc_is_admin_user_logged_in()) {
     die;
 }
 // get plugin action
-$pAction = Params::getParam('paction');
+$pAction    = Params::getParam('paction');
 $aQuestions = array();
-$title = Params::getParam('title');
+$title      = Params::getParam('title');
 
 if($pAction=='add_form') {  // INSERT NEW
     if($title!='') {
@@ -13,8 +13,8 @@ if($pAction=='add_form') {  // INSERT NEW
         if($killerFormId!==false) {
             $str_message = __('Form title saved correctly', 'jobboard');
             // insert answers...
-            $array_new = getParamsKillerForm_insert();
-            $result = _insert($killerFormId, $array_new);
+            $array_new  = getParamsKillerForm_insert();
+            $result     = _insertKillerQuestions($killerFormId, $array_new);
             if($result===false) { // error
                 //
                 // save data to SESSION
@@ -47,14 +47,14 @@ if($pAction=='add_form') {  // INSERT NEW
         }
         // add new questions ---------------------------------------------------
         $array_new  = getParamsKillerForm_insert();
-        $resAdd     = _insert($killerFormId, $array_new);
+        $resAdd     = _insertKillerQuestions($killerFormId, $array_new);
         if($resAdd===false) {
             job_js_redirect_to(osc_admin_render_plugin_url("jobboard/killer_form_frm.php&id=".$killerFormId));
         }
         // and update existing questions ---------------------------------------
         $array_update = getParamsKillerForm_update();
-        $resEdit      = _update($killerFormId, $array_update);
-        if($resAdd===false) {
+        $resEdit      = _updateKillerQuestions($killerFormId, $array_update);
+        if($resEdit===false) {
             job_js_redirect_to(osc_admin_render_plugin_url("jobboard/killer_form_frm.php&id=".$killerFormId));
         }
         job_js_redirect_to(osc_admin_render_plugin_url("jobboard/manage_killer.php"));
@@ -160,92 +160,3 @@ if($killer_form_id!='') {
         </div>
     </div>
 </div>
-
-<?php
-function _insert($killerFormId, $aQuestions) {
-    $error = false;
-    foreach($aQuestions as $key => $q) {
-        $id = -1;
-        if($q['answer']===array()) { // opened question
-            $id = ModelKQ::newInstance()->insertQuestion($q['question'], 'OPENED');
-        } else {                    // closed question
-            $id = ModelKQ::newInstance()->insertQuestion($q['question'], 'CLOSED');
-            if( $id!==false && is_numeric($id) ) {
-                // insert answers
-                $aAnswers = $q['answer'];
-                foreach($aAnswers as $key_ => $a) {
-                    $answer_id = ModelKQ::newInstance()->insertAnswer($id, $a['text'], $a['punct']);
-                }
-            } else {
-                // error occurs
-                $error = true;
-            }
-        }
-        ModelKQ::newInstance()->addQuestionsToKillerForm($killerFormId, $id, $key);
-    }
-
-    if(!$error) {
-        osc_add_flash_ok_message(__('Killer question form added correctly', 'jobboard'), 'admin');
-        return true;
-    } else {
-        osc_add_flash_message(__('Error adding Killer question form', 'jobboard'), 'admin');
-        return false;
-    }
-}
-
-function _update($killerFormId, $aQuestions) {
-    $error = false;
-    foreach($aQuestions as $questionId => $q) {
-        $rInsert = true;
-        $rUpdate = true;
-        $rRemove = true;
-        // update question text
-        if($q['answer']===array() && $q['new_answer']===array()) { // opened question
-            // force question  e_type = OPENED
-            $rUpdate = ModelKQ::newInstance()->updateQuestion($questionId, $q['question'], 'OPENED');
-            // if there is answers remove them
-            $rRemove = ModelKQ::newInstance()->removeAnswersByQuestionId($questionId);
-            if($rRemove===false || $rUpdate===false) { $error = true; }
-        } else {  // closed question
-            // force question e_type = CLOSED
-            $rUpdate = ModelKQ::newInstance()->updateQuestion($questionId, $q['question'], 'CLOSED');
-
-            // --------- add new answers to existing questions -----------------
-            $arrayNews = $q['new_answer'];
-            // if there is new answers insert them and asociate to killerForm (t_killer_form_questions)
-            if(is_array($arrayNews) && !empty($arrayNews)) {
-                foreach($arrayNews as $_auxNew) {
-                    $rInsert = ModelKQ::newInstance()->insertAnswer($questionId, $_auxNew['text'], $_auxNew['punct']);
-                    if($rInsert===false){ $error = true; }
-                }
-                ModelKQ::newInstance()->addQuestionsToKillerForm($killerFormId, $questionId, '');
-            }
-            if($rUpdate===false){ $error = true; }
-            // ------------------ update existing answers ----------------------
-            $arrayOld = $q['answer'];
-            if(is_array($arrayOld) && !empty($arrayOld)) {
-                foreach($arrayOld as $_auxOld) {
-                    $rUpdate = ModelKQ::newInstance()->updateAnswer($_auxOld['id'], $_auxOld['text'], $_auxOld['punct']);
-                    if($rUpdate===false){ $error = true; }
-                }
-            }
-            // ----------------- remove old answers ----------------------------
-            $arrayRemove = $q['remove'];
-            if(is_array($arrayRemove) && !empty($arrayRemove)) {
-                foreach($arrayRemove as $_auxRm) {
-                    $rRemove = ModelKQ::newInstance()->removeAnswer($_auxRm['id']);
-                    if($rRemove===false){ $error = true; }
-                }
-            }
-        }
-    }
-
-    if(!$error) {
-        osc_add_flash_ok_message(__('Killer question form updated correctly', 'jobboard'), 'admin');
-        return true;
-    } else {
-        osc_add_flash_message(__('Error updating Killer question form', 'jobboard'), 'admin');
-        return false;
-    }
-}
-?>
