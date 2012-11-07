@@ -68,6 +68,7 @@ function jobboard_update_version() {
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_id INT UNSIGNED DEFAULT NULL AFTER s_salary_text', ModelJB::newInstance()->getTable_JobsAttr()));
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_result_id INT UNSIGNED DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN d_score DECIMAL(4,2) NULL DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN b_corrected TINYINT NOT NULL DEFAULT 0  AFTER d_score', ModelJB::newInstance()->getTable_JobsApplicants()));
 
         osc_reset_preferences();
     }
@@ -87,7 +88,7 @@ function jobboard_update_version() {
 
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN i_num_positions INT UNSIGNED NOT NULL DEFAULT 1', ModelJB::newInstance()->getTable_JobsAttr()));
     }
-	
+
 }
 osc_add_hook('init', 'jobboard_update_version');
 
@@ -169,8 +170,10 @@ function ajax_answer_punctuation() {
     // update punctuation of << open questions >>
     $result = ModelKQ::newInstance()->updatePunctuationQuestionResult(Params::getParam('killerFormId'), Params::getParam('applicantId'), Params::getParam('questionId'), Params::getParam('punctuation'));
     if($result !== false) {
-        ModelKQ::newInstance()->calculatePunctuationOfApplicant(Params::getParam('applicantId'));
-        echo json_encode(Params::getParam('punctuation'));
+        $aInfo = ModelKQ::newInstance()->calculatePunctuationOfApplicant(Params::getParam('applicantId'));
+        echo json_encode( array('punctuation'   => Params::getParam('punctuation'),
+                                 'score'       => $aInfo['score'],
+                                 'corrected'   => $aInfo['corrected']) );
     } else {
         echo '0';
     }
@@ -368,7 +371,6 @@ function jobboard_form_post($catID = null, $itemID = null)  {
     $aDataKiller = getParamsKillerForm_insert();
     // if have questions ... create killer form
     if(count($aDataKiller)>0) {
-        error_log('tring to add new killer form and questions ... ');
         $title = "killer_questions_job_".$itemID;
         $killerFormId = ModelKQ::newInstance()->insertKillerForm($title);
         _insertKillerQuestions($killerFormId, $aDataKiller);
@@ -422,8 +424,35 @@ function jobboard_item_edit($catID = null, $itemID = null) {
 }
 osc_add_hook('item_edit', 'jobboard_item_edit');
 
-function jobboard_item_edit_post($catID = null, $itemID = null) {
-    ModelJB::newInstance()->replaceJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('numPositions'), Params::getParam('killer_questions_form') );
+function jobboard_item_edit_post($catID = null, $itemID = null)
+{
+    $aux_job    = ModelJB::newInstance()->getJobsAttrByItemId($itemID);
+    $killerFormId   = $aux_job['fk_i_killer_form_id'];
+    $array_new      = getParamsKillerForm_insert();
+    $array_update   = getParamsKillerForm_update();
+
+    if(( !empty($array_new) || !empty($array_update) ) && !is_numeric($killerFormId) ) {
+        error_log('jobboard_item_edit_post -> create killer form ^^');
+        $title = "killer_questions_job_".$itemID;
+        $killerFormId = ModelKQ::newInstance()->insertKillerForm($title);
+    }
+
+    $resAdd     = _insertKillerQuestions($killerFormId, $array_new);
+    if($resAdd===false) {
+        osc_add_flash_message(__('Some errors occurs adding new killer questions', 'jobboard'), 'admin');
+        header('Location: ' . osc_admin_base_url(true).'page=items&action=item_edit&id='.$itemID); exit;
+    }
+    $resEdit    = _updateKillerQuestions($killerFormId, $array_update);
+    if($resEdit===false) {
+        osc_add_flash_message(__('Some errors occurs updating existing killer questions', 'jobboard'), 'admin');
+        header('Location: ' . osc_admin_base_url(true).'page=items&action=item_edit&id='.$itemID); exit;
+    }
+
+    error_log("killerFornId ".$killerFormId);
+    error_log("new  -> ". print_r($array_new, true));
+    error_log("edit -> ". print_r($array_update, true));
+
+    ModelJB::newInstance()->replaceJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('numPositions'), $killerFormId );
 
     // prepare locales
     $dataItem = array();
@@ -743,13 +772,13 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
                 ModelKQ::newInstance()->insertAnswerClosed($applicantID, $killerFormId, $questionId, $q_answer);
             }
         }
-        // evaluate killer questions form ...
-        $score = ModelKQ::newInstance()->calculatePunctuationOfApplicant($applicantID);
-        error_log(' Score => '. $score);
         /*
-         * If answer punctuation is reject, update applicant status automatically
-         * Sum all answer punctuation and save it
+         * Evaluate killer questions form ...
+         * Sum all answer punctuation and save into applicant table
+         *
+         * If any answer punctuation is reject, update applicant status automatically.
          */
+        $aInfo = ModelKQ::newInstance()->calculatePunctuationOfApplicant($applicantID);
     }
 
     // end
@@ -1535,8 +1564,7 @@ function _punctuationSelect($new, $questionId, $answerId, $default = '') {
     <?php
 }
 
-//  --- killer questions
-// functions
+//  --- killer form --- get params from killer_form_frm.php add or edit
 function getParamsKillerForm_insert() {
     return getParamsKillerForm(true);
 }
@@ -1550,8 +1578,10 @@ function getParamsKillerForm($new = false) {
     $questions = array();
     if($new) {
         $questions  = Params::getParam('new_question');
+        error_log('NEW '. print_r($questions, true) );
     } else {
         $questions  = Params::getParam('question');
+        error_log('EDIT '. print_r($questions, true) );
     }
 
     if(is_array($questions) && !empty($questions) ) {
@@ -1597,6 +1627,13 @@ function getParamsKillerForm($new = false) {
     return $aQuestions;
 }
 
+/**
+ * Insert killer questions and make associations with killer form id
+ *
+ * @param type $killerFormId
+ * @param type $aQuestions
+ * @return type
+ */
 function _insertKillerQuestions($killerFormId, $aQuestions) {
     $error = false;
     foreach($aQuestions as $key => $q) {
@@ -1627,6 +1664,70 @@ function _insertKillerQuestions($killerFormId, $aQuestions) {
         return false;
     }
 }
+
+/**
+ * Update killer questions
+ *
+ * @param type $killerFormId
+ * @param type $aQuestions
+ * @return type
+ */
+function _updateKillerQuestions($killerFormId, $aQuestions) {
+    $error = false;
+    foreach($aQuestions as $questionId => $q) {
+        $rInsert = true;
+        $rUpdate = true;
+        $rRemove = true;
+        // update question text
+        if($q['answer']===array() && $q['new_answer']===array()) { // opened question
+            // force question  e_type = OPENED
+            $rUpdate = ModelKQ::newInstance()->updateQuestion($questionId, $q['question'], 'OPENED');
+            // if there is answers remove them
+            $rRemove = ModelKQ::newInstance()->removeAnswersByQuestionId($questionId);
+            if($rRemove===false || $rUpdate===false) { $error = true; }
+        } else {  // closed question
+            // force question e_type = CLOSED
+            $rUpdate = ModelKQ::newInstance()->updateQuestion($questionId, $q['question'], 'CLOSED');
+
+            // --------- add new answers to existing questions -----------------
+            $arrayNews = $q['new_answer'];
+            // if there is new answers insert them and asociate to killerForm (t_killer_form_questions)
+            if(is_array($arrayNews) && !empty($arrayNews)) {
+                foreach($arrayNews as $_auxNew) {
+                    $rInsert = ModelKQ::newInstance()->insertAnswer($questionId, $_auxNew['text'], $_auxNew['punct']);
+                    if($rInsert===false){ $error = true; }
+                }
+                ModelKQ::newInstance()->addQuestionsToKillerForm($killerFormId, $questionId, '');
+            }
+            if($rUpdate===false){ $error = true; }
+            // ------------------ update existing answers ----------------------
+            $arrayOld = $q['answer'];
+            if(is_array($arrayOld) && !empty($arrayOld)) {
+                foreach($arrayOld as $_auxOld) {
+                    $rUpdate = ModelKQ::newInstance()->updateAnswer($_auxOld['id'], $_auxOld['text'], $_auxOld['punct']);
+                    if($rUpdate===false){ $error = true; }
+                }
+            }
+            // ----------------- remove old answers ----------------------------
+            $arrayRemove = $q['remove'];
+            if(is_array($arrayRemove) && !empty($arrayRemove)) {
+                foreach($arrayRemove as $_auxRm) {
+                    $rRemove = ModelKQ::newInstance()->removeAnswer($_auxRm['id']);
+                    if($rRemove===false){ $error = true; }
+                }
+            }
+        }
+    }
+
+    if(!$error) {
+        osc_add_flash_ok_message(__('Killer question form updated correctly', 'jobboard'), 'admin');
+        return true;
+    } else {
+        osc_add_flash_message(__('Error updating Killer question form', 'jobboard'), 'admin');
+        return false;
+    }
+}
+
 
 function jobboard_show_share_job() {
     $jobId = Session::newInstance()->_get('jobboard_share_job');
