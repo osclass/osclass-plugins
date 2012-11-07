@@ -133,7 +133,7 @@
     </div>
     <?php if(count($aQuestions)>0) { ?>
     <h3 class="sidebar-title render-title" style="display:inline-block;">
-        <?php _e("Killer questions", "jobboard"); ?> <span id="sum_punctuations"><?php echo $acomulateScore; ?></span>/<?php echo $maxPunctuation;?>
+        <?php _e("Killer questions", "jobboard"); ?> <span id="sum_punctuations"><?php echo $acomulateScore; ?></span>/<?php echo $maxPunctuation;?><?php if(@$people['b_corrected']) { ?><i class="circle circle-green" style="position: relative;top: 6px;padding-right: 4px;padding-left: 4px;"> <?php _e('Corrected', 'jobboard'); echo @$people['d_score']; ?> </i><?php } ?>
     </h3>
     <div style="clear:both;"></div>
     <div id="killer_questions_applicant" style="margin-top:15px;">
