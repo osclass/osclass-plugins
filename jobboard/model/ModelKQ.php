@@ -226,7 +226,6 @@
                     return false;
                 }
                 $aAnswer = $result->row();
-                error_log(print_r($aAnswer, true));
                 $array['s_punctuation']  = $aAnswer['s_punctuation'];
             }
 
@@ -423,6 +422,19 @@
             if(isset($applicantId) && is_numeric($applicantId)) {
                 $this->dao->where('fk_i_applicant_id', $applicantId);
             }
+            $result = $this->dao->get();
+            if($result===false) {
+                return false;
+            }
+            $aux = $result->row();
+            return  $aux['total'];
+        }
+
+        public function countKillerFormQuestions($killerFormId)
+        {
+            $this->dao->select('count(1) as total');
+            $this->dao->from($this->getTable_KillerFormQuestions());
+            $this->dao->where('fk_i_killer_form_id', $killerFormId);
             $result = $this->dao->get();
             if($result===false) {
                 return false;
@@ -660,41 +672,49 @@
          */
         public function calculatePunctuationOfApplicant($applicantId)
         {
-            $this->dao->select();
-            $this->dao->from($this->getTable_KillerFormResults());
-            $this->dao->from($this->getTable_Answer());
+            $numResultsWthPunctuation = 0;
+            $numKillerFormQuestions   = 0;
+            $bCorrected               = false;
 
-//            $this->dao->join($this->getTable_Answer(), $this->getTable_Answer().'.pk_i_id = '.$this->getTable_KillerFormResults().'.fk_i_answer_id', 'INNER');
-            $this->dao->where('fk_i_applicant_id', $applicantId);
-            $this->dao->where('fk_i_applicant_id = '.$this->getTable_Answer().'.pk_i_id');
+            $this->dao->select('kfq.*');
+            $this->dao->from($this->getTable_KillerFormResults().' as kfq');
+            $this->dao->where('kfq.fk_i_applicant_id', $applicantId);
             $result = $this->dao->get();
 
             if($result===false) {
                 return array();
             }
+
             $result = $result->result();
-            print_r($result);
+
+            $killerFormId = $result[0]['fk_i_killer_form_id'];
+
             // calculate score.
             $maxPunctuation = 10;
             $scoreAcumulate = 0;
-            $numQuestions   = count($result);
+
             foreach($result as $aux) {
-                // s_punctuation
                 $aux_punctuation = $aux['s_punctuation'];
                 if($aux_punctuation=='reject') {
+                    $numResultsWthPunctuation++;
                     ModelJB::newInstance()->changeStatus($applicantId, 2);
                 } else if( is_numeric($aux_punctuation) ){
-                    error_log($aux_punctuation."  <- ".$aux['fk_i_answer_id']);
+                    $numResultsWthPunctuation++;
                     $scoreAcumulate += $aux_punctuation;
                 }
             }
 
-            $score = ($maxPunctuation * $scoreAcumulate) / ($numQuestions*$maxPunctuation);
-
+            $score = ($maxPunctuation * $scoreAcumulate) / ($numResultsWthPunctuation*$maxPunctuation);
+            // entirely corrected ?
+            $numKillerFormQuestions = $this->countKillerFormQuestions($killerFormId);
+            if($numKillerFormQuestions==$numResultsWthPunctuation){
+                $bCorrected = true;
+            }
             // save punctuation on t_item_job_applicant + update status if $rejected == true
-            ModelJB::newInstance()->changeScore($applicantId, $score);
+            ModelJB::newInstance()->updateScore($applicantId, $score, $bCorrected);
 
-            return $score;
+            return array('score'        => $score,
+                         'corrected'    => $bCorrected);
         }
     }
     // end file
