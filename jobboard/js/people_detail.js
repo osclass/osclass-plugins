@@ -164,13 +164,15 @@ $(document).ready(function() {
                 "punctuation" : punctuation
             },
             function(data){
-                if(data=='reject') {
+                // recived object
+                // obj.punctuation -> var punctuation
+                if(data.punctuation=='reject') {
                     $('select#applicant_status>option[value=2]').attr('selected', true);
                     $('select#applicant_status').triggerHandler('change');
                     $('#question_'+questionId+' label>i.circle').html(jobboard.langs.reject).show();
-                } else if(data!='') {
+                } else if(data.punctuation!='') {
                     // update score
-                    $('#question_'+questionId+' label>i.circle').html(data).show();
+                    $('#question_'+questionId+' label>i.circle').html(punctuation).show();
                 } else {
                     // todo - no punctuation selected
                     $('#question_'+questionId+' label>i.circle').html('').hide();
@@ -187,6 +189,11 @@ $(document).ready(function() {
                     }
                     $('span#sum_punctuations').html(temp_score);
                 });
+                // if(corrected)
+                if(data.corrected) {
+                    // add corrected circle
+                    // TODO FER
+                }
                 $('#jobboard-loading-container').hide();
             }
         );
