@@ -404,7 +404,7 @@
                 $order_col2 = "dummy." . $tmp[1];
             }
 
-            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, a.d_score, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, a.d_score, a.b_corrected, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
                 FROM (%st_item_job_applicant a)
                 LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id
                 LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id
@@ -478,7 +478,7 @@
                 $cond_str = " AND ".implode(" AND ", $cond)." ";
             }
 
-            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, a.d_score, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
+            $sql = sprintf("SELECT a.fk_i_item_id as itemid, a.pk_i_id, a.s_name, a.s_email, a.s_source, a.s_sex, a.dt_birthday, a.s_phone, a.s_cover_letter, a.dt_date, a.i_status, a.b_read, a.b_has_notes, a.i_rating, a.d_score, a.b_corrected, d.*, FIELD(d.fk_c_locale_code, '%s') as locale_order
                 FROM (%st_item_job_applicant a)
                 LEFT JOIN %st_item_description d ON d.fk_i_item_id = a.fk_i_item_id
                 LEFT JOIN %st_item i ON i.pk_i_id = a.fk_i_item_id
@@ -794,10 +794,18 @@
             return $this->dao->update($this->getTable_JobsFiles(), array('s_secret' => osc_genRandomPassword(12), 'dt_secret_date' => date("Y-m-d H:i:s")), array('pk_i_id' => $fileId));
         }
 
-        public function changeScore($applicantId, $score)
+        public function updateScore($applicantId, $score, $bCorrected = false)
         {
-            error_log($applicantId."   ".$score);
-            return $this->dao->update($this->getTable_JobsApplicants(), array('d_score' => $score), array('pk_i_id' => $applicantId));
+            if($bCorrected){
+                $bCorrected = 1;
+            } else {
+                $bCorrected = 0;
+            }
+            $_score = number_format($score, 2);
+            return $this->dao->update($this->getTable_JobsApplicants(),
+                    array(  'd_score'       => $score,
+                            'b_corrected'   => $bCorrected),
+                    array('pk_i_id' => $applicantId));
         }
     }
 
