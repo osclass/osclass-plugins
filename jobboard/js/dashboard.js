@@ -30,6 +30,9 @@ $(document).ready(function(){
         );
     });
     $('.jobboard-dashboard .ico-close').bind('click', function(){
-        $('.flashmessage-dismiss').remove();
+        var fm = $(this).parents('.flashmessage-dashboard-jobboard');
+        if($(fm).hasClass('flashmessage-dismiss')) {
+            $(fm).remove();
+        }
     });
 });
