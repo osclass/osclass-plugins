@@ -52,7 +52,7 @@
     if(Params::getParam('rating')!='') {
         $conditions['rating'] = Params::getParam('rating');
     }
-    error_log( print_r($conditions, true) );
+
     $order_col = Params::getParam('sOrderCol')!=''?Params::getParam('sOrderCol'):'a.dt_date';
     $order_dir = Params::getParam('sOrderDir')!=''?Params::getParam('sOrderDir'):'DESC';
 
