@@ -86,7 +86,7 @@ function addAnswers(element) {
         if(list_answers==0) {
             var select = createSelectAnswer();
 
-            var containerAnswers  = $('<p class="containerAnswers">');
+            var containerAnswers  = $('<div class="containerAnswers">');
             containerAnswers.html(jobboard.langs.answer);
             var answers      = $('<ol>');
             for(i=0;i<5;i++) {
@@ -136,7 +136,7 @@ function removeAnswers(element) {
         punct   = 'new_answer_punct';
     }
 
-    $('#'+name+'_'+questionId+' p').remove();
+    $('#'+name+'_'+questionId+' .containerAnswers').remove();
     $('#'+name+'_'+questionId+' ol').remove();
 }
 
@@ -151,7 +151,24 @@ function clearAnswer(element) {
     $(select).find('option[value=""]').attr('selected','selected');
     $(select).triggerHandler('change');
 }
-
+function triggerKillerFormCreation(){
+    $('.new_question').each(function(){
+        var insertAnswersLink = $(this).find('.addAnswers');
+        var removeAnswersLink = $(this).find('.removeAnswers');
+            insertAnswersLink.click(function(){
+                insertAnswersLink.hide();
+                removeAnswersLink.show();
+                addAnswers($(this));
+                return false;
+            });
+            removeAnswersLink.click(function(){
+                insertAnswersLink.show();
+                removeAnswersLink.hide();
+                removeAnswers($(this));
+                return false;
+            });
+    });
+}
 $(document).ready(function() {
 
     // validate form

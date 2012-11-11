@@ -156,3 +156,8 @@
     float:right;
     height: 14px;
 }
+.rounded-well{
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+}
