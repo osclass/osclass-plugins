@@ -131,7 +131,6 @@ ul.shortcuts li a:hover{
 }
 #killerquestionsForm .addAnswers,
 #killerquestionsForm .removeAnswers {
-    float:none;
     padding-top: 5px;
     padding-bottom: 7px;
 }
@@ -174,11 +173,11 @@ span.input-large {
     width:91%;
 }
 .new_question .containerAnswers input{
-    width:74%;
+    width:62%;
     margin-right:1%;
 }
 .new_question .containerAnswers select{
-    width:16%;
+    width:28%;
 }
 #killerquestions div.containerAnswers a.delete_answer {
     background-image: url(../img/clean.png);
@@ -202,4 +201,9 @@ span.input-large {
 }
 .new_question li {
     margin-bottom: 4px;
+}
+#killerquestionsForm{
+    width: 530px;
+}#killerquestionsForm{
+    width: 530px;
 }

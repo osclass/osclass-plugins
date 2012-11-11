@@ -18,17 +18,25 @@ if( is_numeric(@$detail['fk_i_killer_form_id']) ) {
 <h2 class="render-title separate-top"><?php _e('Killer Questions' ,'jobboard'); ?> <a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a></h2>
 <div id="killerquestions">
     <?php if(!$new_killer_form) { foreach($killerQuestions['questions'] as $key => $q) { ?>
-    <div id="question_<?php echo $q['pk_i_id'];?>" data-id="<?php echo $q['pk_i_id'];?>" class="question">
+    <div id="question_<?php echo $q['pk_i_id'];?>" data-id="<?php echo $q['pk_i_id'];?>" class="new_question">
         <label><?php _e('Question', 'jobboard'); ?> <?php echo $key;?></label>
+        <?php
+        $hide = array('add'=>'style="display:none"','remove'=>'');
+        $hasAnswers = false;
+        if($q['a_answers']===false){
+            $hide['add']    = '';
+            $hide['remove'] = 'style="display:none"';
+        } else {
+            $hasAnswers = true;
+        }
+        ?>
+        <a class="addAnswers btn btn-mini add-remove-btn" <?php echo $hide['add']; ?>><?php _e('Add answers', 'jobboard'); ?></a>
+        <a class="removeAnswers add-remove-btn btn btn-mini" <?php echo $hide['remove']; ?>><?php _e('Remove answers', 'jobboard'); ?></a>
         <a class="delete_question" data-question-id="<?php echo $q['pk_i_id'];?>"></a>
         <input class="input-large question_input" type="text" name="question[<?php echo $q['pk_i_id']; ?>][question]" value="<?php echo osc_esc_html($q['s_text']);?>"/>
-        <?php if($q['a_answers']===false){ ?>
-        <a class="addAnswers btn btn-mini" onclick="addAnswers($(this));return false;"><?php _e('Add answers', 'jobboard'); ?></a>
-        <?php } else {
-            $num_questions = count($q['a_answers']);
-            ?>
-        <a class="removeAnswers btn btn-mini" onclick="removeAnswers($(this));return false;"><?php _e('Remove answers', 'jobboard'); ?></a>
-        <p><?php _e('Answer', 'jobboard'); ?>
+        <?php if($hasAnswers){ ?>
+        <div class="containerAnswers">
+            <?php _e('Answer', 'jobboard'); ?>
             <ol>
                 <?php foreach($q['a_answers'] as $key_ => $a){ ?>
                 <li>
@@ -47,13 +55,14 @@ if( is_numeric(@$detail['fk_i_killer_form_id']) ) {
                 </li>
                 <?php } ?>
             </ol>
-        </p>
+        </div>
         <?php }  ?>
     </div>
     <?php } } ?>
 </div>
 
 <script type="text/javascript">
+    triggerKillerFormCreation();
     $('.killer-form-select select').each(function() {
         selectUi($(this));
     });

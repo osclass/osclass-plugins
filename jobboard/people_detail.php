@@ -140,8 +140,8 @@
         <div id="kq_table_div">
             <div id="killerquestions">
                 <?php foreach($aQuestions['questions'] as $key => $q) { ?>
-                <div id="question_<?php echo $q['pk_i_id'];?>" data-id="<?php echo $q['pk_i_id'];?>" class="well" style="margin-bottom: 15px;">
-                    <label style="float:right;">
+                <div id="question_<?php echo $q['pk_i_id'];?>" data-id="<?php echo $q['pk_i_id'];?>" class="well rounded-well" style="margin-bottom: 15px;">
+                    <label>
                         <?php $hide_circle = false; if(@$aAnswers[$q['pk_i_id']]['s_punctuation']=='') { $hide_circle = true; } ?>
                         <i class="circle circle-red" style="<?php if($hide_circle){echo "display:none;";} ?>position: relative;top: 6px;padding-right: 4px;padding-left: 4px;"><?php echo @$aAnswers[$q['pk_i_id']]['s_punctuation'];?></i>
                         <?php _e('Question', 'jobboard'); ?> <?php echo $key;?>
