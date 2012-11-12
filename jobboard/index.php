@@ -27,6 +27,24 @@ function job_call_after_install() {
     osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
 }
 
+function job_call_after_uninstall() {
+    ModelKQ::newInstance()->uninstall();
+    ModelJB::newInstance()->uninstall();
+
+    osc_delete_preference('upload_path', 'jobboard_plugin');
+    osc_delete_preference('version', 'jobboard_plugin');
+    // remove killer questions preferences
+    osc_delete_preference('max_killer_questions', 'jobboard_plugin');
+    osc_delete_preference('max_answers', 'jobboard_plugin');
+
+    // remove preferences added by JobboardNotices class
+    $job_notice = new JobboardNotices();
+    $job_notice->uninstall();
+    // remove strem activity
+    $job_stream = new Stream();
+    $job_stream->uninstall();
+}
+
 function jobboard_update_version() {
     $version = osc_get_preference('version', 'jobboard_plugin');
 
@@ -56,7 +74,8 @@ function jobboard_update_version() {
 
     // add alters for killer questions
     if( $version < 130) {
-        ModelJB::newInstance()->import('jobboard/struct.sql');
+        error_log('updating to 1.3.0');
+        ModelKQ::newInstance()->import('jobboard/struct_killer.sql');
 
         osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
         osc_set_preference('max_killer_questions', 10, 'jobboard_plugin', 'INTEGER');
@@ -146,14 +165,6 @@ function jobboard_sex_to_string($sex) {
     return $aSex[$sex];
 }
 osc_add_hook('admin_header', 'jobboard_extra');
-
-function job_call_after_uninstall() {
-    ModelKQ::newInstance()->uninstall();
-    ModelJB::newInstance()->uninstall();
-
-    osc_delete_preference('upload_path', 'jobboard_plugin');
-    osc_delete_preference('version', 'jobboard_plugin');
-}
 
 /* AJAX */
 function ajax_rating_request() {
@@ -432,7 +443,6 @@ function jobboard_item_edit_post($catID = null, $itemID = null)
     $array_update   = getParamsKillerForm_update();
 
     if(( !empty($array_new) || !empty($array_update) ) && !is_numeric($killerFormId) ) {
-        error_log('jobboard_item_edit_post -> create killer form ^^');
         $title = "killer_questions_job_".$itemID;
         $killerFormId = ModelKQ::newInstance()->insertKillerForm($title);
     }
@@ -447,10 +457,6 @@ function jobboard_item_edit_post($catID = null, $itemID = null)
         osc_add_flash_message(__('Some errors occurs updating existing killer questions', 'jobboard'), 'admin');
         header('Location: ' . osc_admin_base_url(true).'page=items&action=item_edit&id='.$itemID); exit;
     }
-
-    error_log("killerFornId ".$killerFormId);
-    error_log("new  -> ". print_r($array_new, true));
-    error_log("edit -> ". print_r($array_update, true));
 
     ModelJB::newInstance()->replaceJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('numPositions'), $killerFormId );
 
@@ -1578,10 +1584,8 @@ function getParamsKillerForm($new = false) {
     $questions = array();
     if($new) {
         $questions  = Params::getParam('new_question');
-        error_log('NEW '. print_r($questions, true) );
     } else {
         $questions  = Params::getParam('question');
-        error_log('EDIT '. print_r($questions, true) );
     }
 
     if(is_array($questions) && !empty($questions) ) {
