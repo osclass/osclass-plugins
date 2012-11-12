@@ -61,7 +61,23 @@ if( is_numeric(@$detail['fk_i_killer_form_id']) ) {
         <?php }  ?>
     </div>
     <?php } } ?>
+    <div id="dialog-question-delete" title="<?php echo osc_esc_html(__('Delete question', 'jobboard')); ?>" class="has-form-actions hide" data-killerform-id="<?php echo $killer_form_id;?>" data-question-id="">
+        <div class="form-horizontal">
+            <div class="form-row">
+                <?php _e('Are you sure you want to delete this question?', 'jobboard'); ?><br/>
+                <?php _e('Answers will be delete too', 'jobboard'); ?>
+            </div>
+            <div class="form-actions">
+                <div class="wrapper">
+                    <a class="btn" href="javascript:void(0);" onclick="$('#dialog-question-delete').dialog('close');"><?php _e('Cancel', 'jobboard'); ?></a>
+                    <a id="question-delete-submit" class="btn btn-red" href="javascript:void(0);" ><?php echo osc_esc_html( __('Delete', 'jobboard') ); ?></a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <script type="text/javascript">
     triggerKillerFormCreation();
