@@ -150,6 +150,9 @@ $(document).ready(function() {
 
     // ajax set open answer punctuation, and refresh final score
     $('select.answer_punctuation').change(function(){
+
+        $(this).next().find('.select-box-label').text($(this).find('option:eq(0)').text());
+
         $('#jobboard-loading-container').show();
 
         var killerFormId = $(this).attr('data-killerform-id');
@@ -169,20 +172,21 @@ $(document).ready(function() {
                 if(data.punctuation=='reject') {
                     $('select#applicant_status>option[value=2]').attr('selected', true);
                     $('select#applicant_status').triggerHandler('change');
-                    $('#question_'+questionId+' label>i.circle').html(jobboard.langs.reject).show();
-                } else if(data.punctuation!='') {
-                    // update score
-                    $('#question_'+questionId+' label>i.circle').html(punctuation).show();
+                    $('#question_'+questionId+' i.score-unit').html(jobboard.langs.reject);
+                } else  if(data.punctuation != '') {
+                    $('#question_'+questionId+' i.score-unit').html(punctuation);
                 } else {
-                    // todo - no punctuation selected
-                    $('#question_'+questionId+' label>i.circle').html('').hide();
+                    $('#question_'+questionId+' i.score-unit').html('?');
                 }
+
+
+
+
                 // update killer form score
                 var temp_score = 0;
-                $('#killer_questions_applicant label>i.circle').each(function(){
+                $('#killer_questions_applicant i.score-unit').each(function(){
                     var punctuation_aux = $(this).html();
                     if(punctuation_aux!='reject' && punctuation_aux!=''){
-                        console.log(punctuation_aux);
                         if( !isNaN(parseInt(punctuation_aux)) ) {
                             temp_score = temp_score+parseInt(punctuation_aux);
                         }
@@ -199,4 +203,12 @@ $(document).ready(function() {
         );
     });
 
+    $('select.answer_punctuation').each(function(){
+        $(this).next().find('.select-box-label').text($(this).find('option:eq(0)').text());
+    });
+    $('label.score').hover(function(){
+        $(this).addClass('show-box');
+    },function(){
+        $(this).removeClass('show-box');
+    })
 });

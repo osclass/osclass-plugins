@@ -179,6 +179,9 @@ span.input-large {
 .new_question .containerAnswers select{
     width:28%;
 }
+.new_question .containerAnswers .select-box select{
+    width:100%;
+}
 #killerquestions div.containerAnswers a.delete_answer {
     background-image: url(../img/clean.png);
 }

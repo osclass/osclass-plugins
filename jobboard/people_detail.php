@@ -141,11 +141,40 @@
             <div id="killerquestions">
                 <?php foreach($aQuestions['questions'] as $key => $q) { ?>
                 <div id="question_<?php echo $q['pk_i_id'];?>" data-id="<?php echo $q['pk_i_id'];?>" class="well rounded-well" style="margin-bottom: 15px;">
-                    <label>
-                        <?php $hide_circle = false; if(@$aAnswers[$q['pk_i_id']]['s_punctuation']=='') { $hide_circle = true; } ?>
-                        <i class="circle circle-red" style="<?php if($hide_circle){echo "display:none;";} ?>position: relative;top: 6px;padding-right: 4px;padding-left: 4px;"><?php echo @$aAnswers[$q['pk_i_id']]['s_punctuation'];?></i>
-                        <?php _e('Question', 'jobboard'); ?> <?php echo $key;?>
+                    <label class="score">
+                        <div class="score-box">
+                        <?php
+                        $hide_circle = false;
+                        $puntuationShow = '?';
+                        if(@$aAnswers[$q['pk_i_id']]['s_punctuation']!='') {
+                            $puntuationShow = @$aAnswers[$q['pk_i_id']]['s_punctuation'];
+                        }
+                        ?>
+                        <i class="score-unit"><?php echo $puntuationShow;?></i>
+                        <span class="help"><?php _e('score','jobboard'); ?></span>
+                        <?php if($q['a_answers']===false){ ?>
+                            <div class="score-manage">
+                                <select class="answer_punctuation" data-question-id="<?php echo $q['pk_i_id'];?>"
+                                data-killerform-id="<?php echo @$aAnswers[$q['pk_i_id']]['fk_i_killer_form_id']; ?>"
+                                data-applicant-id="<?php echo @$aAnswers[$q['pk_i_id']]['fk_i_applicant_id']; ?>">
+                                    <option value="" <?php if($default==''){ echo 'selected'; } ?>><?php _e('Change', 'jobboard'); ?></option>
+                                    <option value="10" <?php if($default=='10'){ echo 'selected'; } ?>>10</option>
+                                    <option value="9" <?php if($default=='9'){ echo 'selected'; } ?>>9</option>
+                                    <option value="8" <?php if($default=='8'){ echo 'selected'; } ?>>8</option>
+                                    <option value="7" <?php if($default=='7'){ echo 'selected'; } ?>>7</option>
+                                    <option value="6" <?php if($default=='6'){ echo 'selected'; } ?>>6</option>
+                                    <option value="5" <?php if($default=='5'){ echo 'selected'; } ?>>5</option>
+                                    <option value="4" <?php if($default=='4'){ echo 'selected'; } ?>>4</option>
+                                    <option value="3" <?php if($default=='3'){ echo 'selected'; } ?>>3</option>
+                                    <option value="2" <?php if($default=='2'){ echo 'selected'; } ?>>2</option>
+                                    <option value="1" <?php if($default=='1'){ echo 'selected'; } ?>>1</option>
+                                    <option value="reject" <?php if($default=='reject'){ echo 'selected'; } ?>><?php _e('Reject', 'jobboard'); ?></option>
+                                </select>
+                            </div>
+                        <?php } ?>
+                        </div>
                     </label>
+                    <?php _e('Question', 'jobboard'); ?> <?php echo $key;?>
                     <p><?php echo $q['s_text'];?></p>
                     <?php if($q['a_answers']!==false){ ?>
                     <p>
@@ -173,22 +202,6 @@
                     <p>
                         <i class="circle circle-green" style="width: 25px;position: relative;top: 6px;">&#10142;</i>
                         <textarea class="required" name="question[<?php echo $q['pk_i_id']; ?>][open]"><?php echo osc_esc_html(@$aAnswers[$q['pk_i_id']]['s_answer_opened']); ?></textarea>
-                        <select class="answer_punctuation" data-question-id="<?php echo $q['pk_i_id'];?>"
-                                data-killerform-id="<?php echo @$aAnswers[$q['pk_i_id']]['fk_i_killer_form_id']; ?>"
-                                data-applicant-id="<?php echo @$aAnswers[$q['pk_i_id']]['fk_i_applicant_id']; ?>">
-                            <option value="" <?php if($default==''){ echo 'selected'; } ?>><?php _e('Punctuation', 'jobboard'); ?></option>
-                            <option value="10" <?php if($default=='10'){ echo 'selected'; } ?>>10</option>
-                            <option value="9" <?php if($default=='9'){ echo 'selected'; } ?>>9</option>
-                            <option value="8" <?php if($default=='8'){ echo 'selected'; } ?>>8</option>
-                            <option value="7" <?php if($default=='7'){ echo 'selected'; } ?>>7</option>
-                            <option value="6" <?php if($default=='6'){ echo 'selected'; } ?>>6</option>
-                            <option value="5" <?php if($default=='5'){ echo 'selected'; } ?>>5</option>
-                            <option value="4" <?php if($default=='4'){ echo 'selected'; } ?>>4</option>
-                            <option value="3" <?php if($default=='3'){ echo 'selected'; } ?>>3</option>
-                            <option value="2" <?php if($default=='2'){ echo 'selected'; } ?>>2</option>
-                            <option value="1" <?php if($default=='1'){ echo 'selected'; } ?>>1</option>
-                            <option value="reject" <?php if($default=='reject'){ echo 'selected'; } ?>><?php _e('Reject', 'jobboard'); ?></option>
-                        </select>
                     </p>
                     <?php }  ?>
                 </div>
