@@ -672,6 +672,7 @@
          */
         public function calculatePunctuationOfApplicant($applicantId)
         {
+            $score                    = 0;
             $numResultsWthPunctuation = 0;
             $numKillerFormQuestions   = 0;
             $bCorrected               = false;
@@ -704,7 +705,9 @@
                 }
             }
 
-            $score = ($maxPunctuation * $scoreAcumulate) / ($numResultsWthPunctuation*$maxPunctuation);
+            if($numResultsWthPunctuation>0) {
+                $score = ($maxPunctuation * $scoreAcumulate) / ($numResultsWthPunctuation*$maxPunctuation);
+            }
             // entirely corrected ?
             $numKillerFormQuestions = $this->countKillerFormQuestions($killerFormId);
             if($numKillerFormQuestions==$numResultsWthPunctuation){
