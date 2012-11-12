@@ -189,12 +189,11 @@ $(document).ready(function() {
 
     // delete question
     // ( used when a existent question is removed from the system )
-    $("#dialog-question-delete").dialog({
-        autoOpen: false,
-        modal: true
-    });
-
     $('.delete_question').live('click', function(){
+        $("#dialog-question-delete").dialog({
+            autoOpen: false,
+            modal: true
+        });
         $("#dialog-question-delete").attr('data-question-id', $(this).attr('data-question-id'));
         $("#dialog-question-delete").dialog('open');
     });
