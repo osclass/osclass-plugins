@@ -19,6 +19,12 @@
             osc_add_hook('after_delete_item', array(&$this, 'log_confirm_delete_job'));
         }
 
+        public function uninstall()
+        {
+            // remove registers inserted at t_log
+            $this->log->uninstall();
+        }
+
         function log_login()
         {
             $data = sprintf(__('%1$s signed in.', 'jobboard'), osc_logged_admin_name());

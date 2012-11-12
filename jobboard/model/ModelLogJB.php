@@ -23,6 +23,12 @@
             $this->whoID   = osc_logged_admin_id();
         }
 
+        public function uninstall()
+        {
+            $this->dao->delete($this->getTableName(),
+                            array('s_section' => 'jobboard'));
+        }
+
         public function logJobboard($action, $id, $content)
         {
             return $this->insertLog($this->section, $action, $id, $content, $this->who, $this->whoID);
