@@ -358,6 +358,10 @@
                     if($k=='status') {
                         $cond[] = "a.i_status = ".$this->dao->connId->real_escape_string($v);
                     }
+                    if($k=='uncorrected_forms') {
+                        $cond[] = "a.b_corrected = 0";
+                        $cond[] = "a.d_score IS NOT NULL";
+                    }
                     if($k=='unread') {
                         $cond[] = "a.b_read = 0";
                     }
@@ -437,6 +441,10 @@
                     }
                     if($k=='status') {
                         $cond[] = "a.i_status = ".$this->dao->connId->real_escape_string($v);
+                    }
+                    if($k=='uncorrected_forms') {
+                        $cond[] = "a.b_corrected = 0";
+                        $cond[] = "a.d_score IS NOT NULL";
                     }
                     if($k=='unread') {
                         $cond[] = "a.b_read = 0";

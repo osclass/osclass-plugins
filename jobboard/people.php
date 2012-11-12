@@ -29,6 +29,9 @@
 
         unset( $conditions['status'] );
     }
+    if(Params::getParam('uncorrected_forms')!='') {
+        $conditions['uncorrected_forms'] = Params::getParam('uncorrected_forms');
+    }
     if(Params::getParam('sEmail')!='') {
         $conditions['email'] = Params::getParam('sEmail');
     }
@@ -136,11 +139,15 @@
                     <div class="grid-row grid-50">
                         <div class="row-wrapper">
                             <div class="form-row">
-                                <div class="form-label">
-
-                                </div>
+                                <div class="form-label"></div>
                                 <div class="form-controls">
                                     <label><input type="checkbox" id="viewUnread" name="viewUnread" value="1" <?php if(Params::getParam('viewUnread')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("View unread", "jobboard"); ?></label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label"></div>
+                                <div class="form-controls">
+                                    <label><input type="checkbox" id="uncorrected_forms" name="uncorrected_forms" value="1" <?php if(Params::getParam('uncorrected_forms')=='1') { echo 'checked="checked"'; }; ?> /><?php _e("With not reviewed questions", "jobboard"); ?></label>
                                 </div>
                             </div>
                             <div class="form-row">
