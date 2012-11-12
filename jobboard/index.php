@@ -74,7 +74,6 @@ function jobboard_update_version() {
 
     // add alters for killer questions
     if( $version < 130) {
-        error_log('updating to 1.3.0');
         ModelKQ::newInstance()->import('jobboard/struct_killer.sql');
 
         osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
