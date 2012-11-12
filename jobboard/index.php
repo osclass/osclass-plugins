@@ -65,7 +65,7 @@ function jobboard_update_version() {
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_result_id INT UNSIGNED DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
 
         osc_reset_preferences();
-    }*/
+    }
 
 
     if( $version < 141) {
@@ -83,6 +83,7 @@ function jobboard_update_version() {
 
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN i_num_positions INT UNSIGNED NOT NULL DEFAULT 1', ModelJB::newInstance()->getTable_JobsAttr()));
     }
+	*/
 }
 osc_add_hook('init', 'jobboard_update_version');
 

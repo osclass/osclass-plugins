@@ -112,7 +112,7 @@
             $this->dao->query('DROP TABLE '. $this->getTable_JobsApplicants());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttrDescription());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttr());
-            $this->dao->query('DROP TABLE '. ModelKQ::newInstance()->getTable_KillerForm());
+            //$this->dao->query('DROP TABLE '. ModelKQ::newInstance()->getTable_KillerForm());
 
             $page = Page::newInstance()->findByInternalName('email_resumes_jobboard');
             if(isset($page['pk_i_id'])) {
