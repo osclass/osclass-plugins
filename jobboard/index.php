@@ -437,7 +437,7 @@ osc_add_hook('item_edit', 'jobboard_item_edit');
 function jobboard_item_edit_post($catID = null, $itemID = null)
 {
     $aux_job    = ModelJB::newInstance()->getJobsAttrByItemId($itemID);
-    $killerFormId   = $aux_job['fk_i_killer_form_id'];
+    $killerFormId   = @$aux_job['fk_i_killer_form_id'];
     $array_new      = getParamsKillerForm_insert();
     $array_update   = getParamsKillerForm_update();
 
