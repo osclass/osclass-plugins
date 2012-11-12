@@ -38,7 +38,9 @@ if( is_numeric(@$detail['fk_i_killer_form_id']) ) {
         <div class="containerAnswers">
             <?php _e('Answer', 'jobboard'); ?>
             <ol>
-                <?php foreach($q['a_answers'] as $key_ => $a){ ?>
+                <?php
+                $num_questions = count($q['a_answers']);
+                foreach($q['a_answers'] as $key_ => $a){ ?>
                 <li>
                     <a class="delete_answer" onclick="clearAnswer($(this)); return false;"></a>
                     <input class="input-large" type="text" name="question[<?php echo $q['pk_i_id'];?>][answer][<?php echo $a['pk_i_id'];?>]" value="<?php echo osc_esc_html($a['s_text']);?>"/>
