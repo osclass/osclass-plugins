@@ -29,8 +29,8 @@
 <h2 class="render-title"><?php _e('Killer questions forms', 'jobboard'); ?> <a href="<?php echo osc_admin_render_plugin_url("jobboard/killer_form_frm.php"); ?>" class="btn btn-mini"><?php _e('Add new'); ?></a></h2>
 <div class="relative killer">
     <div id="listing-toolbar">
-        <div class="float-right">
-            <form method="get" action="<?php echo osc_admin_base_url(true); ?>" class="inline select-items-per-page float-left">
+        <div class="float-left">
+            <form method="get" action="<?php echo osc_admin_base_url(true); ?>" class="inline float-left">
                 <?php foreach( Params::getParamsAsArray('get') as $key => $value ) { ?>
                 <?php if( $key != 'iDisplayLength' ) { ?>
                 <input type="hidden" name="<?php echo $key; ?>" value="<?php echo osc_esc_html($value); ?>" />
@@ -42,14 +42,15 @@
                     <option value="100" <?php if( Params::getParam('iDisplayLength') == 100 ) echo 'selected'; ?> ><?php printf(__('Show %d Killer forms'), 100); ?></option>
                 </select>
             </form>
+        </div>
+        <div class="float-right">
             <form method="get" action="<?php echo osc_admin_base_url(true); ?>" id="shortcut-filters" class="inline">
                 <input type="hidden" name="page" value="plugins">
                 <input type="hidden" name="action" value="renderplugin">
                 <input type="hidden" name="file" value="jobboard/manage_killer.php">
 
                 <input type="hidden" name="iDisplayLength" value="<?php echo $iDisplayLength;?>" />
-                <label style="padding-top:9px;"><?php _e('Title', 'jobboard'); ?></label>
-                <input type="text" name="sTitle" value="<?php echo osc_esc_html(Params::getParam('sTitle')); ?>" class="input-text input-actions"/>
+                <input type="text" name="sTitle" value="<?php echo osc_esc_html(Params::getParam('sTitle')); ?>" placeholder="<?php _e('Title', 'jobboard'); ?>" class="input-text input-actions"/>
                 <input type="submit" class="btn submit-right" value="<?php echo osc_esc_html( __('Find') ) ; ?>">
             </form>
         </div>
