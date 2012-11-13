@@ -350,6 +350,14 @@ osc_add_hook('ajax_admin_question_delete', 'ajax_question_delete');
 /* /AJAX */
 
 /* FORM JOB BOARD */
+function jobboard_add_show_flashmessage()
+{
+    // add flashmessage
+    osc_add_flash_ok_message(__("Killer question form note: Once you create it you won't be able to update or remove it without deleting vacancy itself", 'jobboard'), 'admin');
+    error_log('add flash message');
+}
+osc_add_hook('post_item', 'jobboard_add_show_flashmessage');
+
 function jobboard_form($catID = null) {
     $detail = array(
         'e_position_type' => '',
