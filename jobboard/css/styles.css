@@ -1,3 +1,27 @@
+.share-dialog .share-social-popup{
+    width: 86px;
+    height: 57px;
+    display: block;
+    float: left;
+    padding-top: 90px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    color: #666;
+}
+.share-dialog .share-social-popup:hover{
+    background-position: bottom left;
+}
+.share-dialog .share-twitter{
+    background:url(../img/share-twitter.png);
+}
+.share-dialog .share-facebook{
+    background:url(../img/share-facebook.png);
+    margin:0 10px;
+}
+.share-dialog .share-linkedin{
+    background:url(../img/share-linkedin.png);
+}
 #corporateboard .ico, #jobboard .ico {
     background-image: url('../img/split.png') !important;
     background-position:0px -48px;

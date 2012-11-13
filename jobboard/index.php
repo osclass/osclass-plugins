@@ -1655,18 +1655,35 @@ function jobboard_show_share_job() {
 
     $item = Item::newInstance()->findByPrimaryKey($jobId);
     View::newInstance()->_exportVariableToView('item', $item) ;
+
+    $shareURL          = htmlspecialchars(osc_item_url());
+    $shareTitle        = htmlspecialchars('We are hiring! '.osc_item_title().' ');
+
+    $facebookShareUrl  = 'http://www.facebook.com/share.php?u=';
+    $facebookShareUrl .= $shareURL;
+    $facebookShareUrl .= 't=';
+    $facebookShareUrl .= $shareTitle;
+    $facebookShareUrl .= '&id=';
+    $facebookShareUrl .= $shareTitle;
+
+
+    $twitterShareLink  = 'https://twitter.com/intent/tweet?original_referer=';
+    $twitterShareLink .= $shareURL;
+    $twitterShareLink .= '&source=tweetbutton&text=';
+    $twitterShareLink .= $shareTitle.'&url=';
+    $twitterShareLink .= $shareURL;
+
+    $linkedinShareLink  = 'http://www.linkedin.com/shareArticle?mini=true&url=';
+    $linkedinShareLink .= $shareURL.'&title='.$shareTitle.'&summary='.htmlspecialchars(osc_item_description()).'&source='.htmlspecialchars('http://osclass.com');
     ?>
-    <div id="dialog-share-job" title="<?php echo osc_esc_html(__('Share job', 'jobboard')); ?>" class="has-form-actions hide">
+    <div id="dialog-share-job" title="<?php echo osc_esc_html(__('Share your vacancy', 'jobboard')); ?>" class="has-form-actions hide">
         <div class="form-horizontal">
             <div class="form-row">
-                <?php _e('You can share the job', 'jobboard'); ?><br/>
-                <?php echo osc_item_title(); ?>
-                <br/>
-                <?php echo osc_item_url(); ?>
-                <!--         AQUI PUEDES USAR HELPERS del core       -->
-                <a>tw</a>
-                <a>fb</a>
-                <a>li</a>
+                <?php _e('Good stuff! Your vacancy has been published.', 'jobboard'); ?>
+                <p><?php _e('Would you like to share your vacancy?', 'jobboard'); ?></p>
+                <a href="<?php echo $twitterShareLink;  ?>" class="share-social-popup share-twitter"><?php _e('Share to Twitter','jobboard'); ?></a>
+                <a href="<?php echo $facebookShareUrl;  ?>" class="share-social-popup share-facebook"><?php _e('Share to Facebook','jobboard'); ?></a>
+                <a href="<?php echo $linkedinShareLink; ?>" class="share-social-popup share-linkedin"><?php _e('Share to Linkedin','jobboard'); ?></a>
             </div>
             <div class="form-actions">
                 <div class="wrapper">
@@ -1677,12 +1694,19 @@ function jobboard_show_share_job() {
         </div>
     </div>
 <script type="text/javascript">
-    $(document).ready(function() {
+     $(document).ready(function() {
          $("#dialog-share-job").dialog({
             autoOpen: false,
-            modal: true
+            modal: true,
+            dialogClass:'share-dialog',
+            width:440
         });
         $("#dialog-share-job").dialog('open');
+
+        $('.share-social-popup').click(function(){
+            window.open($(this).attr('href'),'1352814942738','width=700,height=250,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
+            return false;
+        });
     });
 </script>
     <?php
