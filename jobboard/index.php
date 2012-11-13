@@ -350,14 +350,6 @@ osc_add_hook('ajax_admin_question_delete', 'ajax_question_delete');
 /* /AJAX */
 
 /* FORM JOB BOARD */
-function jobboard_add_show_flashmessage()
-{
-    // add flashmessage
-    osc_add_flash_ok_message(__("Killer question form note: Once you create it you won't be able to update or remove it without deleting vacancy itself", 'jobboard'), 'admin');
-    error_log('add flash message');
-}
-osc_add_hook('post_item', 'jobboard_add_show_flashmessage');
-
 function jobboard_form($catID = null) {
     $detail = array(
         'e_position_type' => '',
@@ -1217,6 +1209,7 @@ osc_register_script('jobboard-manage-killer-form', osc_plugin_url(__FILE__) . 'j
 osc_register_script('jobboard-people-detail', osc_plugin_url(__FILE__) . 'js/people_detail.js', 'jquery');
 osc_register_script('jobboard-dashboard', osc_plugin_url(__FILE__) . 'js/dashboard.js', array('jquery'));
 osc_register_script('jobboard-apply-linkedin', osc_plugin_url(__FILE__) . 'js/bridgeApplyLinkedin.js', array('jquery'));
+osc_register_script('jobboard-show-flashmessage', osc_plugin_url(__FILE__) . 'js/jobboardShowFlashmessage.js', array('jquery'));
 
 function admin_assets_jobboard() {
     osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/styles.css');
@@ -1250,10 +1243,12 @@ function admin_assets_jobboard() {
         break;
     }
     if(Params::getParam('page')=='items') {
+        osc_enqueue_style('jobboard-flash-message', osc_plugin_url(__FILE__) . 'css/jobboard-flash-message.css', 6);
         osc_enqueue_script('jobboard-killer-form');
     }
 }
 osc_add_hook('init_admin', 'admin_assets_jobboard');
+
 function admin_tinymceurl(){ ?>
     <script type="text/javascript">
     tinyMCE.init({
@@ -1331,6 +1326,7 @@ function jobboard_init_js() {
     $langs['insertAnswersLink'] = __('Add answers', 'jobboard');
     $langs['removeAnswersLink'] = __('Remove answers', 'jobboard');
     $langs['title_msg_required'] = __('Form title cannot be empty', 'jobboard');
+    $langs['add_edit_flashmessage'] = __("Killer question form note: Once you create it you won't be able to update or remove it without deleting vacancy itself", 'jobboard');
 
 ?>
 <script type="text/javascript">
