@@ -149,12 +149,20 @@
     font-size:21px;
     font-weight: normal;
     color:#616161;
-    margin-bottom:-25px;
+    margin-bottom:0px;
     margin-top: 15px;
 }
 #applicant-detail .sidebar-title a{
     float:right;
     height: 14px;
+}
+#applicant-detail .sidebar-title i{
+    padding-right: 4px;
+padding-left: 4px;
+float: right;
+margin-left: 10px;
+margin-top: 1px;
+top:0px !important;
 }
 .rounded-well{
     border-radius:4px;
@@ -164,15 +172,16 @@
 #killerquestions .well{
     position: relative;
 }
+/*
 label.score{
 position: absolute;
 right:15px;
 top:15px;
 
     transition: all 0.2s;
-    -moz-transition: all 0.2s; /* Firefox 4 */
-    -webkit-transition: all 0.2s; /* Safari and Chrome */
-    -o-transition: all 0.2s; /* Opera */
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
 }
 label.score .score-box{
     border-radius:5px 5px 0 0;
@@ -255,6 +264,13 @@ label.show-box .score-manage{
 label.score .score-manage{
     display: none
 
+}*/
+.score-unit{
+    margin-top:5px;
+}
+#killerquestions .well .select-box{
+    vertical-align: top;
+    margin-left:7px;
 }
 #killerquestions .well textarea{
     width: 755px;
