@@ -1735,10 +1735,37 @@ function _updateKillerQuestions($killerFormId, $aQuestions) {
 function jobboard_show_share_job() {
     $jobId = Session::newInstance()->_get('jobboard_share_job');
     Session::newInstance()->_drop('jobboard_share_job');
+
+    $item = Item::newInstance()->findByPrimaryKey($jobId);
+    View::newInstance()->_exportVariableToView('item', $item) ;
     ?>
+    <div id="dialog-share-job" title="<?php echo osc_esc_html(__('Share job', 'jobboard')); ?>" class="has-form-actions hide">
+        <div class="form-horizontal">
+            <div class="form-row">
+                <?php _e('You can share the job', 'jobboard'); ?><br/>
+                <?php echo osc_item_title(); ?>
+                <br/>
+                <?php echo osc_item_url(); ?>
+                <!--         AQUI PUEDES USAR HELPERS del core       -->
+                <a>tw</a>
+                <a>fb</a>
+                <a>li</a>
+            </div>
+            <div class="form-actions">
+                <div class="wrapper">
+                    <a class="btn" href="javascript:void(0);" onclick="$('#dialog-share-job').dialog('close');"><?php _e('Cancel', 'jobboard'); ?></a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 <script type="text/javascript">
-    $(document).ready(function(){
-        alert("Show Job share dialog, share job with id <?php echo $jobId;?>");
+    $(document).ready(function() {
+         $("#dialog-share-job").dialog({
+            autoOpen: false,
+            modal: true
+        });
+        $("#dialog-share-job").dialog('open');
     });
 </script>
     <?php
