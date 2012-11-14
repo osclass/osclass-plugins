@@ -1,0 +1,31 @@
+/*
+    Document   : jobboard-flash-message
+    Created on : 13-nov-2012, 16:45:06
+    Author     : ssuareza
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.flashmessage-dashboard-jobboard {
+    padding-bottom: 10px;
+    width:850px;
+}
+.flashmessage-dashboard-jobboard_800 {
+    padding-bottom: 10px;
+    width:800px;
+}
+.flashmessage-dashboard-jobboard .flashmessage-inline,
+.flashmessage-dashboard-jobboard_800 .flashmessage-inline{
+    margin: 10px 0;
+    padding:10px;
+    display: block;
+    min-height: 22px;
+    line-height: 22px;
+    text-align: left;
+    border-top:solid 1px #FBEED5;
+}

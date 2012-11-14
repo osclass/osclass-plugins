@@ -15,6 +15,13 @@ if( is_numeric(@$detail['fk_i_killer_form_id']) ) {
     }
 }
 ?>
+<script>
+    $(document).ready(function(){
+        $('<div class="grid-first-row grid-100"><div class="row-wrapper flashmessage-dashboard-jobboard_800"><div class="flashmessage flashmessage-inline">'+jobboard.langs.add_edit_flashmessage+'<a class="btn ico btn-mini ico-close">x</a></div></div></div>').insertBefore('#killerquestions');
+        $('#content-page>div.grid-system').prepend('<div class="grid-first-row grid-100"><div class="row-wrapper flashmessage-dashboard-jobboard"><div class="flashmessage flashmessage-inline">'+jobboard.langs.add_edit_flashmessage+'<a class="btn ico btn-mini ico-close">x</a></div></div></div>');
+    });
+</script>
+
 <h2 class="render-title separate-top"><?php _e('Killer Questions' ,'jobboard'); ?> <a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a></h2>
 <div id="killerquestions">
     <?php if(!$new_killer_form) { foreach($killerQuestions['questions'] as $key => $q) { ?>
