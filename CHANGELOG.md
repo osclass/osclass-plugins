@@ -1,6 +1,13 @@
 Changelog Facebook connect
 ==========================
 
+###version 1.1 - 21/11/2012
+
+* Updated Facebook PHP SDK
+* Fixed logout error
+* Improved login process
+* Cleaned code
+
 ###version 1.0 - 23/12/2011
 
 * Stable version
