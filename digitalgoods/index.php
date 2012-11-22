@@ -3,7 +3,7 @@
 Plugin Name: Digital Goods
 Plugin URI: http://www.osclass.org/
 Description: This plugin allows your users to attach a digital file to their ads
-Version: 1.0.1
+Version: 1.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: digitalgoods
@@ -51,26 +51,26 @@ Plugin update URI: digital-goods
         }
         $conn->autocommit(true);
     }
-    
+
     function digitalgoods_admin_menu() {
         echo '<h3><a href="#">Digital Goods</a></h3>
-        <ul> 
+        <ul>
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'digitalgoods') . '</a></li>
             <li><a href="'.osc_admin_configure_plugin_url("digitalgoods/index.php").'">&raquo; ' . __('Configure categories', 'digitalgoods') . '</a></li>
             <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'stats.php') . '">&raquo; ' . __('Stats', 'digitalgoods') . '</a></li>
         </ul>';
     }
-    
+
     function digitalgoods_redirect_to($url) {
         header('Location: ' . $url);
         exit;
     }
-    
+
     function digitalgoods_configure_link() {
         //digitalgoods_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'conf.php');
         osc_plugin_configure_view(osc_plugin_path(__FILE__) );
     }
-    
+
 
     function digitalgoods_form($catId = null) {
         if($catId!="") {
@@ -174,13 +174,13 @@ Plugin update URI: digital-goods
 
     osc_add_hook('item_form', 'digitalgoods_form');
     osc_add_hook('item_edit', 'digitalgoods_item_edit');
-    
+
     osc_add_hook('item_edit_post', 'digitalgoods_upload_files');
     osc_add_hook('item_form_post', 'digitalgoods_upload_files');
 
     osc_add_hook('delete_item', 'digitalgoods_delete_item');
-    
-    
+
+
     osc_add_hook('admin_menu', 'digitalgoods_admin_menu');
-    
+
 ?>
