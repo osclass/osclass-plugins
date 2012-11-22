@@ -3,7 +3,7 @@
 Plugin Name: Digital Goods
 Plugin URI: http://www.osclass.org/
 Description: This plugin allows your users to attach a digital file to their ads
-Version: 1.0.2
+Version: 1.0.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: digitalgoods
@@ -40,6 +40,7 @@ Plugin update URI: digital-goods
                 @rmdir(osc_get_preference('upload_path','digitalgoods'));
             }
             $conn->osc_dbExec("DELETE FROM %st_plugin_category WHERE s_plugin_name = 'digitalgoods'", DB_TABLE_PREFIX);
+            $conn->osc_dbExec('DROP TABLE %st_item_dg_downloads', DB_TABLE_PREFIX);
             $conn->osc_dbExec('DROP TABLE %st_item_dg_files', DB_TABLE_PREFIX);
             $conn->commit();
             osc_delete_preference('max_files', 'digitalgoods');
