@@ -6,7 +6,7 @@
 
         <category lang="en_US">My Own Category</category>
         <categoryid>1</categoryid>
-        
+
         <contactemail>your.fake@email.com</contactemail>
         <contactname>Mr. False Name</contactname>
 
@@ -24,13 +24,14 @@
 
         <latitude>45.123687</latitude>
         <longitude>-123.113692</longitude>
-        
-        
+        <custom name="field_slug">value</custom>
+
+
         <image>http://conejo.me/cats/153.jpg</image>
         <image>http://conejo.me/cats/598.jpg</image>
         <image>http://conejo.me/cats/1908.jpg</image>
-        
-        
+
+
         <datetime>2012-08-08 12:34:56</datetime>
     </listing>
     <listing>
@@ -39,7 +40,7 @@
 
         <category lang="en_US">My Own Category</category>
         <categoryid>1</categoryid>
-        
+
         <contactemail>your.false@email.com</contactemail>
         <contactname>Mrs. True Name</contactname>
 
@@ -57,13 +58,14 @@
 
         <latitude>44.244179</latitude>
         <longitude>7.769791</longitude>
-        
-        
+        <custom name="field_slug">value</custom>
+
+
         <image>http://conejo.me/cats/13.jpg</image>
         <image>http://conejo.me/cats/598.jpg</image>
         <image>http://conejo.me/cats/1908.jpg</image>
-        
-        
+
+
         <datetime>2012-08-08 12:34:56</datetime>
     </listing>
 </listings>
