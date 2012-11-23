@@ -44,19 +44,28 @@ if(Params::getParam('plugin_action')=='done') {
     $(document).ready(function(){
 
         $("#dialog-progress").dialog({
+            width: 350,
+            height: 250,
             autoOpen: true,
             modal: true,
+            title: "<?php echo osc_esc_js(__("Import in progress", "adimporter")); ?>"
         });
 
         $("#dialog-stats").dialog({
+            width: 250,
             autoOpen: false,
             modal: true,
+            title: "<?php echo osc_esc_js(__("Import completed", "adimporter")); ?>"
+        });
+
+        $("#close-dialog-progress").on("click", function(){
+            window.location = '<?php echo osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)."importer.php"); ?>';
         });
 
         parse_ad(0,'', '');
     });
     function parse_ad(num_ad, cat_info, meta_info) {
-        $("#progress").text("<?php echo osc_esc_js(__("Importing ad {NUM_AD} out of {TOTAL_ADS}")); ?>".replace("{NUM_AD}", (num_ad+1)).replace("{TOTAL_ADS}", total_ads));
+        $("#progress").text("<?php echo osc_esc_js(__("Importing ad {NUM_AD} out of {TOTAL_ADS}", "adimporter")); ?>".replace("{NUM_AD}", (num_ad+1)).replace("{TOTAL_ADS}", total_ads));
         $.getJSON(
         "<?php echo osc_admin_base_url(true); ?>?page=ajax&action=custom&ajaxfile=<?php echo osc_plugin_folder(__FILE__);?>ajax.php&subaction=parsead",
             {"importfile" : "<?php echo $tmpfile; ?>"
@@ -73,12 +82,12 @@ if(Params::getParam('plugin_action')=='done') {
                     parse_ad(num_ad, data.cat_info, data.meta_info);
                 } else {
                     $("#dialog-progress").dialog('close');
-                    var str = "<?php echo osc_esc_js(__("{IMPORTED_ADS} ads were imported")); ?>".replace("{IMPORTED_ADS}", (total_ads-errors.length));
+                    var str = "<?php echo osc_esc_js(__("{IMPORTED_ADS} ads were imported", "adimporter")); ?>".replace("{IMPORTED_ADS}", (total_ads-errors.length));
                     if(errors.length>0) {
                         str += "<br />";
-                        str += "<?php echo osc_esc_js(__("{FAILED_ADS} ads failed to import")); ?>".replace("{FAILED_ADS}", errors.length);
+                        str += "<?php echo osc_esc_js(__("{FAILED_ADS} ads failed to import", "adimporter")); ?>".replace("{FAILED_ADS}", errors.length);
                         str += "<br />";
-                        str += "<?php echo osc_esc_js(__("(Ads numbers: {LIST_ADS})")); ?>".replace("{LIST_ADS}", errors.toString());
+                        str += "<?php echo osc_esc_js(__("(Ads numbers: {LIST_ADS})", "adimporter")); ?>".replace("{LIST_ADS}", errors.toString());
                     }
                     $("#stats-text").html(str);
                     $("#dialog-stats").dialog('open');
@@ -90,9 +99,14 @@ if(Params::getParam('plugin_action')=='done') {
 <?php }; ?>
 <div id="dialog-stats">
     <div id="stats-text"></div>
+    <div class="form-actions">
+        <div class="wrapper">
+            <button class="btn btn-red close-dialog">Cancel</button>
+        </div>
+    </div>
 </div>
 <div id="dialog-progress" style="border: 1px solid #ccc; background: #eee; ">
-    <div style="padding: 20px;">
+    <div>
         <div>
             <div id="total_ads">
                 <?php if($num_ads>0) {
@@ -101,20 +115,22 @@ if(Params::getParam('plugin_action')=='done') {
                     _e('No ads have been detected, nothing to do.', 'adimporter');
                 }; ?>
             </div>
-            <br />
-            <div id="progress">SORPRESA</div>
-        </div>
-        <div>
-            <fieldset>
-                <legend><?php _e('WARNING', 'adimporter'); ?></legend>
+            <div id="progress"></div>
+            <div>
+                <h3><?php _e('WARNING', 'adimporter'); ?></h3>
                 <p>
                     <label>
                         <?php _e('This process could take a while, DO NOT CLOSE the browser.', 'adimporter'); ?>
                     </label>
                 </p>
-            </fieldset>
+            </div>
         </div>
-        <div style="clear: both;"></div>
+    </div>
+    <div style="clear: both;"></div>
+    <div class="form-actions">
+        <div class="wrapper">
+            <button id="close-dialog-progress" class="btn btn-red close-dialog">Cancel</button>
+        </div>
     </div>
 </div>
 
