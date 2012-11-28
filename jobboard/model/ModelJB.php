@@ -112,7 +112,13 @@
             $this->dao->query('DROP TABLE '. $this->getTable_JobsApplicants());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttrDescription());
             $this->dao->query('DROP TABLE '. $this->getTable_JobsAttr());
-            $this->dao->query('DROP TABLE '. ModelKQ::newInstance()->getTable_KillerForm());
+            //$this->dao->query('DROP TABLE '. ModelKQ::newInstance()->getTable_KillerForm());
+
+            $page = Page::newInstance()->findByInternalName('email_resumes_jobboard');
+            if(isset($page['pk_i_id'])) {
+                $res = Page::newInstance()->deleteByPrimaryKey($page['pk_i_id']);
+            }
+
         }
 
         /**
@@ -175,16 +181,17 @@
          * Insert Jobs attributes
          *
          * @param int $item_id
-         * @param string $relation
          * @param string $position_type
          * @param int $salaryText
+         * @param int $numPositions
          */
-        public function insertJobsAttr($item_id, $relation, $position_type, $salaryText, $killer_questions_form)
+        public function insertJobsAttr($item_id, $relation, $position_type, $salaryText, $numPositions, $killer_questions_form)
         {
             $aSet = array(
                 'fk_i_item_id'          => $item_id,
                 'e_position_type'       => $position_type,
-                's_salary_text'         => $salaryText
+                's_salary_text'         => $salaryText,
+                'i_num_positions'       => $numPositions
             );
             if($killer_questions_form!='') {
                 $aSet['fk_i_killer_form_id'] = $killer_questions_form;
@@ -220,11 +227,10 @@
         }
 
         /**
-         * Replace salary_min_hour, salary_max_hour given a item id
+         * Replace s_salary_text given a item id
          *
          * @param type $item_id
-         * @param type $salaryHourmin
-         * @param type $salaryHourMax
+         * @param type $salaryText
          */
         public function replaceJobsSalaryAttr($item_id, $salaryText)
         {
@@ -238,12 +244,13 @@
         /**
          * Replace Jobs attributes
          */
-        public function replaceJobsAttr($item_id, $relation, $position_type, $salaryText, $killer_questions_form)
+        public function replaceJobsAttr($item_id, $relation, $position_type, $salaryText, $numPositions, $killer_questions_form)
         {
             $aSet = array(
                 'fk_i_item_id'          => $item_id,
                 'e_position_type'       => $position_type,
-                's_salary_text'         => $salaryText
+                's_salary_text'         => $salaryText,
+                'i_num_positions'       => $numPositions
             );
             if($killer_questions_form!='') {
                 $aSet['fk_i_killer_form_id'] = $killer_questions_form;
@@ -616,6 +623,25 @@
 
             return $result->row();
         }
+
+        /**
+         * Get all the applicants
+         *
+         * @return array
+         */
+        public function getAllApplicants() {
+
+            $this->dao->select();
+            $this->dao->from($this->getTable_JobsApplicants());
+
+            $result = $this->dao->get();
+            if( !$result ) {
+                return array() ;
+            }
+
+            return $result->result();
+        }
+
         /**
          * Get applicant's CV
          *
@@ -743,6 +769,8 @@
 
         public function deleteApplicant($id) {
             $this->dao->delete($this->getTable_JobsNotes(), array('fk_i_applicant_id' => $id));
+            $cv = $this->getCVFromApplicant($id);
+            @unlink(osc_get_preference('upload_path', 'jobboard_plugin') . $cv['s_name']);
             $this->dao->delete($this->getTable_JobsFiles(), array('fk_i_applicant_id' => $id));
             return $this->dao->delete($this->getTable_JobsApplicants(), array('pk_i_id' => $id));
         }

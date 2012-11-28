@@ -3,7 +3,7 @@
 Plugin Name: Job Board
 Plugin URI: http://www.osclass.org/
 Description: Job Board
-Version: 1.2
+Version: 1.4.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobboard_plugin
@@ -89,6 +89,22 @@ function jobboard_update_version() {
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN b_corrected TINYINT NOT NULL DEFAULT 0  AFTER d_score', ModelJB::newInstance()->getTable_JobsApplicants()));
 
         osc_reset_preferences();
+    }
+
+    if( $version < 141) {
+        osc_set_preference('version', 141, 'jobboard_plugin', 'INTEGER');
+        $description = array();
+        $description[osc_language()]['s_title'] = __('{WEB_TITLE} - Download all the resumes of your applicants', 'jobboard');
+        $description[osc_language()]['s_text'] = __('<p>Hi {CONTACT_NAME}!</p><p>We just finished packaging all the resumes of your applicants on {WEB_TITLE}.</p><p>Click on the links below to download the packages:</p><p>{RESUME_LIST}</p><p>Thanks</p>', 'jobboard');
+        Page::newInstance()->insert(
+            array('s_internal_name' => 'email_resumes_jobboard', 'b_indelible' => '1', 's_meta' => ''),
+            $description
+            );
+        $conn      = DBConnectionClass::newInstance();
+        $data      = $conn->getOsclassDb();
+        $dbCommand = new DBCommandClass($data);
+
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN i_num_positions INT UNSIGNED NOT NULL DEFAULT 1', ModelJB::newInstance()->getTable_JobsAttr()));
     }
 }
 osc_add_hook('init', 'jobboard_update_version');
@@ -339,6 +355,7 @@ function jobboard_form($catID = null) {
     $detail = array(
         'e_position_type' => '',
         's_salary_text'   => '',
+        'i_num_positions' => 1,
         'locale'          => array()
     );
     foreach(osc_get_locales() as $locale) {
@@ -369,7 +386,8 @@ function jobboard_form_post($catID = null, $itemID = null)  {
         $killerFormId = ModelKQ::newInstance()->insertKillerForm($title);
         _insertKillerQuestions($killerFormId, $aDataKiller);
     }
-    ModelJB::newInstance()->insertJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), $killerFormId );
+
+    ModelJB::newInstance()->insertJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('numPositions'), $killerFormId );
 
     // prepare locales
     $dataItem = array();
@@ -394,6 +412,7 @@ function jobboard_form_post($catID = null, $itemID = null)  {
         ModelJB::newInstance()->insertJobsAttrDescription($itemID, $k, $data['desired_exp'], $data['studies'], $data['min_reqs'], $data['desired_reqs'], $data['contract']);
     }
 
+    jobboard_clear_session_variables();
     // save itemId into session, this way can share on manage listings
     Session::newInstance()->_set('jobboard_share_job', $itemID);
 }
@@ -439,7 +458,7 @@ function jobboard_item_edit_post($catID = null, $itemID = null)
         header('Location: ' . osc_admin_base_url(true).'page=items&action=item_edit&id='.$itemID); exit;
     }
 
-    ModelJB::newInstance()->replaceJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), $killerFormId );
+    ModelJB::newInstance()->replaceJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('numPositions'), $killerFormId );
 
     // prepare locales
     $dataItem = array();
@@ -463,6 +482,9 @@ function jobboard_item_edit_post($catID = null, $itemID = null)
     foreach ($dataItem as $k => $data) {
         ModelJB::newInstance()->replaceJobsAttrDescriptions($itemID, $k, $data['desired_exp'], $data['studies'], $data['min_reqs'], $data['desired_reqs'], $data['contract']);
     }
+
+    jobboard_clear_session_variables();
+
 }
 osc_add_hook('item_edit_post', 'jobboard_item_edit_post');
 
@@ -472,6 +494,9 @@ function get_jobboard_session_variables($detail) {
     }
     if( Session::newInstance()->_getForm('pj_salaryText') != '' ) {
         $detail['s_salary_text'] = Session::newInstance()->_getForm('pj_salaryText');
+    }
+    if( Session::newInstance()->_getForm('pj_numPositions') != '' ) {
+        $detail['i_num_positions'] = Session::newInstance()->_getForm('pj_numPositions');
     }
     if( Session::newInstance()->_getForm('pj_data') != '' ) {
         foreach(osc_get_locales() as $locale) {
@@ -808,7 +833,7 @@ function job_delete_item($item_id) {
     ModelJB::newInstance()->deleteItem($item_id);
 }
 
-function jobboard_admin_menu() {
+function jobboard_admin_admin_item_select() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='') { ?>
         <script type="text/javascript">
             $(document).ready(function(){
@@ -828,7 +853,7 @@ function jobboard_admin_menu() {
         </script>
     <?php }
 }
-osc_add_hook('admin_header','jobboard_admin_menu');
+osc_add_hook('admin_header','jobboard_admin_item_select');
 
 function jobboard_duplicate_job() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
@@ -845,6 +870,7 @@ function jobboard_duplicate_job() {
 
             Session::newInstance()->_setForm('pj_positionType',  @$detail['e_position_type'] );
             Session::newInstance()->_setForm('pj_salaryText', @$detail['s_salary_text'] );
+            Session::newInstance()->_setForm('pj_numPositions', @$detail['i_num_positions'] );
 
             $dataItem = array();
             foreach ($descriptions as $v) {
@@ -859,6 +885,7 @@ function jobboard_duplicate_job() {
 
             Session::newInstance()->_keepForm('pj_positionType');
             Session::newInstance()->_keepForm('pj_salaryText');
+            Session::newInstance()->_keepForm('pj_numPositions');
             Session::newInstance()->_keepForm('pj_data');
 
             osc_current_admin_theme_path('items/frm.php') ;
@@ -1029,8 +1056,9 @@ function job_js_redirect_to($url) { ?>
 <?php }
 
 function job_pre_item_post() {
-    Session::newInstance()->_setForm('pj_positionType',  Params::getParam('positionType') );
-    Session::newInstance()->_setForm('pj_salaryText', Params::getParam('salaryText') );
+    Session::newInstance()->_setForm('pj_positionType',  Params::getParam('positionType'));
+    Session::newInstance()->_setForm('pj_salaryText', Params::getParam('salaryText'));
+    Session::newInstance()->_setForm('pj_numPositions', Params::getParam('numPositions'));
     // prepare locales
     $dataItem = array();
     $request = Params::getParamsAsArray();
@@ -1046,16 +1074,26 @@ function job_pre_item_post() {
     // keep values on session
     Session::newInstance()->_keepForm('pj_positionType');
     Session::newInstance()->_keepForm('pj_salaryText');
+    Session::newInstance()->_keepForm('pj_numPositions');
     Session::newInstance()->_keepForm('pj_data');
 }
 
 function job_save_inputs_into_session() {
     Session::newInstance()->_keepForm('pj_positionType');
     Session::newInstance()->_keepForm('pj_salaryText');
+    Session::newInstance()->_keepForm('pj_numPositions');
     Session::newInstance()->_keepForm('pj_data');
 }
 osc_add_hook('pre_item_post', 'job_pre_item_post') ;
 osc_add_hook('save_input_session', 'job_save_inputs_into_session' );
+
+
+function jobboard_clear_session_variables() {
+    Session::newInstance()->_dropKeepForm('pj_positionType');
+    Session::newInstance()->_dropKeepForm('pj_salaryText');
+    Session::newInstance()->_dropKeepForm('pj_numPositions');
+    Session::newInstance()->_dropKeepForm('pj_data');
+}
 
 // this is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'job_call_after_install');
@@ -1339,6 +1377,14 @@ function default_settings_jobboard() {
     if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
         Session::newInstance()->_setForm('contactName', osc_page_title());
         Session::newInstance()->_setForm('contactEmail', osc_contact_email());
+
+        Session::newInstance()->_setForm('country', osc_get_preference('country', 'jobboard'));
+        Session::newInstance()->_setForm('countryId', osc_get_preference('countryId', 'jobboard'));
+        Session::newInstance()->_setForm('region', osc_get_preference('region', 'jobboard'));
+        Session::newInstance()->_setForm('regionId', osc_get_preference('regionId', 'jobboard'));
+        Session::newInstance()->_setForm('city', osc_get_preference('city', 'jobboard'));
+        Session::newInstance()->_setForm('cityId', osc_get_preference('cityId', 'jobboard'));
+
     }
 }
 osc_add_hook('init_admin', 'default_settings_jobboard');
@@ -1366,6 +1412,8 @@ function jobboard_titles($title) {
                 $peopleId = Params::getParam('people');
                 $people = ModelJB::newInstance()->getApplicant($peopleId);
                 $title = preg_replace('|^(.*)&raquo;|', sprintf(__('%s &raquo; Applicants', 'jobboard'), $people['s_name']).' &raquo;', $title);
+            } else if($file=='jobboard/resume_download.php') {
+                $title = preg_replace('|^(.*)&raquo;|', __('Download resumes','jobboard').' &raquo;', $title);
             }
             break;
         default:
@@ -1416,6 +1464,9 @@ function jobboard_dashboard_title($string){
     if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/dashboard.php'){
         $string = __('Dashboard', 'jobboard');
     }
+    if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/resume_download.php'){
+        $string = __('Download resumes', 'jobboard');
+    }
     if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/people.php'){
         $string = __('Applicants', 'jobboard') . '<a href="#" class="btn ico ico-32 ico-help float-right"></a>';
     }
@@ -1447,6 +1498,45 @@ if( $subdomain == 'osclass.com') {
     osc_add_hook('init', 'jobboard_set_domain_linkedin');
 }
 
+osc_add_admin_menu_page(
+    __('Jobboard', 'jobboard'),
+    '#',
+    'jobboard',
+    'moderator'
+);
+
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Dashboard', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/dashboard.php"),
+    'jobboard_dash',
+    'moderator'
+);
+
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Applicants', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/people.php"),
+    'jobboard_people',
+    'moderator'
+);
+
+// killer questions menu
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Killer Questions', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/manage_killer.php"),
+    'jobboard_killer',
+    'moderator'
+);
+
+osc_add_admin_submenu_page(
+    'jobboard',
+    __('Default locations', 'jobboard'),
+    osc_admin_render_plugin_url("jobboard/admin/settings.php"),
+    'jobboard_locations',
+    'moderator'
+);
 
 /**
  * Used by exting questions-answers
