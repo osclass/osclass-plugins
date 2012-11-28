@@ -100,7 +100,6 @@ $aAllKillerForm = ModelKQ::newInstance()->getAllKillerForm();
     </div>
 </div>
 
-
 <script type="text/javascript">
     triggerKillerFormCreation();
     $('.killer-form-select select').each(function() {

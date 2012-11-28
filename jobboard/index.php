@@ -354,7 +354,6 @@ function jobboard_form($catID = null) {
     $detail = get_jobboard_session_variables($detail);
 
     require_once(JOBBOARD_PATH . 'item_edit.php');
-    error_log('item_edit_killer_questions.php require');
     require_once(JOBBOARD_PATH . 'item_edit_killer_questions.php');
     Session::newInstance()->_clearVariables();
 }
