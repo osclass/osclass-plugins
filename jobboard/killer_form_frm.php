@@ -104,7 +104,6 @@ if($killer_form_id!='') {
     <br/>
 
     <h2 class="render-title"><?php echo $h2; ?> <?php if($new_killer_form){ ?><a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a><?php } ?></h2>
-
     <div id="killerquestions">
         <?php
         /*
@@ -170,7 +169,7 @@ if($killer_form_id!='') {
         <?php } } ?>
     </div>
     <?php if($new_killer_form) { ?>
-    <input type="submit" class="btn submit-right submit" value="<?php echo osc_esc_html( $button ); ?>">
+    <input type="submit" class="btn submit-right submit btn-submit" value="<?php echo osc_esc_html( $button ); ?>">
     <?php } ?>
 </form>
 <div id="dialog-question-delete" title="<?php echo osc_esc_html(__('Delete question', 'jobboard')); ?>" class="has-form-actions hide" data-killerform-id="<?php echo $killer_form_id;?>" data-question-id="">

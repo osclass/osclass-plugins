@@ -37,14 +37,6 @@
             osc_delete_preference('notice_edit_legal', 'jobboard');
         }
 
-        public function uninstall()
-        {
-            osc_delete_preference('notice_tips_dismissed', 'jobboard');
-            osc_delete_preference('notice_empty_jobs', 'jobboard');
-            osc_delete_preference('notice_edit_corporate', 'jobboard');
-            osc_delete_preference('notice_edit_legal', 'jobboard');
-        }
-
         /*
          * AJAX - add notice_tip_id to array of dismissed notice
          */

@@ -106,6 +106,7 @@ function jobboard_update_version() {
 
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN i_num_positions INT UNSIGNED NOT NULL DEFAULT 1', ModelJB::newInstance()->getTable_JobsAttr()));
     }
+
 }
 osc_add_hook('init', 'jobboard_update_version');
 
@@ -340,6 +341,7 @@ osc_add_hook('ajax_admin_note_delete', 'ajax_note_delete');
 function ajax_question_delete() {
     // NOW, cannot remove questions one by one
 //    $result = ModelKQ::newInstance()->removeKillerQuestion(Params::getParam('killerFormId'), Params::getParam('questionId'));
+    // forze cannot be deleted
     $result = false;
     if( ($result !== false) && ($result > 0) ) {
         echo 1;
@@ -413,6 +415,7 @@ function jobboard_form_post($catID = null, $itemID = null)  {
     }
 
     jobboard_clear_session_variables();
+
     // save itemId into session, this way can share on manage listings
     Session::newInstance()->_set('jobboard_share_job', $itemID);
 }

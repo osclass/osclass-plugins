@@ -27,13 +27,6 @@ $aAllKillerForm = ModelKQ::newInstance()->getAllKillerForm();
 
 <h2 class="render-title separate-top"><?php _e('Killer Questions' ,'jobboard'); ?>
 <?php if(!isset($itemID)){ ?> <a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a><?php } ?>
-<?php _e('or', 'jobboard'); ?>
-<select name="killerformId">
-    <option value=""><?php _e('Select an existent killer form'); ?></option>
-    <?php foreach($aAllKillerForm as $_aux) { ?>
-    <option value="<?php echo $_aux['pk_i_id']; ?>"><?php echo $_aux['s_title']; ?></option>
-    <?php } ?>
-</select>
 </h2>
 <div id="killerquestions">
     <?php if(!$new_killer_form) { foreach($killerQuestions['questions'] as $key => $q) { ?>
