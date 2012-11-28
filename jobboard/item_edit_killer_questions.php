@@ -18,16 +18,18 @@ if( is_numeric(@$detail['fk_i_killer_form_id']) ) {
 // load existent killer forms
 $aAllKillerForm = ModelKQ::newInstance()->getAllKillerForm();
 ?>
-<script>
-    $(document).ready(function(){
-        $('<div class="grid-first-row grid-100"><div class="row-wrapper flashmessage-dashboard-jobboard_800"><div class="flashmessage flashmessage-inline">'+jobboard.langs.add_edit_flashmessage+'<a class="btn ico btn-mini ico-close">x</a></div></div></div>').insertBefore('#killerquestions');
-        $('#content-page>div.grid-system').prepend('<div class="grid-first-row grid-100"><div class="row-wrapper flashmessage-dashboard-jobboard"><div class="flashmessage flashmessage-inline">'+jobboard.langs.add_edit_flashmessage+'<a class="btn ico btn-mini ico-close">x</a></div></div></div>');
-    });
-</script>
-
 <h2 class="render-title separate-top"><?php _e('Killer Questions' ,'jobboard'); ?>
-<?php if(!isset($itemID)){ ?> <a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a><?php } ?>
+<?php if( !isset($itemID) ) { ?> <a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a><?php } ?>
 </h2>
+<?php if( $new_killer_form ) { ?>
+<div class="grid-first-row grid-100">
+    <div class="flashmessage-dashboard-jobboard">
+        <div class="flashmessage flashmessage-inline">
+            <?php _e("Killer question form note: Once you create it you won't be able to update or remove it without deleting vacancy itself", 'jobboard'); ?><a class="btn ico btn-mini ico-close">x</a>
+        </div>
+    </div>
+</div>
+<?php } ?>
 <div id="killerquestions">
     <?php if(!$new_killer_form) { foreach($killerQuestions['questions'] as $key => $q) { ?>
     <div id="question_<?php echo $q['pk_i_id'];?>" data-id="<?php echo $q['pk_i_id'];?>" class="new_question">
