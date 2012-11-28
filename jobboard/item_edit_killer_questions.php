@@ -1,22 +1,19 @@
 <?php
-$killer_form_id     = null;
-$new_killer_form    = true;
-$killerQuestions    = array();
+    $killer_form_id  = null;
+    $new_killer_form = true;
+    $killerQuestions = array();
 
-// killer form exist ...
-if( is_numeric(@$detail['fk_i_killer_form_id']) ) {
-    $killer_form_id = @$detail['fk_i_killer_form_id'];
+    // killer form exist ...
+    if( is_numeric(@$detail['fk_i_killer_form_id']) ) {
+        $killer_form_id = @$detail['fk_i_killer_form_id'];
 
-    $aKillerForm = ModelKQ::newInstance()->getKillerForm($killer_form_id);
-    if(is_array($aKillerForm) && !empty($aKillerForm)) {
-        // get killer form information ...
-        $killerQuestions = ModelKQ::newInstance()->getKillerQuestions($killer_form_id);
-        $new_killer_form = false;
+        $aKillerForm = ModelKQ::newInstance()->getKillerForm($killer_form_id);
+        if(is_array($aKillerForm) && !empty($aKillerForm)) {
+            // get killer form information ...
+            $killerQuestions = ModelKQ::newInstance()->getKillerQuestions($killer_form_id);
+            $new_killer_form = false;
+        }
     }
-}
-
-// load existent killer forms
-$aAllKillerForm = ModelKQ::newInstance()->getAllKillerForm();
 ?>
 <h2 class="render-title separate-top"><?php _e('Killer Questions' ,'jobboard'); ?>
 <?php if( !isset($itemID) ) { ?> <a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a><?php } ?>
