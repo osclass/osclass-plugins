@@ -250,7 +250,7 @@
                 'fk_i_item_id'          => $item_id,
                 'e_position_type'       => $position_type,
                 's_salary_text'         => $salaryText,
-                    'i_num_positions'   => $numPositions
+                'i_num_positions'       => $numPositions
             );
             if($killer_questions_form!='') {
                 $aSet['fk_i_killer_form_id'] = $killer_questions_form;

@@ -341,6 +341,7 @@ osc_add_hook('ajax_admin_note_delete', 'ajax_note_delete');
 function ajax_question_delete() {
     // NOW, cannot remove questions one by one
 //    $result = ModelKQ::newInstance()->removeKillerQuestion(Params::getParam('killerFormId'), Params::getParam('questionId'));
+    // forze cannot be deleted
     $result = false;
     if( ($result !== false) && ($result > 0) ) {
         echo 1;
@@ -352,6 +353,7 @@ osc_add_hook('ajax_admin_question_delete', 'ajax_question_delete');
 /* /AJAX */
 
 /* FORM JOB BOARD */
+
 function jobboard_form($catID = null) {
     $detail = array(
         'e_position_type' => '',
@@ -387,6 +389,7 @@ function jobboard_form_post($catID = null, $itemID = null)  {
         $killerFormId = ModelKQ::newInstance()->insertKillerForm($title);
         _insertKillerQuestions($killerFormId, $aDataKiller);
     }
+
     ModelJB::newInstance()->insertJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('numPositions'), $killerFormId );
 
     // prepare locales
@@ -1538,6 +1541,7 @@ osc_add_admin_submenu_page(
     'jobboard_locations',
     'moderator'
 );
+
 
 /**
  * Used by exting questions-answers

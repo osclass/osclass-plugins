@@ -20,7 +20,6 @@ function addQuestion() {
             addAnswers($(this));
             return false;
         });
-
         removeAnswersLink.click(function(){
             insertAnswersLink.show();
             removeAnswersLink.hide();
@@ -217,6 +216,7 @@ $(document).ready(function() {
             $('html,body').animate({scrollTop: $('h1').offset().top}, {duration: 250, easing: 'swing'});
         }
     });
+
 
     // Validate description without HTML.
     jQuery.validator.setDefaults({

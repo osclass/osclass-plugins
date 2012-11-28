@@ -104,7 +104,6 @@ if($killer_form_id!='') {
     <br/>
 
     <h2 class="render-title"><?php echo $h2; ?> <?php if($new_killer_form){ ?><a class="btn btn-mini" onclick="addQuestion();return false;"><?php _e('Add new question', 'jobboard'); ?></a><?php } ?></h2>
-
     <div id="killerquestions">
         <?php
         /*
@@ -125,6 +124,7 @@ if($killer_form_id!='') {
                 $hasAnswers = true;
             }
             ?>
+
             <?php
             /*
             <a class="addAnswers btn btn-mini add-remove-btn" <?php echo $hide['add']; ?>><?php _e('Add answers', 'jobboard'); ?></a>
@@ -148,6 +148,7 @@ if($killer_form_id!='') {
                         ?>
                         <input disabled="disabled" class="input-large" type="text" name="question[<?php echo $q['pk_i_id'];?>][answer][<?php echo $a['pk_i_id'];?>]" value="<?php echo osc_esc_html($a['s_text']);?>"/>
                         <?php _punctuationSelect_update($q['pk_i_id'], $a['pk_i_id'], $a['s_punctuation'], true); ?>
+
                     </li>
                     <?php }
                     $max_questions = osc_get_preference('max_answers', 'jobboard_plugin');
@@ -170,7 +171,7 @@ if($killer_form_id!='') {
         <?php } } ?>
     </div>
     <?php if($new_killer_form) { ?>
-    <input type="submit" class="btn submit-right submit" value="<?php echo osc_esc_html( $button ); ?>">
+    <input type="submit" class="btn submit-right submit btn-submit" value="<?php echo osc_esc_html( $button ); ?>">
     <?php } ?>
 </form>
 <div id="dialog-question-delete" title="<?php echo osc_esc_html(__('Delete question', 'jobboard')); ?>" class="has-form-actions hide" data-killerform-id="<?php echo $killer_form_id;?>" data-question-id="">
