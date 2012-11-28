@@ -339,7 +339,9 @@ function ajax_note_delete() {
 osc_add_hook('ajax_admin_note_delete', 'ajax_note_delete');
 
 function ajax_question_delete() {
-    $result = ModelKQ::newInstance()->removeKillerQuestion(Params::getParam('killerFormId'), Params::getParam('questionId'));
+    // NOW, cannot remove questions one by one
+//    $result = ModelKQ::newInstance()->removeKillerQuestion(Params::getParam('killerFormId'), Params::getParam('questionId'));
+    $result = false;
     if( ($result !== false) && ($result > 0) ) {
         echo 1;
     } else {
@@ -370,6 +372,7 @@ function jobboard_form($catID = null) {
     $detail = get_jobboard_session_variables($detail);
 
     require_once(JOBBOARD_PATH . 'item_edit.php');
+    error_log('item_edit_killer_questions.php require');
     require_once(JOBBOARD_PATH . 'item_edit_killer_questions.php');
     Session::newInstance()->_clearVariables();
 }
@@ -1244,6 +1247,7 @@ function admin_assets_jobboard() {
     }
     if(Params::getParam('page')=='items') {
         osc_enqueue_style('jobboard-flash-message', osc_plugin_url(__FILE__) . 'css/jobboard-flash-message.css', 6);
+        osc_enqueue_script('jquery-metadata');
         osc_enqueue_script('jobboard-killer-form');
     }
 }
@@ -1325,7 +1329,7 @@ function jobboard_init_js() {
     $langs['reject']            = __('Reject', 'jobboard');
     $langs['insertAnswersLink'] = __('Add answers', 'jobboard');
     $langs['removeAnswersLink'] = __('Remove answers', 'jobboard');
-    $langs['title_msg_required'] = __('Form title cannot be empty', 'jobboard');
+    $langs['title_msg_required'] = __('Title cannot be empty', 'jobboard');
     $langs['add_edit_flashmessage'] = __("Killer question form note: Once you create it you won't be able to update or remove it without deleting vacancy itself", 'jobboard');
 
 ?>
@@ -1544,19 +1548,20 @@ osc_add_admin_submenu_page(
  * @param type $default
  */
 
-function _punctuationSelect_insert( $questionId, $answerId, $default = '') {
-    _punctuationSelect(true , $questionId, $answerId, $default);
+function _punctuationSelect_insert( $questionId, $answerId, $default = '', $disabled = false) {
+    _punctuationSelect(true , $questionId, $answerId, $default, $disabled);
 }
-function _punctuationSelect_update( $questionId, $answerId, $default = '') {
-    _punctuationSelect(false, $questionId, $answerId, $default);
+function _punctuationSelect_update( $questionId, $answerId, $default = '', $disabled = false) {
+    _punctuationSelect(false, $questionId, $answerId, $default, $disabled);
 }
-function _punctuationSelect($new, $questionId, $answerId, $default = '') {
+function _punctuationSelect($new, $questionId, $answerId, $default = '', $disabled = false) {
     $aux = 'answer_punct';
     if($new) {
         $aux = 'new_answer_punct';
     }
     ?>
-    <select name="question[<?php echo $questionId;?>][<?php echo $aux;?>][<?php echo $answerId;?>]" class="select-box-medium">
+    <select <?php if($disabled){ ?>disabled="disabled"<?php } ?>name="question[<?php echo $questionId;?>][<?php echo $aux;?>][<?php echo $answerId;?>]" class="select-box-medium">
+<!--    <select <?php if($disabled){ ?>disabled="disabled"<?php } ?>name="question[<?php echo $questionId;?>][<?php echo $aux;?>][<?php echo $answerId;?>]" >-->
         <option value="" <?php if($default==''){ echo 'selected'; } ?>><?php _e('Punctuation', 'jobboard'); ?></option>
         <option value="10" <?php if($default=='10'){ echo 'selected'; } ?>>10</option>
         <option value="9" <?php if($default=='9'){ echo 'selected'; } ?>>9</option>

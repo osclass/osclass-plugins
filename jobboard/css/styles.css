@@ -206,6 +206,13 @@ span.input-large {
 .new_question .containerAnswers .select-box select{
     width:100%;
 }
+.new_question .containerAnswers .select-box select:disabled{
+    display:none;
+}
+.new_question .containerAnswers .select-box-trigger{
+    opacity: .7;
+    cursor: default;
+}
 #killerquestions div.containerAnswers a.delete_answer {
     background-image: url(../img/clean.png);
 }
@@ -233,4 +240,8 @@ span.input-large {
     width: 530px;
 }#killerquestionsForm{
     width: 530px;
+}
+
+.border_error {
+    border: 1px red solid !important;
 }
