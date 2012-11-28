@@ -1345,6 +1345,8 @@ function jobboard_init_js() {
     $langs['insertAnswersLink'] = __('Add answers', 'jobboard');
     $langs['removeAnswersLink'] = __('Remove answers', 'jobboard');
     $langs['title_msg_required'] = __('Title cannot be empty', 'jobboard');
+    $langs['openquestion'] = __("Openquestion by default");
+
 ?>
 <script type="text/javascript">
     jobboard = {};

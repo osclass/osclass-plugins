@@ -11,9 +11,13 @@ function addQuestion() {
         var removeQuestion  = $('<a class="delete_question_ico" onclick="removeQuestion($(this));return false;"></a> ');
         var label           = $('<label>'+jobboard.langs.question+' '+questionNumber+' </label> ');
         var input           = $('<input class="input-large question_input valid_question rangelength" valid_question="'+jobboard.langs.question+' '+questionNumber+'"  type="text" name="new_question['+questionNumber+'][question]"/>');
-
+        /////////////
+        var containerAnswers  = $('<div class="containerAnswers"></div>');
+        ////////////
         var insertAnswersLink = $('<a class="addAnswers add-remove-btn btn btn-mini"> '+jobboard.langs.insertAnswersLink+'</a>');
         var removeAnswersLink = $('<a class="removeAnswers add-remove-btn btn btn-mini">'+jobboard.langs.removeAnswersLink+'</a>');
+        var containerAnswersReplace = '<div class="containerAnswersReplace">'+jobboard.langs.openquestion+'</div>';
+
         insertAnswersLink.click(function(){
             insertAnswersLink.hide();
             removeAnswersLink.show();
@@ -29,9 +33,12 @@ function addQuestion() {
         }).hide();
 
         question.append(label);
-        question.append(insertAnswersLink).append(removeAnswersLink);
+        //question.append(insertAnswersLink).append(removeAnswersLink);
         question.append(removeQuestion);
         question.append(input);
+            containerAnswers.append(insertAnswersLink).append(removeAnswersLink);
+            containerAnswers.append(containerAnswersReplace);
+        question.append(containerAnswers);
         $('#killerquestions').append( question );
 
         // add validation rule question
@@ -44,7 +51,7 @@ function addQuestion() {
  * only remove questions recently added and not saved yet
  */
 function removeQuestion(element) {
-    var questionId = $(element).parent().attr('data-id');
+    var questionId = $(element).parents('.new_question').attr('data-id');
     $('div#new_question_'+questionId).fadeOut('slow', function(){
         // remove validation rule
         $('div.new_question').each( function(index) {
@@ -96,7 +103,7 @@ function createSelectAnswer(){
     return select;
 }
 function addAnswers(element) {
-    var questionId = $(element).parent().attr('data-id');
+    var questionId = $(element).parents('.new_question').attr('data-id');
     var name     = 'new_question';
     var answer   = 'answer';
     var punct    = 'answer_punct';
@@ -114,7 +121,7 @@ function addAnswers(element) {
         if(list_answers==0) {
             var select = createSelectAnswer();
 
-            var containerAnswers  = $('<div class="containerAnswers">');
+            var containerAnswers  = $('<div class="containerAnswersReplace">');
             containerAnswers.html(jobboard.langs.answer);
             var answers      = $('<ol>');
             for(i=0;i<5;i++) {
@@ -132,7 +139,8 @@ function addAnswers(element) {
                 $(answers).append(listAnswer);
             }
             $(containerAnswers).append(answers);
-            $(question).append(containerAnswers);
+            console.log(question + ' .containerAnswersReplace');
+            $(question).find('.containerAnswersReplace').replaceWith(containerAnswers);
 
         } else {
             // show flash message
@@ -151,7 +159,7 @@ function addAnswers(element) {
  * removeAnswers, remove answers belonging to a question
  */
 function removeAnswers(element) {
-    var parent     = $(element).parent();
+    var parent     = $(element).parents('.new_question');
     var questionId = $(parent).attr('data-id');
 
     var name     = 'new_question';
@@ -165,8 +173,8 @@ function removeAnswers(element) {
         punct   = 'new_answer_punct';
     }
 
-    $('#'+name+'_'+questionId+' .containerAnswers').remove();
-    $('#'+name+'_'+questionId+' ol').remove();
+    $('#'+name+'_'+questionId+' .containerAnswersReplace').replaceWith('<div class="containerAnswersReplace">'+jobboard.langs.openquestion+'</div>');
+    //$('#'+name+'_'+questionId+' ol').remove();
 
     // run validate
     $(parent).find('input').valid();
