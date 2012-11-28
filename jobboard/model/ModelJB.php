@@ -754,6 +754,7 @@
 
             $this->dao->select('pk_i_id');
             $this->dao->from($this->getTable_JobsApplicants());
+            $this->dao->where('fk_i_item_id', $item_id);
 
             $result = $this->dao->get();
             if( !$result ) {
