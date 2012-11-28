@@ -225,9 +225,5 @@
         }
     }
 
-    // init
-    if( OC_ADMIN ) {
-        $jn = new JobboardNotices();
-    }
-
+    $jn = new JobboardNotices();
     // End of file: ./jobboard/class/JobboardNotices.class.php

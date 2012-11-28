@@ -15,8 +15,11 @@ require_once(JOBBOARD_PATH . 'model/ModelJB.php');
 require_once(JOBBOARD_PATH . 'model/ModelKQ.php');
 require_once(JOBBOARD_PATH . 'model/ModelLogJB.php');
 require_once(JOBBOARD_PATH . 'helpers.php');
-require_once(JOBBOARD_PATH . 'class/JobboardNotices.class.php');
 require_once(JOBBOARD_PATH . 'class/Stream.class.php');
+if( OC_ADMIN ) {
+    require_once(JOBBOARD_PATH . 'class/JobboardNotices.class.php');
+    require_once(JOBBOARD_PATH . 'class/ShareJobOffer.class.php');
+}
 
 function job_call_after_install() {
     ModelJB::newInstance()->import('jobboard/struct.sql');
@@ -1320,11 +1323,6 @@ function jobboard_post_actions() {
             osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
         break;
     }
-
-    // get from session jobboard_share_job
-    if(Session::newInstance()->_get('jobboard_share_job')!='' && is_numeric(Session::newInstance()->_get('jobboard_share_job'))) {
-        osc_add_hook('admin_footer', 'jobboard_show_share_job');
-    }
 }
 osc_add_hook('init_admin', 'jobboard_post_actions');
 
@@ -1757,67 +1755,4 @@ function _updateKillerQuestions($killerFormId, $aQuestions) {
     }
 }
 
-
-function jobboard_show_share_job() {
-    $jobId = Session::newInstance()->_get('jobboard_share_job');
-    Session::newInstance()->_drop('jobboard_share_job');
-
-    $item = Item::newInstance()->findByPrimaryKey($jobId);
-    View::newInstance()->_exportVariableToView('item', $item) ;
-
-    $shareURL          = htmlspecialchars(osc_item_url());
-    $shareTitle        = htmlspecialchars('We are hiring! '.osc_item_title().' ');
-
-    $facebookShareUrl  = 'http://www.facebook.com/share.php?u=';
-    $facebookShareUrl .= $shareURL;
-    $facebookShareUrl .= 't=';
-    $facebookShareUrl .= $shareTitle;
-    $facebookShareUrl .= '&id=';
-    $facebookShareUrl .= $shareTitle;
-
-
-    $twitterShareLink  = 'https://twitter.com/intent/tweet?original_referer=';
-    $twitterShareLink .= $shareURL;
-    $twitterShareLink .= '&source=tweetbutton&text=';
-    $twitterShareLink .= $shareTitle.'&url=';
-    $twitterShareLink .= $shareURL;
-
-    $linkedinShareLink  = 'http://www.linkedin.com/shareArticle?mini=true&url=';
-    $linkedinShareLink .= $shareURL.'&title='.$shareTitle.'&summary='.htmlspecialchars(osc_item_description()).'&source='.htmlspecialchars('http://osclass.com');
-    ?>
-    <div id="dialog-share-job" title="<?php echo osc_esc_html(__('Share your vacancy', 'jobboard')); ?>" class="has-form-actions hide">
-        <div class="form-horizontal">
-            <div class="form-row">
-                <?php _e('Good stuff! Your vacancy has been published.', 'jobboard'); ?>
-                <p><?php _e('Would you like to share your vacancy?', 'jobboard'); ?></p>
-                <a href="<?php echo $twitterShareLink;  ?>" class="share-social-popup share-twitter"><?php _e('Share to Twitter','jobboard'); ?></a>
-                <a href="<?php echo $facebookShareUrl;  ?>" class="share-social-popup share-facebook"><?php _e('Share to Facebook','jobboard'); ?></a>
-                <a href="<?php echo $linkedinShareLink; ?>" class="share-social-popup share-linkedin"><?php _e('Share to Linkedin','jobboard'); ?></a>
-            </div>
-            <div class="form-actions">
-                <div class="wrapper">
-                    <a class="btn" href="javascript:void(0);" onclick="$('#dialog-share-job').dialog('close');"><?php _e('Cancel', 'jobboard'); ?></a>
-                    <div class="clear"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-<script type="text/javascript">
-     $(document).ready(function() {
-         $("#dialog-share-job").dialog({
-            autoOpen: false,
-            modal: true,
-            dialogClass:'share-dialog',
-            width:440
-        });
-        $("#dialog-share-job").dialog('open');
-
-        $('.share-social-popup').click(function(){
-            window.open($(this).attr('href'),'1352814942738','width=700,height=250,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
-            return false;
-        });
-    });
-</script>
-    <?php
-}
-?>
+// End of file
