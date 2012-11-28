@@ -1326,25 +1326,25 @@ osc_add_hook('init_admin', 'jobboard_post_actions');
 
 function jobboard_init_js() {
     $langs = array();
-    $langs['delete_string']     = __('Delete', 'jobboard');
-    $langs['edit_string']       = __('Edit', 'jobboard');
-    $langs['text_hide_filter']  = __('Hide search', 'jobboard');
-    $langs['text_show_filter']  = __('Show search', 'jobboard');
-    $langs['empty_note_text']   = __('No notes have been added to this applicant', 'jobboard');
-    $langs['sex_required']      = __('Sex: this field is required', 'jobboard');
-    $langs['birthday_required'] = __('Birthday: this field is required', 'jobboard');
+    $langs['delete_string']         = __('Delete', 'jobboard');
+    $langs['edit_string']           = __('Edit', 'jobboard');
+    $langs['text_hide_filter']      = __('Hide search', 'jobboard');
+    $langs['text_show_filter']      = __('Show search', 'jobboard');
+    $langs['empty_note_text']       = __('No notes have been added to this applicant', 'jobboard');
+    $langs['sex_required']          = __('Sex: this field is required', 'jobboard');
+    $langs['birthday_required']     = __('Birthday: this field is required', 'jobboard');
     $langs['invalid_birthday_date'] = __('Invalid birthday date', 'jobboard');
     $langs['complete_form_please']  = __('Complete this form', 'jobboard');
     // killer questions related
-    $langs['question']          = __('Question', 'jobboard');
-    $langs['answer']            = __('Answer', 'jobboard');
-    $langs['punctuation']       = __('Punctuation', 'jobboard');
-    $langs['reject']            = __('Reject', 'jobboard');
-    $langs['insertAnswersLink'] = __('Add answers', 'jobboard');
-    $langs['removeAnswersLink'] = __('Remove answers', 'jobboard');
-    $langs['title_msg_required'] = __('Title cannot be empty', 'jobboard');
-    $langs['openquestion'] = __("Openquestion by default");
-
+    $langs['question']              = __('Question', 'jobboard');
+    $langs['answer']                = __('Answer', 'jobboard');
+    $langs['punctuation']           = __('Punctuation', 'jobboard');
+    $langs['reject']                = __('Reject', 'jobboard');
+    $langs['insertAnswersLink']     = __('Add answers', 'jobboard');
+    $langs['removeAnswersLink']     = __('Remove answers', 'jobboard');
+    $langs['title_msg_required']    = __('Title cannot be empty', 'jobboard');
+    $langs['openquestion']          = __('Openquestion by default', 'jobboard');
+    $langs['removeQuestionLink']    = __('Remove question', 'jobboard');
 ?>
 <script type="text/javascript">
     jobboard = {};

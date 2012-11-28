@@ -8,15 +8,15 @@ function addQuestion() {
 
     if(questionNumber <= jobboard.max_killer_questions) {
         var question        = $('<div id="new_question_'+questionNumber+'" data-id="'+questionNumber+'" class="new_question">')
-        var removeQuestion  = $('<a class="delete_question_ico" onclick="removeQuestion($(this));return false;"></a> ');
+        var removeQuestion  = $('<a class="add-remove-btn btn btn-mini btn-red" onclick="removeQuestion($(this));return false;">'+jobboard.langs.removeQuestionLink+'</a> ');
         var label           = $('<label>'+jobboard.langs.question+' '+questionNumber+' </label> ');
         var input           = $('<input class="input-large question_input valid_question rangelength" valid_question="'+jobboard.langs.question+' '+questionNumber+'"  type="text" name="new_question['+questionNumber+'][question]"/>');
         /////////////
         var containerAnswers  = $('<div class="containerAnswers"></div>');
         ////////////
         var insertAnswersLink = $('<a class="addAnswers add-remove-btn btn btn-mini"> '+jobboard.langs.insertAnswersLink+'</a>');
-        var removeAnswersLink = $('<a class="removeAnswers add-remove-btn btn btn-mini">'+jobboard.langs.removeAnswersLink+'</a>');
-        var containerAnswersReplace = '<div class="containerAnswersReplace">'+jobboard.langs.openquestion+'</div>';
+        var removeAnswersLink = $('<a class="removeAnswers add-remove-btn btn btn-mini btn-red">'+jobboard.langs.removeAnswersLink+'</a>');
+        var containerAnswersReplace = '<div class="containerAnswersReplace"><span class="offset">'+jobboard.langs.openquestion+'</span></div>';
 
         insertAnswersLink.click(function(){
             insertAnswersLink.hide();
@@ -122,7 +122,7 @@ function addAnswers(element) {
             var select = createSelectAnswer();
 
             var containerAnswers  = $('<div class="containerAnswersReplace">');
-            containerAnswers.html(jobboard.langs.answer);
+            //containerAnswers.html(jobboard.langs.answer);
             var answers      = $('<ol>');
             for(i=0;i<5;i++) {
                 var _select = createSelectAnswer();
@@ -132,7 +132,7 @@ function addAnswers(element) {
                 var _input = $('<input class="input-large" type="text" name="'+name+'['+questionId+']['+answer+']['+_i+']"/>');
                 $(_select).attr('name', name+'['+questionId+']['+punct+']['+_i+']');
 
-                listAnswer.append(_deleteAnswer);
+                //listAnswer.append(_deleteAnswer);
                 listAnswer.append(_input);
                 listAnswer.append(_select);
 
