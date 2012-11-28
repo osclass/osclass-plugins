@@ -139,7 +139,6 @@ function addAnswers(element) {
                 $(answers).append(listAnswer);
             }
             $(containerAnswers).append(answers);
-            console.log(question + ' .containerAnswersReplace');
             $(question).find('.containerAnswersReplace').replaceWith(containerAnswers);
 
         } else {
