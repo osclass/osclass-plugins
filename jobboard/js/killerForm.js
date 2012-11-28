@@ -10,8 +10,7 @@ function addQuestion() {
         var question        = $('<div id="new_question_'+questionNumber+'" data-id="'+questionNumber+'" class="new_question">')
         var removeQuestion  = $('<a class="delete_question_ico" onclick="removeQuestion($(this));return false;"></a> ');
         var label           = $('<label>'+jobboard.langs.question+' '+questionNumber+' </label> ');
-        var input           = $('<input class="input-large question_input" type="text" name="new_question['+questionNumber+'][question]"/>');
-
+        var input           = $('<input class="input-large question_input valid_question rangelength" valid_question="'+jobboard.langs.question+' '+questionNumber+'"  type="text" name="new_question['+questionNumber+'][question]"/>');
 
         var insertAnswersLink = $('<a class="addAnswers add-remove-btn btn btn-mini"> '+jobboard.langs.insertAnswersLink+'</a>');
         var removeAnswersLink = $('<a class="removeAnswers add-remove-btn btn btn-mini">'+jobboard.langs.removeAnswersLink+'</a>');
@@ -21,6 +20,7 @@ function addQuestion() {
             addAnswers($(this));
             return false;
         });
+
         removeAnswersLink.click(function(){
             insertAnswersLink.show();
             removeAnswersLink.hide();
@@ -33,6 +33,9 @@ function addQuestion() {
         question.append(removeQuestion);
         question.append(input);
         $('#killerquestions').append( question );
+
+        // add validation rule question
+        $('#new_question_'+questionNumber+' input.question_input').rules("add", {valid_closed_question: [jobboard.langs.question+' '+questionNumber, 2]}) ;
     }
 }
 
@@ -43,6 +46,14 @@ function addQuestion() {
 function removeQuestion(element) {
     var questionId = $(element).parent().attr('data-id');
     $('div#new_question_'+questionId).fadeOut('slow', function(){
+        // remove validation rule
+        $('div.new_question').each( function(index) {
+            var i = index+1;
+            // add validate rules questions
+            $(this).find('input.question_input').rules("remove", 'valid_closed_question') ;
+        });
+
+        // remove question element
         $('div#new_question_'+questionId).remove();
         // reorganize questions, set order
         $('div.new_question,div.question').each( function(index) {
@@ -50,6 +61,23 @@ function removeQuestion(element) {
             $(this).attr('id', 'new_question_'+i);
             $(this).attr('data-id', i);
             $(this).find('label').html(jobboard.langs.question+' '+i);
+            $(this).find('input.question_input').attr('valid_question', jobboard.langs.question+' '+i);
+        });
+
+        $('div.new_question').each( function(index) {
+            var i = index+1;
+            // add validate rules questions
+            $(this).find('input.question_input').rules("remove", 'valid_closed_question') ;
+            $(this).find('input.question_input').rules("add", {valid_closed_question: [jobboard.langs.question+' '+i, 2]}) ;
+        });
+
+        // remove errors
+        $('#error_list').html('');
+        if( $(".question_input").length == 0 ) {
+            $('#error_list').hide();
+        }
+        $(".question_input").each( function(index) {
+            $(this).valid();
         });
     });
 }
@@ -123,7 +151,8 @@ function addAnswers(element) {
  * removeAnswers, remove answers belonging to a question
  */
 function removeAnswers(element) {
-    var questionId = $(element).parent().attr('data-id');
+    var parent     = $(element).parent();
+    var questionId = $(parent).attr('data-id');
 
     var name     = 'new_question';
     var answer   = 'answer';
@@ -138,6 +167,9 @@ function removeAnswers(element) {
 
     $('#'+name+'_'+questionId+' .containerAnswers').remove();
     $('#'+name+'_'+questionId+' ol').remove();
+
+    // run validate
+    $(parent).find('input').valid();
 }
 
 /**
@@ -172,12 +204,12 @@ function triggerKillerFormCreation(){
 $(document).ready(function() {
 
     // validate form
-    $("form#datatablesForm").validate({
+    window.killerValidator = $("form#datatablesForm, form#killerquestionsForm").validate({
         rules: {
-            title: { required: true }
+            title: {required: true}
         },
         messages: {
-            title: { required: jobboard.langs.title_msg_required }
+            title: {required: jobboard.langs.title_msg_required}
         },
         errorLabelContainer: "#error_list",
         wrapper: "li",
@@ -186,6 +218,75 @@ $(document).ready(function() {
         }
     });
 
+    // Validate description without HTML.
+    jQuery.validator.setDefaults({
+        focusInvalid: false
+    });
+
+    function addErrorStyle(element)
+    {
+        $(element).addClass('border_error');
+    }
+
+    $.validator.addMethod(
+        "valid_question",
+        function(value, element, params) {
+            return validate_question(element);
+        },
+        $.validator.format("{0} cannot be empty")
+    );
+
+    function validate_question(input_question)
+    {
+        var element = $(input_question).parent();
+        $(element).find('.border_error').removeClass('border_error');
+
+        // text required, not empty
+        if($(input_question).attr('value')=='') {
+            addErrorStyle( input_question );
+            return false;
+        }
+        return true;
+    }
+
+    $.validator.addMethod(
+        "valid_closed_question",
+
+        function(value, element, params) {
+            return validate_closed_question(element, eval(params));
+        },
+
+        $.validator.format("{0}, at least needs {1} answers")
+    );
+
+    function validate_closed_question(input_question, params)
+    {
+        var element = $(input_question).parent();
+        $(element).find('.border_error').removeClass('border_error');
+        // open or closed question ?
+        if($(element).find('div.containerAnswers').length > 0) {
+            var numAnswers  = 0;
+            var closedQuestionInvalid = 0;
+            $(element).find('div.containerAnswers input').each( function(i, e) {
+                var name = $(e).attr('name');
+                if($(e).attr('value')!=''){
+                    var punctuation = $(e).parent().find('select option:selected').attr('value');
+                    if(punctuation=='') {
+                        addErrorStyle( $(e).parent().find('select') );
+                        closedQuestionInvalid++;
+                    } else {
+                        numAnswers++;
+                    }
+                }
+            });
+
+            if(closedQuestionInvalid>0 || numAnswers<params[1]) {
+                // highlight errors
+                return false;
+            }
+        }
+        return true;
+    }
 
     // delete question
     // ( used when a existent question is removed from the system )

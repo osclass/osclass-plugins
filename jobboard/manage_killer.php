@@ -93,7 +93,7 @@
                         <td class="killer"><?php echo @$k['s_title']; ?>
                             <div class="actions">
                                 <ul>
-                                    <li><a href="<?php echo osc_admin_render_plugin_url("jobboard/killer_form_frm.php").'&id='.$k['pk_i_id']; ?>"><?php _e("Edit", "jobboard"); ?></a></li>
+                                    <li><a href="<?php echo osc_admin_render_plugin_url("jobboard/killer_form_frm.php").'&id='.$k['pk_i_id']; ?>"><?php _e("Show", "jobboard"); ?></a></li>
                                     <?php if(@$k['n_used']>0 && is_numeric($k['n_used'])) { ?>
                                     <li><a class="delete_killerforminuse" href="javascript:void(0);"><?php _e("Delete", "jobboard"); ?></a></li>
                                     <?php } else {?>
