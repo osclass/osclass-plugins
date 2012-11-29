@@ -51,12 +51,15 @@
                 <div class="half">
                     <p><label><?php _e('Phone', 'jobboard'); ?> </label><br/><?php echo @$people['s_phone']; ?></p>
                     <p><label><?php _e('Sex', 'jobboard'); ?> </label><br/><?php echo jobboard_sex_to_string( @$people['s_sex'] ); ?></p>
+                    <p><label><?php _e('Email', 'jobboard'); ?> </label><br/><?php echo @$people['s_email']; ?></p>
                 </div>
                 <div class="half">
                     <p><label><?php _e('Apply date', 'jobboard'); ?> </label><br/><?php echo @$people['dt_date']; ?></p>
                     <p><label><?php _e('Birthday', 'jobboard'); ?> </label><br/><?php echo @$people['dt_birthday']; ?></p>
+                    <p><label><?php _e('Score', 'jobboard'); ?> </label><br/><?php if(count($aQuestions)>0) { echo $acomulateScore.'/'.$maxPunctuation; if(@$people['b_corrected']) { _e('Corrected', 'jobboard'); echo @$people['d_score']; } } ?> <a href="#kq" class="animated-scroll"><?php _e('View ansers','jobobard'); ?></a>
+    </h3></p>
                 </div>
-                <p><label><?php _e('Email', 'jobboard'); ?> </label><br/><?php echo @$people['s_email']; ?></p>
+
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
@@ -132,7 +135,7 @@
         </div>
     </div>
     <?php if(count($aQuestions)>0) { ?>
-    <h3 class="sidebar-title render-title" style="display:inline-block;">
+    <h3 class="sidebar-title render-title" style="display:inline-block;" id="kq">
         <?php _e("Killer questions", "jobboard"); ?> <span id="sum_punctuations"><?php echo $acomulateScore; ?></span>/<?php echo $maxPunctuation;?><?php if(@$people['b_corrected']) { ?><i class="circle circle-green" style="position: relative;top: 6px;padding-right: 4px;padding-left: 4px;"> <?php _e('Corrected', 'jobboard'); echo @$people['d_score']; ?> </i><?php } ?>
     </h3>
     <div style="clear:both;"></div>

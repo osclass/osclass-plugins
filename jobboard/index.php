@@ -1572,8 +1572,7 @@ function _punctuationSelect($new, $questionId, $answerId, $default = '', $disabl
     if($new) {
         $aux = 'new_answer_punct';
     }
-    ?>
-    <select <?php if($disabled){ ?>disabled="disabled"<?php } ?>name="question[<?php echo $questionId;?>][<?php echo $aux;?>][<?php echo $answerId;?>]" class="select-box-medium">
+    ?><select <?php if($disabled){ ?>disabled="disabled"<?php } ?>name="question[<?php echo $questionId;?>][<?php echo $aux;?>][<?php echo $answerId;?>]" class="select-box-medium">
         <option value="" <?php if($default==''){ echo 'selected'; } ?>><?php _e('Punctuation', 'jobboard'); ?></option>
         <option value="10" <?php if($default=='10'){ echo 'selected'; } ?>>10</option>
         <option value="9" <?php if($default=='9'){ echo 'selected'; } ?>>9</option>

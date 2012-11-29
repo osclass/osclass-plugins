@@ -200,6 +200,12 @@ span.input-large {
     padding:10px 15px;
     margin-bottom:10px;
 }
+.new_question a.btn-mini {
+    line-height: 9px;
+    font-size: 11px;
+    height: 10px;
+}
+
 .new_question input{
     width:486px;
 }

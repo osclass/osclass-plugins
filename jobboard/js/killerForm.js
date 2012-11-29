@@ -271,10 +271,10 @@ $(document).ready(function() {
         var element = $(input_question).parent();
         $(element).find('.border_error').removeClass('border_error');
         // open or closed question ?
-        if($(element).find('div.containerAnswers').length > 0) {
+        if($(element).find('div.containerAnswersReplace input').length > 0) {
             var numAnswers  = 0;
             var closedQuestionInvalid = 0;
-            $(element).find('div.containerAnswers input').each( function(i, e) {
+            $(element).find('div.containerAnswersReplace input').each( function(i, e) {
                 var name = $(e).attr('name');
                 if($(e).attr('value')!=''){
                     var punctuation = $(e).parent().find('select option:selected').attr('value');

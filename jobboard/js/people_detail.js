@@ -5,6 +5,11 @@ function setIcon(){
 }
 
 $(document).ready(function() {
+    //Scroll
+    $('.animated-scroll').click(function(){
+        $("html,body").animate({ scrollTop: $($(this).attr('href')).offset().top-$('#header').outerHeight()}, 500 );
+        return false;
+    });
     // notes
     $("#dialog-note-delete").dialog({
         autoOpen: false,
