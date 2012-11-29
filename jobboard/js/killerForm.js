@@ -306,7 +306,7 @@ $(document).ready(function() {
         $("#dialog-question-delete").dialog('open');
     });
 
-    $('#question-delete-submit').bind('click', function(){
+    $('#question-delete-submit').live('click', function(){
         if($("#dialog-question-delete").attr('data-killerform-id')!='') {
             $.getJSON(jobboard.ajax_question_delete,
                 {

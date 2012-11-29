@@ -342,10 +342,8 @@ function ajax_note_delete() {
 osc_add_hook('ajax_admin_note_delete', 'ajax_note_delete');
 
 function ajax_question_delete() {
-    // NOW, cannot remove questions one by one
-//    $result = ModelKQ::newInstance()->removeKillerQuestion(Params::getParam('killerFormId'), Params::getParam('questionId'));
-    // forze cannot be deleted
-    $result = false;
+    $result = ModelKQ::newInstance()->removeKillerQuestion(Params::getParam('killerFormId'), Params::getParam('questionId'));
+
     if( ($result !== false) && ($result > 0) ) {
         echo 1;
     } else {
@@ -1576,7 +1574,6 @@ function _punctuationSelect($new, $questionId, $answerId, $default = '', $disabl
     }
     ?>
     <select <?php if($disabled){ ?>disabled="disabled"<?php } ?>name="question[<?php echo $questionId;?>][<?php echo $aux;?>][<?php echo $answerId;?>]" class="select-box-medium">
-<!--    <select <?php if($disabled){ ?>disabled="disabled"<?php } ?>name="question[<?php echo $questionId;?>][<?php echo $aux;?>][<?php echo $answerId;?>]" >-->
         <option value="" <?php if($default==''){ echo 'selected'; } ?>><?php _e('Punctuation', 'jobboard'); ?></option>
         <option value="10" <?php if($default=='10'){ echo 'selected'; } ?>>10</option>
         <option value="9" <?php if($default=='9'){ echo 'selected'; } ?>>9</option>
