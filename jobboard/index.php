@@ -373,8 +373,10 @@ function jobboard_form($catID = null) {
     // session variables
     $detail = get_jobboard_session_variables($detail);
 
-    require_once(JOBBOARD_PATH . 'item_edit.php');
-    require_once(JOBBOARD_PATH . 'item_edit_killer_questions.php');
+    require_once( osc_apply_filter('jobboard_item_add_form_path', JOBBOARD_PATH . 'item_edit.php') );
+    if( OC_ADMIN ) {
+        require_once(JOBBOARD_PATH . 'item_edit_killer_questions.php');
+    }
     Session::newInstance()->_clearVariables();
 }
 osc_add_hook('item_form', 'jobboard_form');
@@ -433,8 +435,10 @@ function jobboard_item_edit($catID = null, $itemID = null) {
     // session variables
     $detail = get_jobboard_session_variables($detail);
 
-    require_once(JOBBOARD_PATH . 'item_edit.php');
-    require_once(JOBBOARD_PATH . 'item_edit_killer_questions.php');
+    require_once( osc_apply_filter('jobboard_item_edit_form_path', JOBBOARD_PATH . 'item_edit.php') );
+    if( OC_ADMIN ) {
+        require_once(JOBBOARD_PATH . 'item_edit_killer_questions.php');
+    }
     Session::newInstance()->_clearVariables();
 }
 osc_add_hook('item_edit', 'jobboard_item_edit');
