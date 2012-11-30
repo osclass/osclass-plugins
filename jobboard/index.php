@@ -373,7 +373,10 @@ function jobboard_form($catID = null) {
     // session variables
     $detail = get_jobboard_session_variables($detail);
 
-    include_once( osc_apply_filter('jobboard_item_add_form_path', JOBBOARD_PATH . 'item_edit.php') );
+    $item_form_path = osc_apply_filter('jobboard_item_edit_form_path', JOBBOARD_PATH . 'item_edit.php');
+    if( file_exists($item_form_path) ) {
+        include_once( $item_form_path );
+    }
     if( OC_ADMIN ) {
         include_once(JOBBOARD_PATH . 'item_edit_killer_questions.php');
     }
@@ -435,7 +438,10 @@ function jobboard_item_edit($catID = null, $itemID = null) {
     // session variables
     $detail = get_jobboard_session_variables($detail);
 
-    include_once( osc_apply_filter('jobboard_item_edit_form_path', JOBBOARD_PATH . 'item_edit.php') );
+    $item_form_path = osc_apply_filter('jobboard_item_edit_form_path', JOBBOARD_PATH . 'item_edit.php');
+    if( file_exists($item_form_path) ) {
+        include_once( $item_form_path );
+    }
     if( OC_ADMIN ) {
         include_once(JOBBOARD_PATH . 'item_edit_killer_questions.php');
     }
