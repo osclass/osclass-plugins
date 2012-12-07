@@ -3,7 +3,7 @@
 Plugin Name: Job Board
 Plugin URI: http://www.osclass.org/
 Description: Job Board
-Version: 1.4.1
+Version: 1.4.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobboard_plugin
@@ -27,7 +27,7 @@ function job_call_after_install() {
     osc_set_preference('max_killer_questions', 10, 'jobboard_plugin', 'INTEGER');
     osc_set_preference('max_answers', 5, 'jobboard_plugin', 'INTEGER');
     osc_set_preference('upload_path', osc_content_path() . "uploads/", 'jobboard_plugin', 'STRING');
-    osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
+    osc_set_preference('version', 142, 'jobboard_plugin', 'INTEGER');
 }
 
 function job_call_after_uninstall() {
@@ -46,6 +46,9 @@ function job_call_after_uninstall() {
     // remove strem activity
     $job_stream = new Stream();
     $job_stream->uninstall();
+
+    // remove page
+    Page::newInstance()->deleteByInternalName('email_resumes_jobboard');
 }
 
 function jobboard_update_version() {
@@ -75,25 +78,6 @@ function jobboard_update_version() {
         osc_reset_preferences();
     }
 
-    // add alters for killer questions
-    if( $version < 130) {
-        ModelKQ::newInstance()->import('jobboard/struct_killer.sql');
-
-        osc_set_preference('version', 130, 'jobboard_plugin', 'INTEGER');
-        osc_set_preference('max_killer_questions', 10, 'jobboard_plugin', 'INTEGER');
-        osc_set_preference('max_answers', 5, 'jobboard_plugin', 'INTEGER');
-        $conn      = DBConnectionClass::newInstance();
-        $data      = $conn->getOsclassDb();
-        $dbCommand = new DBCommandClass($data);
-
-        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_id INT UNSIGNED DEFAULT NULL AFTER s_salary_text', ModelJB::newInstance()->getTable_JobsAttr()));
-        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_result_id INT UNSIGNED DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
-        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN d_score DECIMAL(4,2) NULL DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
-        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN b_corrected TINYINT NOT NULL DEFAULT 0  AFTER d_score', ModelJB::newInstance()->getTable_JobsApplicants()));
-
-        osc_reset_preferences();
-    }
-
     if( $version < 141) {
         osc_set_preference('version', 141, 'jobboard_plugin', 'INTEGER');
         $description = array();
@@ -110,6 +94,24 @@ function jobboard_update_version() {
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN i_num_positions INT UNSIGNED NOT NULL DEFAULT 1', ModelJB::newInstance()->getTable_JobsAttr()));
     }
 
+    // add alters for killer questions
+    if( $version < 142) {
+        ModelKQ::newInstance()->import('jobboard/struct_killer.sql');
+
+        osc_set_preference('version', 142, 'jobboard_plugin', 'INTEGER');
+        osc_set_preference('max_killer_questions', 10, 'jobboard_plugin', 'INTEGER');
+        osc_set_preference('max_answers', 5, 'jobboard_plugin', 'INTEGER');
+        $conn      = DBConnectionClass::newInstance();
+        $data      = $conn->getOsclassDb();
+        $dbCommand = new DBCommandClass($data);
+
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_id INT UNSIGNED DEFAULT NULL AFTER s_salary_text', ModelJB::newInstance()->getTable_JobsAttr()));
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_result_id INT UNSIGNED DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN d_score DECIMAL(4,2) NULL DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN b_corrected TINYINT NOT NULL DEFAULT 0  AFTER d_score', ModelJB::newInstance()->getTable_JobsApplicants()));
+
+        osc_reset_preferences();
+    }
 }
 osc_add_hook('init', 'jobboard_update_version');
 
