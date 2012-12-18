@@ -397,24 +397,40 @@ function jobboard_form_post($catID = null, $itemID = null)  {
         _insertKillerQuestions($killerFormId, $aDataKiller);
     }
 
-    ModelJB::newInstance()->insertJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('numPositions'), $killerFormId );
+    ModelJB::newInstance()->insertJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('numPositions'), $killerFormId);
 
     // prepare locales
+    // init variable
     $dataItem = array();
-    foreach(Params::getParam('min_reqs') as $k => $v) {
-        $dataItem[$k]['min_reqs'] = $v;
+    $dataItem[osc_locale_code()]['min_reqs']     = '';
+    $dataItem[osc_locale_code()]['desired_reqs'] = '';
+    $dataItem[osc_locale_code()]['desired_exp']  = '';
+    $dataItem[osc_locale_code()]['studies']      = '';
+    $dataItem[osc_locale_code()]['contract']     = '';
+    if( is_array(Params::getParam('min_reqs')) ) {
+        foreach(Params::getParam('min_reqs') as $k => $v) {
+            $dataItem[$k]['min_reqs'] = $v;
+        }
     }
-    foreach(Params::getParam('desired_reqs') as $k => $v) {
-        $dataItem[$k]['desired_reqs'] = $v;
+    if( is_array(Params::getParam('desired_reqs')) ) {
+        foreach(Params::getParam('desired_reqs') as $k => $v) {
+            $dataItem[$k]['desired_reqs'] = $v;
+        }
     }
-    foreach(Params::getParam('desired_exp') as $k => $v) {
-        $dataItem[$k]['desired_exp'] = $v;
+    if( is_array(Params::getParam('desired_exp')) ) {
+        foreach(Params::getParam('desired_exp') as $k => $v) {
+            $dataItem[$k]['desired_exp'] = $v;
+        }
     }
-    foreach(Params::getParam('studies') as $k => $v) {
-        $dataItem[$k]['studies'] = $v;
+    if( is_array(Params::getParam('studies')) ) {
+        foreach(Params::getParam('studies') as $k => $v) {
+            $dataItem[$k]['studies'] = $v;
+        }
     }
-    foreach(Params::getParam('contract') as $k => $v) {
-        $dataItem[$k]['contract'] = $v;
+    if( is_array(Params::getParam('contract')) ) {
+        foreach(Params::getParam('contract') as $k => $v) {
+            $dataItem[$k]['contract'] = $v;
+        }
     }
 
     // insert locales
@@ -478,20 +494,30 @@ function jobboard_item_edit_post($catID = null, $itemID = null)
 
     // prepare locales
     $dataItem = array();
-    foreach(Params::getParam('min_reqs') as $k => $v) {
-        $dataItem[$k]['min_reqs'] = $v;
+    if( is_array(Params::getParam('min_reqs')) ) {
+        foreach(Params::getParam('min_reqs') as $k => $v) {
+            $dataItem[$k]['min_reqs'] = $v;
+        }
     }
-    foreach(Params::getParam('desired_reqs') as $k => $v) {
-        $dataItem[$k]['desired_reqs'] = $v;
+    if( is_array(Params::getParam('desired_reqs')) ) {
+        foreach(Params::getParam('desired_reqs') as $k => $v) {
+            $dataItem[$k]['desired_reqs'] = $v;
+        }
     }
-    foreach(Params::getParam('desired_exp') as $k => $v) {
-        $dataItem[$k]['desired_exp'] = $v;
+    if( is_array(Params::getParam('desired_exp')) ) {
+        foreach(Params::getParam('desired_exp') as $k => $v) {
+            $dataItem[$k]['desired_exp'] = $v;
+        }
     }
-    foreach(Params::getParam('studies') as $k => $v) {
-        $dataItem[$k]['studies'] = $v;
+    if( is_array(Params::getParam('studies')) ) {
+        foreach(Params::getParam('studies') as $k => $v) {
+            $dataItem[$k]['studies'] = $v;
+        }
     }
-    foreach(Params::getParam('contract') as $k => $v) {
-        $dataItem[$k]['contract'] = $v;
+    if( is_array(Params::getParam('contract')) ) {
+        foreach(Params::getParam('contract') as $k => $v) {
+            $dataItem[$k]['contract'] = $v;
+        }
     }
 
     // insert locales
