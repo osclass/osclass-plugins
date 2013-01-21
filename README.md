@@ -1,4 +1,4 @@
-OSClass Plugins
+Osclass Plugins
 ==============
 
 There is a branch for each plugin. So, each branch has the latest version. Here is a list of the plugins:
@@ -34,6 +34,7 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Supertoolbar](https://github.com/osclass/osclass-plugins/tree/supertoolbar) _under development_
 - [Theme languages](https://github.com/osclass/osclass-plugins/tree/theme_languages)
 - [Time elapsed](https://github.com/osclass/osclass-plugins/tree/time_elapsed)
+- [Tor plugin] (https://github.com/osclass/osclass-plugins/tree/tor)
 - [Yandex maps](https://github.com/osclass/osclass-plugins/tree/yandex_maps)
 - [Yandex metrica](https://github.com/osclass/osclass-plugins/tree/yandex_metrica)
 - [Youtube](https://github.com/osclass/osclass-plugins/tree/youtube)
