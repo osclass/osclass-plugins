@@ -212,8 +212,13 @@
                     osc_run_hook( 'hook_email_admin_new_user', $userDB );
                 }
 
-                $manager->update( array('b_active' => '1')
-                                 ,array('pk_i_id' => $userID) );
+                if(osc_version()>=310) {
+                    $manager->update( array('b_active' => '1', 's_username' => $userID)
+                                    ,array('pk_i_id' => $userID) );
+                } else {
+                        $manager->update( array('b_active' => '1')
+                            ,array('pk_i_id' => $userID) );
+                }
 
                 osc_run_hook('hook_email_user_registration', $userDB);
                 osc_run_hook('validate_user', $userDB);

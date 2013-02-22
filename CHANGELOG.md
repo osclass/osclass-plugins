@@ -1,6 +1,10 @@
 Changelog Facebook connect
 ==========================
 
+###version 1.2 - 22/02/2013
+
+* Add username support (version 3.1+)
+
 ###version 1.1 - 21/11/2012
 
 * Updated Facebook PHP SDK
