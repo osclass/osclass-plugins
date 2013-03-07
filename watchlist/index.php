@@ -11,7 +11,7 @@
   Plugin update URI: watchlist
  */
 
-    define('WATCHLIST_VERSION', '1.0.3');
+    define('WATCHLIST_VERSION', '1.0.5');
 
     function watchlist() {
         echo '<a href="javascript://" class="watchlist" id="' . osc_item_id() . '">';
