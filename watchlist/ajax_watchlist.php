@@ -19,7 +19,7 @@
                         <?php _e('View your watchlist', 'watchlist') ?>
                     </a>
                 </span>
-                <?
+                <?php
             } else {
                 //Already in watchlist !
                 echo '<span align="left"><a href="' . osc_base_url(true) . '?page=custom&file=watchlist/watchlist.php">' . __('View your watchlist', 'watchlist') . '</a></span>';

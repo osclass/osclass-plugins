@@ -1,6 +1,10 @@
 Changelog Watchlist
 ===================
 
+##version 1.0.5 - 07/03/2012
+
+* Made compatible with version 3.1
+
 ##version 1.0.3 - 14/09/2011
 
 * Added persian language and updated spanish language
