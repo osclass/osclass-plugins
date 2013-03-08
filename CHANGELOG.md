@@ -1,5 +1,13 @@
 #Rich Editor plugin
 
+##version 1.0.9 - 22/05/2012
+
+* added retrocompatibility with osclass old versions 
+
+##version 1.0.8 - 22/05/2012
+
+* osclass 3.1 compatible
+
 ##version 1.0.6 - 22/05/2012
 
 * Do not clean item description and title; fix for versions > 2.3

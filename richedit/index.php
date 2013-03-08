@@ -3,7 +3,7 @@
 Plugin Name: Rich edit
 Plugin URI: http://www.osclass.org/
 Description: Add a WYSIWYG editor when publishing an ad
-Version: 1.0.8
+Version: 1.0.9
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: richedit
@@ -47,6 +47,7 @@ Plugin update URI: rich-edit
         }
 
         if(($location=='item' && ($section=='item_add' || $section=='item_edit')) || ($location=='items' && ($section=='post' || $section=='item_edit'))) {
+            if(osc_version()>=310) {
             ?>
             <script type="text/javascript">
                 var richedit = new Array();
@@ -59,11 +60,37 @@ Plugin update URI: rich-edit
                 richedit.theme_advanced_buttons2 = "<?php echo osc_get_preference('buttons2', 'richedit'); ?>";
                 richedit.theme_advanced_buttons3 = "<?php echo osc_get_preference('buttons3', 'richedit'); ?>";
                 richedit.plugins =  "<?php echo osc_get_preference('plugins', 'richedit'); ?>";
-
             </script>
             <?php
+            } else {
+            ?>
+            <script type="text/javascript" src="<?php echo osc_base_url().'oc-content/plugins/'.osc_plugin_folder(__FILE__);?>tiny_mce/tiny_mce.js"></script>
+            <script type="text/javascript">
+                tinyMCE.init({
+                    mode : "none",
+                    theme : "<?php echo osc_get_preference('theme', 'richedit'); ?>",
+                    skin: "<?php echo osc_get_preference('skin', 'richedit'); ?>",
+                    width: "<?php echo osc_get_preference('width', 'richedit'); ?>",
+                    height: "<?php echo osc_get_preference('height', 'richedit'); ?>",
+                    skin_variant : "<?php echo osc_get_preference('skin_variant', 'richedit'); ?>",
+                    theme_advanced_buttons1 : "<?php echo osc_get_preference('buttons1', 'richedit'); ?>",
+                    theme_advanced_buttons2 : "<?php echo osc_get_preference('buttons2', 'richedit'); ?>",
+                    theme_advanced_buttons3 : "<?php echo osc_get_preference('buttons3', 'richedit'); ?>",
+                    theme_advanced_toolbar_align : "left",
+                    theme_advanced_toolbar_location : "top",
+                    plugins : "<?php echo osc_get_preference('plugins', 'richedit'); ?>"
+                });
+                $(document).ready(function () {
+                    $("textarea[id^=description]").each(function(){
+                        tinyMCE.execCommand("mceAddControl", true, this.id);
+                    });
+                });
+            </script>
+            <?php
+            }
         }
     }
+
 
     function richedit_admin_menu() {
         echo '<h3><a href="#">' . __('Rich edit options', 'richedit') . '</a></h3>
@@ -85,20 +112,33 @@ Plugin update URI: rich-edit
     /**
      * ADD HOOKS
      */
-
-    osc_register_script('tiny_mce', osc_base_url().'oc-content/plugins/'.osc_plugin_folder(__FILE__).'tiny_mce/tiny_mce.js');
-    osc_enqueue_script('tiny_mce');
-
-    osc_register_script('rich_edit_js', osc_plugin_url(__FILE__) . 'rich_edit.js', 'jquery');
-    osc_enqueue_script('rich_edit_js' , array('jquery', 'tiny_mce') );
-
     osc_register_plugin(osc_plugin_path(__FILE__), 'richedit_install');
     osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'richedit_uninstall');
 
     osc_add_hook('admin_menu', 'richedit_admin_menu');
 
-    osc_add_hook('header', 'richedit_load_js');
-    osc_add_hook('admin_header', 'richedit_load_js', 0);
+    $location   = Rewrite::newInstance()->get_location();
+    $section    = Rewrite::newInstance()->get_section();
+    if(isset($location)){
+        $location = Params::getParam('page', false, false) ;
+        $section = Params::getParam('action', false, false) ;
+    }
+
+    if(($location=='item' && ($section=='item_add' || $section=='item_edit')) || ($location=='items' && ($section=='post' || $section=='item_edit'))) {
+        if(osc_version()>=310) {
+            osc_register_script('tiny_mce', osc_base_url().'oc-content/plugins/'.osc_plugin_folder(__FILE__).'tiny_mce/tiny_mce.js');
+            osc_register_script('rich_edit_js', osc_plugin_url(__FILE__) . 'rich_edit.js', 'jquery');
+
+            osc_enqueue_script('tiny_mce');
+            osc_enqueue_script('rich_edit_js' , array('jquery', 'tiny_mce') );
+
+            osc_add_hook('header', 'richedit_load_js', 0);
+            osc_add_hook('admin_header', 'richedit_load_js', 0);
+        } else {
+            osc_add_hook('header', 'richedit_load_js');
+            osc_add_hook('admin_header', 'richedit_load_js');
+        }
+    }
 
     osc_add_hook('item_form_post', 'do_not_clean_items');
     osc_add_hook('item_edit_post', 'do_not_clean_items');
