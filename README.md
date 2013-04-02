@@ -21,7 +21,7 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [LOPD - Spanish privacy law](https://github.com/osclass/osclass-plugins/tree/lopd)
 - [Mobile theme](https://github.com/osclass/osclass-plugins/tree/osc-mobile) _under development_
 - [More Edit](https://github.com/osclass/osclass-plugins/tree/more_edit)
-- [Paypal](https://github.com/osclass/osclass-plugins/tree/paypal)
+- [Payment](https://github.com/osclass/osclass-plugins/tree/payment)
 - [Piwik Analytics](https://github.com/osclass/osclass-plugins/tree/piwik)
 - [Print PDF] (https://github.com/osclass/osclass-plugins/tree/printpdf)
 - [Products attributes](https://github.com/osclass/osclass-plugins/tree/products_attributes)
