@@ -3,7 +3,7 @@
 Plugin Name: Payment system
 Plugin URI: http://www.osclass.org/
 Description: Payment system
-Version: 1.1
+Version: 1.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: payments
@@ -87,7 +87,8 @@ Short Name: payments
      * @param string $url
      */
     function payment_redirect_to($url) {
-        header('Location: ' . $url);
+        osc_redirect_to($url);
+        //header('Location: ' . $url);
         exit;
     }
 
@@ -98,7 +99,7 @@ Short Name: payments
      */
     function payment_js_redirect_to($url) { ?>
         <script type="text/javascript">
-            window.location = "<?php echo $url; ?>"
+            window.top.location.href = "<?php echo $url; ?>";
         </script>
     <?php }
 

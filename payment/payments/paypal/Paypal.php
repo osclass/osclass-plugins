@@ -187,7 +187,14 @@
                 $tx = Params::getParam('tx')==''?Params::getParam('tx'):Params::getParam('txn_id');
                 $payment = ModelPayment::newInstance()->getPayment($tx);
                 if (!$payment) {
-                    $data = ModelPayment::getCustom(Params::getParam('custom'));
+                    if(Params::getParam('custom')!='') {
+                        $custom = Params::getParam('custom');
+                    } else if(Params::getParam('cm')!='') {
+                        $custom = Params::getParam('cm');
+                    } else if(Params::getParam('extra')!='') {
+                        $custom = Params::getParam('extra');
+                    }
+                    $data = ModelPayment::getCustom($custom);
                     $product_type = explode('x', Params::getParam('item_number'));
                     // SAVE TRANSACTION LOG
                     $payment_id = ModelPayment::newInstance()->saveLog(

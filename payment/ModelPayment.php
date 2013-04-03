@@ -123,16 +123,6 @@
             osc_set_preference('paypal_sandbox', '1', 'payment', 'BOOLEAN');
             osc_set_preference('paypal_enabled', '1', 'payment', 'BOOLEAN');
 
-
-            osc_set_preference('amazon_access_key', '', 'payment', 'STRING');
-            osc_set_preference('amazon_secret', '', 'payment', 'STRING');
-            osc_set_preference('amazon_standard', '1', 'payment', 'BOOLEAN');
-            osc_set_preference('amazon_sandbox', '1', 'payment', 'BOOLEAN');
-            osc_set_preference('amazon_enabled', '1', 'payment', 'BOOLEAN');
-
-            osc_set_preference('elitpay_enabled', '1', 'payment', 'BOOLEAN');
-
-
             $this->dao->select('pk_i_id') ;
             $this->dao->from(DB_TABLE_PREFIX.'t_item') ;
             $result = $this->dao->get();
@@ -208,15 +198,6 @@
             osc_delete_preference('paypal_standard', 'payment');
             osc_delete_preference('paypal_sandbox', 'payment');
             osc_delete_preference('paypal_enabled', 'payment');
-
-            osc_delete_preference('amazon_access_key', 'payment');
-            osc_delete_preference('amazon_secret', 'payment');
-            osc_delete_preference('amazon_standard', 'payment');
-            osc_delete_preference('amazon_sandbox', 'payment');
-            osc_delete_preference('amazon_enabled', 'payment');
-
-            osc_delete_preference('elitpay_enabled', 'payment');
-
 
         }
 
