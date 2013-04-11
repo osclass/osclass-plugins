@@ -91,6 +91,7 @@
                         <label><?php _e('Currency (3-character code)', 'payment'); ?></label>
                         <select name="currency" id="currency">
                             <option value="AUD" <?php if(osc_get_preference('currency', 'payment')=="AUD") { echo 'selected="selected"';}; ?> >AUD</option>
+                            <option value="BRL" <?php if(osc_get_preference('currency', 'payment')=="BRL") { echo 'selected="selected"';}; ?> >BRL</option>
                             <option value="CAD" <?php if(osc_get_preference('currency', 'payment')=="CAD") { echo 'selected="selected"';}; ?> >CAD</option>
                             <option value="CHF" <?php if(osc_get_preference('currency', 'payment')=="CHF") { echo 'selected="selected"';}; ?> >CHF</option>
                             <option value="CZK" <?php if(osc_get_preference('currency', 'payment')=="CZK") { echo 'selected="selected"';}; ?> >CZK</option>
