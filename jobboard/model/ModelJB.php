@@ -522,6 +522,9 @@
         {
             $this->dao->select('COUNT(*) AS total');
             $this->dao->from($this->getTable_JobsApplicants());
+            if( Params::getParam('jobId') !== '' ) {
+                $this->dao->where('fk_i_item_id', Params::getParam('jobId'));
+            }
             $this->dao->where('b_read', '0');
             $result = $this->dao->get();
             if( !$result ) {
@@ -539,6 +542,9 @@
             }
             $this->dao->select('COUNT(*) AS total');
             $this->dao->from($this->getTable_JobsApplicants());
+            if( Params::getParam('jobId') !== '' ) {
+                $this->dao->where('fk_i_item_id', Params::getParam('jobId'));
+            }
             $this->dao->where('i_status', $status);
             $result = $this->dao->get();
             if( !$result ) {
