@@ -107,8 +107,10 @@ Plugin update URI: demo-theme
 
         // logo
         echo '        var part_logo = $("<div>").attr("class", "logo_demo") ;' . PHP_EOL ;
+        echo '        var link_logo = $("<a>").attr("href", "http://osclass.org") ;' . PHP_EOL ;
         echo '        var img_logo = $("<img>").attr("src", "'.osc_base_url().'oc-content/plugins/demo_theme/default-logo.png") ;' . PHP_EOL ;
-        echo '        $(part_logo).prepend(img_logo) ;' . PHP_EOL ;
+        echo '        $(link_logo).prepend(img_logo) ;' . PHP_EOL ;
+        echo '        $(part_logo).prepend(link_logo) ;' . PHP_EOL ;
 
         // oc-admin link
         echo '        var part_ocadmin = $("<div>").attr("class", "ocadmin_demo") ;' . PHP_EOL ;
