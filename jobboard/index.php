@@ -808,6 +808,8 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
              * send file to convert -> server pdf convert
              */
             if( $convert_to_pdf === true ) {
+                $applicant = ModelJB::newInstance()->getApplicant($applicantID);
+
                 $tmpfile    = osc_get_preference('upload_path', 'jobboard_plugin') . $fileName;
                 $filename   = basename($aCV['name']);
 
@@ -815,6 +817,7 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
                 $data = array(
                     'uploaded_file' => '@'.$tmpfile.';filename='.$filename,
                     'applicantId'   => $applicantID,
+                    'secret'        => $applicant['s_secret'],
                     'callback'      => $callback
                 );
 
@@ -836,8 +839,8 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
         // from linkedin + download cv.pdf
         // downoad file
         $url_pdf  = Params::getParam('pdfUrl');
-        $fileName    = date('YmdHisu') . '.pdf' ;
-        $dest   = osc_get_preference('upload_path', 'jobboard_plugin').$fileName;
+        $fileName = date('YmdHisu') . '.pdf' ;
+        $dest     = osc_get_preference('upload_path', 'jobboard_plugin').$fileName;
 
         $res = file_put_contents($dest, file_get_contents($url_pdf));
          // add job file
