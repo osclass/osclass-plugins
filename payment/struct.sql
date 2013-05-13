@@ -2,8 +2,9 @@ CREATE TABLE  /*TABLE_PREFIX*/t_payments_log (
     pk_i_id INT NOT NULL AUTO_INCREMENT ,
     s_concept VARCHAR( 200 ) NOT NULL ,
     dt_date DATETIME NOT NULL ,
-    s_code VARCHAR( 17 ) NOT NULL ,
+    s_code VARCHAR( 255 ) NOT NULL ,
     f_amount FLOAT NOT NULL ,
+    i_amount BIGINT(20) NULL,
     s_currency_code VARCHAR( 3 ) NULL ,
     s_email VARCHAR( 200 ) NULL ,
     fk_i_user_id INT NULL ,
@@ -17,6 +18,7 @@ CREATE TABLE  /*TABLE_PREFIX*/t_payments_log (
 CREATE TABLE /*TABLE_PREFIX*/t_payments_wallet (
     fk_i_user_id INT UNSIGNED NOT NULL,
     f_amount FLOAT NOT NULL,
+    i_amount BIGINT(20) NULL,
 
         PRIMARY KEY (fk_i_user_id),
         FOREIGN KEY (fk_i_user_id) REFERENCES /*TABLE_PREFIX*/t_user (pk_i_id)

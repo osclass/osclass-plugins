@@ -3,7 +3,7 @@
     define('ABS_PATH', dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))) . '/');
     require_once ABS_PATH . 'oc-load.php';
 
-    $data = ModelPayment::getCustom(Params::getParam('extra'));
+    $data = Mpayment_get_custom(Params::getParam('extra'));
     if($data['itemid']=='dash') { // PACK PAYMENT FROM USER'S DASHBOARD
         $url = osc_user_dashboard_url();
     } else {

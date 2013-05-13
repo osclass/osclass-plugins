@@ -11,7 +11,7 @@
 
     $status = PAYMENT_FAILED;
     if(osc_get_preference('paypal_standard', 'payment')==1) {
-        $data = ModelPayment::getCustom(Params::getParam('custom'));
+        $data = payment_get_custom(Params::getParam('custom'));
 
         $product_type = explode('x', Params::getParam('item_number'));
         $status = Paypal::processStandardPayment();
@@ -57,7 +57,7 @@
         }
     } else {
 
-        $data = ModelPayment::getCustom(Params::getParam('extra'));
+        $data = payment_get_custom(Params::getParam('extra'));
 
         //set GET var's to local vars:
         $token   = $_GET['token'];

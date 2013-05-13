@@ -3,7 +3,7 @@
 Plugin Name: Payment system
 Plugin URI: http://www.osclass.org/
 Description: Payment system
-Version: 1.2
+Version: 2.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: payments
@@ -22,6 +22,8 @@ Short Name: payments
     require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'ModelPayment.php';
     // Load different methods of payments
     require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/paypal/Paypal.php';
+    require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/blockchain/Blockchain.php';
+    require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/payza/Payza.php';
 
     /**
     * Create tables and variables on t_preference and t_pages
@@ -59,8 +61,8 @@ Short Name: payments
     * @param string $rpl custom variables
     * @param string $itemnumber (publish fee, premium, pack and which category)
     */
-    function wallet_button($amount = '0.00', $description = '', $rpl = '||', $itemnumber = '101') {
-        echo '<a href="'.osc_render_file_url(osc_plugin_folder(__FILE__)."wallet.php?a=".$amount."&desc=".$description."&rpl=".$rpl."&inumber=".$itemnumber).'"><button>'.__("Pay with your credit", "payment").'</button></a>';
+    function wallet_button($amount = '0.00', $description = '', $product = '101', $extra = '||') {
+        echo '<a href="'.osc_render_file_url(osc_plugin_folder(__FILE__)."wallet.php?a=".$amount."&desc=".$description."&extra=".implode("|", $extra)."&product=".$product).'"><button>'.__("Pay with your credit", "payment").'</button></a>';
     }
 
     /**
@@ -79,17 +81,7 @@ Short Name: payments
      */
     function payment_load_js() {
         Paypal::loadJS();
-    }
-
-    /**
-     * Redirect to function, for some reason "header" function was not working inside an "IF" clause
-     *
-     * @param string $url
-     */
-    function payment_redirect_to($url) {
-        osc_redirect_to($url);
-        //header('Location: ' . $url);
-        exit;
+        Blockchain::loadJS();
     }
 
     /**
@@ -103,6 +95,32 @@ Short Name: payments
         </script>
     <?php }
 
+    function payment_prepare_custom($extra_array = null) {
+        if($extra_array!=null) {
+            if(is_array($extra_array)) {
+                $extra = '';
+                foreach($extra_array as $k => $v) {
+                    $extra .= $k.",".$v."|";
+                }
+            } else {
+                $extra = $extra_array;
+            }
+        } else {
+            $extra = "";
+        }
+        return $extra;
+    }
+
+    function payment_get_custom($custom) {
+        $tmp = array();
+        if(preg_match_all('@\|?([^,]+),([^\|]*)@', $custom, $m)){
+            $l = count($m[1]);
+            for($k=0;$k<$l;$k++) {
+                $tmp[$m[1][$k]] = $m[2][$k];
+            }
+        }
+        return $tmp;
+    }
 
     /**
      * Redirect to payment page after publishing an item
@@ -110,12 +128,16 @@ Short Name: payments
      * @param integer $item
      */
     function payment_publish($item) {
-        if(osc_get_preference('paypal_enabled', 'payment')==1 &&
+        if( // WE HAVE CORRECTLY SETUP PAYPAL
+            (osc_get_preference('paypal_enabled', 'payment')==1 &&
                 ((osc_get_preference('paypal_standard', 'payment')==1 && osc_get_preference('paypal_email', 'payment')!='') ||
                 (payment_decrypt(osc_get_preference('paypal_api_username', 'payment'))!='' &&
                 payment_decrypt(osc_get_preference('paypal_api_password', 'payment'))!='' &&
                 payment_decrypt(osc_get_preference('paypal_api_signature', 'payment'))!='' &&
-                osc_get_preference('paypal_standard', 'payment')==0))) {
+                osc_get_preference('paypal_standard', 'payment')==0)))
+            ||
+            // WE HAVE CORRECTLY SETUP BLOCKCHAIN
+            (osc_get_preference('blockchain_enabled', 'payment')==1 && osc_get_preference('blockchain_btc_address', 'payment')!='')) {
             // Need to pay to publish ?
             if(osc_get_preference('pay_per_post', 'payment')==1) {
                 $category_fee = ModelPayment::newInstance()->getPublishPrice($item['fk_i_category_id']);
@@ -126,7 +148,7 @@ Short Name: payments
                     $mItems = new ItemActions(false);
                     $mItems->disable($item['pk_i_id']);
                     ModelPayment::newInstance()->createItem($item['pk_i_id'],0);
-                    payment_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'payperpublish.php&itemId=' . $item['pk_i_id']));
+                    osc_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'payperpublish.php&itemId=' . $item['pk_i_id']));
                 } else {
                     // PRICE IS ZERO
                     ModelPayment::newInstance()->createItem($item['pk_i_id'], 1);
@@ -137,7 +159,7 @@ Short Name: payments
                 if(osc_get_preference('allow_premium', 'payment')==1) {
                     $premium_fee = ModelPayment::newInstance()->getPremiumPrice($item['fk_i_category_id']);
                     if($premium_fee>0) {
-                        payment_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'makepremium.php&itemId=' . $item['pk_i_id']));
+                        osc_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'makepremium.php&itemId=' . $item['pk_i_id']));
                     }
                 }
             }
@@ -257,7 +279,20 @@ Short Name: payments
     }
 
     function payment_configure_link() {
-        payment_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'conf.php');
+        osc_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'conf.php');
+    }
+
+    function payment_update_version() {
+        ModelPayment::newInstance()->versionUpdate();
+    }
+
+    function payment_format_btc($btc, $symbol = "BTC") {
+        if($btc<0.00001) {
+            return ($btc*1000000).'µ'.$symbol;
+        } else if($btc<0.01) {
+            return ($btc*1000).'m'.$symbol;
+        }
+        return $btc.$symbol;
     }
 
     /**
@@ -266,9 +301,10 @@ Short Name: payments
     osc_register_plugin(osc_plugin_path(__FILE__), 'payment_install');
     osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'payment_configure_link');
     osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'payment_uninstall');
+    osc_add_hook(osc_plugin_path(__FILE__)."_enable", 'payment_update_version');
 
     osc_add_hook('admin_menu', 'payment_admin_menu');
-    osc_add_hook('header', 'payment_load_js');
+    osc_add_hook('header', 'payment_load_js', 10);
     osc_add_hook('posted_item', 'payment_publish', 3);
     osc_add_hook('user_menu', 'payment_user_menu');
     osc_add_hook('cron_hourly', 'payment_cron');

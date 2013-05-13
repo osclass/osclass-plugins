@@ -21,7 +21,7 @@
                         <?php echo sprintf(__("The current fee for this category is: %.2f %s", 'payment'), $category_fee, osc_get_preference('currency', 'payment')); ?><br/>
                         <?php if(osc_is_web_user_logged_in()) {
                                 $wallet = ModelPayment::newInstance()->getWallet(osc_logged_user_id());
-                                if(isset($wallet['f_amount']) && $wallet['f_amount']>=$category_fee) {
+                                if(isset($wallet['formatted_amount']) && $wallet['formatted_amount']>=$category_fee) {
                                     wallet_button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
                                 } else {
                                     Paypal::button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));

@@ -48,16 +48,7 @@
         }
 
         public static function dgButton($amount = '0.00', $description = '', $itemnumber = '101', $extra_array = null) {
-
-            if($extra_array!=null) {
-                $extra = '';
-                foreach($extra_array as $k => $v) {
-                    $extra .= $k.",".$v."|";
-                }
-            } else {
-                $extra = "";
-            }
-
+            $extra = payment_prepare_custom($extra_array);
             $r = rand(0,1000);
             $extra .= 'random,'.$r;
 
@@ -122,20 +113,7 @@
         }
 
         public static function standardButton($amount = '0.00', $description = '', $itemnumber = '101', $extra_array = null) {
-
-            if($extra_array!=null) {
-                if(is_array($extra_array)) {
-                    $extra = '';
-                    foreach($extra_array as $k => $v) {
-                        $extra .= $k.",".$v."|";
-                    }
-                } else {
-                    $extra = $extra_array;
-                }
-            } else {
-                $extra = "";
-            }
-
+            $extra = payment_prepare_custom($extra_array);
             $r = rand(0,1000);
             $extra .= 'random,'.$r;
 
@@ -194,7 +172,7 @@
                     } else if(Params::getParam('extra')!='') {
                         $custom = Params::getParam('extra');
                     }
-                    $data = ModelPayment::getCustom($custom);
+                    $data = payment_get_custom($custom);
                     $product_type = explode('x', Params::getParam('item_number'));
                     // SAVE TRANSACTION LOG
                     $payment_id = ModelPayment::newInstance()->saveLog(
@@ -225,7 +203,7 @@
 
         public static function processDGPayment($doresponse, $response) {
 
-            $data = ModelPayment::getCustom(Params::getParam('extra'));
+            $data = payment_get_custom(Params::getParam('extra'));
 
             if ($doresponse['ACK'] == 'Success' || $doresponse['ACK'] == 'SuccessWithWarning') {
                 $product_type = explode('x', urldecode($response['L_PAYMENTREQUEST_0_NUMBER0']));

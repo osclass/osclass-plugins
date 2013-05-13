@@ -105,6 +105,7 @@
 
             $this->import('payment/struct.sql');
 
+            osc_set_preference('version', '2.0', 'payment', 'INTEGER');
             osc_set_preference('default_premium_cost', '1.0', 'payment', 'STRING');
             osc_set_preference('allow_premium', '0', 'payment', 'BOOLEAN');
             osc_set_preference('default_publish_cost', '1.0', 'payment', 'STRING');
@@ -122,6 +123,9 @@
             osc_set_preference('paypal_standard', '1', 'payment', 'BOOLEAN');
             osc_set_preference('paypal_sandbox', '1', 'payment', 'BOOLEAN');
             osc_set_preference('paypal_enabled', '1', 'payment', 'BOOLEAN');
+
+            osc_set_preference('blockchain_btc_address', '', 'payment', 'STRING');
+            osc_set_preference('blockchain_enabled', '1', 'payment', 'BOOLEAN');
 
             $this->dao->select('pk_i_id') ;
             $this->dao->from(DB_TABLE_PREFIX.'t_item') ;
@@ -146,18 +150,6 @@
 
         }
 
-        public static function getCustom($custom) {
-          $tmp = array();
-          if(preg_match_all('@\|?([^,]+),([^\|]*)@', $custom, $m)){
-            $l = count($m[1]);
-            for($k=0;$k<$l;$k++) {
-                $tmp[$m[1][$k]] = $m[2][$k];
-            }
-          }
-          return $tmp;
-        }
-
-
         public function premiumOff($id) {
             $this->dao->delete($this->getTable_premium(), array('fk_i_item_id' => $id));
         }
@@ -181,6 +173,7 @@
             $page = Page::newInstance()->findByInternalName('email_payment');
             Page::newInstance()->deleteByPrimaryKey($page['pk_i_id']);
 
+            osc_delete_preference('version', 'payment');
             osc_delete_preference('default_premium_cost', 'payment');
             osc_delete_preference('allow_premium', 'payment');
             osc_delete_preference('default_publish_cost', 'payment');
@@ -199,6 +192,53 @@
             osc_delete_preference('paypal_sandbox', 'payment');
             osc_delete_preference('paypal_enabled', 'payment');
 
+            osc_delete_preference('blockchain_btc_address', 'payment');
+            osc_delete_preference('blockchain_enabled', 'payment');
+
+        }
+
+        public function versionUpdate() {
+            $version = osc_get_preference('version', 'payment');
+            if( $version < 200 ) {
+                osc_set_preference('version', 200, 'payment', 'INTEGER');
+                $this->dao->query(sprintf('ALTER TABLE %s ADD i_amount BIGINT(20) NULL AFTER f_amount', ModelPayment::newInstance()->getTable_log()));
+                $this->dao->query(sprintf('ALTER TABLE %s ADD i_amount BIGINT(20) NULL AFTER f_amount', ModelPayment::newInstance()->getTable_wallet()));
+
+                $this->dao->select('*') ;
+                $this->dao->from($this->getTable_wallet());
+                $result = $this->dao->get();
+                if($result) {
+                    $wallets = $result->result();
+                    foreach($wallets as $w) {
+                        $this->dao->update($this->getTable_wallet(), array('i_amount' => $w['f_amount']*1000000000000), array('fk_i_user_id' => $w['fk_i_user_id']));
+                    }
+                }
+
+                $this->dao->select('*') ;
+                $this->dao->from($this->getTable_log());
+                $result = $this->dao->get();
+                if($result) {
+                    $logs = $result->result();
+                    foreach($logs as $log) {
+                        $this->dao->update($this->getTable_log(), array('i_amount' => $log['f_amount']*1000000000000), array('pk_i_id' => $log['pk_i_id']));
+                    }
+                }
+
+
+                osc_reset_preferences();
+            }
+        }
+
+        public function getPaymentByCode($code, $source) {
+            $this->dao->select('*') ;
+            $this->dao->from($this->getTable_log());
+            $this->dao->where('s_code', $code);
+            $this->dao->where('s_source', $source);
+            $result = $this->dao->get();
+            if($result) {
+                return $result->row();
+            }
+            return false;
         }
 
         public function getPayment($paymentId) {
@@ -269,7 +309,9 @@
             $this->dao->where('fk_i_user_id', $userId);
             $result = $this->dao->get();
             if($result) {
-                return $result->row();
+                $row = $result->row();
+                $row['formatted_amount'] = $row['i_amount']/1000000000000;
+                return $row;
             }
             return false;
         }
@@ -350,7 +392,7 @@
                 's_concept' => $concept,
                 'dt_date' => date("Y-m-d H:i:s"),
                 's_code' => $code,
-                'f_amount' => $amount,
+                'i_amount' => $amount*1000000000000,
                 's_currency_code' => $currency,
                 's_email' => $email,
                 'fk_i_user_id' => $user,
@@ -388,11 +430,12 @@
         }
 
         public function addWallet($user, $amount) {
+            $amount = (int)($amount*1000000000000);
             $wallet = $this->getWallet($user);
             if($wallet) {
-                $this->dao->update($this->getTable_wallet(), array('f_amount' => $amount+$wallet['f_amount']), array('fk_i_user_id' => $user));
+                $this->dao->update($this->getTable_wallet(), array('i_amount' => $amount+$wallet['i_amount']), array('fk_i_user_id' => $user));
             } else {
-                $this->dao->insert($this->getTable_wallet(), array('fk_i_user_id' => $user, 'f_amount' => $amount));
+                $this->dao->insert($this->getTable_wallet(), array('fk_i_user_id' => $user, 'i_amount' => $amount));
             }
 
         }
