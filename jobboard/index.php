@@ -3,7 +3,7 @@
 Plugin Name: Job Board
 Plugin URI: http://www.osclass.org/
 Description: Job Board
-Version: 1.4.2
+Version: 1.4.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobboard_plugin
@@ -27,7 +27,7 @@ function job_call_after_install() {
     osc_set_preference('max_killer_questions', 10, 'jobboard_plugin', 'INTEGER');
     osc_set_preference('max_answers', 5, 'jobboard_plugin', 'INTEGER');
     osc_set_preference('upload_path', osc_content_path() . "uploads/", 'jobboard_plugin', 'STRING');
-    osc_set_preference('version', 142, 'jobboard_plugin', 'INTEGER');
+    osc_set_preference('version', 143, 'jobboard_plugin', 'INTEGER');
     osc_set_preference('url_pdf_convert', '', 'jobboard_plugin', 'STRING');
 
 }
@@ -111,6 +111,18 @@ function jobboard_update_version() {
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN fk_i_killer_form_result_id INT UNSIGNED DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN d_score DECIMAL(4,2) NULL DEFAULT NULL AFTER dt_birthday', ModelJB::newInstance()->getTable_JobsApplicants()));
         $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN b_corrected TINYINT NOT NULL DEFAULT 0  AFTER d_score', ModelJB::newInstance()->getTable_JobsApplicants()));
+
+        osc_reset_preferences();
+    }
+
+    // add s_name_original aplicant original file/cv
+    if( $version < 143 ) {
+        osc_set_preference('version', 143, 'jobboard_plugin', 'INTEGER');
+        $conn      = DBConnectionClass::newInstance();
+        $data      = $conn->getOsclassDb();
+        $dbCommand = new DBCommandClass($data);
+
+        $dbCommand->query(sprintf('ALTER TABLE %s ADD COLUMN s_name_original VARCHAR(255) NOT NULL DEFAULT \'\'  AFTER s_name', ModelJB::newInstance()->getTable_JobsFiles()));
 
         osc_reset_preferences();
     }
