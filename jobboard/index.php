@@ -28,6 +28,8 @@ function job_call_after_install() {
     osc_set_preference('max_answers', 5, 'jobboard_plugin', 'INTEGER');
     osc_set_preference('upload_path', osc_content_path() . "uploads/", 'jobboard_plugin', 'STRING');
     osc_set_preference('version', 142, 'jobboard_plugin', 'INTEGER');
+    osc_set_preference('url_pdf_convert', '', 'jobboard_plugin', 'STRING');
+
 }
 
 function job_call_after_uninstall() {
@@ -768,10 +770,10 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
     }
 
     if($source!='linkedin') {
+        $fileName = date('YmdHis') . '_' . $aCV['name'];
         if($uploadCV=='') {
             if(isset($aCV['name']) && $aCV['error'] == UPLOAD_ERR_OK) {
                 $tmp_name = $aCV['tmp_name'];
-                $fileName = date('YmdHis') . '_' . $aCV['name'];
                 if( move_uploaded_file($tmp_name, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
                     $mJB->insertFile($applicantID, $fileName);
                 } else {
@@ -781,7 +783,6 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
                 $error_attachment = true;
             }
         } else {
-            $fileName = date('YmdHis') . '_' . $aCV['name'];
             if( copy($uploadCV, osc_get_preference('upload_path', 'jobboard_plugin') . $fileName) ) {
                 @unlink($uploadCV);
                 $mJB->insertFile($applicantID, $fileName);
@@ -795,6 +796,31 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
             _save_jobboard_contact_listing();
             osc_add_flash_error_message(__("There were some problem processing your application, please try again", 'jobboard'));
             header('Location: ' . $url); die;
+        } else {
+            /*
+             * send file to convert -> server pdf convert
+             */
+            $tmpfile    = osc_get_preference('upload_path', 'jobboard_plugin') . $fileName;
+            $filename   = basename($aCV['name']);
+
+            $callback   = osc_base_url(true) .'?page=ajax&action=custom&ajaxfile='.osc_plugin_folder(__FILE__).'reciveCv.php';
+            $data = array(
+                'uploaded_file' => '@'.$tmpfile.';filename='.$filename,
+                'callback'      => $callback
+            );
+
+            $url = osc_get_preference('url_pdf_convert', 'jobboard_plugin');
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            // debug curl
+            // curl_setopt($ch, CURLOPT_VERBOSE, 1);
+            if( ! $result = curl_exec($ch))
+            {
+                trigger_error(curl_error($ch));
+            }
+            curl_close($ch);
         }
     } else {
         // from linkedin + download cv.pdf
