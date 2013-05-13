@@ -820,7 +820,7 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
              * send file to convert -> server pdf convert
              */
             if( $convert_to_pdf === true ) {
-                $applicant = ModelJB::newInstance()->getApplicant($applicantID);
+                $applicantCv = ModelJB::newInstance()->getCVFromApplicant($applicantID);
 
                 $tmpfile    = osc_get_preference('upload_path', 'jobboard_plugin') . $fileName;
                 $filename   = basename($aCV['name']);
@@ -829,7 +829,7 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
                 $data = array(
                     'uploaded_file' => '@'.$tmpfile.';filename='.$filename,
                     'applicantId'   => $applicantID,
-                    'secret'        => $applicant['s_secret'],
+                    'secret'        => $applicantCv['s_secret'],
                     'callback'      => $callback
                 );
 
