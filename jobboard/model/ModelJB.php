@@ -297,6 +297,29 @@
         }
 
         /**
+         * Update files attached to an applicant
+         *
+         * @param $applicantId
+         * @param $fileName
+         * @return boolean
+         */
+        public function updateFile($applicantId, $fileName, $secret)
+        {
+            return $this->dao->update(
+                    $this->getTable_JobsFiles()
+                    ,array(
+                        'fk_i_applicant_id' => $applicantId
+                        ,'dt_date'          => date("Y-m-d H:i:s")
+                        ,'dt_secret_date'   => date("Y-m-d H:i:s")
+                        ,'s_name'           => $fileName
+                    ),
+                    array(
+                        'pk_i_id'   => $applicantId,
+                        's_secret'  => $secret
+                    ));
+        }
+
+        /**
          * Insert an applicant
          *
          * @param $itemId
