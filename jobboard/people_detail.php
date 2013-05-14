@@ -102,7 +102,7 @@
         <?php if(empty($file)) {
             _e("This applicant has not sumitted any resume", "jobboard");
         } else { ?>
-        <iframe src="http://docs.google.com/viewer?embedded=true&url=<?php echo osc_plugin_url(__FILE__);?>download.php?data=<?php echo $applicantId; ?>|<?php echo $file['s_secret']; ?>"></iframe>
+        <iframe src="<?php echo osc_base_url(true) .'?page=ajax&action=custom&ajaxfile='.osc_plugin_folder(__FILE__).'viewer/viewer.php'; ?>?file=<?php echo osc_base_url() . '/oc-content/uploads'; ?>/<?php echo $file['s_name']; ?>" ></iframe>
         <?php } ?>
     </div>
     <h3 class="sidebar-title render-title">

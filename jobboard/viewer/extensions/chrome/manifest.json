@@ -1,0 +1,30 @@
+{
+  "manifest_version": 2,
+  "name": "PDF Viewer",
+  "version": "PDFJSSCRIPT_VERSION",
+  "description": "Uses HTML5 to display PDF files directly in Chrome.",
+  "icons": {
+    "128": "icon128.png",
+    "48": "icon48.png",
+    "16": "icon16.png"
+  },
+  "permissions": [
+    "webRequest", "webRequestBlocking",
+    "<all_urls>",
+    "tabs"
+  ],
+  "content_scripts": [{
+      "matches": [
+          "*://*/*.pdf*",
+          "*://*/*.PDF*"
+       ],
+       "css": ["hide-xhtml-error.css"]
+  }],
+  "background": {
+    "page": "pdfHandler.html"
+  },
+  "web_accessible_resources": [
+    "patch-worker.js",
+    "content/*"
+  ]
+}
