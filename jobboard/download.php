@@ -29,10 +29,16 @@
         $applicant = ModelJB::newInstance()->getApplicant($id);
 
         $filename  = osc_sanitizeString($applicant['s_name']);
-        $path      = osc_get_preference('upload_path', 'jobboard_plugin') . $pdf['s_name'];
+
+        $pdf_name  = $pdf['s_name_original'];
+        if($pdf_name=='') {
+            $pdf_name  = $pdf['s_name'];
+        }
+
+        $path      = osc_get_preference('upload_path', 'jobboard_plugin') . $pdf_name;
 
         // get content-type
-        $filename_extension = preg_replace('|.*?\.([0-9a-z]+)$|i', '$01', $pdf['s_name']);
+        $filename_extension = preg_replace('|.*?\.([0-9a-z]+)$|i', '$01', $pdf_name);
         $file_mime = $mimes[$filename_extension];
         if( is_array($file_mime) ) {
             $file_mime = $file_mime[0];
@@ -40,7 +46,7 @@
 
         header('Content-Description: '.$filename);
         header('Content-Type: ' . $file_mime);
-        header('Content-Disposition: attachment; filename=' . $pdf['s_name']);
+        header('Content-Disposition: attachment; filename=' . $pdf_name);
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
