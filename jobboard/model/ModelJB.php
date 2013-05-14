@@ -289,10 +289,11 @@
                     $this->getTable_JobsFiles()
                     ,array(
                         'fk_i_applicant_id' => $applicantId
-                        ,'dt_date' => date("Y-m-d H:i:s")
-                        ,'dt_secret_date' => date("Y-m-d H:i:s")
-                        ,'s_name' => $fileName
-                        ,'s_secret' => $secret
+                        ,'dt_date'          => date("Y-m-d H:i:s")
+                        ,'dt_secret_date'   => date("Y-m-d H:i:s")
+                        ,'s_name'           => $fileName
+                        ,'s_name_original'  => $fileName
+                        ,'s_secret'         => $secret
                     ));
         }
 

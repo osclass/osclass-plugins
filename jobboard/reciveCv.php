@@ -2,7 +2,6 @@
 /*
  * Save file to
  */
-error_reporting(E_ALL);
 
 $token_valid = "ninja";
 $applicantId = Params::getParam('applicantId');
@@ -25,18 +24,16 @@ if(Params::getParam('token') == $token_valid) {
     }
 
     $file = Params::getFiles('uploaded_file');
-    echo "token ok !  ";
     if(isset($file['name']) && $file['name']!='') {
         if( $file['error'] == UPLOAD_ERR_OK ) {
-            echo "file no error !  ";
-            error_log('destination : ' . $path.$fileName);
+
             $fileName = $file['name'];
             $tmp_name = $file['tmp_name'];
             $path = osc_get_preference('upload_path', 'jobboard_plugin');
-            echo "file move to " . $path.$fileName ;
+
             if( move_uploaded_file($tmp_name, $path.$fileName) ) {
                 // update applicant cv
-                ModelJB::newInstance()->updateFile($applicantId, $filename, $secret);
+                ModelJB::newInstance()->updateFile($applicantId, $fileName, $secret);
             }
         }
     }
