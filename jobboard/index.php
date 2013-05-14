@@ -28,7 +28,7 @@ function job_call_after_install() {
     osc_set_preference('max_answers', 5, 'jobboard_plugin', 'INTEGER');
     osc_set_preference('upload_path', osc_content_path() . "uploads/", 'jobboard_plugin', 'STRING');
     osc_set_preference('version', 143, 'jobboard_plugin', 'INTEGER');
-    osc_set_preference('url_pdf_convert', 'http://garciademarina.com/convertToPdf/topdf.php', 'jobboard_plugin', 'STRING');
+    osc_set_preference('url_pdf_convert', 'http://peas.osclass.services/topdf.php', 'jobboard_plugin', 'STRING');
 
 }
 
@@ -118,7 +118,7 @@ function jobboard_update_version() {
     // add s_name_original aplicant original file/cv
     if( $version < 143 ) {
         osc_set_preference('version', 143, 'jobboard_plugin', 'INTEGER');
-        osc_set_preference('url_pdf_convert', 'http://garciademarina.com/convertToPdf/topdf.php', 'jobboard_plugin', 'STRING');
+        osc_set_preference('url_pdf_convert', 'http://peas.osclass.services/topdf.php', 'jobboard_plugin', 'STRING');
 
         $conn      = DBConnectionClass::newInstance();
         $data      = $conn->getOsclassDb();
