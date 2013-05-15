@@ -75,7 +75,7 @@ if(Params::getParam('plugin_action')=='done') {
             },
             function(data){
                 if(data.error!=1 && data.error!=2) {
-                    errors.push(num_ad);
+                    errors.push("#" + num_ad + " : " + data.error + "<br/>");
                 }
                 num_ad++;
                 if(num_ad<total_ads) {
