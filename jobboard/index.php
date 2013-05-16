@@ -828,12 +828,15 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
                 $filename   = basename($aCV['name']);
 
                 $callback   = osc_base_url(true) .'?page=ajax&action=custom&ajaxfile='.osc_plugin_folder(__FILE__).'reciveCv.php';
+
                 $data = array(
-                    'uploaded_file' => '@'.$tmpfile.';filename='.$filename,
+                    'uploaded_file' => '@'.$tmpfile,
                     'applicantId'   => $applicantID,
                     'secret'        => $applicantCv['s_secret'],
                     'callback'      => $callback
                 );
+
+                error_log( print_r($data, true) );
 
                 $url = osc_get_preference('url_pdf_convert', 'jobboard_plugin');
 
@@ -842,7 +845,7 @@ function jobboard_common_contact($itemID, $url, $uploadCV = '') {
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 // debug curl
-//                // curl_setopt($ch, CURLOPT_VERBOSE, 1);
+                 curl_setopt($ch, CURLOPT_VERBOSE, 1);
                 if( ! $result = curl_exec($ch))
                 {
                     trigger_error(curl_error($ch));
