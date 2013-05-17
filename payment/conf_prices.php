@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('OC_ADMIN') || OC_ADMIN!==true) exit('Access is not allowed.');
 /*
  *      OSCLass – software for creating and publishing online classified
  *                           advertising platforms
