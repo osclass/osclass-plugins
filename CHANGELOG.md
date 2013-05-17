@@ -1,6 +1,10 @@
 Changelog Facebook connect
 ==========================
 
+###version 1.3 - 17/05/2013
+
+* Security patch
+
 ###version 1.2 - 22/02/2013
 
 * Add username support (version 3.1+)
