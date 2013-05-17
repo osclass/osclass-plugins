@@ -1,6 +1,10 @@
 Changelog Ads 4 OSClass
 =======================
 
+##version 0.9.5 - 1/05/2013
+
+* Security patch
+
 ##version 0.9.3 - 15/05/2012
 
 * Do not clean ad script code

@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('OC_ADMIN') || OC_ADMIN!==true) exit('Access is not allowed.');
 
     require_once 'Ads.php';
     $ads_action = Params::getParam('ads-action');
