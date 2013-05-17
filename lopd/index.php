@@ -3,7 +3,7 @@
 Plugin Name: Ley Organica de Proteccion de Datos
 Plugin URI: http://www.osclass.org/
 Description: Complete the requirements of the Spanish law for personal data protection (LOPD)
-Version: 1.0.1
+Version: 1.0.2
 Author: OSClass & Berni2201
 Author URI: http://www.osclass.org/
 Short Name: lopd
