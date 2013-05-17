@@ -1,6 +1,10 @@
 Changelog Ad Importer
 =====================
 
+##version 0.4 17/05/2013
+
+* Security improvement
+
 ##version 0.3
 
 * Custom fields are now imported
