@@ -3,7 +3,7 @@
 Plugin Name: Amazon S3
 Plugin URI: http://www.osclass.org/
 Description: This plugin allows you to upload users' images to Amazon S3 service
-Version: 1.0.1
+Version: 1.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: amazons3
