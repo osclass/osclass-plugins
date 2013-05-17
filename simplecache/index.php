@@ -3,7 +3,7 @@
 Plugin Name: Simple Cache
 Plugin URI: http://www.osclass.org/
 Description: A simple cache system for OSClass, make your web load faster!
-Version: 1.0.1
+Version: 1.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: simplecache
