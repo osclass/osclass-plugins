@@ -1,3 +1,4 @@
+<?php if (!defined('OC_ADMIN') || OC_ADMIN!==true) exit('Access is not allowed.'); ?>
 <style>
     p.code {
         padding: 8px;

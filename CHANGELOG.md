@@ -1,6 +1,10 @@
 Changelog Voting plugin 
 =========================
 
+##version 1.1.1 - 17/05/2013
+
+* Security patch
+
 ##version 1.1.0 - 18/07/2012
 
 * Updated data access object, implemented ModelVoting class
