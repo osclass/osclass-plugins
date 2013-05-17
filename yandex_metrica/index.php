@@ -3,7 +3,7 @@
 Plugin Name: Yandex.Metrica
 Plugin URI: 
 Description: This plugin adds the Yandex.Metrica script at the footer of every page.
-Version: 1.0.1
+Version: 1.0.2
 Author: PMaN based on OSClass code
 Author URI: 
 Plugin update URI: yandex-metrica

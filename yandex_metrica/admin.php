@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('OC_ADMIN') || OC_ADMIN!==true) exit('Access is not allowed.');
 
     $dao_preference = new Preference() ;
     $webid          = Params::getParam('webid') ;
