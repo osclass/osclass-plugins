@@ -1,6 +1,10 @@
 Changelog Breadcrumbs
 =====================
 
+##version 1.6.5 - 17/05/2013
+
+* Security patch
+
 ##version 1.6.3 - 14/09/2011
 
 * Added latvian, russian, german and persian translations
