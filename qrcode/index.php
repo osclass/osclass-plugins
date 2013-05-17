@@ -3,7 +3,7 @@
 Plugin Name: QR Codes
 Plugin URI: http://www.osclass.org/
 Description: Add a qr code to your ad page, print it and share it offline
-Version: 1.0.1
+Version: 1.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: qrcode
