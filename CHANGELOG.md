@@ -1,6 +1,10 @@
 Changelog Real estate attributes
 ================================
 
+##version 3.2.3 - 17/05/2013
+
+* Security patch
+
 ##version 3.2.2 29/06/2012
 
 * Fixed conflict with cars attributes plugin

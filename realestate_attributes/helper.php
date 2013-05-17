@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('OC_ADMIN') || OC_ADMIN!==true) exit('Access is not allowed.');
 function get_realestate_attributes(){
     $locale = osc_current_user_locale();
     $return = array('attributes','other_attributes');
