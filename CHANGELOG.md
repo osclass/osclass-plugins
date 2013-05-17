@@ -1,6 +1,10 @@
 Changelog Extra feeds
 =====================
 
+##version 2.1.4 - 17/05/2013
+
+* Security patch
+
 ##version 2.1.2 - 14/09/2011
 
 * Added new languages: german, persian, latvian, russian, swedish
