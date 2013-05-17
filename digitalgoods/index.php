@@ -3,7 +3,7 @@
 Plugin Name: Digital Goods
 Plugin URI: http://www.osclass.org/
 Description: This plugin allows your users to attach a digital file to their ads
-Version: 1.0.3
+Version: 1.0.4
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: digitalgoods
