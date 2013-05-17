@@ -3,7 +3,7 @@
 Plugin Name: Yandex Maps
 Plugin URI: 
 Description: This plugin shows a Yandex Map on the location space of every item.
-Version: 1.0.1
+Version: 1.0.2
 Author: OSClass & pman
 Author URI: 
 Plugin update URI: yandex-maps
