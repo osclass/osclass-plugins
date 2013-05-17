@@ -1,6 +1,10 @@
 Changelog Jobs attributes
 =========================
 
+##version 3.1.1 - 17/05/2013
+
+* Security patch
+
 ##version 3.1 - 03/08/2012
 
 * Removed salary slider and chenge it to a free text input
