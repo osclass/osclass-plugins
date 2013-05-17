@@ -1,6 +1,10 @@
 Changelog Watchlist
 ===================
 
+##version 1.0.6 - 17/05/2013
+
+* Security patch
+
 ##version 1.0.5 - 07/03/2012
 
 * Made compatible with version 3.1
