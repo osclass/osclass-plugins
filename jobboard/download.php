@@ -1,4 +1,7 @@
 <?php
+    if(!osc_is_admin_user_logged_in()) {
+        die;
+    }
 
     define('ABS_PATH', dirname(dirname(dirname(dirname($_SERVER['SCRIPT_FILENAME'])))) . '/');
     require_once(ABS_PATH . 'oc-load.php');
