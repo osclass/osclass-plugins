@@ -1,6 +1,6 @@
 <?php
 
-class JobboardCustomTitles
+class JobboardCustomHelp
 {
     public function __construct()
     {
