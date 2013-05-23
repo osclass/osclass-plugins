@@ -5,7 +5,8 @@ class JobboardCustomTitles
     public function __construct()
     {
         osc_add_hook('init_admin',   array(&$this, 'help_jobboard_init'));
-        osc_add_hook('admin_header', array(&$this, 'remove_help_core'));
+//        osc_add_hook('admin_header', array(&$this, 'remove_help_core'));
+        osc_remove_hook('help_box', 'addHelp');
     }
 
     function help_list_vacancies() {
@@ -82,8 +83,8 @@ class JobboardCustomTitles
         }
     }
 
-    function remove_help_core() {
-        osc_remove_hook('help_box', 'addHelp');
-    }
+//    function remove_help_core() {
+//        osc_remove_hook('help_box', 'addHelp');
+//    }
 }
 
