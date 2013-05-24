@@ -1,4 +1,5 @@
 <?php
+
 /*
  * gettext filter
  */
@@ -11,6 +12,43 @@ function jobboard_replace_listing_plural($string) {
 }
 osc_add_filter('gettext', 'jobboard_replace_listing_plural', 1);
 
+/*  ------------------------------------------------------------------------   */
+
+/*
+ * Set default settings 
+ */
+function default_settings_jobboard() {
+    // always active osc_item_attachment
+    if( !osc_item_attachment() ) {
+        osc_set_preference('item_attachment', true);
+    }
+    if( osc_price_enabled_at_items() ) {
+        osc_set_preference('enableField#f_price@items', false);
+    }
+    if( osc_images_enabled_at_items() ) {
+        osc_set_preference('enableField#images@items', false);
+    }
+    if( osc_max_images_per_item() > 0 ) {
+        osc_set_preference('numImages@items', 0);
+    }
+    //reset preferences
+    osc_reset_preferences();
+
+    if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
+        Session::newInstance()->_setForm('contactName', osc_page_title());
+        Session::newInstance()->_setForm('contactEmail', osc_contact_email());
+
+        Session::newInstance()->_setForm('country', osc_get_preference('country', 'jobboard'));
+        Session::newInstance()->_setForm('countryId', osc_get_preference('countryId', 'jobboard'));
+        Session::newInstance()->_setForm('region', osc_get_preference('region', 'jobboard'));
+        Session::newInstance()->_setForm('regionId', osc_get_preference('regionId', 'jobboard'));
+        Session::newInstance()->_setForm('city', osc_get_preference('city', 'jobboard'));
+        Session::newInstance()->_setForm('cityId', osc_get_preference('cityId', 'jobboard'));
+
+    }
+}
+osc_add_hook('init_admin', 'default_settings_jobboard');
+/*  ------------------------------------------------------------------------   */
 
 if(!function_exists('jobboard_attributes_array')) {
     function jobboard_attributes_array(){
