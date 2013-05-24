@@ -9,6 +9,8 @@ class JobboardListingActions
         // edit/edit-post
         osc_add_hook('item_edit',          array(&$this, 'jobboard_item_edit') );
         osc_add_hook('item_edit_post',     array(&$this, 'jobboard_item_edit_post') );
+        // duplicate vacancy
+        osc_add_hook('before_admin_html',  array(&$this, 'jobboard_duplicate_job') );
         // delete item/delete locale
         osc_add_hook('delete_locale',      array(&$this, 'job_delete_locale') );
         osc_add_hook('delete_item',        array(&$this, 'job_delete_item') );
@@ -211,6 +213,51 @@ class JobboardListingActions
 
         $this->_clear_session_variables();
     }
+
+    /*
+     * Duplicate vacancy
+     */
+    function jobboard_duplicate_job() {
+        if(Params::getParam('page')=='items' && Params::getParam('action')=='post') {
+            $id = Params::getParam('duplicatefrom') ;
+            if($id!='') {
+                $item = Item::newInstance()->findByPrimaryKey($id);
+
+                View::newInstance()->_exportVariableToView("item", $item);
+                View::newInstance()->_exportVariableToView("new_item", TRUE);
+                View::newInstance()->_exportVariableToView("actions", array());
+
+                $detail       = ModelJB::newInstance()->getJobsAttrByItemId($id);
+                $descriptions = ModelJB::newInstance()->getJobsAttrDescriptionsByItemId($id);
+
+                Session::newInstance()->_setForm('pj_positionType',  @$detail['e_position_type'] );
+                Session::newInstance()->_setForm('pj_salaryText', @$detail['s_salary_text'] );
+                Session::newInstance()->_setForm('pj_numPositions', @$detail['i_num_positions'] );
+
+                $dataItem = array();
+                foreach ($descriptions as $v) {
+                    $dataItem[$v['fk_c_locale_code']] = array();
+                    $dataItem[$v['fk_c_locale_code']]['contract'] = $v['s_contract'];
+                    $dataItem[$v['fk_c_locale_code']]['studies'] = $v['s_studies'];
+                    $dataItem[$v['fk_c_locale_code']]['desired_exp'] = $v['s_desired_exp'];
+                    $dataItem[$v['fk_c_locale_code']]['min_reqs'] = $v['s_minimum_requirements'];
+                    $dataItem[$v['fk_c_locale_code']]['desired_reqs'] = $v['s_desired_requirements'];
+                }
+                Session::newInstance()->_setForm('pj_data', $dataItem );
+
+                Session::newInstance()->_keepForm('pj_positionType');
+                Session::newInstance()->_keepForm('pj_salaryText');
+                Session::newInstance()->_keepForm('pj_numPositions');
+                Session::newInstance()->_keepForm('pj_data');
+
+                osc_current_admin_theme_path('items/frm.php') ;
+                Session::newInstance()->_clearVariables();
+                osc_run_hook('after_admin_html');
+                exit;
+            }
+        }
+    }
+
 
     /*
      *  vacancy detail
