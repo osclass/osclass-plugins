@@ -208,7 +208,7 @@
         </form>
     </div>
     <div class="applicant-shortcuts">
-            <?php $shortcuts = _applicants_shortcuts(); ?>
+            <?php $shortcuts = JobboardManageApplicants::applicants_shortcuts(); ?>
             <?php $i = 0; foreach($shortcuts as $k => $v) { $class = array(); ?>
             <?php if($v['active']) $class[] = 'btn-blue'; ?>
             <?php if($i == 0) $class[] = 'first'; ?>
