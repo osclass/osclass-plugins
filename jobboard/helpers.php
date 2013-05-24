@@ -13,6 +13,17 @@ if(!function_exists('jobboard_attributes_array')) {
 }
 
 /**
+ * Redirect to function via JS
+ *
+ * @param string $url
+ */
+function job_js_redirect_to($url) { ?>
+    <script type="text/javascript">
+        window.location = "<?php echo $url; ?>"
+    </script>
+<?php }
+
+/**
  * Return sex string given input value
  *
  * @param string $sex
