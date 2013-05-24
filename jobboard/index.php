@@ -61,6 +61,7 @@ osc_register_script('jobboard-init-tinymce', osc_plugin_url(__FILE__) . 'js/init
 // init classes
 $jb_contact         = new JobboardContact();
 $jb_listing_actions = new JobboardListingActions();
+$jb_enqueue         = new JobboardEnqueue();
 
 /*
  * ajax binding
