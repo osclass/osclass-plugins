@@ -15,18 +15,19 @@ require_once(JOBBOARD_PATH . 'model/ModelJB.php');
 require_once(JOBBOARD_PATH . 'model/ModelKQ.php');
 require_once(JOBBOARD_PATH . 'model/ModelLogJB.php');
 require_once(JOBBOARD_PATH . 'helpers.php');
-require_once(JOBBOARD_PATH . 'class/JobboardInstallUpdate.php');
 require_once(JOBBOARD_PATH . 'class/Stream.class.php');
+require_once(JOBBOARD_PATH . 'class/JobboardInstallUpdate.php');
 require_once(JOBBOARD_PATH . 'class/JobboardContact.php');
 require_once(JOBBOARD_PATH . 'class/JobboardListingActions.php');
+require_once(JOBBOARD_PATH . 'class/JobboardEnqueue.php');
 if( OC_ADMIN ) {
     require_once(JOBBOARD_PATH . 'class/JobboardNotices.class.php');
     require_once(JOBBOARD_PATH . 'class/ShareJobOffer.class.php');
-    require_once(JOBBOARD_PATH . 'class/JobboardCustomTitles.php');
     require_once(JOBBOARD_PATH . 'class/JobboardManageListings.php');
-    require_once(JOBBOARD_PATH . 'class/JobboardCustomHelp.php');
+    require_once(JOBBOARD_PATH . 'class/JobboardManageApplicants.php');
     require_once(JOBBOARD_PATH . 'class/JobboardAdminMenu.php');
-    require_once(JOBBOARD_PATH . 'class/JobboardAjax.php');
+    require_once(JOBBOARD_PATH . 'class/JobboardCustomTitles.php');
+    require_once(JOBBOARD_PATH . 'class/JobboardCustomHelp.php');
 
     // init oc-admin classes
     $jb_manage_listings = new JobboardManageListings();
@@ -66,6 +67,7 @@ $jb_enqueue         = new JobboardEnqueue();
 /*
  * ajax binding
  */
+require_once(JOBBOARD_PATH . 'class/JobboardAjax.php');
 osc_add_hook(
         'ajax_admin_jobboard_rating',
         array(new JobboardAjax(), 'ajax_rating_request')
