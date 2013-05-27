@@ -56,7 +56,7 @@
                 <div class="half">
                     <p><label><?php _e('Apply date', 'jobboard'); ?> </label><br/><?php echo @$people['dt_date']; ?></p>
                     <p><label><?php _e('Birthday', 'jobboard'); ?> </label><br/><?php echo @$people['dt_birthday']; ?></p>
-                    <p><label><?php _e('Score', 'jobboard'); ?> </label><br/><?php if(count($aQuestions)>0) { echo $acomulateScore.'/'.$maxPunctuation; if(@$people['b_corrected']) { _e('Corrected', 'jobboard'); echo @$people['d_score']; } } ?> <a href="#kq" class="animated-scroll"><?php _e('View ansers','jobobard'); ?></a>
+                    <p><label><?php _e('Score', 'jobboard'); ?> </label><br/><?php if(count($aQuestions)>0) { echo $acomulateScore.'/'.$maxPunctuation; if(@$people['b_corrected']) { _e('Corrected', 'jobboard'); echo @$people['d_score']; } } ?> <a href="#kq" class="animated-scroll"><?php _e('View answers','jobobard'); ?></a>
     </h3></p>
                 </div>
 
