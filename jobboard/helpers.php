@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * Managed jobboard, means admin can activate/block/spam/premium a vacancy
+ *
+ * definde('JB_NOT_MANAGED', 'foobar')
+ *
+ * @return type
+ */
+function jb_is_managed() {
+    if(JB_NOT_MANAGED) {
+        return false;
+    }
+    return true;
+}
+
 /*
  * gettext filter
  */
@@ -15,7 +29,7 @@ osc_add_filter('gettext', 'jobboard_replace_listing_plural', 1);
 /*  ------------------------------------------------------------------------   */
 
 /*
- * Set default settings 
+ * Set default settings
  */
 function default_settings_jobboard() {
     // always active osc_item_attachment
