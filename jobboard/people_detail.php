@@ -21,7 +21,7 @@
 
     // get killer questions ...
     $jobInfo        = $mjb->getJobsAttrByItemId($people['fk_i_item_id']);
-    $killer_form_id = $jobInfo['fk_i_killer_form_id'];
+    $killer_form_id = @$jobInfo['fk_i_killer_form_id'];
     $aQuestions     = array();
     $acomulateScore = 0;
     $maxPunctuation = 0;

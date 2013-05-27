@@ -2,14 +2,14 @@
 
 /*
  * Print jobboard object with essential information and internatinalization
- * Load custom css and js 
+ * Load custom css and js
  */
 class JobboardEnqueue
 {
     public function __construct() {
         osc_add_hook('init_admin',   array(&$this, 'admin_assets_jobboard') );
-        osc_add_hook('admin_header', array(&$this, 'jobboard_init_js'), 1);
-        osc_add_hook('header',       array(&$this, 'jobboard_init_js'), 1);
+        osc_add_hook('admin_header', array(&$this, 'jobboard_init_js'), 0);
+        osc_add_hook('header',       array(&$this, 'jobboard_init_js'), 0);
     }
 
     /*
@@ -51,7 +51,7 @@ class JobboardEnqueue
         jobboard.ajax_dismiss_tip = '<?php echo osc_admin_ajax_hook_url('dismiss_tip'); ?>';
         jobboard.ajax_question_delete = '<?php echo osc_admin_ajax_hook_url('question_delete'); ?>';
         jobboard.ajax_answer_punctuation = '<?php echo osc_admin_ajax_hook_url('jobboard_answer_punctuation'); ?>';
-        jobbaord.tinymce.content_css = '<?php echo osc_plugin_url(__FILE__) . "css/tinymce.css" ?>';
+        jobboard.tinymce_content_css = '<?php echo  osc_plugin_url(__FILE__) . "../css/tinymce.css" ?>';
     </script>
     <?php
     }
@@ -60,10 +60,10 @@ class JobboardEnqueue
      * Load custom css and js
      */
     function admin_assets_jobboard() {
-        osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . 'css/styles.css');
+        osc_enqueue_style('jobboard-css', osc_plugin_url(__FILE__) . '../css/styles.css');
         switch(urldecode(Params::getParam('file'))) {
             case('jobboard/dashboard.php'):
-                osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'css/dashboard.css');
+                osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . '../css/dashboard.css');
                 osc_enqueue_script('jquery-rating');
                 osc_enqueue_script('jobboard-people');
                 osc_enqueue_script('jobboard-dashboard');
@@ -74,14 +74,14 @@ class JobboardEnqueue
                 osc_enqueue_script('jobboard-people-detail');
                 osc_enqueue_script('tiny_mce');
                 osc_enqueue_script('jobboard-init-tinymce');
-                osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
-                osc_enqueue_style('jobboard-people-detail', osc_plugin_url(__FILE__) . 'css/people_detail.css');
+                osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . '../js/rating/jquery.rating.css');
+                osc_enqueue_style('jobboard-people-detail', osc_plugin_url(__FILE__) . '../css/people_detail.css');
             break;
             case('jobboard/people.php'):
                 osc_enqueue_script('jquery-rating');
                 osc_enqueue_script('jquery-metadata');
                 osc_enqueue_script('jobboard-people');
-                osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.css');
+                osc_enqueue_style('jquery-rating', osc_plugin_url(__FILE__) . '../js/rating/jquery.rating.css');
             break;
             case('jobboard/killer_form_frm.php'):
                 osc_enqueue_script('jquery-validate');
@@ -91,7 +91,7 @@ class JobboardEnqueue
             break;
         }
         if(Params::getParam('page')=='items') {
-            osc_enqueue_style('jobboard-flash-message', osc_plugin_url(__FILE__) . 'css/jobboard-flash-message.css', 6);
+            osc_enqueue_style('jobboard-flash-message', osc_plugin_url(__FILE__) . '../css/jobboard-flash-message.css', 6);
             osc_enqueue_script('jquery-metadata');
             osc_enqueue_script('jobboard-killer-form');
         }

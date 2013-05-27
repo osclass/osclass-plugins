@@ -5,7 +5,7 @@ tinyMCE.init({
     skin: "cirkuit",
     width: "100%",
     height: "340px",
-    content_css: jobbaord.tinymce.content_css,
+    content_css: jobboard.tinymce_content_css,
     theme_advanced_buttons1 : "bold,italic,underline,justifyleft,justifycenter,justifyright,justifyfull,link,unlink",
     theme_advanced_buttons2 : "",
     theme_advanced_buttons3 : "",
