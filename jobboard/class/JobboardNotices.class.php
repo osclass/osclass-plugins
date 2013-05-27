@@ -177,8 +177,10 @@
             }
             if( $notice_corporate_page == '1' ) {
                 $page = Page::newInstance()->findByInternalName('corporate');
-                if( is_null($page['dt_mod_date']) ) {
-                    $notice['notice_edit_corporate'] = sprintf(__('You haven’t edited the corporate website yet. <a href="%1$s">Do it now</a>!', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=edit&id=' . $page['pk_i_id']);
+                if(isset($page) && !empty($page)) {
+                    if( is_null($page['dt_mod_date']) ) {
+                        $notice['notice_edit_corporate'] = sprintf(__('You haven’t edited the corporate website yet. <a href="%1$s">Do it now</a>!', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=edit&id=' . $page['pk_i_id']);
+                    }
                 }
             }
             return $notice;
@@ -194,8 +196,10 @@
             }
             if( $notice_legal_page == '1' ) {
                 $page = Page::newInstance()->findByInternalName('legal');
-                if( is_null($page['dt_mod_date']) ) {
-                    $notice['notice_edit_legal'] = sprintf(__('<a href="%1$s">Edit</a> your legal site - it is still empty!', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=edit&id=' . $page['pk_i_id']);
+                if(isset($page) && !empty($page)) {
+                    if( is_null($page['dt_mod_date']) ) {
+                        $notice['notice_edit_legal'] = sprintf(__('<a href="%1$s">Edit</a> your legal site - it is still empty!', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=edit&id=' . $page['pk_i_id']);
+                    }
                 }
             }
             return $notice;
