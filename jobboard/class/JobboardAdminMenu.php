@@ -12,8 +12,9 @@ class JobboardAdminMenu
     public function init() {
         osc_add_admin_menu_page(
             __('Jobboard', 'jobboard'),
-            '#',
+            osc_admin_render_plugin_url("jobboard/dashboard.php"),
             'jobboard',
+            '',
             'moderator'
         );
 
