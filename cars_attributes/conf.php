@@ -96,7 +96,7 @@
                                                 <?php
                                                     $makes = ModelCars::newInstance()->getCarMakes() ;
                                                     foreach($makes as $make) {
-                                                        echo '<li><input name="make[' . $make['pk_i_id'] . ']" id="' . $make['pk_i_id'] . '" type="text" value="' . $make['s_name'] . '" /> <a href="' . osc_admin_base_url(true) . '?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=makes&plugin_action=make_delete&id=' . $make['pk_i_id'] . '" ><button>' . __('Delete', 'cars_attributes') . '</button></a> </li>';
+                                                        echo '<li><input name="make[' . $make['pk_i_id'] . ']" id="' . $make['pk_i_id'] . '" type="text" value="' . $make['s_name'] . '" /> <a href="' . osc_admin_base_url(true) . '?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=makes&plugin_action=make_delete&id=' . $make['pk_i_id'] . '" >' . __('Delete', 'cars_attributes') . '</a> </li>';
                                                     }
                                                 ?>
                                                 </ul>
@@ -149,7 +149,7 @@
                                                     if($makeId != "") {
                                                         $models = ModelCars::newInstance()->getCarModels($makeId) ;
                                                         foreach($models as $model) {
-                                                            echo '<li><input name="model['.$model['pk_i_id'].']" id="'.$model['pk_i_id'].'" type="text" value="'.$model['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&plugin_action=model_delete&makeId='.$makeId.'&id='.$model['pk_i_id'].'" ><button>'.__('Delete', 'cars_attributes').'</button></a> </li>';
+                                                            echo '<li><input name="model['.$model['pk_i_id'].']" id="'.$model['pk_i_id'].'" type="text" value="'.$model['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&plugin_action=model_delete&makeId='.$makeId.'&id='.$model['pk_i_id'].'" >'.__('Delete', 'cars_attributes').'</a> </li>';
                                                         }
                                                     } else {
                                                         echo '<li>Select a make first.</li>';
