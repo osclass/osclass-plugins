@@ -37,6 +37,12 @@ class JobboardManageListings
     function job_items_row($row, $aRow) {
         list($applicants, $total) = ModelJB::newInstance()->searchCount(array('item' => $aRow['pk_i_id']));
 
+        $str_closed = '';
+        if($aRow['b_active']==0 || $aRow['b_enabled']==0) {
+            $str_closed = '<span class="closed">'.__('Closed', 'jobboard').'</span>';
+        }
+
+        $row['title'] = $str_closed.' '.$row['title'];
         $row['mod_date'] = @$aRow['dt_mod_date'];
         $row['applicants'] = '<a href="' . osc_admin_render_plugin_url("jobboard/people.php&jobId=") . $aRow['pk_i_id'] . '">' . sprintf(__('%d applicants', 'jobboard'), $applicants) . '</a>';
         $views = 0;
