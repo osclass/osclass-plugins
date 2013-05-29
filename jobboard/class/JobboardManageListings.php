@@ -42,7 +42,7 @@ class JobboardManageListings
             $str_closed = '<span class="closed">'.__('Closed', 'jobboard').'</span>';
         }
 
-        $row['title'] = $str_closed.' '.$row['title'];
+        $row['title'] = $row['title']. ' ' . $str_closed;
         $row['mod_date'] = @$aRow['dt_mod_date'];
         $row['applicants'] = '<a href="' . osc_admin_render_plugin_url("jobboard/people.php&jobId=") . $aRow['pk_i_id'] . '">' . sprintf(__('%d applicants', 'jobboard'), $applicants) . '</a>';
         $views = 0;

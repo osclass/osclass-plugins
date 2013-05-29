@@ -21,7 +21,6 @@ class JobboardListingActions
         osc_add_hook('pre_item_post',      array(&$this, 'job_pre_item_post') );
         // keepForm params into session
         osc_add_hook('save_input_session', array(&$this, 'job_save_inputs_into_session') );
-
     }
 
 
