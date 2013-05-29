@@ -43,6 +43,7 @@ function addQuestion() {
 
         // add validation rule question
         $('#new_question_'+questionNumber+' input.question_input').rules("add", {valid_closed_question: [jobboard.langs.question+' '+questionNumber, 2]}) ;
+
     }
 }
 
@@ -94,14 +95,15 @@ function removeQuestion(element) {
  * this functions make a closed question type.
  */
 function createSelectAnswer(){
-    var select = $('<select name="_to_change_">');
+    var select = $('<select name="_to_change_" class="answer">');
     select.append( $('<option>').attr('value', '').html(jobboard.langs.punctuation) );
-    for(var i=10;i>=1;i--) {
+    select.append( $('<option>').attr('value', 'reject').html(jobboard.langs.reject) );
+    for(var i=1;i<=10;i++) {
         select.append( $('<option>').attr('value', i).html(i) );
     }
-    select.append( $('<option>').attr('value', 'reject').html(jobboard.langs.reject) );
     return select;
 }
+
 function addAnswers(element) {
     var questionId = $(element).parents('.new_question').attr('data-id');
     var name     = 'new_question';
@@ -128,11 +130,11 @@ function addAnswers(element) {
                 var _select = createSelectAnswer();
                 var _i = i+1;
                 var listAnswer = $('<li>');
-                var _deleteAnswer = $('<a class="delete_answer" onclick="clearAnswer($(this)); return false;"></a>');
+                var _deleteAnswer = $('<a class="delete_answer jb_tooltip" title="'+jobboard.langs.cleanAnswerLink+'" onclick="clearAnswer($(this)); return false;"></a>');
                 var _input = $('<input class="input-large" type="text" name="'+name+'['+questionId+']['+answer+']['+_i+']"/>');
                 $(_select).attr('name', name+'['+questionId+']['+punct+']['+_i+']');
 
-                //listAnswer.append(_deleteAnswer);
+                listAnswer.append(_deleteAnswer);
                 listAnswer.append(_input);
                 listAnswer.append(_select);
 
@@ -144,15 +146,27 @@ function addAnswers(element) {
         } else {
             // show flash message
             // you have questions now, 'you have already answers for this question'
-//            alert('you have already answers for this question');  // REMOVE
+            //            alert('you have already answers for this question');  // REMOVE
         }
     } else {
         // show error message
         // 'You cannot add more questions, the maximum number of questions is '+questionNumber
-//        alert('cannot add more answers');  // REMOVE
+        //        alert('cannot add more answers');  // REMOVE
     }
+
+    // hide button add Answers
+    $(element).parent('div.containerAnswers').find('a.removeAnswers').hide();
+
+    addSelectStyle();
 }
 
+function addSelectStyle() {
+    $('select').each(function(){
+        if( !$(this).parent().hasClass('select-box') ) {
+            selectUi($(this));
+        }
+    });
+}
 
 /**
  * removeAnswers, remove answers belonging to a question
@@ -183,12 +197,16 @@ function removeAnswers(element) {
  * clearAnswer, clear content and punctuation of an answer
  */
 function clearAnswer(element) {
-    var answer_container = $(element).parent();
-    $(answer_container).find('input').attr('value', '');
-    var select = $(answer_container).find('select');
-    $(select).find('option').removeAttr('selected');
-    $(select).find('option[value=""]').attr('selected','selected');
-    $(select).triggerHandler('change');
+
+    $(element).parent().fadeOut(500, function(){
+        $(this).remove();
+        $('p.tooltip').remove();
+        // show button add Answers
+        if( $(element).parents('div.containerAnswersReplace').find('li').length==0) {
+            // show button add Answers
+            $(element).parents('div.containerAnswers').find('a.addAnswers').show();
+        }
+    });
 }
 function triggerKillerFormCreation(){
     $('.new_question').each(function(){
@@ -207,8 +225,30 @@ function triggerKillerFormCreation(){
                 return false;
             });
     });
+    addSelectStyle();
 }
 $(document).ready(function() {
+
+    // init tooltips
+    // Tooltip only Text
+    $(document).on('mouseenter','.jb_tooltip', function (event) {
+        // Hover over code
+        var title = $(this).attr('title');
+        $(this).data('tipText', title).removeAttr('title');
+        $('<p class="tooltip"></p>')
+        .text(title)
+        .appendTo('body')
+        .fadeIn('slow');
+    }).on('mouseleave','.jb_tooltip',  function(){
+        // Hover out code
+        $(this).attr('title', $(this).data('tipText'));
+        $('.tooltip').remove();
+    }).on('mousemove','.jb_tooltip', function(e){
+        var mousex = e.pageX + 20; //Get X coordinates
+        var mousey = e.pageY + 10; //Get Y coordinates
+        $('.tooltip')
+        .css({top: mousey, left: mousex})
+    });
 
     // validate form
     window.killerValidator = $("form#datatablesForm, form#killerquestionsForm").validate({

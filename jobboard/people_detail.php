@@ -3,6 +3,7 @@
         die;
     }
 
+    $has_submited_more_vacancies = false;
     $applicantId = Params::getParam("people");
 
     $mjb    = ModelJB::newInstance();
@@ -18,7 +19,13 @@
     if($people['b_read']==0) {
         ModelJB::newInstance()->changeRead($applicantId);
     }
+    // show: This user has applied to more jobs
+    $aApplicants = $mjb->search(0,2,array('email' => $people['s_email']));
+    if(count($aApplicants)>1) {
+        $has_submited_more_vacancies = true;
+    }
 
+    // -------------------------------------------------------------------------
     // get killer questions ...
     $jobInfo        = $mjb->getJobsAttrByItemId($people['fk_i_item_id']);
     $killer_form_id = @$jobInfo['fk_i_killer_form_id'];
@@ -91,6 +98,10 @@
                     <a href="<?php echo osc_item_admin_edit_url($job['fk_i_item_id']); ?>"><?php echo $job['s_title']; ?></a>
                     <?php } else { ?>
                     <a href="<?php echo osc_contact_url(); ?>"><?php _e('Spontaneous application', 'jobboard'); ?></a>
+                    <?php } ?>
+                    <?php if($has_submited_more_vacancies) { ?>
+                    <hr/>
+                    <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php").'&sEmail='.urlencode($people['s_email']); ?>"><?php _e('This user has applied to more jobs', 'jobboard'); ?></a>
                     <?php } ?>
                 </div>
             </div>
@@ -186,17 +197,17 @@
                             data-killerform-id="<?php echo @$aAnswers[$q['pk_i_id']]['fk_i_killer_form_id']; ?>"
                             data-applicant-id="<?php echo @$aAnswers[$q['pk_i_id']]['fk_i_applicant_id']; ?>">
                                 <option value="" <?php if(@$default==''){ echo 'selected'; } ?>><?php _e('Select punctuation', 'jobboard'); ?></option>
-                                <option value="10" <?php if(@$default=='10'){ echo 'selected'; } ?>>10</option>
-                                <option value="9" <?php if(@$default=='9'){ echo 'selected'; } ?>>9</option>
-                                <option value="8" <?php if(@$default=='8'){ echo 'selected'; } ?>>8</option>
-                                <option value="7" <?php if(@$default=='7'){ echo 'selected'; } ?>>7</option>
-                                <option value="6" <?php if(@$default=='6'){ echo 'selected'; } ?>>6</option>
-                                <option value="5" <?php if(@$default=='5'){ echo 'selected'; } ?>>5</option>
-                                <option value="4" <?php if(@$default=='4'){ echo 'selected'; } ?>>4</option>
-                                <option value="3" <?php if(@$default=='3'){ echo 'selected'; } ?>>3</option>
-                                <option value="2" <?php if(@$default=='2'){ echo 'selected'; } ?>>2</option>
-                                <option value="1" <?php if(@$default=='1'){ echo 'selected'; } ?>>1</option>
                                 <option value="reject" <?php if(@$default=='reject'){ echo 'selected'; } ?>><?php _e('Reject', 'jobboard'); ?></option>
+                                <option value="1" <?php if(@$default=='1'){ echo 'selected'; } ?>>1</option>
+                                <option value="2" <?php if(@$default=='2'){ echo 'selected'; } ?>>2</option>
+                                <option value="3" <?php if(@$default=='3'){ echo 'selected'; } ?>>3</option>
+                                <option value="4" <?php if(@$default=='4'){ echo 'selected'; } ?>>4</option>
+                                <option value="5" <?php if(@$default=='5'){ echo 'selected'; } ?>>5</option>
+                                <option value="6" <?php if(@$default=='6'){ echo 'selected'; } ?>>6</option>
+                                <option value="7" <?php if(@$default=='7'){ echo 'selected'; } ?>>7</option>
+                                <option value="8" <?php if(@$default=='8'){ echo 'selected'; } ?>>8</option>
+                                <option value="9" <?php if(@$default=='9'){ echo 'selected'; } ?>>9</option>
+                                <option value="10" <?php if(@$default=='10'){ echo 'selected'; } ?>>10</option>
                             </select>
                             <?php } ?>
                         </label>

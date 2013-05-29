@@ -10,6 +10,11 @@ class JobboardEnqueue
         osc_add_hook('init_admin',   array(&$this, 'admin_assets_jobboard') );
         osc_add_hook('admin_header', array(&$this, 'jobboard_init_js'), 0);
         osc_add_hook('header',       array(&$this, 'jobboard_init_js'), 0);
+        osc_add_hook('init',         array(&$this, 'jobboard_css_front') );
+    }
+
+    function jobboard_css_front() {
+        osc_enqueue_style('jobboard-killer-questions-front', osc_plugin_url(__FILE__) . '../css/questions_front.css');
     }
 
     /*
@@ -33,8 +38,9 @@ class JobboardEnqueue
         $langs['reject']                = __('Reject', 'jobboard');
         $langs['insertAnswersLink']     = __('Add answers', 'jobboard');
         $langs['removeAnswersLink']     = __('Remove answers', 'jobboard');
+        $langs['cleanAnswerLink']       = __('Remove this answer', 'jobboard');
         $langs['title_msg_required']    = __('Title cannot be empty', 'jobboard');
-        $langs['openquestion']          = __('Openquestion by default', 'jobboard');
+        $langs['openquestion']          = __('Open question by default', 'jobboard');
         $langs['removeQuestionLink']    = __('Remove question', 'jobboard');
     ?>
     <script type="text/javascript">

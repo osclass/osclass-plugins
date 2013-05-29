@@ -1,4 +1,5 @@
 <div class="killer_questions">
+    <h3><?php _e('Please answer these questions to apply', 'jobboard'); ?></h3>
     <input type="hidden" name="killerFormId" value="<?php echo $job['fk_i_killer_form_id']; ?>"/>
     <hr/>
     <?php foreach($aQuestions['questions'] as $q) { ?>
@@ -7,7 +8,7 @@
     <div>
     <?php if($q['e_type']=='CLOSED') { ?>
         <?php foreach($q['a_answers'] as $a) { ?>
-        <label>
+        <label class="answer">
             <?php
                 $selected = false;
                 if( Session::newInstance()->_getForm("question[".$q['pk_i_id']."]") == $a['pk_i_id'] ) {

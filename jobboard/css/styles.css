@@ -229,11 +229,12 @@ span.input-large {
     margin-right:5px;
 }
 .new_question .containerAnswers select{
-    width:142px;
+    width:112px;
 }
-.new_question .containerAnswers .select-box select{
-    width:100%;
+.answer>a.select-box-trigger {
+    width: 55px;
 }
+
 .new_question .containerAnswers .select-box select:disabled{
     display:none;
 }
@@ -243,6 +244,17 @@ span.input-large {
 }
 #killerquestions div.containerAnswers a.delete_answer {
     background-image: url(../img/clean.png);
+    cursor: pointer;
+}
+.tooltip {
+    display:none;
+    position:absolute;
+    border:1px solid #333;
+    background-color:#161616;
+    border-radius:5px;
+    padding:10px;
+    color:#fff;
+    font-size:12px Arial;
 }
 .new_question .containerAnswers{
     background-color: #FDFDFD;
@@ -266,7 +278,8 @@ span.input-large {
 }
 #killerquestionsForm{
     width: 530px;
-}#killerquestionsForm{
+}
+#killerquestionsForm{
     width: 530px;
 }
 

@@ -22,17 +22,9 @@ class JobboardListingActions
         // keepForm params into session
         osc_add_hook('save_input_session', array(&$this, 'job_save_inputs_into_session') );
 
-        // styles
-        osc_add_hook('header',  array(&$this, 'job_killer_style') );
     }
 
-    /*
-     * Frontend styles for killer questions
-     */
-    function job_killer_style()
-    {
-        osc_enqueue_style('killer-questions', osc_plugin_url(__FILE__) . 'css/killer_questions.css');
-    }
+
 
     /*
      * Remove - vacancy
