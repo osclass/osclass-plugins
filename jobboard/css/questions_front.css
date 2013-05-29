@@ -1,0 +1,19 @@
+.item #contact fieldset div.killer_questions input.input_answer {
+    display: inline;
+    width: auto;
+}
+.killer_questions{
+    padding-top: 30px;
+}
+.killer_questions>h3{
+    text-align: center;
+}
+
+label.answer>input.input_answer[type="radio"] {
+    width: auto!important;
+    display: inline-block!important;
+    margin-right: 10px!important;
+}
+.killer_questions>label {
+    padding-bottom: 5px!important;
+}
