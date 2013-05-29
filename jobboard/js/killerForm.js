@@ -199,13 +199,14 @@ function removeAnswers(element) {
 function clearAnswer(element) {
 
     $(element).parent().fadeOut(500, function(){
-        $(this).remove();
         $('p.tooltip').remove();
         // show button add Answers
-        if( $(element).parents('div.containerAnswersReplace').find('li').length==0) {
+        if( $(element).parents('div.containerAnswersReplace').find('li').length-1==0) {
             // show button add Answers
             $(element).parents('div.containerAnswers').find('a.addAnswers').show();
+            $(element).parents('div.containerAnswersReplace').html('<span class="offset">'+jobboard.langs.openquestion+'</span>');
         }
+        $(this).remove();
     });
 }
 function triggerKillerFormCreation(){

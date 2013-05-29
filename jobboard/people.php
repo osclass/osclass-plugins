@@ -322,7 +322,7 @@
                         <td><?php echo $p['fk_i_item_id']==''?__('Spontaneous application', 'jobboard'):@$p['s_title']; ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
                         <?php if($has_killerForm) { ?>
-                        <td><?php if($correctedForm){ echo '<b>'.round(@$score).'</b>'; } else { _e('Needs correction', 'jobboard'); } ?> </td>
+                        <td><?php if($correctedForm){ echo '<b>'.round(@$score).'/10</b>'; } else { _e('Needs correction', 'jobboard'); } ?> </td>
                         <?php } else { ?>
                         <td></td>
                         <?php } ?>

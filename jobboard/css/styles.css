@@ -243,7 +243,7 @@ span.input-large {
     cursor: default;
 }
 #killerquestions div.containerAnswers a.delete_answer {
-    background-image: url(../img/clean.png);
+    background-image: url(../img/remove.png);
     cursor: pointer;
 }
 .tooltip {
