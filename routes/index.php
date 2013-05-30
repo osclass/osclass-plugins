@@ -12,6 +12,11 @@ Plugin update URI: routes
 
 
     /**
+    *  Documentation on the wiki : http://doc.osclass.org/Using_routes_in_Osclass
+    */
+
+
+    /**
     * ADD SOME ROUTES
     */
     // Static route (without variables)
