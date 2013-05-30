@@ -30,6 +30,7 @@
     $jobInfo        = $mjb->getJobsAttrByItemId($people['fk_i_item_id']);
     $killer_form_id = @$jobInfo['fk_i_killer_form_id'];
     $aQuestions     = array();
+
     $acomulateScore = 0;
     $maxPunctuation = 0;
     $aKillerForm    = ModelKQ::newInstance()->getKillerForm($killer_form_id);
@@ -45,7 +46,8 @@
         }
         $maxPunctuation = count($aAnswers)*10;
     }
-    $score          = $people['d_score'];
+
+    $score          = number_format($people['d_score'],1);
 ?>
 <div id="applicant-detail">
     <span><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" ><?php _e('Applicants', 'jobboard'); ?></a> &raquo; <?php echo @$people['s_name']; ?></span>
@@ -63,8 +65,7 @@
                 <div class="half">
                     <p><label><?php _e('Apply date', 'jobboard'); ?> </label><br/><?php echo @$people['dt_date']; ?></p>
                     <p><label><?php _e('Birthday', 'jobboard'); ?> </label><br/><?php echo @$people['dt_birthday']; ?></p>
-                    <p><label><?php _e('Score', 'jobboard'); ?> </label><br/><?php if(count($aQuestions)>0) { echo $acomulateScore.'/'.$maxPunctuation; if(@$people['b_corrected']) { _e('Corrected', 'jobboard'); echo @$people['d_score']; } } ?> <a href="#kq" class="animated-scroll"><?php _e('View answers','jobobard'); ?></a>
-    </h3></p>
+                    <p><label><?php _e('Score', 'jobboard'); ?> </label><br/><?php if(count($aQuestions)>0) { echo $score.'/10'; }?><a href="#kq" class="animated-scroll">  <?php _e('View answers','jobobard'); ?></a></p>
                 </div>
 
                 <div class="clear"></div>
@@ -101,7 +102,7 @@
                     <?php } ?>
                     <?php if($has_submited_more_vacancies) { ?>
                     <hr/>
-                    <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php").'&sEmail='.urlencode($people['s_email']); ?>"><?php _e('This user has applied to more jobs', 'jobboard'); ?></a>
+                    <a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php").'&statusId=-1&sEmail='.urlencode($people['s_email']); ?>"><?php _e('This user has applied to more jobs', 'jobboard'); ?></a>
                     <?php } ?>
                 </div>
             </div>
@@ -147,7 +148,7 @@
     </div>
     <?php if(count($aQuestions)>0) { ?>
     <h3 class="sidebar-title render-title" style="display:inline-block;" id="kq">
-        <?php _e("Killer questions", "jobboard"); ?> <span id="sum_punctuations"><?php echo $acomulateScore; ?></span>/<?php echo $maxPunctuation;?><?php if(@$people['b_corrected']) { ?><i class="circle circle-green" style="position: relative;top: 6px;padding-right: 4px;padding-left: 4px;"> <?php _e('Corrected', 'jobboard'); echo @$people['d_score']; ?> </i><?php } ?>
+        <?php _e("Killer questions", "jobboard"); ?> <span id="sum_punctuations"><?php echo $score; ?></span>/10<?php if(@$people['b_corrected']) { ?><i id="applicant_status" class="circle circle-green" style="position: relative;top: 6px;padding-right: 4px;padding-left: 4px;"> <?php _e('Corrected', 'jobboard'); ?> </i><?php } ?>
     </h3>
     <div style="clear:both;"></div>
     <div id="killer_questions_applicant" style="margin-top:15px;">
