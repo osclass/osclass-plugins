@@ -30,11 +30,16 @@ Plugin update URI: routes
         osc_add_admin_menu_page( __('Routes plugin', 'routes'), "#", 'routes_plugin', 'administrator' );
         // STATIC ROUTE IN FRONT-END
         osc_add_admin_submenu_page('routes_plugin', __('Static route (PUBLIC)', 'routes'), osc_route_url('static-route'), 'routes_static-front', 'administrator');
+        // STATIC ROUTE IN BACK-END
         osc_add_admin_submenu_page('routes_plugin', __('Static route (ADMIN)', 'routes'), osc_route_admin_url('static-route'), 'routes_static-back', 'administrator');
-    osc_add_admin_submenu_page('routes_plugin', __('Dynamic route (PUBLIC)', 'routes'), osc_route_url('dynamic-route', array('my-numeric-param' => '12345', 'my-own-param' => 'my-own-value')), 'routes_dynamic-front', 'administrator');
-    osc_add_admin_submenu_page('routes_plugin', __('Dynamic route (ADMIN)', 'routes'), osc_route_admin_url('dynamic-route', array('my-numeric-param' => '12345', 'my-own-param' => 'my-own-value')), 'routes_dynamic-back', 'administrator');
-    osc_add_admin_submenu_page('routes_plugin', __('Dynamic route (PUBLIC - NOT FOUND)', 'routes'), osc_route_url('dynamic-admin-route', array('my-numeric-param' => '12345', 'my-own-param' => 'my-own-value')), 'routes_dynamic-adm-front', 'administrator');
-    osc_add_admin_submenu_page('routes_plugin', __('Dynamic route (ADMIN - WORKS)', 'routes'), osc_route_admin_url('dynamic-admin-route', array('my-numeric-param' => '12345', 'my-own-param' => 'my-own-value')), 'routes_dynamic-adm-back', 'administrator');
+        // DYNAMIC ROUTE IN FRONT-END
+        osc_add_admin_submenu_page('routes_plugin', __('Dynamic route (PUBLIC)', 'routes'), osc_route_url('dynamic-route', array('my-numeric-param' => '12345', 'my-own-param' => 'my-own-value')), 'routes_dynamic-front', 'administrator');
+        // DYNAMIC ROUTE IN BACK-END
+        osc_add_admin_submenu_page('routes_plugin', __('Dynamic route (ADMIN)', 'routes'), osc_route_admin_url('dynamic-route', array('my-numeric-param' => '12345', 'my-own-param' => 'my-own-value')), 'routes_dynamic-back', 'administrator');
+        // DYNAMIC ROUTE IN FRONT-END (since it's inside the folder "admin" it will return a 404 error)
+        osc_add_admin_submenu_page('routes_plugin', __('Dynamic route (PUBLIC - NOT FOUND)', 'routes'), osc_route_url('dynamic-admin-route', array('my-numeric-param' => '12345', 'my-own-param' => 'my-own-value')), 'routes_dynamic-adm-front', 'administrator');
+        // DYNAMIC ROUTE IN BACK-END (it's inside the folder "admin", it could only be opened in the admin panel)
+        osc_add_admin_submenu_page('routes_plugin', __('Dynamic route (ADMIN - WORKS)', 'routes'), osc_route_admin_url('dynamic-admin-route', array('my-numeric-param' => '12345', 'my-own-param' => 'my-own-value')), 'routes_dynamic-adm-back', 'administrator');
     }
 
 
