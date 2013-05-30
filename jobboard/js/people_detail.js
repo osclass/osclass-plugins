@@ -156,7 +156,7 @@ $(document).ready(function() {
     // ajax set open answer punctuation, and refresh final score
     $('select.answer_punctuation').change(function(){
 
-        $(this).next().find('.select-box-label').text($(this).find('option:eq(0)').text());
+//        $(this).next().find('.select-box-label').text($(this).find('option:eq(0)').text());
 
         $('#jobboard-loading-container').show();
 
@@ -184,20 +184,29 @@ $(document).ready(function() {
                     $('#question_'+questionId+' i.score-unit').html('?');
                 }
 
-
-
-
                 // update killer form score
                 var temp_score = 0;
-                $('#killer_questions_applicant i.score-unit').each(function(){
+                var is_rejected = 0;
+                $('#killer_questions_applicant i.score-unit').each(function() {
                     var punctuation_aux = $(this).html();
                     if(punctuation_aux!='reject' && punctuation_aux!=''){
                         if( !isNaN(parseInt(punctuation_aux)) ) {
                             temp_score = temp_score+parseInt(punctuation_aux);
                         }
+                    }else if(punctuation_aux=='reject') {
+                        is_rejected = 1;
                     }
-                    $('span#sum_punctuations').html(temp_score);
+
                 });
+                var num_questions = $('#killer_questions_applicant select').length;
+                var score = temp_score/num_questions;
+                $('span#sum_punctuations').html(score);
+
+                if(is_rejected==1) {
+                    $('#applicant_status').html(jobboard.langs.reject);
+                } else {
+
+                }
                 // if(corrected)
                 if(data.corrected) {
                     // add corrected circle
@@ -208,9 +217,7 @@ $(document).ready(function() {
         );
     });
 
-    $('select.answer_punctuation').each(function(){
-        $(this).next().find('.select-box-label').text($(this).find('option:eq(0)').text());
-    });
+//
     $('label.score').hover(function(){
         $(this).addClass('show-box');
     },function(){
