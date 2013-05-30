@@ -20,6 +20,12 @@ require_once(JOBBOARD_PATH . 'class/JobboardInstallUpdate.php');
 require_once(JOBBOARD_PATH . 'class/JobboardContact.php');
 require_once(JOBBOARD_PATH . 'class/JobboardListingActions.php');
 require_once(JOBBOARD_PATH . 'class/JobboardEnqueue.php');
+
+// init classes
+$jb_contact         = new JobboardContact();
+$jb_listing_actions = new JobboardListingActions();
+$jb_enqueue         = new JobboardEnqueue();
+
 if( OC_ADMIN ) {
     require_once(JOBBOARD_PATH . 'class/JobboardNotices.class.php');
     require_once(JOBBOARD_PATH . 'class/ShareJobOffer.class.php');
@@ -57,12 +63,10 @@ osc_register_script('jobboard-dashboard', osc_plugin_url(__FILE__) . 'js/dashboa
 osc_register_script('jobboard-apply-linkedin', osc_plugin_url(__FILE__) . 'js/bridgeApplyLinkedin.js', array('jquery'));
 osc_register_script('jobboard-show-flashmessage', osc_plugin_url(__FILE__) . 'js/jobboardShowFlashmessage.js', array('jquery'));
 osc_register_script('jobboard-init-tinymce', osc_plugin_url(__FILE__) . 'js/init_tinymce.js', array('jquery', 'tiny_mce'));
+osc_register_script('jobboard-item-add', osc_plugin_url(__FILE__) . 'js/item_add.js', array('jquery'));
 /* -- Register js and css scripts -- */
 
-// init classes
-$jb_contact         = new JobboardContact();
-$jb_listing_actions = new JobboardListingActions();
-$jb_enqueue         = new JobboardEnqueue();
+
 
 /*
  * ajax binding

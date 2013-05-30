@@ -100,6 +100,9 @@ class JobboardEnqueue
             osc_enqueue_style('jobboard-flash-message', osc_plugin_url(__FILE__) . '../css/jobboard-flash-message.css', 6);
             osc_enqueue_script('jquery-metadata');
             osc_enqueue_script('jobboard-killer-form');
+            if(Params::getParam('action')=='post') {
+                osc_enqueue_script('jobboard-item-add');
+            }
         }
     }
 }
