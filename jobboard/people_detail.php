@@ -65,7 +65,7 @@
                 <div class="half">
                     <p><label><?php _e('Apply date', 'jobboard'); ?> </label><br/><?php echo @$people['dt_date']; ?></p>
                     <p><label><?php _e('Birthday', 'jobboard'); ?> </label><br/><?php echo @$people['dt_birthday']; ?></p>
-                    <p><label><?php _e('Score', 'jobboard'); ?> </label><br/><?php if(count($aQuestions)>0) { echo $score.'/10'; }?><a href="#kq" class="animated-scroll">  <?php _e('View answers','jobobard'); ?></a></p>
+                    <p><label><?php _e('Score', 'jobboard'); ?> </label><br/><span class="sum_punctuations"><?php if(count($aQuestions)>0) { echo $score; }?></span>/10<a href="#kq" class="animated-scroll">  <?php _e('View answers','jobobard'); ?></a></p>
                 </div>
 
                 <div class="clear"></div>

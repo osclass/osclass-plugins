@@ -201,6 +201,7 @@ $(document).ready(function() {
                 var num_questions = $('#killer_questions_applicant select').length;
                 var score = temp_score/num_questions;
                 $('span#sum_punctuations').html(score);
+                $('span.sum_punctuations').html(score);
 
                 if(is_rejected==1) {
                     $('#applicant_status').html(jobboard.langs.reject);
