@@ -20,7 +20,7 @@
         $path = osc_get_preference('upload_path', 'printpdf').$filename;
 
         
-        @unlink($path);
+        //@unlink($path);
         if(!file_exists($path)) {
             require_once("template.php");
         }

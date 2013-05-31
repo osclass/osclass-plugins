@@ -3,7 +3,7 @@
 Plugin Name: Print PDF
 Plugin URI: http://www.osclass.org/
 Description: Create a PDF ready to print and share offline
-Version: 1.4.0
+Version: 1.4.1
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: printpdf
@@ -32,15 +32,24 @@ Plugin update URI: printpdf
 
     
     function printpdf_admin_menu() {
-        echo '<h3><a href="#">Print PDF</a></h3>
-        <ul> 
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'printpdf') . '</a></li>
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'printpdf') . '</a></li>
-        </ul>';
+        if(osc_version()<320) {
+            echo '<h3><a href="#">Print PDF</a></h3>
+            <ul>
+                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'printpdf') . '</a></li>
+                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'printpdf') . '</a></li>
+            </ul>';
+        } else {
+            osc_add_admin_submenu_divider('plugins', 'Print PDF', 'printpdf_divider', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('PrintPDF Settings', 'qrcode'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'printpdf_settings', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('PrintPDF Help', 'qrcode'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php'), 'printpdf_help', 'administrator');
+        }
     }
     
-    function printpdf_delete_item($itemId) {
-        $files = glob(osc_get_preference('upload_path', 'printpdf').$itemId."_*");
+    function printpdf_delete_item($item) {
+        if(is_array($item)) {
+            $item = $item['pk_i_id'];
+        }
+        $files = glob(osc_get_preference('upload_path', 'printpdf').$item."_*");
         foreach($files as $f) {
             @unlink($f);
         }
@@ -86,6 +95,10 @@ Plugin update URI: printpdf
     osc_add_hook('edited_item', 'printpdf_delete_item');
 
     // FANCY MENU
-    osc_add_hook('admin_menu', 'printpdf_admin_menu');
+    if(osc_version()<320) {
+        osc_add_hook('admin_menu', 'printpdf_admin_menu');
+    } else {
+        osc_add_hook('admin_menu_init', 'printpdf_admin_menu');
+    }
     
 ?>
