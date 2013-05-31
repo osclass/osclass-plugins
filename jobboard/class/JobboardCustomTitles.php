@@ -23,6 +23,13 @@ class JobboardCustomTitles
                 osc_add_hook('admin_page_header', array(&$this, 'jobboard_customPageHeader_vacancies_post'));
             }
         }
+
+        // custom header
+        if(Params::getParam('page') == 'plugins' && Params::getParam('file') == 'jobboard/admin/settings.php') {
+            osc_add_hook('admin_header',      array(&$this, '_remove_title_header'));
+            osc_add_hook('admin_page_header', array(&$this, 'jobboard_customPageHeader_settings'));
+        }
+
     }
 
     /**
@@ -32,6 +39,16 @@ class JobboardCustomTitles
         <h1><?php _e('Vacancies', 'jobboard'); ?>
             <a href="#" class="btn ico ico-32 ico-help float-right"></a>
             <a href="<?php echo osc_admin_base_url(true) . '?page=items&action=post' ; ?>" class="btn btn-green ico ico-32 ico-add-white float-right"><?php _e('Add vacancy', 'jobboard'); ?></a>
+        </h1>
+    <?php
+    }
+
+    /**
+     * Custom header for admin settings
+     */
+    function jobboard_customPageHeader_settings() { ?>
+        <h1><?php _e('Default locations', 'jobboard'); ?>
+            <a href="#" class="btn ico ico-32 ico-help float-right"></a>
         </h1>
     <?php
     }

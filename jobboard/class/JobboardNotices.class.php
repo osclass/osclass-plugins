@@ -17,7 +17,7 @@
             osc_add_hook('ajax_admin_dismiss_tip', array(&$this, 'ajax_dismiss_tip'));
 
             // tip filters
-            osc_add_filter('showNotice', array(&$this, 'unread_applicants'));
+            osc_add_filter('showNotice',     array(&$this, 'unread_applicants'));
             osc_add_filter('showNoticeTips', array(&$this, 'empty_jobs'));
             osc_add_filter('showNoticeTips', array(&$this, 'publish_job_offers'));
             osc_add_filter('showNoticeTips', array(&$this, 'usage_applicants_filters'));
@@ -156,13 +156,13 @@
 
         function add_static_pages($notice)
         {
-            $notice['add_static_pages'] = sprintf(__('You can add new pages to your job board providing more information about your company. <a href="%1$s">Try it here</a>.', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=add');
+            $notice['add_static_pages'] = sprintf(__('You can add new pages to your job board providing more information about your company. <a href="%1$s">Try it here</a>.', 'jobboard'), osc_admin_base_url(true) . '?page=pages&action=add');
             return $notice;
         }
 
         function add_static_pages_company_value($notice)
         {
-            $notice['add_static_pages_company_value'] = sprintf(__('Transmit the values of your company by <a href="%1$s">creating additional pages</a> in few seconds.', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=add');
+            $notice['add_static_pages_company_value'] = sprintf(__('Transmit the values of your company by <a href="%1$s">creating additional pages</a> in few seconds.', 'jobboard'), osc_admin_base_url(true) . '?page=pages&action=add');
             return $notice;
         }
 
@@ -179,7 +179,7 @@
                 $page = Page::newInstance()->findByInternalName('corporate');
                 if(isset($page) && !empty($page)) {
                     if( is_null($page['dt_mod_date']) ) {
-                        $notice['notice_edit_corporate'] = sprintf(__('You haven’t edited the corporate website yet. <a href="%1$s">Do it now</a>!', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=edit&id=' . $page['pk_i_id']);
+                        $notice['notice_edit_corporate'] = sprintf(__('You haven’t edited the corporate website yet. <a href="%1$s">Do it now</a>!', 'jobboard'), osc_admin_base_url(true) . '?page=pages&action=edit&id=' . $page['pk_i_id']);
                     }
                 }
             }
@@ -198,7 +198,7 @@
                 $page = Page::newInstance()->findByInternalName('legal');
                 if(isset($page) && !empty($page)) {
                     if( is_null($page['dt_mod_date']) ) {
-                        $notice['notice_edit_legal'] = sprintf(__('<a href="%1$s">Edit</a> your legal site - it is still empty!', 'jobboard'), osc_admin_base_url(true) . '?page=page&action=edit&id=' . $page['pk_i_id']);
+                        $notice['notice_edit_legal'] = sprintf(__('<a href="%1$s">Edit</a> your legal site - it is still empty!', 'jobboard'), osc_admin_base_url(true) . '?page=pages&action=edit&id=' . $page['pk_i_id']);
                     }
                 }
             }
