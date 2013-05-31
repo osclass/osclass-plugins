@@ -3,7 +3,7 @@
 Plugin Name: Sitemap Generator
 Plugin URI: http://www.osclass.org/
 Description: Sitemap Generator
-Version: 1.2.3
+Version: 1.2.4
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: sitemap_generator
@@ -32,46 +32,39 @@ function sitemap_generator() {
     // INDEX
     sitemap_add_url(osc_base_url(), date('Y-m-d'), 'always');
 
-    $categories = Category::newInstance()->toTree();
+    $categories = Category::newInstance()->listAll(false);
     $countries = Country::newInstance()->listAll();
     foreach($categories as $c) {
         $search = new Search();
         $search->addCategory($c['pk_i_id']);
         if($search->count()>=$min) {
-            sitemap_add_url(osc_search_url(array('sCategory' => $c['pk_i_id'])), date('Y-m-d'), 'hourly');
-            foreach($c['categories'] as $sc){
-                $search = new Search();
-                $search->addCategory($sc['pk_i_id']);
-                if($search->count()>=$min) {
-                    sitemap_add_url(osc_search_url(array('sCategory' => $sc['pk_i_id'])), date('Y-m-d'), 'hourly');
-                    foreach($countries as $country) {
-                        if(count($countries)>1) {
+            sitemap_add_url(osc_search_url(array('sCategory' => $c['s_slug'])), date('Y-m-d'), 'hourly');
+            foreach($countries as $country) {
+                if(count($countries)>1) {
+                    $search = new Search();
+                    $search->addCategory($c['pk_i_id']);
+                    $search->addCountry($country['pk_c_code']);
+                    if($search->count()>$min) {
+                        sitemap_add_url(osc_search_url(array('sCategory' => $c['s_slug'], 'sCountry' => $country['s_name'])), date('Y-m-d'), 'hourly');
+                    }
+                }
+                $regions = Region::newInstance()->findByCountry($country['pk_c_code']);
+                foreach($regions as $region) {
+                    $search = new Search();
+                    $search->addCategory($c['pk_i_id']);
+                    $search->addCountry($country['pk_c_code']);
+                    $search->addRegion($region['pk_i_id']);
+                    if($search->count()>$min) {
+                        sitemap_add_url(osc_search_url(array('sCategory' => $c['s_slug'], 'sCountry' => $country['s_name'], 'sRegion' => $region['s_name'])), date('Y-m-d'), 'hourly');
+                        $cities = City::newInstance()->findByRegion($region['pk_i_id']);
+                        foreach($cities as $city) {
                             $search = new Search();
-                            $search->addCategory($sc['pk_i_id']);
-                            $search->addCountry($country['pk_c_code']);
-                            if($search->count()>$min) {
-                                sitemap_add_url(osc_search_url(array('sCategory' => $sc['pk_i_id'], 'sCountry' => $country['s_name'])), date('Y-m-d'), 'hourly');
-                            }
-                        }
-                        $regions = Region::newInstance()->getByCountry($country['pk_c_code']);
-                        foreach($regions as $region) {
-                            $search = new Search();
-                            $search->addCategory($sc['pk_i_id']);
+                            $search->addCategory($c['pk_i_id']);
                             $search->addCountry($country['pk_c_code']);
                             $search->addRegion($region['pk_i_id']);
+                            $search->addCity($city['pk_i_id']);
                             if($search->count()>$min) {
-                                sitemap_add_url(osc_search_url(array('sCategory' => osc_category_id(), 'sCountry' => $country['s_name'], 'sRegion' => $region['s_name'])), date('Y-m-d'), 'hourly');
-                                $cities = City::newInstance()->getByRegion($region['pk_i_id']);
-                                foreach($cities as $city) {
-                                    $search = new Search();
-                                    $search->addCategory($sc['pk_i_id']);
-                                    $search->addCountry($country['pk_c_code']);
-                                    $search->addRegion($region['pk_i_id']);
-                                    $search->addCity($city['pk_i_id']);
-                                    if($search->count()>$min) {
-                                        sitemap_add_url(osc_search_url(array('sCategory' => osc_category_id(), 'sCountry' => $country['s_name'], 'sRegion' => $region['s_name'], 'sCity' => $city['s_name'])), date('Y-m-d'), 'hourly');
-                                    }
-                                }
+                                sitemap_add_url(osc_search_url(array('sCategory' => $c['s_slug'], 'sCountry' => $country['s_name'], 'sRegion' => $region['s_name'], 'sCity' => $city['s_name'])), date('Y-m-d'), 'hourly');
                             }
                         }
                     }
@@ -81,9 +74,9 @@ function sitemap_generator() {
     }
 
     foreach($countries as $country) {
-        $regions = Region::newInstance()->getByCountry($country['pk_c_code']);
+        $regions = Region::newInstance()->findByCountry($country['pk_c_code']);
         foreach($regions as $region) {
-            $cities = Search::newInstance()->listCities($region['pk_i_id']);
+            $cities = CityStats::newInstance()->listCities($region['pk_i_id']);
             $l = min(count($cities), 30);
             for($k=0;$k<$l;$k++) {
                 if($cities[$k]['items']>$min) {

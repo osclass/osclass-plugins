@@ -1,6 +1,10 @@
 Changelog sitemap generator
 ===========================
 
+##version 1.2.4 - 31/05/2013
+
+* Small improvements in URL generation
+
 ##version 1.2.3 - 17/05/2013
 
 * Security patch
