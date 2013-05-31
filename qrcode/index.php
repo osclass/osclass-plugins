@@ -3,7 +3,7 @@
 Plugin Name: QR Codes
 Plugin URI: http://www.osclass.org/
 Description: Add a qr code to your ad page, print it and share it offline
-Version: 1.0.2
+Version: 1.0.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: qrcode
@@ -32,17 +32,22 @@ Plugin update URI: qrcode
         }
         @rmdir(osc_get_preference('upload_path', 'qrcode'));
     }
-    
 
-    
+
     function qrcode_admin_menu() {
-        echo '<h3><a href="#">QR Code</a></h3>
-        <ul> 
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'qrcode') . '</a></li>
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'qrcode') . '</a></li>
-        </ul>';
+        if(osc_version()<320) {
+            echo '<h3><a href="#">QR Code</a></h3>
+            <ul>
+                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'qrcode') . '</a></li>
+                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'qrcode') . '</a></li>
+            </ul>';
+        } else {
+            osc_add_admin_submenu_divider('plugins', 'QR Codes', 'qrcode_divider', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('QR Settings', 'qrcode'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'qrcode_settings', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('QR Help', 'qrcode'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php'), 'qrcode_help', 'administrator');
+        }
     }
-    
+
     function qrcode_delete_item($itemId) {
         $files = glob(osc_get_preference('upload_path', 'qrcode').$itemId."_*");
         foreach($files as $f) {
@@ -81,6 +86,10 @@ Plugin update URI: qrcode
     osc_add_hook('delete_item', 'qrcode_delete_item');
 
     // FANCY MENU
-    osc_add_hook('admin_menu', 'qrcode_admin_menu');
+    if(osc_version()<311) {
+        osc_add_hook('admin_menu', 'qrcode_admin_menu');
+    } else {
+        osc_add_hook('admin_menu_init', 'qrcode_admin_menu');
+    }
     
 ?>
