@@ -124,11 +124,16 @@ function sitemap_ping_engines() {
 }
 
 function sitemap_admin_menu() {
-    echo '<h3><a href="#">' . __('Sitemap Generator', 'sitemap_generator') . '</a></h3>
-    <ul> 
-        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Help', 'sitemap_generator') . '</a></li>
-        <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . '/generate.php') . '">&raquo; ' . __('Generate sitemap', 'sitemap_generator') . '</a></li>
-    </ul>';
+    if(osc_version()<311) {
+        echo '<h3><a href="#">' . __('Sitemap Generator', 'sitemap_generator') . '</a></h3>
+        <ul>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . '/sitemap.php') . '">&raquo; ' . __('Sitemap Help', 'sitemap_generator') . '</a></li>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . '/generate.php') . '">&raquo; ' . __('Generate sitemap', 'sitemap_generator') . '</a></li>
+        </ul>';
+    } else {
+        osc_add_admin_submenu_page('plugins', __('Sitemap Help', 'sitemap_generator'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . '/sitemap.php'), 'sitemap_help', 'administrator');
+        osc_add_admin_submenu_page('plugins', __('Generate sitemap', 'sitemap_generator'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . '/generate.php'), 'sitemap_generate', 'administrator');
+    }
 }
 
 function sitemap_help() {
@@ -143,7 +148,11 @@ osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'sitemap_help');
 // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", '');
 // Add the help to the menu
+if(osc_version()<311) {
 osc_add_hook('admin_menu', 'sitemap_admin_menu');
+} else {
+    osc_add_hook('admin_menu_init', 'sitemap_admin_menu');
+}
 
 // Generate sitemap every day
 // CHANGE THIS LINE TO  'cron_hourly' or 'cron_daily' to modify the frequent of running it
