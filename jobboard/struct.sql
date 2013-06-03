@@ -106,6 +106,7 @@ CREATE TABLE /*TABLE_PREFIX*/t_item_job_file (
     dt_date DATETIME NOT NULL,
     dt_secret_date DATETIME NOT NULL,
     s_name VARCHAR(255) NOT NULL DEFAULT '',
+    s_name_original VARCHAR(255) NOT NULL DEFAULT '',
     s_secret VARCHAR(12) NOT NULL DEFAULT '',
 
         PRIMARY KEY (pk_i_id),
