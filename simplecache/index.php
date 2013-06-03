@@ -3,7 +3,7 @@
 Plugin Name: Simple Cache
 Plugin URI: http://www.osclass.org/
 Description: A simple cache system for OSClass, make your web load faster!
-Version: 1.0.2
+Version: 1.0.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: simplecache
@@ -71,7 +71,7 @@ Plugin update URI: simple-cache
                                     } else {
                                         $category = preg_replace('|/$|','',$v);
                                         $aCategory = explode('/', $category) ;
-                                        $category = Category::newInstance()->find_by_slug($aCategory[count($aCategory)-1]) ;
+                                        $category = Category::newInstance()->findBySlug($aCategory[count($aCategory)-1]) ;
                                         $cat_str = '_cat_'.$category['pk_i_id'].'/';
                                     }
                                 }
@@ -270,11 +270,17 @@ Plugin update URI: simple-cache
     }
     
     function simplecache_admin_menu() {
-        echo '<h3><a href="#">Simple Cache</a></h3>
-        <ul> 
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'simplecache') . '</a></li>
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'simplecache') . '</a></li>
-        </ul>';
+        if(osc_version()<320) {
+            echo '<h3><a href="#">Simple Cache</a></h3>
+            <ul>
+                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'simplecache') . '</a></li>
+                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'simplecache') . '</a></li>
+            </ul>';
+        } else {
+            osc_add_admin_submenu_divider('plugins', 'Simple Cache', 'simplecache_divider', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('Simple Cache Settings', 'qrcode'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'simplecache_settings', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('Simple Cache Help', 'qrcode'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php'), 'simplecache_help', 'administrator');
+        }
     }
     
     
@@ -329,7 +335,11 @@ Plugin update URI: simple-cache
     osc_add_hook('after_html', 'simplecache_after_html');
 
     // FANCY MENU
-    osc_add_hook('admin_menu', 'simplecache_admin_menu');
+    if(osc_version()<320) {
+        osc_add_hook('admin_menu', 'simplecache_admin_menu');
+    } else {
+        osc_add_hook('admin_menu_init', 'simplecache_admin_menu');
+    }
 
     // CLEAR CACHE HOOKS
     osc_add_hook('item_edit_post', 'simplecache_item_edit_post');
