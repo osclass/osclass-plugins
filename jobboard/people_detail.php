@@ -27,6 +27,7 @@
 
     // -------------------------------------------------------------------------
     // get killer questions ...
+    $correctedForm  = $people['b_corrected'];
     $jobInfo        = $mjb->getJobsAttrByItemId($people['fk_i_item_id']);
     $killer_form_id = @$jobInfo['fk_i_killer_form_id'];
     $aQuestions     = array();
@@ -47,7 +48,7 @@
         $maxPunctuation = count($aAnswers)*10;
     }
 
-    $score          = number_format($people['d_score'],1);
+    $score          = (float)number_format($people['d_score'],1);
 ?>
 <div id="applicant-detail">
     <span><a href="<?php echo osc_admin_render_plugin_url("jobboard/people.php"); ?>" ><?php _e('Applicants', 'jobboard'); ?></a> &raquo; <?php echo @$people['s_name']; ?></span>
@@ -65,7 +66,7 @@
                 <div class="half">
                     <p><label><?php _e('Apply date', 'jobboard'); ?> </label><br/><?php echo @$people['dt_date']; ?></p>
                     <p><label><?php _e('Birthday', 'jobboard'); ?> </label><br/><?php echo @$people['dt_birthday']; ?></p>
-                    <p><label><?php _e('Score', 'jobboard'); ?> </label><br/><span class="sum_punctuations"><?php if(count($aQuestions)>0) { echo $score; }?></span>/10<a href="#kq" class="animated-scroll">  <?php _e('View answers','jobobard'); ?></a></p>
+                    <p><label><?php _e('Score', 'jobboard'); ?> </label><br/><span class="sum_punctuations"><?php if(count($aQuestions)>0) { if ($correctedForm) { echo $score;?></span>/10<?php }?><a href="#kq" class="animated-scroll">  <?php _e('View answers','jobobard'); ?></a><?php }?></p>
                 </div>
 
                 <div class="clear"></div>

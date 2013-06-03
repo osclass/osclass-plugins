@@ -22,8 +22,9 @@ class JobboardAjax
         $result = ModelKQ::newInstance()->updatePunctuationQuestionResult(Params::getParam('killerFormId'), Params::getParam('applicantId'), Params::getParam('questionId'), Params::getParam('punctuation'));
         if($result !== false) {
             $aInfo = ModelKQ::newInstance()->calculatePunctuationOfApplicant(Params::getParam('applicantId'));
+            $score          = (float)number_format($aInfo['score'],1);
             echo json_encode( array('punctuation'   => Params::getParam('punctuation'),
-                                     'score'       => $aInfo['score'],
+                                     'score'       => $score,
                                      'corrected'   => $aInfo['corrected']) );
         } else {
             echo '0';

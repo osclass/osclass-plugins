@@ -299,10 +299,12 @@
                         // has killer questions
                         $jobInfo = ModelJB::newInstance()->getJobsAttrByItemId( $p['fk_i_item_id'] );
                         $has_killerForm = $correctedForm  = false;
-                        $score = 0;
+                        $score = '-';
+                        $correctedForm = false;
                         if( @$jobInfo['fk_i_killer_form_id'] != '' && is_numeric(@$jobInfo['fk_i_killer_form_id']) ) {
                             $has_killerForm = true;
                             $score          = $p['d_score'];
+                            $score          = (float)number_format($score, 1);
                             $correctedForm  = $p['b_corrected'];
                         }
                     ?>
@@ -322,7 +324,7 @@
                         <td><?php echo $p['fk_i_item_id']==''?__('Spontaneous application', 'jobboard'):@$p['s_title']; ?></td>
                         <td><?php echo $status[isset($p['i_status'])?$p['i_status']:0]; ?></td>
                         <?php if($has_killerForm) { ?>
-                        <td><?php if($correctedForm){ echo '<b>'.round(@$score).'/10</b>'; } else { _e('Needs correction', 'jobboard'); } ?> </td>
+                        <td><?php if($correctedForm){ echo '<b>'.$score.'/10</b>'; } else { _e('Needs correction', 'jobboard'); } ?> </td>
                         <?php } else { ?>
                         <td></td>
                         <?php } ?>
