@@ -271,7 +271,7 @@ class JobboardContact
                     $tmpfile    = osc_get_preference('upload_path', 'jobboard_plugin') . $fileName;
                     $filename   = basename($aCV['name']);
 
-                    $callback   = osc_base_url(true) .'?page=ajax&action=custom&ajaxfile='.osc_plugin_folder(__FILE__).'reciveCv.php';
+                    $callback   = osc_base_url(true) .'?page=ajax&action=custom&ajaxfile='.dirname( osc_plugin_folder(__FILE__) ).'/reciveCv.php';
 
                     $data = array(
                         'uploaded_file' => '@'.$tmpfile,
