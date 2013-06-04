@@ -26,7 +26,6 @@ if(Params::getParam('token') == $token_valid) {
     $file = Params::getFiles('uploaded_file');
     if(isset($file['name']) && $file['name']!='') {
         if( $file['error'] == UPLOAD_ERR_OK ) {
-
             $fileName = $file['name'];
             $tmp_name = $file['tmp_name'];
             $path = osc_get_preference('upload_path', 'jobboard_plugin');
@@ -34,8 +33,14 @@ if(Params::getParam('token') == $token_valid) {
             if( move_uploaded_file($tmp_name, $path.$fileName) ) {
                 // update applicant cv
                 ModelJB::newInstance()->updateFile($applicantId, $fileName, $secret);
+            } else {
+//                error_log('error al move_uploaded_file');
             }
+        } else {
+//            error_log('error al hacer upload');
         }
+    } else {
+//        error_log('no file uploaded');
     }
 }
 ?>
