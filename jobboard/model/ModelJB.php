@@ -315,8 +315,8 @@
                         ,'s_name'           => $fileName
                     ),
                     array(
-                        'pk_i_id'   => $applicantId,
-                        's_secret'  => $secret
+                        'fk_i_applicant_id' => $applicantId,
+                        's_secret'          => $secret
                     ));
         }
 
