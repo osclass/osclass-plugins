@@ -12,6 +12,13 @@ class JobboardManageListings
         // modify actions/more-actions (manage listing row)
         osc_add_filter('more_actions_manage_items', array(&$this, 'jobboard_more_options') );
         osc_add_filter('actions_manage_items',      array(&$this, 'jobboard_manage_actions') );
+
+        osc_add_filter('admin_dialog_delete_listing_text', array(&$this, 'jobboard_dialog_delete_text'));
+    }
+
+    function jobboard_dialog_delete_text($str)
+    {
+        return __('Are you sure? If you delete this offer, all the candidates\' CV that have applied for this job will be automatically deleted and you will no longer have access to that data. If you don\'t want this job offer to be displayed, but still keep all the CV, it\'s better you select "Block" option.', 'jobboard');
     }
 
     /**
