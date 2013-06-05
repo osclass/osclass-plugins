@@ -6,6 +6,7 @@
 class JobboardManageListings
 {
     public function __construct() {
+        osc_add_hook('admin_header',            array(&$this, 'jobboard_delete_dialog_js'), 6);
         // modify manage listings table header
         osc_add_hook('admin_items_table',       array(&$this, 'job_items_table_header') );
         osc_add_filter("items_processing_row",  array(&$this, "job_items_row") );
@@ -14,6 +15,19 @@ class JobboardManageListings
         osc_add_filter('actions_manage_items',      array(&$this, 'jobboard_manage_actions') );
 
         osc_add_filter('admin_dialog_delete_listing_text', array(&$this, 'jobboard_dialog_delete_text'));
+    }
+
+    function jobboard_delete_dialog_js()
+    {
+        ?>
+    <script>
+        $(document).ready(function(){
+            $("#dialog-item-delete").bind("dialogopen", function(event, ui) {
+                $("#dialog-item-delete").dialog('option', "width", 660);
+            });
+        });
+    </script>
+        <?php
     }
 
     function jobboard_dialog_delete_text($str)
