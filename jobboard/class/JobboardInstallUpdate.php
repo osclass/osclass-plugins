@@ -66,13 +66,13 @@ class JobboardInstallUpdate
 
         if( $version < 141) {
             osc_set_preference('version', 141, 'jobboard_plugin', 'INTEGER');
-            $description = array();
-            $description[osc_language()]['s_title'] = __('{WEB_TITLE} - Download all the resumes of your applicants', 'jobboard');
-            $description[osc_language()]['s_text'] = __('<p>Hi {CONTACT_NAME}!</p><p>We just finished packaging all the resumes of your applicants on {WEB_TITLE}.</p><p>Click on the links below to download the packages:</p><p>{RESUME_LIST}</p><p>Thanks</p>', 'jobboard');
-            Page::newInstance()->insert(
-                array('s_internal_name' => 'email_resumes_jobboard', 'b_indelible' => '1', 's_meta' => ''),
-                $description
-                );
+//            $description = array();
+//            $description[osc_language()]['s_title'] = __('{WEB_TITLE} - Download all the resumes of your applicants', 'jobboard');
+//            $description[osc_language()]['s_text'] = __('<p>Hi {CONTACT_NAME}!</p><p>We just finished packaging all the resumes of your applicants on {WEB_TITLE}.</p><p>Click on the links below to download the packages:</p><p>{RESUME_LIST}</p><p>Thanks</p>', 'jobboard');
+//            Page::newInstance()->insert(
+//                array('s_internal_name' => 'email_resumes_jobboard', 'b_indelible' => '1', 's_meta' => ''),
+//                $description
+//                );
             $conn      = DBConnectionClass::newInstance();
             $data      = $conn->getOsclassDb();
             $dbCommand = new DBCommandClass($data);
