@@ -18,7 +18,7 @@ class JobboardManageApplicants
         if( Params::getParam('viewUnread') ) {
             $shortcuts['unread']['active'] = true;
         }
-        $shortcuts['unread']['text'] = sprintf(__('Unread (%1$s)'), $totalApplicantsShortcut);
+        $shortcuts['unread']['text'] = sprintf(__('Unread (%1$s)', 'jobboard'), $totalApplicantsShortcut);
         $shortcuts['active'] = array();
         $totalApplicantsShortcut = ModelJB::newInstance()->countApplicantsByStatus('0');
         $shortcuts['active']['total'] = $totalApplicantsShortcut;
@@ -27,7 +27,7 @@ class JobboardManageApplicants
         if( Params::getParam('statusId') == '0' && !Params::getParam('viewUnread') ) {
             $shortcuts['active']['active'] = true;
         }
-        $shortcuts['active']['text'] = sprintf(__('Active (%1$s)'), $totalApplicantsShortcut);
+        $shortcuts['active']['text'] = sprintf(__('Active (%1$s)', 'jobboard'), $totalApplicantsShortcut);
         $shortcuts['interview'] = array();
         $totalApplicantsShortcut = ModelJB::newInstance()->countApplicantsByStatus('1');
         $shortcuts['interview']['total'] = $totalApplicantsShortcut;
@@ -36,7 +36,7 @@ class JobboardManageApplicants
         if( Params::getParam('statusId') == '1' ) {
             $shortcuts['interview']['active'] = true;
         }
-        $shortcuts['interview']['text'] = sprintf(__('Interview (%1$s)'), $totalApplicantsShortcut);
+        $shortcuts['interview']['text'] = sprintf(__('Interview (%1$s)', 'jobboard'), $totalApplicantsShortcut);
         $shortcuts['rejected'] = array();
         $totalApplicantsShortcut = ModelJB::newInstance()->countApplicantsByStatus('2');
         $shortcuts['rejected']['total'] = $totalApplicantsShortcut;
@@ -45,7 +45,7 @@ class JobboardManageApplicants
         if( Params::getParam('statusId') == '2' ) {
             $shortcuts['rejected']['active'] = true;
         }
-        $shortcuts['rejected']['text'] = sprintf(__('Rejected (%1$s)'), $totalApplicantsShortcut);
+        $shortcuts['rejected']['text'] = sprintf(__('Rejected (%1$s)', 'jobboard'), $totalApplicantsShortcut);
         $shortcuts['hired'] = array();
         $totalApplicantsShortcut = ModelJB::newInstance()->countApplicantsByStatus('3');
         $shortcuts['hired']['total'] = $totalApplicantsShortcut;
@@ -54,7 +54,7 @@ class JobboardManageApplicants
         if( Params::getParam('statusId') == '3' ) {
             $shortcuts['hired']['active'] = true;
         }
-        $shortcuts['hired']['text'] = sprintf(__('Hired (%1$s)'), $totalApplicantsShortcut);
+        $shortcuts['hired']['text'] = sprintf(__('Hired (%1$s)', 'jobboard'), $totalApplicantsShortcut);
         return $shortcuts;
     }
 
