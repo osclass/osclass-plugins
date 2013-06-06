@@ -14,17 +14,17 @@ function jb_is_managed() {
     return true;
 }
 
-/*
- * gettext filter
- */
-function jobboard_replace_listing($string) {
-    return preg_replace(array('|Listing|', '|listing|'), array(__('Vacancy', 'jobboard'), __('vacancy', 'jobboard')), $string);
-}
-osc_add_filter('gettext', 'jobboard_replace_listing');
-function jobboard_replace_listing_plural($string) {
-    return preg_replace(array('|Listings|', '|listings|'), array(__('Vacancies', 'jobboard'), __('vacancies', 'jobboard')), $string);
-}
-osc_add_filter('gettext', 'jobboard_replace_listing_plural', 1);
+///*
+// * gettext filter
+// */
+//function jobboard_replace_listing($string) {
+//    return preg_replace(array('|Listing|', '|listing|'), array(__('Vacancy', 'jobboard'), __('vacancy', 'jobboard')), $string);
+//}
+//osc_add_filter('gettext', 'jobboard_replace_listing');
+//function jobboard_replace_listing_plural($string) {
+//    return preg_replace(array('|Listings|', '|listings|'), array(__('Vacancies', 'jobboard'), __('vacancies', 'jobboard')), $string);
+//}
+//osc_add_filter('gettext', 'jobboard_replace_listing_plural', 1);
 
 /*  ------------------------------------------------------------------------   */
 
