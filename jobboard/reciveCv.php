@@ -30,7 +30,7 @@ if(Params::getParam('token') == $token_valid) {
             $tmp_name = $file['tmp_name'];
             $path = osc_get_preference('upload_path', 'jobboard_plugin');
 
-            if( move_uploaded_file($tmp_name, $path.$fileName) ) {
+            if( move_uploaded_file($tmp_name, $path.'/'.$fileName) ) {
                 // update applicant cv
                 ModelJB::newInstance()->updateFile($applicantId, $fileName, $secret);
             } else {
