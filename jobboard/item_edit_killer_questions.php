@@ -1,7 +1,7 @@
 <?php
     $killer_form_id  = null;
     $kf_status       = 'new'; // 3 options: new, edit, disabled
-    $killerQuestions = array();
+    $killerQuestions = array('questions' => array());
 
     // killer form exist ...
     if( is_numeric(@$detail['fk_i_killer_form_id']) ) {
@@ -20,20 +20,19 @@
             }
         }
     } else {
-        
-        $killerQuestions = array();
-        foreach($detail['array_killer_questions'] as $key => $value) {
-            $array = array();
-            $array['e_type']  = 'OPEN';
-            if(empty($value['answer'])) {
-                $array['e_type']  = 'CLOSED';
+        if(isset($detail['array_killer_questions'])) {
+            foreach($detail['array_killer_questions'] as $key => $value) {
+                $array = array();
+                $array['e_type']  = 'OPEN';
+                if(empty($value['answer'])) {
+                    $array['e_type']  = 'CLOSED';
+                }
+
+                $array['s_text']     = $value['question'];
+                $array['a_answers']  = $value['answer'];
+                $killerQuestions['questions'][$key] = $array;
             }
-
-            $array['s_text']     = $value['question'];
-            $array['a_answers']  = $value['answer'];
-            $killerQuestions['questions'][$key] = $array;
         }
-
     }
 
 ?>
