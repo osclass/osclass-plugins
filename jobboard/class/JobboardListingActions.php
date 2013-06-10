@@ -81,6 +81,11 @@ class JobboardListingActions
             $this->_insertKillerQuestions($killerFormId, $aDataKiller);
         }
 
+        $numPositions = trim(Params::getParam('numPositions'));
+        if(is_numeric($numPositions)) {
+            osc_add_flash_error_message(__("Num. of positions, must be numeric.", 'jobboard'));
+            return null;
+        }
         ModelJB::newInstance()->insertJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('numPositions'), $killerFormId);
 
         // prepare locales
