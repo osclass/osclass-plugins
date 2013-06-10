@@ -81,11 +81,6 @@ class JobboardListingActions
             $this->_insertKillerQuestions($killerFormId, $aDataKiller);
         }
 
-        $numPositions = trim(Params::getParam('numPositions'));
-        if(is_numeric($numPositions)) {
-            osc_add_flash_error_message(__("Num. of positions, must be numeric.", 'jobboard'));
-            return null;
-        }
         ModelJB::newInstance()->insertJobsAttr($itemID, Params::getParam('relation'), Params::getParam('positionType'), Params::getParam('salaryText'), Params::getParam('numPositions'), $killerFormId);
 
         // prepare locales
@@ -320,6 +315,21 @@ class JobboardListingActions
         Session::newInstance()->_keepForm('pj_data');
         // save killer question into session
         Session::newInstance()->_keepForm('pj_array_killer_questions');
+
+        $numPositions = trim(Params::getParam('numPositions'));
+        if(!is_numeric($numPositions)) {
+            if($numPositions==0) {
+                Session::newInstance()->_setForm('pj_numPositions', 1);
+                Params::setParam('numPositions', 1);
+            }
+            osc_add_flash_error_message(__("Num. of positions, must be numeric.", 'jobboard'), 'admin');
+            // add or edit redirect
+            if(Params::getParam('id')=='') {
+                osc_redirect_to(osc_admin_base_url(true).'?page=items&action=post');
+            } else {
+                osc_redirect_to(osc_admin_base_url(true).'?page=items&action=item_edit');
+            }
+        }
     }
 
     /*
