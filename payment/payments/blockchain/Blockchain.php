@@ -26,10 +26,6 @@
         {
         }
 
-        public static function loadJS() {
-            echo '<script type="text/javascript" src="https://blockchain.info/Resources/wallet/pay-now-button.js"></script>';
-        }
-
         /**
         * Create and print a "Pay with Paypal" button
         *

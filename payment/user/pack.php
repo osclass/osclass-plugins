@@ -18,6 +18,9 @@
     } else {
         $formatted_amount = osc_format_price($amount*1000000, osc_get_preference('currency', 'payment'));
     }
+
+    print_r($_REQUEST);
+
 ?>
 <div class="content user_account">
     <h1>
@@ -35,18 +38,21 @@
                 <div style="float:left;width:200px"><label><?php _e("Price", "payment");?>:</label> <?php echo $pack." ".osc_get_preference('currency', 'payment'); ?>
                 </div>
                 <?php if(osc_get_preference('paypal_enabled', 'payment')==1) {?>
-                    <div style="float:left;">
+                    <div>
                         <?php Paypal::button($pack, sprintf(__("Credit for %s %s at %s", "payment"), $pack, osc_get_preference("currency", "payment"), osc_page_title()), '301x'.$pack, array('user' => $user['pk_i_id'], 'itemid' => $user['pk_i_id'], 'email' => $user['s_email'])); ?>
                     </div>
                 <?php };
                 if(osc_get_preference('blockchain_enabled', 'payment')==1) {?>
-                    <div style="float:right;">
+                    <div>
                         <?php Blockchain::button($pack, sprintf(__("Credit for %s %s at %s", "payment"), $pack, osc_get_preference("currency", "payment"), osc_page_title()), '301x'.$pack, array('user' => $user['pk_i_id'], 'itemid' => $user['pk_i_id'], 'email' => $user['s_email'])); ?>
                    </div>
                 <?php }; ?>
-                <div style="float:right;">
-                    <?php Payza::button($pack, sprintf(__("Credit for %s %s at %s", "payment"), $pack, osc_get_preference("currency", "payment"), osc_page_title()), '301x'.$pack, array('user' => $user['pk_i_id'], 'itemid' => $user['pk_i_id'], 'email' => $user['s_email'])); ?>
+                <div>
+                    <?php BraintreePayment::button($pack, sprintf(__("Credit for %s %s at %s", "payment"), $pack, osc_get_preference("currency", "payment"), osc_page_title()), '301x'.$pack, array('user' => $user['pk_i_id'], 'itemid' => $user['pk_i_id'], 'email' => $user['s_email'])); ?>
                 </div>
+                <?php /* <div>
+                    <?php Payza::button($pack, sprintf(__("Credit for %s %s at %s", "payment"), $pack, osc_get_preference("currency", "payment"), osc_page_title()), '301x'.$pack, array('user' => $user['pk_i_id'], 'itemid' => $user['pk_i_id'], 'email' => $user['s_email'])); ?>
+                </div> */ ?>
             </div>
             <div style="clear:both;"></div>
             <br/>
@@ -55,5 +61,6 @@
         <script type="text/javascript">
             var rd = document.getElementById("result_div");
         </script>
+        <?php BraintreePayment::dialogJS(); ?>
     </div>
 </div>

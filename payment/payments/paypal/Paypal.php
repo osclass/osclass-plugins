@@ -26,10 +26,6 @@
         {
         }
 
-        public static function loadJS() {
-            echo '<script src="https://www.paypalobjects.com/js/external/dg.js" type="text/javascript"></script>';
-        }
-
         /**
         * Create and print a "Pay with Paypal" button
         *
@@ -100,7 +96,7 @@
                 $redirect_url = $REDIRECTURL . urldecode($response['TOKEN']);
                 ?>
                 <a href="<?php echo $redirect_url; ?>" id='paypalBtn_<?php echo $r; ?>'>
-                    <img src='<?php echo payment_path(); ?>payments/paypal/paypal.gif' border='0' />
+                    <img src='<?php echo payment_url(); ?>payments/paypal/paypal.gif' border='0' />
                 </a>
                 <script>
                     var dg_<?php echo $r; ?> = new PAYPAL.apps.DGFlow({
@@ -148,7 +144,7 @@
                   <input type="hidden" name="charset" value="utf-8" />
                 </form>
                 <div class="buttons">
-                  <div class="right"><a id="button-confirm" class="button" onclick="$('#paypal_<?php echo $r; ?>').submit();"><span><img src='<?php echo payment_path(); ?>payments/paypal/paypal.gif' border='0' /></span></a></div>
+                  <div class="right"><a id="button-confirm" class="button" onclick="$('#paypal_<?php echo $r; ?>').submit();"><span><img src='<?php echo payment_url(); ?>payments/paypal/paypal.gif' border='0' /></span></a></div>
                 </div>
             <?php
         }

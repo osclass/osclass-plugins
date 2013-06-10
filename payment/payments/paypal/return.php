@@ -24,14 +24,14 @@
                 payment_js_redirect_to(osc_search_category_url());
             } else if($product_type[0]==201) {
                 if(osc_is_web_user_logged_in()) {
-                    payment_js_redirect_to(payment_url() . 'user_menu.php');
+                    payment_js_redirect_to(osc_route_url('payment-user-menu'));
                 } else {
                     View::newInstance()->_exportVariableToView('item', Item::newInstance()->findByPrimaryKey($product_type[2]));
                     payment_js_redirect_to(osc_item_url());
                 }
             } else {
                 if(osc_is_web_user_logged_in()) {
-                    payment_js_redirect_to(payment_url() . 'user_menu_pack.php');
+                    payment_js_redirect_to(osc_route_url('payment-user-pack'));
                 } else {
                     // THIS SHOULD NOT HAPPEN
                     payment_js_redirect_to(osc_base_path());
@@ -41,14 +41,14 @@
             osc_add_flash_info_message(__('We are processing your payment, if we did not finish in a few seconds, please contact us', 'payment'));
             if($product_type[0]==301) {
                 if(osc_is_web_user_logged_in()) {
-                    payment_js_redirect_to(payment_url() . 'user_menu_pack.php');
+                    payment_js_redirect_to(osc_route_url('payment-user-pack'));
                 } else {
                     // THIS SHOULD NOT HAPPEN
                     payment_js_redirect_to(osc_base_path());
                 }
             } else {
                 if(osc_is_web_user_logged_in()) {
-                    payment_js_redirect_to(payment_url() . 'user_menu.php');
+                    payment_js_redirect_to(osc_route_url('payment-user-menu'));
                 } else {
                     View::newInstance()->_exportVariableToView('item', Item::newInstance()->findByPrimaryKey($product_type[2]));
                     payment_js_redirect_to(osc_item_url());
@@ -121,19 +121,19 @@
                 $url = osc_search_category_url();
             } else if ($product_type[0] == '201') {
 
-                $html = '<p>' . __('Payment processed correctly', 'payment') . ' <a href=\\"' . payment_js_redirect_to(payment_url() . 'user_menu.php') . '\\">' . __("Click here to continue", 'payment') . '</a></p>';
+                $html = '<p>' . __('Payment processed correctly', 'payment') . ' <a href=\\"' . payment_js_redirect_to(osc_route_url('payment-user-menu')) . '\\">' . __("Click here to continue", 'payment') . '</a></p>';
 
-                $url = payment_js_redirect_to(payment_url() . 'user_menu.php');
+                $url = payment_js_redirect_to(osc_route_url('payment-user-menu'));
             } else {
-                $html = '<p>' . __('Payment processed correctly', 'payment') . ' <a href=\\"' . payment_js_redirect_to(payment_url() . 'user_menu_pack.php') . '\\">' . __("Click here to continue", 'payment') . '</a></p>';
-                $url = payment_js_redirect_to(payment_url()."user_menu_pack.php");
+                $html = '<p>' . __('Payment processed correctly', 'payment') . ' <a href=\\"' . payment_js_redirect_to(osc_route_url('payment-user-pack')) . '\\">' . __("Click here to continue", 'payment') . '</a></p>';
+                $url = payment_js_redirect_to(osc_route_url('payment-user-pack'));
             }
         } else if($status==PAYMENT_PENDING) {
             osc_add_flash_info_message(__('We are processing your payment, if we did not finish in a few seconds, please contact us', 'payment'));
             if($product_type[0]==301) {
-                payment_js_redirect_to(payment_url() . 'user_menu_pack.php');
+                payment_js_redirect_to(osc_route_url('payment-user-pack'));
             } else {
-                payment_js_redirect_to(payment_url() . 'user_menu.php');
+                payment_js_redirect_to(osc_route_url('payment-user-menu'));
             }
         } else {
             $item = Item::newInstance()->findByPrimaryKey($product_type[2]);

@@ -37,7 +37,7 @@
                                     <?php if(ModelPayment::newInstance()->publishFeeIsPaid(osc_item_id())) { ?>
                                         <strong><?php _e('Paid!', 'payment'); ?></strong>
                                     <?php } else { ?>
-                                        <strong><a href="<?php echo osc_render_file_url(osc_plugin_folder(__FILE__)."payperpublish.php&itemId=".osc_item_id()); ?>"><?php _e('Pay for this item', 'payment'); ?></a></strong>
+                                        <strong><a href="<?php echo osc_route_url('payment-publish', array('itemId' => osc_item_id())); ?>"><?php _e('Pay for this item', 'payment'); ?></a></strong>
                                     <?php }; ?>
                                 <?php }; ?>
                                 <?php if(osc_get_preference("pay_per_post", "payment")=="1" && osc_get_preference("allow_premium", "payment")=="1") { ?>
@@ -47,7 +47,7 @@
                                     <?php if(ModelPayment::newInstance()->premiumFeeIsPaid(osc_item_id())) { ?>
                                         <strong><?php _e('Already premium!', 'payment'); ?></strong>
                                     <?php } else { ?>
-                                        <strong><a href="<?php echo osc_render_file_url(osc_plugin_folder(__FILE__)."makepremium.php&itemId=".osc_item_id()); ?>"><?php _e('Make premium', 'payment'); ?></a></strong>
+                                        <strong><a href="<?php echo osc_route_url('payment-premium', array('itemId' => osc_item_id())); ?>"><?php _e('Make premium', 'payment'); ?></a></strong>
                                     <?php }; ?>
                                 <?php }; ?>
                             </p>
@@ -58,9 +58,9 @@
             <div class="paginate">
             <?php for($i = 0 ; $i < osc_list_total_pages() ; $i++) {
                 if($i == osc_list_page()) {
-                    printf('<a class="searchPaginationSelected" href="%s">%d</a>', osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php') . '?iPage=' . $i, ($i + 1));
+                    printf('<a class="searchPaginationSelected" href="%s">%d</a>', osc_route_url('payment-user-menu-page', array('iPage' => $i)), ($i + 1));
                 } else {
-                    printf('<a class="searchPaginationNonSelected" href="%s">%d</a>', osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php') . '?iPage='. $i, ($i + 1));
+                    printf('<a class="searchPaginationNonSelected" href="%s">%d</a>', osc_route_url('payment-user-menu-page', array('iPage' => $i)), ($i + 1));
                 }
             } ?>
             </div>

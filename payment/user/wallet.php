@@ -35,16 +35,15 @@ if(osc_is_web_user_logged_in()) {
             $url = osc_search_category_url();
         } else if ($product_type[0] == '201') {
             $mp->payPremiumFee($data['itemid'], $payment_id);
-            $url = osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php');
+            $url = osc_route_url('payment-user-menu');
         }
     }
 }
-    /*
 if($url!='') {
     osc_add_flash_ok_message(__('Payment processed correctly', 'payment'));
     payment_js_redirect_to($url);
 } else {
     osc_add_flash_error_message(__('There were some errors, please try again later or contact the administrators', 'payment'));
-    payment_js_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'user_menu.php'));
-}*/
+    payment_js_redirect_to(osc_route_url('payment-user-menu'));
+}
 ?>

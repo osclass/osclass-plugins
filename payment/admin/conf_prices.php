@@ -21,7 +21,6 @@
 ?>
 <?php
 
-    require_once 'ModelPayment.php';
     $mp = ModelPayment::newInstance();
 
     if(Params::getParam('plugin_action') == 'done') {
@@ -39,8 +38,27 @@
         $cat_prices[$p['fk_i_category_id']]['f_publish_cost'] = $p['f_publish_cost'];
         $cat_prices[$p['fk_i_category_id']]['f_premium_cost'] = $p['f_premium_cost'];
     }
+
+
+    function drawCategories($categories, $depth = 0) {
+        foreach($categories as $c) { ?>
+            <tr>
+                <td>
+                    <?php for($d=0;$d<$depth;$d++) { echo "&nbsp;&nbsp;"; }; echo $c['s_name']; ?>
+                </td>
+                <td>
+                    <input style="width:150px;text-align:right;" type="text" name="pub_prices[<?php echo $c['pk_i_id']?>]" id="pub_prices[<?php echo $c['pk_i_id']?>]" value="<?php echo isset($cat_prices[$c['pk_i_id']]) ? $cat_prices[$c['pk_i_id']]['f_publish_cost'] : ''; ?>" />
+                </td>
+                <td>
+                    <input style="width:150px;text-align:right;" type="text" name="pr_prices[<?php echo $c['pk_i_id']?>]" id="pr_prices[<?php echo $c['pk_i_id']?>]" value="<?php echo isset($cat_prices[$c['pk_i_id']]) ? $cat_prices[$c['pk_i_id']]['f_premium_cost'] : ''; ?>" />
+                </td>
+            </tr>
+        <?php drawCategories($c['categories'], $depth+1);
+        }
+    };
+
+
 ?>
-<div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
     <div style="padding: 20px;">
         <div style="float: left; width: 100%;">
             <fieldset>
@@ -57,29 +75,7 @@
                                 <td style="width:175px;"><?php echo sprintf(__('Publish fee (%s)', 'payment'), osc_get_preference('currency', 'payment')); ?></td>
                                 <td style="width:175px;"><?php echo sprintf(__('Premium fee (%s)', 'payment'), osc_get_preference('currency', 'payment')); ?></td>
                             </tr>
-                            <?php foreach($categories as $c) { ?>
-                                <tr>
-                                    <td>
-                                        <?php echo $c['s_name']; ?>
-                                    </td>
-                                    <td>
-                                        <input style="width:150px;text-align:right;" type="text" name="pub_prices[<?php echo $c['pk_i_id']?>]" id="pub_prices[<?php echo $c['pk_i_id']?>]" value="<?php echo isset($cat_prices[$c['pk_i_id']]) ? $cat_prices[$c['pk_i_id']]['f_publish_cost'] : ''; ?>" />
-                                    </td>
-                                    <td>
-                                        <input style="width:150px;text-align:right;" type="text" name="pr_prices[<?php echo $c['pk_i_id']?>]" id="pr_prices[<?php echo $c['pk_i_id']?>]" value="<?php echo isset($cat_prices[$c['pk_i_id']]) ? $cat_prices[$c['pk_i_id']]['f_premium_cost'] : ''; ?>" />
-                                    </td>
-                                </tr>
-                                <?php foreach($c['categories'] as $cc) { ?>
-                                    <tr>
-                                        <td>
-                                            &nbsp;&nbsp;<?php echo $cc['s_name']; ?>
-                                        </td>
-                                        <td>
-                                            <input style="width:150px;text-align:right;" type="text" name="pub_prices[<?php echo $cc['pk_i_id']?>]" id="pub_prices[<?php echo $cc['pk_i_id']?>]" value="<?php echo isset($cat_prices[$cc['pk_i_id']]) ? $cat_prices[$cc['pk_i_id']]['f_publish_cost'] : ''; ?>" /></td>
-                                        <td><input style="width:150px;text-align:right;" type="text" name="pr_prices[<?php echo $cc['pk_i_id']?>]" id="pr_prices[<?php echo $cc['pk_i_id']?>]" value="<?php echo isset($cat_prices[$cc['pk_i_id']]) ? $cat_prices[$cc['pk_i_id']]['f_premium_cost'] : ''; ?>" /></td>
-                                    </tr>
-                                <?php } ?>
-                            <?php } ?>
+                            <?php drawCategories($categories); ?>
                         </table>
                         <button type="submit" style="float: right;"><?php _e('Update', 'payment'); ?></button>
                     </form>
@@ -87,15 +83,15 @@
             </fieldset>
         </div>
         <div style="clear:both;">
-        <div style="float: left; width: 100%;">
-            <fieldset>
-                <legend><?php _e('Help', 'payment'); ?></legend>
-                <h3><?php _e('Setting up your fees', 'payment'); ?></h3>
-                <p>
-                    <?php _e('You could set up different prices for each category', 'payment'); ?>. <?php _e('If the price of a category is left empty, the default value will be applied', 'payment'); ?>.
-                </p>
-            </fieldset>
+            <div style="float: left; width: 100%;">
+                <fieldset>
+                    <legend><?php _e('Help', 'payment'); ?></legend>
+                    <h3><?php _e('Setting up your fees', 'payment'); ?></h3>
+                    <p>
+                        <?php _e('You could set up different prices for each category', 'payment'); ?>. <?php _e('If the price of a category is left empty, the default value will be applied', 'payment'); ?>.
+                    </p>
+                </fieldset>
+            </div>
+            <div style="clear: both;"></div>
         </div>
-        <div style="clear: both;"></div>
     </div>
-</div>

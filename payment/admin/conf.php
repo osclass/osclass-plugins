@@ -41,8 +41,10 @@
         osc_set_preference('blockchain_btc_address', Params::getParam("blockchain_btc_address") ? Params::getParam("blockchain_btc_address") : '', 'payment', 'STRING');
         osc_set_preference('blockchain_enabled', Params::getParam("blockchain_enabled") ? Params::getParam("blockchain_enabled") : '0', 'payment', 'BOOLEAN');
 
-        osc_reset_preferences();
-        echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'payment') . '.</p></div>' ;
+        // HACK : This will make possible use of the flash messages ;)
+        ob_get_clean();
+        osc_add_flash_ok_message(__('Congratulations, the plugin is now configured', 'payment'), 'admin');
+        osc_redirect_to(osc_route_admin_url('payment-admin-conf'));
     }
 ?>
 
@@ -62,6 +64,9 @@
         });
     });
 </script>
+<?php if(PAYMENT_CRYPT_KEY=='randompasswordchangethis') {
+    echo '<div style="text-align:center; font-size:22px; background-color:#dd0000;"><p>' . sprintf(__('Please, change the crypt key (PAYMENT_CRYPT_KEY) in %s', 'payment'), payment_path().'index.php') . '</p></div>';
+}; ?>
 <div id="general-setting">
     <div id="general-settings">
         <h2 class="render-title"><?php _e('Payments settings', 'payment'); ?></h2>
@@ -150,8 +155,8 @@
                         <div class="form-label"><?php echo sprintf(__('Price of pack #%d', 'payment'), '3'); ?></div>
                         <div class="form-controls"><input type="text" class="xlarge" name="pack_price_3" value="<?php echo osc_get_preference('pack_price_3', 'payment'); ?>" /></div>
                     </div>
-                    <h2 class="render-title separate-top"><?php _e('Paypal settings', 'payment'); ?> <span><a href="javascript:void(0);" onclick="$('#dialog-paypal').dialog('open');" ><?php _e('help', 'payment'); ?></a></span></h2>
-                    <div class="form-row">
+                    <h2 class="render-title separate-top"><?php _e('Paypal settings', 'payment'); ?> <span><a href="javascript:void(0);" onclick="$('#dialog-paypal').dialog('open');" ><?php _e('help', 'payment'); ?></a></span> <span style="font-size: 0.5em" ><a href="javascript:void(0);" onclick="$('.paypal').toggle();" ><?php _e('Show options', 'payment'); ?></a></span></h2>
+                    <div class="form-row paypal hide">
                         <div class="form-label"><?php _e('Enable Paypal'); ?></div>
                         <div class="form-controls">
                             <div class="form-label-checkbox">
@@ -162,23 +167,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row paypal hide">
                         <div class="form-label"><?php _e('Paypal API username', 'payment'); ?></div>
                         <div class="form-controls"><input type="text" class="xlarge" name="paypal_api_username" value="<?php echo payment_decrypt(osc_get_preference('paypal_api_username', 'payment')); ?>" /></div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row paypal hide">
                         <div class="form-label"><?php _e('Paypal API password', 'payment'); ?></div>
                         <div class="form-controls"><input type="text" class="xlarge" name="paypal_api_password" value="<?php echo payment_decrypt(osc_get_preference('paypal_api_password', 'payment')); ?>" /></div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row paypal hide">
                         <div class="form-label"><?php _e('Paypal API signature', 'payment'); ?></div>
                         <div class="form-controls"><input type="text" class="xlarge" name="paypal_api_signature" value="<?php echo payment_decrypt(osc_get_preference('paypal_api_signature', 'payment')); ?>" /></div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row paypal hide">
                         <div class="form-label"><?php _e('Paypal email', 'payment'); ?></div>
                         <div class="form-controls"><input type="text" class="xlarge" name="paypal_email" value="<?php echo osc_get_preference('paypal_api_email', 'payment'); ?>" /></div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row paypal hide">
                         <div class="form-label"><?php _e('Standard payments'); ?></div>
                         <div class="form-controls">
                             <div class="form-label-checkbox">
@@ -189,7 +194,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row paypal hide">
                         <div class="form-label"><?php _e('Paypal sandbox'); ?></div>
                         <div class="form-controls">
                             <div class="form-label-checkbox">
@@ -200,8 +205,8 @@
                             </div>
                         </div>
                     </div>
-                    <h2 class="render-title separate-top"><?php _e('Blockchain settings', 'payment'); ?> <span><a href="javascript:void(0);" onclick="$('#dialog-blockchain').dialog('open');" ><?php _e('help', 'payment'); ?></a></span></h2>
-                    <div class="form-row">
+                    <h2 class="render-title separate-top"><?php _e('Blockchain settings', 'payment'); ?> <span><a href="javascript:void(0);" onclick="$('#dialog-blockchain').dialog('open');" ><?php _e('help', 'payment'); ?></a></span> <span style="font-size: 0.5em" ><a href="javascript:void(0);" onclick="$('.blockchain').toggle();" ><?php _e('Show options', 'payment'); ?></a></span></h2>
+                    <div class="form-row blockchain hide">
                         <div class="form-label"><?php _e('Enable Blockchain'); ?></div>
                         <div class="form-controls">
                             <div class="form-label-checkbox">
@@ -212,7 +217,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row blockchain hide">
                         <div class="form-label"><?php _e('Bitcoin address', 'payment'); ?></div>
                         <div class="form-controls"><input type="text" class="xlarge" name="blockchain_btc_address" value="<?php echo osc_get_preference('blockchain_btc_address', 'payment'); ?>" /></div>
                     </div>

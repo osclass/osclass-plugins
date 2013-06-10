@@ -21,9 +21,13 @@ Short Name: payments
     require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'functions.php';
     require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'ModelPayment.php';
     // Load different methods of payments
-    require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/paypal/Paypal.php';
-    require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/blockchain/Blockchain.php';
-    require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/payza/Payza.php';
+    if(osc_get_preference('paypal_enabled', 'payment')==1) {
+        require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/paypal/Paypal.php';
+    }
+    if(osc_get_preference('blockchain_enabled', 'payment')==1) {
+        require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/blockchain/Blockchain.php'; // Ready, but untested
+    }
+    require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/braintree/BraintreePayment.php'; // Ready, but untested
 
     /**
     * Create tables and variables on t_preference and t_pages
@@ -40,86 +44,25 @@ Short Name: payments
     }
 
     /**
-    * Gets the path of payments folder
-    *
-    * @return string
-    */
-    function payment_path() {
-        return osc_base_url() . 'oc-content/plugins/' . osc_plugin_folder(__FILE__);
-    }
-
-    function payment_url() {
-        return osc_render_file_url(osc_plugin_folder(__FILE__));
-    }
-
-
-    /**
-    * Create and print a "Wallet" button
-    *
-    * @param float $amount
-    * @param string $description
-    * @param string $rpl custom variables
-    * @param string $itemnumber (publish fee, premium, pack and which category)
-    */
-    function wallet_button($amount = '0.00', $description = '', $product = '101', $extra = '||') {
-        echo '<a href="'.osc_render_file_url(osc_plugin_folder(__FILE__)."wallet.php?a=".$amount."&desc=".$description."&extra=".implode("|", $extra)."&product=".$product).'"><button>'.__("Pay with your credit", "payment").'</button></a>';
-    }
-
-    /**
     * Create a menu on the admin panel
     */
     function payment_admin_menu() {
-        echo '<h3><a href="#">payment Options</a></h3>
-        <ul>
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('payment Options', 'payment') . '</a></li>
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf_prices.php') . '">&raquo; ' . __('Categories fees', 'payment') . '</a></li>
-        </ul>';
+        osc_add_admin_submenu_divider('plugins', 'Payment plugin', 'payment_divider', 'administrator');
+        osc_add_admin_submenu_page('plugins', __('Payment options', 'payment'), osc_route_admin_url('payment-admin-conf'), 'payment_settings', 'administrator');
+        osc_add_admin_submenu_page('plugins', __('Categories fees', 'payment'), osc_route_admin_url('payment-admin-prices'), 'payment_help', 'administrator');
     }
 
     /**
      * Load payment's js library
      */
     function payment_load_js() {
-        Paypal::loadJS();
-        Blockchain::loadJS();
-    }
-
-    /**
-     * Redirect to function via JS
-     *
-     * @param string $url
-     */
-    function payment_js_redirect_to($url) { ?>
-        <script type="text/javascript">
-            window.top.location.href = "<?php echo $url; ?>";
-        </script>
-    <?php }
-
-    function payment_prepare_custom($extra_array = null) {
-        if($extra_array!=null) {
-            if(is_array($extra_array)) {
-                $extra = '';
-                foreach($extra_array as $k => $v) {
-                    $extra .= $k.",".$v."|";
-                }
-            } else {
-                $extra = $extra_array;
-            }
-        } else {
-            $extra = "";
+        if(osc_get_preference('paypal_enabled', 'payment')==1) {
+            osc_register_script('paypal', 'https://www.paypalobjects.com/js/external/dg.js', array('jquery'));
         }
-        return $extra;
-    }
-
-    function payment_get_custom($custom) {
-        $tmp = array();
-        if(preg_match_all('@\|?([^,]+),([^\|]*)@', $custom, $m)){
-            $l = count($m[1]);
-            for($k=0;$k<$l;$k++) {
-                $tmp[$m[1][$k]] = $m[2][$k];
-            }
+        if(osc_get_preference('blockchain_enabled', 'payment')==1) {
+            osc_register_script('blockchain', 'https://blockchain.info/Resources/wallet/pay-now-button.js', array('jquery'));
         }
-        return $tmp;
+        osc_register_script('braintree', 'https://blockchain.info/Resources/wallet/pay-now-button.js', array('jquery'));
     }
 
     /**
@@ -148,7 +91,7 @@ Short Name: payments
                     $mItems = new ItemActions(false);
                     $mItems->disable($item['pk_i_id']);
                     ModelPayment::newInstance()->createItem($item['pk_i_id'],0);
-                    osc_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'payperpublish.php&itemId=' . $item['pk_i_id']));
+                    osc_redirect_to(osc_route_url('payment-publish', array('itemId' => $item['pk_i_id'])));
                 } else {
                     // PRICE IS ZERO
                     ModelPayment::newInstance()->createItem($item['pk_i_id'], 1);
@@ -159,7 +102,7 @@ Short Name: payments
                 if(osc_get_preference('allow_premium', 'payment')==1) {
                     $premium_fee = ModelPayment::newInstance()->getPremiumPrice($item['fk_i_category_id']);
                     if($premium_fee>0) {
-                        osc_redirect_to(osc_render_file_url(osc_plugin_folder(__FILE__) . 'makepremium.php&itemId=' . $item['pk_i_id']));
+                        osc_redirect_to(osc_route_url('payment-premium', array('itemId' => $item['pk_i_id'])));
                     }
                 }
             }
@@ -170,68 +113,11 @@ Short Name: payments
      * Create a new menu option on users' dashboards
      */
     function payment_user_menu() {
-        echo '<li class="opt_payment" ><a href="' . osc_render_file_url(osc_plugin_folder(__FILE__)."user_menu.php") . '" >' . __("Item payment status", "payment") . '</a></li>' ;
+        echo '<li class="opt_payment" ><a href="'.osc_route_url('payment-user-menu').'" >'.__("Item payment status", "payment").'</a></li>' ;
         if((osc_get_preference('pack_price_1', 'payment')!='' && osc_get_preference('pack_price_1', 'payment')!='0') || (osc_get_preference('pack_price_2', 'payment')!='' && osc_get_preference('pack_price_2', 'payment')!='0') || (osc_get_preference('pack_price_3', 'payment')!='' && osc_get_preference('pack_price_3', 'payment')!='0')) {
-            echo '<li class="opt_payment_pack" ><a href="' . osc_render_file_url(osc_plugin_folder(__FILE__)."user_menu_pack.php") . '" >' . __("Buy credit for payments", "payment") . '</a></li>' ;
+            echo '<li class="opt_payment_pack" ><a href="'.osc_route_url('payment-user-pack').'" >'.__("Buy credit for payments", "payment").'</a></li>' ;
         }
     }
-
-    /**
-     * Send email to un-registered users with payment options
-     *
-     * @param integer $item
-     * @param float $category_fee
-     */
-    function payment_send_email($item, $category_fee) {
-
-        if(osc_is_web_user_logged_in()) {
-            return false;
-        }
-
-        $mPages = new Page() ;
-        $aPage = $mPages->findByInternalName('email_payment') ;
-        $locale = osc_current_user_locale() ;
-        $content = array();
-        if(isset($aPage['locale'][$locale]['s_title'])) {
-            $content = $aPage['locale'][$locale];
-        } else {
-            $content = current($aPage['locale']);
-        }
-
-        $item_url    = osc_item_url( ) ;
-        $item_url    = '<a href="' . $item_url . '" >' . $item_url . '</a>';
-        $publish_url = osc_render_file_url(osc_plugin_folder(__FILE__) . 'payperpublish.php&itemId=' . $item['pk_i_id']);
-        $premium_url = osc_render_file_url(osc_plugin_folder(__FILE__) . 'makepremium.php&itemId=' . $item['pk_i_id']);
-
-        $words   = array();
-        $words[] = array('{ITEM_ID}', '{CONTACT_NAME}', '{CONTACT_EMAIL}', '{WEB_URL}', '{ITEM_TITLE}',
-            '{ITEM_URL}', '{WEB_TITLE}', '{PUBLISH_LINK}', '{PUBLISH_URL}', '{PREMIUM_LINK}', '{PREMIUM_URL}',
-            '{START_PUBLISH_FEE}', '{END_PUBLISH_FEE}', '{START_PREMIUM_FEE}', '{END_PREMIUM_FEE}');
-        $words[] = array($item['pk_i_id'], $item['s_contact_name'], $item['s_contact_email'], osc_base_url(), $item['s_title'],
-            $item_url, osc_page_title(), '<a href="' . $publish_url . '">' . $publish_url . '</a>', $publish_url, '<a href="' . $premium_url . '">' . $premium_url . '</a>', $premium_url, '', '', '', '') ;
-
-        if($category_fee==0) {
-            $content['s_text'] = preg_replace('|{START_PUBLISH_FEE}(.*){END_PUBLISH_FEE}|', '', $content['s_text']);
-        }
-
-        $premium_fee = ModelPayment::newInstance()->getPremiumPrice($item['fk_i_category_id']);
-
-        if($premium_fee==0) {
-            $content['s_text'] = preg_replace('|{START_PREMIUM_FEE}(.*){END_PREMIUM_FEE}|', '', $content['s_text']);
-        }
-
-        $title = osc_mailBeauty($content['s_title'], $words) ;
-        $body  = osc_mailBeauty($content['s_text'], $words) ;
-
-        $emailParams =  array('subject'  => $title
-                             ,'to'       => $item['s_contact_email']
-                             ,'to_name'  => $item['s_contact_name']
-                             ,'body'     => $body
-                             ,'alt_body' => $body);
-
-        osc_sendMail($emailParams);
-    }
-
 
     /**
      * Executed hourly with cron to clean up the expired-premium ads
@@ -279,21 +165,24 @@ Short Name: payments
     }
 
     function payment_configure_link() {
-        osc_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'conf.php');
+        osc_redirect_to(osc_route_admin_url('payment-admin-conf'));
     }
 
     function payment_update_version() {
         ModelPayment::newInstance()->versionUpdate();
     }
 
-    function payment_format_btc($btc, $symbol = "BTC") {
-        if($btc<0.00001) {
-            return ($btc*1000000).'µ'.$symbol;
-        } else if($btc<0.01) {
-            return ($btc*1000).'m'.$symbol;
-        }
-        return $btc.$symbol;
-    }
+
+    /**
+     * ADD ROUTES (VERSION 3.2+)
+     */
+    osc_add_route('payment-admin-conf', 'payment/admin/conf', 'payment/admin/conf', osc_plugin_folder(__FILE__).'admin/conf.php');
+    osc_add_route('payment-admin-prices', 'payment/admin/prices', 'payment/admin/prices', osc_plugin_folder(__FILE__).'admin/conf_prices.php');
+    osc_add_route('payment-publish', 'payment/publish/([0-9]+)', 'payment/publish/{itemId}', osc_plugin_folder(__FILE__).'user/payperpublish.php');
+    osc_add_route('payment-premium', 'payment/premium/([0-9]+)', 'payment/premium/{itemId}', osc_plugin_folder(__FILE__).'user/makepremium.php');
+    osc_add_route('payment-user-menu', 'payment/menu', 'payment/menu', osc_plugin_folder(__FILE__).'user/menu.php');
+    osc_add_route('payment-user-pack', 'payment/pack', 'payment/pack', osc_plugin_folder(__FILE__).'user/pack.php');
+    osc_add_route('payment-wallet', 'payment/wallet/([^\/]+)/([^\/]+)/([^\/]+)/(.+)', 'payment/wallet/{a}/{extra}/{desc}/{product}', osc_plugin_folder(__FILE__).'/user/wallet.php');
 
     /**
      * ADD HOOKS
@@ -303,8 +192,9 @@ Short Name: payments
     osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'payment_uninstall');
     osc_add_hook(osc_plugin_path(__FILE__)."_enable", 'payment_update_version');
 
-    osc_add_hook('admin_menu', 'payment_admin_menu');
-    osc_add_hook('header', 'payment_load_js', 10);
+    osc_add_hook('admin_menu_init', 'payment_admin_menu');
+
+    osc_add_hook('header', 'payment_load_js');
     osc_add_hook('posted_item', 'payment_publish', 3);
     osc_add_hook('user_menu', 'payment_user_menu');
     osc_add_hook('cron_hourly', 'payment_cron');
@@ -312,4 +202,6 @@ Short Name: payments
     osc_add_hook('before_item_edit', 'payment_before_edit');
     osc_add_hook('show_item', 'payment_show_item');
     osc_add_hook('delete_item', 'payment_item_delete');
+
+    osc_add_hook('ajax_braintree', array('BraintreePayment', 'ajaxPayment'));
 ?>
