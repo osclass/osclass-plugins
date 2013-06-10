@@ -12,17 +12,48 @@
 
         public function init()
         {
-            osc_add_hook('login_admin', array(&$this, 'log_login'));
-            osc_add_hook('item_form_post', array(&$this, 'log_new_job'));
-            osc_add_hook('item_edit_post', array(&$this, 'log_edit_job'));
+            osc_add_hook('login_admin',     array(&$this, 'log_login'));
+            osc_add_hook('item_form_post',  array(&$this, 'log_new_job'));
+            osc_add_hook('item_edit_post',  array(&$this, 'log_edit_job'));
             osc_add_hook('before_delete_item', array(&$this, 'log_delete_job'));
             osc_add_hook('after_delete_item', array(&$this, 'log_confirm_delete_job'));
+            osc_add_hook('edit_page'        , array(&$this, 'log_page_edited'));
         }
 
         public function uninstall()
         {
             // remove registers inserted at t_log
             $this->log->uninstall();
+        }
+
+        public function log_change_logo()
+        {
+            $data = sprintf(__('The %1$s has just modified a logo.', 'jobboard'), osc_logged_admin_name());
+            $this->log->logJobboard('changeLogo', '', $data);
+        }
+
+        public function log_update_appearance()
+        {
+            $data = sprintf(__('The %1$s has modified a design of the job board.', 'jobboard'), osc_logged_admin_name());
+            $this->log->logJobboard('updateappearance', '', $data);
+        }
+
+        public function log_page_edited($page_id)
+        {
+            $page = Page::newInstance()->findByPrimaryKey($page_id);
+            if(!empty ($page)) {
+                $s_name = $page['s_internal_name'];
+                switch ($s_name) {
+                    case 'legal':
+                        $this->log->logJobboard('editpage', '', __('The legal page has been edited.', 'jobboard'));
+                    break;
+                    case 'corporate':
+                        $this->log->logJobboard('editpage', '', __('The corporate page has been edited.', 'jobboard'));
+                    break;
+                    default:
+                    break;
+                }
+            }
         }
 
         function log_login()
