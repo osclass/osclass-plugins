@@ -19,7 +19,23 @@
                 $kf_status = 'disabled';
             }
         }
+    } else {
+        
+        $killerQuestions = array();
+        foreach($detail['array_killer_questions'] as $key => $value) {
+            $array = array();
+            $array['e_type']  = 'OPEN';
+            if(empty($value['answer'])) {
+                $array['e_type']  = 'CLOSED';
+            }
+
+            $array['s_text']     = $value['question'];
+            $array['a_answers']  = $value['answer'];
+            $killerQuestions['questions'][$key] = $array;
+        }
+
     }
+
 ?>
 <h2 class="render-title separate-top"><?php _e('Killer Questions' ,'jobboard'); ?></h2>
 <div class="grid-first-row grid-100">
@@ -43,42 +59,82 @@
     </div>
 </div>
 <div id="killerquestions">
-    <?php if( $kf_status !== 'new' ) { foreach($killerQuestions['questions'] as $key => $q) { ?>
+    <?php //if( $kf_status !== 'new' ) {
+        foreach($killerQuestions['questions'] as $key => $q) { ?>
+    <?php if($kf_status !== 'new') { ?>
     <div id="question_<?php echo $q['pk_i_id']; ?>" data-id="<?php echo $q['pk_i_id']; ?>" class="new_question">
+    <?php } else { ?>
+    <div id="new_question_<?php echo $key; ?>" data-id="<?php echo $key; ?>" class="new_question">
+    <?php } ?>
         <label><?php printf(__('Question %1$s', 'jobboard'), $key); ?></label>
         <?php
             $hide = array('add' => 'style="display:none"', 'remove' => '');
             $hasAnswers = false;
-            if($q['a_answers'] === false) {
+            if($q['a_answers'] === false || count($q['a_answers']) == 0) {
                 $hide['add']    = '';
                 $hide['remove'] = 'style="display:none"';
             } else {
                 $hasAnswers = true;
             }
         ?>
-            <?php /*<a class="add-remove-btn btn btn-mini btn-red" onclick="removeQuestion($(this));return false;"><?php _e('Remove question','jobboard'); ?></a> */ ?>
+        <?php if($kf_status !== 'new') { ?>
             <input <?php if( $kf_status === 'disabled' ) { ?>disabled="disabled"<?php } ?> class="input-large question_input" type="text" name="question[<?php echo $q['pk_i_id']; ?>][question]" value="<?php echo osc_esc_html($q['s_text']); ?>"/>
+        <?php } else { ?>
+            <a class="add-remove-btn btn btn-mini btn-red" onclick="removeQuestion($(this));return false;"><?php _e('Remove question', 'jobboard'); ?></a>
+            <input class="input-large question_input" type="text" name="new_question[<?php echo $key;?>][question]" value="<?php echo osc_esc_html($q['s_text']); ?>"/>
+        <?php } ?>
+        <!--añadir addAnswer removeAnswer-->
         <div class="containerAnswers">
-
             <?php if( $hasAnswers ) { ?>
+            <a class="addAnswers add-remove-btn btn btn-mini" style="display: none;"><?php _e('Add answers', 'jobboard'); ?></a>
+            <?php } else { ?>
+            <a class="addAnswers add-remove-btn btn btn-mini"><?php _e('Add answers', 'jobboard'); ?></a>
+            <?php } ?>
+
             <div class="containerAnswersReplace">
+            <?php if( $hasAnswers ) { ?>
                 <ol>
                     <?php
                     $num_questions = count($q['a_answers']);
-                    foreach($q['a_answers'] as $key_ => $a){ ?>
+                    foreach($q['a_answers'] as $key_ => $a) {
+                    ?>
                     <li>
+                        <?php if($kf_status !== 'new') { ?>
                         <input <?php if( $kf_status === 'disabled' ) { ?>disabled="disabled"<?php } ?> class="input-large" type="text" name="question[<?php echo $q['pk_i_id'];?>][answer][<?php echo $a['pk_i_id'];?>]" value="<?php echo osc_esc_html($a['s_text']);?>"/><?php _punctuationSelect_update($q['pk_i_id'], $a['pk_i_id'], $a['s_punctuation'], (($kf_status === 'disabled') ? true : false)); ?>
+                        <?php } else { ?>
+                        <a class="delete_answer jb_tooltip" onclick="clearAnswer($(this)); return false;" title="Remove this answer"></a>
+                        <input class="input-large" type="text" name="new_question[<?php echo $key; ?>][answer][<?php echo $key_;?>]" value="<?php echo osc_esc_html($a['text']);?>"/><?php _punctuationSelect_insert($key, $key_, $a['punct'], (($kf_status === 'disabled') ? true : false)); ?>
+                        <?php } ?>
                     </li>
                     <?php } ?>
+                    <?php
+                    $max_answers = osc_get_preference('max_answers', 'jobboard_plugin');
+                    $i = count($q['a_answers']); // 5 -2 = 3
+                    if($i!=0 && $kf_status === 'new') {  // no open question
+                        $i++;    // next answer
+                        for($i; $i <= $max_answers; $i++ ) {
+                    ?>
+                    <li>
+                        <a class="delete_answer jb_tooltip" onclick="clearAnswer($(this)); return false;" title="Remove this answer"></a>
+                        <input class="input-large" type="text" name="new_question[<?php echo $key; ?>][answer][<?php echo $i;?>]" value=""/><?php _punctuationSelect_insert($key, $i, '', (($kf_status === 'disabled') ? true : false)); ?>
+                    </li>
+                    <?php
+                        }
+
+                        } ?>
+
                     <?php if($num_questions==0) {
                         _e('Open question by default', 'jobboard');
                     } ?>
                 </ol>
+            <?php } else {  ?>
+            <span class="offset">Open question by default</span>
+            <?php } ?>
             </div>
-            <?php }  ?>
         </div>
     </div>
-    <?php } } ?>
+    <?php }
+    // } ?>
     <div id="dialog-question-delete" title="<?php echo osc_esc_html(__('Delete question', 'jobboard')); ?>" class="has-form-actions hide" data-killerform-id="<?php echo $killer_form_id; ?>" data-question-id="">
         <div class="form-horizontal">
             <div class="form-row">

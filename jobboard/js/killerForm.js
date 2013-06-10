@@ -18,19 +18,20 @@ function addQuestion() {
         var removeAnswersLink = $('<a class="removeAnswers add-remove-btn btn btn-mini btn-red">'+jobboard.langs.removeAnswersLink+'</a>');
         var containerAnswersReplace = '<div class="containerAnswersReplace"><span class="offset">'+jobboard.langs.openquestion+'</span></div>';
 
-        insertAnswersLink.click(function(){
-            insertAnswersLink.hide();
-            removeAnswersLink.show();
-            addAnswers($(this));
-            return false;
-        });
-
-        removeAnswersLink.click(function(){
-            insertAnswersLink.show();
-            removeAnswersLink.hide();
-            removeAnswers($(this));
-            return false;
-        }).hide();
+//        insertAnswersLink.click(function(){
+//            insertAnswersLink.hide();
+//            removeAnswersLink.show();
+//            addAnswers($(this));
+//            return false;
+//        });
+//
+//        removeAnswersLink.click(function(){
+//            insertAnswersLink.show();
+//            removeAnswersLink.hide();
+//            removeAnswers($(this));
+//            return false;
+//        }).hide();
+        removeAnswersLink.hide();
 
         question.append(label);
         //question.append(insertAnswersLink).append(removeAnswersLink);
@@ -155,7 +156,7 @@ function addAnswers(element) {
     }
 
     // hide button add Answers
-    $(element).parent('div.containerAnswers').find('a.removeAnswers').hide();
+//    $(element).parent('div.containerAnswers').find('a.removeAnswers').hide();
 
     addSelectStyle();
 }
@@ -210,22 +211,22 @@ function clearAnswer(element) {
     });
 }
 function triggerKillerFormCreation(){
-    $('.new_question').each(function(){
-        var insertAnswersLink = $(this).find('.addAnswers');
-        var removeAnswersLink = $(this).find('.removeAnswers');
-            insertAnswersLink.click(function(){
-                insertAnswersLink.hide();
-                removeAnswersLink.show();
-                addAnswers($(this));
-                return false;
-            });
-            removeAnswersLink.click(function(){
-                insertAnswersLink.show();
-                removeAnswersLink.hide();
-                removeAnswers($(this));
-                return false;
-            });
-    });
+//    $('.new_question').each(function(){
+//        var insertAnswersLink = $(this).find('.addAnswers');
+//        var removeAnswersLink = $(this).find('.removeAnswers');
+//            insertAnswersLink.click(function(){
+//                insertAnswersLink.hide();
+//                removeAnswersLink.show();
+//                addAnswers($(this));
+//                return false;
+//            });
+//            removeAnswersLink.click(function(){
+//                insertAnswersLink.show();
+//                removeAnswersLink.hide();
+//                removeAnswers($(this));
+//                return false;
+//            });
+//    });
     addSelectStyle();
 }
 $(document).ready(function() {
@@ -249,6 +250,12 @@ $(document).ready(function() {
         var mousey = e.pageY + 10; //Get Y coordinates
         $('.tooltip')
         .css({top: mousey, left: mousex})
+    });
+
+    $(document).on('click', 'a.addAnswers', function(){
+        $(this).hide();
+        addAnswers($(this));
+        return false;
     });
 
     // validate form

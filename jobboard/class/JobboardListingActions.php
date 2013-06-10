@@ -292,6 +292,7 @@ class JobboardListingActions
         Session::newInstance()->_setForm('pj_positionType',  Params::getParam('positionType'));
         Session::newInstance()->_setForm('pj_salaryText', Params::getParam('salaryText'));
         Session::newInstance()->_setForm('pj_numPositions', Params::getParam('numPositions'));
+
         // prepare locales
         $dataItem = array();
         $request = Params::getParamsAsArray();
@@ -303,12 +304,17 @@ class JobboardListingActions
             }
         }
         Session::newInstance()->_setForm('pj_data', $dataItem );
+        // killer questions
+        $akillerQuestions = $this->getParamsKillerForm_insert();
+        Session::newInstance()->_setForm('pj_array_killer_questions',  $akillerQuestions);
 
         // keep values on session
         Session::newInstance()->_keepForm('pj_positionType');
         Session::newInstance()->_keepForm('pj_salaryText');
         Session::newInstance()->_keepForm('pj_numPositions');
         Session::newInstance()->_keepForm('pj_data');
+        // save killer question into session
+        Session::newInstance()->_keepForm('pj_array_killer_questions');
     }
 
     /*
@@ -319,9 +325,9 @@ class JobboardListingActions
         Session::newInstance()->_keepForm('pj_salaryText');
         Session::newInstance()->_keepForm('pj_numPositions');
         Session::newInstance()->_keepForm('pj_data');
+        // killer questions
+        Session::newInstance()->_keepForm('pj_array_killer_questions');
     }
-
-
 
     // --- --- utils --- ---
     function get_jobboard_session_variables($detail) {
@@ -344,6 +350,9 @@ class JobboardListingActions
                 $detail['locale'][$locale['pk_c_code']]['s_contract']             = @$data[$locale['pk_c_code']]['contract'];
             }
         }
+        if( Session::newInstance()->_getForm('pj_array_killer_questions') != '' ) {
+            $detail['array_killer_questions'] = Session::newInstance()->_getForm('pj_array_killer_questions');
+        }
         return $detail;
     }
 
@@ -352,6 +361,9 @@ class JobboardListingActions
         Session::newInstance()->_dropKeepForm('pj_salaryText');
         Session::newInstance()->_dropKeepForm('pj_numPositions');
         Session::newInstance()->_dropKeepForm('pj_data');
+
+        // killer questions
+        Session::newInstance()->_dropKeepForm('pj_array_killer_questions');
     }
 
     /*
@@ -360,6 +372,10 @@ class JobboardListingActions
     function getParamsKillerForm_insert() {
         return $this->getParamsKillerForm(true);
     }
+
+    /*
+     * _update isn't used rigth now
+     */
     function getParamsKillerForm_update() {
         return $this->getParamsKillerForm(false);
     }

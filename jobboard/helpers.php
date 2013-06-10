@@ -89,11 +89,11 @@ function _punctuationSelect_update( $questionId, $answerId, $default = '', $disa
     _punctuationSelect(false, $questionId, $answerId, $default, $disabled);
 }
 function _punctuationSelect($new, $questionId, $answerId, $default = '', $disabled = false) {
-    $aux = 'answer_punct';
+    $aux = '';
     if($new) {
-        $aux = 'new_answer_punct';
+        $aux = 'new_';
     }
-    ?><select <?php if($disabled){ ?>disabled="disabled"<?php } ?>name="question[<?php echo $questionId;?>][<?php echo $aux;?>][<?php echo $answerId;?>]" class="select-box-medium">
+    ?><select <?php if($disabled){ ?>disabled="disabled"<?php } ?>name="<?php echo $aux; ?>question[<?php echo $questionId;?>][answer_punct][<?php echo $answerId;?>]" class="answer<?php if(!$new) { ?>select-box-medium<?php } ?>">
         <option value="" <?php if($default==''){ echo 'selected'; } ?>><?php _e('Punctuation', 'jobboard'); ?></option>
         <option value="reject" <?php if($default=='reject'){ echo 'selected'; } ?>><?php _e('Reject', 'jobboard'); ?></option>
         <option value="1" <?php if($default=='1'){ echo 'selected'; } ?>>1</option>
