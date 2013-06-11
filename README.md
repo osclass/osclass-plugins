@@ -3,7 +3,6 @@ Osclass Plugins
 
 There is a branch for each plugin. So, each branch has the latest version. Here is a list of the plugins:
 
-- [Ads 4 osc](https://github.com/osclass/osclass-plugins/tree/ads4osc)
 - [Age Warning](https://github.com/osclass/osclass-plugins/tree/agewarning)
 - [Amazon S3](https://github.com/osclass/osclass-plugins/tree/amazons3)
 - [Breadcrumbs](https://github.com/osclass/osclass-plugins/tree/breadcrumbs)
