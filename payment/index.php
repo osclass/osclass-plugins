@@ -27,7 +27,9 @@ Short Name: payments
     if(osc_get_preference('blockchain_enabled', 'payment')==1) {
         require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/blockchain/Blockchain.php'; // Ready, but untested
     }
-    require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/braintree/BraintreePayment.php'; // Ready, but untested
+    if(osc_get_preference('braintree_enabled', 'payment')==1) {
+        require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'payments/braintree/BraintreePayment.php'; // Ready, but untested
+    }
 
     /**
     * Create tables and variables on t_preference and t_pages
@@ -62,7 +64,9 @@ Short Name: payments
         if(osc_get_preference('blockchain_enabled', 'payment')==1) {
             osc_register_script('blockchain', 'https://blockchain.info/Resources/wallet/pay-now-button.js', array('jquery'));
         }
-        osc_register_script('braintree', 'https://blockchain.info/Resources/wallet/pay-now-button.js', array('jquery'));
+        if(osc_get_preference('braintree_enabled', 'payment')==1) {
+            osc_register_script('braintree', 'https://blockchain.info/Resources/wallet/pay-now-button.js', array('jquery'));
+        }
     }
 
     /**

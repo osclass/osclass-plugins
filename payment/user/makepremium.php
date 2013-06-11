@@ -24,10 +24,26 @@
                                 if(isset($wallet['formatted_amount']) && $wallet['formatted_amount']>=$category_fee) {
                                     wallet_button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
                                 } else {
-                                    Paypal::button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
+                                    if(osc_get_preference('paypal_enabled', 'payment')) {
+                                        Paypal::button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
+                                    }
+                                    if(osc_get_preference('blockchain_enabled', 'payment')) {
+                                        Blockchain::button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
+                                    }
+                                    if(osc_get_preference('braintree_enabled', 'payment')) {
+                                        BraintreePayment::button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
+                                    }
                                 }
                             } else {
-                                Paypal::button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
+                                if(osc_get_preference('paypal_enabled', 'payment')) {
+                                    Paypal::button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
+                                }
+                                if(osc_get_preference('blockchain_enabled', 'payment')) {
+                                    Blockchain::button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
+                                }
+                                if(osc_get_preference('braintree_enabled', 'payment')) {
+                                    BraintreePayment::button($category_fee, sprintf(__("Premium fee for item %d at %s", "paypal"), $item['pk_i_id'], osc_page_title()), "201x".$item['fk_i_category_id']."x".$item['pk_i_id'], array('user' => $item['fk_i_user_id'], 'itemid' => $item['pk_i_id'], 'email' => $item['s_contact_email']));
+                                }
                             }; ?>
                     </div>
                     <div style="clear:both;"></div>

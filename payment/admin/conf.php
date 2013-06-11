@@ -41,6 +41,13 @@
         osc_set_preference('blockchain_btc_address', Params::getParam("blockchain_btc_address") ? Params::getParam("blockchain_btc_address") : '', 'payment', 'STRING');
         osc_set_preference('blockchain_enabled', Params::getParam("blockchain_enabled") ? Params::getParam("blockchain_enabled") : '0', 'payment', 'BOOLEAN');
 
+        osc_set_preference('braintree_merchant_id', Params::getParam("braintree_merchant_id") ? Params::getParam("braintree_merchant_id") : '', 'payment', 'STRING');
+        osc_set_preference('braintree_public_key', Params::getParam("braintree_public_key") ? Params::getParam("braintree_public_key") : '', 'payment', 'STRING');
+        osc_set_preference('braintree_private_key', Params::getParam("braintree_private_key") ? Params::getParam("braintree_private_key") : '', 'payment', 'STRING');
+        osc_set_preference('braintree_encryption_key', Params::getParam("braintree_encryption_key") ? Params::getParam("braintree_encryption_key") : '', 'payment', 'STRING');
+        osc_set_preference('braintree_sandbox', (Params::getParam("braintree_sandbox") == 'sandbox') ? 'sandbox' : 'production', 'payment', 'STRING');
+        osc_set_preference('braintree_enabled', Params::getParam("braintree_enabled") ? Params::getParam("braintree_enabled") : '0', 'payment', 'BOOLEAN');
+
         // HACK : This will make possible use of the flash messages ;)
         ob_get_clean();
         osc_add_flash_ok_message(__('Congratulations, the plugin is now configured', 'payment'), 'admin');
@@ -61,6 +68,12 @@
             modal: true,
             width: '90%',
             title: '<?php echo osc_esc_js( __('Blockchain help', 'payment') ); ?>'
+        });
+        $("#dialog-braintree").dialog({
+            autoOpen: false,
+            modal: true,
+            width: '90%',
+            title: '<?php echo osc_esc_js( __('Braintree help', 'payment') ); ?>'
         });
     });
 </script>
@@ -221,6 +234,45 @@
                         <div class="form-label"><?php _e('Bitcoin address', 'payment'); ?></div>
                         <div class="form-controls"><input type="text" class="xlarge" name="blockchain_btc_address" value="<?php echo osc_get_preference('blockchain_btc_address', 'payment'); ?>" /></div>
                     </div>
+                    <h2 class="render-title separate-top"><?php _e('Braintree settings', 'payment'); ?> <span><a href="javascript:void(0);" onclick="$('#dialog-braintree').dialog('open');" ><?php _e('help', 'payment'); ?></a></span> <span style="font-size: 0.5em" ><a href="javascript:void(0);" onclick="$('.braintree').toggle();" ><?php _e('Show options', 'payment'); ?></a></span></h2>
+                    <div class="form-row braintree hide">
+                        <div class="form-label"><?php _e('Enable Braintree'); ?></div>
+                        <div class="form-controls">
+                            <div class="form-label-checkbox">
+                                <label>
+                                    <input type="checkbox" <?php echo (osc_get_preference('braintree_enabled', 'payment') ? 'checked="true"' : ''); ?> name="braintree_enabled" value="1" />
+                                    <?php _e('Enable Braintree as a method of payment', 'payment'); ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row braintree hide">
+                        <div class="form-label"><?php _e('Enable Sandbox'); ?></div>
+                        <div class="form-controls">
+                            <div class="form-label-checkbox">
+                                <label>
+                                    <input type="checkbox" <?php echo (osc_get_preference('braintree_sandbox', 'payment') == 'sandbox' ? 'checked="true"' : ''); ?> name="braintree_sandbox" value="sandbox" />
+                                    <?php _e('Enable sandbox for development testing', 'payment'); ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row braintree hide">
+                        <div class="form-label"><?php _e('Braintree mercahnt id', 'payment'); ?></div>
+                        <div class="form-controls"><input type="text" class="xlarge" name="braintree_merchant_id" value="<?php echo osc_get_preference('braintree_merchant_id', 'payment'); ?>" /></div>
+                    </div>
+                    <div class="form-row braintree hide">
+                        <div class="form-label"><?php _e('Braintree public key', 'payment'); ?></div>
+                        <div class="form-controls"><input type="text" class="xlarge" name="braintree_public_key" value="<?php echo osc_get_preference('braintree_public_key', 'payment'); ?>" /></div>
+                    </div>
+                    <div class="form-row braintree hide">
+                        <div class="form-label"><?php _e('Braintree private key', 'payment'); ?></div>
+                        <div class="form-controls"><input type="text" class="xlarge" name="braintree_private_key" value="<?php echo osc_get_preference('braintree_private_key', 'payment'); ?>" /></div>
+                    </div>
+                    <div class="form-row braintree hide">
+                        <div class="form-label"><?php _e('Braintree encryption key', 'payment'); ?></div>
+                        <div class="form-controls"><input type="text" class="xlarge" name="braintree_" value="<?php echo osc_get_preference('braintree_', 'payment'); ?>" /></div>
+                    </div>
                     <div class="clear"></div>
                     <div class="form-actions">
                         <input type="submit" id="save_changes" value="<?php echo osc_esc_html( __('Save changes') ); ?>" class="btn btn-submit" />
@@ -311,6 +363,24 @@
         <div class="form-actions">
             <div class="wrapper">
                 <a class="btn" href="javascript:void(0);" onclick="$('#dialog-blockchain').dialog('close');"><?php _e('Cancel'); ?></a>
+            </div>
+        </div>
+    </div>
+</form>
+<form id="dialog-braintree" method="get" action="#" class="has-form-actions hide">
+    <div class="form-horizontal">
+        <div class="form-row">
+            <h3><?php _e('Learn more about Bitcoins', 'payment'); ?></h3>
+            <p>
+                <?php printf(__('Braintree official website: %s', 'payment'), '<a href="https://www.braintreepayments.com/">https://www.braintreepayments.com/</a>'); ?>.
+                <br/>
+                <?php printf(__('Getting started: %s', 'payment'), '<a href="https://www.braintreepayments.com/tour/payment-gateway">https://www.braintreepayments.com/tour/payment-gateway</a>'); ?>.
+                <br/>
+            </p>
+        </div>
+        <div class="form-actions">
+            <div class="wrapper">
+                <a class="btn" href="javascript:void(0);" onclick="$('#dialog-braintree').dialog('close');"><?php _e('Cancel'); ?></a>
             </div>
         </div>
     </div>

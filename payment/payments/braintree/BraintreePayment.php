@@ -82,7 +82,7 @@
                         $("#braintree-results").html(data);
                     });
                 };
-                var braintree = Braintree.create("MIIBCgKCAQEApXpPGWQKmPCOQrhO+OqwmbHdoKZu6FU3lZx38/WWzSrfwWvfaV2dj/iYA7wI6uz4aZ5lvlc8Ul9ppLcqmilhmXgATdNrhUoiPYa8caTX7VQ+yP69OrLfusOqEuvS5DNU4HWnYIgLYSxTGqKcZpTGl1IbtTjjMShEs/T8udGPOcc6YhJ0GXmrHoleldy0nrJTujVn4JOc0RgVGWF4IU3l2WBaBHNgZw1uZfWq2PDouhZUseNyFMBKFHi3kTk4a87K4K9St0jYsiwOQTdTIRejlBRhEzKKhp2102LXFhQxGmuNTCOqaG30r+2U3rgRmpwZ1dJ0W34wQ6Vl5xPVQ/OpewIDAQAB");
+                var braintree = Braintree.create(osc_get_preference('braintree_encryption_key', 'payment'));
                 braintree.onSubmitEncryptForm('braintree-payment-form', ajax_submit);
 
                 function braintree_pay(amount, description, itemnumber, extra) {
@@ -116,10 +116,10 @@
         public static function processPayment() {
             require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'lib/Braintree.php';
 
-            Braintree_Configuration::environment('sandbox');
-            Braintree_Configuration::merchantId('6sydfqcpfbzmcj7w');
-            Braintree_Configuration::publicKey('bytsnfpmh8f2v637');
-            Braintree_Configuration::privateKey('88396fd311a6e1016a903bf08660065f');
+            Braintree_Configuration::environment(osc_get_preference('braintree_sandbox', 'payment'));
+            Braintree_Configuration::merchantId(osc_get_preference('braintree_merchant_id', 'payment'));
+            Braintree_Configuration::publicKey(osc_get_preference('braintree_public_key', 'payment'));
+            Braintree_Configuration::privateKey(osc_get_preference('braintree_private_key', 'payment'));
 
             $result = Braintree_Transaction::sale(array(
                 'amount' => Params::getParam('amount'),

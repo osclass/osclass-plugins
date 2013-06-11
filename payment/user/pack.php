@@ -47,12 +47,11 @@
                         <?php Blockchain::button($pack, sprintf(__("Credit for %s %s at %s", "payment"), $pack, osc_get_preference("currency", "payment"), osc_page_title()), '301x'.$pack, array('user' => $user['pk_i_id'], 'itemid' => $user['pk_i_id'], 'email' => $user['s_email'])); ?>
                    </div>
                 <?php }; ?>
-                <div>
-                    <?php BraintreePayment::button($pack, sprintf(__("Credit for %s %s at %s", "payment"), $pack, osc_get_preference("currency", "payment"), osc_page_title()), '301x'.$pack, array('user' => $user['pk_i_id'], 'itemid' => $user['pk_i_id'], 'email' => $user['s_email'])); ?>
-                </div>
-                <?php /* <div>
-                    <?php Payza::button($pack, sprintf(__("Credit for %s %s at %s", "payment"), $pack, osc_get_preference("currency", "payment"), osc_page_title()), '301x'.$pack, array('user' => $user['pk_i_id'], 'itemid' => $user['pk_i_id'], 'email' => $user['s_email'])); ?>
-                </div> */ ?>
+                <?php if(osc_get_preference('braintree_enabled', 'payment')==1) { ?>
+                    <div>
+                        <?php BraintreePayment::button($pack, sprintf(__("Credit for %s %s at %s", "payment"), $pack, osc_get_preference("currency", "payment"), osc_page_title()), '301x'.$pack, array('user' => $user['pk_i_id'], 'itemid' => $user['pk_i_id'], 'email' => $user['s_email'])); ?>
+                    </div>
+                <?php }; ?>
             </div>
             <div style="clear:both;"></div>
             <br/>
