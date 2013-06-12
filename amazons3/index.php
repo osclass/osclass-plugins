@@ -94,7 +94,11 @@ Plugin update URI: amazon-s3
     }
     
     function amazon_configure_link() {
-        osc_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'admin/conf.php');
+        if(osc_version()<320) {
+            osc_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'admin/conf.php');
+        } else {
+            osc_redirect_to(osc_route_admin_url('amazons3-admin-conf'));
+        }
     }
     
     if(osc_version()>=320) {
