@@ -4,6 +4,8 @@ class JobboardAdminMenu
 {
     public function __construct() {
         $this->init();
+
+        osc_add_hook('admin_menu_init', array(&$this, 'init'));
     }
 
     /**
@@ -14,7 +16,6 @@ class JobboardAdminMenu
             __('Jobboard', 'jobboard'),
             osc_admin_render_plugin_url("jobboard/dashboard.php"),
             'jobboard',
-            '',
             'moderator'
         );
 
