@@ -3,8 +3,6 @@
 class JobboardAdminMenu
 {
     public function __construct() {
-        $this->init();
-
         osc_add_hook('admin_menu_init', array(&$this, 'init'));
     }
 
