@@ -3,7 +3,7 @@
 Plugin Name: Amazon S3
 Plugin URI: http://www.osclass.org/
 Description: This plugin allows you to upload users' images to Amazon S3 service
-Version: 1.0.2
+Version: 1.0.3
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: amazons3
@@ -30,7 +30,7 @@ Plugin update URI: amazon-s3
     
     function amazon_upload($resource) {
         $s3 = new S3(osc_get_preference('access_key', 'amazons3'), osc_get_preference('secret_key', 'amazons3'));
-        $s3->putBucket(osc_get_preference('bucket', 'amazons3'), S3::ACL_PUBLIC_READ);
+        @$s3->putBucket(osc_get_preference('bucket', 'amazons3'), S3::ACL_PUBLIC_READ);
         if(osc_keep_original_image()) {
             $s3->putObjectFile(osc_content_path() . 'uploads/' . $resource['pk_i_id'] . '_original.jpg', osc_get_preference('bucket', 'amazons3'), $resource['pk_i_id'] . '_original.jpg', S3::ACL_PUBLIC_READ);
         }
@@ -82,21 +82,28 @@ Plugin update URI: amazon-s3
     
 
     function amazon_admin_menu() {
-        echo '<h3><a href="#">Amazon S3</a></h3>
-        <ul> 
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'amazon') . '</a></li>
-        </ul>';
-    }
-    
-    function amazon_redirect_to($url) {
-        header('Location: ' . $url);
-        exit;
+        if(osc_version()<320) {
+            echo '<h3><a href="#">Amazon S3</a></h3>
+            <ul> 
+                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'admin/conf.php') . '">&raquo; ' . __('Settings', 'amazon') . '</a></li>
+            </ul>';
+        } else {
+            osc_add_admin_submenu_divider('plugins', 'Amazon S3 plugin', 'amazons3_divider', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('Amazon S3 options', 'amazons3'), osc_route_admin_url('amazons3-admin-conf'), 'amazons3_settings', 'administrator');
+        }
     }
     
     function amazon_configure_link() {
-        amazon_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'conf.php');
+        osc_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'admin/conf.php');
     }
     
+    if(osc_version()>=320) {
+        /**
+         * ADD ROUTES (VERSION 3.2+)
+         */
+        osc_add_route('amazons3-admin-conf', 'amazons3/admin/conf', 'amazons3/admin/conf', osc_plugin_folder(__FILE__).'admin/conf.php');
+    }    
+
     
     /**
      * ADD HOOKS
@@ -110,6 +117,10 @@ Plugin update URI: amazon-s3
     osc_add_hook('regenerate_image', 'amazon_regenerate_image');
     osc_add_hook('regenerated_image', 'amazon_upload');
     osc_add_hook('delete_resource', 'amazon_delete_from_bucket');
-    osc_add_hook('admin_menu', 'amazon_admin_menu');
+    if(osc_version()<320) {
+        osc_add_hook('admin_menu', 'amazon_admin_menu');
+    } else {
+        osc_add_hook('admin_menu_init', 'amazon_admin_menu');
+    }
     
 ?>
