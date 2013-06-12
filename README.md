@@ -6,7 +6,6 @@ There is a branch for each plugin. So, each branch has the latest version. Here 
 - [Age Warning](https://github.com/osclass/osclass-plugins/tree/agewarning)
 - [Amazon S3](https://github.com/osclass/osclass-plugins/tree/amazons3)
 - [Breadcrumbs](https://github.com/osclass/osclass-plugins/tree/breadcrumbs)
-- [Buy & sell options](https://github.com/osclass/osclass-plugins/tree/buysell)
 - [Cars attributes](https://github.com/osclass/osclass-plugins/tree/cars_attributes)
 - [Dating attributes](https://github.com/osclass/osclass-plugins/tree/dating_attributes)
 - [List themes](https://github.com/osclass/osclass-plugins/tree/demo_theme)
