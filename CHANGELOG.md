@@ -1,6 +1,13 @@
 Changelog Cars attributes
 ===============================
 
+##version 3.0.4 - 12/06/2013
+
+* Updated to work with Osclass 3.2
+* Added missing <tr> in item_Detail ( #141 )
+* Fixed not being able to delete makes, models or types ( #151 )
+* Fixed 10 limit in types ( #154 )
+
 ##version 3.0.3 - 17/05/2013
 
 * Security patch

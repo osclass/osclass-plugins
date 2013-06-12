@@ -84,6 +84,7 @@
         <td width="150px"><label><?php _e('Warranty', 'cars_attributes'); ?>: </label></td>
         <td width="150px"><?php echo @$detail['b_warranty'] ? '<strong>' . __('Yes', 'cars_attributes') . '</strong>' : __('No', 'cars_attributes'); ?></td>
     </tr>
+    <tr>
         <td><label><?php _e('New', 'cars_attributes'); ?>: </label></td>
         <td width="150px"><?php echo @$detail['b_new'] ? '<strong>' . __('Yes', 'cars_attributes') . '</strong>' : __('No', 'cars_attributes'); ?></td>
     </tr>

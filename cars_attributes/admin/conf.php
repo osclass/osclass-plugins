@@ -65,7 +65,7 @@
                                     }
                                     // insert locales
                                     $lastId = ModelCars::newInstance()->getLastVehicleTypeId();
-                                    $lastId = $lastId['pk_i_id'] + 1 ;
+                                    $lastId = $lastId + 1 ;
                                     foreach ($dataItem as $k => $_data) {
                                         ModelCars::newInstance()->insertVehicleType($lastId, $k, $_data['car_type']);
                                     }
@@ -89,14 +89,19 @@
                                             <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
                                                 <input type="hidden" name="page" value="plugins" />
                                                 <input type="hidden" name="action" value="renderplugin" />
-                                                <input type="hidden" name="file" value="cars_attributes/conf.php" />
+                                                <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
                                                 <input type="hidden" name="section" value="makes" />
                                                 <input type="hidden" name="plugin_action" value="make_edit" />
                                                 <ul>
                                                 <?php
                                                     $makes = ModelCars::newInstance()->getCarMakes() ;
                                                     foreach($makes as $make) {
-                                                        echo '<li><input name="make[' . $make['pk_i_id'] . ']" id="' . $make['pk_i_id'] . '" type="text" value="' . $make['s_name'] . '" /> <a href="' . osc_admin_base_url(true) . '?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=makes&plugin_action=make_delete&id=' . $make['pk_i_id'] . '" >' . __('Delete', 'cars_attributes') . '</a> </li>';
+                                                        // @DEPRECATED : backward compatibility, this line should be removed in Osclass 3.4
+                                                        if(osc_version()<320) {
+                                                            echo '<li><input name="make[' . $make['pk_i_id'] . ']" id="' . $make['pk_i_id'] . '" type="text" value="' . $make['s_name'] . '" /> <a href="' . osc_admin_base_url(true) . '?page=plugins&action=renderplugin&file='.osc_plugin_folder(__FILE__).'conf.php?section=makes&plugin_action=make_delete&id=' . $make['pk_i_id'] . '" >' . __('Delete', 'cars_attributes') . '</a> </li>';
+                                                        } else {
+                                                            echo '<li><input name="make[' . $make['pk_i_id'] . ']" id="' . $make['pk_i_id'] . '" type="text" value="' . $make['s_name'] . '" /> <a href="' . osc_route_admin_url('cars-admin-conf', array('section' => 'makes', 'plugin_action' => 'make_delete', 'id' => $make['pk_i_id'])) . '" >' . __('Delete', 'cars_attributes') . '</a> </li>';
+                                                        }
                                                     }
                                                 ?>
                                                 </ul>
@@ -110,7 +115,7 @@
                                             <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true); ?>" method="GET" enctype="multipart/form-data" >
                                                 <input type="hidden" name="page" value="plugins" />
                                                 <input type="hidden" name="action" value="renderplugin" />
-                                                <input type="hidden" name="file" value="cars_attributes/conf.php" />
+                                                <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
                                                 <input type="hidden" name="section" value="makes" />
                                                 <input type="hidden" name="plugin_action" value="make_add" />
                                                 <input name="make" id="make" value="" />
@@ -131,7 +136,14 @@
                                         <fieldset>
                                             <legend><?php _e('Models', 'cars_attributes'); ?></legend>
                                             <?php $make = ModelCars::newInstance()->getCarMakes() ; ?>
-                                            <select name="make" id="make" onchange="location.href = '<?php echo osc_admin_base_url(true);?>?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&makeId=' + this.value" >
+                                            <?php
+                                            // @DEPRECATED : backward compatibility, this line should be removed in Osclass 3.4
+                                            if(osc_version()<320) {
+                                                $select_url =  osc_admin_base_url(true).'?page=plugins&action=renderplugin&file='.osc_plugin_folder(__FILE__).'conf.php?section=models&makeId=';
+                                            } else {
+                                                $select_url = osc_route_admin_url('cars-admin-conf', array('section' => 'models', 'makeId' => ''));
+                                            } ?>
+                                            <select name="make" id="make" onchange="location.href = '<?php echo $select_url; ?>' + this.value" >
                                                 <option value=""><?php _e('Select a make', 'cars_attributes'); ?></option>
                                                 <?php foreach($make as $a) { ?>
                                                 <option value="<?php echo $a['pk_i_id']; ?>" <?php if($makeId==$a['pk_i_id']) { echo 'selected'; } ?>><?php echo $a['s_name']; ?></option>
@@ -140,7 +152,7 @@
                                             <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
                                                 <input type="hidden" name="page" value="plugins" />
                                                 <input type="hidden" name="action" value="renderplugin" />
-                                                <input type="hidden" name="file" value="cars_attributes/conf.php" />
+                                                <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
                                                 <input type="hidden" name="section" value="models" />
                                                 <input type="hidden" name="plugin_action" value="model_edit" />
                                                 <input type="hidden" name="makeId" value="<?php echo  $makeId;?>" />
@@ -149,7 +161,12 @@
                                                     if($makeId != "") {
                                                         $models = ModelCars::newInstance()->getCarModels($makeId) ;
                                                         foreach($models as $model) {
-                                                            echo '<li><input name="model['.$model['pk_i_id'].']" id="'.$model['pk_i_id'].'" type="text" value="'.$model['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=models&plugin_action=model_delete&makeId='.$makeId.'&id='.$model['pk_i_id'].'" >'.__('Delete', 'cars_attributes').'</a> </li>';
+                                                            // @DEPRECATED : backward compatibility, this line should be removed in Osclass 3.4
+                                                            if(osc_version()<320) {
+                                                                echo '<li><input name="model['.$model['pk_i_id'].']" id="'.$model['pk_i_id'].'" type="text" value="'.$model['s_name'].'" /> <a href="'.osc_admin_base_url(true).'?page=plugins&action=renderplugin&file='.osc_plugin_folder(__FILE__).'conf.php?section=models&plugin_action=model_delete&makeId='.$makeId.'&id='.$model['pk_i_id'].'" >'.__('Delete', 'cars_attributes').'</a> </li>';
+                                                            } else {
+                                                                echo '<li><input name="model['.$model['pk_i_id'].']" id="'.$model['pk_i_id'].'" type="text" value="'.$model['s_name'].'" /> <a href="'.osc_route_admin_url('cars-admin-conf', array('section' => 'models', 'plugin_action' => 'model_delete', 'makeId' => $makeId, 'id' => $model['pk_i_id'])).'" >'.__('Delete', 'cars_attributes').'</a> </li>';
+                                                            }
                                                         }
                                                     } else {
                                                         echo '<li>Select a make first.</li>';
@@ -166,7 +183,7 @@
                                             <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true); ?>" method="GET" enctype="multipart/form-data" >
                                                 <input type="hidden" name="page" value="plugins" />
                                                 <input type="hidden" name="action" value="renderplugin" />
-                                                <input type="hidden" name="file" value="cars_attributes/conf.php" />
+                                                <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
                                                 <input type="hidden" name="section" value="models" />
                                                 <input type="hidden" name="plugin_action" value="model_add" />
 
@@ -203,7 +220,7 @@
                                                     <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true); ?>" method="GET" enctype="multipart/form-data" >
                                                         <input type="hidden" name="page" value="plugins" />
                                                         <input type="hidden" name="action" value="renderplugin" />
-                                                        <input type="hidden" name="file" value="cars_attributes/conf.php" />
+                                                        <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
                                                         <input type="hidden" name="section" value="types" />
                                                         <input type="hidden" name="plugin_action" value="type_edit" />
                                                         <ul>
@@ -212,7 +229,15 @@
                                                                 if( array_key_exists($locale['pk_c_code'], $data) ) {
                                                                     foreach($data[$locale['pk_c_code']] as $car_type) { ?>
                                                                     <li>
-                                                                        <input name="car_type[<?php echo  $car_type['pk_i_id']; ?>][<?php echo  $locale['pk_c_code']; ?>]" id="<?php echo  $car_type['pk_i_id']; ?>" type="text" value="<?php echo  $car_type['s_name']; ?>" /> <a href="<?php echo osc_admin_base_url(true); ?>?page=plugins&action=renderplugin&file=cars_attributes/conf.php?section=types&plugin_action=type_delete&id=<?php echo  $car_type['pk_i_id']; ?>" ><button><?php _e('Delete', 'cars_attributes'); ?></button></a>
+                                                                        <?php
+                                                                        // @DEPRECATED : backward compatibility, this line should be removed in Osclass 3.4
+                                                                        if(osc_version()<320) {
+                                                                            $button_url = osc_admin_base_url(true).'?page=plugins&action=renderplugin&file='.osc_plugin_folder(__FILE__).'conf.php?section=types&plugin_action=type_delete&id='.$car_type['pk_i_id'];
+                                                                        } else {
+                                                                            $button_url = osc_route_admin_url('cars-admin-conf', array('section' => 'types', 'plugin_action' => 'type_delete',
+                                                                                'id' => $car_type['pk_i_id']));
+                                                                        }; ?>
+                                                                        <input name="car_type[<?php echo  $car_type['pk_i_id']; ?>][<?php echo  $locale['pk_c_code']; ?>]" id="<?php echo  $car_type['pk_i_id']; ?>" type="text" value="<?php echo  $car_type['s_name']; ?>" /> <a href="<?php echo $button_url; ?>" ><?php _e('Delete', 'cars_attributes'); ?></a>
                                                                     </li>
                                                                 <?php }
                                                                 }
@@ -232,7 +257,7 @@
                                             <form name="cars_form" id="cars_form" action="<?php echo osc_admin_base_url(true);?>" method="GET" enctype="multipart/form-data" >
                                                 <input type="hidden" name="page" value="plugins" />
                                                 <input type="hidden" name="action" value="renderplugin" />
-                                                <input type="hidden" name="file" value="cars_attributes/conf.php" />
+                                                <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
                                                 <input type="hidden" name="section" value="types" />
                                                 <input type="hidden" name="plugin_action" value="type_add" />
 

@@ -3,7 +3,7 @@
 Plugin Name: Cars attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store cars attributes such as model, year, brand, color, accessories, and so on.
-Version: 3.0.3
+Version: 3.0.4
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: cars_plugin
@@ -181,13 +181,21 @@ Plugin update URI: cars-attributes
     }
 
     function cars_admin_menu() {
-        echo '<h3><a href="#">Cars plugin</a></h3>
-        <ul> 
-            <li><a href="'.osc_admin_configure_plugin_url("cars_attributes/index.php").'">&raquo; '.__('Configure plugin', 'cars_attributes').'</a></li>
-            <li><a href="'.osc_admin_render_plugin_url("cars_attributes/conf.php").'?section=makes">&raquo; '.__('Manage makes', 'cars_attributes').'</a></li>
-            <li><a href="'.osc_admin_render_plugin_url("cars_attributes/conf.php").'?section=models">&raquo; '.__('Manage models', 'cars_attributes').'</a></li>
-            <li><a href="'.osc_admin_render_plugin_url("cars_attributes/conf.php").'?section=types">&raquo; '.__('Manage vehicle types', 'cars_attributes').'</a></li>
-        </ul>';
+        if(osc_version()<320) {
+            echo '<h3><a href="#">Cars plugin</a></h3>
+            <ul>
+                <li><a href="'.osc_admin_configure_plugin_url("cars_attributes/index.php").'">&raquo; '.__('Configure plugin', 'cars_attributes').'</a></li>
+                <li><a href="'.osc_admin_render_plugin_url("cars_attributes/conf.php").'?section=makes">&raquo; '.__('Manage makes', 'cars_attributes').'</a></li>
+                <li><a href="'.osc_admin_render_plugin_url("cars_attributes/conf.php").'?section=models">&raquo; '.__('Manage models', 'cars_attributes').'</a></li>
+                <li><a href="'.osc_admin_render_plugin_url("cars_attributes/conf.php").'?section=types">&raquo; '.__('Manage vehicle types', 'cars_attributes').'</a></li>
+            </ul>';
+        } else {
+            osc_add_admin_submenu_divider('plugins', __('Cars plugin', 'cars_attributes'), 'cars_attributes_divider', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('Configure plugin', 'cars_attributes'), osc_admin_configure_plugin_url("cars_attributes/index.php"), 'cars_attributes_settings', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('Manage makes', 'cars_attributes'), osc_route_admin_url('cars-admin-conf', array('section' => 'makes')), 'cars_attributes_makes', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('Manage models', 'cars_attributes'), osc_route_admin_url('cars-admin-conf', array('section' => 'models')), 'cars_attributes_models', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('Manage vehicle types', 'cars_attributes'), osc_route_admin_url('cars-admin-conf', array('section' => 'types')), 'cars_attributes_types', 'administrator');
+        }
     }
 
     function cars_delete_locale($locale) {
@@ -277,6 +285,10 @@ Plugin update URI: cars-attributes
 
         return $array;
     }
+
+    if(osc_version()>=320) {
+        osc_add_route('cars-admin-conf', 'cars-conf/(.+)', 'cars-conf/{section}', osc_plugin_folder(__FILE__).'admin/conf.php');
+    }
     
     // This is needed in order to be able to activate the plugin
     osc_register_plugin(osc_plugin_path(__FILE__), 'cars_call_after_install');
@@ -303,13 +315,16 @@ Plugin update URI: cars-attributes
     // edit an item special attributes POST
     osc_add_hook('item_edit_post', 'cars_item_edit_post');
 
-    osc_add_hook('admin_menu', 'cars_admin_menu');
+    if(osc_version()<320) {
+        osc_add_hook('admin_menu', 'cars_admin_menu');
+    } else {
+        osc_add_hook('admin_menu_init', 'cars_admin_menu');
+    }
 
     // delete locale
     osc_add_hook('delete_locale', 'cars_delete_locale');
-    //d elete item
+    //delete item
     osc_add_hook('delete_item', 'cars_delete_item');
-
     // previous to insert item
     osc_add_hook('pre_item_post', 'cars_pre_item_post') ;
 
