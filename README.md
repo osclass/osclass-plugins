@@ -1,5 +1,4 @@
-Voting
-======
+Autoregister
+============
 
-Show voting system at item page.
-Posibility of find highest/lower voted, grouping by category if is needed.
+Automatic registration to each user that publish an item
