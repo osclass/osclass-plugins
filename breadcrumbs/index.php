@@ -23,7 +23,7 @@
 Plugin Name: Bread crumbs
 Plugin URI: http://www.osclass.org/
 Description: Breadcrumbs navigation system.
-Version: 1.6.5
+Version: 1.6.6
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: breadcrumbs
@@ -201,14 +201,30 @@ Plugin update URI: breadcrumbs
     }
 
     function breadcrumbs_admin_menu() {
-        echo '<h3><a href="#">Breadcrumbs</a></h3>
-        <ul> 
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/help.php') . '">&raquo; ' . __('F.A.Q. / Help', 'breadcrumbs') . '</a></li>
-        </ul>';
+        if(osc_version()<320) {
+            echo '<h3><a href="#">Breadcrumbs</a></h3>
+            <ul>
+                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_path(dirname(__FILE__)) . '/help.php') . '">&raquo; ' . __('F.A.Q. / Help', 'breadcrumbs') . '</a></li>
+            </ul>';
+        } else {
+            osc_add_admin_submenu_page('plugins', __('Breadcrumbs F.A.Q. / Help', 'breadcrumbs'), osc_route_admin_url('breadcrumbs-admin-help'), 'breadcrumbs_help', 'administrator');
+        }
+    }
+    
+    if(osc_version()>=320) {
+        /**
+         * ADD ROUTES (VERSION 3.2+)
+         */
+        osc_add_route('breadcrumbs-admin-help', 'breadcrumbs/admin/help', 'breadcrumbs/admin/help', osc_plugin_folder(__FILE__).'help.php');
     }
 
+
     function breadcrumbs_help() {
-        osc_admin_render_plugin(osc_plugin_path(dirname(__FILE__)) . '/help.php') ;
+        if(osc_version()<320) {
+            osc_admin_render_plugin(osc_plugin_path(dirname(__FILE__)) . '/help.php') ;
+        } else {
+            osc_redirect_to(osc_route_admin_url('breadcrumbs-admin-help'));
+        }
     }
 
     // This is needed in order to be able to activate the plugin
@@ -218,6 +234,10 @@ Plugin update URI: breadcrumbs
     // This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
     osc_add_hook(osc_plugin_path(__FILE__) . '_uninstall', '');
     // Add the help to the menu
-    osc_add_hook('admin_menu', 'breadcrumbs_admin_menu');
+    if(osc_version()<320) {
+        osc_add_hook('admin_menu', 'breadcrumbs_admin_menu');
+    } else {
+        osc_add_hook('admin_menu_init', 'breadcrumbs_admin_menu');
+    }
 
 ?>

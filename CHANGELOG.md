@@ -1,6 +1,10 @@
 Changelog Breadcrumbs
 =====================
 
+##version 1.6.6 - 12/06/2013
+
+* Updated to work with 3.2
+
 ##version 1.6.5 - 17/05/2013
 
 * Security patch
