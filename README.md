@@ -1,5 +1,5 @@
-Bitcoins plugins
-================
+Bitcoins plugin
+===============
 
 Display the price in Bitcoins currency. It will update with prices hourly
 
