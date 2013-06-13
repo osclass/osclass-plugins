@@ -275,3 +275,8 @@ label.score .score-manage{
 #killerquestions .well textarea{
     width: 755px;
 }
+
+.jobboard-title {
+    font-size: 18px!important;
+    padding-top:15px;
+}

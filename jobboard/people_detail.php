@@ -73,7 +73,7 @@
             </div>
             <div class="clear"></div>
             <div class="applicant-cover-letter">
-                <h3 class="render-title"><?php _e('Cover letter', 'jobboard'); ?></h3>
+                <h3 class="render-title jobboard-title"><?php _e('Cover letter', 'jobboard'); ?></h3>
                 <p><?php echo nl2br($people['s_cover_letter']); ?></p>
             </div>
         </div>
@@ -111,6 +111,7 @@
         </div>
         <div style="clear:both;"></div>
     </div>
+    <h3 class="render-title jobboard-title"><?php _e('Applicant CV', 'jobboard'); ?></h3>
     <div id="applicant-resume">
         <?php if(empty($file)) {
             _e("This applicant has not sumitted any resume", "jobboard");
@@ -118,7 +119,7 @@
         <iframe src="<?php echo osc_base_url(true) .'?page=ajax&action=custom&ajaxfile='.osc_plugin_folder(__FILE__).'viewer/viewer.php'; ?>?file=<?php echo osc_base_url() . str_replace(osc_base_path(), '', osc_uploads_path()) . $file['s_name']; ?>" ></iframe>
         <?php } ?>
     </div>
-    <h3 class="sidebar-title render-title">
+    <h3 class="sidebar-title render-title jobboard-title">
         <?php _e("Notes", "jobboard"); ?> <span class="note_plus"><a class="add_note btn btn-mini" href="javascript:void(0);"><?php _e("Add note", "jobboard"); ?></a></span>
     </h3>
     <div style="clear:both;"></div>
