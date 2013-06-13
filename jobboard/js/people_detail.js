@@ -128,7 +128,7 @@ $(document).ready(function() {
                 if( data.error) {
                     return false;
                 }
-                $("#applicant-status-notification-message").val(data.message)
+                $("#applicant-status-notification-message").val(data.message);
                 tinyMCE.activeEditor.setContent(data.message);
                 $("#dialog-applicant-status").dialog({width:740}).dialog('open');
             }
