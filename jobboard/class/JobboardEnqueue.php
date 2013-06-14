@@ -31,6 +31,7 @@ class JobboardEnqueue
         $langs['birthday_required']     = __('Birthday: this field is required', 'jobboard');
         $langs['invalid_birthday_date'] = __('Invalid birthday date', 'jobboard');
         $langs['complete_form_please']  = __('Complete this form', 'jobboard');
+        $langs['admins_help_inline']    = __('Administrators have total control over all aspects of your jobboard, while moderators are only allowed to view job offers and manage applicants', 'jobboard');
         // killer questions related
         $langs['question']              = __('Question', 'jobboard');
         $langs['answer']                = __('Answer', 'jobboard');
@@ -102,6 +103,11 @@ class JobboardEnqueue
             osc_enqueue_script('jobboard-killer-form');
             if(Params::getParam('action')=='post') {
                 osc_enqueue_script('jobboard-item-add');
+            }
+        }
+        if(Params::getParam('page')=='admins') {
+            if(Params::getParam('action')=='add' || Params::getParam('action')=='edit') {
+                osc_enqueue_script('jobboard-admin-page');
             }
         }
     }

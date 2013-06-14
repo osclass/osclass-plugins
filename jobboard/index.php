@@ -64,6 +64,7 @@ osc_register_script('jobboard-apply-linkedin', osc_plugin_url(__FILE__) . 'js/br
 osc_register_script('jobboard-show-flashmessage', osc_plugin_url(__FILE__) . 'js/jobboardShowFlashmessage.js', array('jquery'));
 osc_register_script('jobboard-init-tinymce', osc_plugin_url(__FILE__) . 'js/init_tinymce.js', array('jquery', 'tiny_mce'));
 osc_register_script('jobboard-item-add', osc_plugin_url(__FILE__) . 'js/item_add.js', array('jquery'));
+osc_register_script('jobboard-admin-page', osc_plugin_url(__FILE__) . 'js/jb_admin.js', 'jquery');
 /* -- Register js and css scripts -- */
 
 
