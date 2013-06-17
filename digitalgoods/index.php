@@ -3,72 +3,47 @@
 Plugin Name: Digital Goods
 Plugin URI: http://www.osclass.org/
 Description: This plugin allows your users to attach a digital file to their ads
-Version: 1.0.4
+Version: 1.1.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: digitalgoods
 Plugin update URI: digital-goods
 */
 
+    require_once 'DGModel.php';
 
     function digitalgoods_install() {
-        $conn = getConnection();
-        $conn->autocommit(false);
-        try {
-            $path = osc_plugin_resource('digitalgoods/struct.sql');
-            $sql = file_get_contents($path);
-            $conn->osc_dbImportSQL($sql);
-            $conn->commit();
-            @mkdir(osc_content_path().'uploads/digitalgoods/');
-            osc_set_preference('upload_path', osc_content_path().'uploads/digitalgoods/', 'digitalgoods', 'STRING');
-            osc_set_preference('max_files', '1', 'digitalgoods', 'INTEGER');
-            osc_set_preference('allowed_ext', 'zip,rar,tgz', 'digitalgoods', 'INTEGER');
-        } catch (Exception $e) {
-            $conn->rollback();
-            echo $e->getMessage();
-        }
-        $conn->autocommit(true);
+        DGModel::newInstance()->import('cars_attributes/struct.sql');
+        @mkdir(osc_content_path().'uploads/digitalgoods/');
+        osc_set_preference('upload_path', osc_content_path().'uploads/digitalgoods/', 'digitalgoods', 'STRING');
+        osc_set_preference('max_files', '1', 'digitalgoods', 'INTEGER');
+        osc_set_preference('allowed_ext', 'zip,rar,tgz', 'digitalgoods', 'INTEGER');
     }
 
     function digitalgoods_uninstall() {
-        $conn = getConnection();
-        $conn->autocommit(false);
-        try {
-            $dgs = $conn->osc_dbFetchResults("SELECT * FROM %st_item_dg_files", DB_TABLE_PREFIX);
-            foreach($dgs as $dg) {
-                @unlink(osc_get_preference('upload_path', 'digitalgoods').$dg['s_code']."_".$dg['fk_i_item_id']."_".$dg['s_name']);
-                @rmdir(osc_get_preference('upload_path','digitalgoods'));
-            }
-            $conn->osc_dbExec("DELETE FROM %st_plugin_category WHERE s_plugin_name = 'digitalgoods'", DB_TABLE_PREFIX);
-            $conn->osc_dbExec('DROP TABLE %st_item_dg_downloads', DB_TABLE_PREFIX);
-            $conn->osc_dbExec('DROP TABLE %st_item_dg_files', DB_TABLE_PREFIX);
-            $conn->commit();
-            osc_delete_preference('max_files', 'digitalgoods');
-            osc_delete_preference('upload_path', 'digitalgoods');
-            osc_delete_preference('allowed_ext', 'digitalgoods');
-        } catch (Exception $e) {
-            $conn->rollback();
-            echo $e->getMessage();
-        }
-        $conn->autocommit(true);
+        DGModel::newInstance()->uninstall();
+        osc_delete_preference('max_files', 'digitalgoods');
+        osc_delete_preference('upload_path', 'digitalgoods');
+        osc_delete_preference('allowed_ext', 'digitalgoods');
     }
 
     function digitalgoods_admin_menu() {
-        echo '<h3><a href="#">Digital Goods</a></h3>
-        <ul>
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'digitalgoods') . '</a></li>
-            <li><a href="'.osc_admin_configure_plugin_url("digitalgoods/index.php").'">&raquo; ' . __('Configure categories', 'digitalgoods') . '</a></li>
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'stats.php') . '">&raquo; ' . __('Stats', 'digitalgoods') . '</a></li>
-        </ul>';
-    }
-
-    function digitalgoods_redirect_to($url) {
-        header('Location: ' . $url);
-        exit;
+        if(osc_version()<320) {
+            echo '<h3><a href="#">Digital Goods</a></h3>
+            <ul>
+                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'admin/conf.php') . '">&raquo; ' . __('Settings', 'digitalgoods') . '</a></li>
+                <li><a href="'.osc_admin_configure_plugin_url("digitalgoods/index.php").'">&raquo; ' . __('Configure categories', 'digitalgoods') . '</a></li>
+                <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'admin/stats.php') . '">&raquo; ' . __('Stats', 'digitalgoods') . '</a></li>
+            </ul>';
+        } else {
+            osc_add_admin_submenu_divider('plugins', 'Digital Goods', 'digitalgoods_divider', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('Settings', 'digitalgoods'), osc_route_admin_url('digitalgoods-admin-conf'), 'digitalgoods_settings', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('Configure categories', 'digitalgoods'), osc_admin_configure_plugin_url("digitalgoods/index.php"), 'digitalgoods_categories', 'administrator');
+            osc_add_admin_submenu_page('plugins', __('File stats', 'digitalgoods'), osc_route_admin_url('digitalgoods-admin-stats'), 'digitalgoods_stats', 'administrator');
+        };
     }
 
     function digitalgoods_configure_link() {
-        //digitalgoods_redirect_to(osc_admin_render_plugin_url(osc_plugin_folder(__FILE__)).'conf.php');
         osc_plugin_configure_view(osc_plugin_path(__FILE__) );
     }
 
@@ -84,16 +59,14 @@ Plugin update URI: digital-goods
 
     function digitalgoods_item_detail() {
         if(osc_is_this_category('digitalgoods', osc_item_category_id())) {
-            $conn = getConnection();
-            $dg_files = $conn->osc_dbFetchResults("SELECT * FROM %st_item_dg_files WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, osc_item_id());
+            $dg_files = DGModel::newInstance()->getFilesFromItem(osc_item_id());
             require_once 'item_detail.php';
         }
     }
 
     function digitalgoods_item_edit($catId = null, $item_id = null) {
         if(osc_is_this_category('digitalgoods', $catId)) {
-            $conn = getConnection();
-            $dg_files = $conn->osc_dbFetchResults("SELECT * FROM %st_item_dg_files WHERE fk_i_item_id = %d", DB_TABLE_PREFIX, $item_id);
+            $dg_files = DGModel::newInstance()->getFilesFromItem($item_id);
             $dg_item = Item::newInstance()->findByPrimaryKey($item_id);
             $secret = $dg_item['s_secret'];
             unset($dg_item);
@@ -106,7 +79,6 @@ Plugin update URI: digital-goods
             if(osc_is_this_category('digitalgoods', $catId)) {
                 $files = Params::getFiles('dg_files');
                 if(count($files)>0) {
-                    $conn = getConnection() ;
                     require LIB_PATH . 'osclass/mimes.php';
                     $aMimesAllowed = array();
                     $aExt = explode(',', osc_get_preference('allowed_ext', 'digitalgoods'));
@@ -138,7 +110,7 @@ Plugin update URI: digital-goods
                                     $file_name = $date.'_'.$item_id.'_'.$files['name'][$key];
                                     $path = osc_get_preference('upload_path', 'digitalgoods').$file_name;
                                     if (move_uploaded_file($files['tmp_name'][$key], $path)) {
-                                        $conn->osc_dbExec("INSERT INTO %st_item_dg_files (fk_i_item_id, s_name, s_code) VALUES (%d, '%s', '%s')", DB_TABLE_PREFIX, $item_id, $files['name'][$key], $date);
+                                        DGModel::newInstance()->insertFile($item_id, $files['name'][$key], $date);
                                     } else {
                                         $failed = true;
                                     }
@@ -159,8 +131,17 @@ Plugin update URI: digital-goods
     }
 
     function digitalgoods_delete_item($item) {
-        $conn = getConnection();
-        $conn->osc_dbExec("DELETE FROM %st_item_dg_files WHERE fk_i_item_id = '" . $item . "'", DB_TABLE_PREFIX);
+        DGModel::newInstance()->removeItem($item);
+    }
+
+    if(osc_version()>=320) {
+        /**
+         * ADD ROUTES (VERSION 3.2+)
+         */
+        osc_add_route('digitalgoods-admin-conf', 'digitalgoods/admin/conf', 'digitalgoods/admin/conf', osc_plugin_folder(__FILE__).'admin/conf.php');
+        osc_add_route('digitalgoods-admin-stats', 'digitalgoods/admin/stats', 'digitalgoods/admin/stats', osc_plugin_folder(__FILE__).'admin/stats.php');
+        osc_add_route('digitalgoods-ajax', 'digitalgoods/ajax', 'digitalgoods/ajax', osc_plugin_folder(__FILE__).'ajax.php');
+        osc_add_route('digitalgoods-download', 'digitalgoods/download/(.+)', 'digitalgoods/download/{file}', osc_plugin_folder(__FILE__).'download.php');
     }
 
     /**
@@ -182,6 +163,10 @@ Plugin update URI: digital-goods
     osc_add_hook('delete_item', 'digitalgoods_delete_item');
 
 
-    osc_add_hook('admin_menu', 'digitalgoods_admin_menu');
+    if(osc_version()<320) {
+        osc_add_hook('admin_menu', 'digitalgoods_admin_menu');
+    } else {
+        osc_add_hook('admin_menu_init', 'digitalgoods_admin_menu');
+    }
 
 ?>
