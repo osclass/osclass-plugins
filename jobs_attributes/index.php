@@ -3,7 +3,7 @@
 Plugin Name: Jobs attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store jobs attributes such as salary, requirements, timetable, and so on.
-Version: 3.1.1
+Version: 3.2.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: jobs_attributes
@@ -66,7 +66,7 @@ function job_call_after_install() {
     osc_set_preference('allow_cv_unreg', '1', 'jobs_plugin', 'BOOLEAN');
     osc_set_preference('send_me_cv', '0', 'jobs_plugin', 'BOOLEAN');
     
-    osc_set_preference('version', 310, 'jobs_plugin', 'INTEGER');
+    osc_set_preference('version', 320, 'jobs_plugin', 'INTEGER');
 }
 
 function job_call_after_uninstall() {
@@ -108,8 +108,9 @@ function job_search_form($catId = null) {
     }
 }
 
-function job_form_post($catId = null, $item_id = null)  {
-    // We received the categoryID and the Item ID
+function job_form_post($item) {
+    $catId = isset($item['fk_i_category_id'])?$item['fk_i_category_id']:null;
+    $item_id = isset($item['pk_i_id'])?$item['pk_i_id']:null;
     if($catId!="") {
         // We check if the category is the same as our plugin
         if(osc_is_this_category('jobs_plugin', $catId) && $item_id!=null) {
@@ -161,8 +162,9 @@ function job_item_edit($catId = null, $item_id = null) {
     Session::newInstance()->_clearVariables();
 }
 
-function job_item_edit_post($catId = null, $item_id = null) {
-    // We received the categoryID and the Item ID
+function job_item_edit_post($item) {
+    $catId = isset($item['fk_i_category_id'])?$item['fk_i_category_id']:null;
+    $item_id = isset($item['pk_i_id'])?$item['pk_i_id']:null;
     if($catId!=null) {
         // We check if the category is the same as our plugin
         if(osc_is_this_category('jobs_plugin', $catId)) {
@@ -193,11 +195,17 @@ function job_delete_item($item_id) {
 }
 
 function jobs_admin_menu() {
-    echo '<h3><a href="#">Jobs plugin</a></h3>
-    <ul> 
-        <li><a href="'.osc_admin_configure_plugin_url("jobs_attributes/index.php").'">&raquo; ' . __('Configure plugin', 'jobs_attributes') . '</a></li>
-        <li><a href="'.osc_admin_render_plugin_url("jobs_attributes/conf.php").'?section=types">&raquo; ' . __('Plugin Options', 'jobs_attributes') . '</a></li>
-    </ul>';
+    if(osc_version()<320) {
+        echo '<h3><a href="#">Jobs plugin</a></h3>
+        <ul> 
+            <li><a href="'.osc_admin_configure_plugin_url("jobs_attributes/index.php").'">&raquo; ' . __('Configure plugin', 'jobs_attributes') . '</a></li>
+            <li><a href="'.osc_admin_render_plugin_url("jobs_attributes/admin/conf.php").'?section=types">&raquo; ' . __('Plugin Options', 'jobs_attributes') . '</a></li>
+        </ul>';
+    } else {
+        osc_add_admin_submenu_divider('plugins', 'Jobs plugin', 'jobs_attributes_divider', 'administrator');
+        osc_add_admin_submenu_page('plugins', __('Plugin Options', 'jobs_attributes'), osc_route_admin_url('jobs-attr-admin-conf'), 'jobs_attributes_settings', 'administrator');
+        osc_add_admin_submenu_page('plugins', __('Configure categories', 'jobs_attributes'), osc_admin_configure_plugin_url("jobs_attributes/index.php"), 'jobs_attributes_categories', 'administrator');
+    };
 }
 
 function job_admin_configuration() {
@@ -254,49 +262,43 @@ function job_check_update()
         ModelJobs::newInstance()->upgradeTo310();
         
     }
-        
+
+    osc_set_preference('version', 320, 'jobs_plugin');
+
 }
 
-// this is needed in order to be able to activate the plugin
+if(osc_version()>=320) {
+    /**
+     * ADD ROUTES (VERSION 3.2+)
+     */
+    osc_add_route('jobs-attr-admin-conf', 'jobs_attributes/admin/conf', 'jobs_attributes/admin/conf', osc_plugin_folder(__FILE__).'admin/conf.php');
+    osc_add_route('jobs-attr-cv-upload', 'jobs_attributes/cvupload', 'jobs_attributes/cvupload', osc_plugin_folder(__FILE__).'cv_uploader.php');
+}
+
+
 osc_register_plugin(osc_plugin_path(__FILE__), 'job_call_after_install');
-// this is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'job_admin_configuration');
-// this is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'job_call_after_uninstall');
-// run when the plugin is enabled
 osc_add_hook(osc_plugin_path(__FILE__)."_enable", 'job_check_update');
-
-// when publishing an item we show an extra form with more attributes
 osc_add_hook('item_form', 'job_form');
-// to add that new information to our custom table
-osc_add_hook('item_form_post', 'job_form_post');
-
-// when searching, display an extra form with our plugin's fields
+osc_add_hook('posted_item', 'job_form_post');
 osc_add_hook('search_form', 'job_search_form');
-// when searching, add some conditions
 osc_add_hook('search_conditions', 'job_search_conditions');
-
-// show an item special attributes
 osc_add_hook('item_detail', 'job_item_detail');
-
-// edit an item special attributes
 osc_add_hook('item_edit', 'job_item_edit');
-// edit an item special attributes POST
-osc_add_hook('item_edit_post', 'job_item_edit_post');
-
-// delete locale
+osc_add_hook('edited_item', 'job_item_edit_post');
 osc_add_hook('delete_locale', 'job_delete_locale');
-// delete item
 osc_add_hook('delete_item', 'job_delete_item');
-
-// admin menu
-osc_add_hook('admin_menu', 'jobs_admin_menu');
-
-// previous to insert item
 osc_add_hook('pre_item_post', 'job_pre_item_post') ;
 osc_add_hook('pre_item_edit', 'job_pre_item_post') ;
-// save input values into session
 osc_add_hook('save_input_session', 'job_save_inputs_into_session' );
+
+if(osc_version()<320) {
+    osc_add_hook('admin_menu', 'job_admin_menu');
+} else {
+    osc_add_hook('admin_menu_init', 'job_admin_menu');
+}
+
 
 function css_jobs() {
     echo '<link href="' . osc_plugin_url(__FILE__) . 'css/styles.css" rel="stylesheet" type="text/css">' . PHP_EOL;

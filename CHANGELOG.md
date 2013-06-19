@@ -1,6 +1,10 @@
 Changelog Jobs attributes
 =========================
 
+##version 3.2.0 - 19/06/2013
+
+* Updated to work with Osclass 3.2
+
 ##version 3.1.1 - 17/05/2013
 
 * Security patch
