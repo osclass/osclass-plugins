@@ -3,7 +3,7 @@
 Plugin Name: Dating attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store dating attributes such as gender you're looking for and the type of relation.
-Version: 3.0.1
+Version: 3.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: dating_plugin
@@ -100,7 +100,9 @@ function dating_search_form($catId = null) {
     }
 }
 
-function dating_form_post($catId = null, $item_id = null) {
+function dating_form_post($item) {
+    $catID = isset($item['fk_i_category_id'])?$item['fk_i_category_id']:null;
+    $itemID = isset($item['pk_i_id'])?$item['pk_i_id']:null;
     // We received the categoryID and the Item ID
     if($catId!=null) {
         // We check if the category is the same as our plugin
@@ -181,7 +183,9 @@ function dating_item_edit($catId = null, $item_id = null) {
     }
 }
 
-function dating_item_edit_post($catId = null, $item_id = null) {
+function dating_item_edit_post($item) {
+    $catID = isset($item['fk_i_category_id'])?$item['fk_i_category_id']:null;
+    $itemID = isset($item['pk_i_id'])?$item['pk_i_id']:null;
     // We received the categoryID and the Item ID
     if($catId!=null) {
         // We check if the category is the same as our plugin
@@ -234,35 +238,18 @@ function datting_pre_item_post() {
     Session::newInstance()->_keepForm('pd_relation');
 }
 
-// This is needed in order to be able to activate the plugin
 osc_register_plugin(osc_plugin_path(__FILE__), 'dating_call_after_install');
-// This is a hack to show a Configure link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'dating_admin_configuration');
-// This is a hack to show a Uninstall link at plugins table (you could also use some other hook to show a custom option panel)
 osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'dating_call_after_uninstall');
 
-// When publishing an item we show an extra form with more attributes
 osc_add_hook('item_form', 'dating_form');
-// To add that new information to our custom table
-osc_add_hook('item_form_post', 'dating_form_post');
-
-// When searching, display an extra form with our plugin's fields
+osc_add_hook('posted_item', 'dating_form_post');
 osc_add_hook('search_form', 'dating_search_form');
-// When searching, add some conditions
 osc_add_hook('search_conditions', 'dating_search_conditions');
-
-// Show an item special attributes
 osc_add_hook('item_detail', 'dating_item_detail');
-
-// Edit an item special attributes
 osc_add_hook('item_edit', 'dating_item_edit');
-// Edit an item special attributes POST
-osc_add_hook('item_edit_post', 'dating_item_edit_post');
-
-//Delete item
+osc_add_hook('edited_item', 'dating_item_edit_post');
 osc_add_hook('delete_item', 'dating_delete_item');
-
-// previous to insert item
 osc_add_hook('pre_item_post', 'datting_pre_item_post') ;
 
 ?>
