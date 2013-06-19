@@ -42,7 +42,11 @@
                     <div style="float: left; width: 100%;">
                     <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
-                    <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
+                        <?php if(osc_version()<320) { ?> }
+                            <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
+                        <?php } else { ?> }
+                            <input type="hidden" name="route" value="digitalgoods-admin-conf" />
+                        <?php }; ?> }
                     <input type="hidden" name="plugin_action" value="done" />
                         <label for="max_files"><?php _e('Number of max files per ad (0 for unlimited)', 'digitalgoods'); ?></label>
                         <br/>

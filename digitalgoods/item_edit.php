@@ -86,7 +86,11 @@
         if(result) {
             $.ajax({
                 type: "POST",
+                <?php if(osc_version()<320) { ?>
                 url: '<?php echo osc_base_url(true); ?>?page=ajax&action=custom&ajaxfile=<?php echo osc_plugin_folder(__FILE__) . 'ajax.php';?>&id='+id+'&item='+item_id+'&code='+name+'&secret='+secret,
+                <?php } else { ?>
+                url: '<?php echo osc_route_ajax_url('digitalgoods-ajax'); ?>&id='+id+'&item='+item_id+'&code='+name+'&secret='+secret,
+                <?php }; ?>
                 dataType: 'json',
                 success: function(data){
                     var class_type = "error";
