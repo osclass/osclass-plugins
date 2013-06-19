@@ -74,8 +74,8 @@ Plugin update URI: digital-goods
         }
     }
 
-    function digitalgoods_upload_files($catId = null, $item_id = null) {
-        if($catId!=null) {
+    function digitalgoods_upload_files($item){
+        if($item['fk_i_category_id']!=null) {
             if(osc_is_this_category('digitalgoods', $catId)) {
                 $files = Params::getFiles('dg_files');
                 if(count($files)>0) {
@@ -107,10 +107,10 @@ Plugin update URI: digital-goods
 
                                 if(in_array($fileMime,$aMimesAllowed)) {
                                     $date = date('YmdHis');
-                                    $file_name = $date.'_'.$item_id.'_'.$files['name'][$key];
+                                    $file_name = $date.'_'.$item['pk_i_id'].'_'.$files['name'][$key];
                                     $path = osc_get_preference('upload_path', 'digitalgoods').$file_name;
                                     if (move_uploaded_file($files['tmp_name'][$key], $path)) {
-                                        DGModel::newInstance()->insertFile($item_id, $files['name'][$key], $date);
+                                        DGModel::newInstance()->insertFile($item['pk_i_id'], $files['name'][$key], $date);
                                     } else {
                                         $failed = true;
                                     }
@@ -157,8 +157,8 @@ Plugin update URI: digital-goods
     osc_add_hook('item_form', 'digitalgoods_form');
     osc_add_hook('item_edit', 'digitalgoods_item_edit');
 
-    osc_add_hook('item_edit_post', 'digitalgoods_upload_files');
-    osc_add_hook('item_form_post', 'digitalgoods_upload_files');
+    osc_add_hook('edited_item', 'digitalgoods_upload_files');
+    osc_add_hook('posted_item', 'digitalgoods_upload_files');
 
     osc_add_hook('delete_item', 'digitalgoods_delete_item');
 
