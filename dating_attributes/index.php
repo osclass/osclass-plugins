@@ -101,8 +101,8 @@ function dating_search_form($catId = null) {
 }
 
 function dating_form_post($item) {
-    $catID = isset($item['fk_i_category_id'])?$item['fk_i_category_id']:null;
-    $itemID = isset($item['pk_i_id'])?$item['pk_i_id']:null;
+    $catId = isset($item['fk_i_category_id'])?$item['fk_i_category_id']:null;
+    $item_id = isset($item['pk_i_id'])?$item['pk_i_id']:null;
     // We received the categoryID and the Item ID
     if($catId!=null) {
         // We check if the category is the same as our plugin
@@ -184,8 +184,8 @@ function dating_item_edit($catId = null, $item_id = null) {
 }
 
 function dating_item_edit_post($item) {
-    $catID = isset($item['fk_i_category_id'])?$item['fk_i_category_id']:null;
-    $itemID = isset($item['pk_i_id'])?$item['pk_i_id']:null;
+    $catId = isset($item['fk_i_category_id'])?$item['fk_i_category_id']:null;
+    $item_id = isset($item['pk_i_id'])?$item['pk_i_id']:null;
     // We received the categoryID and the Item ID
     if($catId!=null) {
         // We check if the category is the same as our plugin
