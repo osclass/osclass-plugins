@@ -103,7 +103,9 @@ Plugin update URI: cars-attributes
         }
     }
 
-    function cars_form_post($catID = null, $itemID = null) {
+    function cars_form_post($item) {
+        $catID = isset($item['fk_i_category_id'])?$item['fk_i_category_id']:null;
+        $itemID = isset($item['pk_i_id'])?$item['pk_i_id']:null;
         // we received the categoryID and the Item ID
         if($catID == null) {
             return false;
@@ -167,7 +169,9 @@ Plugin update URI: cars-attributes
         }
     }
 
-    function cars_item_edit_post($catID = null, $itemID = null) {
+    function cars_item_edit_post($item) {
+        $catID = isset($item['fk_i_category_id'])?$item['fk_i_category_id']:null;
+        $itemID = isset($item['pk_i_id'])?$item['pk_i_id']:null;
         // We received the categoryID and the Item ID
         if($catID == null) {
             return false;
@@ -300,7 +304,7 @@ Plugin update URI: cars-attributes
     // When publishing an item we show an extra form with more attributes
     osc_add_hook('item_form', 'cars_form');
     // To add that new information to our custom table
-    osc_add_hook('item_form_post', 'cars_form_post');
+    osc_add_hook('posted_item', 'cars_form_post');
 
     // When searching, display an extra form with our plugin's fields
     osc_add_hook('search_form', 'cars_search_form');
@@ -313,7 +317,7 @@ Plugin update URI: cars-attributes
     // edit an item special attributes
     osc_add_hook('item_edit', 'cars_item_edit');
     // edit an item special attributes POST
-    osc_add_hook('item_edit_post', 'cars_item_edit_post');
+    osc_add_hook('edited_item', 'cars_item_edit_post');
 
     if(osc_version()<320) {
         osc_add_hook('admin_menu', 'cars_admin_menu');
