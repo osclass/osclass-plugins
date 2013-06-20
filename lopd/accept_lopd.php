@@ -18,7 +18,7 @@
                 <div id="main">
                     <h2><?php _e('Aceptar la política de privacidad', 'lopd'); ?></h2>
                         <h3><?php echo sprintf(__('Antes de continuar debe aceptar la <a href="%s">política de privacidad</a>.', 'lopd'), osc_static_page_url()); ?></h3>
-                        <a href="<?php echo osc_render_file_url(osc_plugin_folder(__FILE__)."accept_lopd.php")."&confirm=true&s="; ?>" /><?php _e('He leido y acepto la política de privacidad', 'lopd'); ?></a>
+                        <a href="<?php echo osc_route_url('lopd-accept', array('confirm' => 'true')); ?>" /><?php _e('He leido y acepto la política de privacidad', 'lopd'); ?></a>
                 </div>
             </div>
 
