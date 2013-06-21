@@ -1,6 +1,10 @@
 Changelog Paypal
 ================
 
+##version 2.0.5 - 21/06/2013
+
+* This plugin is now deprecated, please, use "payment" plugin instead
+
 ##version 2.0.5 - 17/05/2013
 
 * Security patch
