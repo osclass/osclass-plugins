@@ -317,6 +317,9 @@ class JobboardListingActions
         Session::newInstance()->_keepForm('pj_array_killer_questions');
 
         $numPositions = trim(Params::getParam('numPositions'));
+//        if($numPositions=='') {
+//            $numPositions = 1;
+//        }
         if(!is_numeric($numPositions)) {
             if($numPositions==0) {
                 Session::newInstance()->_setForm('pj_numPositions', 1);
