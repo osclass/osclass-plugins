@@ -97,11 +97,14 @@
         }
         
         public function acceptLOPD($userId) {
-            ModelLOPD::newInstance()->insert(array(
-                'fk_i_user_id' => $userId,
-                'dt_date' => date('Y-m-d H:i:s'),
-                's_ip' => @$_SERVER['REMOTE_ADDR']
-            ));
+            $this->dao->insert(
+                $this->getTable(),
+                array(
+                    'fk_i_user_id' => $userId,
+                    'dt_date' => date('Y-m-d H:i:s'),
+                    's_ip' => @$_SERVER['REMOTE_ADDR']
+                )
+            );
         }
         
         public function couldDelete($userId) {
