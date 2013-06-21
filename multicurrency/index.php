@@ -3,48 +3,29 @@
 Plugin Name: Multi currency
 Plugin URI: http://www.osclass.org/
 Description: Display the price of an ad in several currencies
-Version: 1.0.2
+Version: 1.3.0
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: multicurrency
 Plugin update URI: multicurrency
 */
 
+    require_once 'ModelMC.php';
 
     function multicurrency_install() {
-        $conn = getConnection();
-        $conn->autocommit(false);
-        try {
-            $path = osc_plugin_resource(osc_plugin_folder(__FILE__).'struct.sql');
-            $sql = file_get_contents($path);
-            $conn->osc_dbImportSQL($sql);
-            $conn->commit();
-        } catch (Exception $e) {
-            $conn->rollback();
-            echo $e->getMessage();
-        }
-        $conn->autocommit(true);
+        ModelMC::newInstance()->import('multicurrency/struct.sql') ;
         multicurrency_get_data();
     }
 
     function multicurrency_uninstall() {
-        $conn = getConnection();
-        $conn->autocommit(false);
-        try {
-            $conn->osc_dbExec('DROP TABLE %st_multicurrency', DB_TABLE_PREFIX);
-            $conn->commit();
-        } catch (Exception $e) {
-            $conn->rollback();
-            echo $e->getMessage();
-        }
-        $conn->autocommit(true);
+        ModelMC::newInstance()->uninstall();
     }
 
     function multicurrency_get_data() {
         if (extension_loaded('curl')) {
             $data = array();
-            $conn = getConnection();
-            $currencies = $conn->osc_dbFetchResults("SELECT pk_c_code FROM %st_currency", DB_TABLE_PREFIX);
+            $modelmc = ModelMC::newInstance();
+            $currencies = $modelmc->getCurrencies();
             foreach ($currencies as $from) {
                 foreach ($currencies as $to) {
                     if($from['pk_c_code']!=$to['pk_c_code']) {
@@ -65,7 +46,7 @@ Plugin update URI: multicurrency
 
             foreach ($lines as $line) {
                 if(preg_match('|([A-Z]{3})([A-Z]{3})=X",([0-9\.]+)|', $line, $m)) {
-                    $conn->osc_dbExec("REPLACE INTO %st_multicurrency (s_from, s_to, f_rate, dt_date) VALUES ('%s', '%s', %f, '%s')", DB_TABLE_PREFIX, $m[1], $m[2], $m[3], date('Y-m-d H:i:s'));
+                    $modelmc->replaceCurrency($m[1], $m[2], $m[3]);
                 }
             }
         }
@@ -73,11 +54,10 @@ Plugin update URI: multicurrency
     
     function multicurrency_add_prices() {
         if(osc_item_price()!=NULL && osc_item_price()!='' && osc_item_price()!=0) {
-            $conn = getConnection();
-            $rates = $conn->osc_dbFetchResults("SELECT * FROM %st_multicurrency WHERE s_from = '%s'", DB_TABLE_PREFIX, osc_item_currency());
+            $rates = ModelMC::newInstance()->getRates(osc_item_currency());
             $data = array();
             foreach($rates as $r) {
-                $data[] = sprintf("%0.2f %s", (osc_item_price()/1000000)*$r['f_rate'], $r['s_to']);
+                $data[] = osc_format_price(osc_item_price()*$r['f_rate'], $r['s_to']);
             }
             echo '<a class=MCtooltip href="#">'.__('Other currencies', 'multicurrency').'<span>'.implode("<br />", $data).'</span></a>';
         }
@@ -110,8 +90,7 @@ Plugin update URI: multicurrency
         </style>
         <?php
     }
-    
-    
+
     /**
      * ADD HOOKS
      */
