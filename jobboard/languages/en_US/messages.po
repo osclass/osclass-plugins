@@ -4,1069 +4,1231 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Job Board 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-14 12:48+0100\n"
-"PO-Revision-Date: 2013-06-14 12:48+0100\n"
-"Last-Translator: Juan Ramón <juanramon@osclass.org>\n"
+"POT-Creation-Date: 2013-06-25 12:08+0100\n"
+"PO-Revision-Date: 2013-06-25 12:08+0100\n"
+"Last-Translator: Juan Ramón <juanramon.diaz@gmail.com>\n"
 "Language-Team: Translations <translations@osclass.org>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n !=1;\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED STATES\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-SearchPath-0: /Users/juanramon/www/osclass-plugins-git/jobboard\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-SearchPath-0: /Users/juanramon/Projects/www/osclass-plugins-git/"
+"jobboard\n"
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/actions.php:15
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/actions.php:15
 msgid "Killer form deleted correctly"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/actions.php:17
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/actions.php:17
 msgid "Problems tring to remove killer question form. Try it again."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:16
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:21
 msgid "Activitiy"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:26
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:31
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:38
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:59
 msgid "Vacancies"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:42
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:54
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:47
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:54
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardAdminMenu.php:30
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:89
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:119
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:131
 msgid "Applicants"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:57
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:62
 msgid "Total views"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:74
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:79
 msgid "Most viewed"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:74
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:79
 msgid "views"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:85
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:90
 msgid "Recent activity"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:93
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:98
 msgid "ago"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:107
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:112
 msgid "Recent applicants"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:119
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:242
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:124
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:242
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:79
 msgid "Applicant"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:119
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:262
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:124
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:262
 msgid "Job title"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:119
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:282
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:124
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:282
 msgid "Received"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:138
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:324
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:102
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:143
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:324
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:102
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:106
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:120
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:134
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:148
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:163
 msgid "Spontaneous application"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/dashboard.php:145
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/dashboard.php:150
 msgid "View all"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/download.php:16
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/download.php:25
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/download.php:16
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/download.php:25
 msgid "This resume doesn't exist"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/email.php:17
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/email.php:18
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/email.php:81
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/email.php:82
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/email.php:17
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/email.php:18
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/email.php:81
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/email.php:82
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardAjax.php:93
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardAjax.php:94
 msgid "spontaneous"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/extra_contact_form.php:11
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:68
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/extra_contact_form.php:11
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:68
 msgid "Birthday"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/extra_contact_form.php:13
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:113
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:252
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:63
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/extra_contact_form.php:13
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:113
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:252
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:63
 msgid "Sex"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/extra_contact_form.php:15
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:234
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/extra_contact_form.php:15
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:234
 msgid "Male"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/extra_contact_form.php:16
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:235
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/extra_contact_form.php:16
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:235
 msgid "Female"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/extra_contact_form.php:17
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:236
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/extra_contact_form.php:17
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:236
 msgid "Prefer not say"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:97
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:97
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:105
 msgid "Punctuation"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:98
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:203
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:98
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:203
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:106
 msgid "Reject"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:136
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:136
 msgid "Active"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:137
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:137
 msgid "Interview"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:138
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:138
 msgid "Rejected"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:139
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:139
 msgid "Hired"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:163
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:2
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:163
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:2
 msgid "Undefined"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:164
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:2
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:164
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:2
 msgid "Part time"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:165
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:165
 msgid "Full time"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:181
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:181
 msgid "seconds"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:184
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:184
 msgid "year"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:185
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:185
 msgid "month"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:186
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:186
 msgid "day"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:187
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:187
 msgid "hour"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:188
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:188
 msgid "minute"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/helpers.php:189
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/helpers.php:189
 msgid "second"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:2
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:2
 msgid "Full-time"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:5
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit.php:2
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:5
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit.php:2
 msgid "Job details"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:10
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit.php:5
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:10
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit.php:5
 msgid "Position type"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:16
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit.php:18
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:16
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit.php:18
 msgid "Salary"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:21
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:21
 #, php-format
 msgid "%s open position"
 msgid_plural "%s open positions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:26
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit.php:31
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:26
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit.php:31
 msgid "Desired experience"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:32
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit.php:27
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:32
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit.php:27
 msgid "Studies"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:38
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit.php:35
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:38
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit.php:35
 msgid "Minimum requirements"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:44
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit.php:39
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:44
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit.php:39
 msgid "Desired requirements"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail.php:50
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit.php:23
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail.php:50
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit.php:23
 msgid "Contract"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_detail_killer_questions.php:2
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_detail_killer_questions.php:2
 msgid "Please answer these questions to apply"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit.php:14
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit.php:14
 msgid "Num. of positions"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:39
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:39
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardAdminMenu.php:39
 msgid "Killer Questions"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:46
-msgid "Killer question form note: Once you create it you won't be able to update or remove it without deleting vacancy itself"
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:46
+msgid ""
+"Killer question form note: Once you create it you won't be able to update or "
+"remove it without deleting vacancy itself"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:49
-msgid "Killer question form note: Once you create it you won't be able to update or remove it without deleting vacancy itself <strong>Edit</strong>"
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:49
+msgid ""
+"Killer question form note: Once you create it you won't be able to update or "
+"remove it without deleting vacancy itself <strong>Edit</strong>"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:52
-msgid "Killer question form note: Once you create it you won't be able to update or remove it without deleting vacancy itself <strong>Disabled</strong>"
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:52
+msgid ""
+"Killer question form note: Once you create it you won't be able to update or "
+"remove it without deleting vacancy itself <strong>Disabled</strong>"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:68
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:68
 #, php-format
 msgid "Question %1$s"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:82
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:82
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:112
 msgid "Remove question"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:88
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:90
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:88
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:90
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:107
 msgid "Add answers"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:126
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:126
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:111
 msgid "Open question by default"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:137
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:175
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:137
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:175
 msgid "Delete question"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:140
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:178
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:140
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:178
 msgid "Are you sure you want to delete this question?"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:141
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:141
 msgid "Answers will be deleted too"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:145
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:183
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:145
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:164
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:380
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:237
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:254
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:145
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:183
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:145
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:164
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:380
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:237
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:254
 msgid "Cancel"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:146
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:184
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:98
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:100
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:317
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:381
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:132
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:238
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:146
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:184
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:98
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:100
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:317
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:381
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:132
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:238
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:92
 msgid "Delete"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:154
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:106
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/item_edit_killer_questions.php:154
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:106
 msgid "Add new question"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:14
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:14
 msgid "Form title saved correctly"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:30
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:30
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:484
 msgid "Error adding Killer question form"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:35
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:63
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:35
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:63
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:110
 msgid "Title cannot be empty"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:45
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:45
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:547
 msgid "Error updating Killer question form"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:70
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:70
 msgid "Add from"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:71
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:71
 msgid "Add Questions"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:80
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:80
 msgid "Update from"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:81
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:81
 msgid "Show killer questions"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:99
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:53
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:69
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:99
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:53
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:69
 msgid "Title"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:116
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:161
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:116
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:161
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:103
 msgid "Question"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:137
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:137
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:104
 msgid "Answer"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/killer_form_frm.php:179
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:179
 msgid "Answers will be delete too"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:29
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:29
 msgid "Killer questions forms"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:29
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:29
 msgid "Add new"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:39
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:40
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:41
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:42
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:39
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:40
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:41
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:42
 #, php-format
 msgid "Show %d Killer forms"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:54
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:54
 msgid "Find"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:74
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:74
 msgid "Publication date"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:79
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:79
 msgid "Nº questions"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:84
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:84
 msgid "Used by"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:96
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:96
 msgid "Show"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:113
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:344
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:113
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:344
 msgid "No data available in table"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:138
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:151
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:138
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:151
 msgid "Delete killer question form"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:141
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:141
 msgid "Only can delete killer questions form if isn't used by any job"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:159
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:159
 msgid "You are going to delete killer questions form. Are you sure?"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/manage_killer.php:163
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/manage_killer.php:163
 msgid "Remove"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:76
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:76
 msgid "Resumes"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:76
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:76
 msgid "Show filters"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:89
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:89
 msgid "E-mail"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:97
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:97
 msgid "Name"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:105
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:247
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:105
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:247
 msgid "Age"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:117
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:117
 msgid "Any sex"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:127
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:277
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:127
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:277
 msgid "Rating"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:144
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:144
 msgid "View unread"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:150
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:150
 msgid "With not reviewed questions"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:155
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:155
 msgid "Jobs"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:159
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:159
 msgid "All jobs"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:160
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:160
 msgid "Only spontaneous"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:170
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:267
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:170
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:267
 msgid "Status"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:175
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:175
 msgid "All status"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:185
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:185
 msgid "Category"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:205
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:205
 msgid "Search"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:224
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:225
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:226
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:227
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:224
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:225
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:226
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:227
 #, php-format
 msgid "Show %d Applicants"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:257
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:64
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:257
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:64
 msgid "Email"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:272
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:272
 msgid "Score questions"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:321
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:321
 msgid "years"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:327
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:327
 msgid "Needs correction"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:368
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:368
 msgid "Delete applicant"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people.php:376
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people.php:376
 msgid "Are you sure you want to delete this applicant?"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:56
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:56
 msgid "Download resume"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:56
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:56
 msgid "Mark as unread"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:62
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:62
 msgid "Phone"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:67
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:67
 msgid "Apply date"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:69
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:69
 msgid "Score"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:69
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:69
 msgid "View answers"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:76
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:76
 msgid "Cover letter"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:98
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:98
 msgid "Applied for"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:106
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:106
 msgid "This user has applied to more jobs"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:114
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:114
 msgid "Applicant CV"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:117
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:117
 msgid "This applicant has not sumitted any resume"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:123
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:123
 msgid "Notes"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:123
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:123
 msgid "Add note"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:133
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:133
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:93
 msgid "Edit"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:146
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:146
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:96
 msgid "No notes have been added to this applicant"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:153
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:153
 msgid "Killer questions"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:153
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:153
 msgid "Corrected"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:202
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:202
 msgid "Select punctuation"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:230
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:230
 msgid "Delete note"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:233
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:233
 msgid "Are you sure you want to delete this note?"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:244
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:247
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:244
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:247
 msgid "Note"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:255
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:255
 msgid "Save"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:261
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:261
 msgid "Applicant status"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:263
-msgid "Do you want to send an email to the applicant notifying the status of the application?"
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:263
+msgid ""
+"Do you want to send an email to the applicant notifying the status of the "
+"application?"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:267
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:267
 msgid "Don't send"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/people_detail.php:268
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/people_detail.php:268
 msgid "Send"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/resume_download.php:16
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/resume_download.php:16
 msgid "Download all the resumes of the applicants"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/resume_download.php:24
-msgid "We are packing all the resumes nicely, once we finish we will send you and email. Please, be patient."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/resume_download.php:24
+msgid ""
+"We are packing all the resumes nicely, once we finish we will send you and "
+"email. Please, be patient."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/resume_download.php:42
-msgid "Click on the button below to initiate the process to download all the resumes of the applicants."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/resume_download.php:42
+msgid ""
+"Click on the button below to initiate the process to download all the "
+"resumes of the applicants."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/resume_download.php:43
-msgid "WARNING: Depending on how much resumes were submitted, the process could take several minutes to finish. An email will be sent after the process with the links to download the resumes. Feel free to close this window, we'll inform you once we finished."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/resume_download.php:43
+msgid ""
+"WARNING: Depending on how much resumes were submitted, the process could "
+"take several minutes to finish. An email will be sent after the process with "
+"the links to download the resumes. Feel free to close this window, we'll "
+"inform you once we finished."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/resume_download.php:50
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/resume_download.php:50
 msgid "Create package and download resumes"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/resumes_request.php:129
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/resumes_request.php:129
 msgid "Admin mail system"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/admin/settings.php:29
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardAdminMenu.php:55
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:50
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/admin/settings.php:29
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardAdminMenu.php:55
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:49
 msgid "Default locations"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/admin/settings.php:31
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/admin/settings.php:31
 msgid "Default country"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/admin/settings.php:37
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/admin/settings.php:37
 msgid "Default region"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/admin/settings.php:43
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/admin/settings.php:43
 msgid "Default city"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/admin/settings.php:49
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/admin/settings.php:49
 msgid "Save changes"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardAdminMenu.php:14
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardAdminMenu.php:14
 msgid "Jobboard"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardAdminMenu.php:22
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:83
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:117
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardAdminMenu.php:22
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:82
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:117
 msgid "Dashboard"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardAdminMenu.php:47
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:86
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:125
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardAdminMenu.php:47
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:86
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:125
 msgid "Download resumes"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:64
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:64
 msgid "Thanks for sending us your CV"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:100
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:100
 msgid "Name is required"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:105
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:105
 msgid "Email is required"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:110
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:110
 msgid "Birthday is required"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:119
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:32
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:119
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:99
 msgid "Invalid birthday date"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:126
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:126
 msgid "Sex is required"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:131
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:131
 msgid "Cover is required"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:136
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:136
 msgid "CV is required"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:172
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:172
 msgid "All questions are required"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:182
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:182
 msgid "You can only apply once a job offer"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:214
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:214
 msgid "The file you tried to upload does not have a valid extension"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:233
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardContact.php:262
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:233
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardContact.php:262
 msgid "There were some problem processing your application, please try again"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:12
-msgid "Manage all the vacancies published on your website. You can edit, delete, block or duplicate the vacancies already published or filter them by: e-mail, category, region, city etc."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:13
+msgid ""
+"Manage all the vacancies published on your website. You can edit, delete, "
+"block or duplicate the vacancies already published or filter them by: e-"
+"mail, category, region, city etc."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:15
-msgid "Add new vacancy to your job board: enter a title, select a category, country, region and provide a short description."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:18
+msgid ""
+"Add new vacancy to your job board: enter a title, select a category, "
+"country, region and provide a short description."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:18
-msgid "Here you can manage all the applicants that are interested in your vacancies. You can filter them to see only those who have applied for one job offer, view the list by ratings or search applicants by name or email. By clicking on a name of the applicant you can view more information about her/his profile."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:23
+msgid ""
+"Here you can manage all the applicants that are interested in your "
+"vacancies. You can filter them to see only those who have applied for one "
+"job offer, view the list by ratings or search applicants by name or email. "
+"By clicking on a name of the applicant you can view more information about "
+"her/his profile."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:21
-msgid "Here you can view a profile of the applicant, view or download his/her CV, add notes, rate profile and change applicant’s status (active, interviewed, hired or rejected)."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:28
+msgid ""
+"Here you can view a profile of the applicant, view or download his/her CV, "
+"add notes, rate profile and change applicant’s status (active, interviewed, "
+"hired or rejected)."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:24
-msgid "Here you can create, edit, view or delete static pages on which information can be stored, such as \"Corporate\" or \"Legal\" pages."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:33
+msgid ""
+"Here you can create, edit, view or delete static pages on which information "
+"can be stored, such as \"Corporate\" or \"Legal\" pages."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:27
-msgid "Modify the emails your site's users receive when they join your site, when someone shows interest in their ad, to recover their password... <strong>Be careful</strong>: don't modify any of the words that appear within brackets."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:38
+msgid ""
+"Modify the emails your site's users receive when they join your site, when "
+"someone shows interest in their ad, to recover their password... <strong>Be "
+"careful</strong>: don't modify any of the words that appear within brackets."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:30
-msgid "Personalise your job board, upload your logo, change a background colour, customize fonts, etc."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:43
+msgid ""
+"Personalise your job board, upload your logo, change a background colour, "
+"customize fonts, etc."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:33
-msgid "Manage your settings, modify e-mails, titles, admin users, passwords or allow spontaneous applications etc. You can also add a tracking code for Google Analytics here."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomHelp.php:48
+msgid ""
+"Manage your settings, modify e-mails, titles, admin users, passwords or "
+"allow spontaneous applications etc. You can also add a tracking code for "
+"Google Analytics here."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:41
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:109
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:40
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:109
 msgid "Add vacancy"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:107
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:83
+msgid "Create new job"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:107
 msgid "Manage vacancies"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:111
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:111
 msgid "Edit vacancy"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:123
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:123
 #, php-format
 msgid "%s &raquo; Applicants"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:27
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:94
 msgid "Hide search"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:28
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:95
 msgid "Show search"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:30
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:97
 msgid "Sex: this field is required"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:31
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:98
 msgid "Birthday: this field is required"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:33
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:100
 msgid "Complete this form"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:34
-msgid "Administrators have total control over all aspects of your jobboard, while moderators are only allowed to view job offers and manage applicants"
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:101
+msgid ""
+"Administrators have total control over all aspects of your jobboard, while "
+"moderators are only allowed to view job offers and manage applicants"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:41
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:108
 msgid "Remove answers"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:42
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:109
 msgid "Remove this answer"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:172
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:115
+msgid "Next"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:116
+msgid "Back"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:117
+msgid "Done"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:118
+msgid "Skip"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:119
+msgid "Close"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:123
+msgid "Welcome to Osclass.com"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:124
+msgid "Here you can publish your first job offer."
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:127
+msgid "Manage jobs"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:128
+msgid "You can manage your different job offers from here."
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:132
+msgid ""
+"You can see the candidates' profiles here - you can filter them by a job "
+"offer they've applied for."
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:135
+msgid "Settings"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:136
+msgid ""
+"You can set your Google Analytics ID, company name and other settings from "
+"here."
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:139
+msgid "Appearance"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:140
+msgid ""
+"You can customize the colours of your website to better reflect your "
+"company's image."
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:143
+msgid "That's all for now!"
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardEnqueue.php:144
+msgid "You can repeat the tour anytime by clicking the link below."
+msgstr ""
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:172
 msgid "Some errors occurs adding new killer questions"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:177
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:177
 msgid "Some errors occurs updating existing killer questions"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:325
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:325
 msgid "Num. of positions, must be numeric."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:481
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:481
 msgid "Killer question form added correctly"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:544
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:544
 msgid "Killer question form updated correctly"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageApplicants.php:21
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageApplicants.php:21
 #, php-format
 msgid "Unread (%1$s)"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageApplicants.php:30
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageApplicants.php:30
 #, php-format
 msgid "Active (%1$s)"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageApplicants.php:39
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageApplicants.php:39
 #, php-format
 msgid "Interview (%1$s)"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageApplicants.php:48
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageApplicants.php:48
 #, php-format
 msgid "Rejected (%1$s)"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageApplicants.php:57
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageApplicants.php:57
 #, php-format
 msgid "Hired (%1$s)"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:35
-msgid "Are you sure? If you delete this offer, all the candidates' CV that have applied for this job will be automatically deleted and you will no longer have access to that data. If you don't want this job offer to be displayed, but still keep all the CV, it's better you select \"Block\" option."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:35
+msgid ""
+"Are you sure? If you delete this offer, all the candidates' CV that have "
+"applied for this job will be automatically deleted and you will no longer "
+"have access to that data. If you don't want this job offer to be displayed, "
+"but still keep all the CV, it's better you select \"Block\" option."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:43
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:43
 msgid "Modified"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:44
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:44
 msgid "# of applicants"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:45
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:45
 msgid "Views"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:63
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:63
 msgid "Closed"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:68
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:68
 #, php-format
 msgid "%d applicants"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:85
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:85
 msgid "Block"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:87
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:87
 msgid "Unblock"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:89
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardManageListings.php:89
 msgid "Duplicate"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:99
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:99
 #, php-format
-msgid "<div class=\"dismiss-tip\"><a id=\"dismiss-tip\" data-notice-id=\"%1$s\" href=\"#\">Dismiss</a> to not show again.</div>"
+msgid ""
+"<div class=\"dismiss-tip\"><a id=\"dismiss-tip\" data-notice-id=\"%1$s\" "
+"href=\"#\">Dismiss</a> to not show again.</div>"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:119
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:119
 #, php-format
-msgid "You haven’t published any job offer yet. <a href=\"%1$s\">Start now here</a>."
+msgid ""
+"You haven’t published any job offer yet. <a href=\"%1$s\">Start now here</a>."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:137
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:137
 #, php-format
-msgid "You have published %1$s job offers. Add new one <a href=\"%2$s\">here</a>."
+msgid ""
+"You have published %1$s job offers. Add new one <a href=\"%2$s\">here</a>."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:143
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:143
 msgid "Use filters to manage better all the candidates."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:153
-msgid "You haven’t taken any note yet - remember you can take notes and rate candidates."
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:153
+msgid ""
+"You haven’t taken any note yet - remember you can take notes and rate "
+"candidates."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:159
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:159
 #, php-format
-msgid "You can add new pages to your job board providing more information about your company. <a href=\"%1$s\">Try it here</a>."
+msgid ""
+"You can add new pages to your job board providing more information about "
+"your company. <a href=\"%1$s\">Try it here</a>."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:165
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:165
 #, php-format
-msgid "Transmit the values of your company by <a href=\"%1$s\">creating additional pages</a> in few seconds."
+msgid ""
+"Transmit the values of your company by <a href=\"%1$s\">creating additional "
+"pages</a> in few seconds."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:182
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:182
 #, php-format
-msgid "You haven’t edited the corporate website yet. <a href=\"%1$s\">Do it now</a>!"
+msgid ""
+"You haven’t edited the corporate website yet. <a href=\"%1$s\">Do it now</a>!"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:201
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:201
 #, php-format
 msgid "<a href=\"%1$s\">Edit</a> your legal site - it is still empty!"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:213
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:213
 #, php-format
-msgid "<a href=\"%1$s\">Edit</a> your default locations so you don'nt not to enter each time - they are still empty!"
+msgid ""
+"<a href=\"%1$s\">Edit</a> your default locations so you don'nt not to enter "
+"each time - they are still empty!"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:226
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardNotices.class.php:226
 #, php-format
-msgid "There are <strong>%1$s</strong> new applicants. <a href=\"%2$s\">See them all</a>"
+msgid ""
+"There are <strong>%1$s</strong> new applicants. <a href=\"%2$s\">See them "
+"all</a>"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:23
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:33
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:23
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:33
 #, php-format
 msgid "We are hiring! %1$s %2$s #osclasscom"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:42
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:42
 msgid "Share your vacancy"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:45
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:45
 msgid "Good stuff! Your vacancy has been published."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:46
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:46
 msgid "Would you like to share your vacancy?"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:47
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:47
 msgid "Share to Twitter"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:48
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:48
 msgid "Share to Facebook"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:49
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/ShareJobOffer.class.php:49
 msgid "Share to Linkedin"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:31
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:31
 #, php-format
 msgid "The %1$s has just modified a logo."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:37
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:37
 #, php-format
 msgid "The %1$s has modified a design of the job board."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:48
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:48
 msgid "The legal page has been edited."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:51
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:51
 msgid "The corporate page has been edited."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:61
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:61
 #, php-format
 msgid "%1$s signed in."
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:69
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:69
 #, php-format
 msgid "%1$s created a new job offer: \"%2$s\""
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:76
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:76
 #, php-format
 msgid "%1$s made changes to the job offer: \"%2$s\""
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:84
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:84
 #, php-format
 msgid "%1$s has deleted the job offer: \"%2$s\""
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:98
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:98
 #, php-format
 msgid "%1$s has applied to the job offer: \"%2$s\""
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:112
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:112
 #, php-format
 msgid "%1$s has rated to <b>%2$s</b> an applicant: %3$s (%4$s)"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:126
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:126
 #, php-format
 msgid "%1$s has added a note to the applicant %2$s (%3$s)"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:140
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:140
 #, php-format
 msgid "%1$s has edited a note of the applicant %2$s (%3$s)"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:154
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:154
 #, php-format
 msgid "%1$s has deleted a note of the applicant %2$s (%3$s)"
 msgstr ""
 
-#: /Users/juanramon/www/osclass-plugins-git/jobboard/class/Stream.class.php:169
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/Stream.class.php:169
 #, php-format
 msgid "%1$s has changed \"%2$s\" applicant status to %3$s (%4$s)"
 msgstr ""
-

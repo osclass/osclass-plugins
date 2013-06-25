@@ -2,6 +2,20 @@
 
 class JobboardAjax
 {
+    public function __construct()
+    {
+	osc_add_hook('ajax_admin_jobboard_rating', array(&$this, 'ajax_rating_request'));
+	osc_add_hook('ajax_admin_jobboard_answer_punctuation', array(&$this, 'ajax_answer_punctuation'));
+	osc_add_hook('ajax_admin_applicant_status', array(&$this, 'ajax_applicant_status'));
+	osc_add_hook('ajax_admin_applicant_status_message', array(&$this, 'ajax_applicant_status_message'));
+	osc_add_hook('ajax_admin_applicant_status_notification', array(&$this, 'ajax_applicant_status_notification'));
+	osc_add_hook('ajax_admin_note_add', array(&$this, 'ajax_note_add'));
+	osc_add_hook('ajax_admin_note_edit', array(&$this, 'ajax_note_edit'));
+	osc_add_hook('ajax_admin_note_delete', array(&$this, 'ajax_note_delete'));
+	osc_add_hook('ajax_admin_question_delete', array(&$this, 'ajax_question_delete'));
+	osc_add_hook('ajax_admin_dashboard_tour', array(&$this, 'ajax_dashboard_tour'));
+    }
+
     /**
      * Set applicant rating, logging the action
      */
@@ -207,4 +221,14 @@ class JobboardAjax
             echo 0;
         }
     }
+
+    function ajax_dashboard_tour()
+    {
+	osc_set_preference('dashboard_tour_visible', false, 'jobboard_plugin');
+	echo json_encode(array('status' => true));
+    }
 }
+
+$ja = new JobboardAjax();
+
+// EOF

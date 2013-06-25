@@ -29,7 +29,6 @@ class JobboardCustomTitles
             osc_add_hook('admin_header',      array(&$this, '_remove_title_header'));
             osc_add_hook('admin_page_header', array(&$this, 'jobboard_customPageHeader_settings'));
         }
-
     }
 
     /**
@@ -80,7 +79,8 @@ class JobboardCustomTitles
                 $string = __('Applicant', 'jobboard') . '<a href="#" class="btn ico ico-32 ico-help float-right"></a>';
             }
             if(Params::getParam('file') == 'jobboard/dashboard.php') {
-                $string = __('Dashboard', 'jobboard');
+		$string  = __('Dashboard', 'jobboard');
+		$string .= '<a id="btn-dashboard-create" href="' . osc_admin_base_url(true) . '?page=items&action=post" class="btn btn-blue float-right">' . __('Create new job', 'jobboard') . '</a>';
             }
             if(Params::getParam('file') == 'jobboard/resume_download.php') {
                 $string = __('Download resumes', 'jobboard');
@@ -130,5 +130,4 @@ class JobboardCustomTitles
         }
         return $title;
     }
-
 }

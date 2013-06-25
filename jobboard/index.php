@@ -34,6 +34,7 @@ if( OC_ADMIN ) {
     require_once(JOBBOARD_PATH . 'class/JobboardAdminMenu.php');
     require_once(JOBBOARD_PATH . 'class/JobboardCustomTitles.php');
     require_once(JOBBOARD_PATH . 'class/JobboardCustomHelp.php');
+    require_once(JOBBOARD_PATH . 'class/JobboardFooter.class.php');
 
     // init oc-admin classes
     $jb_manage_listings = new JobboardManageListings();
@@ -53,62 +54,26 @@ osc_add_hook('init', array(new JobboardInstallUpdate(), 'jobboard_update_version
 /*
  * Register js and css scripts  ------------------------------------------------
  */
-osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'js/rating/jquery.rating.js', 'jquery');
-osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'js/rating/jquery.MetaData.js', 'jquery');
-osc_register_script('jobboard-people', osc_plugin_url(__FILE__) . 'js/people.js', 'jquery');
-osc_register_script('jobboard-killer-form', osc_plugin_url(__FILE__) . 'js/killerForm.js', 'jquery');
-osc_register_script('jobboard-manage-killer-form', osc_plugin_url(__FILE__) . 'js/manageKillerForm.js', 'jquery');
-osc_register_script('jobboard-people-detail', osc_plugin_url(__FILE__) . 'js/people_detail.js', 'jquery');
-osc_register_script('jobboard-dashboard', osc_plugin_url(__FILE__) . 'js/dashboard.js', array('jquery'));
-osc_register_script('jobboard-apply-linkedin', osc_plugin_url(__FILE__) . 'js/bridgeApplyLinkedin.js', array('jquery'));
-osc_register_script('jobboard-show-flashmessage', osc_plugin_url(__FILE__) . 'js/jobboardShowFlashmessage.js', array('jquery'));
-osc_register_script('jobboard-init-tinymce', osc_plugin_url(__FILE__) . 'js/init_tinymce.js', array('jquery', 'tiny_mce'));
-osc_register_script('jobboard-item-add', osc_plugin_url(__FILE__) . 'js/item_add.js', array('jquery'));
-osc_register_script('jobboard-admin-page', osc_plugin_url(__FILE__) . 'js/jb_admin.js', 'jquery');
+osc_register_script('jquery-rating', osc_plugin_url(__FILE__) . 'assets/lib/rating/jquery.rating.js', 'jquery');
+osc_register_script('jquery-metadata', osc_plugin_url(__FILE__) . 'assets/lib/rating/jquery.MetaData.js', 'jquery');
+osc_register_script('jobboard-people', osc_plugin_url(__FILE__) . 'assets/js/people.js', 'jquery');
+osc_register_script('jobboard-killer-form', osc_plugin_url(__FILE__) . 'assets/js/killerForm.js', 'jquery');
+osc_register_script('jobboard-manage-killer-form', osc_plugin_url(__FILE__) . 'assets/js/manageKillerForm.js', 'jquery');
+osc_register_script('jobboard-people-detail', osc_plugin_url(__FILE__) . 'assets/js/people_detail.js', 'jquery');
+osc_register_script('jobboard-dashboard', osc_plugin_url(__FILE__) . 'assets/js/dashboard.js', array('jquery', 'hopscotch'));
+osc_register_script('jobboard-apply-linkedin', osc_plugin_url(__FILE__) . 'assets/js/bridgeApplyLinkedin.js', array('jquery'));
+osc_register_script('jobboard-show-flashmessage', osc_plugin_url(__FILE__) . 'assets/js/jobboardShowFlashmessage.js', array('jquery'));
+osc_register_script('jobboard-init-tinymce', osc_plugin_url(__FILE__) . 'assets/js/init_tinymce.js', array('jquery', 'tiny_mce'));
+osc_register_script('jobboard-item-add', osc_plugin_url(__FILE__) . 'assets/js/item_add.js', array('jquery'));
+osc_register_script('jobboard-admin-page', osc_plugin_url(__FILE__) . 'assets/js/jb_admin.js', 'jquery');
+osc_register_script('hopscotch', osc_plugin_url(__FILE__) . 'assets/lib/hopscotch/js/hopscotch-0.1.min.js', array('jquery'));
+
 /* -- Register js and css scripts -- */
-
-
 
 /*
  * ajax binding
  */
 require_once(JOBBOARD_PATH . 'class/JobboardAjax.php');
-osc_add_hook(
-        'ajax_admin_jobboard_rating',
-        array(new JobboardAjax(), 'ajax_rating_request')
-        );
-osc_add_hook(
-        'ajax_admin_jobboard_answer_punctuation',
-        array(new JobboardAjax(), 'ajax_answer_punctuation')
-        );
-osc_add_hook(
-        'ajax_admin_applicant_status',
-        array( new JobboardAjax(), 'ajax_applicant_status')
-        );
-osc_add_hook(
-        'ajax_admin_applicant_status_message',
-        array(new JobboardAjax(), 'ajax_applicant_status_message')
-);
-osc_add_hook(
-        'ajax_admin_applicant_status_notification',
-        array(new JobboardAjax(), 'ajax_applicant_status_notification')
-        );
-osc_add_hook(
-        'ajax_admin_note_add',
-        array(new JobboardAjax(), 'ajax_note_add')
-        );
-osc_add_hook(
-        'ajax_admin_note_edit',
-        array(new JobboardAjax(), 'ajax_note_edit')
-        );
-osc_add_hook(
-        'ajax_admin_note_delete',
-        array(new JobboardAjax(), 'ajax_note_delete')
-        );
-osc_add_hook(
-        'ajax_admin_question_delete',
-        array(new JobboardAjax(), 'ajax_question_delete')
-        );
 
 /*
  * NO SE EJECUTA !
