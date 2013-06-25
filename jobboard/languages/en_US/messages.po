@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Job Board 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-25 12:08+0100\n"
-"PO-Revision-Date: 2013-06-25 12:08+0100\n"
+"POT-Creation-Date: 2013-06-25 15:35+0100\n"
+"PO-Revision-Date: 2013-06-25 15:35+0100\n"
 "Last-Translator: Juan Ramón <juanramon.diaz@gmail.com>\n"
 "Language-Team: Translations <translations@osclass.org>\n"
 "Language: en_US\n"
@@ -361,7 +361,7 @@ msgid "Form title saved correctly"
 msgstr ""
 
 #: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:30
-#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:484
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:487
 msgid "Error adding Killer question form"
 msgstr ""
 
@@ -372,7 +372,7 @@ msgid "Title cannot be empty"
 msgstr ""
 
 #: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:45
-#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:547
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:550
 msgid "Error updating Killer question form"
 msgstr ""
 
@@ -981,6 +981,10 @@ msgstr ""
 msgid "You can repeat the tour anytime by clicking the link below."
 msgstr ""
 
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardFooter.class.php:25
+msgid "Take a tour"
+msgstr ""
+
 #: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:172
 msgid "Some errors occurs adding new killer questions"
 msgstr ""
@@ -989,15 +993,15 @@ msgstr ""
 msgid "Some errors occurs updating existing killer questions"
 msgstr ""
 
-#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:325
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:328
 msgid "Num. of positions, must be numeric."
 msgstr ""
 
-#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:481
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:484
 msgid "Killer question form added correctly"
 msgstr ""
 
-#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:544
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:547
 msgid "Killer question form updated correctly"
 msgstr ""
 

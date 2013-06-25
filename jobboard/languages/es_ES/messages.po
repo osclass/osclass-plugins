@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Jobboard plugin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2013-06-25 12:17+0100\n"
+"PO-Revision-Date: 2013-06-25 15:46+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,6 +12,10 @@ msgstr ""
 "POT-Creation-Date: \n"
 "Last-Translator: Juan Ramón <juanramon.diaz@gmail.com>\n"
 "Language-Team: \n"
+
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardFooter.class.php:25
+msgid "Take a tour"
+msgstr "Haga una visita guiada"
 
 #: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardCustomTitles.php:83
 msgid "Create new job"
@@ -116,7 +120,7 @@ msgstr "CV del candidato"
 msgid "The legal page has been edited."
 msgstr "La página legal ha sido editada."
 
-#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:325
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:328
 msgid "Num. of positions, must be numeric."
 msgstr "El número de posiciones debe ser numérico."
 
@@ -223,7 +227,7 @@ msgid "Form title saved correctly"
 msgstr "El título del formulario se ha guardado correctamente"
 
 #: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:30
-#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:484
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:487
 msgid "Error adding Killer question form"
 msgstr "Ha ocurrido un error añadiendo un formulario de \"Killer questions\""
 
@@ -234,7 +238,7 @@ msgid "Title cannot be empty"
 msgstr "El título no puede estar vacío"
 
 #: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/killer_form_frm.php:45
-#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:547
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:550
 msgid "Error updating Killer question form"
 msgstr "Ha ocurrido un error actualizado el formulario de \"Killer questions\""
 
@@ -394,11 +398,11 @@ msgstr ""
 "Ha ocurrido algún error actualizado el formulario existente de \"Killer "
 "questions\""
 
-#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:481
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:484
 msgid "Killer question form added correctly"
 msgstr "El formulario de \"Killer questions\" ha sido añadido correctamente"
 
-#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:544
+#: /Users/juanramon/Projects/www/osclass-plugins-git/jobboard/class/JobboardListingActions.php:547
 msgid "Killer question form updated correctly"
 msgstr "Formulario de \"Killer questions\" actualizado correctamente"
 
