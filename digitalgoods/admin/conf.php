@@ -29,7 +29,7 @@
             // HACK : This will make possible use of the flash messages ;)
             ob_get_clean();
             osc_add_flash_ok_message(__('Congratulations. The plugin is now configured', 'digitalgoods'), 'admin');
-            osc_redirect_to(osc_route_admin_url('amazons3-admin-conf'));
+            osc_redirect_to(osc_route_admin_url('digitalgoods-admin-conf'));
         }
     }
 ?>
