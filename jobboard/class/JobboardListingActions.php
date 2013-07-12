@@ -5,7 +5,7 @@ class JobboardListingActions
     public function __construct() {
         // add/add-post
         osc_add_hook('item_form',          array(&$this, 'jobboard_form') );
-        osc_add_hook('item_form_post',     array(&$this, 'jobboard_form_post') );
+        osc_add_hook('posted_item',        array(&$this, 'jobboard_form_post') );
         // edit/edit-post
         osc_add_hook('item_edit',          array(&$this, 'jobboard_item_edit') );
         osc_add_hook('item_edit_post',     array(&$this, 'jobboard_item_edit_post') );
@@ -70,7 +70,9 @@ class JobboardListingActions
     /*
      * Add post - vacancy
      */
-    function jobboard_form_post($catID = null, $itemID = null)  {
+    function jobboard_form_post($item)  {
+        $catID  = $item['fk_i_category_id'];
+        $itemID = $item['pk_i_id'];
         // add killer questions form
         $killerFormId = '';
         $aDataKiller = $this->getParamsKillerForm_insert();

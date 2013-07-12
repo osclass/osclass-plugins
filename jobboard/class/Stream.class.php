@@ -13,7 +13,7 @@
         public function init()
         {
             osc_add_hook('login_admin',     array(&$this, 'log_login'));
-            osc_add_hook('item_form_post',  array(&$this, 'log_new_job'));
+            osc_add_hook('posted_item',     array(&$this, 'log_new_job'));
             osc_add_hook('item_edit_post',  array(&$this, 'log_edit_job'));
             osc_add_hook('before_delete_item', array(&$this, 'log_delete_job'));
             osc_add_hook('after_delete_item', array(&$this, 'log_confirm_delete_job'));
@@ -62,9 +62,11 @@
             $this->log->logJobboard('login', '', $data);
         }
 
-        function log_new_job($catID, $jobID)
+        function log_new_job($item)
         {
-            $job = Item::newInstance()->findByPrimaryKey($jobID);
+            $catID  = $item['fk_i_category_id'];
+            $jobID  = $item['pk_i_id'];
+            $job    = Item::newInstance()->findByPrimaryKey($jobID);
 
             $data = sprintf(__('%1$s created a new job offer: "%2$s"', 'jobboard'), osc_logged_admin_name(), $job['s_title']);
             $this->log->logJobboard('newjob', $jobID, $data);
