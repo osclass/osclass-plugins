@@ -20,14 +20,21 @@
      */
 
     if(Params::getParam('plugin_action')=='done') {
-        osc_set_preference('moderate_all', Params::getParam("moderate_all"), 'moreedit', 'BOOLEAN');
+        osc_set_preference('moderate_all',  Params::getParam("moderate_all"), 'moreedit', 'BOOLEAN');
         osc_set_preference('moderate_edit', Params::getParam("moderate_edit"), 'moreedit', 'BOOLEAN');
-        osc_set_preference('disable_edit', Params::getParam("disable_edit"), 'moreedit', 'BOOLEAN');
-        osc_set_preference('max_ads_week', Params::getParam("max_ads_week"), 'moreedit', 'INTEGER');
+        osc_set_preference('disable_edit',  Params::getParam("disable_edit"), 'moreedit', 'BOOLEAN');
+        osc_set_preference('max_ads_week',  Params::getParam("max_ads_week"), 'moreedit', 'INTEGER');
         osc_set_preference('max_ads_month', Params::getParam("max_ads_month"), 'moreedit', 'INTEGER');
-        osc_set_preference('notify_edit', Params::getParam("notify_edit"), 'moreedit', 'BOOLEAN');
-        echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'moreedit') . '.</p></div>' ;
-        osc_reset_preferences();
+        osc_set_preference('notify_edit',   Params::getParam("notify_edit"), 'moreedit', 'BOOLEAN');
+
+        if(osc_version()<310) {
+            echo '<div style="text-align:center; font-size:22px; background-color:#00bb00;"><p>' . __('Congratulations. The plugin is now configured', 'moreedit') . '.</p></div>' ;
+            osc_reset_preferences();
+        } else {
+            ob_get_clean();
+            osc_add_flash_error_message(__('Congratulations. The plugin is now configured', 'moreedit') );
+            osc_admin_render_plugin(osc_plugin_folder(__FILE__).'conf.php');
+        }
     }
 ?>
 <div id="settings_form" style="border: 1px solid #ccc; background: #eee; ">
@@ -68,6 +75,6 @@
                 </form>
             </fieldset>
         </div>
-        <div style="clear: both;"></div>										
+        <div style="clear: both;"></div>
     </div>
 </div>
