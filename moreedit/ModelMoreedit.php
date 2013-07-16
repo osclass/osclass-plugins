@@ -90,8 +90,7 @@
          */
         public function uninstall()
         {
-            $page = Page::newInstance()->findByInternalName('email_moreedit_notify_edit');
-            Page::newInstance()->deleteByPrimaryKey( $page['pk_i_id'] );
+            Page::newInstance()->deleteByInternalName( 'email_moreedit_notify_edit' );
         }
 
 
