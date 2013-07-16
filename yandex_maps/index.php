@@ -3,7 +3,7 @@
 Plugin Name: Yandex Maps
 Plugin URI: 
 Description: This plugin shows a Yandex Map on the location space of every item.
-Version: 1.0.2
+Version: 1.0.3
 Author: OSClass & pman
 Author URI: 
 Plugin update URI: yandex-maps
@@ -43,8 +43,7 @@ Plugin update URI: yandex-maps
         osc_admin_render_plugin('yandex_maps/admin.php') ;
     }
 
-    function insert_geo_location($catId, $itemId) {
-        $aItem = Item::newInstance()->findByPrimaryKey($itemId);
+    function insert_geo_location($aItem) {
         $sAddress = (isset($aItem['s_address']) ? $aItem['s_address'] : '');
         $sRegion = (isset($aItem['s_region']) ? $aItem['s_region'] : '');
         $sCity = (isset($aItem['s_city']) ? $aItem['s_city'] : '');
@@ -55,7 +54,7 @@ Plugin update URI: yandex-maps
             $coord = $jsonResponse->Placemark[0]->Point->coordinates;
             ItemLocation::newInstance()->update (array('d_coord_lat' => $coord[1]
                                                       ,'d_coord_long' => $coord[0])
-                                                ,array('fk_i_item_id' => $itemId));
+                                                ,array('fk_i_item_id' => $aItem['pk_i_id']));
         }
     }
 
@@ -66,7 +65,7 @@ Plugin update URI: yandex-maps
 
     osc_add_hook('location', 'yandex_maps_location') ;
     osc_add_hook(osc_plugin_path(__FILE__)."_configure", 'yandex_map_admin') ;
-    osc_add_hook('item_form_post', 'insert_geo_location') ;
-    osc_add_hook('item_edit_post', 'insert_geo_location') ;
+    osc_add_hook('posted_item', 'insert_geo_location') ;
+    osc_add_hook('edited_item', 'insert_geo_location') ;
 
 ?>
