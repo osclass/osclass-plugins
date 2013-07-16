@@ -3,7 +3,7 @@
 Plugin Name: Simple Cache
 Plugin URI: http://www.osclass.org/
 Description: A simple cache system for OSClass, make your web load faster!
-Version: 1.0.3
+Version: 1.0.4
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: simplecache
@@ -182,15 +182,14 @@ Plugin update URI: simple-cache
         }
     }
     
-    function simplecache_item_edit_post($cat_id, $item_id) {
-        simplecache_clear_category($cat_id);
-        simplecache_clear_item($id);
+    function simplecache_item_edit_post($item) {
+        simplecache_clear_category($item['fk_i_category_id']);
+        simplecache_clear_item($item['pk_i_id']);
     }
     
     function simplecache_delete_item($id) {
-        $conn = getConnection();
-        $cat = $conn->osc_dbFetchResult("SELECT fk_i_category_id FROM %st_item WHERE pk_i_id = %d", DB_TABLE_PREFIX, $id);
-        simplecache_item_edit_post($cat['fk_i_category_id'], $id);
+        $item = Item::newInstance()->findByPrimaryKey($id);
+        simplecache_item_edit_post($item);
     }
     
     function simplecache_clear_item($id) {
@@ -342,7 +341,7 @@ Plugin update URI: simple-cache
     }
 
     // CLEAR CACHE HOOKS
-    osc_add_hook('item_edit_post', 'simplecache_item_edit_post');
+    osc_add_hook('edited_item', 'simplecache_item_edit_post');
     osc_add_hook('delete_item', 'simplecache_delete_item');
     osc_add_hook('theme_activate', 'simplecache_clear_all');
     
