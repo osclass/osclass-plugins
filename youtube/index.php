@@ -47,7 +47,9 @@ Plugin update URI: youtube
     }
 
     if( !function_exists( 'youtube_form_post' ) ) {
-        function youtube_form_post($catID = null, $itemID = null)  {
+        function youtube_form_post($item)  {
+            $catID  = $item['fk_i_category_id'];
+            $itemID = $item['pk_i_id'];
             $youtube_video = Params::getParam( 's_youtube' ) ;
             $youtube_video = convert_youtube_url( $youtube_video ) ;
             if( empty($youtube_video) ) return false ;
@@ -107,7 +109,9 @@ Plugin update URI: youtube
     }
 
     if( !function_exists( 'youtube_item_edit_post' ) ) {
-        function youtube_item_edit_post($catId = null, $itemID = null) {
+        function youtube_item_edit_post( $item ) {
+            $catID  = $item['fk_i_category_id'];
+            $itemID = $item['pk_i_id'];
             $youtube_video = addslashes(Params::getParam('s_youtube'));
             $youtube_video = convert_youtube_url($youtube_video);
 
@@ -159,7 +163,7 @@ Plugin update URI: youtube
     // show field in item post layout
     osc_add_hook( 'item_form', 'youtube_form' ) ;
     // insert youtube string
-    osc_add_hook( 'item_form_post', 'youtube_form_post' ) ;
+    osc_add_hook( 'posted_item', 'youtube_form_post' ) ;
 
     // show video in item detail layout
     osc_add_hook( 'item_detail', 'youtube_item_detail' ) ;
@@ -167,7 +171,7 @@ Plugin update URI: youtube
     // show field in item edit layout
     osc_add_hook( 'item_edit', 'youtube_item_edit' ) ;
     // update youtube string after edit POST
-    osc_add_hook( 'item_edit_post', 'youtube_item_edit_post' ) ;
+    osc_add_hook( 'edited_item', 'youtube_item_edit_post' ) ;
 
     // delete youtube video of the deleted item
     osc_add_hook( 'delete_item', 'youtube_delete_item' ) ;

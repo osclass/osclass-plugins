@@ -1,8 +1,9 @@
 Changelog Embed youtube videos
 ==============================
 
-##version 1.0.2 - xx/xxx/xxxx
+##version 1.0.2 - 16/07/2013
 
+* Updated to work fine with Osclass 3.2
 * Use div (block element) to display the video
 * Fixed the youtube title, using h2
 * Languages: Spanish (Chile) and Spanish (Peru)
