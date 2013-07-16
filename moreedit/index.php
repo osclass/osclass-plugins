@@ -3,7 +3,7 @@
   Plugin Name: More edit
   Plugin URI: http://www.osclass.org/
   Description: More edit options
-  Version: 1.1
+  Version: 1.1.0
   Author: OSClass
   Author URI: http://www.osclass.org/
   Short Name: moreedit
@@ -202,14 +202,14 @@ function moreedit_admin_menu()
 {
     echo '<h3><a href="#">More Edit Options</a></h3>
         <ul>
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('More Options', 'moreedit') . '</a></li>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'admin/conf.php') . '">&raquo; ' . __('More Options', 'moreedit') . '</a></li>
         </ul>';
 }
 
-function moreedit_inint_admin_menu()
+function moreedit_init_admin_menu()
 {
     osc_add_admin_submenu_divider('plugins', 'More edit plugin', 'moreedit_divider', 'administrator');
-    osc_add_admin_submenu_page('plugins', __('More edit options', 'moreedit'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'moreedit_settings', 'administrator');
+    osc_add_admin_submenu_page('plugins', __('More edit options', 'moreedit'), osc_route_admin_url('moredit-conf'), 'moreedit_settings', 'administrator');
 }
 /**
  * ADD HOOKS
@@ -217,10 +217,11 @@ function moreedit_inint_admin_menu()
 osc_register_plugin(osc_plugin_path(__FILE__), 'moreedit_install');
 osc_add_hook(osc_plugin_path(__FILE__) . "_uninstall", 'moreedit_uninstall');
 
-if(osc_version()<310) {
+if(osc_version()<320) {
     osc_add_hook('admin_menu',      'moreedit_admin_menu');
 } else {
-    osc_add_hook('admin_menu_init', 'moreedit_inint_admin_menu');
+    osc_add_route('moreedit-conf', 'moreedit/conf', 'moreedit/conf', osc_plugin_folder(__FILE__).'admin/conf.php');
+    osc_add_hook('admin_menu_init', 'moreedit_init_admin_menu');
 }
 
 osc_add_hook('posted_item',     'moreedit_moderate_all');

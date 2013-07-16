@@ -1,7 +1,7 @@
 Changelog More edit
 ===================
 
-##version 1.1 - 16/07/2013
+##version 1.1.0 - 16/07/2013
 
 * Updated to work fine with Osclass 3.2
 * Minor bug fixes
