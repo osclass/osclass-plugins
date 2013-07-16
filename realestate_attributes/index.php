@@ -3,7 +3,7 @@
 Plugin Name: Real state attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store real estate attributes such as square feets, number of bathrooms, garage, and so on.
-Version: 3.2.3
+Version: 3.2.4
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: realestate_plugin
@@ -224,7 +224,9 @@ function _prepareLocales()
     return $dataItem;
 }
 
-function realestate_form_post($catId = null, $item_id = null) {
+function realestate_form_post($item) {
+    $catId = $item['fk_i_cateogry_id'];
+    $item_id = $item['pk_i_id'];
     // We received the categoryID and the Item ID
     if ($catId!=null) {
         // We check if the category is the same as our plugin
@@ -262,7 +264,9 @@ function realestate_item_edit($catId = null, $item_id = null) {
     }
 }
 
-function realestate_item_edit_post($catId = null, $item_id = null) {
+function realestate_item_edit_post($item) {
+    $catId = $item['fk_i_cateogry_id'];
+    $item_id = $item['pk_i_id'];
     // We received the categoryID and the Item ID
     if ($catId!=null) {
         // We check if the category is the same as our plugin
@@ -293,12 +297,19 @@ function realestate_delete_item($item_id) {
 
 
 function realestate_admin_menu() {
-    echo '<h3><a href="#">Realestate plugin</a></h3>
-    <ul> 
-        <li><a href="'.osc_admin_configure_plugin_url("realestate_attributes/index.php").'">&raquo; ' . __('Configure plugin', 'realestate_attributes') . '</a></li>
-        <li><a href="'.osc_admin_render_plugin_url("realestate_attributes/conf.php").'?section=types">&raquo; ' . __('Property types', 'realestate_attributes') . '</a></li>
-        <li><a href="'.osc_admin_render_plugin_url("realestate_attributes/view.php").'">&raquo; ' . __('View options', 'realestate_attributes') . '</a></li>
-    </ul>';
+    if(osc_version()<320) {
+        echo '<h3><a href="#">'.__('Realestate plugin', 'realestate_attributes').'</a></h3>
+        <ul>
+            <li><a href="'.osc_admin_configure_plugin_url("realestate_attributes/index.php").'">&raquo; ' . __('Configure plugin', 'realestate_attributes') . '</a></li>
+            <li><a href="'.osc_admin_render_plugin_url("realestate_attributes/conf.php").'?section=types">&raquo; ' . __('Property types', 'realestate_attributes') . '</a></li>
+            <li><a href="'.osc_admin_render_plugin_url("realestate_attributes/view.php").'">&raquo; ' . __('View options', 'realestate_attributes') . '</a></li>
+        </ul>';
+    } else {
+        osc_add_admin_submenu_divider('plugins', __('Realestate plugin', 'realestate_attributes'), 'realestate_attributes', 'administrator');
+        osc_add_admin_submenu_page('plugins', __('Configure plugin', 'realestate_attributes'), osc_admin_configure_plugin_url("realestate_attributes/index.php"), 'realestate_settings', 'administrator');
+        osc_add_admin_submenu_page('plugins', __('Property types', 'realestate_attributes'), osc_admin_configure_plugin_url("realestate_attributes/conf.php"), 'realestate_conf', 'administrator');
+        osc_add_admin_submenu_page('plugins', __('View options', 'realestate_attributes'), osc_admin_configure_plugin_url("realestate_attributes/view.php"), 'realestate_view', 'administrator');
+    }
 }
 
 function realestate_admin_configuration() {
@@ -386,7 +397,7 @@ osc_add_hook(osc_plugin_path(__FILE__) . "_uninstall", 'realestate_call_after_un
 // When publishing an item we show an extra form with more attributes
 osc_add_hook('item_form', 'realestate_form');
 // To add that new information to our custom table
-osc_add_hook('item_form_post', 'realestate_form_post');
+osc_add_hook('posted_item', 'realestate_form_post');
 
 // When searching, display an extra form with our plugin's fields
 osc_add_hook('search_form', 'realestate_search_form');
@@ -399,9 +410,14 @@ osc_add_hook('item_detail', 'realestate_item_detail');
 // Edit an item special attributes
 osc_add_hook('item_edit', 'realestate_item_edit');
 // Edit an item special attributes POST
-osc_add_hook('item_edit_post', 'realestate_item_edit_post');
+osc_add_hook('edited_item', 'realestate_item_edit_post');
 
-osc_add_hook('admin_menu', 'realestate_admin_menu');
+
+if(osc_version()<320) {
+    osc_add_hook('admin_menu', 'realestate_admin_menu');
+} else {
+    osc_add_hook('admin_menu_init', 'realestate_admin_menu');
+}
 
 //Delete locale
 osc_add_hook('delete_locale', 'realestate_delete_locale');
