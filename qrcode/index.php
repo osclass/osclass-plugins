@@ -86,7 +86,7 @@ Plugin update URI: qrcode
     osc_add_hook('delete_item', 'qrcode_delete_item');
 
     // FANCY MENU
-    if(osc_version()<311) {
+    if(osc_version()<320) {
         osc_add_hook('admin_menu', 'qrcode_admin_menu');
     } else {
         osc_add_hook('admin_menu_init', 'qrcode_admin_menu');
