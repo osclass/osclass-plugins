@@ -3,7 +3,7 @@
 Plugin Name: Products attributes
 Plugin URI: http://www.osclass.org/
 Description: This plugin extends a category of items to store products attributes such as make, model and so on.
-Version: 3.0.1
+Version: 3.0.2
 Author: OSClass
 Author URI: http://www.osclass.org/
 Short Name: products_plugin
@@ -80,13 +80,13 @@ function products_search_form($catId = null) {
 }
 
 
-function products_form_post($catId = null, $item_id = null) {
+function products_form_post($item) {
     // We received the categoryID and the Item ID
-    if($catId!=null) {
+    if($item['fk_i_category_id']!=null) {
         // We check if the category is the same as our plugin
-        if(osc_is_this_category('products_plugin', $catId)) {
+        if(osc_is_this_category('products_plugin', $item['fk_i_category_id'])) {
             // Insert the data in our plugin's table
-            ModelProducts::newInstance()->insertAttr($item_id, Params::getParam('make'), Params::getParam('model'));
+            ModelProducts::newInstance()->insertAttr($item['pk_i_id'], Params::getParam('make'), Params::getParam('model'));
         }
     }
 }
@@ -111,12 +111,12 @@ function products_item_edit($catId = null, $item_id = null) {
     }
 }
 
-function products_item_edit_post($catId = null, $item_id = null) {
+function products_item_edit_post($item) {
     // We received the categoryID and the Item ID
-    if($catId!=null) {
+    if($item['fk_i_category_id']!=null) {
         // We check if the category is the same as our plugin
-        if(osc_is_this_category('products_plugin', $catId)) {
-            ModelProducts::newInstance()->updateAttr($item_id, Params::getParam('make'), Params::getParam('model'));
+        if(osc_is_this_category('products_plugin', $item['fk_i_category_id'])) {
+            ModelProducts::newInstance()->updateAttr($item['pk_i_id'], Params::getParam('make'), Params::getParam('model'));
         }
     }
 }
@@ -150,7 +150,7 @@ osc_add_hook(osc_plugin_path(__FILE__)."_uninstall", 'products_call_after_uninst
 // When publishing an item we show an extra form with more attributes
 osc_add_hook('item_form', 'products_form');
 // To add that new information to our custom table
-osc_add_hook('item_form_post', 'products_form_post');
+osc_add_hook('posted_item', 'products_form_post');
 
 // When searching, display an extra form with our plugin's fields
 osc_add_hook('search_form', 'products_search_form');
@@ -163,7 +163,7 @@ osc_add_hook('item_detail', 'products_item_detail');
 // Edit an item special attributes
 osc_add_hook('item_edit', 'products_item_edit');
 // Edit an item special attributes POST
-osc_add_hook('item_edit_post', 'products_item_edit_post');
+osc_add_hook('edited_post', 'products_item_edit_post');
 
 //Delete item
 osc_add_hook('delete_item', 'products_delete_item');
