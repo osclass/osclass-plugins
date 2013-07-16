@@ -2,11 +2,15 @@
 
 ##version 1.1.0 - 17/05/2013
 
+* Updated to work fine with Osclass 3.2
+
+##version 1.1.0 - 17/05/2013
+
 * Security patch
 
 ##version 1.0.9 - 22/05/2012
 
-* added retrocompatibility with osclass old versions 
+* added retrocompatibility with osclass old versions
 
 ##version 1.0.8 - 22/05/2012
 
