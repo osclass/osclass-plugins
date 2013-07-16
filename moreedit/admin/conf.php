@@ -46,7 +46,7 @@
                     <div style="float: left; width: 50%;">
                     <input type="hidden" name="page" value="plugins" />
                     <input type="hidden" name="action" value="renderplugin" />
-                    <?php if(osc_version()) { ?>
+                    <?php if(osc_version()<320) { ?>
                         <input type="hidden" name="file" value="<?php echo osc_plugin_folder(__FILE__); ?>conf.php" />
                     <?php } else { ?>
                         <input type="hidden" name="route" value="moredit-conf" />
