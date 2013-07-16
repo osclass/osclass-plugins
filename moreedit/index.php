@@ -209,7 +209,7 @@ function moreedit_admin_menu()
 function moreedit_init_admin_menu()
 {
     osc_add_admin_submenu_divider('plugins', 'More edit plugin', 'moreedit_divider', 'administrator');
-    osc_add_admin_submenu_page('plugins', __('More edit options', 'moreedit'), osc_route_admin_url('moredit-conf'), 'moreedit_settings', 'administrator');
+    osc_add_admin_submenu_page('plugins', __('More edit options', 'moreedit'), osc_route_admin_url('moreedit-conf'), 'moreedit_settings', 'administrator');
 }
 /**
  * ADD HOOKS
