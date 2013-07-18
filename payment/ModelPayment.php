@@ -105,7 +105,7 @@
 
             $this->import('payment/struct.sql');
 
-            osc_set_preference('version', '2.0', 'payment', 'INTEGER');
+            osc_set_preference('version', '200', 'payment', 'INTEGER');
             osc_set_preference('default_premium_cost', '1.0', 'payment', 'STRING');
             osc_set_preference('allow_premium', '0', 'payment', 'BOOLEAN');
             osc_set_preference('default_publish_cost', '1.0', 'payment', 'STRING');

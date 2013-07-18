@@ -106,13 +106,6 @@
         <?php
         }
 
-        public static function ajaxPayment() {
-            $result = BraintreePayment::processPayment();
-            if($result==PAYMENT_COMPLETED) {
-            } else {
-            }
-        }
-
         public static function processPayment() {
             require_once osc_plugins_path() . osc_plugin_folder(__FILE__) . 'lib/Braintree.php';
 
@@ -135,6 +128,7 @@
             ));
 
             if($result->success==1) {
+                Params::setParam('braintree_transaction_id', $result->transaction->id);
                 $exists = ModelPayment::newInstance()->getPaymentByCode($result->transaction->id, 'BRAINTREE');
                 if(isset($exists['pk_i_id'])) { return PAYMENT_ALREADY_PAID; }
                 $data = payment_get_custom(Params::getParam('extra'));
