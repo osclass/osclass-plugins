@@ -16,14 +16,27 @@
             </div>
             <?php } ?>
             <div class="votes_results">
-                <?php 
+                <?php
                     $avg_vote = $vote['vote'];
+                    if($avg_vote==5) {
+                        $tooltip  = __('Essential', 'voting');
+                    } else if($avg_vote>=4 && $avg_vote<5) {
+                        $tooltip = __('Very interesting', 'voting');
+                    } else if($avg_vote>=3 && $avg_vote<4) {
+                        $tooltip = __('Interesting', 'voting');
+                    } else if($avg_vote>=2 && $avg_vote<3) {
+                        $tooltip = __('Uninteresting', 'voting');
+                    } else if($avg_vote>=1 && $avg_vote<2) {
+                        $tooltip = __('Without interest', 'voting');
+                    } else {
+                        $tooltip = __('Without information', 'voting');
+                    }
                 ?>
-                <img title="<?php _e('Without interest', 'voting');?>" src="<?php voting_star(1, $avg_vote); ?>">
-                <img title="<?php _e('Uninteresting', 'voting');?>" src="<?php voting_star(2, $avg_vote); ?>">
-                <img title="<?php _e('Interesting', 'voting');?>" src="<?php voting_star(3, $avg_vote); ?>">
-                <img title="<?php _e('Very interesting', 'voting');?>" src="<?php voting_star(4, $avg_vote); ?>">
-                <img title="<?php _e('Essential', 'voting');?>"  src="<?php voting_star(5, $avg_vote); ?>"> 
+                <img title="<?php echo $tooltip; ?>" src="<?php voting_star(1, $avg_vote); ?>">
+                <img title="<?php echo $tooltip; ?>" src="<?php voting_star(2, $avg_vote); ?>">
+                <img title="<?php echo $tooltip; ?>" src="<?php voting_star(3, $avg_vote); ?>">
+                <img title="<?php echo $tooltip; ?>" src="<?php voting_star(4, $avg_vote); ?>">
+                <img title="<?php echo $tooltip; ?>"  src="<?php voting_star(5, $avg_vote); ?>">
                 <span style="float:left; padding-right: 4px; padding-left: 4px;"><?php echo $vote['total'];?> <?php _e('votes', 'voting');?></span>
             </div>
         </div>

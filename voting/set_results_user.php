@@ -81,10 +81,23 @@
 <div class="box location">
     <h3><strong><?php _e("Best users voted", 'voting') ; ?></strong></h3>
     <ul>
-    <?php 
+    <?php
         $count = 0;
         foreach($results as $user_vote):
             $avg_vote = $user_vote['avg_vote'];
+            if($avg_vote==5) {
+                $tooltip  = __('Essential', 'voting');
+            } else if($avg_vote>=4 && $avg_vote<5) {
+                $tooltip = __('Very interesting', 'voting');
+            } else if($avg_vote>=3 && $avg_vote<4) {
+                $tooltip = __('Interesting', 'voting');
+            } else if($avg_vote>=2 && $avg_vote<3) {
+                $tooltip = __('Uninteresting', 'voting');
+            } else if($avg_vote>=1 && $avg_vote<2) {
+                $tooltip = __('Without interest', 'voting');
+            } else {
+                $tooltip = __('Without information', 'voting');
+            }
             $total    = $user_vote['num_votes'];
             $user    = User::newInstance()->findbyPrimaryKey($user_vote['user_id']);
             View::newInstance()->_exportVariableToView('user', $user) ;
@@ -97,19 +110,19 @@
             <?php } ?>
                 <p style="text-align: center;"><a href="<?php echo osc_user_public_profile_url(); ?>"><?php echo osc_user_name(); ?></a></p>
                 <p style="text-align: center;">
-                    <img title="<?php _e('Without interest', 'voting');?>" src="<?php voting_star(1, $avg_vote); ?>">
-                    <img title="<?php _e('Uninteresting', 'voting');?>" src="<?php voting_star(2, $avg_vote); ?>">
-                    <img title="<?php _e('Interesting', 'voting');?>" src="<?php voting_star(3, $avg_vote); ?>">
-                    <img title="<?php _e('Very interesting', 'voting');?>" src="<?php voting_star(4, $avg_vote); ?>">
-                    <img title="<?php _e('Essential', 'voting');?>"  src="<?php voting_star(5, $avg_vote); ?>"> 
+                    <img title="<?php echo $tooltip; ?>" src="<?php voting_star(1, $avg_vote); ?>">
+                    <img title="<?php echo $tooltip; ?>" src="<?php voting_star(2, $avg_vote); ?>">
+                    <img title="<?php echo $tooltip; ?>" src="<?php voting_star(3, $avg_vote); ?>">
+                    <img title="<?php echo $tooltip; ?>" src="<?php voting_star(4, $avg_vote); ?>">
+                    <img title="<?php echo $tooltip; ?>" src="<?php voting_star(5, $avg_vote); ?>">
                     <span style="position:relative; top:-5px;padding-right: 4px; padding-left: 4px; margin-bottom: 3px;"><?php echo $total;?> <?php _e('votes', 'voting');?></span>
                 </p>
             </div>
         </li>
-    <?php 
+    <?php
             $count++;
             View::newInstance()->_erase('user') ;
-        endforeach; 
+        endforeach;
     ?>
     </ul>
 </div>

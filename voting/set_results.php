@@ -81,12 +81,26 @@
 <div class="box location">
     <h3><strong><?php _e("Best voted", 'voting') ; ?></strong></h3>
     <ul>
-    <?php 
+    <?php
         $count = 0;
         View::newInstance()->_erase('items');
         View::newInstance()->_erase('item');
         foreach($results as $item_vote):
             $avg_vote = $item_vote['avg_vote'];
+            if($avg_vote==5) {
+                $tooltip  = __('Essential', 'voting');
+            } else if($avg_vote>=4 && $avg_vote<5) {
+                $tooltip = __('Very interesting', 'voting');
+            } else if($avg_vote>=3 && $avg_vote<4) {
+                $tooltip = __('Interesting', 'voting');
+            } else if($avg_vote>=2 && $avg_vote<3) {
+                $tooltip = __('Uninteresting', 'voting');
+            } else if($avg_vote>=1 && $avg_vote<2) {
+                $tooltip = __('Without interest', 'voting');
+            } else {
+                $tooltip = __('Without information', 'voting');
+            }
+
             $total    = $item_vote['num_votes'];
             $item    = Item::newInstance()->findByPrimaryKey($item_vote['item_id']);
             View::newInstance()->_exportVariableToView('item', $item ) ;
@@ -99,19 +113,19 @@
             <?php } ?>
                 <p style="text-align: center;"><a href="<?php echo osc_item_url(); ?>"><?php echo osc_item_title(); ?></a></p>
                 <p style="text-align: center;">
-                    <img title="<?php _e('Without interest', 'voting');?>" src="<?php voting_star(1, $avg_vote); ?>">
-                    <img title="<?php _e('Uninteresting', 'voting');?>" src="<?php voting_star(2, $avg_vote); ?>">
-                    <img title="<?php _e('Interesting', 'voting');?>" src="<?php voting_star(3, $avg_vote); ?>">
-                    <img title="<?php _e('Very interesting', 'voting');?>" src="<?php voting_star(4, $avg_vote); ?>">
-                    <img title="<?php _e('Essential', 'voting');?>"  src="<?php voting_star(5, $avg_vote); ?>"> 
+                    <img title="<?php echo $tooltip; ?>" src="<?php voting_star(1, $avg_vote); ?>">
+                    <img title="<?php echo $tooltip; ?>" src="<?php voting_star(2, $avg_vote); ?>">
+                    <img title="<?php echo $tooltip; ?>" src="<?php voting_star(3, $avg_vote); ?>">
+                    <img title="<?php echo $tooltip; ?>" src="<?php voting_star(4, $avg_vote); ?>">
+                    <img title="<?php echo $tooltip; ?>" src="<?php voting_star(5, $avg_vote); ?>">
                     <span style="position:relative; top:-5px;padding-right: 4px; padding-left: 4px; margin-bottom: 3px;"><?php echo $total;?> <?php _e('votes', 'voting');?></span>
                 </p>
             </div>
         </li>
-    <?php 
+    <?php
             $count++;
             View::newInstance()->_erase('item') ;
-        endforeach; 
+        endforeach;
     ?>
     </ul>
 </div>
