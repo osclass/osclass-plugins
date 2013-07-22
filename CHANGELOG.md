@@ -1,5 +1,11 @@
-Changelog Voting plugin 
+Changelog Voting plugin
 =========================
+
+##version 1.2.0 - 19/07/2013
+
+* Minor improvements
+* Users cannot rate their items
+* Improved tooltip when show the result rating. (All stars have the same tooltip)
 
 ##version 1.1.1 - 17/05/2013
 
@@ -19,5 +25,5 @@ Changelog Voting plugin
 ##version 0.9.1 - 08/11/2011
 
 * added function for retrieve the votes using filters. get_votes($array_filter)
-* added function, for show items best voted 
+* added function, for show items best voted
 

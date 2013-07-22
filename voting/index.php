@@ -47,9 +47,15 @@ Plugin update URI: voting
     {
         echo '<h3><a href="#">' . __('Voting options', 'voting') . '</a></h3>
         <ul>
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php') . '">&raquo; ' . __('Settings', 'voting') . '</a></li>
-            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php') . '">&raquo; ' . __('Help', 'voting') . '</a></li>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'admin/conf.php') . '">&raquo; ' . __('Settings', 'voting') . '</a></li>
+            <li><a href="' . osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'admin/help.php') . '">&raquo; ' . __('Help', 'voting') . '</a></li>
         </ul>';
+    }
+
+    function voting_init_admin_menu() {
+        osc_add_admin_menu_page( __('Voting options', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'admin/conf.php'), 'voting_plugin', 'administrator' );
+        osc_add_admin_submenu_page('voting_plugin', __('Settings', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'admin/conf.php'), 'voting_plugin_settings', 'administrator');
+        osc_add_admin_submenu_page('voting_plugin', __('Help', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'admin/help.php'), 'voting_plugin_help', 'administrator');
     }
 
     function voting_admin_configuration()
@@ -105,6 +111,7 @@ Plugin update URI: voting
      */
     function can_vote($itemId, $userId, $hash)
     {
+
         if( $userId == 'NULL' ) {
             $result = Modelvoting::newInstance()->getItemIsRated($itemId, $hash);
         } else {
@@ -112,6 +119,8 @@ Plugin update URI: voting
         }
 
         if( count($result) > 0 )
+            return false;
+        else if ( osc_logged_user_id() == osc_item_user_id() )   /* my mod to prevent user voting on their own listing  */
             return false;
         else
             return true;
@@ -336,13 +345,30 @@ Plugin update URI: voting
     osc_add_hook('delete_item', 'voting_item_delete');
     osc_add_hook('delete_user', 'voting_user_delete');
 
+    $file = '-';
+    if( Params::getParam('file')!='' ) {
+        $file = Params::getParam('file');
+    }
+
+    if(Params::getParam('page')=='plugins' && strpos('voting/admin/help.php',$file)===0){
+        osc_add_filter('custom_plugin_title', 'voting_help_title');
+    }
+    function voting_help_title($title) {
+        return __('Help', 'voting');
+    }
+
+    if(Params::getParam('page')=='plugins' && strpos('voting/admin/conf.php',$file)===0){
+        osc_add_filter('custom_plugin_title', 'voting_conf_title');
+    }
+    function voting_conf_title($title) {
+        return __('Configuration', 'voting');
+    }
+    
      /**
      * ADMIN MENU
      */
     if(osc_version() >= 300) {
-        osc_add_admin_menu_page( __('Voting options', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'voting_plugin', 'administrator' );
-        osc_add_admin_submenu_page('voting_plugin', __('Settings', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'conf.php'), 'voting_plugin_settings', 'administrator');
-        osc_add_admin_submenu_page('voting_plugin', __('Help', 'voting'), osc_admin_render_plugin_url(osc_plugin_folder(__FILE__) . 'help.php'), 'voting_plugin_help', 'administrator');
+        osc_add_hook('admin_menu_init', 'voting_init_admin_menu');
     } else {
         osc_add_hook('admin_menu', 'voting_admin_menu');
     }
@@ -358,11 +384,8 @@ Plugin update URI: voting
         background-position:0px -0px;
     }
 
-
-
-
     body.compact .ico-voting_plugin{
-            background-position:-48px -48px;
+        background-position:-48px -48px;
     }
     body.compact .ico-voting_plugin:hover,
     body.compact .current .ico-voting_plugin{
@@ -371,7 +394,5 @@ Plugin update URI: voting
 </style>
     <?php
     }
-    osc_add_hook('admin_header','votingmenu');
-
-
+    osc_add_hook('admin_page_header','votingmenu',9);
 ?>
