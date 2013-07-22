@@ -1,4 +1,5 @@
-<?php $path = osc_base_url().'/oc-content/plugins/'.  osc_plugin_folder(__FILE__); ?>
+<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+$path = osc_base_url().'/oc-content/plugins/'.  osc_plugin_folder(__FILE__); ?>
 <div id="wrapper_voting_plugin">
     <script type="text/javascript">
     $(function(){
@@ -37,7 +38,7 @@
             margin-top:10px;
             padding: 5px;
         }
-        
+
         .votes_txt_vote {
             display: inline;
             float: left;

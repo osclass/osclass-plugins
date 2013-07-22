@@ -1,3 +1,4 @@
+<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.'); ?>
 <style>
     #wrapper_voting_plugin{
         margin-top:10px;

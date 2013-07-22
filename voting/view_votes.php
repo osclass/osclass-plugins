@@ -1,4 +1,5 @@
-        <?php $path = osc_base_url().'/oc-content/plugins/'.  osc_plugin_folder(__FILE__); ?>
+<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+        $path = osc_base_url().'/oc-content/plugins/'.  osc_plugin_folder(__FILE__); ?>
         <div class="votes_stars">
             <?php if( $vote['can_vote'] ) { ?>
             <div class="votes_vote">

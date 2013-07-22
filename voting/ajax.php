@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
 
 /**
  *  Recive and save votes from frontend.
@@ -12,7 +12,7 @@ $userId = osc_logged_user_id();
 $hash   = '';
 
 // Vote Users
-if(isset($iVote) && is_numeric($iVote) && isset($votedUserId) && is_numeric($votedUserId) ) 
+if(isset($iVote) && is_numeric($iVote) && isset($votedUserId) && is_numeric($votedUserId) )
 {
     if( $iVote<=5 && $iVote>=1){
         if(can_vote_user($votedUserId, $userId)) {
@@ -25,17 +25,17 @@ if(isset($iVote) && is_numeric($iVote) && isset($votedUserId) && is_numeric($vot
     $vote['vote']  = $aux_vote['vote'];
     $vote['total'] = $aux_count['total'];
     $vote['userId'] = $votedUserId;
-    
+
     $vote['can_vote'] = true;
     if(!osc_is_web_user_logged_in() || !can_vote_user($votedUserId, $userId) ) {
         $vote['can_vote'] = false;
     }
-    
+
     require 'view_votes_user.php';
 }
 
 // Vote Items
-if(isset($iVote) && is_numeric($iVote) && isset($itemId) && is_numeric($itemId) ) 
+if(isset($iVote) && is_numeric($iVote) && isset($itemId) && is_numeric($itemId) )
 {
     if( $iVote<=5 && $iVote>=1){
         if( $userId == 0 ) {
@@ -45,7 +45,7 @@ if(isset($iVote) && is_numeric($iVote) && isset($itemId) && is_numeric($itemId) 
         } else {
             $hash = null;
         }
-        
+
         $open = osc_get_preference('open', 'voting');
         $user = osc_get_preference('user', 'voting');
         if($open == 1) {
@@ -66,7 +66,7 @@ if(isset($iVote) && is_numeric($iVote) && isset($itemId) && is_numeric($itemId) 
         $aux_count = ModelVoting::newInstance()->getItemNumberOfVotes(osc_item_id());
         $vote['vote']  = $aux_vote['vote'];
         $vote['total'] = $aux_count['total'];
-        
+
         $vote['can_vote'] = true;
         if(osc_get_preference('user', 'voting') == 1) {
             if(!osc_is_web_user_logged_in()) {
@@ -75,9 +75,9 @@ if(isset($iVote) && is_numeric($iVote) && isset($itemId) && is_numeric($itemId) 
         }
         if(!can_vote(osc_item_id(), osc_logged_user_id(), $hash) ){
             $vote['can_vote'] = false;
-            
+
         }
-        
+
         require 'view_votes.php';
     }
 }
