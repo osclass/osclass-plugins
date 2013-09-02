@@ -39,6 +39,12 @@
         <?php } else { ?>
         <h3><?php printf(_n('You are watching %d item', 'You are watching %d items', $iTotalItems, 'watchlist'), $iTotalItems) ; ?></h3>
         <div class="ad_list">
+            <?php
+            if( file_exists(WebThemes::newInstance()->getCurrentThemePath() . 'loop.php') ){
+                 osc_current_web_theme_path('loop.php');
+            } else {
+            ?>
+
             <div id="list_head"></div>
             <table border="0" cellspacing="0">
                 <tbody>
@@ -69,6 +75,7 @@
                     <?php } ?>
                 </tbody>
             </table>
+            <?php }  ?>
         </div>
         <div class="paginate">
             <?php echo osc_pagination(array('url' => osc_render_file_url(osc_plugin_folder(__FILE__) . 'watchlist.php') . '?iPage={PAGE}')); ?>
