@@ -1,4 +1,4 @@
-<?php 
+<?php
     $i_userId = osc_logged_user_id();
 	if(Params::getParam('delete') != '' && osc_is_web_user_logged_in()){
 		delete_item(Params::getParam('delete'), $i_userId);
@@ -68,7 +68,7 @@
                                 <strong><?php if (osc_price_enabled_at_items()) { echo osc_item_formated_price(); ?> - <?php } echo osc_item_city(); ?> (<?php echo osc_item_region(); ?>) - <?php echo osc_format_date(osc_item_pub_date()); ?></strong>
                             </p>
                             <p><?php echo osc_highlight(strip_tags(osc_item_description())); ?></p>
-                            <p align="right"><a class="delete" onclick="javascript:return confirm('<?php _e('This action can not be undone. Are you sure you want to continue?', 'watchlist'); ?>')" href="<?php echo osc_render_file_url(osc_plugin_folder(__FILE__) . 'watchlist.php') . '?delete=' . osc_item_id(); ?>" ><?php _e('Delete', 'watchlist'); ?></a><p>
+                            <p align="right"><a class="delete" onclick="javascript:return confirm('<?php _e('This action can not be undone. Are you sure you want to continue?', 'watchlist'); ?>')" href="<?php echo osc_render_file_url(osc_plugin_folder(__FILE__) . 'watchlist.php') . '&delete=' . osc_item_id(); ?>" ><?php _e('Delete', 'watchlist'); ?></a><p>
                         </td>
                     </tr>
                     <?php $class = ($class == 'even') ? 'odd' : 'even'; ?>
@@ -78,7 +78,7 @@
             <?php }  ?>
         </div>
         <div class="paginate">
-            <?php echo osc_pagination(array('url' => osc_render_file_url(osc_plugin_folder(__FILE__) . 'watchlist.php') . '?iPage={PAGE}')); ?>
+            <?php echo osc_pagination(array('url' => osc_render_file_url(osc_plugin_folder(__FILE__) . 'watchlist.php') . '&iPage={PAGE}', 'list_class' => 'pagination') ); ?>
         </div>
         <?php } ?>
     </div>
